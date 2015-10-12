@@ -1,7 +1,7 @@
 title:            Alpha Hinex
 description:      "Hex and Artist"
 logo:             site-logo.jpeg
-disqus_shortname: Hinex
+disqus_shortname: AlphaHinex
 # Assign a default image for your site's header and footer
 default_bg:       some-image.jpg
 search:           true
