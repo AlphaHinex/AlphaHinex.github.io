@@ -48,18 +48,13 @@ owner:
 # Links to include in footer navigation
 # For external links add external: true
 links:
-  - title: Home
+  - title: <i class="icon-home"></i> Home
     url: /
     external: false
-    icon: home
-  - title: <i class="icon-book"></i> Documentation
-    url: /documentation
-  - title: Categories
+  - title: <i class="icon-book"></i> Categories
     url: /categories
-  - title: Tags
+  - title: <i class="icon-tags"></i> Tags
     url: /tags
-  - title: Hinex who?
-    url: /AlphaHinex
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Asia/Shanghai
