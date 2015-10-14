@@ -44,6 +44,7 @@ owner:
 # google_verify:      
 # https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
 bing_verify:         D769824B4D44C14A4C777A6EC4E898FC
+baidu_verify:        TimiEK4Y9V
 
 # Links to include in footer navigation
 # For external links add external: true
