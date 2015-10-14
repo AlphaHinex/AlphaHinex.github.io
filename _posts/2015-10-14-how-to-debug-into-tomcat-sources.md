@@ -5,7 +5,7 @@ description: "调试 web 应用时，有时需要跟进 tomcat 的源码。下�
 headline: "Hex"
 date:   2015-10-14 15:19:47
 categories: Java
-tags: [tomocat, gradle, IDEA, eclipse]
+tags: [Tomcat, Gradle, IDEA, Eclipse]
 comments: true
 ---
 
