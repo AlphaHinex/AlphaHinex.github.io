@@ -13,16 +13,14 @@ comments: true
 
 以 [Gradle](http://gradle.org/) 和 [tomcat 7.0.63](http://tomcat.apache.org/download-70.cgi) 为例，只需在 `build.gradle` 的 `dependencies` 中加入如下代码即可：
 
-```
-depencencies {
-	def tomcatVer = '7.0.63'
-    runtime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVer}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVer}",
-            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVer}"
-}            
-```
+    depencencies {
+	    def tomcatVer = '7.0.63'
+        runtime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVer}",
+                "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVer}",
+                "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVer}"
+    }
 
-> 如无 `gradle` 环境，可下载 [gradle-wrapper](archives/gradle-wrapper/gradle-wrapper.zip)，将解压出的 `gradle/`、`gradlew` 和 `gradlew.bat` 放入项目根路径，即可使用 `gradlew` 命令。gradle wrapper 会在第一次执行时自动下载在 `gradle/wrapper/gradle-wrapper.properties` 中设置的 gradle 版本
+> 如无 `gradle` 环境，可下载 [gradle-wrapper](/archives/gradle-wrapper/gradle-wrapper.zip)，将解压出的 `gradle/`、`gradlew` 和 `gradlew.bat` 放入项目根路径，即可使用 `gradlew` 命令。gradle wrapper 会在第一次执行时自动下载在 `gradle/wrapper/gradle-wrapper.properties` 中设置的 gradle 版本
 
 Eclipse
 -------
@@ -59,12 +57,10 @@ IDEA
 DEMO
 ----
 
-[下载 Demo 项目](archives/debug-into-tomcat/debug-into-tomcat.zip)
+[下载 Demo 项目](/archives/debug-into-tomcat/debug-into-tomcat.zip)
 
 包含文件：
 
-```
-build.gradle
-src/main/java/io/github/alphahinex/DemoServlet.java
-src/main/webapp/WEB-INF/web.xml
-```
+    build.gradle
+    src/main/java/io/github/alphahinex/DemoServlet.java
+    src/main/webapp/WEB-INF/web.xml
