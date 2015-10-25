@@ -7,6 +7,7 @@ date:   2014-10-27 11:19:47
 categories: NOSQL
 tags: [MongoDB, GridFS]
 comments: true
+featured: true
 ---
 
 Content of post post

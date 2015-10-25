@@ -9,6 +9,7 @@ modified: 2015-10-13        # Date
 category: book
 tags: []
 comments: true
+featured: true
 ---
 
 * Start at: 2015-09-02

@@ -52,6 +52,8 @@ links:
   - title: <i class="icon-home"></i> Home
     url: /
     external: false
+  - title: <i class="icon-sort-by-attributes-alt"></i> Featured
+    url: /featured
   - title: <i class="icon-book"></i> Categories
     url: /categories
   - title: <i class="icon-tags"></i> Tags

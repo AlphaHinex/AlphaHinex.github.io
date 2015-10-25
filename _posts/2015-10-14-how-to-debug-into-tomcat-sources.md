@@ -7,6 +7,7 @@ date:   2015-10-14 15:19:47
 categories: Java
 tags: [Tomcat, Gradle, IDEA, Eclipse]
 comments: true
+featured: true
 ---
 
 给项目加上 tomcat 的 jar 包作为运行时依赖，并附加源码，就可以在调试的时候跟进 tomcat 的源码了

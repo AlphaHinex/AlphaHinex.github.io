@@ -11,6 +11,7 @@ tags: []
 image: 
   feature: some-image.jpg
 comments: true
+featured: true
 mathjax:
 ---
 
