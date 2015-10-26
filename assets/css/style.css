@@ -109,7 +109,7 @@ blockquote:before {
   width: 4px;
 }
 .cursive {
-  font-family: 'Sacramento', cursive;
+  font-family: 'Merriweather', cursive;
   color: #17e4d8;
   font-size: 34px;
   text-align: center;
@@ -755,13 +755,13 @@ html {
 /* THEME FONTS */
 /* ----------- */
 body {
-  font-family: 'Merriweather', serif;
+  font-family: 'Microsoft yahei', serif;
 }
 body input,
 body textarea,
 body .btn,
 body button {
-  font-family: 'Merriweather', serif;
+  font-family: 'Microsoft yahei', serif;
 }
 .lighter {
   font-weight: 200 !important;
