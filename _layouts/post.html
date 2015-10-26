@@ -32,7 +32,6 @@ Description: Awesome dude, awesome life
             {% assign modifiedtime = page.modified | date: "%Y%m%d" %}
             {% assign posttime = page.date | date: "%Y%m%d" %}
                     <header class="post-header entry-header">
-                    {% if page.featured %}<div class="cursive">this post is featured</div>{% endif %}
                         {% if page.link %}
                         <h2 class="post-title text-center hyper lighter entry-title" itemprop="headline"><a href="{{ page.link }}" data-toggle="tooltip" title="Go to {{ page.link }}" style="color: #fff; background-color: #45ADA8; border-radius: 4px; padding: 10px">{% if page.type == 'quote' %}<i class="icon-quote-left"></i> {% endif %}{% if page.type == 'status' %}<i class="icon-retweet"></i> {% endif %}{% if page.type == 'video' %}<i class="icon-play-circle"></i> {% endif %}{% if page.type == 'photo' %}<i class="icon-picture"></i> {% endif %}{{ page.title }} <span class="link-arrow">&rarr;</span></a></h2>
                         {% else %}
@@ -51,6 +50,12 @@ Description: Awesome dude, awesome life
                         {% endif %}
                         {{ content }}
                         <br>
+
+                        <div class="text-center">
+                        {% include license.html %}
+                        </div>
+                        <br>
+
                     {% assign tagsize = page.tags.size %}
                     {% if tagsize != 0 %}
                     <div class="entry-tags text-center">
