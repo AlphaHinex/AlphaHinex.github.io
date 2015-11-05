@@ -3798,7 +3798,7 @@ ol.CodeRay li {
 /* menu button */
 
 button.menu-button {
-  position: absolute;
+  position: fixed;
   top: 10px;
   right: 10px;
   width: 40px;
@@ -3876,7 +3876,7 @@ a#slide:hover{
     }
 
 a#slide:after{
-    content:"α"
+    content:"M"
     }
 
 a#slide.slide:after{
