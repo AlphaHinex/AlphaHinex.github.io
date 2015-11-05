@@ -597,6 +597,16 @@ html {
   position: relative;
   z-index: 2;
 }
+.related-posts {
+  column-count: 2;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+  list-style-type: none;
+}
+.related-posts h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
 /* ---------------- */
 /* THEME UTILITITES */
 /* ---------------- */
