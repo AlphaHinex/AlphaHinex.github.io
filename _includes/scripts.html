@@ -77,9 +77,10 @@ document.write(unescape("%3Cspan id='cnzz_stat_icon_1256586691' style='display:n
 
 <script type="text/javascript">
   $(window).scroll(function() {
-    $(document).scrollTop() > 10 ? $('#goto-top').fadeIn(500) : $('#goto-top').fadeOut(500);
+    $(document).scrollTop() > 50 ? $('#goto-top').fadeIn(500) : $('#goto-top').fadeOut(500);
   });
   $('#goto-top').click(function(e) {
+    console.log(e);
     e.preventDefault();
     $(document.body).animate({scrollTop: 0}, 200);
   });
