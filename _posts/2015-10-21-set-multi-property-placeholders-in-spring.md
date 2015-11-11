@@ -20,7 +20,7 @@ featured: true
     
 2. 设置 `ignore-unresolvable` 为 `true`
 
-        <context:property-placeholder location="classpath*:path/to/module.properties" ignore-unresolvable="true" />
+        <context:property-placeholder ignore-unresolvable="true" location="classpath*:path/to/module.properties"/>
 
     未能正确替换占位符的原因是 bean 在配置文件加载之前初始化了。`ignore-unresolvable` 属性正是用来解决这个问题的，当其设置为 `true`（默认值为 `false`）时，遇到不能处理的占位符会被忽略，交由其他配置来处理。需要在可能优先加载的配置中设置该属性，或在所有配置中都设置上。
 
