@@ -5,7 +5,7 @@ description: "OSX 的鼠标和触控板共享相同的滚动方向设置。假�
 headline: "Hex"
 date:   2015-10-28 10:16:47
 categories: script
-tags: [Mac, AppleScript]
+tags: [OSX, AppleScript]
 comments: true
 featured: true
 ---
