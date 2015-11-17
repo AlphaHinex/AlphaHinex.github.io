@@ -111,7 +111,7 @@ blockquote:before {
 .cursive {
   font-family: 'Merriweather', cursive;
   color: #17e4d8;
-  font-size: 34px;
+  font-size: 23px;
   text-align: center;
 }
 /* - Form elements - */
@@ -4058,9 +4058,13 @@ body.slide{
 
 @media screen and (max-width:500px){
     
-    a#slide{
-        position:absolute    
-        }
+    a#slide {
+      position: absolute;
+    }
+
+    button.menu-button {
+      position: absolute;
+    }
 
 
 /*      End-Responsive      */
