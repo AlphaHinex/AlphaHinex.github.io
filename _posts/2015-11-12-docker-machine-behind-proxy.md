@@ -7,7 +7,6 @@ date:   2015-11-12 10:55:47
 categories: Cloud
 tags: [OSX, Docker, Proxy]
 comments: true
-featured: true
 ---
 
 `docker-machine` 实际是运行在 `OS X` 上的 `VirtualBox` 虚拟机内，将之前的 `boot2docker` 进行了封装，配置代理的方式与之前在 `boot2docker` 中的设置方式不同。具体设置步骤为：

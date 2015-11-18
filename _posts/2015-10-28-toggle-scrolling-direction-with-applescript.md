@@ -7,7 +7,6 @@ date:   2015-10-28 10:16:47
 categories: script
 tags: [OSX, AppleScript]
 comments: true
-featured: true
 ---
 
 使用 [AppleScript](https://en.wikipedia.org/wiki/AppleScript) 脚本可以通过命令行方式来切换滚动方向

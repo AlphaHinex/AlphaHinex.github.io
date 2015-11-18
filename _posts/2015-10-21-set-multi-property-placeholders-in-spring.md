@@ -7,7 +7,6 @@ date:   2015-10-22 09:31:47
 categories: Java
 tags: [Spring, placeholder]
 comments: true
-featured: true
 ---
 
 提供两个方案：

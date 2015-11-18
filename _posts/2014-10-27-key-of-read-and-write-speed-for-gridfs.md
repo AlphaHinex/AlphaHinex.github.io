@@ -7,7 +7,6 @@ date:   2014-10-27 11:19:47
 categories: NOSQL
 tags: [MongoDB, GridFS]
 comments: true
-featured: true
 ---
 
 MongoDB(v2.6 current) 官方文档中关于 [Shard GridFS Data Store](http://docs.mongodb.org/manual/tutorial/shard-gridfs-data/) 有如下说明：
