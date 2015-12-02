@@ -6,6 +6,7 @@ title:  "一步一步将 d3.js Calendar View 转变成 GitHub Contributions"
 description: "GitHub Contributions 日历热图表述力强，容易上瘾，并且引发了多种玩法：涂满或涂成名字、万圣节颜色……，让我们使用 d3.js 提供的 Calendar View 示例，一步一步将其修改成 GitHub 的样式，Let's go！"
 headline: "Hex"
 date:   2015-11-26 16:12:47
+modified: 2015-12-02 13:23:49
 categories: Javascript
 tags: [Data Visualization, D3, GitHub, Calendar, Contributions]
 comments: true
@@ -233,6 +234,9 @@ comments: true
 +for (var i = 0; i < 12; i ++) {
 +  var s = new Date(startYear, startMonth + i, 1);
 +  var w = shiftWeek(s) + (s.getDay() > 0 ? 1 : 0);
++  if (w > 52) {
++    break;
++  }
 +  var m = s.getMonth() + 1;
 +  var l = m > 9 ? m : '0' + m;
 +  svg.append('text')
