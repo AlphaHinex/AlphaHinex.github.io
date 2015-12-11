@@ -185,14 +185,23 @@ HTML5 提供了两种使用 `<video>` 元素的方式。在只有一个视频文
 DEMO
 ----
 
-下面是一段示例代码，
+下面是一段示例代码：
+
+    <video width="480" height="640" preload controls>
+      <source src="/archives/html5-video/mov.m4v" type="video/mp4; codecs=avc1.42E01E, mp4a.40.2">
+      <object width="480" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
+        <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
+        <param name="allowfullscreen" value="true">
+        <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': ture}}">
+      </object>
+    </video>
 
 <video width="480" height="640" preload controls>
   <source src="/archives/html5-video/mov.m4v" type="video/mp4; codecs=avc1.42E01E, mp4a.40.2">
-  <object width="480" height="640" type="application/x-shockwave-flash" data="https://cdn.bootcss.com/flowplayer/5.4.6/flowplayer.swf">
-    <param name="movie" value="https://cdn.bootcss.com/flowplayer/5.4.6/flowplayer.swf">
+  <object width="480" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
+    <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
     <param name="allowfullscreen" value="true">
-    <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': ture}">
+    <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': ture}}">
   </object>
 </video>
 
