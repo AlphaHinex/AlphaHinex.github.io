@@ -201,7 +201,7 @@ DEMO
   <object width="480" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
     <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
     <param name="allowfullscreen" value="true">
-    <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': ture}}">
+    <param name="flashvars" value="config={'clip': {'url': 'http://stream.flowplayer.org/bauhaus/624x260.mp4', 'autoPlay': false, 'autoBuffering': ture}}">
   </object>
 </video>
 
