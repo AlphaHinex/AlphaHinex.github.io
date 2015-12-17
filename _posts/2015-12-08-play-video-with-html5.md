@@ -4,6 +4,7 @@ title:  "使用 HTML5 技术播放视频"
 description: "HTML5 定义了通过 video 元素在网页中嵌入视频的标准方式。尽管这种方式仍在不断进化中，也暂时不能做到在任何浏览器下都运转良好，但现代浏览器对其支持的趋势及程度还是很值得期待的，即便在一些不支持的环境下，也有替代方案可供选择。本文主要基于 Dive Into HTML5 # Video on the Web，并对一些内容有更新和补充。"
 headline: "Hex"
 date:   2015-12-11 10:34:47
+modified: 2015-12-16 16:47:47
 categories: Web
 tags: [HTML5, Video]
 comments: true
@@ -52,13 +53,13 @@ HTML5 定义了通过 `<video>` 元素在网页中嵌入视频的标准方式。
 
 ### H.264
 
-[H.264](http://en.wikipedia.org/wiki/H.264)，即 `MEPG-4 part 10`、`MPEG-4 AVC`、`MPEG-4 Advanced Video Coding`。 H.264 是 [MPEG 组织](http://en.wikipedia.org/wiki/Moving_Picture_Experts_Group) 开发并于 2003 年标准化的编码格式。它致力于为低带宽、低性能 CPU 设备（如手机），高带宽和高性能 CPU 设备（如现代桌面电脑），以及所有在此之间的设备，提供单独的一种编解码器。为了实现这个目标， H.264 标准区分了不同的 [profiles](http://en.wikipedia.org/wiki/H.264#Profiles)，每个配置（`profile`）都定义了不同的文件大小和可选特性。更高的配置在尽可能小的文件尺寸上使用更多的可选特性，提供更好的视频质量，更长的编码时间以及在实时播放时需要更强劲的 CPU 来解码。
+[H.264](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC)，即 MEPG-4 part 10、MPEG-4 AVC、MPEG-4 Advanced Video Coding。 H.264 是 [MPEG 组织](http://en.wikipedia.org/wiki/Moving_Picture_Experts_Group) 开发并于 2003 年标准化的编码格式。它致力于为低带宽、低性能 CPU 设备（如手机），高带宽和高性能 CPU 设备（如现代桌面电脑），以及所有在此范围之间的设备，提供单独的一种编解码器。为了实现这个目标， H.264 标准定义了多种 [profiles](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Profiles) 和 [levels](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Levels)。配置（`profile`）定义了编码时所采取的约束，使解码器了解解码视频的要求；等级（`level`）与配置共同指定了视频的最大解析度、帧速及码率等。更高的配置提供更好的视频质量，更长的编码时间以及在实时播放时需要更强劲的 CPU 来解码。
 
-概括来说，`iPhone` 支持 `Baseline` 配置，`AppleTV` 支持 `Baseline` 和 `Main` 配置，Flash 和台式机支持 `Baseline`、`Main` 和 `High` 配置。`H.264` 同时也是蓝光标准授权的编解码器，蓝光光盘通常使用 `High` 配置。
+概括来说，[iPhone 可支持 High 配置](http://www.apple.com/cn/iphone/compare/)，[AppleTV 支持 Baseline、Main 和 High 配置](http://www.apple.com/tv/specs/)，Flash 和台式机支持 `Baseline`、`Main` 和 `High` 配置。H.264 同时也是蓝光标准授权的编解码器，蓝光光盘通常使用 `High` 配置。
 
-大多数的非 PC 设备（如 `iPhone` 和蓝光播放器）在播放 `H.264` 视频时，实际是由专用芯片负责解码，因为他们的 CPU 并没有足够的性能以支持视频的实时播放。目前甚至一些低端的桌面显卡也能够支持硬件解码 `H.264`。有很多 `H.264` 的编码器，包括开源的 [x264 library](http://www.videolan.org/developers/x264.html)。`H.264` 视频可以嵌入到大多数流行视频容器格式中，包括 `MP4` 和 `MKV`。
+大多数的非 PC 设备（如 `iPhone` 和蓝光播放器）在播放 H.264 视频时，实际是由专用芯片负责解码，因为他们的 CPU 并没有足够的性能以支持视频的实时播放。目前甚至一些低端的桌面显卡也能够支持硬件解码 H.264。有很多 H.264 的编码器，包括开源的 [x264 library](http://www.videolan.org/developers/x264.html)。H.264 视频可以嵌入到大多数流行视频容器格式中，包括 `MP4` 和 `MKV`。
 
-**H.264 标准是需要支付专利许可费用的**，专利许可的主要来源是 [MPEG LA 组织](http://www.mpegla.com/)。[2010年8月26日，`MPEG LA` 组织宣布使用 `H.264` 编码的网络视频对**最终用户永久免费**](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Patent_licensing)。但是离开网络使用到有关 `H.264` 的产品或服务，还是需要支付费用的。
+**H.264 标准是需要支付专利许可费用的**，专利许可的主要来源是 [MPEG LA 组织](http://www.mpegla.com/)。[2010年8月26日，MPEG LA 组织宣布使用 H.264 编码的网络视频对**最终用户永久免费**](https://en.wikipedia.org/wiki/H.264/MPEG-4_AVC#Patent_licensing)。但是离开网络使用到有关 H.264 的产品或服务，还是需要支付费用的。
 
 ![MPEG-4/H.264 video format](/archives/html5-video/h264.png)
 [数据来源](http://caniuse.com/#feat=mpeg4)
@@ -174,7 +175,7 @@ HTML5 提供了两种使用 `<video>` 元素的方式。在只有一个视频文
       <source src="mov.ogv" type="video/ogg; codecs=theora,vorbis">
     </video>
     
-`type` 属性的值看起来很复杂。它是由三部分组成的：视频容器格式，视频编码和音频编码。例如 `video/mp4` 代表视频容器格式是 MP4 格式。不过严格来说，这里使用的是视频容器格式的 `MIME` 类型（`video/mp4`、`video/webm`、`video/ogg`）。`mov.mp4` 的编解码器设置也很复杂，它代表了 `H.264` 使用的是 `baseline` 配置，`AAC` 使用的也是低复杂度的配置。更多的 `type` 属性参数可以在 [这里](https://wiki.whatwg.org/wiki/Video_type_parameters) 找到。
+`type` 属性的值看起来很复杂。它是由两部分组成的：`视频容器格式` 和 `视频/音频编码`。例如 `video/mp4` 代表视频容器格式是 `MP4` 格式。不过严格来说，这里使用的是视频容器格式的 [`MIME` 类型](https://wiki.whatwg.org/wiki/Video_type_parameters#MIME_types_used_in_the_wild_.28in_type.3D.22.22.29)。视频/音频的编解码器参数也很复杂，关于它的标准规范是在 [RFC 6381](http://tools.ietf.org/html/rfc6381) 中定义的，其中 [3.3 节]（http://tools.ietf.org/html/rfc6381#section-3.3）有关于这个参数的说明。概括来说，它代表了 `H.264` 使用的是 `baseline` 配置，`AAC` 使用的也是低复杂度的配置。更多的 `type` 属性参数可以在 [这里](https://wiki.whatwg.org/wiki/Video_type_parameters) 找到。关于 `codecs` 参数的具体含义可以参考 [这里](http://stackoverflow.com/questions/16363167/html5-video-tag-codecs-attribute)。
 
 还有一点需要注意：**视频文件必须在服务端设置恰当的 MIME 类型**，否则你可能会经常遇到类似视频文件在你本地环境一切正常，但在实际产品中无法播放的情况。仅在 `<source>` 元素的 `type` 属性中设置是不够的，你还需要为 web 服务器 HTTP 头中的 Content-Type 设置上 MIME 类型。
 
