@@ -175,7 +175,7 @@ HTML5 提供了两种使用 `<video>` 元素的方式。在只有一个视频文
       <source src="mov.ogv" type="video/ogg; codecs=theora,vorbis">
     </video>
     
-`type` 属性的值看起来很复杂。它是由两部分组成的：`视频容器格式` 和 `视频/音频编码`。例如 `video/mp4` 代表视频容器格式是 `MP4` 格式。不过严格来说，这里使用的是视频容器格式的 [`MIME` 类型](https://wiki.whatwg.org/wiki/Video_type_parameters#MIME_types_used_in_the_wild_.28in_type.3D.22.22.29)。视频/音频的编解码器参数也很复杂，关于它的标准规范是在 [RFC 6381](http://tools.ietf.org/html/rfc6381) 中定义的，其中 [3.3 节]（http://tools.ietf.org/html/rfc6381#section-3.3）有关于这个参数的说明。概括来说，它代表了 `H.264` 使用的是 `baseline` 配置，`AAC` 使用的也是低复杂度的配置。更多的 `type` 属性参数可以在 [这里](https://wiki.whatwg.org/wiki/Video_type_parameters) 找到。关于 `codecs` 参数的具体含义可以参考 [这里](http://stackoverflow.com/questions/16363167/html5-video-tag-codecs-attribute)。
+`type` 属性的值看起来很复杂。它是由两部分组成的：`视频容器格式` 和 `视频/音频编码`。例如 `video/mp4` 代表视频容器格式是 `MP4` 格式。不过严格来说，这里使用的是视频容器格式的 [`MIME` 类型](https://wiki.whatwg.org/wiki/Video_type_parameters#MIME_types_used_in_the_wild_.28in_type.3D.22.22.29)。视频/音频的编解码器参数也很复杂，关于它的标准规范是在 [RFC 6381](http://tools.ietf.org/html/rfc6381) 中定义的，其中 [3.3 节](http://tools.ietf.org/html/rfc6381#section-3.3) 有关于这个参数的说明。概括来说，它代表了 `H.264` 使用的是 `baseline` 配置，`AAC` 使用的也是低复杂度的配置。更多的 `type` 属性参数可以在 [这里](https://wiki.whatwg.org/wiki/Video_type_parameters) 找到。关于 `codecs` 参数的具体含义可以参考 [这里](http://stackoverflow.com/questions/16363167/html5-video-tag-codecs-attribute)。
 
 还有一点需要注意：**视频文件必须在服务端设置恰当的 MIME 类型**，否则你可能会经常遇到类似视频文件在你本地环境一切正常，但在实际产品中无法播放的情况。仅在 `<source>` 元素的 `type` 属性中设置是不够的，你还需要为 web 服务器 HTTP 头中的 Content-Type 设置上 MIME 类型。
 
@@ -186,23 +186,23 @@ HTML5 提供了两种使用 `<video>` 元素的方式。在只有一个视频文
 DEMO
 ----
 
-下面是一段示例代码：
+下面是一段示例代码，容器为 `MP4`，视频编码为 `H.264(Main Profile, Level 30)`，音频编码为 `AAC(low-complexity)`：
 
-    <video width="480" height="640" preload controls>
-      <source src="/archives/html5-video/mov.m4v" type="video/mp4; codecs=avc1.42E01E, mp4a.40.2">
-      <object width="480" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
+    <video width="360" height="640" preload controls>
+      <source src="/archives/html5-video/mov-h264_main_30-aac_lc.mp4" type="video/mp4; codecs=avc1.4D401E, mp4a.40.2">
+      <object width="360" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
         <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
         <param name="allowfullscreen" value="true">
-        <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': true}}">
+        <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov-h264_main_30-aac_lc.mp4', 'autoPlay': false, 'autoBuffering': true}}">
       </object>
     </video>
 
-<video width="480" height="640" preload controls>
-  <source src="/archives/html5-video/mov.m4v" type="video/mp4; codecs=avc1.42E01E, mp4a.40.2">
-  <object width="480" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
+<video width="360" height="640" preload controls>
+  <source src="/archives/html5-video/mov-h264_main_30-aac_lc.mp4" type="video/mp4; codecs=avc1.4D401E, mp4a.40.2">
+  <object width="360" height="640" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
     <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.16.swf">
     <param name="allowfullscreen" value="true">
-    <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov.m4v', 'autoPlay': false, 'autoBuffering': true}}">
+    <param name="flashvars" value="config={'clip': {'url': 'http://alphahinex.github.io/archives/html5-video/mov-h264_main_30-aac_lc.mp4', 'autoPlay': false, 'autoBuffering': true}}">
   </object>
 </video>
 
