@@ -42,7 +42,56 @@ Common Encryption
 Clear Key
 ---------
 
- 
+虽然 EME 没有定义 DRM 功能，但规范中要求所有支持 EME 的浏览器**必须实现** `Clear Key`。使用这套系统，媒体资源可以使用一个 `key` 来加密，在播放时只需简单的提供这个 `key` 即可。Clear Key 可以构建至浏览器中：它甚至不需要一个单独的解密模块。
+
+尽管不容易被用于许多类型的商业内容，Clear Key 可以与所有支持 EME 的浏览器完全兼容。它也可以用来测试 EME 的实现和应用，甚至可以直接提供 key 以免去授权服务器。在 [simpl.info/ck](http://simpl.info/eme/clearkey) 有一个简单的演示。演示中的视频使用的是加密过的 `WebM` 格式。
+
+要加密 WebM 视频并非易事，目前的一个可用方案是使用 `webm-crypt` 模块。按照 [How to build and use webm_crypt](https://docs.google.com/document/d/17d6_KX5jX0gY1ygYbjqOEdVzuUGkPO53wL8t40dMGeQ/edit?usp=sharing) 中的步骤来看，为了使用这个模块你需要编译整个 `chrome`，[Docker Hub](https://hub.docker.com/) 上的编译好的 chrome 镜像体积有 **20G+** 的规模。
+
+相比之下，[Cable Labs](http://www.cablelabs.com/) 提供的针对 `MP4` 的解决方案则简便许多。
+
+用 Clear Key 加密 MP4 并在浏览器中播放
+----------------------------------
+
+终于到了今天的重头戏，先来看下 [Cable Labs MSE-EME Overview](https://html5.cablelabs.com/mse-eme/doc/overview.html) 中的方案总览：
+
+![EME Tools Overview](https://html5.cablelabs.com/mse-eme/doc/images/EMETools.png)
+
+总体方案分为两部分：加密内容的创建和内容播放。
+
+* [加密内容的创建](https://html5.cablelabs.com/mse-eme/doc/creation.html)：包括对原始视频的转码以获得 `MP4(H.264/AAC)` 格式视频；视频内容加密；DASH 分割及打包。
+* [内容播放](https://html5.cablelabs.com/mse-eme/doc/playback.html)：在浏览器中播放加密并 DASH 视频。
+
+### Dynamic Adaptive Streaming over HTTP (DASH)
+
+`DASH`（即 `MPEG-DASH`）设计用来最大限度的满足在实际环境中的媒体内容流播放及下载需求。很多其他技术也在做着类似的实行 —— 例如苹果的 [HTTP Live Streaming(HLS)](https://en.wikipedia.org/wiki/HTTP_Live_Streaming) 和微软的 [Smooth Streaming](https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming#Microsoft_Smooth_Streaming) —— 但 DASH 是唯一的一个基于开放标准的使用 HTTP 提供可变比特率流技术。DASH 已经应用在 YouTube 等网站上。
+
+这与 EME 和 MSE 有什么关系？基于 MSE 的 DASH 实现能够解析清单（`mpd` 文件），下载恰当比特率的视频片段，并将其提供给 `<video>` 元素，这些都是在现有的 HTTP 之上完成的。换句话说，DASH 使商用内容提供商能够提供可变比特率的受保护内容。
+
+### 所需工具
+
+* [ffmpeg](https://github.com/FFmpeg/FFmpeg)：视频转码，将源视频格式转换为 MP4(H.264/AAC)。
+* [mse-eme](https://github.com/cablelabs/mse-eme)：Cable Labs 提供的相关工具集合，使用其中的 Clear Key 加密文件生成器来生成加密用文件。
+* [MP4Box](https://github.com/gpac/gpac)：GPAC 项目中的 MP4Box 工具可用来对 MP4 视频进行加密及 DASH。
+* [dash.js](https://github.com/Dash-Industry-Forum/dash.js)：用来在浏览器中播放 DASH 视频。
+
+上述工具除 `dash.js` 外，基本都需要安装，可以自行按照官网的说明来安装，也可以直接使用我组装好的这个 [docker 镜像](https://hub.docker.com/r/alphahinex/try-docker/)，使用方式为：
+    
+    # 拉取镜像
+    $ docker pull alphahinex/try-docker:vc
+    # 交互模式运行镜像
+    $ docker run -t -i alphahinex/try-docker:vc /bin/bash
+    # 查看 ffmpeg 信息
+    root@57ec3690605c:/usr/local# ffmpeg -version
+    # 查看 MP4Box 信息
+    root@57ec3690605c:/usr/local# MP4Box -version
+    # 查看 clearkey 加密文件生成工具信息
+    root@57ec3690605c:/usr/local# java -jar mse-eme/create/encrypt/clearkey/cryptgen/clearkey.jar -help
+    
+好，让我们找个视频来试一下。
+
+### 实际例子
+
 
 
 参考资料
