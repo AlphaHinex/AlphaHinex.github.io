@@ -79,19 +79,68 @@ Clear Key
     
     # 拉取镜像
     $ docker pull alphahinex/try-docker:vc
-    # 交互模式运行镜像
-    $ docker run -t -i alphahinex/try-docker:vc /bin/bash
+    # 交互模式运行镜像，并将容器命名为 vc
+    $ docker run --name vc -v /local/folder:/docker/folder -t -i alphahinex/try-docker:vc /bin/bash
     # 查看 ffmpeg 信息
     root@57ec3690605c:/usr/local# ffmpeg -version
     # 查看 MP4Box 信息
     root@57ec3690605c:/usr/local# MP4Box -version
     # 查看 clearkey 加密文件生成工具信息
     root@57ec3690605c:/usr/local# java -jar mse-eme/create/encrypt/clearkey/cryptgen/clearkey.jar -help
+    # 退出容器
+    root@57ec3690605c:/usr/local# exit
     
-好，让我们找个视频来试一下。
+各个工具的具体参数请参考其帮助手册。好，让我们找个视频来试一下。
 
 ### 实际例子
 
+引用 [html5rocks](http://www.html5rocks.com) 上的这个 [WebM 视频](http://www.html5rocks.com/en/tutorials/video/basics/devstories.webm) 作为源视频，将其转换为 `MP4` 并使用 `Clear Key` 加密，之后使用 HTML5 播放。
+
+    # 交互模式启动之前创建的容器 vc
+    $ docker start -i vc
+    # 假定源文件在容器中的路径为 /usr/local/video/devstories.webm
+    root@57ec3690605c:/usr/local/video# ffmpeg -i devstories.webm -codec:v libx264 -codec:a aac -strict -2 devstories.mp4
+    # 可通过 ffprobe 或 MP4Box 查看转换后的视频信息
+    root@57ec3690605c:/usr/local/video# ffprobe -i devstories.mp4
+    root@57ec3690605c:/usr/local/video# MP4Box -info devstories.mp4
+    # 生成加密文件，key id 和 key 随便写，都是 16 位的 16 进制数，需要记住其转换成的 Base64 字符串
+    root@57ec3690605c:/usr/local/video# java -jar /usr/local/mse-eme/create/encrypt/clearkey/cryptgen/clearkey.jar 1:20212223-2425-2627-2829-2A2B2C2D2E2F=15161718191A1B1C1D1E1F2021222324 2:12131415-1617-1819-1A1B-1C1D1E1F2021=25262728292A2B2C2D2E2F3031323334 -out devstories_drm.xml
+    Ensure the following keys are available to the client:
+    	202122232425262728292a2b2c2d2e2f : 15161718191a1b1c1d1e1f2021222324 (ICEiIyQlJicoKSorLC0uLw : FRYXGBkaGxwdHh8gISIjJA)
+    	12131415161718191a1b1c1d1e1f2021 : 25262728292a2b2c2d2e2f3031323334 (EhMUFRYXGBkaGxwdHh8gIQ : JSYnKCkqKywtLi8wMTIzNA)
+    # 使用上一步生成的 devstories_drm.xml 加密 MP4
+    root@57ec3690605c:/usr/local/video# MP4Box -crypt devstories_drm.xml devstories.mp4 -out devstories_enc.mp4
+    # 可再次通过 MP4Box -info devstories_enc.mp4 看到两个轨道都已被加密
+    # dash
+    root@57ec3690605c:/usr/local/video# MP4Box -dash 10000 -rap -bs-switching no -sample-groups-traf -profile onDemand -out devstories_enc.mpd devstories_enc.mp4#video:id=v devstories_enc.mp4#audio:id=a
+    
+完成上述步骤后，会得到三个文件：`devstories_enc.mpd`、`devstories_enc_track1_dashinit.mp4`、`devstories_enc_track2_dashinit.mp4`。从 `mpd` 中可以看到视频清单和加密使用的 `key id`。
+
+<script src="http://127.0.0.1:4000/archives/html5-video/dash.all-1.6.0.js"></script>
+<script>
+function init() {
+  var video,context,player;
+  video = document.querySelector("video");
+  context = new Dash.di.DashContext();
+  player = new MediaPlayer(context);
+  player.startup();
+  player.attachView(video);
+  player.setAutoPlay(true);
+  player.attachSource("/archives/html5-video/devstories_enc.mpd", null, {
+    "org.w3.clearkey": {
+      "clearkeys": {
+        "ICEiIyQlJicoKSorLC0uLw": "FRYXGBkaGxwdHh8gISIjJA",
+        "EhMUFRYXGBkaGxwdHh8gIQ": "JSYnKCkqKywtLi8wMTIzNA"
+      }
+    }
+  });
+}
+</script>
+
+<div>
+  <button onclick="init()">初始化</button>
+  <video width="640" height="360" controls="true"></video>
+</div>
 
 
 参考资料
