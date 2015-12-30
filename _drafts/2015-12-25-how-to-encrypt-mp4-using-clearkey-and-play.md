@@ -99,7 +99,7 @@ Clear Key
     # 交互模式启动之前创建的容器 vc
     $ docker start -i vc
     # 假定源文件在容器中的路径为 /usr/local/video/devstories.webm
-    root@57ec3690605c:/usr/local/video# ffmpeg -i devstories.webm -codec:v libx264 -codec:a aac -strict -2 devstories.mp4
+    root@57ec3690605c:/usr/local/video# ffmpeg -i devstories.webm -codec:v libx264 -x264opts keyint=48:min-keyint=48:no-scenecut -codec:a aac -strict -2 devstories.mp4
     # 可通过 ffprobe 或 MP4Box 查看转换后的视频信息
     root@57ec3690605c:/usr/local/video# ffprobe -i devstories.mp4
     root@57ec3690605c:/usr/local/video# MP4Box -info devstories.mp4
@@ -112,11 +112,11 @@ Clear Key
     root@57ec3690605c:/usr/local/video# MP4Box -crypt devstories_drm.xml devstories.mp4 -out devstories_enc.mp4
     # 可再次通过 MP4Box -info devstories_enc.mp4 看到两个轨道都已被加密
     # dash
-    root@57ec3690605c:/usr/local/video# MP4Box -dash 10000 -rap -bs-switching no -sample-groups-traf -profile onDemand -out devstories_enc.mpd devstories_enc.mp4#video:id=v devstories_enc.mp4#audio:id=a
+    root@57ec3690605c:/usr/local/video# MP4Box -dash 10000 -profile onDemand -out devstories_enc.mpd devstories_enc.mp4#video devstories_enc.mp4#audio
     
 完成上述步骤后，会得到三个文件：`devstories_enc.mpd`、`devstories_enc_track1_dashinit.mp4`、`devstories_enc_track2_dashinit.mp4`。从 `mpd` 中可以看到视频清单和加密使用的 `key id`。
 
-<script src="http://127.0.0.1:4000/archives/html5-video/dash.all-1.6.0.js"></script>
+<script src="http://127.0.0.1:4000/archives/html5-video/dash.all-1.5.1.js"></script>
 <script>
 function init() {
   var video,context,player;
@@ -138,8 +138,8 @@ function init() {
 </script>
 
 <div>
-  <button onclick="init()">初始化</button>
-  <video width="640" height="360" controls="true"></video>
+  <button onclick="init()">初始化并播放</button>
+  <video width="640" height="360" controls="true" poster="/archives/html5-video/poster.png"></video>
 </div>
 
 
@@ -154,3 +154,4 @@ function init() {
 * [Content Creation](https://html5.cablelabs.com/mse-eme/doc/creation.html)
 * [Clear Key demo](http://simpl.info/eme/clearkey/)
 * [Client Player Applications](https://html5.cablelabs.com/mse-eme/doc/playback.html)
+* [Working with MP4Box](https://www.radiantmediaplayer.com/working-with-mp4box.html)
