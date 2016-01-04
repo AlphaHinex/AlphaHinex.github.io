@@ -159,7 +159,7 @@ Clear Key
 
 > 据不完全测试，该段视频只能在 Chrome45+ 中播放。
 
-<script src="http://127.0.0.1:4000/archives/html5-video/dash.all-1.5.1.js"></script>
+<script src="http://alphahinex.github.io/archives/html5-video/dash.all-1.5.1.js"></script>
 <script>
 function init() {
   var video, context, player;
