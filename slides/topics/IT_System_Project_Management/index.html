@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title>IT System Project Management</title>
+    <title>Software Project Management</title>
 
     <link rel="stylesheet" href="../../libs/reveal/css/reveal.css">
     <link rel="stylesheet" href="../../libs/reveal/css/theme/league.css">
@@ -1462,6 +1462,7 @@
         multiplex: {
           // Example values. To generate your own, see the socket.io server instructions.
           secret: null, // null so the clients do not have control of the master presentation
+          // secret: 'xxxx', // Obtained from the socket.io server. Gives this (the master) control of the presentation
           id: '7b569af0af10d837', // id, obtained from socket.io server
           url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of socket.io server
         },
@@ -1473,7 +1474,8 @@
           { src: '../../libs/reveal/plugin/notes/notes.js', async: true },
           { src: '../../libs/reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
           { src: '//cdn.socket.io/socket.io-1.3.5.js', async: true },
-          { src: '../../libs/reveal/plugin/multiplex/client.js', async: true },
+          { src: '../../libs/reveal/plugin/multiplex/client.js', async: true }
+          // { src: '../../libs/reveal/plugin/multiplex/master.js', async: true }
         ]
       });
     </script>
