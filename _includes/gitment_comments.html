@@ -2,7 +2,7 @@
 <script src="https://oopstorm.github.io/gitment/dist/gitment.browser.js"></script>
 <script type="text/javascript">
     var gitment = new Gitment({
-        id: '<%= page.date %>',
+        id: '{{ page.date | date_to_xmlschema }}',
         owner: 'AlphaHinex',
         repo: 'AlphaHinex.github.io',
         oauth: {
