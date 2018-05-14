@@ -2,12 +2,13 @@
 <script src="https://oopstorm.github.io/gitment/dist/gitment.browser.js"></script>
 <script type="text/javascript">
     var gitment = new Gitment({
-      owner: 'AlphaHinex',
-      repo: 'AlphaHinex.github.io',
-      oauth: {
-        client_id: '54f9966b8cc9d2423ffd',
-        client_secret: '504574e4532bdfa77d3e4091637ff53558408ac2',
-      }
+        id: '<%= page.date %>',
+        owner: 'AlphaHinex',
+        repo: 'AlphaHinex.github.io',
+        oauth: {
+            client_id: '54f9966b8cc9d2423ffd',
+            client_secret: '504574e4532bdfa77d3e4091637ff53558408ac2',
+        }
     });
     document.getElementsByClassName('container')[1].appendChild(gitment.render());
 </script>
