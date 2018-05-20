@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Using Liquibase with Gradle in Spring Project"
-description: "GitHub 上 Java 项目使用 TeamCity 和 Codecov 的简易说明"
+description: "Spring 项目通过 Gradle 插件使用 Liquibase 的简易说明"
 headline: "Hex"
 date:   2018.05.15 15:40:47
 categories: Java
