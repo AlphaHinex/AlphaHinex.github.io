@@ -248,7 +248,7 @@ liquibase {
 #### 新增数据
 
 1. 在数据库中执行 insert 语句
-1. 修改 build.gradle 中配置的 liquibase.runList，将其值改为 'genDevData'
+1. 修改 build.gradle 中配置的 liquibase.runList，将其值改为 `genDevData`
 1. `./gradlew generateChangelog`
 1. 从 `db/dev-data.xml` 中找到新增数据的 changeSet，并放至相应模块的 change log 文件中
 
