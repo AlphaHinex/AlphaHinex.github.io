@@ -5,7 +5,7 @@ date:   2015-11-26 16:12:47
 modified: 2015-12-02 13:23:49
 categories: Javascript
 tags: [Data Visualization, D3, GitHub, Calendar, Contributions]
-cover: ../contents/calendar-view/all.gif
+cover: /contents/calendar-view/all.gif
 ---
 
 GitHub Contributions 日历热图表述力强，容易上瘾，并且引发了多种玩法：涂满或涂成名字、万圣节颜色……，让我们使用 d3.js 提供的 Calendar View 示例，一步一步将其修改成 GitHub 的样式，Let's go！
