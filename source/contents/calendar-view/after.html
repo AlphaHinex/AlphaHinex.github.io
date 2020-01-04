@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+  shape-rendering: crispEdges;
+}
+
+.day {
+  width: 11px;
+  height: 11px;
+  fill: rgb(238, 238, 238);
+}
+
+.day:hover {
+  stroke: #555;
+  stroke-width: 1px;
+}
+
+.cv .lv1 {fill: #d6e685;}
+.cv .lv2 {fill: #8cc665;}
+.cv .lv3 {fill: #44a340;}
+.cv .lv4 {fill: #1e6823;}
+
+</style>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script>
+
+var width = 960,
+    height = 136,
+    cellSize = 13; // cell size
+
+var percent = d3.format(".1%"),
+    format = d3.time.format("%Y-%m-%d");
+
+var color = d3.scale.quantize()
+    .domain([-.05, .05])
+    .range(d3.range(1,5).map(function(d) { return "lv" + d; }));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+    .attr("class", "cv")
+  .append("g")
+    .attr("transform", "translate(" + ((width - cellSize * 53) / 2) + "," + (height - cellSize * 7 - 1) + ")");
+
+svg.append('text')
+  .attr('transform', 'translate(-14,' + cellSize*1.8 + ')')
+  .text('一');
+
+svg.append('text')
+  .attr('transform', 'translate(-14,' + cellSize*3.8 + ')')
+  .text('三');
+
+svg.append('text')
+  .attr('transform', 'translate(-14,' + cellSize*5.8 + ')')
+  .text('五');
+
+var today = new Date();
+var lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000);
+var shiftWeeks = 53 - d3.time.weekOfYear(lastYear);
+
+var shiftWeek = function(d) {
+  var year = d.getFullYear();
+  var thisYear = today.getFullYear();
+  var weekOfYear = d3.time.weekOfYear(d);
+  if (year < thisYear) {
+    weekOfYear = weekOfYear - 53 + shiftWeeks;
+  } else {
+    weekOfYear += shiftWeeks - 1;
+  }
+  return weekOfYear;
+};
+
+var startYear = lastYear.getFullYear();
+var startMonth = lastYear.getDate() === 1 ? lastYear.getMonth() : lastYear.getMonth() + 1;
+for (var i = 0; i < 12; i ++) {
+  var s = new Date(startYear, startMonth + i, 1);
+  var w = shiftWeek(s) + (s.getDay() > 0 ? 1 : 0);
+  if (w > 52) {
+    break;
+  }
+  var m = s.getMonth() + 1;
+  var l = m > 9 ? m : '0' + m;
+  svg.append('text')
+    .attr('transform', 'translate(' + cellSize * w + ', -5)')
+    .text(l);
+}
+
+var rect = svg.selectAll(".day")
+    .data(d3.time.days(lastYear, today))
+  .enter().append("rect")
+    .attr("class", "day")
+    .attr("width", cellSize)
+    .attr("height", cellSize)
+    .attr("x", function(d) { return shiftWeek(d) * cellSize; })
+    .attr("y", function(d) { return d.getDay() * cellSize; })
+    .datum(format);
+
+rect.append("title")
+    .text(function(d) { return d; });
+
+
+var data = {
+  '2015-11-24': 0,
+  '2015-11-25': -0.5,
+  '2015-11-26': 0.5
+};
+
+rect.filter(function(d) { return d in data; })
+    .attr("class", function(d) { return "day " + color(data[d]); })
+  .select("title")
+    .text(function(d) { return d + ": " + percent(data[d]); });
+
+d3.select(self.frameElement).style("height", "2910px");
+
+</script>
