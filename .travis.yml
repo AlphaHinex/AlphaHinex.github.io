@@ -4,6 +4,9 @@ node_js: stable
 install:
   - npm install
   - npm audit fix
+  - cd themes/obsidian
+  - npm install
+  - cd ../..
   
 script:
   - hexo clean
