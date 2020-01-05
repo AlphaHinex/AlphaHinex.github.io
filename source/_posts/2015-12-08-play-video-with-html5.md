@@ -5,6 +5,7 @@ date:   2015-12-11 10:34:47
 modified: 2015-12-16 16:47:47
 categories: Web
 tags: [HTML5, Video]
+cover: https://www.diygenius.com/wp-content/uploads/2013/07/learn-html5.jpg
 ---
 
 HTML5 定义了通过 video 元素在网页中嵌入视频的标准方式。尽管这种方式仍在不断进化中，也暂时不能做到在任何浏览器下都运转良好，但现代浏览器对其支持的趋势及程度还是很值得期待的，即便在一些不支持的环境下，也有替代方案可供选择。本文主要基于 Dive Into HTML5 # Video on the Web，并对一些内容有更新和补充。
