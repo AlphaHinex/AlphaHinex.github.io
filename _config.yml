@@ -90,6 +90,13 @@ include:
 exclude:
 ignore:
 
+# Analytics and webmaster tools stuff goes here
+google_analytics:    UA-69084811-1
+google_verify:       B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ
+# https://ssl.bing.com/webmaster/configure/verify/ownership Option 2 content= goes here
+bing_verify:         D769824B4D44C14A4C777A6EC4E898FC
+baidu_verify:        TimiEK4Y9V
+
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/

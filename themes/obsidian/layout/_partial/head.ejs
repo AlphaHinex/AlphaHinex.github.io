@@ -31,6 +31,11 @@ var description = '';
     <% if (keywords) { %><meta name="keywords" content="<%= keywords %>"> <% } %>
     <% if (description) { %><meta name="description" content="<%= description %>"> <% } %>
     <% if (config.author){ %><meta name="author" content="<%= config.author %>"> <% } %>
+
+    <% if (config.bing_verify) { %><meta name="msvalidate.01" content="<%= config.bing_verify %>"> <% } %>
+    <% if (config.baidu_verify) { %><meta name="baidu-site-verification" content="<%= config.baidu_verify %>"> <% } %>
+    <% if (config.google_verify) { %><meta name="google-site-verification" content="<%= config.google_verify %>"> <% } %>
+
     <% if (theme.rss){ %><link rel="alternative" href="<%- theme.rss %>" title="<%= config.title %>" type="application/atom+xml"> <% } %>
     <% if (theme.favicon){ %><link rel="icon" href="<%- url_for(theme.favicon) %>"> <% } %>
     <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
