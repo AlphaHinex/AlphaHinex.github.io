@@ -10,8 +10,11 @@ cover: https://github.blog/wp-content/uploads/2019/05/facebook-1200x630.png?fit=
 ---
 
 [GitHub Packages](https://help.github.com/en/github/managing-packages-with-github-packages) 可以用来当做 Release 版本 jar 包的 Maven 仓库。
+
 与 Maven 中央库比，没有繁琐的申请流程，可以快速的将 jar 包发布出去供他人使用。
+
 与 Nexus 私服相比，无需架设公网访问环境。
+
 **缺点** 是只支持 Release 版本的发布和下载，Snapshot 版本虽然可以发布上去，但无法被其他项目依赖。目前尚不支持自行删除已上传的 jar 包，需联系 GitHub 协助处理。
 
 本文以实例说明，在 Gradle 中如何利用 GPR（GitHub Packages Registry）进行发布版 jar 包的上传、下载及删除。
@@ -25,7 +28,9 @@ cover: https://github.blog/wp-content/uploads/2019/05/facebook-1200x630.png?fit=
 ### 在 GitHub 创建 Personal access token
 
 GPR 相当于一个需要权限才可访问的 Maven 仓库。故必须使用 GitHub 账号进行相应操作。虽按文档描述可直接利用 GitHub 账号密码（实际若直接用密码，会收到提示，无法正常使用），但更推荐的是通过 token 的方式，限定 token 的权限范围，利用不同 token 完成不同操作。
+
 可在 https://github.com/settings/tokens 创建个人的 token，GRP 相关权限可见 [About tokens](https://help.github.com/en/github/managing-packages-with-github-packages/about-github-packages#about-tokens)。
+
 建议创建如下两个 token：
 
 * 只读 token（包含 `read:packages`）：可用来从 GPR 下载自己 **及他人** 发布的 jar 包
@@ -93,15 +98,15 @@ $ ./gradlew publish
 
 ```gradle
 repositories {
-	mavenCentral()
+  mavenCentral()
   mavenLocal()
-	maven {
-		url "https://maven.pkg.github.com/alphahinex/spring-roll"
-		credentials {
-			username = 'GITHUB_USERNAME'
-			password = 'TOKEN_WITH_READ:PACKAGES_SCOPE'
-		}
-	}
+  maven {
+    url "https://maven.pkg.github.com/alphahinex/spring-roll"
+    credentials {
+      username = 'GITHUB_USERNAME'
+      password = 'TOKEN_WITH_READ:PACKAGES_SCOPE'
+    }
+  }
 }
 ```
 
