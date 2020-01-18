@@ -426,7 +426,7 @@ var Obsidian = {
             mode: Obsidian.getCodeMirrorMode(lang),
             lineNumbers: !item.is('.inline'),
             readOnly: true,
-            lineWrapping: true,
+            lineWrapping: false,
             theme: 'dracula'
           });
 
