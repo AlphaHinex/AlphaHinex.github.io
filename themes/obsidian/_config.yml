@@ -97,7 +97,7 @@ autoplay: false
 
 # default mp3 file
 mp3:
-  - statics/chengdu.mp3
+  - statics/background.mp3
 
 # ---------------------------------------------------------------
 # Plugins
