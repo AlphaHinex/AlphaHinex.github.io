@@ -10,11 +10,11 @@ keywords: Agile, TDD, DevOps, CI, CD, Sprint, Kanban, 结对编程, 站会, Scru
 cover: /contents/tdd-from-entry-to-abandon/01.jpg
 ---
 
-![](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/01.jpg)
+![01](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/01.jpg)
 
-![](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/02.jpg)
+![02](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/02.jpg)
 
-![](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/03.jpg)
+![03](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/03.jpg)
 
 ![](https://alphahinex.github.io/contents/tdd-from-entry-to-abandon/04.jpg)
 
