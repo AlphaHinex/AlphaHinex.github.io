@@ -4,7 +4,7 @@ title:  "Using Liquibase with Gradle in Spring Project"
 date:   2018.05.15 15:40:47
 categories: Java
 tags: [Liquibase, Spring, Gradle]
-cover: http://www.liquibase.org/custom_images/home_tagline.png
+cover: https://www.liquibase.org/custom_images/home_tagline.png
 ---
 
 Spring 项目通过 Gradle 插件使用 Liquibase 的简易说明
