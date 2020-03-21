@@ -320,9 +320,6 @@ img.spin {
   position: relative;
   z-index: 0;
   border-bottom-right-radius: 180px;
-  -webkit-animation: GradientEffect 1.2s ease infinite;
-  -moz-animation: GradientEffect 1.2s ease infinite;
-  animation: GradientEffect 1.2s ease infinite;
 }
 
 .screen-gradient-content {
@@ -1165,7 +1162,7 @@ footer {
       opacity: 0.4;
       border-radius: 45%;
       transform: translate(-50%, -70%) rotate(0);
-      animation: rotate 6s linear infinite;
+      animation: rotate 6s linear;
       z-index: 10;
     }
 
@@ -1176,7 +1173,7 @@ footer {
       background: linear-gradient(var(--dark), var(--secondary)) !important;
       opacity: 0.9;
       transform: translate(-50%, -70%) rotate(0);
-      animation: rotate 10s linear -5s infinite;
+      animation: rotate 10s linear -5s;
       z-index: 20;
     }
   }
@@ -2352,7 +2349,6 @@ h1.title {
           left: -8px;
           top: 1px;
           -webkit-animation: pulsate 1.2s ease-out;
-          -webkit-animation-iteration-count: infinite;
           opacity: 0.0
         }
 
