@@ -35,7 +35,14 @@ Spring MVC 按模块开发时，可能经常会遇到这个场景：一个模块
 
 定义多个 servlet 就好了嘛，每个 servlet 可以设定单独的 url mapping，同样能起到增加前缀的效果，一劳永逸，成本低，不增加额外负担。
 
-Spring MVC 使用 `DispatcherServlet` 处理请求，在传统 Spring MVC 项目中有 `web.xml` 文件，可以使用 `<servlet>` 及 `<servlet-mapping>` 配置多个 DispatcherServlet。
+Spring MVC 使用 `DispatcherServlet` 处理请求，在其 [JavaDoc](https://github.com/spring-projects/spring-framework/blob/v5.2.2.RELEASE/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java#L143-L146) 中有如下说明：
+
+>  * <p><b>A web application can define any number of DispatcherServlets.</b>
+ * Each servlet will operate in its own namespace, loading its own application context
+ * with mappings, handlers, etc. Only the root application context as loaded by
+ * {@link org.springframework.web.context.ContextLoaderListener}, if any, will be shared.
+
+传统 Spring MVC 项目中有 `web.xml` 文件，可以使用 `<servlet>` 及 `<servlet-mapping>` 配置多个 DispatcherServlet。
 
 但在 Spring Boot 环境中，自动配置了一个开箱即用的 DispatcherServlet，映射路径为 `/`，而且没有了 `web.xml`，这个时候如果我们想配置多个 DispatcherServlet 要怎么做呢？
 
