@@ -235,9 +235,6 @@ logs = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s
 
 ![github-merge](/contents/git-in-action/github-merge.png)
 ![github-merge-delete-branch](/contents/git-in-action/github-merge-delete-branch.png)
-
-* 合并 commit，清理分支
-
 ![gitlab-merge](/contents/git-in-action/gitlab-merge.png)
 
 ------
