@@ -167,7 +167,7 @@ task integrationTest(type: Test, dependsOn: test) {
 
 之后可通过 `gradlew test` 执行单元测试，通过 `gradlew integrationTest` 执行集成测试。
 
-> 单元测试中，涉及调用其他服务时，可通过注解 `@MockBeans` 来模拟其他微服务的行为，例如 [BusinessApplicationTest.groovy](https://github.com/AlphaHinex/seata-at-demo/blob/seata-at/modules/business/src/test/groovy/io/github/alphahinex/demo/seata/at/business/BusinessApplicationTest.groovy)
+> 单元测试中，涉及调用其他服务时，可通过注解 `@MockBean` 来模拟其他微服务的行为，例如 [BusinessApplicationTest.groovy](https://github.com/AlphaHinex/seata-at-demo/blob/seata-at/modules/business/src/test/groovy/io/github/alphahinex/demo/seata/at/business/BusinessApplicationTest.groovy)
 
 在本地环境可验证集成测试执行结果为通过。
 
