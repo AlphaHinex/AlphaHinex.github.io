@@ -4,7 +4,7 @@ title: "视频容器介绍"
 description: "视频容器及常见视频、音频编码格式介绍"
 date: 2020.03.12 19:26
 categories:
-    - Other
+    - Others
 tags: [Video, Codec]
 keywords: Video, Container, Audio, Codec
 cover: https://1yy04i3k9fyt3vqjsf2mv610yvm-wpengine.netdna-ssl.com/wp-content/uploads/2014/01/video-formats-codecs-1200x565.png
