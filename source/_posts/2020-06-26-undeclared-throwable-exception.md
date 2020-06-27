@@ -78,7 +78,7 @@ public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException 
 }
 ```
 
-使用 `ObjenesisCglibAopProxy` 创建代理时，会调用 [org.springframework.aop.framework.CglibAopProxy#getProxy(java.lang.ClassLoader](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L159) 方法，其中 [192](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L192) 行配置了一个 [ClassLoaderAwareUndeclaredThrowableStrategy](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L973) 策略。
+使用 `ObjenesisCglibAopProxy` 创建代理时，会调用 [org.springframework.aop.framework.CglibAopProxy#getProxy(java.lang.ClassLoader)](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L159) 方法，其中 [192](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L192) 行配置了一个 [ClassLoaderAwareUndeclaredThrowableStrategy](https://github.com/spring-projects/spring-framework/blob/v5.0.13.RELEASE/spring-aop/src/main/java/org/springframework/aop/framework/CglibAopProxy.java#L973) 策略。
 
 ```java
 enhancer.setStrategy(new ClassLoaderAwareUndeclaredThrowableStrategy(classLoader));
