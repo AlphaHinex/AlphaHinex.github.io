@@ -82,10 +82,12 @@ GatewayPorts
 
 > —— 引自 [sshd_config 中文手册](http://www.jinbuguo.com/openssh/sshd_config.html)
 
+在配置文件中进行 `GatewayPorts yes` 配置后，可通过 `systemctl restart sshd` 重启 ssh 服务使配置生效。
 
-## 怎么保持会话？
 
-SSH 客户端在空闲一段时间后可能会中断，需保持会话时，可在 `~/.ssh/config` 中加入：
+## 如何保持会话？
+
+按上述方式进行端口转发时，会通过 SSH 方式连接到服务端。但按默认设置，客户端在空闲一段时间后可能会中断，需保持会话时，可在 `~/.ssh/config` 中加入：
 
 ```config
 Host *
@@ -102,6 +104,33 @@ ServerAliveInterval
         Sets a timeout interval in seconds after which if no data has been received from the server, ssh(1) will send a message through the
         encrypted channel to request a response from the server.  The default is 0, indicating that these messages will not be sent to the
         server.
+```
+
+
+## 怎么后台运行
+
+设置了超时时间后，在 SSH 客户端存在期间可以一直使用端口转发。但客户端关闭后就会失效。SSH 提供了后台运行的方式来解决这个问题。
+
+以上面远程端口转发为例，可使用如下方式，使连接在后台运行。
+
+```bash
+$ ssh -fNgR 5506:localhost:3306 remote-host
+```
+
+各参数含义如下：
+
+```man
+-f      Requests ssh to go to background just before command execution.  This is useful if ssh is going to ask for passwords or
+        passphrases, but the user wants it in the background.  This implies -n.  The recommended way to start X11 programs at a remote
+        site is with something like ssh -f host xterm.
+
+        If the ExitOnForwardFailure configuration option is set to ``yes'', then a client started with -f will wait for all remote port
+        forwards to be successfully established before placing itself in the background.
+
+-N      Do not execute a remote command.  This is useful for just forwarding ports.
+
+-g      Allows remote hosts to connect to local forwarded ports.  If used on a multiplexed connection, then this option must be specified
+        on the master process.
 ```
 
 
