@@ -133,6 +133,12 @@ $ ssh -fNgR 5506:localhost:3306 remote-host
         on the master process.
 ```
 
+另外，后台运行时，同样也存在服务端断开连接的情况。此时若需保持会话，可通过 `-o` 参数指定客户端参数，如：
+
+```bash
+$ ssh -fNgR 5506:localhost:3306 remote-host -o ServerAliveInterval=30
+```
+
 
 ## 如何防止滥用 ？
 
