@@ -1,7 +1,7 @@
 ---
 id: deploy-first-app-in-k8s
 title: "在 k8s 集群中部署第一个应用"
-description: "完事开头难"
+description: "万事开头难"
 date: 2020.10.18 10:26
 categories:
     - Cloud
