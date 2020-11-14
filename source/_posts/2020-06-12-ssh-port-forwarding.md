@@ -183,6 +183,13 @@ PermitTunnel
         Independent of this setting, the permissions of the selected tun(4) device must allow access to the user.
 ```
 
+## 示例
+
+```bash
+# 将本地 3426 端口映射至 remote 22 端口，此时可 ssh 到此机器的 3426 端口，以实现以此机器作为跳板 ssh 到 remote 主机的效果
+$ ssh -fNgL 3426:remote:22 root@remote -o ServerAliveInterval=30
+```
+
 
 ## 参考资料
 
