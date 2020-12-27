@@ -45,7 +45,7 @@ classes and resources residing in container-wide library JARs.
 
 [Apache Tomcat 8 Class Loader HOW-TO][class-loader-how-to] 中，描述了 Tomcat 初始化时创建的 Class Loader：
 
-```
+```text
     Bootstrap
         |
      System
