@@ -7,7 +7,7 @@ categories:
     - Servlet
 tags: [Servlet, Java, Tomcat]
 keywords: Servlet, Class Loader, Web Application Class Loader, Tomcat
-cover: /contents/covers/tomcat-class-loader.jpg
+cover: /contents/covers/tomcat-class-loader.png
 ---
 
 实际 Java Web 项目中经常会遇到这样的场景：希望对依赖的某个三方库中的行为进行覆盖式的定制（修改三方库中的某些行为），但并不希望发布定制的版本至私服。
@@ -159,7 +159,7 @@ PS. 感兴趣的童鞋可以围观一下上面的邮件列表，里面的讨论�
 
 可以借助持续集成工具，在构建最终的发布包时，通过脚本等方式，对 JAR 包进行拆包、去重及重新打包，以达到目标。
 
-[class-loader]:(http://medialab.di.unipi.it/web/doc/JNetSec/jns_ch5.htm)
+[class-loader]:http://medialab.di.unipi.it/web/doc/JNetSec/jns_ch5.htm
 [class-loader-how-to]:http://tomcat.apache.org/tomcat-8.0-doc/class-loader-howto.html
 [servlet-2.4]:https://download.oracle.com/otndocs/jcp/servlet-2.4-fr-spec-oth-JSpec/
 [load-class]:https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/ClassLoader.java#L563
