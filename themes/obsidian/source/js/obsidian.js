@@ -427,7 +427,7 @@ var Obsidian = {
             lineNumbers: !item.is('.inline'),
             readOnly: true,
             lineWrapping: false,
-            theme: 'darcula'
+            theme: 'dracula'
           });
 
           item.find('.CodeMirror').prepend(
