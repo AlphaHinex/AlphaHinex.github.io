@@ -171,6 +171,7 @@ sharejs:
 # see https://codemirror.net/
 codemirror:
   modes: ['javascript', 'css', 'xml', 'htmlmixed', 'clike', 'php', 'shell', 'python', 'groovy', 'diff','nginx','properties']
+  theme: 'darcula'
 
 # Enabling mathjax support
 mathjax: true
