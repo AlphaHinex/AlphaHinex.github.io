@@ -77,6 +77,15 @@ cover: /contents/aws-free-tier/cover.jpg
 |$0.000 per GB - regional data transfer under the monthly global free tier|0.007 GB|$0.00|
 |$0.114 per GB - first 10 TB / month data transfer out beyond the global free tier|1.299 GB|$0.15|
 
+在账单界面可以看到具体限额和用量：
+
+|服务|免费套餐的使用量限额|
+|:--|:----------------|
+|Amazon Elastic Compute Cloud|750 hours per month of Amazon EC2 Linux, RHEL, or SLES t2.micro or t3.micro instance dependent on region|
+|Amazon Elastic Compute Cloud|30 GB of Amazon Elastic Block Storage in any combination of General Purpose (SSD) or Magnetic|
+|AWS Data Transfer|15 GB of bandwidth out aggregated across all AWS services|
+|AWS Key Management Service|20,000 free requests per month for AWS Key Management Service|
+
 ### 套餐到期
 
 12 个月的免费套餐到期时，开通的服务不会自动停止。服务继续运行将会产生费用。如不再使用，需手动停止服务。
@@ -87,7 +96,7 @@ cover: /contents/aws-free-tier/cover.jpg
 
 > 可通过控制台查询公网 IP 地址，也可以在主机中通过 `curl http://169.254.169.254/latest/meta-data/public-ipv4` 进行查询。
 
-另外，12个月免费期不是指 365 天，具体过期时间，可以收到的到期提醒邮件为准。
+另外，12个月免费期不是指 365 天，具体过期时间，可以收到的到期提醒邮件为准，大致为整月结算。
 
 
 [aws]:https://amazonaws-china.com/cn/
