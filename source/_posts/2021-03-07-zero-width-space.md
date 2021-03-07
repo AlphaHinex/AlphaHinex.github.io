@@ -10,7 +10,7 @@ keywords: 零宽字符, 零宽空格, zero width, zero width space
 # cover: /contents/covers/invisible.png
 ---
 
-原文地址：// TODO
+原文地址：https://wyiyi.github.io/amber/2021/03/06/zero-width-space/
 
 大家都熟悉的 Unicode（万国码）几乎包含 [所有符号](https://unicode-table.com/)：
 
