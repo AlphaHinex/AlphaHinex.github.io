@@ -1,7 +1,7 @@
 ---
 id: binary-operations
 title: "二进制算术运算"
-description: "封二进一，小数存在精度问题"
+description: "逢二进一，小数存在精度问题"
 date: 2021.04.04 10:34
 categories:
     - Others
