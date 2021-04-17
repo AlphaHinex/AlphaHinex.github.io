@@ -88,6 +88,8 @@ $ java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar d
 Listening for transport dt_socket at address: 5005
 ```
 
+> Tomcat 需要开启远程调试时，可以通过设置环境变量 `CATALINA_OPTS` 为上述对应 JDK 版本的启动参数；或在启动时，直接使用 `./catalina.sh jpda start` 以 jpda 模式启动即可。
+
 ## 客户端
 
 ### IDEA
