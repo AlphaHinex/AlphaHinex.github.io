@@ -163,7 +163,7 @@ spec:
 
 ## 参考资料
 
-* [//TODO](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)
+* [Rewrite](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)
 * [Multiple Ingress controllers](https://kubernetes.github.io/ingress-nginx/user-guide/multiple-ingress/)
 * [Ingress not working when kubernetes.io/ingress.class used](https://github.com/kubernetes/ingress-nginx/issues/2349)
 * [kubernetes中常用的Ingress Controller](https://cloud.tencent.com/developer/article/1579931)
