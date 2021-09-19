@@ -1,7 +1,7 @@
 ---
 id: how-to-fix-connection-pool-size-in-mysql
 title: "连接池如何固定住 MySQL 的连接数"
-description: "最大化 Ingress 价值"
+description: "正确使用连接池的 keep alive"
 date: 2021.09.19 10:34
 categories:
     - Database
