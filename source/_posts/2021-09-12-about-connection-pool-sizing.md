@@ -5,7 +5,7 @@ description: "两大误区，中招了吗？"
 date: 2021.09.12 10:26
 categories:
     - Database
-tags: [Database, Connection Pool]
+tags: [Database, Connection Pools]
 keywords: fixed size, HikariCP, minimumIdle, maximumPoolSize, 静态连接池, 动态连接池
 cover: /contents/about-connection-pool-sizing/cover.png
 ---
