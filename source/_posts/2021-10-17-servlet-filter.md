@@ -28,7 +28,7 @@ Servlet 作为Java Web 的基础，在 Servlet API 中提供了一个 Filter 接
  
  ### 应用
  将 Java 类实现 `javax.servlet.Filter` 接口，重写 doFilter() 方法（init()，destroy() 也可重写）
- ```
+ ```java
 public class AFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {}
@@ -42,7 +42,7 @@ public class AFilter implements Filter {
  ```
  #### 一、注册 Filter 方式
  1、通过传统的 web.xml 方式注册。
- ```
+ ```xml
     <filter>
        <filter-name>AFilter</filter-name>
            <filter-class>com.amber.demo.filter.AFilter</filter-class>
@@ -53,7 +53,7 @@ public class AFilter implements Filter {
     </filter-mapping>
  ```
  2、注解方式： @WebFilter，该方式是 web3.0 提供的注解，代替在 web.xml 文件中配置 filter，简化了开发。
-```
+```java
 @WebFilter(urlPatterns = "/*")
 public class AFilter implements Filter {
    // 同上...
@@ -65,7 +65,7 @@ public class AFilter implements Filter {
  
 1、在 chain.doFilter 中使用 `@WebFilter` 注解，会按照类名的字典顺序执行
 
- ```
+ ```java
 @Component
 @WebFilter(filterName = "aFilter", value = "/*")
 public class AFilter implements Filter {
@@ -92,7 +92,7 @@ public class AFilter implements Filter {
  ```
 
 以 `AFilter`、`BFilter`、`CFilter` 为例，执行的过滤器的顺序输出为：
- ```
+ ```text
 2021-09-17 14:53:41.116  INFO 2024 --- [nio-8040-exec-1] com.amber.demo.filter.AFilter: A 拦截前执行...
 2021-09-17 14:53:41.117  INFO 2024 --- [nio-8040-exec-1] com.amber.demo.filter.BFilter: B 拦截前执行...
 2021-09-17 14:53:41.117  INFO 2024 --- [nio-8040-exec-1] com.amber.demo.filter.CFilter: C 拦截前执行...
@@ -105,7 +105,7 @@ public class AFilter implements Filter {
 
 由于注解`@WebFilter`的源码（如下）中没有参数指定顺序，但是在Spring中提供了 `@Order` 注解可以指定Filter的执行顺序。
 
- ```
+ ```java
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -134,7 +134,7 @@ public @interface WebFilter {
 }
  ```
 -  @Order 注解： Order 值越小执行优先级越高。(注意：filterName 的值首字母小写，否则顺序会不生效)
- ```
+ ```java
 @Order(-1)
 @WebFilter(filterName = "aFilter", value = "/*")
 @Component
@@ -144,7 +144,7 @@ public class AFilter implements Filter {
  ```
 
 - 新增配置文件，通过 `FilterRegistrationBean` 实例注册并定义`Order`的属性（注意：过滤器的`Bean`类的注解只保留`@Component`）
- ```
+ ```java
 @Configuration
 public class ComponentFilterOrderConfig {
 
@@ -176,7 +176,7 @@ public class ComponentFilterOrderConfig {
     }
 }
  ```
- ```
+ ```java
 @Component
 public class AFilter implements Filter {
    ... AFilter、BFilter、CFilter 同上...
@@ -184,7 +184,7 @@ public class AFilter implements Filter {
  ```
 
 执行的过滤器的顺序输出为：
- ```
+ ```text
 2021-09-22 09:58:50.537  INFO 2816 --- [nio-8040-exec-1] com.amber.demo.filter.CFilter  : C 拦截后执行...
 2021-09-22 09:58:50.537  INFO 2816 --- [nio-8040-exec-1] com.amber.demo.filter.BFilter  : B 拦截后执行...
 2021-09-22 09:58:50.537  INFO 2816 --- [nio-8040-exec-1] com.amber.demo.filter.AFilter  : A 拦截后执行...
