@@ -37,7 +37,7 @@ The -F option can be used when the target process is not responding
 
 默认情况下，可以通过 `System.getproperty("java.io.tmpdir")`（Java 应用的临时路径）来获取操作系统临时路径，但 `java.io.tmpdir` 这个属性可以通过环境变量、启动参数等进行改变，而操作系统的临时路径是没有办法被修改的，因为是硬编码到 [对应操作系统的 JVM 代码](https://github.com/openjdk/jdk/blob/master/src/hotspot/os/linux/os_linux.cpp) 中的，如：
 
-```
+```cpp
 // This must be hard coded because it's the system's temporary
 // directory not the java application's temp directory, ala java.io.tmpdir.
 const char* os::get_temp_directory() { return "/tmp"; }
@@ -128,7 +128,7 @@ $ jstack -l 22480
 
 以 CentOS7 为例，临时文件夹下文件的删除，是由 Systemd Cleanup 任务完成的，可在其配置文件 `/usr/lib/tmpfiles.d/tmp.conf` 中，添加如下内容，以排除对 socket 文件的删除：
 
-```
+```conf
 x /tmp/.java_pid*
 ```
 

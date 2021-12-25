@@ -51,7 +51,7 @@ $ jps
 
 但有时可能会遇到类似下面的情况：
 
-```
+```bash
 $ jps
 12929 -- process information unavailable
 31097 -- process information unavailable
@@ -210,7 +210,7 @@ jmap -histo
 
 使用 `jmap` 命令，还可以获得堆中对象的柱状图统计信息，如：
 
-```
+```bash
 $ jmap -histo:live 7114 | more
 
  num     #instances         #bytes  class name
