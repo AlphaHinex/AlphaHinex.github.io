@@ -117,7 +117,7 @@ DEBUG 26589 --- [         task-6] i.g.a.t.service.DemoService              : tas
 
 此时再查看堆内存情况：
 
-```
+```bash
 $ jmap -heap 26589
 ...
 Heap Usage:
