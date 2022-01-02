@@ -1,7 +1,7 @@
 ---
 id: use-easyctl-to-execute-shell-on-multi-host
 title: "使用 easyctl 在多主机上并行执行脚本"
-description: "Linux, Mac 均可使用"
+description: "Linux, Mac，甚至 Windows 均可使用"
 date: 2022.01.02 10:34
 categories:
     - DevOps
@@ -18,7 +18,7 @@ easyctl
 
 上面这个场景，主要使用到了 easyctl 中的 [执行指令集 - 跨主机并行执行shell](https://weiliang-ms.github.io/easyctl/%E6%89%A7%E8%A1%8C%E6%8C%87%E4%BB%A4%E9%9B%86/01%E8%B7%A8%E4%B8%BB%E6%9C%BA%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8Cshell.html)，easyctl 提供的其他功能及使用方式，可见 [源码][ec] 或文档中的其他部分。
 
-因为 `跨主机并行执行 shell` 这个功能实际就是通过 ssh 连接到各主机，并行执行指定命令，并将最终直接结果汇总，所以理论上只要支持 ssh 的环境，都可以使用 easyctl 的这个功能。
+因为 `跨主机并行执行 shell` 这个功能实际就是通过 ssh 连接到各主机，并行执行指定命令，并将最终直接结果汇总，所以理论上只要支持 ssh 的环境，都可以使用 easyctl 的这个功能，比如 Mac，甚至 Windows（例如在 gitbash 下使用）。
 
 
 获取 easyctl 可执行文件
