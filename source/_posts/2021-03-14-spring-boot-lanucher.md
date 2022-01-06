@@ -66,7 +66,7 @@ Start-Class: com.mycompany.project.MyApplication
 $ java -cp example.jar -Dloader.path=./lib org.springframework.boot.loader.PropertiesLauncher
 ```
 
-注意，此时不再是使用 `java -jar` 方式启动，而是使用传统的 Java 应用启动方式，先通过 `-cp` 参数将 Fat Jar 加入 classpath，然后指定运行的主类 `PropertiesLauncher`，并且通过 `-D` 参数，将环境变量传入主类中。
+注意，此时不再是使用 `java -jar` 方式启动，而是使用传统的 Java 应用启动方式，先通过 `-cp` 参数将 Fat Jar 加入 classpath，然后指定运行的主类 `PropertiesLauncher`，并且通过 `-D` 参数，将系统属性传入主类中。
 
 关于 `PropertiesLauncher` 的更多信息，可参见 [官方文档][PropertiesLauncher]。
 
