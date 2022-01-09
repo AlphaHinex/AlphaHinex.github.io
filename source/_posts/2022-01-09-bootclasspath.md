@@ -59,7 +59,7 @@ JDK [文档](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.htm
     binary code license.
 ```
 
-因为我们是希望为已有的 Spring Boot 应用添加新类，所以采用 `-Xbootclasspath/a:path` 的形式，即再默认的启动 class path 后，追加新的目录或 Jar 包等。命令的参考形式如下，`/path/to/a.jar` 和 `/path/to/b.jar` 是需要追加的 Jar 包路径，多个 Jar 包之间通过分隔符间隔：
+因为我们是希望为已有的 Spring Boot 应用添加新类，所以采用 `-Xbootclasspath/a:path` 的形式，即在默认的启动 class path 后，追加新的目录或 Jar 包等。命令的参考形式如下，`/path/to/a.jar` 和 `/path/to/b.jar` 是需要追加的 Jar 包路径，多个 Jar 包之间通过分隔符间隔：
 
 ```bash
 $ java -Xbootclasspath/a:/path/to/a.jar:/path/to/b.jar -jar /path/app.jar
