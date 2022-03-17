@@ -3,7 +3,7 @@ id: transform-d3-calendar-view-to-github-contributions-step-by-step
 title:  "一步一步将 d3.js Calendar View 转变成 GitHub Contributions"
 date:   2015-11-26 16:12:47
 modified: 2015-12-02 13:23:49
-categories: Javascript
+categories: JavaScript
 tags: [Data Visualization, D3, GitHub, Calendar, Contributions]
 cover: /contents/calendar-view/all.gif
 ---
