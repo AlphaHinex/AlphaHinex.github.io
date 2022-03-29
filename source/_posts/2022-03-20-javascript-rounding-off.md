@@ -59,6 +59,20 @@ cover: /contents/covers/javascript-rounding-off.jpeg
 
 可以看到，每种方法都有计算结果与预期不符的情况，但方法 C 仅在某些极端情况下会出现错误，方法 D 也仅在 n 只能使用科学计数法进行表示时才会出现 NaN 的情况。
 
+## 负数
+
+当 n 为负数时，直接使用上面的四个方法均得不到正确的结果，因为上面的方法主要是采用增加偏移量和 `Math.round` 来进行计算的。
+
+|n                   |期望值|方法 A   |方法 B  |方法 C   |方法 D   |
+|:-------------------|:----|:-------|:-------|:-------|:-------|
+|-1.125              |-1.13|-1.12(X)|-1.12(X)|-1.12(X)|-1.12(X)|
+
+n 为正数时，增加偏移量，n 为负数时，应该减少偏移量；
+
+`Math.round` 在小数部分为 `0.5` 时，会取下一个最接近正无穷的最小整数：
+
+> If the fractional portion is exactly 0.5, the argument is rounded to the next integer in the direction of +∞. **Note that this differs from many languages' round() functions, which often round this case to the next integer away from zero**, instead giving a different result in the case of negative numbers with a fractional part of exactly 0.5.
+
 ## 结论
 
 总体来说，方法 C 和 方法 D 的适用性更好，可以用来作为在 JS 中进行四舍五入运算的方式。
@@ -72,3 +86,5 @@ cover: /contents/covers/javascript-rounding-off.jpeg
 # 方式二
 (+(Math.round(n + "e" + m)  + "e-" + m)).toFixed(m)
 ```
+
+**如果 n 为负数，可先取绝对值后用上述方法进行四舍五入，之后再将结果转换为负数。**

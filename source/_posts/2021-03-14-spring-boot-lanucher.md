@@ -11,9 +11,16 @@ keywords: PropertiesLauncher, classpath, classloader
 cover: /contents/covers/spring-boot-launcher.jpeg
 ---
 
+场景
+----
+
 假设使用 Spring Boot 开发了一个可使用不同数据库的应用，每个数据库的 jdbc 驱动包都不同，不想在 Fat Jar 中打入所有的数据库驱动 jar，又不想为每一个确定了具体数据库的场景都打一个对应的 Fat Jar 包，有没有优雅的方式来实现这个需求呢？
 
 我们先来看下 Spring Boot 的 Fat Jar（Executable Jar）是如何运行的。
+
+
+Launcher
+--------
 
 通常情况下，要启动一个 Spring Boot 应用，可通过如下方式：
 
@@ -58,17 +65,24 @@ Start-Class: com.mycompany.project.MyApplication
 
 所以通过调整默认 Launcher 及使用环境变量指定额外 classpath 的方式，即可实现添加 Fat Jar 外 jar 包至运行环境的需求。
 
+PropertiesLauncher
+------------------
+
 那么如果不想修改打包配置，或者手动修改 `MANIFEST.MF` 文件内容，该如何操作呢？
 
-比如本文最初提到的场景，可以将数据库的 jdbc 驱动 jar 包放在同级 lib 路径下，然后通过如下方式启动 Fat Jar：
+在 `PropertiesLauncher` 的 [文档][PropertiesLauncher] 中，有一个 `loader.path` 属性，相关描述如下：
+
+> Comma-separated Classpath, such as lib,${HOME}/app/lib. Earlier entries take precedence, like a regular -classpath on the javac command line.
+
+比如本文最初提到的场景，可以将数据库的 jdbc 驱动 jar 包放在同级 lib 路径下，然后利用此属性，通过如下方式启动 Fat Jar：
 
 ```bash
 $ java -cp example.jar -Dloader.path=./lib org.springframework.boot.loader.PropertiesLauncher
 ```
 
-注意，此时不再是使用 `java -jar` 方式启动，而是使用传统的 Java 应用启动方式，先通过 `-cp` 参数将 Fat Jar 加入 classpath，然后指定运行的主类 `PropertiesLauncher`，并且通过 `-D` 参数，将系统属性传入主类中。
+> 存在多个路径或文件时，可通过 `,` 间隔，一起指定，如：`-Dloader.path=../sentinel-1.8.2,./config`
 
-关于 `PropertiesLauncher` 的更多信息，可参见 [官方文档][PropertiesLauncher]。
+注意，此时不再是使用 `java -jar` 方式启动，而是使用传统的 Java 应用启动方式，先通过 `-cp` 参数将 Fat Jar 加入 classpath，然后指定运行的主类 `PropertiesLauncher`，并且通过 `-D` 参数，将系统属性传入主类中。
 
 通过这种方式，结合 [Override same class][override] 中相关内容，还可以实现无需重新打包，覆盖 Fat Jar 中类的某些行为。
 
