@@ -12,9 +12,9 @@ cover: /contents/wechat-mp-services/menu.jpeg
 
 公众号里积累了一些由用户主动发送消息触发的实用功能，因为都需要特定关键词触发，对记忆力有一定的考验，汇总如下，以便使用。
 
-![WeChat](https://alphahinex.github.io/slides/topics/tdd-from-entry-to-abandon/resources/public.jpg)
+![公众号](https://alphahinex.github.io/slides/topics/tdd-from-entry-to-abandon/resources/public.jpg)
 
-![menu](/contents/wechat-mp-services/menu.jpeg)
+![自定义菜单](/contents/wechat-mp-services/menu.jpeg)
 
 
 源远流长
@@ -97,7 +97,7 @@ cover: /contents/wechat-mp-services/menu.jpeg
 
 发送 `简书 <简书用户 ID>`，可查看指定用户的简书阅读量报告。
 
-![简书阅读量报告](/contents/jianshu-reading-report/report.jpeg)
+![简书阅读量报告](/contents/wechat-mp-services/jianshu.jpeg)
 
 更详细的用法可参见：[简书阅读量报告](https://alphahinex.github.io/2022/03/13/jianshu-reading-report/) 。
 
