@@ -56,22 +56,7 @@ cover: /contents/covers/javascript-rounding-off.jpeg
 |1.005               |1.01 |1.01 (√)|1.00 (X)|1.01 (√)|1.01 (√)|
 |9.495               |9.50 |9.49 (X)|9.49 (X)|9.49 (X)|9.50 (√)|
 |0.014999999999999965|0.01 |0.02 (X)|0.01 (√)|0.02 (X)|0.01 (√)|
-
-// TODO
-
 |1.496e-7            |0.00 |0.00 (√)|0.00 (√)|0.00 (√)|NaN  (X)|
-
-n=1.496e-7
-m=9
-console.debug((n + Number.EPSILON).toFixed(m))
-console.debug((Math.round(n * 100) / 100).toFixed(m))
-console.debug((Math.round((n + Number.EPSILON) * 100) / 100).toFixed(m))
-console.debug((+(Math.round(n + "e" + m)  + "e-" + m)).toFixed(m))
-
-0.000000150
-0.000000000
-0.000000000
-NaN
 
 可以看到，每种方法都有计算结果与预期不符的情况，但方法 D 仅在 n 只能使用科学计数法进行表示时才会出现与预期不符（`NaN`）的情况。
 
@@ -89,6 +74,8 @@ n 为正数时，增加偏移量，n 为负数时，应该减少偏移量；
 
 > If the fractional portion is exactly 0.5, the argument is rounded to the next integer in the direction of +∞. **Note that this differs from many languages' round() functions, which often round this case to the next integer away from zero**, instead giving a different result in the case of negative numbers with a fractional part of exactly 0.5.
 
+**如果 n 为负数，可先取绝对值后用上述方法进行四舍五入，之后再将结果转换为负数。**
+
 ## 结论
 
 总体来说，方法 D 的适用性最好，可以用来作为在 JS 中进行四舍五入运算的主要方式。
@@ -97,10 +84,5 @@ n 为正数时，增加偏移量，n 为负数时，应该减少偏移量；
 # n 为浮点数，代表要四舍五入的数
 # m 为整数，代表小数部分保留的位数
 
-# 方式一
-(Math.round((n + Number.EPSILON) * Math.pow(10, m)) / Math.pow(10, m)).toFixed(m)
-# 方式二
-(+(Math.round(n + "e" + m)  + "e-" + m)).toFixed(m)
+n > 0 ? (+(Math.round(n + "e" + m)  + "e-" + m)).toFixed(m) : -((+(Math.round(-n + "e" + m)  + "e-" + m)).toFixed(m))
 ```
-
-**如果 n 为负数，可先取绝对值后用上述方法进行四舍五入，之后再将结果转换为负数。**
