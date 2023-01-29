@@ -13,13 +13,13 @@ cover: /contents/wechat-mp-daily-report/cover.png
 
 在微信公众平台中，提供了前一日 00:00 ~ 24:00 的阅读、分享、关注数统计，如：
 
-![](/contents/wechat-mp-daily-report/lastday.png)
+![昨日数据统计](/contents/wechat-mp-daily-report/lastday.png)
 
 但当我们想知道这个昨日阅读的次数，分别是由哪些文章产生的，每篇文章新增了多少阅读量时，无论桌面端的微信公众平台还是移动端的订阅号助手，都无法给出我们这个明细数据。
 
 如果能有这样一个统计每天推送过来就好了：
 
-![](/contents/wechat-mp-daily-report/cover.png)
+![增长明细](/contents/wechat-mp-daily-report/cover.png)
 
 # 快速体验
 
@@ -27,13 +27,13 @@ cover: /contents/wechat-mp-daily-report/cover.png
 
 使用钉钉扫描下方二维码，申请加入钉钉群，以便接收阅读量统计消息。
 
-![](/contents/wechat-mp-daily-report/dingtalk.png)
+![钉钉群二维码](/contents/wechat-mp-daily-report/dingtalk.png)
 
 ## 向 `周拱壹卒` 公众号发送消息
 
 扫描下方二维码关注 `周拱壹卒` 公众号，并发送 `公众号` 关键字，加空格，再加要统计的公众号的 Cookie 值（获取 Cookie 方式可见下文），如 `公众号 appmsglist_...`，稍等片刻即可在钉钉群中接收到阅读量统计消息了。
 
-![](https://alphahinex.github.io/slides/topics/tdd-from-entry-to-abandon/resources/public.jpg)
+![公众号二维码](https://alphahinex.github.io/slides/topics/tdd-from-entry-to-abandon/resources/public.jpg)
 
 首次交互将进行数据初始化，会认为所有阅读量都是新增的阅读量。间隔一段时间后再次向公众号发送消息，可统计两次发送间隔时间内的增量数据。
 
@@ -52,7 +52,7 @@ cover: /contents/wechat-mp-daily-report/cover.png
 
 访问 https://mp.weixin.qq.com/ 并登录公众号后，打开浏览器调试工具（按 F12），切换至 Network 选项卡，点击公众号图标刷新页面，找一个请求头中带有 `cookie` 的请求，如下图：
 
-![](/contents/wechat-mp-daily-report/cookie.png)
+![获得公众号Cookie](/contents/wechat-mp-daily-report/cookie.png)
 
 将 `cookie` 的值完整的复制出来，存放到任意文件中备用。
 
