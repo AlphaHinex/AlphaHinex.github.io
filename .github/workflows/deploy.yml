@@ -34,4 +34,4 @@ jobs:
     - run: git config user.email "AlphaHinex@gmail.com"
     - run: git add .
     - run: git commit -m "Update docs"
-    - run: git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" master:master
+    - run: git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" main:master
