@@ -1,6 +1,4 @@
 AlphaHinex GitHub Pages
 =======================
 
-<a href="https://travis-ci.com/AlphaHinex/AlphaHinex.github.io">
-  <img src="https://travis-ci.com/AlphaHinex/AlphaHinex.github.io.svg?branch=develop"/>
-</a>
+[![Deploy to github pages](https://github.com/AlphaHinex/AlphaHinex.github.io/actions/workflows/deploy.yml/badge.svg?branch=develop)](https://github.com/AlphaHinex/AlphaHinex.github.io/actions/workflows/deploy.yml)
