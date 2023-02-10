@@ -25,6 +25,7 @@ jobs:
     - run: cd themes/obsidian
     - run: npm install
     - run: cd ../..
+    - run: npm install hexo-cli -g
     - run: hexo clean
     - run: hexo g
     - run: cd ./public
