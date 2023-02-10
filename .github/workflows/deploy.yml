@@ -19,19 +19,17 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 13.x
-        # cache: 'npm'
     - run: npm install
     - run: npm audit fix
-    - run: cd themes/obsidian
-    - run: npm install
-    - run: cd ../..
+    - run: cd themes/obsidian && npm install
     - run: npm install hexo-cli -g
     - run: hexo clean
     - run: hexo g
-    - run: cd ./public
-    - run: git init
-    - run: git config user.name "Alpha Hinex"
-    - run: git config user.email "AlphaHinex@gmail.com"
-    - run: git add .
-    - run: git commit -m "Update docs"
-    - run: git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" main:master
+    - run: |
+        cd ./public
+        git init
+        git config user.name "Alpha Hinex"
+        git config user.email "AlphaHinex@gmail.com"
+        git add .
+        git commit -m "Update docs"
+        git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" main:master
