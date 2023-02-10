@@ -32,4 +32,5 @@ jobs:
         git config user.email "AlphaHinex@gmail.com"
         git add .
         git commit -m "Update docs"
-        git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" master:master
+        git remote add origin https://github.com/AlphaHinex/AlphaHinex.github.io
+        git push --force origin master
