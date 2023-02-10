@@ -1,0 +1,36 @@
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
+name: Deploy to github pages
+
+on:
+  push:
+    branches: [ "develop" ]
+
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 13
+      uses: actions/setup-node@v3
+      with:
+        node-version: 13.x
+        cache: 'npm'
+    - run: npm ci
+    - run: npm audit fix
+    - run: cd themes/obsidian
+    - run: npm install
+    - run: cd ../..
+    - run: hexo clean
+    - run: hexo g
+    - run: cd ./public
+    - run: git init
+    - run: git config user.name "Alpha Hinex"
+    - run: git config user.email "AlphaHinex@gmail.com"
+    - run: git add .
+    - run: git commit -m "Update docs"
+    - run: git push --force "https://$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" master:master
