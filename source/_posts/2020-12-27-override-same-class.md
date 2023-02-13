@@ -163,5 +163,5 @@ PS. 感兴趣的童鞋可以围观一下上面的邮件列表，里面的讨论�
 [class-loader-how-to]:http://tomcat.apache.org/tomcat-8.0-doc/class-loader-howto.html
 [servlet-2.4]:https://download.oracle.com/otndocs/jcp/servlet-2.4-fr-spec-oth-JSpec/
 [load-class]:https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/ClassLoader.java#L563
-[alphabetical-order]:(https://bz.apache.org/bugzilla/show_bug.cgi?id=57129)
-[order-from-lib]:(https://stackoverflow.com/questions/5474765/order-of-loading-jar-files-from-lib-directory)
+[alphabetical-order]:https://bz.apache.org/bugzilla/show_bug.cgi?id=57129
+[order-from-lib]:https://stackoverflow.com/questions/5474765/order-of-loading-jar-files-from-lib-directory
