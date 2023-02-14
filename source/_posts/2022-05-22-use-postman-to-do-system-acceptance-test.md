@@ -283,3 +283,11 @@ $ newman run 云平台可用性验证.postman_collection.json --folder 创建测
 ```
 
 > 注意：命令行方式运行时，预置的变量需要设定 `INITIAL VALUE`，因为 `CURRENT VALUE` 不会被持久化到 JSON 文件中。
+
+`newman` 中变量相关的参数只有环境变量（`--env-var`）和全局变量（`--global-var`）两个。当需要通过命令行传入参数覆盖 js 脚本中使用的集合变量时（如在 js 中使用了 `pm.collectionVariables.get("base_url")`，想通过命令行传参覆盖 `base_url` 的 `INITIAL VALUE`），无法直接通过参数传入集合变量。可在集合的请求前脚本（`Pre-request Script`）中，读取到传入的环境变量或全局变量时将集合变量覆盖，如：
+
+```js
+if (pm.environment.get("base_url")) {
+    pm.collectionVariables.set("base_url", pm.environment.get("base_url"));
+}
+```
