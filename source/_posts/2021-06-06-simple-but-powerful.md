@@ -51,7 +51,7 @@ http://alpha.hinex.localtest.me:9876/
 
 ### [nip.io](https://nip.io/)
 
-相关说明可见官网（https://nip.io/），简单来说，就是使用 `xxx.<ip>.nip.io` 等域名规则，可以将域名解析到对应的 ip 上，如：
+相关说明可见官网（ https://nip.io/ ），简单来说，就是使用 `xxx.<ip>.nip.io` 等域名规则，可以将域名解析到对应的 ip 上，如：
 
 http://alpha.hinex.192.168.77.57.nip.io:9876/
 
