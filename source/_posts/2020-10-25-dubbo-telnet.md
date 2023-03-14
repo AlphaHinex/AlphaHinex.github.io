@@ -16,6 +16,11 @@ cover: /contents/covers/dubbo-telnet.png
 
 本文以使用 [ZooKeeper v3.6.1](https://github.com/apache/zookeeper/tree/release-3.6.1) 为注册中心，[dubbo-samples-zookeeper](https://github.com/apache/dubbo-samples/tree/master/java/dubbo-samples-zookeeper) 示例代码为例，介绍一下自 dubbo v2.0.5 版本开始支持的 telnet 命令用法。
 
+> 新版本的 dubbo 默认不会开启 telnet 调用，需明确指定 [如下](https://github.com/apache/dubbo/issues/9320) 配置，才可使用：
+> ```properties
+> dubbo.provider.telnet=ls,ps,cd,pwd,trace,count,invoke,select,status,log,help,clear,exit,shutdown
+> ```
+
 ## 环境准备
 
 ### 启动注册中心
@@ -151,6 +156,8 @@ Use default service org.apache.dubbo.samples.api.GreetingService.
 result: "hello, hinex"
 elapsed: 1 ms.
 ```
+
+> 当入参类型为 POJO 类时，可通过 JSON 字符串的方式表示入参的值，如：`{"id": "123456","flag": "1","no": "123456"}`
 
 ## 参考资料
 
