@@ -5,9 +5,6 @@ on:
   push:
     branches: [ "develop" ]
 
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   build-and-deploy:
 
@@ -15,21 +12,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js 13
-      uses: actions/setup-node@v3
+      name: Use Node.js 13
+    - uses: actions/setup-node@v3
       with:
         node-version: 13.x
-    - run: npm install
-    - run: npm audit fix
-    - run: cd themes/obsidian && npm install
-    - run: npm install hexo-cli -g
-    - run: hexo clean
-    - run: hexo g
-    - run: |
+      run: npm install
+      run: npm audit fix
+      run: cd themes/obsidian && npm install
+      run: npm install hexo-cli -g
+      run: hexo clean
+      run: hexo g
+      run: |
         cd ./public
         git init
         git config user.name "Alpha Hinex"
         git config user.email "AlphaHinex@gmail.com"
         git add .
         git commit -m "Update docs"
-        git push --force "https://AlphaHinex:$GH_TOKEN@github.com/AlphaHinex/AlphaHinex.github.io" master:master
+        git push --force "https://AlphaHinex:${{ secrets.GITHUB_TOKEN }}@github.com/AlphaHinex/AlphaHinex.github.io" master:master
