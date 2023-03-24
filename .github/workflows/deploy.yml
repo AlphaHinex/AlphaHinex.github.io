@@ -16,13 +16,13 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 13.x
-      run: npm install
-      run: npm audit fix
-      run: cd themes/obsidian && npm install
-      run: npm install hexo-cli -g
-      run: hexo clean
-      run: hexo g
-      run: |
+    - run: npm install
+    - run: npm audit fix
+    - run: cd themes/obsidian && npm install
+    - run: npm install hexo-cli -g
+    - run: hexo clean
+    - run: hexo g
+    - run: |
         cd ./public
         git init
         git config user.name "Alpha Hinex"
