@@ -50,3 +50,11 @@ $ cat /paht/to/a.pub >> ~/.ssh/authorized_keys
 ```bash
 $ ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote
 ```
+
+## 按上述配置后依然需要密码登录
+
+可查看安全日志中的异常信息，如 CentOS 中 `/var/log/secure`，如提示 `Authentication refused: bad ownership or modes for file /home/xxx/.ssh/authorized_keys`，则需要修改 `.ssh` 目录和 `authorized_keys` 文件的权限，去掉用户组的写权限：
+
+```bash
+chmod g-w authorized_keys
+```
