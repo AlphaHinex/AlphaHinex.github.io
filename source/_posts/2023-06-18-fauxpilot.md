@@ -38,7 +38,7 @@ Nvidia container toolkit 的离线安装方式可参考 [用 PaddleNLP 结合 Co
 
 如果是联网环境，可参照 [How to set-up a FauxPilot server](https://github.com/fauxpilot/fauxpilot/blob/main/documentation/server.md) 通过 `setup.sh` 下载模型并直接启动服务，或在完成配置后，使用 `launch.sh` 脚本启动服务。
 
-FasterTransformer backend 和 Python backend 中推荐选择 FasterTransformer backend。
+> FasterTransformer backend 和 Python backend 中推荐选择 FasterTransformer backend。
 
 服务启动时，会通过 Docker Compose，按照 [docker-compose.yaml](https://github.com/fauxpilot/fauxpilot/blob/main/docker-compose.yaml) 的配置，以及 [proxy.Dockerfile](https://github.com/fauxpilot/fauxpilot/blob/main/proxy.Dockerfile)、[triton.Dockerfile](https://github.com/fauxpilot/fauxpilot/blob/main/triton.Dockerfile) 构建两个镜像：
 
@@ -59,7 +59,59 @@ $ docker load < fauxpilot-triton.tar
 $ docker load < fauxpilot-proxy.tar
 ```
 
-然后将下载好的模型文件路径和执行 `setup.sh` 后生成的 `.env` 文件传入离线环境，根据实际情况调整 `.env` 文件中的 `MODEL_DIR` 和 `HF_CACHE_DIR` 为离线环境路径，之后直接通过 Docker Compose 启动即可：
+然后将下载好的模型文件目录、`docker-compose.yaml` 和执行 `setup.sh` 后生成的 `.env` 文件传入离线环境：
+
+```bash
+$ tree -a
+├── .env
+├── docker-compose.yaml
+└── models
+    └── codegen-16B-multi-2gpu
+        └── fastertransformer
+            ├── 1
+            │   └── 2-gpu
+            │       ├── config.ini
+            │       ├── model.final_layernorm.bias.bin
+            |       ├── ...
+            │       └── model.wte.bin
+            └── config.pbtxt
+```
+
+根据实际情况调整 `.env` 文件中的 `MODEL_DIR` 和 `HF_CACHE_DIR` 为离线环境路径，并将 `docker-compose.yaml` 中 `build` 部分改为直接使用镜像：
+
+```yaml
+version: '3.3'
+services:
+  triton:
+    image: fauxpilot-main-triton:latest
+    command: bash -c "CUDA_VISIBLE_DEVICES=${GPUS} mpirun -n 1 --allow-run-as-root /opt/tritonserver/bin/tritonserver --model-repository=/model"
+    shm_size: '2gb'
+    volumes:
+      - ${MODEL_DIR}:/model
+      - ${HF_CACHE_DIR}:/root/.cache/huggingface
+    ports:
+      - "8000:8000"
+      - "${TRITON_PORT}:8001"
+      - "8002:8002"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+  copilot_proxy:
+    # For dockerhub version
+    image: fauxpilot-main-copilot_proxy:latest
+    command: uvicorn app:app --host 0.0.0.0 --port 5000
+    env_file:
+      # Automatically created via ./setup.sh
+      - .env
+    ports:
+      - "${API_EXTERNAL_PORT}:5000"
+```
+
+之后直接通过 Docker Compose 启动即可：
 
 ```bash
 $ docker compose up
