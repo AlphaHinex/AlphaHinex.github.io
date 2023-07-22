@@ -82,7 +82,7 @@ cover: /contents/applied-natural-language-processing-in-the-enterprise/cover.jpg
 
 ### 3.5.5 自定义 NER 模型与原始 NER 模型
 
-> 将微调后基于 Transformer 的模型与原始的 `en_core_web_trf` 模型直接对比兵不公平，因为微调后模型只支持四种实体类别（ORG、PERSON、GPE 和 TICKER），而原始的 `en_core_web_trf` 支持更多的实体类别（但不支持 TICKER，这是我们刚为 AG 新闻数据集标注的新实体类别）。
+> 将微调后基于 Transformer 的模型与原始的 `en_core_web_trf` 模型直接对比并不公平，因为微调后模型只支持四种实体类别（ORG、PERSON、GPE 和 TICKER），而原始的 `en_core_web_trf` 支持更多的实体类别（但不支持 TICKER，这是我们刚为 AG 新闻数据集标注的新实体类别）。
 
 ## 3.7 总结
 
