@@ -64,14 +64,14 @@ cover: /contents/attention/attention.png
 序列到序列模型是一种将一系列项目（如单词、字母、图像的特征等）输入并输出一系列其他项目的模型。一个训练过的模型将以如下方式工作：
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_1.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 在神经机器翻译中，序列是一系列单词，逐个处理后，输出也是一系列单词：
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_2.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_2.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -82,14 +82,14 @@ cover: /contents/attention/attention.png
 编码器 <span class="encoder">encoder</span> 处理输入序列中的每个项目，并将其捕获的信息编译成一个向量（称为 上下文 <span class="context">context</span>）。在处理完整个输入序列之后，编码器 <span class="encoder">encoder</span> 将上下文 <span class="context">context</span> 发送给解码器 <span class="decoder">decoder</span>，解码器开始逐个生成输出序列的项目。
 
 <video width="100%" height="auto" loop autoplay  controls>
-  <source src="/contents/attention/seq2seq_3.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_3.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
 机器翻译也是相同的情况。
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_4.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_4.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -112,7 +112,7 @@ cover: /contents/attention/attention.png
 现在我们已经介绍了我们的主要向量/张量，让我们回顾一下 RNN 的机制并建立一个可视化的语言来描述这些模型：
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/RNN_1.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/RNN_1.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -125,7 +125,7 @@ RNN 下一步会使用第二个输入向量和第一步的隐藏状态，创建�
 让我们观察编码器 <span class="encoder">encoder</span> 的隐藏状态 <span class="context">hidden states</span>。请注意，实际上最后一个隐藏状态 <span class="context">hidden state</span> 我们作为上下文 <span class="context">context</span>传递给了解码器 <span class="decoder">decoder</span>。
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_5.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_5.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -134,7 +134,7 @@ RNN 下一步会使用第二个输入向量和第一步的隐藏状态，创建�
 现在让我们来看看另一种可视化序列到序列模型的方式。这个动画将更容易理解描述这些模型的静态图形。这被称为“展开”视图，在这个视图中，我们不只显示一个解码器 <span class="decoder">decoder</span>，而是为每个时间步骤显示一个副本。这样我们就可以查看每个时间步骤的输入和输出。
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_6.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_6.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -153,7 +153,7 @@ RNN 下一步会使用第二个输入向量和第一步的隐藏状态，创建�
 首先，编码器 <span class="encoder">encoder</span> 将更多的数据传递给解码器 <span class="decoder">decoder</span>。编码器 <span class="encoder">encoder</span> 不再只传递编码阶段的最后隐藏状态，而是将 *所有* 隐藏状态 <span class="context">hidden states</span> 都传递给解码器 <span class="decoder">decoder</span>：
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_7.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_7.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
@@ -164,7 +164,7 @@ RNN 下一步会使用第二个输入向量和第一步的隐藏状态，创建�
 1. 将每个隐藏状态 <span class="context">hidden state</span> 乘以其经过 softmax 处理后的分数，从而放大具有高分数的隐藏状态 <span class="context">hidden states</span>，并淹没具有低分数的隐藏状态 <span class="context">hidden states</span>
 
 <video width="100%" height="auto" loop autoplay controls>
-   <source src="/contents/attention/attention_process.mp4" type="video/mp4">
+   <source src="https://jalammar.github.io/images/attention_process.mp4" type="video/mp4">
    Your browser does not support the video tag.
 </video>
 
@@ -181,14 +181,14 @@ RNN 下一步会使用第二个输入向量和第一步的隐藏状态，创建�
 1. 下一个时间步骤重复以上步骤。
 
 <video width="100%" height="auto" loop autoplay controls>
-   <source src="/contents/attention/attention_tensor_dance.mp4" type="video/mp4">
+   <source src="https://jalammar.github.io/images/attention_tensor_dance.mp4" type="video/mp4">
    Your browser does not support the video tag.
 </video>
 
 这是另一种观察我们在每个解码步骤上关注输入句子的哪个部分的方式：
 
 <video width="100%" height="auto" loop autoplay controls>
-  <source src="/contents/attention/seq2seq_9.mp4" type="video/mp4">
+  <source src="https://jalammar.github.io/images/seq2seq_9.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
