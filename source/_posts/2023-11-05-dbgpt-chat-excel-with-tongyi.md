@@ -71,6 +71,18 @@ LANGUAGE=zh
 TONGYI_PROXY_API_KEY=sk-xxxxxxxxx
 ```
 
+下载 Embedding 模型：
+
+```bash
+$ mkdir models && cd models
+#### embedding model
+$ git clone https://huggingface.co/GanymedeNil/text2vec-large-chinese
+# or
+# git clone https://huggingface.co/moka-ai/m3e-large
+# back to DB-GPT root folder
+$ cd ..
+```
+
 之后启动 DB-GPT 服务：
 
 ```bash
