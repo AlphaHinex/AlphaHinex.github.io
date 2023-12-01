@@ -1,7 +1,7 @@
 ---
 id: deepspeed-finetune-codegen
 title: "让 AI 辅助编写内部代码"
-description: "使用 DeepSpeed 微调 CodeGen 模型并可在 FauxPiolot 中使用"
+description: "使用 DeepSpeed 微调 CodeGen 模型并可在 FauxPilot 中使用"
 date: 2023.07.23 10:26
 categories:
     - AI
