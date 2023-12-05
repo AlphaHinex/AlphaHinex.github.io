@@ -17,7 +17,7 @@ cover: /contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-index.
 Apache Kafka 采用类似提交日志的方式处理消息的存储。消息一个接一个的追加在每个日志的末尾，每个日志也会被分成段。分段有助于删除较旧的消息记录及提高性能等。所以，日志是一个由段（文件）组成的消息记录的逻辑序列，每个段内存储的是一部分消息。消息代理（Broker）的配置允许您调整与日志相关的参数。您可以使用这些配置来控制段的滚动、记录的保留策略等。
 
 > 译注：Kafka 中使用主题（topic）对消息进行分类隔离。每个 topic 下可以设置分区（partition），每个 partition 内消息是有序的，一个 topic 的不同 partition 之间，不能保证消息顺序。生产者会将消息指派给 topic 内的某一个 partition，可以基于轮询策略，也可以根据消息中的关键字进行划分，将相同关键字的消息发送给同一个 partition，以保证消息的有序性。一个主题的逻辑结构如下[图](https://kafka.apache.org/24/documentation.html#intro_topics)，图中分区内的每个标序号的小方格，即为上文中提到的 **段**。
-> ![](/contents/deep-dive-into-apache-kafka-storage-internals/topic.png)
+> ![topic](/contents/deep-dive-into-apache-kafka-storage-internals/topic.png)
 
 并非每个人都知道这些参数对消息代理的行为有何影响。例如，他们会决定消息记录被保存多久以便使消费者能够消费这些消息。在这篇文章中，我们将深入探讨在日志清理策略设置为删除（`delete`）时，日志分段和记录保留策略会如何影响消息代理的性能。当您了解有关其工作原理的更多信息后，您可能会想要调整您的日志配置。
 
@@ -72,7 +72,7 @@ drwxrwxr-x. 55 ppatiern ppatiern     1220 Nov 14 16:33 ..
 
 从示例中，您可以看到旧段在达到 16314 字节时被关闭。这是因为 Canary 的主题配置了 `segment.bytes=16384` 参数，指定了段的最大尺寸。我们将在稍后讨论此配置。150 byes 是 Canary 组件发送的每条消息的大小。因此，每个段将包含 109 条记录。109 * 150 字节 = 16350 字节，接近段的最大容量。
 
-![](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-segments.png)
+![segments](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-segments.png)
 
 还可以通过使用 Apache Kafka 发行版提供的 `DumpLogSegments` 工具从日志段中转储记录。运行以下命令将显示指定段日志中的记录。
 
@@ -102,7 +102,7 @@ baseOffset: 108 lastOffset: 108 count: 1 baseSequence: 0 lastSequence: 0 produce
 
 如前所述，`.index` 文件包含一个索引，该索引将逻辑偏移量映射到 `.log` 文件中记录的字节偏移量。您可能希望此映射可用于每条记录，但它不是以这种方式工作的。让我们考虑 Canary 组件发送的记录，其大小约为 150 字节。在下图中，您可以看到，对于日志文件中存储的 85 条记录，相应的索引只有 3 个条目。
 
-![](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-index.png)
+![index](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-index.png)
 
 偏移量为 28 的记录位于日志文件中字节偏移量 4169 处，偏移量为 56 的记录位于字节偏移量 8364 处，依此类推。通过使用 `DumpLogSegments` 工具，可以转储 `.index` 文件内容。
 
@@ -128,7 +128,7 @@ Apache Kafka 还允许您根据时间戳开始使用记录。这是 `.timeindex`
 
 在下图中，您可以看到从 `1638100314372` 时间戳开始的消息，起始的偏移量是 28，`1638100454372` 时间戳的消息，起始的偏移量为 56，依此类推。
 
-![](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-timeindex.png)
+![timeindex](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-timeindex.png)
 
 时间戳索引文件中每个条目的大小为 12 个字节，时间戳为 8 个字节，偏移量为 4 个字节。它准确地反映了 Strimzi Canary 组件如何生成记录，因为它每 5 秒发送一条记录。140 秒（28 x 5）内将发送 28 条记录，这正是时间戳之间的间隔：1638100454372 - 1638100314372 = 140000 毫秒。通过使用 `DumpLogSegments` 工具，可以转储 `.timeindex` 文件内容。
 
@@ -200,7 +200,7 @@ timestamp: 1638100594371 offset: 84
 
 假设在某个时刻，清理线程开始运行，并验证了一个已关闭的段可以被删除。它会为相应的文件添加 `.delete` 扩展名，但实际上并不会从文件系统中删除该段文件。消息代理上的 `log.segment.delete.delay.ms` 参数用来指定当文件被标记为“delete”时，文件会延迟多久再真正从文件系统中被删除（缺省时间为 1 分钟）。
 
-![](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-total-retention-time.png)
+![total-retention-time](/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-total-retention-time.png)
 
 再次回到 Canary 的例子，并假设延迟删除，我们段中的第一条记录在 25 分钟后仍然存在！它比预期的 10 分钟长得多，不是吗？
 
