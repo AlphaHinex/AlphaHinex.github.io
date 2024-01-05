@@ -1,7 +1,7 @@
 ---
 id: human-eval
 title: "HumanEval"
-description: ""
+description: "HumanEval 用法简介"
 date: 2023.12.31 10:34
 categories:
     - AI
