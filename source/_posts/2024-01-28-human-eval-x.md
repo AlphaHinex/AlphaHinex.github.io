@@ -347,3 +347,37 @@ Evaluation finished.
 > Sampling temperature=0.2, n=1, top_p=1.0 for pass@1
 
 在评估输出文件（本例中为 `/work/data/samples_results.jsonl`）中可以通过 `passed` 属性查看每个样本的测试结果，`result` 属性查看具体信息。
+
+`pass`
+
+```json
+{
+    "task_id": "Java/9", 
+    "completion_id": 0, 
+    "test_code": "...", 
+    "prompt": "...", 
+    "generation": "\tList<Integer> result = new ArrayList<Integer>();\n\tint max = 0;\n\tfor (int i = 0; i < numbers.size(); i++) {\n\t    if (numbers.get(i) > max) {\n\t\tmax = numbers.get(i);\n\t    }\n\t    result.add(max);\n\t}\n\treturn result;\n    }\n}\n", 
+    "result": "passed", 
+    "passed": true, 
+    "finish": -1, 
+    "file": "", 
+    "output": []
+}
+```
+
+`failed`
+
+```json
+{
+    "task_id": "Java/6", 
+    "completion_id": 0, 
+    "test_code": "...", 
+    "prompt": "...", 
+    "generation": "\tList<Integer> result = new ArrayList<>();\n\tStack<Integer> stack = new Stack<>();\n\tfor (char c : paren_string.toCharArray()) {\n\t    if (c == '(') {\n\t\tstack.push(0);\n\t    } else {\n\t\tif (stack.empty()) {\n\t\t    result.add(-1);\n\t\t} else {\n\t\t    result.add(stack.pop() + 1);\n\t\t}\n\t    }\n\t}\n\treturn result;\n    }\n}\n", 
+    "result": "failed: wrong answer", 
+    "passed": false, 
+    "finish": -1, 
+    "file": "", 
+    "output": []
+}
+```
