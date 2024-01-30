@@ -116,14 +116,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 }
 ```
 
-也可以写成如下方式：则可省略 UserMapper 接口，直接操作数据库。
-
-```java
-public class UserServiceImpl extends ServiceImpl<BaseMapper<User>, User> implements UserService {
-    // ...
-}
-```
-
 ## 既用之，则听之
 
 大家对于 mybatis plus 的 `BaseMapper`以及 `IService` 以及 `ServiceImpl` 还是存在很大争议，并在 [issue](https://github.com/baomidou/mybatis-plus/issues) 中火热讨论（如下链接），最后还是以官方为主，若有改动文章在做后续调整。
