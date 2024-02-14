@@ -1,13 +1,13 @@
 ---
 id: clean-macbook-pro-2015
 title: "MacBook Pro (Retina, 15-inch, Mid 2015) 风扇清灰及重涂导热硅脂"
-description: "清理后风扇不再一直满速旋转，但 CPU 温度下降不是很明显"
+description: "清理后，闲时风扇转速更低，忙时风扇不再一直满速旋转，但 CPU 温度下降不是很明显"
 date: 2024.02.11 10:26
 categories:
     - Mac
 tags: [Mac]
 keywords: MacBook, 2015, 硅脂, 信越 7921
-cover: /contents/clean-macbook-pro-2015/cover.png
+cover: /contents/clean-macbook-pro-2015/silicone.png
 ---
 
 服役 8 年多的 MacBook Pro (Retina, 15-inch, Mid 2015) 几乎只在刚开机时稍微安静一些
@@ -56,14 +56,10 @@ cover: /contents/clean-macbook-pro-2015/cover.png
 1. 导热硅脂（必需）：我使用的是 `信越7921`，附带了干湿擦纸用来擦去旧硅脂
 1. 刮板（可选）/ 手指套（推荐）：刮平或按平硅脂，`信越7921` 不易刮，用手指套较容易
 
-// TODO 拍摄工具图
- 
-![tools](/contents/clean-macbook-pro-2015/tools.png)
+![tools](/contents/clean-macbook-pro-2015/tools.jpg)
 
 拆卸过程
 =======
-
-// TODO 
 
 - 拆开后盖，注意有两个螺丝较短，不要跟其他位置螺丝弄混
 
@@ -79,26 +75,25 @@ cover: /contents/clean-macbook-pro-2015/cover.png
 
 - 拆除三个螺丝，推开连接器，拆下左侧风扇
 
-![right side](/contents/clean-macbook-pro-2015/right-side.png)
+![left side](/contents/clean-macbook-pro-2015/left-side.png)
 
 - 右侧风扇可以不用将周围的 wifi 模块和天线等都拆开，只需撬开天线与风扇粘连的胶，再拆除三个螺丝和风扇与主板的连接器，即可直接取出左侧风扇
 
-![left side](/contents/clean-macbook-pro-2015/left-side.png)
+![right side](/contents/clean-macbook-pro-2015/right-side.png)
+
+- 有小十字螺丝刀的话可以拆开风扇清理内部，拆不开也可以直接从外部使用毛刷和气吹进行清理
+
+![inside](/contents/clean-macbook-pro-2015/inside.png)
 
 - 清理旧硅脂，重涂新硅脂
 
-
-注意事项
-=======
-
-开后盖后左侧风扇不易拆卸
-
-风扇可以用小十字螺丝刀拆开
-
-信越7921不好涂
-
+![silicone](/contents/clean-macbook-pro-2015/silicone.png)
 
 效果
 ===
 
-![after](/contents/clean-macbook-pro-2015/after.png)
+清理后，闲时风扇转速更低，忙时风扇不再一直满速旋转，但 CPU 温度下降不是很明显：
+
+![after1](/contents/clean-macbook-pro-2015/after1.png)
+
+![after2](/contents/clean-macbook-pro-2015/after2.png)
