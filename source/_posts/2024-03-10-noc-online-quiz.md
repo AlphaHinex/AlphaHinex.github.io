@@ -1,12 +1,12 @@
 ---
 id: noc-online-quiz
-title: "NOC 在线练习"
-description: "收集到的一些 NOC (Novelty, Originality, Creativity) Python 真题和模拟题在线练习"
+title: "全国中小学信息技术创新与实践大赛（NOC）Python 在线练习"
+description: "收集到的一些全国中小学信息技术创新与实践大赛（NOC）Python 真题和模拟题在线练习"
 date: 2024.03.10 10:26
 categories:
     - Python
 tags: [Python, NOC]
-keywords: NOC, Python, Online, Quiz
+keywords: NOC, Python, Online, Quiz, 全国中小学信息技术创新与实践大赛
 cover: /contents/covers/noc-online-quiz.png
 ---
 
