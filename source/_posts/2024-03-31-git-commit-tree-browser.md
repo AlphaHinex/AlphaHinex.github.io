@@ -10,6 +10,8 @@ keywords: git, bash, tree, commit, browser, repo, terminal
 cover: /contents/git-commit-tree-browser/cover.png
 ---
 
+原文地址：https://wyiyi.github.io/amber/2024/04/01/git-commit-tree/
+
 ## 痛点
 
 在`Git`项目中，代码的频繁迭代会使得追踪项目文件结构变化的过程异常艰难，尤其是历史 `commit` 中存在、当前最新版本中已经不存在的文件/文件夹。
