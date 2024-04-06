@@ -7,7 +7,7 @@ categories:
     - Mac
 tags: [Mac, Git, Shell]
 keywords: iTerm2, zsh, git, nvm, conda, zprof, xcodebuild
-cover: /contents/iterm2-ssh-via-ssh/cover.png
+cover: /contents/iterm2-ssh-via-ssh/cover.jpg
 ---
 
 iTerm2 在升级系统之后，冷启动（开机后第一次启动）的速度异常的慢，需要几十秒才能进入可用状态。之后无论是开新窗口还是退出重进的速度都还挺正常的。
