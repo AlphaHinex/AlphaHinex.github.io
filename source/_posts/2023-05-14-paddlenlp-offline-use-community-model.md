@@ -148,10 +148,10 @@ elif os.path.isfile(os.path.join(cache_dir, cls.resource_files_names["model_stat
 -                if url_file_exists(standard_community_url):
 +                if os.path.isfile(cached_standard_config):
 +                    resolved_vocab_file = cached_standard_config
-+                elif url_file_exists(standard_community_url):
-                     resolved_vocab_file = get_path_from_url_with_filelock(standard_community_url, cache_dir)
 +                elif os.path.isfile(cached_legacy_config):
 +                    resolved_vocab_file = cached_legacy_config
++                elif url_file_exists(standard_community_url):
+                     resolved_vocab_file = get_path_from_url_with_filelock(standard_community_url, cache_dir)
                  elif url_file_exists(legacy_community_url):
 ```
 
