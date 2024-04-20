@@ -4,10 +4,9 @@ title: "《Learning Domain-Driven Design》书摘"
 description: "长度适中，可作为 DDD 入门书籍，了解 DDD 战略及战术层面的思想及工具"
 date: 2024.04.21 10:34
 categories:
-    - AI
-    - Python
-tags: [LLM, AI Agent, ModelScope-Agent]
-keywords: modelscope, modelscope-agent, agentfabric, docker, local, offline, LLM, AI Agent
+    - Book
+tags: [DDD]
+keywords: DDD, Domain-driven design, Strategic Design, Tactical Design, Business Domain, Subdomain, Core Subdomain, Generic subdomain, Supporting subdomain
 cover: /contents/learning-domain-driven-design/cover.jpg
 ---
 
