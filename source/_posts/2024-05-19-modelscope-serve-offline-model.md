@@ -1,7 +1,7 @@
 ---
 id: modelscope-serve-offline-model
 title: "使用 modelscope 在离线环境部署模型服务关键点"
-description: "五个关键点需要注意"
+description: "五个点很关键"
 date: 2024.05.19 10:34
 categories:
     - Python
