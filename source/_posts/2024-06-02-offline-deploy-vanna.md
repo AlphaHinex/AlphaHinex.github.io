@@ -11,8 +11,6 @@ keywords: Vanna, LLM, RAG, Text to SQL, Python, Flask
 cover: /contents/offline-deploy-vanna/vanna-flask.gif
 ---
 
-// TODO 👆
-
 ## Vanna 简介
 
 [Vanna](https://github.com/vanna-ai/vanna) 是一个 MIT 许可的开源 Python RAG（Retrieval-Augmented Generation）框架，可以用来以对话形式与 SQL 数据库交互。
