@@ -1,7 +1,7 @@
 ---
 id: offline-deploy-vanna
 title: "Vanna 离线环境部署"
-description: ""
+description: "本地化 Text2SQL 方案"
 date: 2024.06.02 10:34
 categories:
     - AI
