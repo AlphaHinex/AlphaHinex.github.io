@@ -216,7 +216,7 @@ cover: /contents/implementing-domain-driven-design/cover.png
 
 > Thomas Erl[Erl]所定义的一些SOA原则。服务除了拥有互操作性外，还具有以下8种设计原则，如表4.1所示。
 > ![表4.1　服务设计原则](/contents/implementing-domain-driven-design/t4.1.png)
-￼
+
 ## REST
 
 > 架构风格之于架构就像设计模式之于设计一样。它将不同架构实现所共有的东西抽象出来，使得我们在谈及到架构时不至于陷入技术细节中。
