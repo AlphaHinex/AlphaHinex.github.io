@@ -1,7 +1,7 @@
 ---
 id: implementing-domain-driven-design
 title: "《实现领域驱动设计》书摘"
-description: ""
+description: "内容很多但不难读，结构清晰，讲解透彻"
 date: 2024.06.09 10:26
 categories:
     - Book
@@ -10,11 +10,9 @@ keywords: Core, Generic, Supporting, DDD, OHS, CQRS, ES
 cover: /contents/implementing-domain-driven-design/cover.png
 ---
 
-// TODO 👆
-
 ![cover](/contents/implementing-domain-driven-design/cover.png)
 
-https://book.douban.com/subject/25844633/ 8.4
+[豆瓣评分 8.4](https://book.douban.com/subject/25844633/)
 
 
 # 如何使用本书
