@@ -11,7 +11,7 @@ cover: /contents/similarity-metrics-for-vector-search/cover.png
 ---
 
 - 英文原文：[Similarity Metrics for Vector Search](https://zilliz.com/blog/similarity-metrics-for-vector-search)
-- 作者：[Yujian Tang](https://zilliz.com/authors/Yujian_Tang)
+- 原文作者：[Yujian Tang](https://zilliz.com/authors/Yujian_Tang)
 
 ---
 
