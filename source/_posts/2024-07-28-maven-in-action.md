@@ -1,21 +1,22 @@
 ---
 id: maven-in-action
 title: "Maven 实用技巧"
-description: ""
+description: "Maven Wrapper、Multi-module vs. Inheritance、Reactor、模块间依赖及部分构建、执行指定的测试等 Maven 实用技巧"
 date: 2024.07.28 10:26
 categories:
     - Java
 tags: [Java, Maven]
 keywords: maven, mvn, maven wrapper, mvnw, reactor, multi-module, aggregator, parent, inheritance
-cover: /contents/maven-in-action/cover.png
+cover: /contents/maven-in-action/cover.jpg
 ---
-
-// TODO 👆
 
 Maven Wrapper
 =============
 
 [Maven Wrapper](https://maven.apache.org/wrapper/) 借鉴了 [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) 的思想，可以在工程源码中提交 Wrapper 的脚本和配置，之后在工程目录中使用 `mvnw` 或 `mvnw.cmd` 命令代替 `mvn` 命令，从而保证了各个开发及持续集成环境在构建时使用的 Maven 版本是一致的。
+
+主要文件
+------
 
 Maven Wrapper 最主要的是下面三个文件，可以使用 `mvn wrapper:wrapper -Dtype=only-script`（或 `-Dtype=script`） 命令生成，也可直接从其他工程复制：
 
@@ -33,6 +34,9 @@ Maven Wrapper 最主要的是下面三个文件，可以使用 `mvn wrapper:wrap
 
 > 除上面三个文件外，根据使用 `mvn wrapper:wrapper` 命令时指定的 `type` 参数的不同，还可能生成 `.mvn/wrapper/maven-wrapper.jar`（`mvn wrapper:wrapper`） 或 `.mvn/wrapper/MavenWrapperDownloader.java`（`mvn wrapper:wrapper -Dtype=source`） 文件，用以下载指定的 Maven 版本发布包。
 
+指定版本
+-------
+
 要指定使用的 Maven 版本，可以通过如 `mvn wrapper:wrapper -Dmaven=3.8.1` 命令，或直接修改 `maven-wrapper.properties` 文件中的 `distributionUrl` 属性值：
 
 ```properties
@@ -40,6 +44,9 @@ distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-mav
 ```
 
 > 使用带身份认证的私有 Maven 仓库时，可以通过在 URL 中添加用户名和密码的方式进行认证（`http://uname:pwd@url`），或设定 `MVNW_USERNAME` 和 `MVNW_PASSWORD` 环境变量。
+
+存放路径
+-------
 
 通过 Maven Wrapper 下载的 Maven 版本放在 `~/.m2/wrapper` 路径下：
 
@@ -80,6 +87,9 @@ distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-mav
                     └── mvnw.url
 ```
 
+使用方式
+-------
+
 在包含 Maven Wrapper 的工程中，可以直接使用 `./mvnw` 或 `./mvnw.cmd` 命令代替 `mvn` 命令，例如：
 
 ```bash
@@ -91,6 +101,9 @@ Multi-module vs. Inheritance
 ============================
 
 在 Maven 中，多模块构建（Multi-module）和继承（Inheritance）是两个不同的概念，互相独立，可分别使用。
+
+多模块
+-----
 
 Maven 在 pom 中通过 `<modules>` 元素表示 [多模块或聚合](https://maven.apache.org/pom.html#aggregation-or-multi-module)，如：
 
@@ -111,6 +124,9 @@ Maven 在 pom 中通过 `<modules>` 元素表示 [多模块或聚合](https://ma
   </modules>
 </project>
 ```
+
+继承
+----
 
 `<parent>` 元素可将多个模块的配置抽取到一个父模块中，子模块可以继承父模块的配置，包括依赖、插件、属性等。继承关系是单向的，父模块不会知道子模块的存在：
 
@@ -240,6 +256,9 @@ $ mvn package
 - `-am`, `--also-make`：如果通过 `-pl` 参数指定了项目列表，还会构建列表中项目所依赖的项目
 - `-amd`, `--also-make-dependents`：如果通过 `-pl` 参数指定了项目列表，还会构建依赖于列表中项目的项目
 
+恢复构建
+-------
+
 仍然以上面的 `sample-parent` 项目为例，如果需要从 `sample-client-connector` 模块继续构建，可以使用 `-rf` 参数：
 
 ```bash
@@ -281,6 +300,9 @@ $ mvn package -rf sample-client-connector
 $ mvn install
 $ mvn package -rf sample-client-connector
 ```
+
+多层级模块
+--------
 
 当存在多层级模块的聚合，使用 `-rf`、`-pl` 等参数指定模块名时，需要在模块名前面加冒号。
 
