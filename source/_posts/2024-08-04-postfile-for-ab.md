@@ -119,6 +119,8 @@ $ cat test.jpg >> postfile.txt
 
 > Windows 系统中可在 `git bash` 中使用 `cat` 命令。
 
+> [Benchmarking file uploads](https://gist.github.com/chiller/dec373004894e9c9bb38ac647c7ccfa8) 中以 base64 值作为文件数据内容进行传输的方式能够正常调用接口，但实测服务端接收到的数据内容依旧是 base64 的内容，并不是文件原始内容。故此处直接使用 `cat` 将文件原始数据内容直接追加到 `postfile` 中。
+
 ### 5. 添加结束标记
 
 最后以 [CRLF](https://developer.mozilla.org/zh-CN/docs/Glossary/CRLF)+`--` +`边界分隔符`+`--` 标记结束：
