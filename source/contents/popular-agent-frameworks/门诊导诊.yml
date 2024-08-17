@@ -1,0 +1,1937 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 门诊导诊
+kind: app
+version: 0.1.1
+workflow:
+  conversation_variables:
+  - description: 判断是否处于第一轮对话
+    id: 6d5991a5-91ce-4bc5-b7a4-37653e56b44e
+    name: is_first_message
+    value: 1
+    value_type: number
+  - description: 患者的症状信息
+    id: 03591dfd-cf51-4f9b-ba2f-1b81ac8f57cd
+    name: symptom
+    value: 'null'
+    value_type: string
+  - description: 推荐患者前往的科室
+    id: b3dee087-6d05-4821-b44f-a2efbaee7a0e
+    name: department
+    value: ''
+    value_type: string
+  - description: 患者的年龄
+    id: 9c845d68-ad98-46b5-9f78-c5024b57530b
+    name: age
+    value: ''
+    value_type: string
+  - description: 患者的性别
+    id: 78460afc-5988-4052-bac8-981478cae6e5
+    name: gender
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1722948641356-false-1722948649406-target
+      source: '1722948641356'
+      sourceHandle: 'false'
+      target: '1722948649406'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1722948649406-source-1722948653559-target
+      source: '1722948649406'
+      sourceHandle: source
+      target: '1722948653559'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1722948641356-ec370d4a-2bdc-4a6b-8878-80d96b2f33d4-1722954831811-target
+      source: '1722948641356'
+      sourceHandle: ec370d4a-2bdc-4a6b-8878-80d96b2f33d4
+      target: '1722954831811'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1722948641356-91b1b418-e8f5-4c01-beff-4e44f4e464e0-1722954924720-target
+      source: '1722948641356'
+      sourceHandle: 91b1b418-e8f5-4c01-beff-4e44f4e464e0
+      target: '1722954924720'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: assigner
+      id: 1722954924720-source-1722954934239-target
+      source: '1722954924720'
+      sourceHandle: source
+      target: '1722954934239'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1722948641356-29b927b2-c543-450a-b6ce-11630bdca300-1722955026661-target
+      source: '1722948641356'
+      sourceHandle: 29b927b2-c543-450a-b6ce-11630bdca300
+      target: '1722955026661'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1722955046266-source-1722955082746-target
+      source: '1722955046266'
+      sourceHandle: source
+      target: '1722955082746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1722955054068-source-1722955082746-target
+      source: '1722955054068'
+      sourceHandle: source
+      target: '1722955082746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: template-transform
+      id: 1722954934239-source-1722955163497-target
+      source: '1722954934239'
+      sourceHandle: source
+      target: '1722955163497'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1722955163497-source-1722955184232-target
+      source: '1722955163497'
+      sourceHandle: source
+      target: '1722955184232'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: assigner
+      id: 1722954831811-source-1722955666307-target
+      source: '1722954831811'
+      sourceHandle: source
+      target: '1722955666307'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: llm
+      id: 1722955666307-source-1722955046266-target
+      source: '1722955666307'
+      sourceHandle: source
+      target: '1722955046266'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: assigner
+      id: 1722955026661-source-1722955684908-target
+      source: '1722955026661'
+      sourceHandle: source
+      target: '1722955684908'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: llm
+      id: 1722955684908-source-1722955054068-target
+      source: '1722955684908'
+      sourceHandle: source
+      target: '1722955054068'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1722948641356-3c185913-fa1f-4f8e-b2ee-ac003d0da6c3-1722955850138-target
+      source: '1722948641356'
+      sourceHandle: 3c185913-fa1f-4f8e-b2ee-ac003d0da6c3
+      target: '1722955850138'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: assigner
+      id: 1722955850138-source-1722955855002-target
+      source: '1722955850138'
+      sourceHandle: source
+      target: '1722955855002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: llm
+      id: 1722955855002-source-1722955862857-target
+      source: '1722955855002'
+      sourceHandle: source
+      target: '1722955862857'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1722955862857-source-1722955082746-target
+      source: '1722955862857'
+      sourceHandle: source
+      target: '1722955082746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: assigner
+      id: 17229568358470-source-17229568563440-target
+      source: '17229568358470'
+      sourceHandle: source
+      target: '17229568563440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: template-transform
+      id: 17229568563440-source-17229568595490-target
+      source: '17229568563440'
+      sourceHandle: source
+      target: '17229568595490'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: template-transform
+        targetType: answer
+      id: 17229568595490-source-17229568606330-target
+      source: '17229568595490'
+      sourceHandle: source
+      target: '17229568606330'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1722955082746-source-1722956878299-target
+      source: '1722955082746'
+      sourceHandle: source
+      target: '1722956878299'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: llm
+      id: 1722956878299-false-17229568358470-target
+      source: '1722956878299'
+      sourceHandle: 'false'
+      target: '17229568358470'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: answer
+      id: 1722956878299-true-1722955144801-target
+      source: '1722956878299'
+      sourceHandle: 'true'
+      target: '1722955144801'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: assigner
+      id: 1722957594963-source-1722957638479-target
+      source: '1722957594963'
+      sourceHandle: source
+      target: '1722957638479'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: assigner
+      id: 1722957638479-source-1722957636037-target
+      source: '1722957638479'
+      sourceHandle: source
+      target: '1722957636037'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: if-else
+      id: 1722918342810-source-1722958736715-target
+      source: '1722918342810'
+      sourceHandle: source
+      target: '1722958736715'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1722958736715-true-1722957436489-target
+      source: '1722958736715'
+      sourceHandle: 'true'
+      target: '1722957436489'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: parameter-extractor
+        targetType: assigner
+      id: 1722957436489-source-1722957594963-target
+      source: '1722957436489'
+      sourceHandle: source
+      target: '1722957594963'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1722959274773-source-1722948641356-target
+      source: '1722959274773'
+      sourceHandle: source
+      target: '1722948641356'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: variable-aggregator
+      id: 1722958736715-false-1722959274773-target
+      source: '1722958736715'
+      sourceHandle: 'false'
+      target: '1722959274773'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: variable-aggregator
+      id: 1722959303858-source-1722959274773-target
+      source: '1722959303858'
+      sourceHandle: source
+      target: '1722959274773'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: assigner
+        targetType: code
+      id: 1722957636037-source-1722959549093-target
+      source: '1722957636037'
+      sourceHandle: source
+      target: '1722959549093'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: assigner
+      id: 1722959549093-source-1722959303858-target
+      source: '1722959549093'
+      sourceHandle: source
+      target: '1722959303858'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 54
+      id: '1722918342810'
+      position:
+        x: 1492.8571428571431
+        y: 287.7857142857143
+      positionAbsolute:
+        x: 1492.8571428571431
+        y: 287.7857142857143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: ec370d4a-2bdc-4a6b-8878-80d96b2f33d4
+          conditions:
+          - comparison_operator: empty
+            id: ad17c8cd-fada-4b8a-b23d-e6a523eb5fb5
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - age
+          - comparison_operator: contains
+            id: 7ba1d46b-2165-41f2-8246-6d735c1c6a59
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - age
+          id: ec370d4a-2bdc-4a6b-8878-80d96b2f33d4
+          logical_operator: or
+        - case_id: 29b927b2-c543-450a-b6ce-11630bdca300
+          conditions:
+          - comparison_operator: empty
+            id: bb1f2589-7dd8-4151-894c-681d9538075a
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - gender
+          - comparison_operator: contains
+            id: 2fadeb8c-3bd7-47d3-89df-43522048808a
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - gender
+          id: 29b927b2-c543-450a-b6ce-11630bdca300
+          logical_operator: or
+        - case_id: 3c185913-fa1f-4f8e-b2ee-ac003d0da6c3
+          conditions:
+          - comparison_operator: empty
+            id: e5a73d4f-29b3-4f2f-9248-b58bed4394d0
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - symptom
+          - comparison_operator: contains
+            id: a06199e4-240e-4c1d-aa44-204d23f63d59
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - symptom
+          id: 3c185913-fa1f-4f8e-b2ee-ac003d0da6c3
+          logical_operator: or
+        - case_id: 91b1b418-e8f5-4c01-beff-4e44f4e464e0
+          conditions:
+          - comparison_operator: empty
+            id: 6cd9a119-c2a6-4e32-9c1f-f7a83f8bf26b
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - department
+          id: 91b1b418-e8f5-4c01-beff-4e44f4e464e0
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 348
+      id: '1722948641356'
+      position:
+        x: 2766
+        y: 373.5
+      positionAbsolute:
+        x: 2766
+        y: 373.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ department }}'
+        title: 模板转换
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - department
+          variable: department
+      height: 54
+      id: '1722948649406'
+      position:
+        x: 3070
+        y: 373.5
+      positionAbsolute:
+        x: 3070
+        y: 373.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '推荐您到以下科室挂号：
+
+          {{#1722948649406.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 123
+      id: '1722948653559'
+      position:
+        x: 3374
+        y: 373.5
+      positionAbsolute:
+        x: 3374
+        y: 373.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: 这是聊天记录：{{#sys.query#}}
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: c965154a-3942-4f1d-98fb-7e34c97b15b6
+          role: system
+          text: '<instructions>
+
+            1. 从聊天记录中提取用户提到的自己的年龄。
+
+            2. 如果用户在多条聊天记录中提到年龄，提取最新的一条记录中的年龄。
+
+            3. 如果聊天记录中没有提到年龄，输出null。
+
+            4. 输出结果时，不要包含任何XML标签。
+
+
+            注意事项：
+
+            - 确保提取的年龄是用户明确提到的。
+
+            - 如果用户没有提到年龄，输出null。
+
+            - 确保输出的格式清晰且易于理解。
+
+            </instructions>
+
+
+            <examples>
+
+            <example>
+
+            <chat>
+
+            用户: 我今年25岁了。
+
+            用户: 我弟弟比我小两岁。
+
+            </chat>
+
+            <output>
+
+            25
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            用户: 我弟弟比我小两岁。
+
+            </chat>
+
+            <output>
+
+            null
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            user: 我昨天刚过了30岁生日。
+
+            assistant: 好的了解了，请提供您的性别。
+
+            user: 男性
+
+            assistant: 有什么症状吗？
+
+            user: 最近两天有点发烧，肚子疼
+
+            </chat>
+
+            <output>
+
+            30
+
+            </output>
+
+            </example>
+
+            </examples>'
+        selected: false
+        title: 提取患者年龄
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722954831811'
+      position:
+        x: 3070
+        y: 518
+      positionAbsolute:
+        x: 3070
+        y: 518
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: 5507a45e-b1cf-4610-b138-a14cb5d9deb1
+          role: system
+          text: '<instructions>
+
+            1. 根据提供的性别、年龄和症状，判断患者应该去医院的哪个科室就诊。
+
+            2. 首先，分析患者的性别和年龄，这可能会影响某些症状的严重性和可能的科室选择。
+
+            3. 然后，仔细阅读并理解患者的症状，确定这些症状可能与哪些科室相关。
+
+            4. 根据常见的医疗科室和其对应的症状，匹配患者的症状到最合适的科室。
+
+            5. 输出结果时，只需提供科室名称，不要包含任何XML标签。
+
+            </instructions>
+
+
+            <examples>
+
+            <example>
+
+            <gender>男</gender>
+
+            <age>45</age>
+
+            <symptoms>胸痛，呼吸困难</symptoms>
+
+            <output>心内科</output>
+
+            </example>
+
+
+            <example>
+
+            <gender>女</gender>
+
+            <age>30</age>
+
+            <symptoms>腹痛，恶心，呕吐</symptoms>
+
+            <output>消化内科</output>
+
+            </example>
+
+
+            <example>
+
+            <gender>男</gender>
+
+            <age>60</age>
+
+            <symptoms>关节疼痛，行动困难</symptoms>
+
+            <output>骨科</output>
+
+            </example>
+
+            </examples>'
+        - id: ea4ea6c4-a9a7-49e5-a0a4-afcd829f185c
+          role: user
+          text: '<患者信息>
+
+            年龄：{{#conversation.age#}}
+
+            性别：{{#conversation.gender#}}
+
+            症状：{{#conversation.symptom#}}'
+        selected: false
+        title: 判断科室
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722954924720'
+      position:
+        x: 3070
+        y: 1031
+      positionAbsolute:
+        x: 3070
+        y: 1031
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - department
+        desc: ''
+        input_variable_selector:
+        - '1722954924720'
+        - text
+        selected: false
+        title: 变量赋值（科室）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722954934239'
+      position:
+        x: 3374
+        y: 1048.5
+      positionAbsolute:
+        x: 3374
+        y: 1048.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: 这是聊天记录：{{#sys.query#}}
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: true
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: f3aade03-5e59-471d-b0d1-829cd028640f
+          role: system
+          text: '<instructions>
+
+            1. 从聊天记录中提取用户提到的自己的性别。
+
+            2. 如果用户在多条聊天记录中提到性别，提取最新的一条记录中的年龄。
+
+            3. 如果聊天记录中没有提到性别，输出null。
+
+            4. 输出结果时，不要包含任何XML标签。
+
+
+            注意事项：
+
+            - 确保提取的性别是用户明确提到的。
+
+            - 如果用户没有提到性别，输出null。
+
+            - 确保输出的格式清晰且易于理解。
+
+            </instructions>
+
+
+            <examples>
+
+            <example>
+
+            <chat>
+
+            用户: 我今年25岁了。
+
+            用户: 我弟弟比我小两岁。
+
+            </chat>
+
+            <output>
+
+            null
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            用户: 我是男性
+
+            </chat>
+
+            <output>
+
+            男
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            user: 我昨天刚过了30岁生日。
+
+            assistant: 好的了解了，请提供您的性别。
+
+            user: 女的
+
+            assistant: 有什么症状吗？
+
+            user: 最近两天有点发烧，肚子疼
+
+            </chat>
+
+            <output>
+
+            女
+
+            </output>
+
+            </example>
+
+            </examples>'
+        selected: false
+        title: 提取患者性别
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722955026661'
+      position:
+        x: 3070
+        y: 689
+      positionAbsolute:
+        x: 3070
+        y: 689
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: 55c0f28c-2936-4300-84e3-99858864c55a
+          role: system
+          text: "```xml\n<instructions>\n1. 接收输入的 age, gender 和 symptom 变量。\n2. 检查每个变量是否为空值。\n\
+            3. 如果 age 为空，输出提醒患者提供年龄信息。\n4. 如果 gender 为空，输出提醒患者提供性别信息。\n5. 如果 symptom\
+            \ 为空，输出提醒患者提供症状信息。\n6. 如果所有变量都不为空，输出确认信息，表示所有必要信息都已提供。\n7. 输出内容不应包含任何\
+            \ XML 标签。\n</instructions>\n\n<examples>\n<example>\n<input>\nage: 25\n\
+            gender: 男\nsymptom: 头痛\n</input>\n<output>\n所有必要信息都已提供。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: \ngender: 女\nsymptom: 咳嗽\n</input>\n<output>\n\
+            请提供您的年龄信息。\n</output>\n</example>\n\n<example>\n<input>\nage: 30\ngender:\
+            \ \nsymptom: 发烧\n</input>\n<output>\n请提供您的性别信息。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: 45\ngender: 男\nsymptom: \n</input>\n<output>\n\
+            请提供您的症状信息。\n</output>\n</example>\n</examples>\n```"
+        - id: 8e475877-490a-41cb-8a52-cd902a0577b8
+          role: user
+          text: '用户信息：
+
+            |症状|{{#conversation.symptom#}}|
+
+            |年龄|{{#conversation.age#}}|
+
+            |性别|{{#conversation.gender#}}|
+
+            '
+        selected: false
+        title: 聊天（年龄分支）
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722955046266'
+      position:
+        x: 3678
+        y: 540
+      positionAbsolute:
+        x: 3678
+        y: 540
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: 54f1c126-769c-4dda-88a9-5f54419caefc
+          role: system
+          text: "<instructions>\n1. 接收输入的 age, gender 和 symptom 变量。\n2. 检查每个变量是否为空值。\n\
+            3. 如果 age 为空，输出提醒患者提供年龄信息。\n4. 如果 gender 为空，输出提醒患者提供性别信息。\n5. 如果 symptom\
+            \ 为空，输出提醒患者提供症状信息。\n6. 如果所有变量都不为空，输出确认信息，表示所有必要信息都已提供。\n7. 输出内容不应包含任何\
+            \ XML 标签。\n</instructions>\n\n<examples>\n<example>\n<input>\nage: 25\n\
+            gender: 男\nsymptom: 头痛\n</input>\n<output>\n所有必要信息都已提供。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: \ngender: 女\nsymptom: 咳嗽\n</input>\n<output>\n\
+            请提供您的年龄信息。\n</output>\n</example>\n\n<example>\n<input>\nage: 30\ngender:\
+            \ \nsymptom: 发烧\n</input>\n<output>\n请提供您的性别信息。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: 45\ngender: 男\nsymptom: \n</input>\n<output>\n\
+            请提供您的症状信息。\n</output>\n</example>\n</examples>"
+        - id: 631d9e62-98b8-4605-861a-8e19573dca4f
+          role: user
+          text: '用户信息：
+
+            |症状|{{#conversation.symptom#}}|
+
+            |年龄|{{#conversation.age#}}|
+
+            |性别|{{#conversation.gender#}}|
+
+
+
+            '
+        selected: false
+        title: 聊天（性别分支）
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722955054068'
+      position:
+        x: 3678
+        y: 711
+      positionAbsolute:
+        x: 3678
+        y: 711
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 变量聚合器
+        type: variable-aggregator
+        variables:
+        - - '1722955046266'
+          - text
+        - - '1722955054068'
+          - text
+        - - '1722955862857'
+          - text
+      height: 164
+      id: '1722955082746'
+      position:
+        x: 3982
+        y: 706.5
+      positionAbsolute:
+        x: 3982
+        y: 706.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1722955082746.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 107
+      id: '1722955144801'
+      position:
+        x: 4590
+        y: 711
+      positionAbsolute:
+        x: 4590
+        y: 711
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ department }}'
+        title: 推荐科室
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - department
+          variable: department
+      height: 54
+      id: '1722955163497'
+      position:
+        x: 3678
+        y: 1075
+      positionAbsolute:
+        x: 3678
+        y: 1075
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '推荐您到以下科室挂号：
+
+          {{#1722955163497.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 123
+      id: '1722955184232'
+      position:
+        x: 3982
+        y: 1074
+      positionAbsolute:
+        x: 3982
+        y: 1074
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - age
+        desc: ''
+        input_variable_selector:
+        - '1722954831811'
+        - text
+        selected: false
+        title: 变量赋值（年龄）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722955666307'
+      position:
+        x: 3374
+        y: 535.5
+      positionAbsolute:
+        x: 3374
+        y: 535.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - gender
+        desc: ''
+        input_variable_selector:
+        - '1722955026661'
+        - text
+        selected: false
+        title: 变量赋值（性别）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722955684908'
+      position:
+        x: 3374
+        y: 706.5
+      positionAbsolute:
+        x: 3374
+        y: 706.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: 患者提供的信息：{{#sys.query#}}
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: 4442d59d-2682-4411-ac75-e3f550fa0135
+          role: system
+          text: "<instructions>\n1. 阅读患者的聊天记录，仔细识别和提取与症状相关的信息。\n2. 将所有提取到的症状进行总结，确保总结内容简洁明了。\n\
+            3. 输出的总结应当准确反映患者的症状，不包含任何多余的信息。\n4. 输出内容不应包含任何XML标签。\n5. 如果用户没有提到症状，输出null。\n\
+            </instructions>\n\n<examples>\n  <example>\n    <input>\n      患者: 最近几天我一直感觉头痛，而且有时候会觉得恶心。昨天晚上还发烧了，体温大概有38度。\n\
+            \    </input>\n    <output>\n      头痛、恶心、发烧（体温38度）\n    </output>\n  </example>\n\
+            \  <example>\n    <input>\n      患者: 我这几天总是咳嗽，尤其是晚上睡觉的时候咳得更厉害。还有点喉咙痛，感觉嗓子里有痰。\n\
+            \    </input>\n    <output>\n      咳嗽（晚上更严重）、喉咙痛、有痰\n    </output>\n \
+            \ </example>\n  <example>\n    <input>\n      患者: 最近总是觉得很累，没什么力气。走路的时候有点喘不过气来，有时候还会胸闷。\n\
+            \    </input>\n    <output>\n      疲劳、乏力、呼吸困难、胸闷\n    </output>\n  </example>\n\
+            </examples>"
+        selected: false
+        title: 提取症状
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722955850138'
+      position:
+        x: 3070
+        y: 860
+      positionAbsolute:
+        x: 3070
+        y: 860
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - symptom
+        desc: ''
+        input_variable_selector:
+        - '1722955850138'
+        - text
+        selected: false
+        title: 变量赋值（症状）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722955855002'
+      position:
+        x: 3374
+        y: 877.5
+      positionAbsolute:
+        x: 3374
+        y: 877.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: ccd17f08-f41e-414f-be3a-60bc5939ab78
+          role: system
+          text: "```xml\n<instructions>\n1. 接收输入的 age, gender 和 symptom 变量。\n2. 检查每个变量是否为空值。\n\
+            3. 如果 age 为空，输出提醒患者提供年龄信息。\n4. 如果 gender 为空，输出提醒患者提供性别信息。\n5. 如果 symptom\
+            \ 为空，输出提醒患者提供症状信息。\n6. 如果所有变量都不为空，输出确认信息，表示所有必要信息都已提供。\n7. 输出内容不应包含任何\
+            \ XML 标签。\n</instructions>\n\n<examples>\n<example>\n<input>\nage: 25\n\
+            gender: 男\nsymptom: 头痛\n</input>\n<output>\n所有必要信息都已提供。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: \ngender: 女\nsymptom: 咳嗽\n</input>\n<output>\n\
+            请提供您的年龄信息。\n</output>\n</example>\n\n<example>\n<input>\nage: 30\ngender:\
+            \ \nsymptom: 发烧\n</input>\n<output>\n请提供您的性别信息。\n</output>\n</example>\n\
+            \n<example>\n<input>\nage: 45\ngender: 男\nsymptom: \n</input>\n<output>\n\
+            请提供您的症状信息。\n</output>\n</example>\n</examples>\n```"
+        - id: d6bd7d0a-4ac4-48ac-8ed6-4759b9374e21
+          role: user
+          text: '用户信息：
+
+            |症状|{{#conversation.symptom#}}|
+
+            |年龄|{{#conversation.age#}}|
+
+            |性别|{{#conversation.gender#}}|
+
+
+
+            '
+        selected: false
+        title: 聊天（症状分支）
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '1722955862857'
+      position:
+        x: 3678
+        y: 882
+      positionAbsolute:
+        x: 3678
+        y: 882
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        prompt_template:
+        - id: 5507a45e-b1cf-4610-b138-a14cb5d9deb1
+          role: system
+          text: '<instructions>
+
+            1. 根据提供的性别、年龄和症状，判断患者应该去医院的哪个科室就诊。
+
+            2. 首先，分析患者的性别和年龄，这可能会影响某些症状的严重性和可能的科室选择。
+
+            3. 然后，仔细阅读并理解患者的症状，确定这些症状可能与哪些科室相关。
+
+            4. 根据常见的医疗科室和其对应的症状，匹配患者的症状到最合适的科室。
+
+            5. 输出结果时，只需提供科室名称，不要包含任何XML标签。
+
+            </instructions>
+
+
+            <examples>
+
+            <example>
+
+            <gender>男</gender>
+
+            <age>45</age>
+
+            <symptoms>胸痛，呼吸困难</symptoms>
+
+            <output>心内科</output>
+
+            </example>
+
+
+            <example>
+
+            <gender>女</gender>
+
+            <age>30</age>
+
+            <symptoms>腹痛，恶心，呕吐</symptoms>
+
+            <output>消化内科</output>
+
+            </example>
+
+
+            <example>
+
+            <gender>男</gender>
+
+            <age>60</age>
+
+            <symptoms>关节疼痛，行动困难</symptoms>
+
+            <output>骨科</output>
+
+            </example>
+
+            </examples>'
+        - id: ea4ea6c4-a9a7-49e5-a0a4-afcd829f185c
+          role: user
+          text: '<患者信息>
+
+            年龄：{{#conversation.age#}}
+
+            性别：{{#conversation.gender#}}
+
+            症状：{{#conversation.symptom#}}'
+        selected: false
+        title: 推荐科室
+        type: llm
+        variables: []
+        vision:
+          configs:
+            detail: high
+          enabled: true
+      height: 98
+      id: '17229568358470'
+      position:
+        x: 4590
+        y: 857
+      positionAbsolute:
+        x: 4590
+        y: 857
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - department
+        desc: ''
+        input_variable_selector:
+        - '17229568358470'
+        - text
+        selected: false
+        title: 变量赋值（科室）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '17229568563440'
+      position:
+        x: 4894
+        y: 852.5
+      positionAbsolute:
+        x: 4894
+        y: 852.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ department }}'
+        title: 推荐科室（条件分支）
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - department
+          variable: department
+      height: 54
+      id: '17229568595490'
+      position:
+        x: 5198
+        y: 852.5
+      positionAbsolute:
+        x: 5198
+        y: 852.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '推荐您到以下科室挂号：
+
+          {{#17229568595490.output#}}'
+        desc: ''
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 123
+      id: '17229568606330'
+      position:
+        x: 5502
+        y: 852.5
+      positionAbsolute:
+        x: 5502
+        y: 852.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 265ab578-5a74-4e5d-a70f-9cd03342a24b
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - symptom
+          - comparison_operator: contains
+            id: 7541da62-400a-498d-a126-1f7fd16a03c7
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - age
+          - comparison_operator: contains
+            id: 3c4bbff4-bf7a-4ee2-9f8b-db677ee1222a
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - gender
+          - comparison_operator: empty
+            id: 4a2a221e-fa6a-4e60-82dd-9b3f365d27c0
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - symptom
+          - comparison_operator: empty
+            id: ca75a216-2968-46ef-97cc-49fe87ff5c26
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - age
+          - comparison_operator: empty
+            id: 508c32d0-f7bc-4ffa-869f-0d99b2bd02ce
+            value: ''
+            varType: string
+            variable_selector:
+            - conversation
+            - gender
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: 是否有空对话变量
+        type: if-else
+      height: 256
+      id: '1722956878299'
+      position:
+        x: 4286
+        y: 711
+      positionAbsolute:
+        x: 4286
+        y: 711
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-4o
+          provider: openai
+        parameters:
+        - description: 患者的年龄
+          name: age
+          required: false
+          type: string
+        - description: 患者自己的性别
+          name: gender
+          required: false
+          type: string
+        - description: 患者自己的症状
+          name: symptom
+          required: false
+          type: string
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: 提取患者信息
+        type: parameter-extractor
+        variables: []
+      height: 98
+      id: '1722957436489'
+      position:
+        x: 2138
+        y: 440.42857142857144
+      positionAbsolute:
+        x: 2138
+        y: 440.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - age
+        desc: ''
+        input_variable_selector:
+        - '1722957436489'
+        - age
+        selected: false
+        title: 变量赋值（年龄）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722957594963'
+      position:
+        x: 2138
+        y: 559
+      positionAbsolute:
+        x: 2138
+        y: 559
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - symptom
+        desc: ''
+        input_variable_selector:
+        - '1722957436489'
+        - symptom
+        selected: false
+        title: 变量赋值（症状）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722957636037'
+      position:
+        x: 2143.714285714286
+        y: 847.5714285714286
+      positionAbsolute:
+        x: 2143.714285714286
+        y: 847.5714285714286
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - gender
+        desc: ''
+        input_variable_selector:
+        - '1722957436489'
+        - gender
+        selected: false
+        title: 变量赋值（性别）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722957638479'
+      position:
+        x: 2138
+        y: 706.5
+      positionAbsolute:
+        x: 2138
+        y: 706.5
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: abd5761a-5e4f-43fc-95e2-f618e55a04e5
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - is_first_message
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: 是否处于第一轮对话
+        type: if-else
+      height: 126
+      id: '1722958736715'
+      position:
+        x: 1815.4285714285716
+        y: 287.7857142857143
+      positionAbsolute:
+        x: 1815.4285714285716
+        y: 287.7857142857143
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: 变量聚合器（第一轮对话）
+        type: variable-aggregator
+        variables:
+        - - '1722957436489'
+          - symptom
+      height: 112
+      id: '1722959274773'
+      position:
+        x: 2464.857142857143
+        y: 326.3571428571429
+      positionAbsolute:
+        x: 2464.857142857143
+        y: 326.3571428571429
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        assigned_variable_selector:
+        - conversation
+        - is_first_message
+        desc: ''
+        input_variable_selector:
+        - '1722959549093'
+        - result
+        selected: false
+        title: 变量赋值（判断第一轮对话）
+        type: assigner
+        write_mode: over-write
+      height: 132
+      id: '1722959303858'
+      position:
+        x: 2143.714285714286
+        y: 1059
+      positionAbsolute:
+        x: 2143.714285714286
+        y: 1059
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\ndef main():\n    data = 0\n    return {\n        \"result\": data,\n\
+          \    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: false
+        title: 输出0
+        type: code
+        variables: []
+      height: 54
+      id: '1722959549093'
+      position:
+        x: 2143.714285714286
+        y: 991.8571428571427
+      positionAbsolute:
+        x: 2143.714285714286
+        y: 991.8571428571427
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: Dify
+        desc: ''
+        height: 139
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"聊天时输入性别、年龄和症状，为您推荐就诊的科室。可以一次性输入，也可以分次输入。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 265
+      height: 139
+      id: '1723014131142'
+      position:
+        x: 1492.8571428571431
+        y: 440.42857142857144
+      positionAbsolute:
+        x: 1492.8571428571431
+        y: 440.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 265
+    - data:
+        author: Dify
+        desc: ''
+        height: 117
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"如果处于第一轮对话，假定用户会一次性提供所有信息，使用变量提取器提取所有对应的性别、症状和年龄。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 245
+      height: 117
+      id: '1723014179616'
+      position:
+        x: 1815.4285714285716
+        y: 137.71270800588303
+      positionAbsolute:
+        x: 1815.4285714285716
+        y: 137.71270800588303
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 245
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"后续轮次对话会跳过这一步骤。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1723014219485'
+      position:
+        x: 2130.024559475983
+        y: 258.3461432054888
+      positionAbsolute:
+        x: 2130.024559475983
+        y: 258.3461432054888
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"使用条件分支判断哪一项对话变量为空，如果为空则询问用户提供对应的信息。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1723014244350'
+      position:
+        x: 2766
+        y: 258.3461432054888
+      positionAbsolute:
+        x: 2766
+        y: 258.3461432054888
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        author: Dify
+        desc: ''
+        height: 105
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"如果没有空的对话变量，就推荐科室。如果有空的变量就继续询问/聊天。","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 246
+      height: 105
+      id: '1723014283500'
+      position:
+        x: 4286
+        y: 568.0134150065385
+      positionAbsolute:
+        x: 4286
+        y: 568.0134150065385
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 246
+    viewport:
+      x: -2551.04212290305
+      y: 59.27109272655815
+      zoom: 1.7719212933199335
