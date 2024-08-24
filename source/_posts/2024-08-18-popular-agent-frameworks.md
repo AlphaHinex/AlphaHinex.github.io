@@ -127,7 +127,7 @@ Nvidia 技术博客[《Introduction to LLM Agents》](https://developer.nvidia.c
 
 ![workflow-dify](/contents/popular-agent-frameworks/workflow-dify.png)
 
-流程的 DSL 可在这里下载：[门诊导诊.yml](/contents/popular-agent-frameworks/门诊导诊.yml)。
+流程的 DSL 可在这里下载：[门诊导诊.yml](https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/popular-agent-frameworks/%E9%97%A8%E8%AF%8A%E5%AF%BC%E8%AF%8A.yml)。
 
 ### Coze 发布至公众号效果
 
