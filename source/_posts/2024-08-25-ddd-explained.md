@@ -10,6 +10,10 @@ keywords: DDD, 领域驱动设计, 限界上下文, 聚合, 实体, 值对象, �
 cover: /contents/ddd-explained/cover.jpg
 ---
 
+![cover](/contents/ddd-explained/cover.jpg)
+
+[豆瓣评分 7.3](https://book.douban.com/subject/35553520/)
+
 # 第一篇 开篇
 
 ## 第1章 软件复杂度剖析
