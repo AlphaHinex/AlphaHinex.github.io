@@ -6,7 +6,7 @@ date: 2024.09.01 10:34
 categories:
     - Mac
 tags: [Mac, Linux]
-keywords: flags, macOS, file, chflags, ls, hidden, nodump, sappnd, schg, uappnd, uchg, hidden, opaque, immutable, append, chattr, lsattr
+keywords: flags, macOS, file, chflags, ls, hidden, nodump, sappnd, schg, uappnd, uchg, hidden, opaque, immutable, append, chattr, lsattr, arch
 cover: /contents/macos-file-flags/flags.webp
 ---
 
