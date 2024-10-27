@@ -1,19 +1,17 @@
 ---
 id: property-binding-in-spring-boot-2-0
 title: "【译】Spring Boot 2.0 中的属性绑定"
-description: "Property Binding in Spring Boot 2.0"
+description: "在 Spring Boot 2.0 中，绑定方式被重新设计，引入了新的抽象和全新的绑定 API。本文将介绍这些新类和接口的作用及其使用方法。"
 date: 2024.10.27 10:26
 categories:
     - Spring
-tags: [Spring, Spring Cloud]
-keywords: release train, version compatibility, Spring Cloud
-cover: /contents/covers/spring-cloud-release-train-and-version-compatibility.png
+tags: [Spring Boot]
+keywords: Spring Boot, relaxed binding, ConfigurationPropertySource, ConfigurationPropertyName, Origin, Binder, Bindable, BindResult, BindHandler, @ConfigurationProperties
+cover: /contents/covers/property-binding-in-spring-boot-2-0.png
 ---
 
-// TODO 👆
-
-原文地址：[Property Binding in Spring Boot 2.0](https://spring.io/blog/2018/03/28/property-binding-in-spring-boot-2-0)
-原文作者：[Phil Webb](https://spring.io/team/philwebb)
+- 原文地址：[Property Binding in Spring Boot 2.0](https://spring.io/blog/2018/03/28/property-binding-in-spring-boot-2-0)
+- 原文作者：[Phil Webb](https://spring.io/team/philwebb)
 
 自 Spring Boot 的第一个版本发布以来，就可以使用 `@ConfigurationProperties` 注解将属性绑定到类。还可以用不同的形式指定属性名称。例如，`person.first-name`、`person.firstName` 和 `PERSON_FIRSTNAME` 都可以互换使用。我们称这个功能为“宽松绑定”（relaxed binding）。
 
