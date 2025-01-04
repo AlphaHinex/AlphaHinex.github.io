@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: Others - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//cdn.staticfile.org/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.staticfile.org/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//cdn.staticfile.org/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2025 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/soldering-is-easy/00-cover.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Others"><b>「
+                </b>OTHERS<b> 」</b></a>
+            
+            三月 17, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2024/03/17/soldering-is-easy/" title="焊接是容易的" class="posttitle">焊接是容易的</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                3.3k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                3 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <ul>
+<li><a href="https://mightyohm.com/blog/2011/04/soldering-is-easy-comic-book/" target="_blank" rel="noopener">ANNOUNCING THE “SOLDERING IS EASY” COMPLETE COMIC BOOK!</a></li>
+<li><a href="https://mightyohm.com/files/soldercomic/FullSolderComic_EN.pdf" target="_blank" rel="noopener">英文版</a></li>
+<li><a href="https://mightyohm.com/files/soldercomic/translations/FullSolderComicChinese.pdf" target="_blank" rel="noopener">中文版</a></li>
+<li><a href="/contents/soldering-is-easy/FullSolderComic_EN.pdf">英文版备用地址</a></li>
+<li><a href="/contents/soldering-is-easy/FullSolderComicChinese.pdf">中文版备用地址</a></li>
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+...
+            
+            <span class="read-more"><a href="/2024/03/17/soldering-is-easy/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/ps2-to-hdmi-converter/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            九月 10, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/09/10/ps2-to-hdmi-converter/" title="PS3 HDMI 芯片损坏低成本修复" class="posttitle">PS3 HDMI 芯片损坏低成本修复</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>很久没开机的 PS3，开机时发现没有图像，绿灯常亮。</p>
+<p>换 HDMI 线、口、电视，分别出现无图像、雪花、只能输出 480p 分辨率情况。</p>
+<p>480p 分辨率下虽然能凑合玩，但游戏中文字等内容辨识困难。</p>
+<p>基本确诊为 HDMI 芯片损坏。</p>
+<p>在看了 <a href="https://tieba.baidu.com/p/6336275307" target="_blank" rel="noopener">hdmi端口坏了的替代品</a> 帖子中内容后，觉得可以一试，某宝等平台上搜 <code>ps2色差转hdmi</code> 感觉是跟帖子里一样的转换器，但问卖家，都说 PS3 不能用，且商品参数中写明的支持分辨率为 <code>480i</code>、<code>480p</code>、<code>576i</code>。</p>
+<p></p>
+<p>幸好朋友以前 PS2 有个这种转换器，征...</p>
+            
+            <span class="read-more"><a href="/2023/09/10/ps2-to-hdmi-converter/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/toilet-in-action/cover.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            八月 27, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/08/27/toilet-in-action/" title="马桶实用技术" class="posttitle">马桶实用技术</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>事情要从家里马桶水封慢慢下降说起……</p>
+<p>水封，指的是冲过马桶之后，马桶内可以看到的留下的水。一旦水封失效，就可能会造成卫生间返臭和滋生生物进入卫生间的情况。</p>
+<p></p>
+<p>我这的现象是：水封高度会慢慢下降，直至水封效果完全失效。水箱中的补水管如果插入排水阀边上的溢水管，则水封能够留存更长时间，但水箱中水位会下降，导致一段时间后水箱开始持续发出响声进水，除非手动去按压一下进水阀的浮筒，才会停止响声并补满水。</p>
+<p>关于马桶水箱中进水阀和排水阀的原理，可以看看这个视频：</p>
+<p><a href="https://www.bilibili.com/video/BV1gp4y1e7Th" target="_blank" rel="noopener">意料之外，马桶进排水阀的原理</a></p>
+<iframe class="bv" src="//player.bilibili.com/player.html?aid=969526239&bvid=BV1gp4y1e7Th&cid=234318872&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<p>进水阀上面的那...</p>
+            
+            <span class="read-more"><a href="/2023/08/27/toilet-in-action/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/the-leadership-challenge/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            六月 04, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/06/04/the-leadership-challenge/" title="《领导力》书摘" class="posttitle">《领导力》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        26k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        23 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>领导者应该干什么？怎样干才能事业成功？才能在组织中成就卓越？ … 任何一个普普通通的人，只要养成以身作则、共启愿景、挑战现状、使众人行和激励人心这五种习惯行为，成为卓越领导者将是大概率时间，形成的卓越领导力将是真实可信的。</p>
+</blockquote>
+<blockquote>
+<p>毛泽东认为领导工作千头万绪，但只有两件大事，一是出主意，二是用干部。换言之，决策行为和用人行为就是卓越领导不可或缺的两大行为。决策行为就是要共启愿景、挑战现状；用人行为则要以身作则、使众人行和激励人心。</p>
+</blockquote>
+<blockquote>
+<p>具备诚实的、有前瞻性、有胜任力的和能激发人的这四种品质的人容易...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/06/04/the-leadership-challenge/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/a-survey-of-large-language-models.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            五月 21, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/05/21/a-survey-of-large-language-models/" title="《A Survey of Large Language Models》论文 v4 中文版摘抄" class="posttitle">《A Survey of Large Language Models》论文 v4 中文版摘抄</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        17k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        16 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>有趣的是，当参数规模超过一定水平时，这些规模扩大的语言模型的性能不仅得到了显著提升，而且还表现出一些小规模语言模型(如 BERT)所不具备的特殊能力(如上下文学习)。</p>
+</blockquote>
+<blockquote>
+<p>语言建模是提高机器语言智能的主要方法之一</p>
+</blockquote>
+<blockquote>
+<p>可以分为四个主要发展阶段</p>
+<ol>
+<li>统计语言模型（SLM）</li>
+<li>神经语言模型（NLM）</li>
+<li>预训练语言模型（PLM）</li>
+<li>大语言模型（LLM）</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>本综述从四个主要方面对 LLM 的最近进展进行文献综述，包括预训练(如何预训练出一个有能力的 LLM)、适应微调(如何从有效性和安全性两个角度有效地微...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/05/21/a-survey-of-large-language-models/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/growth-structure/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            五月 07, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/05/07/growth-structure/" title="《增长结构》书摘" class="posttitle">《增长结构》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        8.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        8 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p>豆瓣评分：<a href="https://book.douban.com/subject/35527890/" target="_blank" rel="noopener">8.5</a></p>
+<blockquote>
+<p>优秀的公司赚取利润，伟大的公司赢得人心。亚马逊的创始人杰夫·贝佐斯甚至提出：“不要关心你的竞争对手，他们又不给你钱。”企业应该把关注点放在用户身上，洞察他们的需求，跟他们建立紧密连接——包括情感连接，成为他们心中的“不二之选”。这些忠诚用户才是企业的基石。</p>
+</blockquote>
+<blockquote>
+<p>业务结构</p>
+<ul>
+<li>撤退线+成长底线+增长线+爆发线+天际线</li>
+<li>防守线：护城河+客户资产+控制战略咽喉</li>
+<li>客户资产：客户池+会员</li>
+<li>爆发线：风口+创新+快+社交疯传</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>客户结构</p>
+<ul>
+<li>客户需求+客户组合+客户资产</li>
+<li>客户需求：欲望+...</li></ul></blockquote>
+            
+            <span class="read-more"><a href="/2023/05/07/growth-structure/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/positioning.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 12, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/03/12/positioning/" title="《定位》书摘" class="posttitle">《定位》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        20k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        18 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>从营销和战略的角度，我们把美国企业主流的经营哲学称为A（America）模式，把日本企业主流经营哲学称为J（Japan）模式。总体而言，A模式最为显著的特点就是聚焦，狭窄而深入；J模式则宽泛而浅显。</li>
+</ul>
+<ul>
+<li>“第一胜过更好”是迄今为止最有威力的定位观念。</li>
+<li>动物学家用“印刻现象”来描述新生动物第一次见到生母时的情景。仅需几秒钟，幼小的动物就能永远记住母亲的形象。</li>
+<li>假如你想在爱情或者商业上取得成功，就必须认识到第一个进入心智的重要性。</li>
+</ul>
+<ul>
+<li>成为小池塘里的大鱼（然后扩大池塘）总好过成为大池塘里的小鱼。</li>
+...</ul>
+            
+            <span class="read-more"><a href="/2023/03/12/positioning/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/mdnice/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            一月 08, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/01/08/mdnice/" title="markdown 写微信公众号，排版交给 mdnice" class="posttitle">markdown 写微信公众号，排版交给 mdnice</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>墨滴软件（ <a href="https://product.mdnice.com/" target="_blank" rel="noopener">https://product.mdnice.com/</a> ），提供了以面向微信公众号内容排版为主的辅助工具 <a href="https://github.com/mdnice/markdown-nice" target="_blank" rel="noopener">Markdown Nice</a>，效果堪称完美，极大的提升了发布微信公众号文章的效率。</p>
+<p>使用其在线编辑器（ <a href="https://editor.mdnice.com/" target="_blank" rel="noopener">https://editor.mdnice.com/</a> ），可在左侧编辑 markdown 内容时，右侧实时预览发布到公众号的效果，并包含多种主题可供选择和切换。</p>
+<p></p>
+<p></p>
+<p></p>
+<blockquote>
+<p>主题可在 <a href="https://product.mdnice.com/themes/" target="_blank" rel="noopener">https://product.mdnice.com/themes/</a> 订阅后使用。</p>
+</blockquote>
+<p>mdnice ...</p>
+            
+            <span class="read-more"><a href="/2023/01/08/mdnice/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/techmark-review/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            七月 31, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/07/31/techmark-review/" title="态马商战复盘" class="posttitle">态马商战复盘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        16k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        15 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>TechMark是一种形式新颖的创新的管理培训课程，它凭借强大的计算机系统创造了一个仿真度极高的商业竞争环境，为学员带来集知识性、趣味性、仿真性和实践性为以一体的商战训练。 —— <a href="http://www.techmarkleader.com/service/" target="_blank" rel="noopener">TechMark是什么</a></p>
+</blockquote>
+<p>在态马商战（TechMark）的世界里，有三种虚拟产品，三个模拟地区，参与者分组成立临时公司，以相同的起点起步，在两天一晚的时间里，根据已知的信息和 TechMark 系统计算出的实际数据，进行六轮模拟商业决策，角逐满足各项经营指标且股价最高的 TechMark 冠军荣誉。</p>
+<p>正所谓兵马未动粮...</p>
+            
+            <span class="read-more"><a href="/2022/07/31/techmark-review/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/ue-in-exception/cover.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            五月 29, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/05/29/ue-in-exception/" title="异常识体验 —— 一次联通宽带故障触发的感受" class="posttitle">异常识体验 —— 一次联通宽带故障触发的感受</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>某日家中使用的联通宽带突然无法上网，在故障排查和维修的过程中，体会了一下联通所谓 “百倍用心，10分满意” 的服务。</p>
+<p>古人云：以人为镜，可以明得失。希望作为用户时体会到的痛，能够给我们以警示，使用户使用我们设计的系统时，不会有类似的糟糕感受。</p>
+<p>先说几个为了解决这次故障所获得的经验吧，可能会对遇到类似问题的朋友有帮助：</p>
+<ol>
+<li>路由器中可能会带有故障检测工具，里面提供的故障信息有助于问题定位，但不一定完全准确；</li>
+<li>联通人工客服已不是 24 小时的了，服务时间为 <code>07:30</code> 至 <code>21:30</code>；</li>
+<li>光猫并非亮红灯...</li></ol>
+            
+            <span class="read-more"><a href="/2022/05/29/ue-in-exception/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/tags/Others/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2025
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://cdn.staticfile.org/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//cdn.staticfile.org/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//cdn.staticfile.org/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://cdn.staticfile.org/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//cdn.staticfile.org/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
