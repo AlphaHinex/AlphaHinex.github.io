@@ -1,7 +1,7 @@
 ---
 id: auto-run-pppwn-in-mi-router
 title: "用小米路由器自动折腾 PS4"
-description: ""
+description: "无人值守，全自动完成，耐心等待即可"
 date: 2025.01.12 10:26
 categories:
     - Others
@@ -9,8 +9,6 @@ tags: [PS4, Python]
 keywords: OpenWRTInvasion, pppwn_cpp, init.d, mi router
 cover: /contents/covers/auto-run-pppwn-in-mi-router.png
 ---
-
-// TODO 👆
 
 在 [用 PPPwn_cpp 在 Mac 上折腾 PS4](https://alphahinex.github.io/2024/12/15/using-pppwn-cpp-on-mac-with-ps4/) 中，我们介绍了如何使用 PPPwn_cpp 在 Mac 上折腾 PS4。其实不只是 Mac，只要能运行 PPPwn_cpp 的设备，都可以用来折腾 PS4，比如小米路由器。
 
@@ -22,9 +20,7 @@ cover: /contents/covers/auto-run-pppwn-in-mi-router.png
 
 # 获取小米路由器 Root Shell 权限
 
-获取小米路由器 Root Shell 权限的方式可参考 [小米 4A 千兆版路由器禁 ping](https://alphahinex.github.io/2024/02/25/mir4ag-disable-ping/) 中内容，主要是执行 [OpenWRTInvasion](https://github.com/acecilia/OpenWRTInvasion) 工程中的 `remote_command_execution_vulnerability.py` 脚本，即便不是在 [支持列表](https://github.com/acecilia/OpenWRTInvasion?tab=readme-ov-file#supported-routers-and-firmware-versions) 中标明支持的设备和固件版本，也有可能成功，比如小米 4A 千兆版 `2.28.58` 固件，还有小米 3A 都可以成功获得 Root Shell 权限。
-
-// TODO 小米3A具体型号
+获取小米路由器 Root Shell 权限的方式可参考 [小米 4A 千兆版路由器禁 ping](https://alphahinex.github.io/2024/02/25/mir4ag-disable-ping/) 中内容，主要是执行 [OpenWRTInvasion](https://github.com/acecilia/OpenWRTInvasion) 工程中的 `remote_command_execution_vulnerability.py` 脚本，即便不是在 [支持列表](https://github.com/acecilia/OpenWRTInvasion?tab=readme-ov-file#supported-routers-and-firmware-versions) 中标明支持的设备和固件版本，也有可能成功，比如小米 4A 千兆版 `2.28.58` 固件、`MiWiFi-R3-2.26.39` 都可以成功获得 Root Shell 权限。
 
 ```bash
 $ cd OpenWRTInvasion
@@ -44,16 +40,12 @@ $ python remote_command_execution_vulnerability.py
 
 # 配置路由器开机自动执行
 
-依据环境实际情况，编写执行 pppwn 脚本 `pppwn_start.sh`：
-
-// TODO pppwn_start.sh
+依据环境实际情况，编写执行 pppwn 脚本 `pppwn_start.sh`，如：
 
 ```bash
-./pppwn --interface en8 --fw 960 --stage1 SiSTR0/PPPwn/stage1/stage1.bin --stage2 stage2_v1.03/stage2_9.60.bin --timeout 10 --auto-retry
+nohup /data/usr/pppwn --interface eth0.1 --fw 960 --stage1 /data/usr/stage1.bin --stage2 /data/usr/stage2_9.60.bin --timeout 10 --auto-retry >> /var/log/pppwn_start.log 2>&1 &
 ```
 
-// TODO 是否需要可执行权限？
+为 `pppwn_start.sh` 赋予可执行权限后，将其放入 `/etc/init.d` 路径下（小米路由器中放入 `/etc/init.d` 下的文件会同时出现在 `/data/etc/init.d`），即可实现路由器开机自动执行。
 
-并将脚本放入 `/etc/init.d` 路径下（小米路由器中放入 `/etc/init.d` 下的文件会同时出现在 `/data/etc/init.d`），即可实现路由器开机自动执行。
-
-pppwn_cpp 启动后会监听配置的网络端口，故可实现开启路由后打开 PS4 无人值守自动折腾。 // TODO 是否存在顺序依赖？
+pppwn_cpp 启动后会监听配置的网络端口，可实现开启路由后无人值守自动折腾 PS4，无需在 PS4 上进行任何操作（首次折腾之后，第二次开始），无论路由和 PS4 哪个先开机。
