@@ -1,7 +1,7 @@
 ---
 id: understanding-deep-learning
 title: "《Understanding Deep Learning》书摘"
-description: "08/05/24 版，图解 Deep Learning。"
+description: "08/05/24 版，图解 Deep Learning"
 date: 2025.01.19 10:34
 categories:
     - Book
