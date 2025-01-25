@@ -1,16 +1,14 @@
 ---
 id: spring-test-context-caching
 title: "Spring Test 模块中的上下文缓存特性"
-description: ""
+description: "利用好上下文缓存特性，提高测试用例执行效率"
 date: 2025.01.26 10:26
 categories:
-    - Book
-tags: [Book]
-keywords: Deep Learning, Supervised Learning, Unsupervised Learning, Reinforcement Learning, Neural Networks, Convolutional Neural Networks (CNN), Residual Networks (ResNet), Self-Attention, Generative Adversarial Networks (GAN), Variational Autoencoders (VAE)
+    - Spring
+tags: [Spring, Java, Spring Boot]
+keywords: context, caching, Spring TestContext Framework, Spring Test, Spring Boot, Java
 cover: /contents/covers/spring-test-context-caching.png
 ---
-
-// TODO 👆
 
 # 上下文缓存概述
 
