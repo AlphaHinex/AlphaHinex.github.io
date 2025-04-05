@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: Book - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2025 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/covers/it-doesnt-have-to-be-crazy-at-work.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Book"><b>「
+                </b>BOOK<b> 」</b></a>
+            
+            三月 30, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2025/03/30/it-doesnt-have-to-be-crazy-at-work/" title="《重来3：跳出疯狂的忙碌》书摘" class="posttitle">《重来3：跳出疯狂的忙碌》书摘</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                9.2k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                8 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p><a href="https://book.douban.com/subject/35135787/" target="_blank" rel="noopener">豆瓣评分 8.2</a></p>
+<blockquote>
+<p>冷静，意味着保护人们的时间与注意力。</p>
+<p>冷静，意味着每周工作40小时。</p>
+<p>冷静，意味着制定合理的目标。</p>
+<p>冷静，意味着充足的休息时间。</p>
+<p>冷静，意味着有意识地维持较小规模。</p>
+<p>冷静，意味着看...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/03/30/it-doesnt-have-to-be-crazy-at-work/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/remote.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 16, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/03/16/remote/" title="《重来2：更为简单高效的工作方式》书摘" class="posttitle">《重来2：更为简单高效的工作方式》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/30383585/" target="_blank" rel="noopener">豆瓣评分 6.8</a></p>
+<blockquote>
+<p>当人们真心想把活儿做完的时候，工作时段里的办公室是他们最不愿去的地方。</p>
+</blockquote>
+<blockquote>
+<p>这是因为办公室早已变成了“干扰工厂”。</p>
+</blockquote>
+<blockquote>
+<p>当你的工作日被切割成工作“片段”，想完成一项有意义的工作简直太难了。</p>
+</blockquote>
+<blockquote>
+<p>要是你认为员工很糟糕，他们就会表现得很糟糕。人类“满足低期望值”的能力极强。如果你确信每个下属都是懒汉，那他们会不遗余力地证明你是对的。如果你认为他们都成熟又能干，即便你不在他们身后盯着，他们也能不断督促自己做到最好，那他们就会用惊喜回报你。</p>
+</blockquote>
+<blockquote>
+<p>“如果我们不知该不该信任某位员工，那就...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/03/16/remote/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/rework.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 02, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/03/02/rework/" title="《重来：更为简单有效的商业思维》书摘" class="posttitle">《重来：更为简单有效的商业思维》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        12k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/30184215/" target="_blank" rel="noopener">豆瓣评分 7.8</a></p>
+<blockquote>
+<p>为什么我们不直截了当地按照计划的本质来称呼它呢？管它叫“猜想”吧。现在我们就开始把你的商业计划称为“商业猜想”，把财务计划叫作“财务猜想”，把战略计划命名为“战略猜想”。现在咱们就可以不用为这些玩意儿操那么多心了。在这方面操心只能得不偿失。</p>
+</blockquote>
+<blockquote>
+<p>当你把猜想变成计划，就等于走进了危险地带。做计划就是在用过去推动未来，等于给你戴上了眼罩。“这就是我们要做的，嗯，因为我们说过要这么做的。”问题是：计划和即兴发挥不会合拍。</p>
+</blockquote>
+<blockquote>
+<p>你必须能够即兴发挥，你必须抓住每一个迎面而来的机遇。有时...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/03/02/rework/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/clean-architecture/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            二月 02, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/02/02/clean-architecture/" title="《架构整洁之道》书摘" class="posttitle">《架构整洁之道》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        21k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        19 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/30333919/" target="_blank" rel="noopener">豆瓣评分 8.7</a></p>
+<blockquote>
+<p>软件架构的终极目标是，用最小的人力成本来满足构建和维护该系统的需求。</p>
+</blockquote>
+<blockquote>
+<p>一个软件架构的优劣，可以用它满足用户需求所需要的成本来衡量。如果该成本很低，并且在系统的整个生命周期内一直都能维持这样的低成本，那么这个系统的设计就是优良的。如果该系统的每次发布都会提升下一次变更的成本，那么这个设计就是不好的。就这么简单。</p>
+</blockquote>
+<blockquote>
+<p>软件系统的第一个价值维度：系统行为，是紧急的，但是并不总是特别重要。</p>
+</blockquote>
+<blockquote>
+<p>软件系统的第二个价值维度：系统架构，是重要的，但是并不总是特别紧急。</p>
+</blockquote>
+<blockquote>
+<p>最终我们应将...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/02/02/clean-architecture/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/understanding-deep-learning/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            一月 19, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/01/19/understanding-deep-learning/" title="《Understanding Deep Learning》书摘" class="posttitle">《Understanding Deep Learning》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        98k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1:29
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/36395283/" target="_blank" rel="noopener">豆瓣</a></p>
+<p>最新版本电子版下载地址：<a href="https://udlbook.github.io/udlbook/" target="_blank" rel="noopener">https://udlbook.github.io/udlbook/</a></p>
+<blockquote>
+<p>Machine learning methods can coarsely be divided into three areas: supervised, unsupervised, and reinforcement learning.</p>
+</blockquote>
+<blockquote>
+<p></p>
+<p>Figure 1.1 Machine learning is an area of artificial intelligence that fits...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/01/19/understanding-deep-learning/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/the-art-of-unix-programming/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            十二月 29, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/12/29/the-art-of-unix-programming/" title="《UNIX编程艺术》书摘" class="posttitle">《UNIX编程艺术》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        20k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        18 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/11609943/" target="_blank" rel="noopener">豆瓣评分 8.9</a></p>
+<h3 id="1-6-Unix哲学基础"><a href="#1-6-Unix哲学基础" class="headerlink" title="1.6 Unix哲学基础"></a>1.6 Unix哲学基础</h3><blockquote>
+<p>Unix哲学</p>
+<ol>
+<li>模块原则：使用简洁的接口拼合简单的部件。</li>
+<li>清晰原则：清晰胜于机巧。</li>
+<li>组合原则：设计时考虑拼接组合。</li>
+<li>分离原则：策略同机制分离，接口同引擎分离。</li>
+<li>简洁原则：设计要简洁，复杂度能低则低。</li>
+<li>吝啬原则：除非确无它法，不要编写庞大的程序。</li>
+<li>透明性原则：设计要可见，以便审查和调试。</li>
+<li>健壮原则：健壮源于透明与简洁。</li>
+<li>表示原则：把知识叠入数据以求逻辑质朴而健壮。</li>
+<li>通俗原则：接口设计避免标新立异。</li>
+<li>缄默原则：如果一个程序没什么好说的，就沉默。</li>
+<li>补救原则：...</li></ol></blockquote>
+            
+            <span class="read-more"><a href="/2024/12/29/the-art-of-unix-programming/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/nonviolent-communication.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            十月 06, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/10/06/nonviolent-communication/" title="【转】《非暴力沟通》书摘" class="posttitle">【转】《非暴力沟通》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2024/10/01/nonviolent/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2024/10/01/nonviolent/</a></p>
+<p><a href="https://book.douban.com/subject/30640828/" target="_blank" rel="noopener">豆瓣评分 7.8</a></p>
+<blockquote>
+<p>使用暴力的人其实是因为他们内心的宁静遭到了破坏，所以他们才会用暴力的方式维护或寻求心灵的和平。这或许是暴力的蝴蝶效应吧。”</p>
+</blockquote>
+<blockquote>
+<p>非暴力沟通提醒我们人性是相通的——虽然每个人的价值观和生活方式或许不同，但作为人却有着共同的感受和需要。这样，在发生矛盾和冲突的时候，运用非暴力沟通，我们将能专注于彼此的感受和需要，从而促进倾听、理解以及由衷的互助。</p>
+</blockquote>
+<blockquote>
+<p>也许我们并不认...</p></blockquote>
+            
+            <span class="read-more"><a href="/2024/10/06/nonviolent-communication/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/the-missing-readme/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 03, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/03/03/the-missing-readme/" title="《程序员的README》书摘" class="posttitle">《程序员的README》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p><a href="https://book.douban.com/subject/36457109/" target="_blank" rel="noopener">豆瓣评分 8.7</a></p>
+<blockquote>
+<p>无论你处于职业生涯的哪个阶段，这本书都非常实用。请保持开放的心态，好学深思，渴望提高，不惧破旧习，不惧提问题。</p>
+</blockquote>
+<blockquote>
+<p>本书第1～2章讲解当你在公司开启你的职业生涯时会发生什么；</p>
+<p>第3～11章会扩展你的工作技能，教你如何使用现有代码库、解决和防止技术债、编写生产级软件、管理依赖关系、有效地测试、评审代码、交付软件、处理On-Call时的事故和构建可演进的架构等；</p>
+<p>剩余章节涵盖管理能力和职业阶梯的提升等相关内容，例如敏捷计划、与管理者合作以及成长为资深工程师的必经之路。</p>
+<p>本书中非...</p></blockquote>
+            
+            <span class="read-more"><a href="/2024/03/03/the-missing-readme/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/counselling-for-toads/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            二月 18, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/02/18/counselling-for-toads/" title="《蛤蟆先生去看心理医生》书摘" class="posttitle">《蛤蟆先生去看心理医生》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        3.9k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p><a href="https://book.douban.com/subject/35143790/" target="_blank" rel="noopener">豆瓣评分 8.4</a></p>
+<blockquote>
+<p>老师不同于咨询师的一个地方就是，老师用讲解模式，而咨询师用倾听模式。</p>
+</blockquote>
+<blockquote>
+<p>如果我能成功教会你理解‘儿童自我状态’，你就能用这些概念来探索自我和你个人的经验了。记住，能实践的理论才是好的理论！</p>
+</blockquote>
+<blockquote>
+<p>我们的某些基本情感是与生俱来的，就好像红黄蓝三原色，对所有婴儿来说都是类似的。然而当我们作为个体开始发展的时候，我们的情绪和反应都变得越来越个人化，就好像几种原色混合在一起就变出各式各样微妙的色调和色差来。</p>
+</blockquote>
+<blockquote>
+<p>从呱呱落地起，我们的生命里只有两个人陪伴，有时候甚至只有一个人。和我们...</p></blockquote>
+            
+            <span class="read-more"><a href="/2024/02/18/counselling-for-toads/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/only-the-paranoid-survive/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            一月 07, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/01/07/only-the-paranoid-survive/" title="《只有偏执狂才能生存》书摘" class="posttitle">《只有偏执狂才能生存》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p><a href="https://book.douban.com/subject/25902032/" target="_blank" rel="noopener" title="豆瓣评分 7.8">豆瓣评分 7.8</a></p>
+<blockquote>
+<p>计划的制订应该仿效消防部门。谁也不能预料下一次火灾将在何处发生，因而要做的事就是组建一支精力充沛、效率很高的队伍，使之能够像处理普通事件一样处理意外事件。</p>
+</blockquote>
+<blockquote>
+<p></p>
+</blockquote>
+<blockquote>
+<p>既然回顾往事的时候还不能说清何时出现了战略转折点，那么身处其中的时候又怎么能回答这个问题呢？经历转折点的人感觉到转折点的时间并不一致，就像队伍中的人感觉到迷路的时刻有先有后。</p>
+</blockquote>
+<blockquote>
+<p>计算机产业内这种更新换代一直让我想起人的“变脸”（Morphing）。不知不觉中一张脸消失了，与此同时，一副新面孔显现了，你无法准确...</p></blockquote>
+            
+            <span class="read-more"><a href="/2024/01/07/only-the-paranoid-survive/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/tags/Book/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2025
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
