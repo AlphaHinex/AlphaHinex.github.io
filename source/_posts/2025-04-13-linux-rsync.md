@@ -1,7 +1,7 @@
 ---
 id: linux-rsync
 title: "【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性"
-description: ""
+description: "断点续传时，rsync 会在目标目录下生成一个隐藏的临时文件，以便在传输中断后可以继续传输"
 date: 2025.04.13 10:26
 categories:
     - Linux
