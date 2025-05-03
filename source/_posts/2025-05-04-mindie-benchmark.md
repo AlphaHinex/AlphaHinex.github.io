@@ -261,23 +261,23 @@ $ docker run -d --name=grafana -p 3000:3000 grafana/grafana:11.6.0
 
 > 点击 Connection > Data sources > Add new data source，选择 prometheus，之后把 prometheus 的 URL http://localhost:9090/ 填上去，点击最下面 Save & test。
 
-> ![datasource](/contents/mindie-benchmark/datasource.png)
+> ![datasource](https://alphahinex.github.io/contents/mindie-benchmark/datasource.png)
 
 > 之后可以在 Grafana 页面建立 dashboard，在 Home > Dashboards > New dashboard 建立 dashboard， Dashboard 手动构建较麻烦，可以参考一些 Grafana教程 https://imageslr.com/2024/grafana.html。
 
-> ![dashboard](/contents/mindie-benchmark/dashboard.png)
+> ![dashboard](https://alphahinex.github.io/contents/mindie-benchmark/dashboard.png)
 
 > 好在可以通过 json 格式输入或 json 文件 import 快速构建 dashboard
 > 这里选择参考下面 vllm 的 grafana json 文件，将其中的 vllm: 字段去掉（因为 MindIE 的 metrics 字段和 vllm 的 metric 有区别）
 > http://www.gitpp.com/digiman/vllm/-/blob/main/examples/production_monitoring/grafana.json?ref_type=heads
 
-> ![import](/contents/mindie-benchmark/import.png)
+> ![import](https://alphahinex.github.io/contents/mindie-benchmark/import.png)
 
 > 最终得到MindIE指标监控看板界面
 
-> ![mindie-dashboard](/contents/mindie-benchmark/mindie-dashboard.png)
+> ![mindie-dashboard](https://alphahinex.github.io/contents/mindie-benchmark/mindie-dashboard.png)
 
-MindIE Dashboard json 配置文件可参考 [mindie-dashboard.json](/contents/mindie-benchmark/mindie-dashboard.json)。
+MindIE Dashboard json 配置文件可参考 [mindie-dashboard.json](https://alphahinex.github.io/contents/mindie-benchmark/mindie-dashboard.json)。
 
 Node Exporter Dashboard json 配置文件可从 https://grafana.com/grafana/dashboards/16098-node-exporter-dashboard-20240520-job/ 下载，或直接使用 [node-exporter-dashboard.json](https://alphahinex.github.io/contents/mindie-benchmark/node-exporter-dashboard.json)。
 
