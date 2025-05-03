@@ -75,7 +75,7 @@ benchmark \
 
 # 测试数据集
 
-支持的数据集以及数据集获取链接，可在 MindIE 镜像中获取，以 `1.0.0` 版本为例，镜像中 [/usr/local/Ascend/atb-models/tests/modeltest/README_NEW.md](https://alphahinex.github.io/contents/mindie-benchmark/README_NEW.md) 文档包含支持数据集相关信息如下：
+支持的数据集以及数据集获取链接，可在 MindIE 镜像中获取，以 `1.0.0` 版本为例，镜像中 [/usr/local/Ascend/atb-models/tests/modeltest/README_NEW.md](https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/mindie-benchmark/README_NEW.md) 文档包含支持数据集相关信息如下：
 
 |    支持数据集   |         下载地址            |
 |----------------|-----------------------------|
