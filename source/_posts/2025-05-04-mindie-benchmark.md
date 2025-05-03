@@ -242,7 +242,7 @@ scrape_configs:
           app: "node"
 ```
 
-> 包含 Node Exporter 和 MindIE Metrics 的完整配置文件可参考 [prometheus.yml](https://alphahinex.github.io/contents/mindie-benchmark/prometheus.yml)。
+> 包含 Node Exporter 和 MindIE Metrics 的完整配置文件可参考 [prometheus.yml](https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/mindie-benchmark/prometheus.yml)。
 
 ## 使用 Grafana 可视化监控数据
 
