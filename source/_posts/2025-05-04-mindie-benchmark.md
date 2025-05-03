@@ -1,17 +1,14 @@
 ---
 id: mindie-benchmark
 title: "昇腾推理引擎性能测试套件 MindIE Benchmark"
-description: ""
+description: "通过实测和监控，获得实际场景的真实性能"
 date: 2025.05.04 10:34
 categories:
-    - Others
-    - Mac
-tags: [Others, Mac]
-keywords: 印象笔记, Mac, 索引, 全文搜索索引, 重建索引, option键
+    - AI
+tags: [Python, MindIE]
+keywords: MindIE, benchmark, GSM8K, metrics, prometheus, grafana, node-exporter
 cover: /contents/mindie-benchmark/client-text.png
 ---
-
-// TODO 👆
 
 # MindIE Benchmark
 
