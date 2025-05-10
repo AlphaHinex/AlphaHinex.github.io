@@ -1,0 +1,1130 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single" class="page">
+    <div id="top">
+        <a class="iconfont icon-left image-icon" href="javascript:history.back()"></a>
+    </div>
+    <div class="clone-element"></div>
+    <div class="section dark-obsidian">
+        <div class="article animated fadeIn">
+            <div class="main animated fadeIn">
+                <div class="content animated fadeIn">
+                
+                        <h1 id="Large-Language-Model-ModelTest"><a href="#Large-Language-Model-ModelTest" class="headerlink" title="Large Language Model ModelTest"></a>Large Language Model ModelTest</h1><p><a href="https://gitee.com/ascend/MindIE-LLM.git" target="_blank" rel="noopener">🌐 MindIE LLM官方repo</a><br><a href="https://modelers.cn/MindIE/data.git" target="_blank" rel="noopener">📖 Modelers社区</a><br><a href="https://wiki.huawei.com/domains/12174/wiki/111089/WIKI202408234389473" target="_blank" rel="noopener">📊 ModelTest沟通矩阵</a><br><a href="https://onebox.huawei.com/v/b31e3181b66ca80bbb68396c7352476b?type=0" target="_blank" rel="noopener">🤔 ModelTest问题收集</a><br><a href="./docs/get_started/">📘 ModelTest文档教程</a><br><a href="./docs/user_guides/data_preparation.md">🛠️ 数据集安装教程</a><br><a href="./README.md">🚩 ModelTest老版run.sh使用教程</a></p>
+<h2 id="🧭-欢迎"><a href="#🧭-欢迎" class="headerlink" title="🧭 欢迎"></a>🧭 欢迎</h2><p>欢迎来到 <strong><code>ModelTest</code></strong>！</p>
+<p>经过不懈努力，<code>ModelTest</code>希望帮助您评估大模型在不同场景和任务下的性能与精度。<code>ModelTest</code>提供了丰富的功能和高效的工具，帮助您轻松完成<code>LLM</code>的精确测试与优化。</p>
+<p>欢迎加入<code>ModelTest</code>！我们目前 <strong>正在完善<code>ModelTest</code>的接口与功能</strong>。如果您对大语言模型和<code>ModelTest</code>充满热情，请随时通过 <a href="https://wiki.huawei.com/domains/12174/wiki/111089/WIKI202408234389473" target="_blank" rel="noopener">Welink沟通矩阵</a> 与我们联系。期待您的加入！</p>
+<blockquote>
+<p><strong>注意</strong><br /><br>ModelTest 工具的共建进行中，诚邀大家为 ModelTest 提供更多具有代表性和可信度的评测数据集和问题反馈！点击 <a href="https://onebox.huawei.com/v/b31e3181b66ca80bbb68396c7352476b?type=0" target="_blank" rel="noopener">Issue</a> 获取和交流更多信息。</p>
+</blockquote>
+<h2 id="🚀-最新进展"><a href="#🚀-最新进展" class="headerlink" title="🚀 最新进展 "></a>🚀 最新进展 <a><img width="35" height="20" src="https://user-images.githubusercontent.com/12782558/212848161-5e783dd6-11e8-4fe0-bbba-39ffb77730be.png"></a></h2><ul>
+<li><p><strong>[2024.11.1]</strong> 支持 TextVQA数据集及qwen_vl多模态模型，欢迎尝试！</p>
+</li>
+<li><p><strong>[2024.10.21]</strong> ModelTest现已支持 BoolQ、CEval、CMMLU、HumanEval、HumanEval_X、GSM8K、LongBench、MMLU、NeedleBench、TruthfulQA，欢迎尝试！</p>
+</li>
+<li><p><strong>[2024.09.26]</strong> ModelTest新架构发布，欢迎尝试！</p>
+</li>
+</ul>
+<h2 id="🛠️-安装指南"><a href="#🛠️-安装指南" class="headerlink" title="🛠️ 安装指南"></a>🛠️ 安装指南</h2><h3 id="💻-基础安装"><a href="#💻-基础安装" class="headerlink" title="💻 基础安装"></a>💻 基础安装</h3><ul>
+<li>你可以通过以下命令从代码仓库安装 <code>modeltest</code> 工具：</li>
+</ul>
+<pre><code class="bash">git clone https://gitee.com/Ascend/MindIE-LLM.git
+cd MindIE-LLM/examples/atb_models/tests/modeltest
+pip install -e .</code></pre>
+<ul>
+<li>或者，你可以从安装包中获取 modeltest 工具：</li>
+</ul>
+<pre><code class="bash">cd {解压后的目录}/tests/modeltest
+pip install -e .</code></pre>
+<h3 id="📂-数据集准备"><a href="#📂-数据集准备" class="headerlink" title="📂 数据集准备"></a>📂 数据集准备</h3><ul>
+<li>关于如何下载和准备数据集的详细步骤，请参考<a href="./docs/user_guides/data_preparation.md">data_preparation.md</a></li>
+</ul>
+<h4 id="魔乐社区-内部使用"><a href="#魔乐社区-内部使用" class="headerlink" title="魔乐社区(内部使用)"></a>魔乐社区(内部使用)</h4><p>网址：<code>https://modelers.cn/</code></p>
+<h5 id="纯语言数据集"><a href="#纯语言数据集" class="headerlink" title="- 纯语言数据集"></a>- 纯语言数据集</h5><p>在modeltest根目录<code>MindIE-LLM/examples/atb_models/tests/modeltest</code>下执行：</p>
+<pre><code class="bash">git clone https://modelers.cn/MindIE/data.git</code></pre>
+<h5 id="多模态数据集"><a href="#多模态数据集" class="headerlink" title="- 多模态数据集"></a>- 多模态数据集</h5><p>TextVQA：</p>
+<pre><code class="bash">git clone https://modelers.cn/MindIE/textvqa.git</code></pre>
+<p>VideoBench：</p>
+<pre><code class="bash">git clone https://modelers.cn/MindIE/videobench.git</code></pre>
+<p>VocalSound：</p>
+<pre><code class="bash">git clone https://modelers.cn/MindIE/vocalsound.git</code></pre>
+<p><strong>注意事项：</strong><br>    1. 进入网站请提前切换国内代理。<br>    2. 进行网站注册，并申请加入MindIE组织。<br>    3. 用户名：魔乐社区用户名<br>    4. 密码：参照<code>https://modelers.cn/docs/zh/openmind-hub-client/quick_start.html</code>[<strong>访问令牌</strong>]章节进行配置</p>
+<h4 id="官网下载-外部使用"><a href="#官网下载-外部使用" class="headerlink" title="官网下载(外部使用)"></a>官网下载(外部使用)</h4><ul>
+<li>首先，需要在test/modeltest路径下新建名为temp_data的文件目录，然后在temp_data文件目录下新建对应数据集文件目录:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>支持数据集</th>
+<th>目录名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BoolQ</td>
+<td>boolq</td>
+</tr>
+<tr>
+<td>CEval</td>
+<td>ceval</td>
+</tr>
+<tr>
+<td>CMMLU</td>
+<td>cmmlu</td>
+</tr>
+<tr>
+<td>HumanEval</td>
+<td>humaneval</td>
+</tr>
+<tr>
+<td>HumanEval_X</td>
+<td>humaneval_x</td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td>gsm8k</td>
+</tr>
+<tr>
+<td>LongBench</td>
+<td>longbench</td>
+</tr>
+<tr>
+<td>MMLU</td>
+<td>mmlu</td>
+</tr>
+<tr>
+<td>NeedleBench</td>
+<td>needlebench</td>
+</tr>
+<tr>
+<td>VideoBench</td>
+<td>VideoBench</td>
+</tr>
+<tr>
+<td>Vocalsound</td>
+<td>Vocalsound</td>
+</tr>
+<tr>
+<td>TextVQA</td>
+<td>TextVQA</td>
+</tr>
+<tr>
+<td>TruthfulQA</td>
+<td>truthfulqa</td>
+</tr>
+</tbody></table>
+<ul>
+<li>获取数据集：需要访问huggingface和github的对应网址，手动下载对应数据集</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>支持数据集</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BoolQ</td>
+<td><a href="https://storage.cloud.google.com/boolq/dev.jsonl" target="_blank" rel="noopener">dev.jsonl</a></td>
+</tr>
+<tr>
+<td>CEval</td>
+<td><a href="https://huggingface.co/datasets/ceval/ceval-exam/resolve/main/ceval-exam.zip" target="_blank" rel="noopener">ceval-exam</a></td>
+</tr>
+<tr>
+<td>CMMLU</td>
+<td><a href="https://huggingface.co/datasets/haonan-li/cmmlu/resolve/main/cmmlu_v1_0_1.zip" target="_blank" rel="noopener">cmmlu</a></td>
+</tr>
+<tr>
+<td>HumanEval</td>
+<td><a href="https://github.com/openai/human-eval/raw/refs/heads/master/data/HumanEval.jsonl.gz" target="_blank" rel="noopener">humaneval</a></td>
+</tr>
+<tr>
+<td>HumanEval_X</td>
+<td><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/cpp/data" target="_blank" rel="noopener">cpp</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/java/data" target="_blank" rel="noopener">java</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/go/data" target="_blank" rel="noopener">go</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/js/data" target="_blank" rel="noopener">js</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/python/data" target="_blank" rel="noopener">python</a></td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td><a href="https://github.com/openai/grade-school-math/blob/master/grade_school_math/data/test.jsonl" target="_blank" rel="noopener">gsm8k</a></td>
+</tr>
+<tr>
+<td>LongBench</td>
+<td><a href="https://huggingface.co/datasets/THUDM/LongBench/resolve/main/data.zip" target="_blank" rel="noopener">longbench</a></td>
+</tr>
+<tr>
+<td>MMLU</td>
+<td><a href="https://people.eecs.berkeley.edu/~hendrycks/data.tar" target="_blank" rel="noopener">mmlu</a></td>
+</tr>
+<tr>
+<td>NeedleBench</td>
+<td><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">PaulGrahamEssays</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">multi_needle_reasoning_en</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">multi_needle_reasoning_zh</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">names</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">needles</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_finance</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_game</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_general</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_government</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_movie</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_tech</a></td>
+</tr>
+<tr>
+<td>TextVQA</td>
+<td><a href="https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip" target="_blank" rel="noopener">train_val_images.zip</a><br><a href="https://ofasys-wlcb.oss-cn-wulanchabu.aliyuncs.com/Qwen-VL/evaluation/textvqa/textvqa_val.jsonl" target="_blank" rel="noopener">textvqa_val.jsonl</a><br><a href="https://ofasys-wlcb.oss-cn-wulanchabu.aliyuncs.com/Qwen-VL/evaluation/textvqa/textvqa_val_annotations.json" target="_blank" rel="noopener">textvqa_val_annotations.json</a><br></td>
+</tr>
+<tr>
+<td>VideoBench</td>
+<td><a href="https://github.com/PKU-YuanGroup/Video-Bench" target="_blank" rel="noopener">Eval_QA/</a><br><a href="https://huggingface.co/datasets/LanguageBind/Video-Bench/tree/main" target="_blank" rel="noopener">Video-Bench</a><br></td>
+</tr>
+<tr>
+<td>VocalSound</td>
+<td><a href="https://www.dropbox.com/s/c5ace70qh1vbyzb/vs_release_16k.zip?dl=1" target="_blank" rel="noopener">VocalSound 16kHz Version</a><br></td>
+</tr>
+<tr>
+<td>TruthfulQA</td>
+<td><a href="https://huggingface.co/datasets/domenicrosati/TruthfulQA/tree/main" target="_blank" rel="noopener">truthfulqa</a></td>
+</tr>
+</tbody></table>
+<ul>
+<li>将对应下载的数据集文件放置在对应的数据集目录下，并在modeltest根目录<code>MindIE-LLM/examples/atb_models/tests/modeltest</code>下执行：</li>
+</ul>
+<pre><code class="bash">python3 scripts/data_prepare.py [可选参数]</code></pre>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>dataset_name</td>
+<td>可选，需要下载的数据集名称，支持的数据集列表参见[<strong>功能</strong>]章节，多个名称以’,’隔开</td>
+</tr>
+<tr>
+<td>remove_cache</td>
+<td>可选，是否在下载前清除数据集缓存</td>
+</tr>
+</tbody></table>
+<h3 id="💻-安装依赖"><a href="#💻-安装依赖" class="headerlink" title="💻 安装依赖"></a>💻 安装依赖</h3><h4 id="Python-依赖安装"><a href="#Python-依赖安装" class="headerlink" title="Python 依赖安装"></a>Python 依赖安装</h4><ul>
+<li>安装项目所需的基础依赖：</li>
+</ul>
+<pre><code class="bash">pip install -r requirements/base.txt</code></pre>
+<h4 id="AI-框架依赖安装"><a href="#AI-框架依赖安装" class="headerlink" title="AI 框架依赖安装"></a>AI 框架依赖安装</h4><ul>
+<li>根据你的环境（NPU 或 GPU），安装相应的依赖：</li>
+</ul>
+<pre><code class="bash">pip install -r requirements/npu.txt # NPU
+pip install -r requirements/vllm.txt # GPU + VLLM</code></pre>
+<ul>
+<li>对于特定任务的依赖：</li>
+</ul>
+<pre><code class="bash">pip install -r requirements/[task_name].txt</code></pre>
+<h4 id="数据集依赖安装："><a href="#数据集依赖安装：" class="headerlink" title="数据集依赖安装："></a>数据集依赖安装：</h4><ul>
+<li><code>HumanEval_X</code>数据集任务的环境配置</li>
+</ul>
+<p>在测试<code>HumanEval_X</code>时，需要额外安装和配置多语言环境。请参考<a href="./docs/user_guides/humaneval_x_environment.md">humaneval_x_environment.md</a></p>
+<h3 id="🌍-环境变量设置"><a href="#🌍-环境变量设置" class="headerlink" title="🌍 环境变量设置"></a>🌍 环境变量设置</h3><h4 id="公共环境变量"><a href="#公共环境变量" class="headerlink" title="公共环境变量"></a>公共环境变量</h4><h5 id="日志相关（NPU-GPU）"><a href="#日志相关（NPU-GPU）" class="headerlink" title="日志相关（NPU/GPU）"></a>日志相关（NPU/GPU）</h5><pre><code class="bash"># modeltest日志级别设置
+当前日志级别设置可以通过以下两种环境变量来控制，MINDIE_LOG_LEVEL的优先级更高
+
+export MINDIE_LOG_LEVEL = &quot;[LEVEL]&quot; #默认为INFO
+export MODELTEST_LOG_LEVEL=&quot;[LEVEL]&quot; # 默认为INFO
+
+# modeltest是否存储日志到目录
+当前是否存储日志到目录可以通过以下两种环境变量来控制，MINDIE_LOG_TO_FILE优先级更高
+
+export MINDIE_LOG_TO_FILE = &quot;[0/1], [false/true]&quot;
+export MODELTEST_LOG_TO_FILE=&quot;[0/1]&quot; # 保存为1，不保存为0
+
+# modeltest保存的文件名
+当前保存文件路径可以通过以下的环境变量来控制
+export MINDIE_LOG_PATH = &quot;[path]&quot; #默认写入~/mindie/log路径</code></pre>
+<h5 id="NPU场景下以下环境变量默认设置"><a href="#NPU场景下以下环境变量默认设置" class="headerlink" title="NPU场景下以下环境变量默认设置"></a>NPU场景下以下环境变量默认设置</h5><pre><code class="bash">export ATB_LAYER_INTERNAL_TENSOR_REUSE=1
+export INF_NAN_MODE_ENABLE=0
+export ATB_OPERATION_EXECUTE_ASYNC=1
+export ATB_CONVERT_NCHW_TO_ND=1
+export TASK_QUEUE_ENABLE=1
+export ATB_WORKSPACE_MEM_ALLOC_GLOBAL=1
+export ATB_CONTEXT_WORKSPACE_SIZE=0
+export ATB_LAUNCH_KERNEL_WITH_TILING=1
+export PYTORCH_NPU_ALLOC_CONF=&quot;expandable_segments:True&quot;</code></pre>
+<h5 id="NPU精度测试场景下以下环境变量默认设置"><a href="#NPU精度测试场景下以下环境变量默认设置" class="headerlink" title="NPU精度测试场景下以下环境变量默认设置"></a>NPU精度测试场景下以下环境变量默认设置</h5><pre><code class="bash">export LCCL_DETERMINISTIC=1
+export HCCL_DETERMINISTIC=true
+export ATB_MATMUL_SHUFFLE_K_ENABLE=0
+export MODELTEST_DATASET_SPECIFIED=[任务配置yaml中的task_name项]</code></pre>
+<h4 id="NPU"><a href="#NPU" class="headerlink" title="NPU"></a>NPU</h4><p>对于 NPU 环境，请使用以下命令设置环境变量：</p>
+<pre><code class="shell"># source cann环境变量
+source /usr/local/Ascend/ascend-toolkit/set_env.sh
+# source 加速库环境变量
+source /usr/local/Ascend/nnal/atb/set_env.sh
+# source 模型仓tar包解压出来后的环境变量
+source set_env.sh
+# 设置使用卡号
+export ASCEND_RT_VISIBLE_DEVICES=&quot;[卡号]&quot; # NPU场景，如&quot;0,1,2,3,4,5,6,7&quot;</code></pre>
+<h4 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h4><p>对于 GPU 环境，设置以下环境变量：</p>
+<pre><code class="shell">export CUDA_VISIBLE_DEVICES=&quot;[卡号（设备ID）]&quot; # GPU场景，如&quot;0,1,2,3,4,5,6,7&quot;</code></pre>
+<h2 id="🏗️-测试"><a href="#🏗️-测试" class="headerlink" title="🏗️ 测试"></a>🏗️ 测试</h2><ul>
+<li>ModelTest 支持对大模型在多个数据集上的评测。以下步骤展示了如何进行基本操作：模型配置、执行评测、查看结果。</li>
+</ul>
+<h3 id="📌-用户指引"><a href="#📌-用户指引" class="headerlink" title="📌 用户指引"></a>📌 用户指引</h3><ul>
+<li><p>命令行中执行 <code>modeltest -h</code>可展示所有支持的参数类型。命令中的<code>modeltest</code>可被<code>model_test</code>或者<code>model-test</code>替换使用。</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>model_config_path</td>
+<td>必选，模型配置路径，绝对路径或相对路径（基于modeltest根目录）</td>
+</tr>
+<tr>
+<td>task_config_path</td>
+<td>必选，任务配置路径，绝对路径或相对路径（基于modeltest根目录）</td>
+</tr>
+<tr>
+<td>batch_size</td>
+<td>可选，batch数，默认为1数</td>
+</tr>
+<tr>
+<td>tp</td>
+<td>可选，tensor并行数 ，默认为1</td>
+</tr>
+<tr>
+<td>output_dir</td>
+<td>可选，输出文件夹路径，默认为modeltest根目录/outputs</td>
+</tr>
+<tr>
+<td>lcoc_disable</td>
+<td>可选，关闭通信计算掩盖，默认开启</td>
+</tr>
+<tr>
+<td>save_debug_enable</td>
+<td>可选，开启保存debug信，默认关闭</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="📝-配置文件"><a href="#📝-配置文件" class="headerlink" title="📝 配置文件"></a>📝 配置文件</h3><ul>
+<li>在<code>modeltest/config</code>路径下存储有模型以及任务的yaml格式配置文件，用户在使用前根据测试目的需要对其进行修改。</li>
+</ul>
+<h4 id="模型配置"><a href="#模型配置" class="headerlink" title="模型配置"></a>模型配置</h4><p>模型的yaml文件在<code>modeltest/config/model</code>路径下，参数介绍：</p>
+<pre><code>model_name: str
+model_path: str
+model_type: str
+data_type: str
+use_chat_template: bool
+max_position_embedding: int
+block_size: int
+requested_gpu_framework: str
+trust_remote_code: bool
+env: dict
+mm_model: dict</code></pre><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>model_name</td>
+<td>模型名称</td>
+</tr>
+<tr>
+<td>model_path</td>
+<td>模型权重文件所在路径</td>
+</tr>
+<tr>
+<td>model_type</td>
+<td>模型结构类型，支持<code>fa</code>/<code>pa</code></td>
+</tr>
+<tr>
+<td>data_type</td>
+<td>模型数据类型，支持<code>fp16</code>/<code>bf16</code>，需要提前配在权重路径下<code>config.json</code>中修改<code>torch_dtype</code>为对应的参数类型</td>
+</tr>
+<tr>
+<td>use_chat_template</td>
+<td>是否使用chat模板，需要提前在<code>atb_llm</code>中进行相关适配</td>
+</tr>
+<tr>
+<td>max_position_embedding</td>
+<td>模型最长位置编码长度</td>
+</tr>
+<tr>
+<td>block_size</td>
+<td>在<code>pa</code>场景下时，block大小</td>
+</tr>
+<tr>
+<td>requested_gpu_framework</td>
+<td>在<code>gpu</code>环境下需要使用的执行框架，支持<code>huggingface</code>/<code>vllm</code></td>
+</tr>
+<tr>
+<td>trust_remote_code</td>
+<td>是否信任远程模型代码</td>
+</tr>
+<tr>
+<td>env</td>
+<td>模型执行前需要设置的环境变量</td>
+</tr>
+<tr>
+<td>mm_model</td>
+<td>【多模态】多模态模型所需设置的参数</td>
+</tr>
+<tr>
+<td>mm_model.path</td>
+<td>【多模态】llm_model/examples/models/{MODEL}/ 路径下的包含Runner（及其子类）的文件名</td>
+</tr>
+<tr>
+<td>mm_model.classname</td>
+<td>【多模态】名为{path}的文件所含的Runner（及其子类）的类名</td>
+</tr>
+<tr>
+<td>mm_model.infer_params</td>
+<td>【多模态】为一个字典，其包含的属性为llm_model/examples/models/{MODEL}/run_{model_type}.sh所调用的PARunner或FARunner（及其子类）的infer函数的第二个至最后一个参数的名称（key）及其取值（value）</td>
+</tr>
+</tbody></table>
+<h4 id="任务配置"><a href="#任务配置" class="headerlink" title="任务配置"></a>任务配置</h4><p>任务的yaml文件在<code>modeltest/config/task</code>路径下，参数介绍：</p>
+<pre><code>task_type: str
+task_name: str
+hf_dataset_path: str
+om_dataset_path: str
+local_dataset_path: str
+prompt: str
+choices: List
+shots: int
+requested_max_input_length: int
+requested_max_output_length: int
+need_logits: bool
+need_truncate_input: bool
+metric: Dict[str, Union[str, float]]
+metric_type: str
+metadata_version: str
+humaneval_x_datasets_selector: List[str]
+subject_mapping: Dict</code></pre><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>task_type</td>
+<td>任务类型，支持<code>precision</code></td>
+</tr>
+<tr>
+<td>task_name</td>
+<td>任务名称</td>
+</tr>
+<tr>
+<td>hf_dataset_path</td>
+<td>预留</td>
+</tr>
+<tr>
+<td>om_dataset_path</td>
+<td>预留</td>
+</tr>
+<tr>
+<td>local_dataset_path</td>
+<td>数据集路径，基于modeltest根目录（对于TextVQA数据集，为textvqa_val.jsonl的路径</td>
+</tr>
+<tr>
+<td>prompt</td>
+<td>数据集提示语</td>
+</tr>
+<tr>
+<td>choices</td>
+<td>数据集的选项</td>
+</tr>
+<tr>
+<td>shots</td>
+<td>数据集shot数，当task_name为<code>ceval</code>/<code>mmlu</code></td>
+</tr>
+<tr>
+<td>requested_max_input_length</td>
+<td>数据集要求的最大输入长度</td>
+</tr>
+<tr>
+<td>requested_max_output_length</td>
+<td>数据集要求的最大输出长度</td>
+</tr>
+<tr>
+<td>need_logits</td>
+<td>数据集运行中是否会基于logits计算（不可更改）</td>
+</tr>
+<tr>
+<td>need_truncate_input</td>
+<td>是否需要基于requested_max_input_length对输入进行截断，支持<code>longbench</code></td>
+</tr>
+<tr>
+<td>metric</td>
+<td>结果矩阵（不可修改）</td>
+</tr>
+<tr>
+<td>metadata_version</td>
+<td>版本号（不可修改）</td>
+</tr>
+<tr>
+<td>humaneval_x_datasets_selector</td>
+<td><code>humaneval_x</code>数据集类型列表，支持cpp/go/java/js/python</td>
+</tr>
+<tr>
+<td>subject_mapping</td>
+<td>任务执行的文件列表，可根据需要增删</td>
+</tr>
+</tbody></table>
+<h3 id="📊-运行简单的模型评测"><a href="#📊-运行简单的模型评测" class="headerlink" title="📊 运行简单的模型评测"></a>📊 运行简单的模型评测</h3><ul>
+<li>你可以通过以下命令开始评测模型：</li>
+</ul>
+<h4 id="NPU-1"><a href="#NPU-1" class="headerlink" title="NPU"></a>NPU</h4><ul>
+<li>请先配置好NPU的相关环境变量，然后运行以下命令：</li>
+</ul>
+<h5 id="单卡（举例）"><a href="#单卡（举例）" class="headerlink" title="单卡（举例）"></a>单卡（举例）</h5><pre><code class="bash">modeltest \
+    --model_config_path modeltest/config/model/llama2_7b.yaml \
+    --task_config_path modeltest/config/task/boolq.yaml \
+    --batch_size 1 \
+    --tp 1 \
+    --output_dir ./outputs \
+    --lcoc_disable \
+    --save_debug_enable</code></pre>
+<h5 id="多卡（举例）"><a href="#多卡（举例）" class="headerlink" title="多卡（举例）"></a>多卡（举例）</h5><pre><code class="bash">torchrun \
+    --nproc_per_node 4 \
+    --master_port 12345 \
+    --no-python \
+modeltest \
+    --model_config_path modeltest/config/model/llama2_7b.yaml \
+    --task_config_path modeltest/config/task/boolq.yaml \
+    --batch_size 1 \
+    --tp 4 \
+    --output_dir ./outputs \
+    --lcoc_disable \
+    --save_debug_enable</code></pre>
+<h4 id="GPU-1"><a href="#GPU-1" class="headerlink" title="GPU"></a>GPU</h4><ul>
+<li>请先配置好GPU的相关环境变量，然后运行以下命令：</li>
+</ul>
+<h5 id="单-多卡（举例）"><a href="#单-多卡（举例）" class="headerlink" title="单/多卡（举例）"></a>单/多卡（举例）</h5><pre><code class="bash">modeltest \
+    --model_config_path modeltest/config/model/llama2_7b.yaml \
+    --task_config_path modeltest/config/task/boolq.yaml \
+    --batch_size 1 \
+    --tp 1 \
+    --output_dir ./outputs \
+    --lcoc_disable \
+    --save_debug_enable</code></pre>
+<h3 id="📚-输出文件说明"><a href="#📚-输出文件说明" class="headerlink" title="📚 输出文件说明"></a>📚 输出文件说明</h3><ul>
+<li>在每次测试任务完成后，生成并保存相应的测试结果和调试信息，具体如下：</li>
+</ul>
+<h4 id="📄-测试结果文件"><a href="#📄-测试结果文件" class="headerlink" title="📄 测试结果文件"></a>📄 测试结果文件</h4><ul>
+<li><p>默认生成</p>
+</li>
+<li><p>生成路径：</p>
+</li>
+</ul>
+<pre><code>[output_dir]/results/[device_type]/[task_type]_test/[task_name]/[data_type]/[model_name]</code></pre><ul>
+<li>文件名格式：</li>
+</ul>
+<pre><code>[task_name]_[model_type]_batch[batch_size]_tp[tp]_result.csv</code></pre><ul>
+<li>示例文件路径：</li>
+</ul>
+<pre><code>./outputs/results/NPU/precision_test/boolq/fp16/llama2_7b/boolq_pa_batch1_tp1_result.csv</code></pre><ul>
+<li>文件内容：测试结果文件会保存每次测试任务的最终评测结果。具体内容包括：任务名称、模型配置、批处理大小 (<code>batch_size</code>)、并行度 (<code>tp</code>) 等信息。文件的保存路径会记录在日志中，以便用户追踪和访问结果。</li>
+</ul>
+<h4 id="🗂️-调试信息文件"><a href="#🗂️-调试信息文件" class="headerlink" title="🗂️ 调试信息文件"></a>🗂️ 调试信息文件</h4><ul>
+<li><p>由<code>save_debug_enable</code>参数控制，<code>TruthfulQA</code>数据集不支持生成调试文件。</p>
+</li>
+<li><p>生成路径：</p>
+</li>
+</ul>
+<pre><code>[output_dir]/debug/[device_type]/[task_type]_test/[task_name]/[data_type]/[model_name]</code></pre><ul>
+<li><p>文件名格式：</p>
+<pre><code>[task_name]_[model_type]_batch[batch_size]_tp[tp]_debug_info.csv</code></pre></li>
+<li><p>示例文件路径：</p>
+</li>
+</ul>
+<pre><code>./outputs/debug/NPU/precision_test/boolq/fp16/llama2_7b/boolq_pa_batch1_tp1_debug_info.csv</code></pre><ul>
+<li>文件内容：调试信息文件包含详细的调试数据，帮助分析和调试模型性能。文件中的内容来自测试过程中生成的数据，具体包括以下字段：<ul>
+<li><code>key</code>: 测试用例的唯一标识符。</li>
+<li><code>queries</code>: 测试过程中发送的查询请求。</li>
+<li><code>input_token_ids</code>: 输入的 token ID 序列，用于模型的推理。</li>
+<li><code>output_token_ids</code>: 模型生成的输出 token ID 序列。</li>
+<li><code>test_result</code>: 模型的测试结果。</li>
+<li><code>golden_result</code>: 参考的标准答案，用于对比测试结果，评估模型输出的准确性。</li>
+<li><code>pass</code>: 测试结果是否通过的标志（True/False）。<br>这些调试数据被保存为CSV文件，文件的保存路径会记录在日志中，方便用户定位调试信息文件。</li>
+</ul>
+</li>
+</ul>
+<h4 id="🧪-其他生成文件"><a href="#🧪-其他生成文件" class="headerlink" title="🧪 其他生成文件"></a>🧪 其他生成文件</h4><h5 id="HumanEval-和-HumanEval-X-的推理结果jsonl文件"><a href="#HumanEval-和-HumanEval-X-的推理结果jsonl文件" class="headerlink" title="HumanEval 和 HumanEval_X 的推理结果jsonl文件"></a>HumanEval 和 HumanEval_X 的推理结果jsonl文件</h5><ul>
+<li>生成路径：</li>
+</ul>
+<pre><code>[output_dir]/results/[device_type]/[task_type]_test/[task_name]/[data_type]/[model_name]</code></pre><ul>
+<li>文件名格式：</li>
+</ul>
+<pre><code>[task_name](_[humaneval_x_datasets_selector])_infer_results.csv</code></pre><ul>
+<li>示例文件路径：</li>
+</ul>
+<pre><code>./outputs/results/NPU/precision_test/humaneval/fp16/llama2_7b/humaneval_infer_results.csv</code></pre><ul>
+<li>文件内容：针对<code>humaneval</code>和<code>humaneval_x</code>任务，精度测试的子类会生成<code>humaneval_infer_results.csv</code>文件。此文件包含模型在推理任务中的结果和测试精度信息等。<code>humaneval_x</code>任务的文件名中包含数据集的选择器<code>humaneval_x_datasets_selector</code>，用于区分不同数据集的评测结果，便于后续分析。</li>
+</ul>
+<p><strong>参数解释</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>output_dir</td>
+<td>输出文件的根目录，生成所有测试结果、调试信息和日志的存储路径。默认路径为modeltest根目录下的<code>./outputs</code></td>
+</tr>
+<tr>
+<td>device_type</td>
+<td>设备类型，例如 NPU 或 GPU</td>
+</tr>
+<tr>
+<td>task_type</td>
+<td>任务类型，来自于任务yaml配置文件，在<code>modeltest/config/task</code>路径下，表示测试的类型，支持<code>precision</code>（精度测试）</td>
+</tr>
+<tr>
+<td>task_name</td>
+<td>任务名称，来自于任务yaml配置文件，在<code>modeltest/config/task</code>路径下</td>
+</tr>
+<tr>
+<td>data_type</td>
+<td>模型数据类型，来自于模型yaml配置文件，在<code>modeltest/config/model</code>路径下，支持<code>fp16</code>/<code>bf16</code>，需要提前配在权重路径下<code>config.json</code>中修改<code>torch_dtype</code>为对应的参数类型</td>
+</tr>
+<tr>
+<td>model_name</td>
+<td>模型名称，来自于模型yaml配置文件，在<code>modeltest/config/model</code>路径下</td>
+</tr>
+<tr>
+<td>model_type</td>
+<td>模型结构类型，来自于模型yaml配置文件，在<code>modeltest/config/task</code>路径下，支持<code>fa</code>/<code>pa</code></td>
+</tr>
+<tr>
+<td>batch_size</td>
+<td>batch数，默认为1</td>
+</tr>
+<tr>
+<td>tp</td>
+<td>tensor并行数 ，默认为1</td>
+</tr>
+</tbody></table>
+<h3 id="📌-补充说明"><a href="#📌-补充说明" class="headerlink" title="📌 补充说明"></a>📌 补充说明</h3><ul>
+<li><code>NeedleBench</code>大海捞针目前只支持单一信息检索任务：评估LLM在长文本中提取单一关键信息的能力，测试其对广泛叙述中特定细节的精确回忆能力。</li>
+<li><code>TruthfulQA</code>数据集仅支持 1 batch。</li>
+<li>目前数据集精度测试暂不支持多卡同时起多进程测试任务。</li>
+</ul>
+<h2 id="📖-数据集支持"><a href="#📖-数据集支持" class="headerlink" title="📖 数据集支持"></a>📖 数据集支持</h2><h3 id="NPU-2"><a href="#NPU-2" class="headerlink" title="NPU"></a>NPU</h3><ul>
+<li>下游数据集精度测试<ul>
+<li>BoolQ</li>
+<li>CEval</li>
+<li>CMMLU</li>
+<li>HumanEval</li>
+<li>HumanEval_X</li>
+<li>GSM8K</li>
+<li>LongBench</li>
+<li>MMLU</li>
+<li>NeedleBench</li>
+<li>TextVQA</li>
+<li>VideoBench</li>
+<li>VocalSound</li>
+<li>TruthfulQA</li>
+</ul>
+</li>
+</ul>
+<h3 id="GPU-2"><a href="#GPU-2" class="headerlink" title="GPU"></a>GPU</h3><ul>
+<li>下游数据集精度测试<ul>
+<li>BoolQ</li>
+<li>CEval</li>
+<li>CMMLU</li>
+<li>HumanEval</li>
+<li>HumanEval_X</li>
+<li>GSM8K</li>
+<li>LongBench</li>
+<li>MMLU</li>
+<li>NeedleBench</li>
+<li>TruthfulQA</li>
+</ul>
+</li>
+</ul>
+<h2 id="🤖-模型支持"><a href="#🤖-模型支持" class="headerlink" title="🤖 模型支持"></a>🤖 模型支持</h2><ul>
+<li>LLaMA<ul>
+<li>LLaMA-7B</li>
+<li>LLaMA-13B</li>
+<li>LLaMA-33B</li>
+<li>LLaMA-65B</li>
+<li>LLaMA2-7B</li>
+<li>LLaMA2-13B</li>
+<li>LLaMA2-70B</li>
+<li>LLaMA3-8B</li>
+<li>LLaMA3-70B</li>
+<li>LLaMA3.1-8B</li>
+<li>LLaMA3.1-70B</li>
+<li>LLaMA3.1-405B</li>
+</ul>
+</li>
+<li>Starcoder<ul>
+<li>Starcoder-15.5B</li>
+<li>Starcoder2-15B</li>
+</ul>
+</li>
+<li>ChatGLM<ul>
+<li>ChatGLM2-6B</li>
+<li>ChatGLM3-6B</li>
+<li>ChatGLM3-6b-32k</li>
+<li>Glm4-9B-Chat</li>
+<li>GLM-4-9B-Chat-1M</li>
+</ul>
+</li>
+<li>CodeGeeX2-6B</li>
+<li>Cogvlm2-llama3-chinese-chat-19B</li>
+<li>Baichuan1<ul>
+<li>Baichuan1-7B</li>
+</ul>
+</li>
+<li>Baichuan2<ul>
+<li>Baichuan2-7B</li>
+<li>Baichuan2-13B</li>
+</ul>
+</li>
+<li>Qwen<ul>
+<li>Qwen-7B</li>
+<li>Qwen-14B</li>
+<li>Qwen-72B</li>
+<li>Qwen1.5-14B</li>
+<li>Qwen-14B-chat</li>
+<li>Qwen-72B-chat</li>
+<li>Qwen-VL</li>
+<li>Qwen1.5-0.5B-chat</li>
+<li>Qwen1.5-4B-chat</li>
+<li>Qwen1.5-7B</li>
+<li>Qwen1.5-14B-chat</li>
+<li>Qwen1.5-32B-chat</li>
+<li>Qwen1.5-72B</li>
+<li>Qwen1.5-110B</li>
+<li>Qwen1.5-MoE-A2.7B</li>
+<li>Qwen2-57B-A14B</li>
+<li>Qwen2-72b-instruct</li>
+<li>Qwen2-Audio-7B-Instruct</li>
+<li>Qwen2-VL-7B-Instruct</li>
+</ul>
+</li>
+<li>Aquila<ul>
+<li>Aquila-7B</li>
+</ul>
+</li>
+<li>Deepseek<ul>
+<li>Deepseek16B</li>
+<li>Deepseek-LLM-7B</li>
+<li>Deepseek-LLM-67B</li>
+<li>Deepseek-Coder-1.3B</li>
+<li>Deepseek-Coder-6.7B</li>
+<li>Deepseek-Coder-7B</li>
+<li>Deepseek-Coder-33B</li>
+</ul>
+</li>
+<li>Mixtral<ul>
+<li>Mixtral-8x7B</li>
+<li>Mixtral-8x22B</li>
+</ul>
+</li>
+<li>Bloom-7B<ul>
+<li>Baichuan1-13B</li>
+</ul>
+</li>
+<li>CodeLLaMA<ul>
+<li>CodeLLaMA-7B</li>
+<li>CodeLLaMA-13B</li>
+<li>CodeLLaMA-34B</li>
+<li>CodeLLaMA-70B</li>
+</ul>
+</li>
+<li>Yi<ul>
+<li>Yi-6B-200K</li>
+<li>Yi-34B</li>
+<li>Yi-34B-200K</li>
+<li>Yi-VL-6B</li>
+<li>Yi-VL-34B</li>
+</ul>
+</li>
+<li>Chinese Alpaca<ul>
+<li>Chinese-Alpaca-13B</li>
+</ul>
+</li>
+<li>Vicuna<ul>
+<li>Vicuna-7B</li>
+<li>Vicuna-13B</li>
+</ul>
+</li>
+<li>Internlm<ul>
+<li>Internlm_20b</li>
+<li>Internlm2_7b</li>
+<li>Internlm2_20b</li>
+<li>Internlm2.5_7b</li>
+</ul>
+</li>
+<li>Internvl<ul>
+<li>InternVL2-8B</li>
+<li>InternVL2-40B</li>
+</ul>
+</li>
+<li>Gemma<ul>
+<li>Gemma_2b</li>
+<li>Gemma-7b</li>
+</ul>
+</li>
+<li>Mistral<ul>
+<li>Mistral-7B-Instruct-v0.2</li>
+</ul>
+</li>
+<li>Ziya<ul>
+<li>Ziya-Coding-34B</li>
+</ul>
+</li>
+<li>CodeShell<ul>
+<li>CodeShell-7B</li>
+</ul>
+</li>
+<li>Yi1.5<ul>
+<li>Yi-1.5-6B</li>
+<li>Yi-1.5-9B</li>
+<li>Yi-1.5-34B</li>
+</ul>
+</li>
+<li>gptneox_20b<ul>
+<li>GPT-NeoX-20B</li>
+</ul>
+</li>
+<li>telechat<ul>
+<li>Telechat-7B</li>
+<li>Telechat-12B</li>
+</ul>
+</li>
+<li>Phi-3<ul>
+<li>Phi-3-mini-128k-instruct</li>
+</ul>
+</li>
+</ul>
+<h2 id="👷‍♂️-贡献"><a href="#👷‍♂️-贡献" class="headerlink" title="👷‍♂️ 贡献"></a>👷‍♂️ 贡献</h2><p>我们感谢所有的贡献者为改进和提升<code>ModelTest</code>所作出的努力。</p>
+<p>Modeltest工具还在持续完善，如有问题，请点击以下链接：</p>
+<ul>
+<li><a href="https://wiki.huawei.com/domains/12174/wiki/111089/WIKI202408234389473" target="_blank" rel="noopener">📊 ModelTest沟通矩阵</a></li>
+<li><a href="https://onebox.huawei.com/v/b31e3181b66ca80bbb68396c7352476b?type=0" target="_blank" rel="noopener">🤔 ModelTest问题收集</a></li>
+</ul>
+
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2025
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
