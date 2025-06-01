@@ -89,7 +89,7 @@ cover: /contents/enterprise-architecture/cover.jpg
 ## 3.5 数据模型
 
 > 数据模型分为概念数据模型、逻辑数据模型和物理数据模型，如图3-11所示。
-￼
+
 > ![图3-11 数据模型](https://alphahinex.github.io/contents/enterprise-architecture/data-models.png)
 
 # 第4章 应用架构
@@ -127,7 +127,7 @@ cover: /contents/enterprise-architecture/cover.jpg
 > Open Group服务集成成熟度模型（OSIMM）
 
 > OSIMM成熟度矩阵定义了成熟度维度和水平，如图4-12所示。
-￼
+
 > ![图4-12 SOA成熟度评估矩阵](https://alphahinex.github.io/contents/enterprise-architecture/soa-maturity-evaluation-matrix.png)
 
 # 第5章 基础架构设计与优化
@@ -137,7 +137,7 @@ cover: /contents/enterprise-architecture/cover.jpg
 > 进入基础架构设计阶段后，按照表5-2所示9个阶段进行基础架构设计，这9个阶段是完成基础架构的主要活动，需要注意的是，在实践过程中可以根据企业的实际情况进行一定程度的调整。
 
 > ![表5-2 基础架构设计](https://alphahinex.github.io/contents/enterprise-architecture/infrastructure-design.png)
-￼
+
 ## 5.2 平台选型
 
 > 这个定律的核心思想是并行处理的扩展性由问题可并行的部分所决定。
