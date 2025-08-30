@@ -1,0 +1,806 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>让 AI 辅助编写内部代码 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,GitHub Copilot, Copilot, FauxPilot, VS Code, CodeGen, Triton Inference Server, GPU, FasterTransformer"> 
+    <meta name="description" content="在 用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot 和 GitHub Copilot 开源替代品 —— FauxPilot 中，我们分别使用 PaddleNLP,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">让 AI 辅助编写内部代码</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/fauxpilot/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                七月 23, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/07/23/deepspeed-finetune-codegen/" title="让 AI 辅助编写内部代码" class="">让 AI 辅助编写内部代码</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    25k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    23 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在 <a href="https://alphahinex.github.io/2023/06/11/paddlenlp-codegen-copilot/">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</a> 和 <a href="https://alphahinex.github.io/2023/06/18/fauxpilot/">GitHub Copilot 开源替代品 —— FauxPilot</a> 中，我们分别使用 PaddleNLP 和 FauxPilot 将 CodeGen 模型代理为可通过 HTTP 请求访问的接口，并通过 VS Code 插件在 IDE 中获得与 GitHub Copilot 类似的 AI 辅助编码能力。</p>
+<p>但不论是这种方式也好，或者是 GitHub Copilot，能够辅助编写的都是通用代码，无法辅助编写内部框架或私有类库的相关代码。</p>
+<p>这个场景可以通过对 CodeGen 模型进行微调来实现。</p>
+<p>本文介绍了基于 <a href="https://huggingface.co/Salesforce/codegen-350M-multi" target="_blank" rel="noopener">CodeGen-350M-multi</a> 模型，使用 <a href="https://www.deepspeed.ai/" target="_blank" rel="noopener">DeepSpeed</a> 对模型进行微调，并使用 <a href="https://github.com/fauxpilot/fauxpilot" target="_blank" rel="noopener">FauxPilot</a> 项目中提供的脚本，对模型进行转换，以使用 <a href="https://github.com/NVIDIA/FasterTransformer" target="_blank" rel="noopener">FasterTransformer</a> 进行加速，最终在 VS Code 的 <a href="https://github.com/Venthe/vscode-fauxpilot" target="_blank" rel="noopener">FauxPilot</a> 插件中，实现让 AI 辅助编写内部代码的效果。</p>
+<h1 id="模型微调"><a href="#模型微调" class="headerlink" title="模型微调"></a>模型微调</h1><h2 id="DeepSpeed-微调环境"><a href="#DeepSpeed-微调环境" class="headerlink" title="DeepSpeed 微调环境"></a>DeepSpeed 微调环境</h2><p>DeepSpeed 依赖 <a href="https://pytorch.org/" target="_blank" rel="noopener">PyTorch</a>，完整的环境需求可见官方文档 <a href="https://github.com/microsoft/DeepSpeed#requirements" target="_blank" rel="noopener">Requirements</a>，本文在 Docker 镜像中执行微调，使用 <a href="https://hub.docker.com/layers/deepspeed/deepspeed/latest_torch111/images/sha256-7e594486a330c7c53be12fdc3c1b426f853a3dd1dc43d9ea1dcdf5cbc19150c4?context=explore" target="_blank" rel="noopener">deepspeed/deepspeed:latest_torch111</a> 作为基础镜像，<a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">🤗 Transformers</a> <code>v4.21.1</code> 版本中的 <a href="https://github.com/huggingface/transformers/blob/v4.21.1/examples/pytorch/language-modeling/run_clm.py" target="_blank" rel="noopener">run_clm.py</a> 脚本作为微调脚本，需在微调环境中安装微调脚本所需依赖 <a href="https://github.com/huggingface/transformers/blob/v4.21.1/examples/pytorch/language-modeling/requirements.txt" target="_blank" rel="noopener">requirements.txt</a> 及 <code>aiohttp</code> 和 <code>transformers</code>。</p>
+<p>这里需注意 <code>run_clm.py</code> 和 <code>requirements.txt</code> 要使用与安装的 Transformers 版本一致的源码 tag 中的文件，如上面链接均为 <code>v4.21.1</code> 版本的。</p>
+<p>可参照如下 <code>Dockerfile</code> 构建微调环境所使用的镜像：</p>
+<pre><code class="Dockerfile">FROM deepspeed/deepspeed:latest_torch111
+
+COPY requirements.txt requirements.txt
+
+RUN pip install -r requirements.txt
+RUN pip install aiohttp==3.6
+RUN pip install transformers==4.21.1</code></pre>
+<p>构建镜像：</p>
+<pre><code class="bash">docker build -t deepspeed:codegen .</code></pre>
+<p>使用镜像启动并进入容器：</p>
+<pre><code class="bash">$ docker run --name dstest --runtime=nvidia -v $PWD:/mnt -it deepspeed:codegen /bin/bash
+
+=============
+== PyTorch ==
+=============
+
+NVIDIA Release 21.12 (build 29870972)
+PyTorch Version 1.11.0a0+b6df043
+
+Container image Copyright (c) 2021, NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+
+Copyright (c) 2014-2021 Facebook Inc.
+Copyright (c) 2011-2014 Idiap Research Institute (Ronan Collobert)
+Copyright (c) 2012-2014 Deepmind Technologies    (Koray Kavukcuoglu)
+Copyright (c) 2011-2012 NEC Laboratories America (Koray Kavukcuoglu)
+Copyright (c) 2011-2013 NYU                      (Clement Farabet)
+Copyright (c) 2006-2010 NEC Laboratories America (Ronan Collobert, Leon Bottou, Iain Melvin, Jason Weston)
+Copyright (c) 2006      Idiap Research Institute (Samy Bengio)
+Copyright (c) 2001-2004 Idiap Research Institute (Ronan Collobert, Samy Bengio, Johnny Mariethoz)
+Copyright (c) 2015      Google Inc.
+Copyright (c) 2015      Yangqing Jia
+Copyright (c) 2013-2016 The Caffe contributors
+All rights reserved.
+
+NVIDIA Deep Learning Profiler (dlprof) Copyright (c) 2021, NVIDIA CORPORATION &amp; AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION &amp; AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+NOTE: MOFED driver for multi-node communication was not detected.
+      Multi-node communication performance may be reduced.
+
+NOTE: The SHMEM allocation limit is set to the default of 64MB.  This may be
+   insufficient for PyTorch.  NVIDIA recommends the use of the following flags:
+   docker run --gpus all --ipc=host --ulimit memlock=-1 --ulimit stack=67108864 ...
+root@f8338550c41f:/workspace#</code></pre>
+<p>容器中使用 <code>ds_report</code> 验证 DeepSpeed 状态：</p>
+<pre><code class="bash">root@f8338550c41f:/workspace# ds_report
+--------------------------------------------------
+DeepSpeed C++/CUDA extension op report
+--------------------------------------------------
+NOTE: Ops not installed will be just-in-time (JIT) compiled at
+      runtime if needed. Op compatibility means that your system
+      meet the required dependencies to JIT install the op.
+--------------------------------------------------
+JIT compiled ops requires ninja
+ninja .................. [OKAY]
+--------------------------------------------------
+op name ................ installed .. compatible
+--------------------------------------------------
+cpu_adam ............... [NO] ....... [OKAY]
+cpu_adagrad ............ [NO] ....... [OKAY]
+fused_adam ............. [NO] ....... [OKAY]
+fused_lamb ............. [NO] ....... [OKAY]
+ [WARNING]  please install triton==1.0.0 if you want to use sparse attention
+sparse_attn ............ [NO] ....... [NO]
+transformer ............ [NO] ....... [OKAY]
+stochastic_transformer . [NO] ....... [OKAY]
+ [WARNING]  async_io requires the dev libaio .so object and headers but these were not found.
+ [WARNING]  async_io: please install the libaio-dev package with apt
+ [WARNING]  If libaio is already installed (perhaps from source), try setting the CFLAGS and LDFLAGS environment variables to where it can be found.
+async_io ............... [NO] ....... [NO]
+utils .................. [NO] ....... [OKAY]
+quantizer .............. [NO] ....... [OKAY]
+transformer_inference .. [NO] ....... [OKAY]
+--------------------------------------------------
+DeepSpeed general environment info:
+torch install path ............... [&#39;/opt/conda/lib/python3.8/site-packages/torch&#39;]
+torch version .................... 1.11.0a0+b6df043
+torch cuda version ............... 11.5
+torch hip version ................ None
+nvcc version ..................... 11.5
+deepspeed install path ........... [&#39;/opt/conda/lib/python3.8/site-packages/deepspeed&#39;]
+deepspeed info ................... 0.6.5, unknown, unknown
+deepspeed wheel compiled w. ...... torch 1.11, cuda 11.5</code></pre>
+<p>容器中验证 CUDA 状态：</p>
+<pre><code class="bash">root@f8338550c41f:/workspace# python
+Python 3.8.12 | packaged by conda-forge | (default, Oct 12 2021, 21:59:51)
+[GCC 9.4.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import torch
+&gt;&gt;&gt; torch.cuda.is_available()
+True</code></pre>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>微调数据集若使用 Hugging Face 上的，可直接在微调命令中传入数据集名称，如 <a href="https://huggingface.co/datasets/moyix/debian_csrc" target="_blank" rel="noopener">moyjx/debian_csrc</a>。如需使用本地数据集，仅支持 <code>csv/json/txt</code> 格式，这里的 <code>json</code> 格式，是指 <a href="https://alphahinex.github.io/2023/07/16/json-lines/">处理大数据集的灵活格式 —— JSON Lines</a> 中提到的 JSON Lines 格式，例如：</p>
+<pre><code class="jsonl">{&quot;text&quot;: &quot;content_of_source_file_1&quot;, &quot;url&quot;: &quot;path_to_source_file_1&quot;}
+{&quot;text&quot;: &quot;content_of_source_file_2&quot;, &quot;url&quot;: &quot;path_to_source_file_2&quot;}
+...</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>text</code> 属性为必需属性，保存训练数据，即源码文件内容，该属性名可在 <code>run_clm.py</code> 脚本中修改。</li>
+<li>其他属性可自愿添加，如上面的 <code>url</code> 属性可以标识文件来源。</li>
+</ul>
+<p>可使用 <a href="https://github.com/AlphaHinex/go-toolkit/tree/main/files2jsonl" target="_blank" rel="noopener">files2jsonl</a> 工具将源码文件夹转换为可直接使用的本地数据集。</p>
+<h2 id="微调命令"><a href="#微调命令" class="headerlink" title="微调命令"></a>微调命令</h2><pre><code class="bash">deepspeed --num_gpus 4 --num_nodes 1 \
+./run_clm.py \
+--model_name_or_path=./codegen-350M-multi \
+--per_device_train_batch_size=1 \
+--learning_rate 2e-5 \
+--num_train_epochs 1 \
+--output_dir=./codegen-350M-multi-finetune \
+--train_file ./test_dataset.json \
+--tokenizer_name ./codegen-350M-multi \
+--block_size 2048 \
+--gradient_accumulation_steps 32 \
+--do_train \
+--fp16 \
+--overwrite_output_dir \
+--deepspeed ./ds_config.json</code></pre>
+<p><code>train_file</code> 参数指定本地文件。若要使用 Hugging Face 上数据集微调，可使用 <code>dataset_name</code> 参数指定数据集名称。</p>
+<p><code>ds_config.json</code> 可使用 <a href="https://github.com/fauxpilot/fauxpilot/issues/62#issuecomment-1304681430" target="_blank" rel="noopener">这里的示例</a>:</p>
+<pre><code class="json">{
+    &quot;zero_optimization&quot;: {
+        &quot;stage&quot;: 2,
+        &quot;offload_optimizer&quot;: {
+            &quot;device&quot;: &quot;cpu&quot;,
+            &quot;pin_memory&quot;: true
+        },
+        &quot;allgather_partitions&quot;: true,
+        &quot;allgather_bucket_size&quot;: 2e8,
+        &quot;overlap_comm&quot;: true,
+        &quot;reduce_scatter&quot;: true,
+        &quot;reduce_bucket_size&quot;: 2e8,
+        &quot;contiguous_gradients&quot;: true
+    },
+    &quot;gradient_accumulation_steps&quot;: &quot;auto&quot;,
+    &quot;gradient_clipping&quot;: &quot;auto&quot;,
+    &quot;steps_per_print&quot;: 2000,
+    &quot;train_batch_size&quot;: &quot;auto&quot;,
+    &quot;train_micro_batch_size_per_gpu&quot;: &quot;auto&quot;,
+    &quot;wall_clock_breakdown&quot;: false
+}</code></pre>
+<h3 id="使用多卡微调"><a href="#使用多卡微调" class="headerlink" title="使用多卡微调"></a>使用多卡微调</h3><p><code>num_gpus</code> 参数可以指定使用的 GPU 数量。</p>
+<p>如使用多个 GPU 时遇以下报错：</p>
+<pre><code class="text">Pytorch &quot;NCCL error&quot;: unhandled system error, NCCL version 2.4.8&quot;</code></pre>
+<p>可参照 <a href="https://stackoverflow.com/questions/61075390/pytorch-nccl-error-unhandled-system-error-nccl-version-2-4-8#" target="_blank" rel="noopener">这里</a> 在 <code>run_clm.py</code> 中加入 <code>INFO</code> 级别调试信息，如：</p>
+<pre><code class="diff"> from transformers.utils import check_min_version, send_example_telemetry
+ from transformers.utils.versions import require_version
+
++os.environ[&quot;NCCL_DEBUG&quot;] = &quot;INFO&quot;
+
+ # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
+ check_min_version(&quot;4.21.0&quot;)</code></pre>
+<p>查看详细报错信息。</p>
+<p>如看到具体 <a href="https://github.com/NVIDIA/nccl/issues/290" target="_blank" rel="noopener">报错</a> 为：</p>
+<pre><code class="text">NCCL WARN Call to posix_fallocate failed : No space left on device</code></pre>
+<p>可参照 PaddlePaddle 的 <a href="https://github.com/PaddlePaddle/Paddle/pull/28484/files" target="_blank" rel="noopener">解决方式</a>，在 <code>run_clm.py</code> 中加入：</p>
+<pre><code class="diff"> from transformers.utils import check_min_version, send_example_telemetry
+ from transformers.utils.versions import require_version
+
+ os.environ[&quot;NCCL_DEBUG&quot;] = &quot;INFO&quot;
++os.environ[&#39;NCCL_SHM_DISABLE&#39;] = str(1)
+
+ # Will error if the minimal version of Transformers is not installed. Remove at your own risks.
+ check_min_version(&quot;4.21.0&quot;)</code></pre>
+<h3 id="指定-GPU"><a href="#指定-GPU" class="headerlink" title="指定 GPU"></a>指定 GPU</h3><p>要指定 GPU 时，可参照 <a href="https://zhuanlan.zhihu.com/p/624223085" target="_blank" rel="noopener">deepspeed多机多卡训练踏过的坑</a> 中内容，去掉 <code>num_gpus</code> 和 <code>num_nodes</code> 参数，使用 <code>--include localhost:1,2</code> 形式配置单机多卡。</p>
+<h2 id="微调耗时评估"><a href="#微调耗时评估" class="headerlink" title="微调耗时评估"></a>微调耗时评估</h2><p>使用一个 Tesla P40（24G VRAM）微调 CodeGen-350M-multi 模型，显存使用 23G 左右，微调时间：</p>
+<ol>
+<li>40w 行邮箱数据，24M 训练数据集，大约耗时 10 分钟</li>
+<li>300 个 java 文件，75M 训练数据集，大约耗时 1 小时 20 分钟</li>
+</ol>
+<p>在 <a href="https://github.com/fauxpilot/fauxpilot/discussions/74#discussioncomment-3798458" target="_blank" rel="noopener">https://github.com/fauxpilot/fauxpilot/discussions/74#discussioncomment-3798458</a> 中，FauxPilot 作者也给出了他们微调 16B 模型的资源需求情况：</p>
+<blockquote>
+<p>As a warning, fine-tuning or training large models (like CodeGen 16B) takes a lot of GPU resources – we fine-tuned a 16B model on Verilog code, and it took 3xA100 GPUs with 80GB of VRAM each running for six days to do one pass over the 400MB dataset.</p>
+</blockquote>
+<h2 id="微调后验证"><a href="#微调后验证" class="headerlink" title="微调后验证"></a>微调后验证</h2><p>模型微调之后，可通过如下 Python 代码进行验证：</p>
+<pre><code class="python">from transformers import AutoTokenizer, AutoModelForCausalLM
+tokenizer = AutoTokenizer.from_pretrained(&quot;/path/to/codegen-350M-multi-finetune&quot;)
+model = AutoModelForCausalLM.from_pretrained(&quot;/path/to/codegen-350M-multi-finetune&quot;)
+
+text = &quot;def qucik_sort&quot;
+input_ids = tokenizer(text, return_tensors=&quot;pt&quot;).input_ids
+
+generated_ids = model.generate(input_ids, max_length=128)
+print(tokenizer.decode(generated_ids[0], skip_special_tokens=True))</code></pre>
+<p>在 <code>text</code> 中放入提示词，观察 <code>print</code> 输出的结果，是否学习到了训练数据中的内容。</p>
+<h1 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h1><p>在通过上面的 Python 代码验证微调后的模型能力时，可以感受到需要的时间还是很长的，这个时间长到无法满足在 IDE 中即时补全代码的需求。</p>
+<p>为了解决这个问题，FauxPilot 的作者使用了 <a href="https://gist.github.com/moyix/7896575befbe1b99162ccfec8d135566" target="_blank" rel="noopener">线性代数的方法</a>，通过 <a href="https://gist.github.com/moyix/0f37da9c21c4ddfa0ab39ddad1639db4" target="_blank" rel="noopener">gist 上的 codegen_gptj_convert.py</a> 或 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/codegen_gptj_convert.py" target="_blank" rel="noopener">仓库中的 codegen_gptj_convert.py</a> 转换脚本，将 CodeGen 模型转换为了 <a href="https://github.com/kingoflolz/mesh-transformer-jax#gpt-j-6b" target="_blank" rel="noopener">GPT-J</a> 模型。</p>
+<p>之所以转换成 GPT-J 模型，是因为这两个模型在架构上有 99.9% 的相似，并且 GPT-J 在推理加速引擎 <a href="https://github.com/NVIDIA/FasterTransformer/" target="_blank" rel="noopener">FasterTransformer</a> 的 <a href="https://github.com/NVIDIA/FasterTransformer/#support-matrix" target="_blank" rel="noopener">支持列表</a> 中。这也是我们会发现在使用 FauxPilot 时，是去作者自己的 Hugging Face 模型仓库中下载转换后的模型（如 <a href="https://huggingface.co/moyix/codegen-350M-multi-gptj" target="_blank" rel="noopener">https://huggingface.co/moyix/codegen-350M-multi-gptj</a> ），而不是直接使用 Salesforce 发布的原始模型的原因。</p>
+<p>原始的 CodeGen 模型需要 12 秒生成 128 个 token，经过推理加速后，在一个 A6000 GPU 上可以将耗时缩短到 5.7 秒，并且使用多 GPU 还有进一步加速的可能。</p>
+<p>可通过如下步骤，将我们微调好的 CodeGen 模型，转换为可在 FauxPilot Server 中使用的形式。</p>
+<h2 id="codegen-gptj-convert-py"><a href="#codegen-gptj-convert-py" class="headerlink" title="codegen_gptj_convert.py"></a>codegen_gptj_convert.py</h2><p>先使用 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/codegen_gptj_convert.py" target="_blank" rel="noopener">codegen_gptj_convert.py</a> 脚本，将 Salesforce CodeGen 模型转换为 GPT-J 模型。</p>
+<p>转换本地微调后的模型时，需修改脚本内容，去掉 <code>choices=CODEGEN_PRETRAINED_MODEL_ARCHIVE_LIST, default=&#39;Salesforce/codegen-350M-multi&#39;,</code> 行：</p>
+<pre><code class="diff"> parser.add_argument(&#39;--code_model&#39;,
+-                    choices=CODEGEN_PRETRAINED_MODEL_ARCHIVE_LIST, default=&#39;Salesforce/codegen-350M-multi&#39;,
+                     help=&#39;which SalesForce model to convert&#39;
+                     )</code></pre>
+<p>使用下面命令执行转换：</p>
+<pre><code class="bash">python /path/to/codegen_gptj_convert.py \
+--code_model /path/to/codegen-350M-multi-finetune \
+/path/to/codegen-350M-multi-finetune-gptj</code></pre>
+<p>转换时需要 <code>code_model</code> 路径内的 <code>pytorch_model.bin</code> 和 <code>config.json</code> 文件，转换后模型仍为一个 <code>pytorch_model.bin</code> 文件，但内容发生了变化，配套的 <code>config.json</code> 文件也不一样了。</p>
+<blockquote>
+<p>脚本用法可参照 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/download_and_convert_model.sh" target="_blank" rel="noopener">download_and_convert_model.sh</a>。</p>
+</blockquote>
+<h2 id="triton-config-gen-py"><a href="#triton-config-gen-py" class="headerlink" title="triton_config_gen.py"></a>triton_config_gen.py</h2><p>转换后的 GPT-J 模型在经过 FasterTransformer 加速后，最终会部署到 <a href="https://github.com/triton-inference-server/backend" target="_blank" rel="noopener">Triton Inference Server</a> 中。需先使用 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/triton_config_gen.py" target="_blank" rel="noopener">triton_config_gen.py</a> 脚本来生成 Triton 需使用的配置文件。</p>
+<p>但在使用 FauxPilot 仓库中的这个脚本生成 CodeGen-350M-multi 微调后模型的配置时，<code>vocab_size</code> 的算法需要进行调整，否则使用转换后的模型时会出现补全的都是混乱内容的情况：</p>
+<pre><code class="diff"> # Vocab size *sometimes* gets rounded up to a multiple of 1024
+-params[&#39;vocab_size&#39;] = tokenizer.vocab_size+len(tokenizer.get_added_vocab())  # round_up(tokenizer.vocab_size, 1024)
++params[&#39;vocab_size&#39;] = round_up(tokenizer.vocab_size, 1024)
+ params[&#39;start_id&#39;] = tokenizer.eos_token_id</code></pre>
+<p>调整脚本后执行如下命令生成配置：</p>
+<pre><code class="bash">python /path/to/triton_config_gen.py -n 2 \
+--tokenizer /path/to/codegen-350M-multi-finetune \
+--hf_model_dir /path/to/codegen-350M-multi-finetune-gptj \
+--model_store /path/to/fauxpilot/models \
+--rebase /model</code></pre>
+<blockquote>
+<p><code>triton_config_gen.py</code> 脚本需与 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/config_template.pbtxt" target="_blank" rel="noopener">config_template.pbtxt</a> 模板文件放在相同路径下共同使用。</p>
+</blockquote>
+<p>其中：</p>
+<ul>
+<li><code>-n</code> 为最终运行时需要使用的 GPU 数量</li>
+<li><code>--tokenizer</code> 指定微调后的 CodeGen 模型路径（因为使用 <code>codegen_gptj_convert.py</code> 脚本转换得到的 GPT-J 模型路径中只有 <code>pytorch_model.bin</code> 和 <code>config.json</code> 两个文件）</li>
+<li><code>--hf_model_dir</code> 指定转换后的 GPT-J 模型路径</li>
+<li><code>--model_store</code> 指定配置文件的生成路径</li>
+<li><code>--rebase</code> 用来指定将 FasterTransformer 加速后的模型文件挂载到容器里时，容器内所使用的模型文件路径。如使用 FauxPilot 提供的 Docker Compose 方式启动 FauxPilot Server 服务，可保持使用 <code>/model</code> 路径不变</li>
+</ul>
+<p>以上面的命令为例，执行成功后会在 <code>/path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu/fastertransformer</code> 路径下生成一个 <code>config.pbtxt</code> 文件。</p>
+<h2 id="huggingface-gptj-convert-py"><a href="#huggingface-gptj-convert-py" class="headerlink" title="huggingface_gptj_convert.py"></a>huggingface_gptj_convert.py</h2><p>使用 <a href="https://github.com/fauxpilot/fauxpilot/blob/main/converter/huggingface_gptj_convert.py" target="_blank" rel="noopener">huggingface_gptj_convert.py</a> 脚本将 GPT-J 模型转换成 FasterTransformer 格式：</p>
+<pre><code class="bash">python /path/to/huggingface_gptj_convert.py \
+-in_file /path/to/codegen-350M-multi-finetune-gptj \
+-saved_dir /path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu/fastertransformer/1 \
+-infer_gpu_num 2</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>in_file</code> 为转换成 GPT-J 格式的微调后模型文件路径</li>
+<li><code>saved_dir</code> 为上面 <code>triton_config_gen.py</code> 脚本生成配置文件的路径加一层 <code>/1</code></li>
+<li><code>infer_gpu_num</code> 为推理所使用的 GPU 数量，注意需与 <code>triton_config_gen.py</code> 脚本的 <code>-n</code> 参数值一致</li>
+</ul>
+<h2 id="All-in-one-脚本"><a href="#All-in-one-脚本" class="headerlink" title="All in one 脚本"></a>All in one 脚本</h2><p>可使用 <a href="https://github.com/AlphaHinex/fauxpilot/blob/350m/converter/convert_model.sh" target="_blank" rel="noopener">convert_model.sh</a> 脚本完成上述所有转换工作，用法为：</p>
+<pre><code class="bash">./convert_model.sh codegen-350M-multi-finetune 2</code></pre>
+<p>将微调后的模型文件路径放至该脚本路径内，并将该脚本与其他转换所需脚本和模板文件放置在相同路径下。第一个参数为微调后的模型文件路径，第二个参数为推理时需使用的 GPU 数量。</p>
+<p>该脚本内容如下：</p>
+<pre><code class="bash">#!/bin/bash
+
+MODEL=${1}
+NUM_GPUS=${2}
+
+echo &quot;Converting model ${MODEL} with ${NUM_GPUS} GPUs&quot;
+
+python3 codegen_gptj_convert.py --code_model ./${MODEL} ${MODEL}-gptj
+
+rm -rf ./models/${MODEL}-${NUM_GPUS}gpu
+
+python3 triton_config_gen.py -n ${NUM_GPUS} --tokenizer ./${MODEL} --hf_model_dir ${MODEL}-gptj --model_store ./models --rebase /model
+
+python3 huggingface_gptj_convert.py -in_file ${MODEL}-gptj -saved_dir ./models/${MODEL}-gptj-${NUM_GPUS}gpu/fastertransformer/1 -infer_gpu_num ${NUM_GPUS}
+
+rm -rf ${MODEL}-gptj</code></pre>
+<p>执行成功后，会在脚本所在位置的 <code>models/codegen-350M-multi-finetune-gptj-2gpu</code> 下获得转换好的模型文件。</p>
+<h2 id="替换部分文件"><a href="#替换部分文件" class="headerlink" title="替换部分文件"></a>替换部分文件</h2><p>实际使用时发现，经过上述过程转换后的模型在 FauxPilot Server 中使用时，会出现补全的代码内容都是混乱的无法辨识内容，经试验发现需要使用 FauxPilot 使用的原始模型中的部分文件替换通过上述方式转换之后的 FasterTransformer 模型文件。以 <code>CodeGen-350M-multi</code> 为例，需替换的文件为：</p>
+<pre><code class="text">model.lm_head.bias.bin
+model.lm_head.weight.bin
+model.wte.bin</code></pre>
+<p>可在 <a href="https://huggingface.co/moyix/codegen-350M-multi-gptj/tree/main" target="_blank" rel="noopener">https://huggingface.co/moyix/codegen-350M-multi-gptj/tree/main</a> 对应 GPU 数量的 <code>zst</code> 压缩文件中，提取上述文件（或使用 Salesforce 原始模型通过上述过程转换得到，不微调直接转换时这三个文件内容应该是正确的，可以在 FauxPilot Server 中正常使用），并覆盖自行转换出的文件，如：</p>
+<pre><code class="bash">cp /path/to/origin/codegen-350M-multi-2gpu/fastertransformer/1/2-gpu/model.lm_head.bias.bin /path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu/fastertransformer/1/2-gpu/model.lm_head.bias.bin
+cp /path/to/origin/codegen-350M-multi-2gpu/fastertransformer/1/2-gpu/model.lm_head.weight.bin /path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu/fastertransformer/1/2-gpu/model.lm_head.weight.bin
+cp /path/to/origin/codegen-350M-multi-2gpu/fastertransformer/1/2-gpu/model.wte.bin /path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu/fastertransformer/1/2-gpu/model.wte.bin</code></pre>
+<h2 id="模型转换过程最终输出文件树"><a href="#模型转换过程最终输出文件树" class="headerlink" title="模型转换过程最终输出文件树"></a>模型转换过程最终输出文件树</h2><pre><code class="bash">$ pwd
+/path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu
+$ tree -L 4
+.
+└── fastertransformer
+    ├── 1
+    │   └── 2-gpu
+    │       ├── config.ini
+    │       ├── model.final_layernorm.bias.bin
+    │       ├── model.final_layernorm.weight.bin
+    │       ├── model.layers.0.attention.dense.weight.0.bin
+    │       ├── model.layers.0.attention.query_key_value.weight.0.bin
+    │       ├── model.layers.0.input_layernorm.bias.bin
+    │       ├── model.layers.0.input_layernorm.weight.bin
+    │       ├── model.layers.0.mlp.dense_4h_to_h.bias.bin
+    │       ├── model.layers.0.mlp.dense_4h_to_h.weight.0.bin
+    │       ├── model.layers.0.mlp.dense_h_to_4h.bias.0.bin
+    │       ├── model.layers.0.mlp.dense_h_to_4h.weight.0.bin
+...
+    │       ├── model.layers.9.attention.dense.weight.0.bin
+    │       ├── model.layers.9.attention.query_key_value.weight.0.bin
+    │       ├── model.layers.9.input_layernorm.bias.bin
+    │       ├── model.layers.9.input_layernorm.weight.bin
+    │       ├── model.layers.9.mlp.dense_4h_to_h.bias.bin
+    │       ├── model.layers.9.mlp.dense_4h_to_h.weight.0.bin
+    │       ├── model.layers.9.mlp.dense_h_to_4h.bias.0.bin
+    │       ├── model.layers.9.mlp.dense_h_to_4h.weight.0.bin
+    │       ├── model.lm_head.bias.bin
+    │       ├── model.lm_head.weight.bin
+    │       └── model.wte.bin
+    └── config.pbtxt</code></pre>
+<h1 id="新模型使用"><a href="#新模型使用" class="headerlink" title="新模型使用"></a>新模型使用</h1><p>在 FauxPilot 中使用微调并转换后的新模型就比较简单了，按照 <a href="https://alphahinex.github.io/2023/06/18/fauxpilot/">GitHub Copilot 开源替代品 —— FauxPilot</a> 中方式准备好运行环境，修改 <code>.env</code> 文件中的 <code>MODEL_DIR</code> 为新模型路径即可，如 <code>/path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu</code>。如本文中的示例可使用的 <code>.env</code> 文件内容如下：</p>
+<pre><code class=".env">NUM_GPUS=2
+GPUS=0,1
+API_EXTERNAL_PORT=5000
+TRITON_HOST=triton
+TRITON_PORT=8001
+MODEL=codegen-350M-multi
+MODEL_DIR=/path/to/fauxpilot/models/codegen-350M-multi-finetune-gptj-2gpu
+HF_CACHE_DIR=/path/to/fauxpilot/.hf_cache</code></pre>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p>本文中所使用的修改后的脚本，及 All in one 转换脚本，可在 <a href="https://github.com/AlphaHinex/fauxpilot" target="_blank" rel="noopener">https://github.com/AlphaHinex/fauxpilot</a> 中获取。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://github.com/fauxpilot/fauxpilot/issues/62" target="_blank" rel="noopener">How to optimize CodeGen for my code before launching FauxPilot</a></li>
+<li><a href="https://github.com/fauxpilot/fauxpilot/discussions/74" target="_blank" rel="noopener">Guide on how to train new models on an existing codebase?</a></li>
+<li><a href="https://gist.github.com/moyix/7896575befbe1b99162ccfec8d135566" target="_blank" rel="noopener">How to convert the SalesForce CodeGen models to GPT-J</a></li>
+<li><a href="https://gist.github.com/moyix/0f37da9c21c4ddfa0ab39ddad1639db4" target="_blank" rel="noopener">Convert a SalesForce CodeGen model’s weights to plain GPT-J</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/626008090" target="_blank" rel="noopener">大模型的好伙伴，浅析推理加速引擎FasterTransformer</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">306 <p>文章</p></a></li>
+                    <li><a href="/categories">74 <p>分类</p></a></li>
+                    <li><a href="/tags">150 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#模型微调"><span class="toc-number">1.</span> <span class="toc-text">模型微调</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DeepSpeed-微调环境"><span class="toc-number">1.1.</span> <span class="toc-text">DeepSpeed 微调环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集"><span class="toc-number">1.2.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微调命令"><span class="toc-number">1.3.</span> <span class="toc-text">微调命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用多卡微调"><span class="toc-number">1.3.1.</span> <span class="toc-text">使用多卡微调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定-GPU"><span class="toc-number">1.3.2.</span> <span class="toc-text">指定 GPU</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微调耗时评估"><span class="toc-number">1.4.</span> <span class="toc-text">微调耗时评估</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微调后验证"><span class="toc-number">1.5.</span> <span class="toc-text">微调后验证</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模型转换"><span class="toc-number">2.</span> <span class="toc-text">模型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#codegen-gptj-convert-py"><span class="toc-number">2.1.</span> <span class="toc-text">codegen_gptj_convert.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#triton-config-gen-py"><span class="toc-number">2.2.</span> <span class="toc-text">triton_config_gen.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#huggingface-gptj-convert-py"><span class="toc-number">2.3.</span> <span class="toc-text">huggingface_gptj_convert.py</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#All-in-one-脚本"><span class="toc-number">2.4.</span> <span class="toc-text">All in one 脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换部分文件"><span class="toc-number">2.5.</span> <span class="toc-text">替换部分文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型转换过程最终输出文件树"><span class="toc-number">2.6.</span> <span class="toc-text">模型转换过程最终输出文件树</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#新模型使用"><span class="toc-number">3.</span> <span class="toc-text">新模型使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录"><span class="toc-number">4.</span> <span class="toc-text">附录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2025
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
