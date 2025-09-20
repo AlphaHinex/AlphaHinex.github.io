@@ -37,7 +37,7 @@ cover: /contents/invoke-controller-by-request/spring-mvc.jpg
 
 HttpServletRequest 被 Servlet 容器和 Spring Framework 送至  [org.springframework.web.servlet.DispatcherServlet#doService](https://github.com/spring-projects/spring-framework/blob/v5.2.2.RELEASE/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java#L910)，之后委托 [org.springframework.web.servlet.DispatcherServlet#doDispatch](https://github.com/spring-projects/spring-framework/blob/v5.2.2.RELEASE/spring-webmvc/src/main/java/org/springframework/web/servlet/DispatcherServlet.java#L1000) 执行真正的请求分发。
 
-## 通过 HandlerMapping 将请求映射到处理器（Handler)和拦截器
+## 通过 HandlerMapping 将请求映射到处理器（Handler）和拦截器
 
 在 `doDispatch` 中，调用 `getHandler` 方法，根据 `HttpServletRequest` 获得 `HandlerExecutionChain`。
 
