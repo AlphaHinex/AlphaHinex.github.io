@@ -175,17 +175,17 @@ protected final void refreshBeanFactory() throws BeansException {
 | Root        | BeanFactory | ApplicationContext |
 | ----------- | ----------- | ------------------ |
 | ID          | application | org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6e01f9b0 |
-| Code        | @3157       | @3149              |
+| ObjectId    | @3157       | @3149              |
 | Parent      | null        | null               |
 
 | Bar Servlet | BeanFactory | ApplicationContext |
 | ----------- | ----------- | ------------------ |
 | ID          | org.springframework.web.context.WebApplicationContext:/Bar servlet | org.springframework.web.context.WebApplicationContext:/Bar servlet |
-| Code        | @5578       | @5591              |
+| ObjectId    | @5578       | @5591              |
 | Parent      | @3157       | @3149              |
 
 | Foo Servlet | BeanFactory | ApplicationContext |
 | ----------- | ----------- | ------------------ |
 | ID          | org.springframework.web.context.WebApplicationContext:/Foo servlet | org.springframework.web.context.WebApplicationContext:/Foo servlet |
-| Code        | @5778       | @5777              |
+| ObjectId    | @5778       | @5777              |
 | Parent      | @3157       | @3149              |
