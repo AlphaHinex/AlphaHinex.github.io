@@ -57,10 +57,10 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图1-16：Transformer由堆叠的编码器和解码器块组合而成，输入依次流经每个编码器和解码器](https://alphahinex.github.io/contents/hands-on-large-language-models/1-16.png)
 
-> 编码器和解码器块都围绕着注意力机制￼展开，而不是利用带有注意力特征的RNN。
+> 编码器和解码器块都围绕着注意力机制展开，而不是利用带有注意力特征的RNN。
 
 > Transformer中的编码器块由两部分组成：自注意力(self-attention)和前馈神经网络(feed-forward neural network)，如图1-17所示。
-￼
+
 > ![图1-17：编码器块围绕自注意力来生成中间表示](https://alphahinex.github.io/contents/hands-on-large-language-models/1-17.png)
 
 > 与之前的注意力方法相比，自注意力可以关注单个序列内部的不同位置，从而更高效且准确地表示输入序列
@@ -88,11 +88,11 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 > 这些堆叠起来的编码器很难训练，因此BERT采用了一种被称为掩码语言建模(masked language modeling)的技术来解决这个问题
 
 > 该方法会掩码部分输入，让模型预测被掩码的部分。这样的预测任务虽然困难，但能让BERT为输入序列创建更准确的（中间）表示。
-￼
+
 > ![图1-22：用掩码语言建模方法训练BERT模型](https://alphahinex.github.io/contents/hands-on-large-language-models/1-22.png)
 
 > 这种架构和训练过程使BERT及相关架构在表示依赖上下文的文本方面表现十分出色。BERT类模型通常用于迁移学习(transfer learning)，这包括首先针对语言建模进行预训练(pretraining)，然后针对特定任务进行微调(fine-tuning)。例如，通过在整个维基百科的文本数据上训练BERT，它学会了理解文本的语义和上下文性质。然后，如图1-23所示，我们可以使用该预训练模型，针对特定任务（如文本分类）进行微调。
-￼
+
 > ![图1-23：在掩码语言模型上预训练BERT后，我们针对特定任务对其进行微调](https://alphahinex.github.io/contents/hands-on-large-language-models/1-23.png)
 
 > BERT类模型架构在处理过程中的几乎每一步都会生成嵌入，这使得BERT模型成为通用特征提取器，无须针对特定任务进行微调。
@@ -111,7 +111,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 1.2.8 生成式AI元年
 
-> 除了广受欢迎的Transformer架构外，还出现了一些有前景的新架构，如Mamba￼和RWKV￼。这些新型架构试图在达到Transformer级别的性能的同时，还有额外的优势，比如更大的上下文窗口或更快的推理速度。
+> 除了广受欢迎的Transformer架构外，还出现了一些有前景的新架构，如Mamba和RWKV。这些新型架构试图在达到Transformer级别的性能的同时，还有额外的优势，比如更大的上下文窗口或更快的推理速度。
 
 ### 1.4 LLM的训练范式
 
@@ -317,7 +317,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 #### 3.2.2 Transformer块
 
 > Transformer块的两个主要组成部分是自注意力层和前馈神经网络层。如图3-29所示，深入Transformer块的细节，还能发现残差连接和层归一化操作。
-￼
+
 > ![图3-29：原始Transformer论文中的Transformer块](https://alphahinex.github.io/contents/hands-on-large-language-models/3-29.png)
 
 > ![图3-30：2024年的Transformer（如Llama 3）的Transformer块有一些新的改进，如预归一化（通过RMSNorm实现），以及通过分组查询注意力和旋转位置嵌入优化的注意力机制](https://alphahinex.github.io/contents/hands-on-large-language-models/3-30.png)
@@ -335,11 +335,11 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 > ![图3-31：打包是一个将短训练文档高效组织到上下文中的过程，包括在单个上下文中对多个文档进行分组，同时最小化上下文末尾的填充](https://alphahinex.github.io/contents/hands-on-large-language-models/3-31.png)
 
 > 与在前向传播开始时添加的静态绝对嵌入不同，旋转位置嵌入是一种以捕获绝对和相对词元位置信息的方式来编码位置信息的方法，其思想的基础是嵌入空间中旋转的向量。在前向传播中，旋转位置嵌入是在注意力步骤中添加的，如图3-32所示。
-￼
+
 > ![图3-32：旋转位置嵌入是应用在注意力步骤中的，而不是应用在前向传播的开始](https://alphahinex.github.io/contents/hands-on-large-language-models/3-32.png)
 
 > 在注意力步骤中，我们特意把位置信息混合到查询矩阵和键矩阵中。这个混合过程发生在我们将查询向量和键矩阵相乘，进行相关性评分之前，如图3-33所示。
-￼
+
 > ![图3-33：旋转位置嵌入在自注意力中的相关性评分步骤之前，被添加到词元的表示中](https://alphahinex.github.io/contents/hands-on-large-language-models/3-33.png)
 
 ### 3.3 小结
@@ -390,7 +390,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 ### 4.4 使用特定任务模型
 
 > 根据预测结果是正确(True)还是错误(False)，以及预测的分类是正例（Positive，此处即正面评论）还是负例（Negative，此处即负面评论），有四种组合。我们可以将这些组合用矩阵形式表示，通常称为混淆矩阵(confusion matrix)，如图4-8所示。
-￼
+
 > ![图4-8：混淆矩阵描述了我们可以做出的四种类型的预测](https://alphahinex.github.io/contents/hands-on-large-language-models/4-8.png)
 
 > 四个常用的指标：精确率、召回率、准确率和F1分数。
@@ -402,7 +402,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 #### 4.5.1 监督分类
 
 > 我们不直接使用表示模型进行分类，而是使用嵌入模型生成特征。这些特征随后可以输入到分类器中，从而创建一个如图4-10所示的两步法。
-￼
+
 > ![图4-10：特征提取步骤和分类步骤是分离的](https://alphahinex.github.io/contents/hands-on-large-language-models/4-10.png)
 
 > 这种分离架构的一个主要优点是，我们不需要微调嵌入模型，耗费大量资源，而是可以在CPU上训练逻辑回归等传统分类器。
@@ -434,11 +434,11 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 > T5系列模型首先使用掩码语言建模进行预训练。在训练的第一步，
 
 > 预训练过程不是仅对单个词元进行掩码，而是对词元集合（也称词元跨度，token span）整体进行掩码。
-￼
+
 > ![图4-20：在训练的第一步（预训练）中，T5模型需要预测可能包含多个词元的掩码](https://alphahinex.github.io/contents/hands-on-large-language-models/4-20.png)
 
 > 在训练的第二步，即微调基础模型过程中，真正的“魔法”才开始发生。模型不是针对单个特定任务进行微调，而是将每个任务转换为序列到序列任务并同时进行训练。如图4-21所示，这使得模型可以在多种任务上进行训练。
-￼
+
 > ![图4-21：通过将特定任务转换为文本指令，T5模型可以在微调过程中针对各种任务进行训练](https://alphahinex.github.io/contents/hands-on-large-language-models/4-21.png)
 
 #### 4.6.2 使用ChatGPT进行分类
@@ -474,7 +474,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > 高维数据对许多聚类技术来说是一个难题，因为识别有意义的聚类变得更加困难。我们可以通过降维来解决这个问题。
 
-> 主成分分析(Principal Component Analysis，PCA)￼以及统一流形逼近和投影(Uniform Manifold Approximation and Projection，UMAP)￼是著名的降维方法。
+> 主成分分析(Principal Component Analysis，PCA)以及统一流形逼近和投影(Uniform Manifold Approximation and Projection，UMAP)是著名的降维方法。
 
 > 需要注意的是，降维技术并非完美无缺。它们无法完美地将高维数据压缩到低维表示中。这个过程总是会损失一些信息。因此，需要在降维和保留尽可能多的信息之间找到平衡点。
 
@@ -484,7 +484,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图5-7：聚类算法不仅影响簇的生成方式，还影响簇的呈现方式](https://alphahinex.github.io/contents/hands-on-large-language-models/5-7.png)
 
-> 一个常见的基于密度的算法是HDBSCAN（Hierarchical Density-Based Spatial Clustering of Applications with Noise，具有噪声的分层密度空间聚类）￼。HDBSCAN是聚类算法DBSCAN的层次化变体，它无须显式指定簇的数量就能发现密集的（微型）簇￼。作为一种基于密度的方法，HDBSCAN还可以检测数据中的离群点，即不属于任何簇的数据点。这些离群点不会被分配或强制归属于任何簇，换句话说，它们会被忽略。
+> 一个常见的基于密度的算法是HDBSCAN（Hierarchical Density-Based Spatial Clustering of Applications with Noise，具有噪声的分层密度空间聚类）。HDBSCAN是聚类算法DBSCAN的层次化变体，它无须显式指定簇的数量就能发现密集的（微型）簇。作为一种基于密度的方法，HDBSCAN还可以检测数据中的离群点，即不属于任何簇的数据点。这些离群点不会被分配或强制归属于任何簇，换句话说，它们会被忽略。
 
 ### 5.3 从文本聚类到主题建模
 
@@ -492,15 +492,15 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图5-9：传统上，主题通过若干关键词来表示，但也可以采用其他形式](https://alphahinex.github.io/contents/hands-on-large-language-models/5-9.png)
 
-> 经典方法，如潜在狄利克雷分配(latent Dirichlet allocation，LDA)，假设每个主题都由语料库词表中词的概率分布来表示￼。图5-10展示了词表中的每个词是如何根据其与每个主题的相关性被评分的。
-￼
+> 经典方法，如潜在狄利克雷分配(latent Dirichlet allocation，LDA)，假设每个主题都由语料库词表中词的概率分布来表示。图5-10展示了词表中的每个词是如何根据其与每个主题的相关性被评分的。
+
 > ![图5-10：关键词是基于它们在单个主题上的分布来提取的](https://alphahinex.github.io/contents/hands-on-large-language-models/5-10.png)
 
 > 这些经典方法通常使用词袋技术提取文本数据的主要特征，而没有考虑词和短语的上下文及含义。
 
 #### 5.3.1 BERTopic:一个模块化主题建模框架
 
-> BERTopic是一种主题建模技术，它利用语义相似的文本聚类来提取各种类型的主题表示￼。
+> BERTopic是一种主题建模技术，它利用语义相似的文本聚类来提取各种类型的主题表示。
 
 > ![图5-11：BERTopic处理流程的第一部分是创建语义相似文档的聚类](https://alphahinex.github.io/contents/hands-on-large-language-models/5-11.png)
 
@@ -554,7 +554,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图6-11：一个包含多个组件的复杂提示词示例](https://alphahinex.github.io/contents/hands-on-large-language-models/6-11.png)
 
-> 我们可以添加各种组件，包括创意性组件，比如情感刺激（例如，“这对我的职业生涯非常重要”￼）。
+> 我们可以添加各种组件，包括创意性组件，比如情感刺激（例如，“这对我的职业生涯非常重要”）。
 
 > 然而，请注意，某些提示词在不同的模型上效果不同，因为这些模型的训练数据不一样，或者它们的训练目标各异。
 
@@ -574,7 +574,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > 简单来说，我们的推理方法可以分为系统1和系统2两种思维过程。
 
-> 系统1思维代表一种自动的、直觉的、几乎即时的过程。它与自动生成词元而没有任何自我反思行为的生成模型有相似之处。相比之下，系统2思维是一个有意识的、缓慢的、有逻辑性的过程，类似于头脑风暴和自我反思￼。
+> 系统1思维代表一种自动的、直觉的、几乎即时的过程。它与自动生成词元而没有任何自我反思行为的生成模型有相似之处。相比之下，系统2思维是一个有意识的、缓慢的、有逻辑性的过程，类似于头脑风暴和自我反思。
 
 #### 6.4.1 思维链:先思考再回答
 
@@ -584,7 +584,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 6.4.2 自洽性:采样输出
 
-> 为了抵消这种随机性并提高生成模型的性能，研究人员引入了自洽性(self-consistency)的概念。这种方法会用相同的提示词向生成模型多次提问，并将占多数的结果作为最终答案￼。
+> 为了抵消这种随机性并提高生成模型的性能，研究人员引入了自洽性(self-consistency)的概念。这种方法会用相同的提示词向生成模型多次提问，并将占多数的结果作为最终答案。
 
 #### 6.4.3 思维树:探索中间步骤
 
@@ -693,7 +693,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 8.2.3 检索评估指标体系
 
-> 语义搜索系统的评估沿用信息检索(information retrieval，IR)领域的经典指标。我们重点解析其中最具代表性的指标之一：均值平均精确率￼(mean average precision，mAP)。
+> 语义搜索系统的评估沿用信息检索(information retrieval，IR)领域的经典指标。我们重点解析其中最具代表性的指标之一：均值平均精确率(mean average precision，mAP)。
 
 > 完整的搜索系统评估框架包含三大要素：文档库、查询集合，以及表明查询与文档对应关系的相关性判断。
 
@@ -719,7 +719,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 8.3.5 RAG效果评估
 
-> 论文“Evaluating Verifiability in Generative Search Engines”(2023)，该研究通过人工评估对比了多种生成式搜索系统￼，其评估框架包含四个核心维度。
+> 论文“Evaluating Verifiability in Generative Search Engines”(2023)，该研究通过人工评估对比了多种生成式搜索系统，其评估框架包含四个核心维度。
 
 > 流畅性(fluency)
 生成文本的语言流畅度与逻辑连贯性。
@@ -746,7 +746,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 ### 9.1 视觉Transformer
 
-> 视觉Transformer(Vision Transformer，ViT)，在图像识别任务中展现出超越传统卷积神经网络(convolutional neural network，CNN)的性能￼。
+> 视觉Transformer(Vision Transformer，ViT)，在图像识别任务中展现出超越传统卷积神经网络(convolutional neural network，CNN)的性能。
 
 > ![图9-4：图像输入的“分词”处理流程：将完整的图像转换为多个子图像块](https://alphahinex.github.io/contents/hands-on-large-language-models/9-4.png)
 
@@ -770,7 +770,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 9.3.1 BLIP-2:跨越模态鸿沟
 
-> BLIP-2的突破在于，通过构建名为查询式Transformer(Querying Transformer，Q-Former)的智能桥梁，巧妙连接预训练视觉编码器与预训练LLM，而非重新构建整个系统架构￼。这种设计既保留了已有模型的优势，又实现了跨模态的信息传递。
+> BLIP-2的突破在于，通过构建名为查询式Transformer(Querying Transformer，Q-Former)的智能桥梁，巧妙连接预训练视觉编码器与预训练LLM，而非重新构建整个系统架构。这种设计既保留了已有模型的优势，又实现了跨模态的信息传递。
 
 > ![图9-16：Q-Former作为连接视觉(ViT)与文本(LLM)的桥梁，是系统中唯一需要训练的核心组件](https://alphahinex.github.io/contents/hands-on-large-language-models/9-16.png)
 
@@ -795,13 +795,13 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > 对比学习的基本理念是，向模型输入相似的和不相似的文档对作为示例，这是学习文档之间的相似性或差异性并构建相关模型的最佳方式。
 
-> 通过“为什么是P而不是Q”理解“为什么是P”￼。
+> 通过“为什么是P而不是Q”理解“为什么是P”。
 
 > 在自然语言处理领域，一个最早且最流行的对比学习的例子是我们在第1章和第2章中讨论过的word2vec。该模型通过在句子中训练单个词来学习词的表示。在一个句子中，靠近目标词的词被构建成正例对，而随机采样的词被构建成负例对（不相似的对）。换句话说，它通过将目标词的相邻词与非相邻词进行对比来训练模型。虽然并不广为人知，但这是自然语言处理领域利用神经网络进行对比学习的首批重大突破之一。
 
 ### 10.3 SBERT
 
-> 尽管对比学习有多种形式，但在自然语言处理领域，推广这种技术的一个框架是sentence-transformers￼。该框架解决了原始BERT实现在创建句子嵌入时的一个主要问题，即计算开销。在sentence-transformers诞生前，句子嵌入通常使用交叉编码器(cross-encoder)架构，并结合BERT模型来实现。
+> 尽管对比学习有多种形式，但在自然语言处理领域，推广这种技术的一个框架是sentence-transformers。该框架解决了原始BERT实现在创建句子嵌入时的一个主要问题，即计算开销。在sentence-transformers诞生前，句子嵌入通常使用交叉编码器(cross-encoder)架构，并结合BERT模型来实现。
 
 > 交叉编码器允许两个句子同时通过Transformer网络进行处理，以预测两个句子的相似度。它通过在原始架构上添加分类头来实现这一点，该分类头可以输出相似度分数。然而，当你想在一个包含10000个句子的集合中找到相似度最高的配对时，计算量会迅速增加。
 
@@ -936,7 +936,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图12-9：适配器组件分布在模型的各个Transformer块中](https://alphahinex.github.io/contents/hands-on-large-language-models/12-9.png)
 
-> 作为适配器的替代方案，低秩适配(low-rank adaptation，LoRA)被引入。当前，LoRA是一种应用广泛且有效的参数高效微调技术。与适配器类似，LoRA也只需要更新少量参数。如图12-11所示，它创建了基座模型的一个小型子集来进行微调，而没有向模型添加新层￼。
+> 作为适配器的替代方案，低秩适配(low-rank adaptation，LoRA)被引入。当前，LoRA是一种应用广泛且有效的参数高效微调技术。与适配器类似，LoRA也只需要更新少量参数。如图12-11所示，它创建了基座模型的一个小型子集来进行微调，而没有向模型添加新层。
 
 > ![图12-11：LoRA只需要微调一小部分可以与基座LLM分开保存的参数](https://alphahinex.github.io/contents/hands-on-large-language-models/12-11.png)
 
@@ -974,11 +974,11 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 #### 12.4.1 词级指标
 
-> 评估生成模型的一类常见指标是词级指标。词级评估的经典技术在词元（集合）层面比较参考数据集与生成的词元。常见的词级指标包括困惑度(perplexity)￼、ROUGE￼、BLEU￼和BERTScore￼。
+> 评估生成模型的一类常见指标是词级指标。词级评估的经典技术在词元（集合）层面比较参考数据集与生成的词元。常见的词级指标包括困惑度(perplexity)、ROUGE、BLEU和BERTScore。
 
 #### 12.4.2 基准测试
 
-> 要评估生成模型在语言生成和理解任务上的表现，一种常见方法是使用广为人知的公共基准测试，如MMLU￼、GLUE￼、TruthfulQA￼、GSM8k￼和HellaSwag￼。
+> 要评估生成模型在语言生成和理解任务上的表现，一种常见方法是使用广为人知的公共基准测试，如MMLU、GLUE、TruthfulQA、GSM8k和HellaSwag。
 
 > ![表12-1：生成模型的常见公共基准测试](https://alphahinex.github.io/contents/hands-on-large-language-models/12-1.png)
 
@@ -986,17 +986,17 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > 尽管基准测试至关重要，但评估的金标准通常被认为是人工评估。
 
-> Chatbot Arena是基于人工评估技术的绝佳示例￼。在这个排行榜中有两个匿名的LLM与你互动。你提出的任何问题或提示词都会同时发送给这两个模型，然后你会收到它们的输出。之后，你可以决定更喜欢哪个输出。这个过程使得社区成员在不知道具体是哪些模型的情况下，对他们偏好的模型进行投票。只有在你投票之后，你才能看到是哪个模型生成了哪段文本。
+> Chatbot Arena是基于人工评估技术的绝佳示例。在这个排行榜中有两个匿名的LLM与你互动。你提出的任何问题或提示词都会同时发送给这两个模型，然后你会收到它们的输出。之后，你可以决定更喜欢哪个输出。这个过程使得社区成员在不知道具体是哪些模型的情况下，对他们偏好的模型进行投票。只有在你投票之后，你才能看到是哪个模型生成了哪段文本。
 
 > 当一个指标成为目标时，它就不再是一个好的指标。
-> ——古德哈特定律￼
+> ——古德哈特定律
 
 ### 12.6 使用奖励模型实现偏好评估自动化
 
 > 要实现偏好评估自动化，我们需要在偏好调优步骤之前增加一个步骤，即训练一个奖励模型
 
 > 要创建奖励模型，我们可以复制经过指令微调的模型，并稍作修改，使其不再生成文本，而是输出一个单一的分数。
-￼
+
 > ![图12-25：通过将语言建模头替换为质量分类头，LLM变成了奖励模型](https://alphahinex.github.io/contents/hands-on-large-language-models/12-25.png)
 
 #### 12.6.2 训练奖励模型
@@ -1005,11 +1005,11 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > ![图12-27：偏好训练数据集通常由提示词及被接受和被拒绝的生成内容组成](https://alphahinex.github.io/contents/hands-on-large-language-models/12-27.png)
 
-> 近端策略优化(proximal policy optimization，PPO)。PPO是一种流行的强化学习技术，通过确保LLM不会过度偏离预期奖励来优化经过指令微调的LLM￼。
+> 近端策略优化(proximal policy optimization，PPO)。PPO是一种流行的强化学习技术，通过确保LLM不会过度偏离预期奖励来优化经过指令微调的LLM。
 
 #### 12.6.3 训练无奖励模型
 
-> 直接偏好优化(direct preference optimization，DPO)是PPO的一种替代方案，它摒弃了基于强化学习的训练过程￼。DPO不再使用奖励模型来评判生成内容的质量，而是让LLM自己来完成这项工作。
+> 直接偏好优化(direct preference optimization，DPO)是PPO的一种替代方案，它摒弃了基于强化学习的训练过程。DPO不再使用奖励模型来评判生成内容的质量，而是让LLM自己来完成这项工作。
 
 ### 12.7 使用DPO进行偏好调优
 
@@ -1017,7 +1017,7 @@ cover: /contents/hands-on-large-language-models/cover.jpg
 
 > SFT和DPO相结合是一个很好的方法，可以先对模型进行微调以实现基本对话功能，然后根据人类偏好来调整其回答。但是，这也需要付出代价，因为我们需要执行两轮训练，并且可能需要在两个过程中调整参数。
 
-> 优势比偏好优化(odds ratio preference optimization，ORPO)，它将SFT和DPO合并为一个训练过程￼。ORPO不需要执行两轮训练，在允许使用QLoRA的同时，进一步简化了训练过程。
+> 优势比偏好优化(odds ratio preference optimization，ORPO)，它将SFT和DPO合并为一个训练过程。ORPO不需要执行两轮训练，在允许使用QLoRA的同时，进一步简化了训练过程。
 
 # 附录 图解DeepSeek-R1
 
