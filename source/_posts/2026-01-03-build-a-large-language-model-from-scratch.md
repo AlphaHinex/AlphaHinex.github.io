@@ -8,8 +8,10 @@ categories:
     - Python
 tags: [AI, Python, LLM]
 keywords: LLM, Large Language Model, GPT, Transformer, 自注意力机制, BPE, 词元嵌入, PyTorch
-cover: /contents/build-a-large-language-model-from-scratch/cover.png
+cover: /contents/build-a-large-language-model-from-scratch/cover.jpg
 ---
+
+[豆瓣评分 9.3](https://book.douban.com/subject/37305124/)
 
 # 关于本书
 
