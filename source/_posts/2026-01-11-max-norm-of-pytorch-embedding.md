@@ -8,10 +8,10 @@ categories:
     - Python
 tags: [AI, Python, PyTorch]
 keywords: PyTorch, Embedding, max_norm, L2, 范数, 词向量, 正则化
-cover: /contents/covers/max-norm-of-pytorch-embedding.png
+cover: /contents/max-norm-of-pytorch-embedding/cover.png
 ---
 
-![](https://alphahinex.github.io/contents/covers/max-norm-of-pytorch-embedding.png)
+![](https://alphahinex.github.io/contents/max-norm-of-pytorch-embedding/cover.png)
 
 > https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html#torch.nn.Embedding
 
