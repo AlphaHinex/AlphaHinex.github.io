@@ -31,7 +31,7 @@ cover: /contents/medimageinsight/architecture.png
 
 ![thelion.ai](https://alphahinex.github.io/contents/medimageinsight/thelion.ai.png)
 
-幸运的是，[Thelion.ai](https://huggingface.co/lion-ai) 将模型从 Azure 下载并移除掉了一些限制，使其成为了一个不依赖 Azure 可独立运行的版本，并上传到了 Hugging Face：https://huggingface.co/lion-ai/MedImageInsights。此外，还将依赖管理迁移到了 uv 下，添加了多标签分类等示例代码，并通过 FastAPI 创建了一个示例 HTTP 服务。
+幸运的是，[Thelion.ai](https://huggingface.co/lion-ai) 将模型从 Azure 下载并移除掉了一些限制，使其成为了一个不依赖 Azure 可独立运行的版本，并上传到了 Hugging Face：https://huggingface.co/lion-ai/MedImageInsights 。此外，还将依赖管理迁移到了 uv 下，添加了多标签分类等示例代码，并通过 FastAPI 创建了一个示例 HTTP 服务。
 
 > 国内可使用 https://hf-mirror.com/lion-ai/MedImageInsights 镜像访问。
 
