@@ -46,7 +46,7 @@ curl 'https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/c3e06fe4-c6
   -H 'sec-ch-ua: "Google Chrome";v="143", "Chromium";v="143", "Not A(Brand";v="24"' \
   -H 'sec-ch-ua-mobile: ?0' \
   -H 'sec-ch-ua-platform: "macOS"' \
-  -H 'x-nd-auth: MAC id="7F938B205F876FC3C7550081F114A1A4E86984B1B128A080C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935",nonce="1769667338265:4Z8LXG3U",mac="JCede9B5wOMc2NNugF7xXrB/jeTbT5LuGXV3iKMbdGs="' -O
+  -H 'x-nd-auth: MAC id="7F938B205F876FC3C7550081F114A1A4E86984B1B128A181C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935",nonce="1769667338265:4Z8LXG3U",mac="JCede9B5wOMc2NNugF7xXrB/jeTbT5LuGXV3iKMbdGs="' -O
 ```
 
 ## Windows
@@ -80,7 +80,7 @@ Invoke-WebRequest -UseBasicParsing -Uri "https://r1-ndr-private.ykt.cbern.com.cn
   "sec-ch-ua"="`"Not(A:Brand`";v=`"8`", `"Chromium`";v=`"144`", `"Microsoft Edge`";v=`"144`""
   "sec-ch-ua-mobile"="?0"
   "sec-ch-ua-platform"="`"Windows`""
-  "x-nd-auth"="MAC id=`"7F938B205F876FC3C7550081F114A1A4E86984B1B128A08069DDB0CCD16E82AED7BFBF6EFEB4C139A06C89003DB372C19BCCABACE87F8B7F`",nonce=`"1769668885174:FLJWZYK7`",mac=`"w70gvg0jR9VTjYEwfR0KSEw3oYi/eKrzQj/JI0evC/Y=`""
+  "x-nd-auth"="MAC id=`"7F938B205F876FC3C7550081F114A1A4E86984B1B128A18169DDB0CCD16E82AED7BFBF6EFEB4C139A06C89003DB372C19BCCABACE87F8B7F`",nonce=`"1769668885174:FLJWZYK7`",mac=`"w70gvg0jR9VTjYEwfR0KSEw3oYi/eKrzQj/JI0evC/Y=`""
 }
 ```
 
@@ -103,7 +103,7 @@ $response = Invoke-WebRequest -UseBasicParsing -Uri "https://r1-ndr-private.ykt.
   "sec-ch-ua"="`"Not(A:Brand`";v=`"8`", `"Chromium`";v=`"144`", `"Microsoft Edge`";v=`"144`""
   "sec-ch-ua-mobile"="?0"
   "sec-ch-ua-platform"="`"Windows`""
-  "x-nd-auth"="MAC id=`"7F938B205F876FC3C7550081F114A1A4E86984B1B128A08069DDB0CCD16E82AED7BFBF6EFEB4C139A06C89003DB372C19BCCABACE87F8B7F`",nonce=`"1769668885174:FLJWZYK7`",mac=`"w70gvg0jR9VTjYEwfR0KSEw3oYi/eKrzQj/JI0evC/Y=`""
+  "x-nd-auth"="MAC id=`"7F938B205F876FC3C7550081F114A1A4E86984B1B128A18169DDB0CCD16E82AED7BFBF6EFEB4C139A06C89003DB372C19BCCABACE87F8B7F`",nonce=`"1769668885174:FLJWZYK7`",mac=`"w70gvg0jR9VTjYEwfR0KSEw3oYi/eKrzQj/JI0evC/Y=`""
 }
 Set-Content -Path ".\output.pdf" -Value $response.Content -Encoding Byte
 ```
@@ -117,11 +117,11 @@ Set-Content -Path ".\output.pdf" -Value $response.Content -Encoding Byte
 以上面复制出的 `curl` 脚本为例：
 
 - URL 为 `curl` 命令后面跟着的一串单引号中内容：`https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/c3e06fe4-c6b3-49cb-8727-4f8ff69bbfbc.pkg/%E4%B9%89%E5%8A%A1%E6%95%99%E8%82%B2%E6%95%99%E7%A7%91%E4%B9%A6%20%E6%95%B0%E5%AD%A6%20%E4%B8%80%E5%B9%B4%E7%BA%A7%20%E4%B8%8A%E5%86%8C_1756191664314.pdf`
-- `xxxx` 为 `MAC id="xxxx"` 中的内容：`7F938B205F876FC3C7550081F114A1A4E86984B1B128A080C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935`
+- `xxxx` 为 `MAC id="xxxx"` 中的内容：`7F938B205F876FC3C7550081F114A1A4E86984B1B128A181C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935`
 
 > `MAC id` 中的 token 具有时效性，失效后需重新获取。
 
-使用浏览器直接访问：https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/c3e06fe4-c6b3-49cb-8727-4f8ff69bbfbc.pkg/%E4%B9%89%E5%8A%A1%E6%95%99%E8%82%B2%E6%95%99%E7%A7%91%E4%B9%A6%20%E6%95%B0%E5%AD%A6%20%E4%B8%80%E5%B9%B4%E7%BA%A7%20%E4%B8%8A%E5%86%8C_1756191664314.pdf?accessToken=7F938B205F876FC3C7550081F114A1A4E86984B1B128A080C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935
+使用浏览器直接访问：https://r1-ndr-private.ykt.cbern.com.cn/edu_product/esp/assets/c3e06fe4-c6b3-49cb-8727-4f8ff69bbfbc.pkg/%E4%B9%89%E5%8A%A1%E6%95%99%E8%82%B2%E6%95%99%E7%A7%91%E4%B9%A6%20%E6%95%B0%E5%AD%A6%20%E4%B8%80%E5%B9%B4%E7%BA%A7%20%E4%B8%8A%E5%86%8C_1756191664314.pdf?accessToken=7F938B205F876FC3C7550081F114A1A4E86984B1B128A181C1C265F441648C11807F351A86125303937E549D054B402BCE97E759869B3935
 
 即可看到页面中有了下载按钮：
 
