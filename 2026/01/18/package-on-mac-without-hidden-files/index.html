@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>在 Mac 不包含隐藏文件打包 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,tar, zip, .DS_Store, __MACOSX, Automator, hidden files, Apple Desktop Services Store, AppleDouble encoded Macintosh file, resource fork"> 
+    <meta name="description" content="问题在 Mac 上无论使用命令行工具，还是右键菜单打包、压缩文件，在其他操作系统打开时，都会看到一些隐藏文件，例如：
+Mac 文件系统中包含如下内容：
+$ tree -a
+.
+├── .DS_Sto,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">在 Mac 不包含隐藏文件打包</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/package-on-mac-without-hidden-files/workflow.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                一月 18, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/01/18/package-on-mac-without-hidden-files/" title="在 Mac 不包含隐藏文件打包" class="">在 Mac 不包含隐藏文件打包</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在 Mac 上无论使用命令行工具，还是右键菜单打包、压缩文件，在其他操作系统打开时，都会看到一些隐藏文件，例如：</p>
+<p>Mac 文件系统中包含如下内容：</p>
+<pre><code class="bash">$ tree -a
+.
+├── .DS_Store
+├── file1
+├── file2
+├── file3
+└── test
+    ├── .DS_Store
+    ├── file1
+    ├── file2
+    ├── file3
+    └── test
+        ├── .DS_Store
+        └── test
+
+3 directories, 9 files
+# 打包
+$ tar -cf test.tar file3 test
+$ zip -r test.zip file3 test
+# 选中要打包的文件及文件夹，右键压缩，获得 Archive.zip</code></pre>
+<p><img src="https://alphahinex.github.io/contents/package-on-mac-without-hidden-files/compress.png" alt="compress"></p>
+<p>在 Linux 系统查看，会看到如下内容：</p>
+<pre><code class="bash">$ vim test.tar
+&quot; tar.vim version v32a
+&quot; Browsing tarfile /home/ec2-user/temp/test.tar
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/._.DS_Store
+tar: Ignoring unknown extended header keyword &#39;LIBARCHIVE.xattr.com.apple.FinderInfo&#39;
+test/.DS_Store
+test/test/
+test/._file2
+test/file2
+test/._file1
+tar: Ignoring unknown extended header keyword &#39;LIBARCHIVE.xattr.key&#39;
+test/file1
+test/test/._.DS_Store
+tar: Ignoring unknown extended header keyword &#39;LIBARCHIVE.xattr.com.apple.FinderInfo&#39;
+test/test/.DS_Store
+test/test/test/</code></pre>
+<pre><code class="bash">$ vim test.zip
+&quot; zip.vim version v34
+&quot; Browsing zipfile /home/ec2-user/temp/test.zip
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/.DS_Store
+test/test/
+test/test/.DS_Store
+test/test/test/
+test/file2
+test/file1</code></pre>
+<pre><code class="bash">$ vim Archive.zip
+&quot; zip.vim version v34
+&quot; Browsing zipfile /home/ec2-user/temp/Archive.zip
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/.DS_Store
+__MACOSX/test/._.DS_Store
+test/test/
+test/file2
+__MACOSX/test/._file2
+test/file1
+__MACOSX/test/._file1
+test/test/.DS_Store
+__MACOSX/test/test/._.DS_Store
+test/test/test/</code></pre>
+<h1 id="这些隐藏文件是什么"><a href="#这些隐藏文件是什么" class="headerlink" title="这些隐藏文件是什么"></a>这些隐藏文件是什么</h1><h2 id="DS-Store"><a href="#DS-Store" class="headerlink" title=".DS_Store"></a>.DS_Store</h2><p><a href="https://zhuanlan.zhihu.com/p/439868892" target="_blank" rel="noopener">Mac 上的 .DS_Store 究竟是什么文件？如何删除？</a></p>
+<blockquote>
+<p>DS_Store，英文全称是 Desktop Services Store（桌面服务存储），开头的 DS 是 Desktop Services（桌面服务） 的缩写。它是一种由macOS系统自动创建的隐藏文件，存在于每一个用「访达」打开过的文件夹下面。</p>
+</blockquote>
+<pre><code class="bash">$ file .DS_Store
+.DS_Store: Apple Desktop Services Store</code></pre>
+<h2 id="MACOSX"><a href="#MACOSX" class="headerlink" title="__MACOSX"></a>__MACOSX</h2><ul>
+<li><a href="https://superuser.com/questions/104500/what-is-macosx-folder-i-keep-seeing-in-zip-files-made-by-people-on-os-x" target="_blank" rel="noopener">What is “__MACOSX” folder I keep seeing in Zip files made by people on OS X?</a></li>
+</ul>
+<blockquote>
+<p>The technical term for what is contained within this curious folder is a <a href="https://en.wikipedia.org/wiki/Resource_fork" target="_blank" rel="noopener">resource fork</a>.</p>
+</blockquote>
+<blockquote>
+<p>Apple provides built-in capability to ZIP files in OS X 10.3 and higher, and these files are the result of Apple storing Resource Forks safe manner. You would never see these files running OS X 10.3 or higher, but since Windows and other operating systems do not understand this special form of Resource Forks they will appear as you see them.</p>
+</blockquote>
+<blockquote>
+<p>Just discovered: if you’re on a Mac, using the command line, unzip filename.zip will unpack the __MACOSX/ directory, which you don’t want, but open filename.zip will do the right thing.<br>– Edward Falk<br>CommentedJun 22, 2016 at 18:40</p>
+</blockquote>
+<h3 id=""><a href="#" class="headerlink" title="._*"></a>._*</h3><p><a href="https://superuser.com/questions/61185/why-do-i-get-files-like-foo-in-my-tarball-on-os-x/61188#61188" target="_blank" rel="noopener">Why do I get files like ._foo in my tarball on OS X?</a></p>
+<blockquote>
+<p>OS X’s tar uses the AppleDouble format to store extended attributes and ACLs.</p>
+</blockquote>
+<blockquote>
+<p>OS X’s tar also knows how to convert the ._ members back to native formats, but the ._ files are usually kept when archives are extracted on other platforms.</p>
+</blockquote>
+<pre><code class="bash">$ file ._file2
+._file2: AppleDouble encoded Macintosh file</code></pre>
+<h1 id="怎么在打包时自动去掉"><a href="#怎么在打包时自动去掉" class="headerlink" title="怎么在打包时自动去掉"></a>怎么在打包时自动去掉</h1><h2 id="tar-命令"><a href="#tar-命令" class="headerlink" title="tar 命令"></a>tar 命令</h2><ul>
+<li><code>COPYFILE_DISABLE</code> 设置为 <code>1</code> 可禁止生成 <code>._*</code> 文件</li>
+<li><code>--exclude</code> 参数可排除 <code>.DS_Store</code> 文件</li>
+</ul>
+<pre><code class="bash">COPYFILE_DISABLE=1 tar --exclude=&#39;.DS_Store&#39; -cf clean.tar file3 test</code></pre>
+<p>嫌麻烦可以为 <code>tar</code> 命令设置别名：</p>
+<pre><code class="bash">alias tar=&quot;COPYFILE_DISABLE=1 tar --exclude=&#39;.DS_Store&#39;&quot;</code></pre>
+<p>之后就可以直接使用 <code>tar</code> 命令打包而不会包含隐藏文件了：</p>
+<pre><code class="bash">tar -cf clean.tar file3 test</code></pre>
+<p>Linux 下查看效果：</p>
+<pre><code class="bash">$ vim clean.tar
+&quot; tar.vim version v32a
+&quot; Browsing tarfile /home/ec2-user/temp/clean.tar
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/test/
+test/file2
+tar: Ignoring unknown extended header keyword &#39;LIBARCHIVE.xattr.key&#39;
+test/file1
+test/test/test/</code></pre>
+<p>使用 <code>unalias tar</code> 可恢复 <code>tar</code> 命令的默认行为。</p>
+<h2 id="zip-命令"><a href="#zip-命令" class="headerlink" title="zip 命令"></a>zip 命令</h2><p>终端中使用 <code>zip</code> 命令打包只会包含 <code>.DS_Store</code> 文件，所以只需排除该文件即可：</p>
+<pre><code class="bash">zip -x \*.DS_Store -r clean.zip file3 test</code></pre>
+<p>同样可以设置别名：</p>
+<pre><code>alias zip=&quot;zip -x \*.DS_Store&quot;</code></pre><blockquote>
+<p>mac 中文件名包含中文的文件，zip 到 win 后文件名乱码，可用 tar 打包，文件名不乱码。</p>
+</blockquote>
+<h2 id="右键"><a href="#右键" class="headerlink" title="右键"></a>右键</h2><p>右键自带的压缩功能无法去掉隐藏文件，但可以使用 <a href="https://support.apple.com/zh-cn/guide/automator/welcome/mac" target="_blank" rel="noopener">Automator</a> 自定义一个工作流来实现。</p>
+<p>打开 Automator，选择 <code>Quick Action</code>：</p>
+<p><img src="https://alphahinex.github.io/contents/package-on-mac-without-hidden-files/quick-action.png" alt="quick-action"></p>
+<p>按下图设置工作流：</p>
+<p><img src="https://alphahinex.github.io/contents/package-on-mac-without-hidden-files/workflow.png" alt="workflow"></p>
+<p>脚本如下：</p>
+<blockquote>
+<p>以下代码由 AI 辅助生成</p>
+</blockquote>
+<pre><code class="bash">#!/bin/bash
+
+# 获取输入的文件路径
+files=(&quot;$@&quot;)
+if [ ${#files[@]} -eq 0 ]; then
+    echo &quot;Usage: $0 file1 file2 ...&quot;
+    exit 1
+fi
+
+# 找到所有文件路径的共同父路径
+# 初始化为第一个参数
+common_path=$(dirname &quot;$1&quot;)
+
+# 遍历所有参数
+for file in &quot;$@&quot;; do
+    # 获取当前文件的目录路径
+    current_path=$(dirname &quot;$file&quot;)
+
+    # 通过循环比较路径的每个部分
+    while [ &quot;$current_path&quot; != &quot;$common_path&quot; ] &amp;&amp; [ &quot;$common_path&quot; != &quot;/&quot; ] &amp;&amp; [ &quot;$common_path&quot; != &quot;.&quot; ]; do
+        if [[ &quot;$current_path&quot; == &quot;$common_path&quot;* ]]; then
+            # 如果当前路径以共同路径开头，则共同路径保持不变
+            break
+        elif [[ &quot;$common_path&quot; == &quot;$current_path&quot;* ]]; then
+            # 如果共同路径以当前路径开头，则更新共同路径为当前路径
+            common_path=&quot;$current_path&quot;
+            break
+        else
+            # 否则，将共同路径向上移动一级
+            common_path=$(dirname &quot;$common_path&quot;)
+        fi
+    done
+done
+
+# 检查common_path是否是有效的目录
+if [ ! -d &quot;$common_path&quot; ]; then
+    echo &quot;Error: Common path &#39;$common_path&#39; is not a valid directory.&quot;
+    exit 1
+fi
+
+# 生成文件名
+filename=&quot;Clean&quot;
+
+# 收集所有文件的相对路径
+relative_files=()
+for file in &quot;${files[@]}&quot;; do
+    relative_file=${file#&quot;$common_path&quot;/}
+    relative_files+=(&quot;$relative_file&quot;)
+done
+
+# 切换到common_path目录并生成zip文件
+cd &quot;$common_path&quot; || exit
+zip -x \*.DS_Store -r &quot;$filename.zip&quot; &quot;${relative_files[@]}&quot;
+COPYFILE_DISABLE=1 tar --exclude=&#39;.DS_Store&#39; -cf &quot;$filename.tar&quot; &quot;${relative_files[@]}&quot;
+
+
+# 恢复当前目录
+cd -
+
+echo &quot;Zip file created at: $common_path/$filename.zip&quot;
+echo &quot;Tar file created at: $common_path/$filename.tar&quot;</code></pre>
+<p>保存后即可在右键菜单中看到该工作流：</p>
+<p><img src="https://alphahinex.github.io/contents/package-on-mac-without-hidden-files/shortcut.png" alt="shortcut"></p>
+<blockquote>
+<p>工作流文件（夹）保存在 <code>/Users/alphahinex/Library/Services/Clean\ Pack.workflow</code></p>
+</blockquote>
+<blockquote>
+<p>若直接复制上面脚本至工作流后执行报错，可尝试将脚本先复制进 Sublime Text 等编辑器，再重新复制粘贴至 Automator 脚本编辑框。也可直接使用 <a href="https://alphahinex.github.io/contents/package-on-mac-without-hidden-files/CleanPack_workflow.zip">此工作流压缩包</a>，解压后双击安装，或直接放入 <code>/Users/&lt;User&gt;/Library/Services/</code> 路径。</p>
+</blockquote>
+<p>在右键菜单选择 <code>Clean Pack</code> 后，会自动生成 <code>Clean.zip</code> 和 <code>Clean.tar</code> 两个文件，且不包含隐藏文件，在 Linux 中查看：</p>
+<pre><code class="bash">$ vim Clean.tar
+&quot; tar.vim version v32a
+&quot; Browsing tarfile /home/ec2-user/temp/Clean.tar
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/test/
+test/file2
+tar: Ignoring unknown extended header keyword &#39;LIBARCHIVE.xattr.key&#39;
+test/file1
+test/test/test/</code></pre>
+<pre><code class="bash">$ vim Clean.zip
+&quot; zip.vim version v34
+&quot; Browsing zipfile /home/ec2-user/temp/Clean.zip
+&quot; Select a file with cursor and press ENTER
+
+file3
+test/
+test/file3
+test/test/
+test/test/test/
+test/file2
+test/file1</code></pre>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://superuser.com/questions/259703/get-mac-tar-to-stop-putting-filenames-in-tar-archives" target="_blank" rel="noopener">Get mac tar to stop putting ._* filenames in tar archives [duplicate]</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/518461390" target="_blank" rel="noopener">mac电脑禁止生成 .DS_Store 文件</a></li>
+<li><a href="https://www.cnblogs.com/oginoch1hiro/p/18088947" target="_blank" rel="noopener">MacOS文件打包遇到的一些问题</a></li>
+<li><a href="https://support.apple.com/zh-cn/102064" target="_blank" rel="noopener">调整 macOS 中的 SMB 浏览行为</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/384390832" target="_blank" rel="noopener">在Mac上使用 Automator 和 Python 定制工作流</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#问题"><span class="toc-number">1.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#这些隐藏文件是什么"><span class="toc-number">2.</span> <span class="toc-text">这些隐藏文件是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DS-Store"><span class="toc-number">2.1.</span> <span class="toc-text">.DS_Store</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MACOSX"><span class="toc-number">2.2.</span> <span class="toc-text">__MACOSX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">2.2.1.</span> <span class="toc-text">._*</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#怎么在打包时自动去掉"><span class="toc-number">3.</span> <span class="toc-text">怎么在打包时自动去掉</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tar-命令"><span class="toc-number">3.1.</span> <span class="toc-text">tar 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zip-命令"><span class="toc-number">3.2.</span> <span class="toc-text">zip 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#右键"><span class="toc-number">3.3.</span> <span class="toc-text">右键</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

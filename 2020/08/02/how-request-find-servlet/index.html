@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tomcat 是怎么找到用来处理请求的 Servlet 的？ - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Java, Tomcat, Servlet, Mapper, MapperListener, Service, Engine, Host, Context, Wrapper, ContextVersion"> 
+    <meta name="description" content="在 Servlet 注册到了哪？ 中，我们找到了配置的 Servlet 被包装成了一个 StandardWrapper，以注册的 Servlet name 为 key 放入了其父容器（Context,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Tomcat 是怎么找到用来处理请求的 Servlet 的？</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/how-request-find-servlet/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Tomcat"><b>「
+                    </b>TOMCAT<b> 」</b></a>
+                
+                八月 02, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/08/02/how-request-find-servlet/" title="Tomcat 是怎么找到用来处理请求的 Servlet 的？" class="">Tomcat 是怎么找到用来处理请求的 Servlet 的？</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在 <a href="https://alphahinex.github.io/2020/04/30/where-are-servlets/">Servlet 注册到了哪？</a> 中，我们找到了配置的 Servlet 被包装成了一个 <code>StandardWrapper</code>，以注册的 Servlet name 为 key 放入了其父容器（Context）一个 HashMap 里。那么当 Tomcat 收到一个请求的时候，是怎么找到对应的 Servlet 以对请求进行处理的呢？</p>
+<p>先放一张图：</p>
+<p><img src="/contents/how-request-find-servlet/tomcat-server.png" alt="Tomcat Server"></p>
+<p>总的来说，这个过程分为两部分：</p>
+<ol>
+<li>读取所有 Servlet 的配置，放入 Mapper 中；</li>
+<li>将请求匹配到具体的 Servlet 上。</li>
+</ol>
+<blockquote>
+<p>注：本文以 <a href="https://github.com/apache/tomcat/tree/9.0.35" target="_blank" rel="noopener">Tomcat v9.0.35</a> 版本源码为例进行说明。</p>
+</blockquote>
+<h2 id="读取所有-Servlet-的配置，放入-Mapper-中"><a href="#读取所有-Servlet-的配置，放入-Mapper-中" class="headerlink" title="读取所有 Servlet 的配置，放入 Mapper 中"></a>读取所有 Servlet 的配置，放入 Mapper 中</h2><p>在 Tomcat <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/Server.java" target="_blank" rel="noopener">Server</a> 启动时，会将其所包含的所有 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/Service.java" target="_blank" rel="noopener">Service</a> 也一同启动。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/core/StandardServer.java#L927-L932" target="_blank" rel="noopener">StandardServer.java#L927-L932</a>：</p>
+<pre><code class="java">// Start our defined Services
+synchronized (servicesLock) {
+    for (Service service : services) {
+        service.start();
+    }
+}</code></pre>
+<p>每个 Service <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/Service.java#L151" target="_blank" rel="noopener">对应一个 Mapper</a>，<a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java" target="_blank" rel="noopener">Mapper</a> 是本文的主角，包含了 Servlet 的映射信息。在 Service 启动时，会同时启动一个 mapperListener。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/core/StandardService.java#L431" target="_blank" rel="noopener">StandardService.java#L431</a>：</p>
+<pre><code class="java">mapperListener.start();</code></pre>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/MapperListener.java" target="_blank" rel="noopener">MapperListener</a> 可以 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/core/StandardService.java#L105" target="_blank" rel="noopener">通过 Service 来构造</a>，里面包含了这个 Service 以及 Service 中的 Mapper。</p>
+<p>MapperListener 在 start 时，会获取 Service 对应的 Engine，并将 Engine 中的所有 Host 进行注册。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/MapperListener.java#L94-L116" target="_blank" rel="noopener">MapperListener.java#L94-L116</a>：</p>
+<pre><code class="java">@Override
+public void startInternal() throws LifecycleException {
+
+    setState(LifecycleState.STARTING);
+
+    Engine engine = service.getContainer();
+    if (engine == null) {
+        return;
+    }
+
+    findDefaultHost();
+
+    addListeners(engine);
+
+    Container[] conHosts = engine.findChildren();
+    for (Container conHost : conHosts) {
+        Host host = (Host) conHost;
+        if (!LifecycleState.NEW.equals(host.getState())) {
+            // Registering the host will register the context and wrappers
+            registerHost(host);
+        }
+    }
+}</code></pre>
+<p>registerHost 中会注册其中的 Context。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/MapperListener.java#L305-L309" target="_blank" rel="noopener">MapperListener.java#L305-L309</a>：</p>
+<pre><code class="java">for (Container container : host.findChildren()) {
+    if (container.getState().isAvailable()) {
+        registerContext((Context) container);
+    }
+}</code></pre>
+<p>registerContext 时，将 Context 中的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/Wrapper.java" target="_blank" rel="noopener">Wrapper</a>（包含一个 Servlet） 包装成 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/WrapperMappingInfo.java" target="_blank" rel="noopener">WrapperMappingInfo</a>，</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/MapperListener.java#L381-L390" target="_blank" rel="noopener">MapperListener.java#L381-L390</a>：</p>
+<pre><code class="java">List&lt;WrapperMappingInfo&gt; wrappers = new ArrayList&lt;&gt;();
+
+for (Container container : context.findChildren()) {
+    prepareWrapperMappingInfo(context, (Wrapper) container, wrappers);
+
+    if(log.isDebugEnabled()) {
+        log.debug(sm.getString(&quot;mapperListener.registerWrapper&quot;,
+                container.getName(), contextPath, service));
+    }
+}</code></pre>
+<p>并进行了如下操作。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/MapperListener.java#L392-L394" target="_blank" rel="noopener">MapperListener.java#L392-L394</a>：</p>
+<pre><code class="java">mapper.addContextVersion(host.getName(), host, contextPath,
+        context.getWebappVersion(), context, welcomeFiles, resources,
+        wrappers);</code></pre>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L262" target="_blank" rel="noopener">addContextVersion</a> 方法根据 Context 创建了一个 ContextVersion 对象，并通过 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L443" target="_blank" rel="noopener">addWrappers</a> 及 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L463" target="_blank" rel="noopener">addWrapper</a> 方法将 WrapperMappingInfo 中的 Wrapper 及相关信息，添加进 ContextVersion 里。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1709" target="_blank" rel="noopener">ContextVersion</a> 是 Mapper 中定义的内部类，包含了如下属性：</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1714-L1717" target="_blank" rel="noopener">Mapper.java#L1714-L1717</a>：</p>
+<pre><code class="java">public MappedWrapper defaultWrapper = null;
+public MappedWrapper[] exactWrappers = new MappedWrapper[0];
+public MappedWrapper[] wildcardWrappers = new MappedWrapper[0];
+public MappedWrapper[] extensionWrappers = new MappedWrapper[0];</code></pre>
+<p>分别对应按 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L467-L514" target="_blank" rel="noopener">如下方式</a> 匹配的 Servlet：</p>
+<table>
+<thead>
+<tr>
+<th align="left">prop</th>
+<th align="left">url mapping</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">defaultWrapper</td>
+<td align="left"><code>/</code></td>
+</tr>
+<tr>
+<td align="left">exactWrappers</td>
+<td align="left">完全匹配</td>
+</tr>
+<tr>
+<td align="left">wildcardWrappers</td>
+<td align="left">以 <code>/*</code> 结尾</td>
+</tr>
+<tr>
+<td align="left">extensionWrappers</td>
+<td align="left">以 <code>*.</code> 开头</td>
+</tr>
+</tbody></table>
+<p><code>addContextVersion</code> 方法将构造好的 ContextVersion 对象，放入 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L76" target="_blank" rel="noopener">contextObjectToContextVersionMap</a> 中备用。</p>
+<pre><code class="java">contextObjectToContextVersionMap.put(context, newContextVersion);</code></pre>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L72-L77" target="_blank" rel="noopener">Mapper.java#L72-L77</a>：</p>
+<pre><code class="java">/**
+ * Mapping from Context object to Context version to support
+ * RequestDispatcher mappings.
+ */
+private final Map&lt;Context, ContextVersion&gt; contextObjectToContextVersionMap =
+        new ConcurrentHashMap&lt;&gt;();</code></pre>
+<p>并同时将 ContextVersion 放入 Mapper 里的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L62" target="_blank" rel="noopener">MappedHost[] hosts</a> 的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1586" target="_blank" rel="noopener">ContextList contextList</a> 的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1661" target="_blank" rel="noopener">MappedContext[] contexts</a> 里。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L289-L315" target="_blank" rel="noopener">Mapper.java#L289-L315</a></p>
+<pre><code class="java">ContextList contextList = mappedHost.contextList;
+MappedContext mappedContext = exactFind(contextList.contexts, path);
+if (mappedContext == null) {
+    mappedContext = new MappedContext(path, newContextVersion);
+    ContextList newContextList = contextList.addContext(
+            mappedContext, slashCount);
+    if (newContextList != null) {
+        updateContextList(mappedHost, newContextList);
+        contextObjectToContextVersionMap.put(context, newContextVersion);
+    }
+} else {
+    ContextVersion[] contextVersions = mappedContext.versions;
+    ContextVersion[] newContextVersions = new ContextVersion[contextVersions.length + 1];
+    if (insertMap(contextVersions, newContextVersions,
+            newContextVersion)) {
+        mappedContext.versions = newContextVersions;
+        contextObjectToContextVersionMap.put(context, newContextVersion);
+    } else {
+        // Re-registration after Context.reload()
+        // Replace ContextVersion with the new one
+        int pos = find(contextVersions, version);
+        if (pos &gt;= 0 &amp;&amp; contextVersions[pos].name.equals(version)) {
+            contextVersions[pos] = newContextVersion;
+            contextObjectToContextVersionMap.put(context, newContextVersion);
+        }
+    }
+}</code></pre>
+<p><strong>至此，所有根据请求匹配到具体 Servlet 的准备工作都已完成。</strong></p>
+<h2 id="将请求匹配到具体的-Servlet-上"><a href="#将请求匹配到具体的-Servlet-上" class="headerlink" title="将请求匹配到具体的 Servlet 上"></a>将请求匹配到具体的 Servlet 上</h2><p>先放一张官网的 <a href="http://tomcat.apache.org/tomcat-9.0-doc/architecture/requestProcess/request-process.png" target="_blank" rel="noopener">图片</a></p>
+<p><img src="/contents/how-request-find-servlet/request-process.png" alt="Apache Tomcat 9 Architecture Request Process Flow"></p>
+<p>链接虽然是在 Tomcat 9.0 的文档中，但图片中的内容有些已经过时了，比如 <a href="https://github.com/apache/tomcat/blob/8.5.x/java/org/apache/coyote/http11/Http11Protocol.java#L24" target="_blank" rel="noopener">Http11Protocol 在 9.0 中已经移除了</a>。</p>
+<p>对上面流程简单分下组：</p>
+<p><img src="/contents/how-request-find-servlet/request-process-pkg.jpg" alt="Apache Tomcat 9 Architecture Request Process Flow with group"></p>
+<p>可以看到，整个流程涉及到的类大致分布在 <code>tomcat</code>、<code>coyote</code> 和 <code>catalina</code> 三个包下。</p>
+<p>在 tomcat 9.0.35 版本中，org.apache 包下面共有 <a href="https://github.com/apache/tomcat/tree/9.0.35/java/org/apache" target="_blank" rel="noopener">七个包</a>：</p>
+<pre><code class="text">├── catalina
+├── coyote
+├── el
+├── jasper
+├── juli
+├── naming
+└── tomcat</code></pre>
+<p><code>org.apache.tomcat</code> 包下为网络、线程、连接池、WebSocket 及一些工具类。其余各包作用可见下图：</p>
+<p><img src="/contents/how-request-find-servlet/components.png" alt="Components"></p>
+<p>CoyoteAdapter 的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/connector/CoyoteAdapter.java#L567" target="_blank" rel="noopener">postParseRequest</a> 方法中，根据 connector 找到了其对应的 Service，进而找到 Service 对应的 Mapper，并进行了 map 操作。</p>
+<pre><code class="java">// This will map the the latest version by default
+connector.getService().getMapper().map(serverName, decodedURI,
+        version, request.getMappingData());</code></pre>
+<p>map 方法根据请求找到对应的 MappedHost 的 MappedConext，进而找到之前放入的 ContextVersion，详细过程可见 Mapper 中的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L736" target="_blank" rel="noopener">internalMap</a> 方法。</p>
+<p>在 <code>internalMap</code> 方法中，会调用 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L862" target="_blank" rel="noopener">internalMapWrapper</a> 方法进行 Wrapper 的 Mapping，会根据不同的规则，匹配 ContextVersion 中不同的 MappedWrapper，并将匹配到的 Wrapper 放入 request 的 MappingData 中。比如 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1093" target="_blank" rel="noopener">internalMapWildcardWrapper</a> 里 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/mapper/Mapper.java#L1134" target="_blank" rel="noopener">1134</a> 行：</p>
+<pre><code class="java">mappingData.wrapper = wrappers[pos].object;</code></pre>
+<p>随后在 StandardContextValve 的 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/core/StandardContextValve.java#L62" target="_blank" rel="noopener">invoke</a> 方法中，便可通过 <a href="https://github.com/apache/tomcat/blob/9.0.35/java/org/apache/catalina/core/StandardContextValve.java#L76" target="_blank" rel="noopener">request.getWrapper()</a> 获取到请求对应的 Wrapper。之后的流程与上面时序图中的过程就基本一致了。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://www.jianshu.com/p/17a236e1b04a" target="_blank" rel="noopener">Tomcat请求处理流程</a></li>
+<li><a href="https://blog.csdn.net/wangchengsi/article/details/2973012" target="_blank" rel="noopener">Tomcat连接器：Coyote框架</a></li>
+<li><a href="https://www.cnblogs.com/earendil/p/6834738.html" target="_blank" rel="noopener">Tomcat 组件介绍</a></li>
+<li><a href="https://www.cnblogs.com/cenyu/p/11072543.html" target="_blank" rel="noopener">Tomcat组件梳理–Catalina</a></li>
+</ul>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>附两张手稿</p>
+<p><img src="/contents/how-request-find-servlet/init.jpg" alt="初始化"></p>
+<p><img src="/contents/how-request-find-servlet/map.jpg" alt="匹配"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#读取所有-Servlet-的配置，放入-Mapper-中"><span class="toc-number">1.</span> <span class="toc-text">读取所有 Servlet 的配置，放入 Mapper 中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将请求匹配到具体的-Servlet-上"><span class="toc-number">2.</span> <span class="toc-text">将请求匹配到具体的 Servlet 上</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-number">4.</span> <span class="toc-text">附录</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

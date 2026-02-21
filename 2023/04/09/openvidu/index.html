@@ -1,0 +1,626 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,WebRTC, OpenVidu, OpenVidu Call, video conference"> 
+    <meta name="description" content="
+OpenViduOpenVidu 是一个基于 Apache 2.0 协议的开源 WebRTC 视频会议平台，主仓库地址：https://github.com/OpenVidu/openvidu 。,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/openvidu/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Web"><b>「
+                    </b>WEB<b> 」</b></a>
+                
+                四月 09, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/04/09/openvidu/" title="OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台" class="">OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/WebRTC/" rel="tag">WebRTC</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/openvidu/cover.png" alt="OpenVidu"></p>
+<h2 id="OpenVidu"><a href="#OpenVidu" class="headerlink" title="OpenVidu"></a>OpenVidu</h2><p><a href="https://openvidu.io/" target="_blank" rel="noopener">OpenVidu</a> 是一个基于 <a href="https://choosealicense.com/licenses/apache-2.0/" target="_blank" rel="noopener">Apache 2.0</a> 协议的开源 WebRTC 视频会议平台，主仓库地址：<a href="https://github.com/OpenVidu/openvidu" target="_blank" rel="noopener">https://github.com/OpenVidu/openvidu</a> 。</p>
+<p>OpenVidu 提供一套简单、高效、易于使用的 API 接口，将 WebRTC 的底层操作进行了封装及屏蔽，只需引入 OpenVidu 的服务端和客户端处理媒体流，兼容多种平台、前后端框架，并配有丰富的文档、教程及示例应用。</p>
+<p><img src="/contents/openvidu/features.jpg" alt="features"></p>
+<p>OpenVidu 有 CE、Pro、Enterprise 三个版本，CE 版本是开源并免费使用的，可以使用大部分 OpenVidu 的重要特性：</p>
+<p><img src="/contents/openvidu/editions.png" alt="editions"></p>
+<h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a><a href="https://docs.openvidu.io/en/2.26.0/developing-your-video-app/#openvidu-application-architecture" target="_blank" rel="noopener">Architecture</a></h2><p>任何 OpenVidu 应用都包含三个部分：</p>
+<ol>
+<li>OpenVidu 部署（OpenVidu deployment）：可以是 OpenVidu CE、Pro、Enterprise 任意版本的部署；</li>
+<li>应用服务端（Application server）：调用 OpenVidu 部署提供的 REST API，为应用客户端提供服务；</li>
+<li>应用客户端（Aplication client）：可以是浏览器、移动端或桌面应用，使用 <code>openvidu-browser.js</code> SDK 与 OpenVidu 部署通信。</li>
+</ol>
+<p><img src="/contents/openvidu/openvidu-app-architecture.png" alt="architecture"></p>
+<p>OpenVidu 支持在云平台及自有硬件中部署，<a href="https://docs.openvidu.io/en/2.26.0/deployment/ce/on-premises/" target="_blank" rel="noopener">Deploying OpenVidu CE on premises</a> 有在自有硬件中部署生产环境可用的 OpenVidu 的完整文档。</p>
+<p>一套完整的 OpenVidu 部署包括 <a href="https://docs.openvidu.io/en/2.26.0/deployment/ce/on-premises/#deployment-instructions" target="_blank" rel="noopener">以下服务</a>：</p>
+<ol>
+<li><code>OpenVidu Server (openvidu-server)</code>：OpenVidu 平台的大脑，负责信号面；</li>
+<li><code>Kurento Media Server (kms)</code>：OpenVidu 平台的心脏，负责媒体面；</li>
+<li><code>Coturn (coturn)</code>：用于在某些特殊网络中允许媒体通信的服务器；</li>
+<li><code>Redis (redis)</code>: 管理 Coturn 服务中用户的数据库；</li>
+<li><code>Nginx (nginx)</code>: 配置 SSL 证书的反向代理，以允许 OpenVidu Server 和应用都可以通过标准的 https 端口（443）提供服务；</li>
+<li><code>Videoconference Application (app)</code>: <a href="https://openvidu.io/openvidu-call" target="_blank" rel="noopener">OpenVidu Call</a> 应用或其他应用，可选。</li>
+</ol>
+<p><strong>本文旨在本地内网中，搭建一套最小可用的 OpenVidu 体验环境，支持多方视频会议</strong>，故缩减上述完整部署中的 <code>Coturn</code> 和 <code>Redis</code> 服务，使用包含了 <code>OpenVidu Server</code> 和 <code>Kurento Media Server</code> 的单容器镜像 <a href="https://hub.docker.com/layers/openvidu/openvidu-dev/2.26.0/images/sha256-87da7d58a44bdab566168876d7bc07296c5dfcc95a7e901ab0d3c5149caea154?context=explore" target="_blank" rel="noopener">openvidu/openvidu-dev:2.26.0</a> 部署，并使用 <code>OpenVidu Call</code> 应用通过 <code>https://IP</code> 体验多方视频通话。</p>
+<p>仅使用 <code>localhost</code> 或 <code>127.0.0.1</code> 的本地开发环境，可以直接使用 HTTP，但在需要通过 IP 或域名访问的场景下，WebRTC 需要安全连接才能工作，故部署结构中需增加一个反向代理组件，变为如 <a href="https://docs.openvidu.io/en/2.26.0/troubleshooting/#3-test-applications-in-my-network-with-multiple-devices" target="_blank" rel="noopener">下图</a> 所示：</p>
+<p><img src="/contents/openvidu/proxy-dev-deployment.png" alt="proxy"></p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>接下来就按上图进行本地体验环境部署。</p>
+<h3 id="OpenVidu-deployment"><a href="#OpenVidu-deployment" class="headerlink" title="OpenVidu deployment"></a>OpenVidu deployment</h3><p>要在本机外环境访问 OpenVidu Server，需要在启动时 <a href="https://docs.openvidu.io/en/2.26.0/troubleshooting/#1-run-the-openvidu-deployment-with-your-local-ip-and-other-configurations" target="_blank" rel="noopener">指定 IP 地址</a>：</p>
+<ul>
+<li>Linux：<code>ip -4 -oneline route get 1.0.0.0 | grep -Po &#39;src \K\S+&#39;</code></li>
+<li>MacOS：<code>ipconfig getifaddr &quot;$(route -n get 1.0.0.0 | grep &#39;interface&#39; | awk &#39;{print $2}&#39;)&quot;</code></li>
+</ul>
+<p>以 MacOS 环境为例，可使用如下命令启动包含 <code>OpenVidu Server</code> 和 <code>Kurento Media Server</code> 的 <code>openvidu-dev</code> 容器，完成 <code>OpenVidu deployment</code> 组件的部署：</p>
+<pre><code class="bash"># Run OpenVidu deployment container with new env variable
+# WARNING: this container is not suitable for production deployments of OpenVidu
+# Visit https://docs.openvidu.io/en/stable/deployment
+docker run -p 4443:4443 --rm \
+  -e OPENVIDU_SECRET=MY_SECRET \
+  -e DOMAIN_OR_PUBLIC_IP=$(ipconfig getifaddr &quot;$(route -n get 1.0.0.0 | grep &#39;interface&#39; | awk &#39;{print $2}&#39;)&quot;) \
+  -e SERVER_PORT=4443 \
+  -e HTTPS_PORT=443 \
+  -e FORCE_PLAIN_HTTP=false \
+  -d \
+openvidu/openvidu-dev:2.26.0</code></pre>
+<p>其他相关操作：</p>
+<pre><code class="bash"># 查看日志
+docker logs -f $(docker ps -a | grep openvidu-dev | awk &#39;{print $1}&#39;)</code></pre>
+<pre><code class="bash"># 停止并删除容器
+docker rm -f $(docker ps -a | grep openvidu-dev | awk &#39;{print $1}&#39;)</code></pre>
+<h3 id="Application-server-amp-client"><a href="#Application-server-amp-client" class="headerlink" title="Application server &amp; client"></a>Application server &amp; client</h3><p>可通过 <a href="https://docs.openvidu.io/en/2.26.0/components/openvidu-call/" target="_blank" rel="noopener">OpenVidu Call</a> 应用来验证 OpenVidu 服务部署结果。</p>
+<p><a href="https://hub.docker.com/layers/openvidu/openvidu-call/2.26.0/images/sha256-b921f99d349666d0075c10fef0e6cce76b8708336a7279ce70b92a5786ab5a79?context=explore" target="_blank" rel="noopener">openvidu/openvidu-call:2.26.0</a> 镜像中包含了 Node 版的前后端应用，可一步完成部署架构图中的 <code>Application server</code> 和  <code>Application client</code> 组件部署。</p>
+<pre><code class="bash">docker run -p 5000:5000 --rm \
+  -e OPENVIDU_URL=https://$(ipconfig getifaddr &quot;$(route -n get 1.0.0.0 | grep &#39;interface&#39; | awk &#39;{print $2}&#39;)&quot;) \
+  -e OPENVIDU_SECRET=MY_SECRET \
+  -d \
+openvidu/openvidu-call:2.26.0</code></pre>
+<p>此时，可以通过 <code>http://IP:5000</code> 访问到 <code>OpenVidu Call</code> 应用界面。WebRTC 相关的语音、视频等功能需部署 Proxy 组件后通过 HTTPS 协议访问才能正常使用。</p>
+<p>其他相关操作：</p>
+<pre><code class="bash"># 查看日志
+docker logs -f $(docker ps -a | grep openvidu-call | awk &#39;{print $1}&#39;)</code></pre>
+<pre><code class="bash"># 停止并删除容器
+docker rm -f $(docker ps -a | grep openvidu-call | awk &#39;{print $1}&#39;)</code></pre>
+<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>Proxy 组件的作用，是允许通过 HTTPS 访问应用。本地环境可以借助 <a href="https://github.com/OpenVidu/openvidu-tutorials/tree/master/certs" target="_blank" rel="noopener">openvidu-tutorials/certs</a> 中提供的证书，以及将 <a href="https://github.com/OpenVidu/openvidu-tutorials/blob/v2.26.0/openvidu-angular/nginx.conf#L12" target="_blank" rel="noopener">openvidu-tutorials/openvidu-angular/nginx.conf 第 12 行</a> 端口由 <code>4200</code> 修改为 <code>5000</code>：</p>
+<pre><code class="conf">    upstream client-application {
+        server host.docker.internal:5000;
+    }</code></pre>
+<p>将证书文件放在 <code>certs</code> 路径下，并在同级路径放置调整后的 <code>nginx.conf</code> 文件后，可使用如下命令完成 Proxy 组件部署：</p>
+<pre><code class="bash"># At the root path of the tutorial
+# For example: /home/user/openvidu-tutorials/openvidu-hello-world
+docker run --rm -p 443:443 \
+  --add-host=host.docker.internal:host-gateway \
+  -v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro \
+  -v $PWD/certs:/etc/nginx/certs:ro \
+  -d \
+nginx</code></pre>
+<p>如果 docker 版本小于 20.x，执行上述命令时可能会遇到 <code>Error response from daemon: invalid IP address in add-host: &quot;host-gateway&quot;.</code> 的报错，此时可参照 <a href="https://github.com/docker/cli/issues/2664#issuecomment-1294472136" target="_blank" rel="noopener">#2664</a> 中方式为 <code>host.docker.internal</code> 域名设置对应的 IP，如：</p>
+<pre><code class="bash"># At the root path of the tutorial
+# For example: /home/user/openvidu-tutorials/openvidu-hello-world
+docker run --rm -p 443:443 \
+  --add-host=host.docker.internal:$(ipconfig getifaddr &quot;$(route -n get 1.0.0.0 | grep &#39;interface&#39; | awk &#39;{print $2}&#39;)&quot;) \
+  -v $PWD/nginx.conf:/etc/nginx/nginx.conf:ro \
+  -v $PWD/certs:/etc/nginx/certs:ro \
+  -d \
+nginx</code></pre>
+<p>其他相关操作：</p>
+<pre><code class="bash"># 查看日志
+docker logs -f $(docker ps -a | grep nginx | awk &#39;{print $1}&#39;)</code></pre>
+<pre><code class="bash"># 停止并删除容器
+docker rm -f $(docker ps -a | grep nginx | awk &#39;{print $1}&#39;)</code></pre>
+<h2 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h2><p>完成所有组件部署后，可通过 <code>https://IP</code> 来访问 <code>OpenVidu Call</code> 应用，登录用户名 <code>admin</code>，密码为上面启动 docker 容器传入的 <code>OPENVIDU_SECRET</code> 环境变量的值 —— <code>MY_SECRET</code>：</p>
+<p><img src="/contents/openvidu/openvidu-call.png" alt="login"></p>
+<p><img src="/contents/openvidu/screen-share.png" alt="screen share"></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>附可直接使用的完整 <code>nginx.conf</code> 内容：</p>
+<pre><code class="conf">events {
+    worker_connections 512;
+}
+http {
+    upstream openvidu-deployment {
+        server host.docker.internal:4443;
+    }
+    upstream server-application {
+        server host.docker.internal:5000;
+    }
+    upstream client-application {
+        server host.docker.internal:5000;
+    }
+    server {
+        listen                  443 ssl;
+        ssl_certificate         /etc/nginx/certs/cert.pem;
+        ssl_certificate_key     /etc/nginx/certs/key.pem;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_headers_hash_bucket_size 512;
+        proxy_redirect off;
+
+        # Websockets
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &quot;upgrade&quot;;
+
+        # OpenVidu deployment API
+        location /openvidu/api {
+            proxy_pass http://openvidu-deployment;
+        }
+
+        # OpenVidu WebSocket
+        location ~ /openvidu$ {
+            proxy_pass http://openvidu-deployment;
+        }
+
+        # Server application requests
+        location /api/ {
+            proxy_pass http://server-application;
+        }
+
+        # Client application requests
+        location / {
+            proxy_pass http://client-application;
+        }
+    }
+}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenVidu"><span class="toc-number">1.</span> <span class="toc-text">OpenVidu</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Architecture"><span class="toc-number">2.</span> <span class="toc-text">Architecture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">3.</span> <span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OpenVidu-deployment"><span class="toc-number">3.1.</span> <span class="toc-text">OpenVidu deployment</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Application-server-amp-client"><span class="toc-number">3.2.</span> <span class="toc-text">Application server &amp; client</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Proxy"><span class="toc-number">3.3.</span> <span class="toc-text">Proxy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实际效果"><span class="toc-number">4.</span> <span class="toc-text">实际效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附录"><span class="toc-number">5.</span> <span class="toc-text">附录</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

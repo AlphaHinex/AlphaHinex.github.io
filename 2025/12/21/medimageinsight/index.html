@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MedImageInsight - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MedImageInsight, Microsoft, Embedding model, medical imaging, DICOM, Modality, Azure, Hugging Face, FastAPI, Docker, TheLion.ai"> 
+    <meta name="description" content="MedImageInsightMedImageInsight: AN OPEN-SOURCE EMBEDDING MODEL FOR GENERAL DOMAIN MEDICAL IMAGING 论,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">MedImageInsight</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/medimageinsight/architecture.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                十二月 21, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/12/21/medimageinsight/" title="MedImageInsight" class="">MedImageInsight</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.3k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Embedding-Model/" rel="tag">Embedding Model</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Medical-Imaging/" rel="tag">Medical Imaging</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="MedImageInsight"><a href="#MedImageInsight" class="headerlink" title="MedImageInsight"></a>MedImageInsight</h1><p><a href="https://arxiv.org/abs/2410.06542" target="_blank" rel="noopener">MedImageInsight: AN OPEN-SOURCE EMBEDDING MODEL FOR GENERAL DOMAIN MEDICAL IMAGING</a> 论文中提出了一个用于医学图像的开源嵌入模型：<code>MedImageInsight</code>。该模型采用类似 CLIP 的双塔架构，一个塔是图像编码器，另一个塔是文本编码器：</p>
+<p><img src="https://alphahinex.github.io/contents/medimageinsight/architecture.png" alt="architecture"></p>
+<p><code>MedImageInsight</code> 在未经微调的情况下，即可在分类、图像检索、报告生成等多种医学图像任务中表现出色：</p>
+<p><img src="https://alphahinex.github.io/contents/medimageinsight/overview.png" alt="overview"></p>
+<h2 id="Microsoft"><a href="#Microsoft" class="headerlink" title="Microsoft"></a>Microsoft</h2><p>该论文主要作者来自微软相关团队，在网络上搜索 <code>MedImageInsight</code> 相关内容，也可以找到微软提供的 <a href="https://ai.azure.com/catalog/models/MedImageInsight" target="_blank" rel="noopener">MedImageInsight</a>/<a href="https://ai.azure.com/catalog/models/MedImageInsight-onnx" target="_blank" rel="noopener">MedImageInsight-onnx</a> 模型卡片、<a href="https://github.com/Azure/azureml-examples/tree/main/sdk/python/foundation-models/healthcare-ai/medimageinsight" target="_blank" rel="noopener">一些 notebook</a> 以及 <a href="https://learn.microsoft.com/zh-cn/azure/ai-foundry/how-to/healthcare-ai/deploy-medimageinsight?view=foundry-classic" target="_blank" rel="noopener">如何使用 MedImageInsight 医疗保健 AI 模型进行医疗影像嵌入生成</a> 等文档，然而想按文档方式使用此模型的前提条件是，一个 <a href="https://azure.microsoft.com/pricing/purchase-options/pay-as-you-go" target="_blank" rel="noopener">付费的 Azure 账户</a>。</p>
+<p>论文中提到的 <code>See GitHub for a list of all of the descriptive text labels that we used</code> 在 GitHub 公开仓库中也没有找到。</p>
+<h2 id="Thelion-ai"><a href="#Thelion-ai" class="headerlink" title="Thelion.ai"></a>Thelion.ai</h2><p><img src="https://alphahinex.github.io/contents/medimageinsight/thelion.ai.png" alt="thelion.ai"></p>
+<p>幸运的是，<a href="https://huggingface.co/lion-ai" target="_blank" rel="noopener">Thelion.ai</a> 将模型从 Azure 下载并移除掉了一些限制，使其成为了一个不依赖 Azure 可独立运行的版本，并上传到了 Hugging Face：<a href="https://huggingface.co/lion-ai/MedImageInsights" target="_blank" rel="noopener">https://huggingface.co/lion-ai/MedImageInsights</a> 。此外，还将依赖管理迁移到了 uv 下，添加了多标签分类等示例代码，并通过 FastAPI 创建了一个示例 HTTP 服务。</p>
+<blockquote>
+<p>国内可使用 <a href="https://hf-mirror.com/lion-ai/MedImageInsights" target="_blank" rel="noopener">https://hf-mirror.com/lion-ai/MedImageInsights</a> 镜像访问。</p>
+</blockquote>
+<h3 id="Docker-Image"><a href="#Docker-Image" class="headerlink" title="Docker Image"></a>Docker Image</h3><p><a href="https://github.com/AlphaHinex/MedImageInsights" target="_blank" rel="noopener">https://github.com/AlphaHinex/MedImageInsights</a> 在 <a href="https://huggingface.co/lion-ai/MedImageInsights" target="_blank" rel="noopener">https://huggingface.co/lion-ai/MedImageInsights</a> 的基础上，对相关代码运行时的问题进行了 <a href="https://github.com/AlphaHinex/MedImageInsights/compare/main...develop#diff-677e252a4cdc0a139c5e268e08df7490decce2a3d2d59cae903bd6899bae3264" target="_blank" rel="noopener">调整</a>，并通过 GitHub Actions 构建了一个 Docker Image，推送到了 Docker Hub。</p>
+<p><img src="https://alphahinex.github.io/contents/medimageinsight/diff.png" alt="diff"></p>
+<p>可参照下面方式直接拉取镜像使用：</p>
+<pre><code class="bash">$ docker pull alphahinex/medimageinsights:cpu
+$ docker run --privileged --name mi2 -p 8000:8000 alphahinex/medimageinsights:cpu
+INFO:     Started server process [11]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)</code></pre>
+<blockquote>
+<p>gpu 版本可更换为 <code>alphahinex/medimageinsights:gpu</code>。</p>
+</blockquote>
+<p>访问 <a href="http://localhost:8000/docs" target="_blank" rel="noopener">http://localhost:8000/docs</a> 即可看到 FastAPI 自动生成的接口文档：</p>
+<p><img src="https://alphahinex.github.io/contents/medimageinsight/fastapi-docs.png" alt="fastapi-docs"></p>
+<p>接下来使用下面三张图片进行接口测试：</p>
+<ul>
+<li><img src="https://alphahinex.github.io/contents/medimageinsight/ultrasound.jpg" alt="ultrasound"></li>
+<li><img src="https://alphahinex.github.io/contents/medimageinsight/computed-tomography.jpg" alt="computed-tomography"></li>
+<li><img src="https://alphahinex.github.io/contents/medimageinsight/x-ray.jpg" alt="x-ray"></li>
+</ul>
+<p>分类预测：</p>
+<pre><code class="bash">$ img1=$(base64 -i ultrasound.jpg | tr -d &#39;\n&#39;)
+$ img2=$(base64 -i computed-tomography.jpg | tr -d &#39;\n&#39;)
+$ img3=$(base64 -i x-ray.jpg | tr -d &#39;\n&#39;)
+$ curl -X POST -H &quot;Content-Type: application/json&quot; \
+-d &quot;{\&quot;images\&quot;: [\&quot;$img1\&quot;,\&quot;$img2\&quot;,\&quot;$img3\&quot;], \&quot;labels\&quot;:[\&quot;X-Ray\&quot;,\&quot;Magnetic Resonance Imaging\&quot;,\&quot;Computed Tomography\&quot;,\&quot;Ultrasound\&quot;,\&quot;Dermoscopy\&quot;,\&quot;Clinical Photography\&quot;,\&quot;Optical Coherence Tomography\&quot;]}&quot; \
+http://localhost:8000/predict</code></pre>
+<p>格式化后响应如下，第一张图片约 98% 概率为超声，第二章图片约 92% 概率为 CT，第三章图片约 99% 概率为 X 光：</p>
+<pre><code class="json">{
+    &quot;predictions&quot;: [
+        {
+            &quot;Clinical Photography&quot;: 3.913578723313549e-07,
+            &quot;Computed Tomography&quot;: 0.0025310341734439135,
+            &quot;Dermoscopy&quot;: 7.391983672278002e-06,
+            &quot;Magnetic Resonance Imaging&quot;: 0.00015236964100040495,
+            &quot;Optical Coherence Tomography&quot;: 0.010487924329936504,
+            &quot;Ultrasound&quot;: 0.9821637868881226,
+            &quot;X-Ray&quot;: 0.004657140001654625
+        },
+        {
+            &quot;Clinical Photography&quot;: 0.0005052403430454433,
+            &quot;Computed Tomography&quot;: 0.9238902926445007,
+            &quot;Dermoscopy&quot;: 0.00016611746104899794,
+            &quot;Magnetic Resonance Imaging&quot;: 0.0022810406517237425,
+            &quot;Optical Coherence Tomography&quot;: 0.022591199725866318,
+            &quot;Ultrasound&quot;: 0.011986842378973961,
+            &quot;X-Ray&quot;: 0.03857940435409546
+        },
+        {
+            &quot;Clinical Photography&quot;: 0.0005790339782834053,
+            &quot;Computed Tomography&quot;: 9.118935122387484e-05,
+            &quot;Dermoscopy&quot;: 4.344608441897435e-06,
+            &quot;Magnetic Resonance Imaging&quot;: 5.670949030900374e-05,
+            &quot;Optical Coherence Tomography&quot;: 5.706364390789531e-05,
+            &quot;Ultrasound&quot;: 3.7378162232926115e-05,
+            &quot;X-Ray&quot;: 0.9991742968559265
+        }
+    ]
+}</code></pre>
+<blockquote>
+<p>注1：训练数据均为英文标签，推理时也使用英文标签效果更好。</p>
+</blockquote>
+<blockquote>
+<p>注2：输入的图像不能包含 alpha 通道，否则会报错：</p>
+<pre><code class="json">{
+  &quot;detail&quot;: &quot;The size of tensor a (4) must match the size of tensor b (3) at non-singleton dimension 0&quot;
+}</code></pre>
+</blockquote>
+<p>调用 <code>/encode</code> 接口，图片和文字均可得到 1024 维的嵌入向量：</p>
+<pre><code class="bash">$ curl -X POST -H &quot;Content-Type: application/json&quot; \
+-d &quot;{\&quot;images\&quot;: [\&quot;$img1\&quot;], \&quot;texts\&quot;:[\&quot;Ultrasound\&quot;]}&quot; \
+http://localhost:8000/encode
+$ curl -X POST -H &quot;Content-Type: application/json&quot; \
+-d &quot;{\&quot;texts\&quot;:[\&quot;Ultrasound\&quot;]}&quot; \
+http://localhost:8000/encode</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MedImageInsight"><span class="toc-number">1.</span> <span class="toc-text">MedImageInsight</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Microsoft"><span class="toc-number">1.1.</span> <span class="toc-text">Microsoft</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thelion-ai"><span class="toc-number">1.2.</span> <span class="toc-text">Thelion.ai</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Docker-Image"><span class="toc-number">1.2.1.</span> <span class="toc-text">Docker Image</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

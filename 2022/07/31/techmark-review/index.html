@@ -1,0 +1,811 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>态马商战复盘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,TechMark, 态马商战"> 
+    <meta name="description" content="态马商战简介
+TechMark是一种形式新颖的创新的管理培训课程，它凭借强大的计算机系统创造了一个仿真度极高的商业竞争环境，为学员带来集知识性、趣味性、仿真性和实践性为以一体的商战训练。 —— Te,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">态马商战复盘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/techmark-review/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                七月 31, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/07/31/techmark-review/" title="态马商战复盘" class="">态马商战复盘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    16k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    15 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="态马商战简介"><a href="#态马商战简介" class="headerlink" title="态马商战简介"></a>态马商战简介</h1><blockquote>
+<p>TechMark是一种形式新颖的创新的管理培训课程，它凭借强大的计算机系统创造了一个仿真度极高的商业竞争环境，为学员带来集知识性、趣味性、仿真性和实践性为以一体的商战训练。 —— <a href="http://www.techmarkleader.com/service/" target="_blank" rel="noopener">TechMark是什么</a></p>
+</blockquote>
+<p>在态马商战（TechMark）的世界里，有三种虚拟产品，三个模拟地区，参与者分组成立临时公司，以相同的起点起步，在两天一晚的时间里，根据已知的信息和 TechMark 系统计算出的实际数据，进行六轮模拟商业决策，角逐满足各项经营指标且股价最高的 TechMark 冠军荣誉。</p>
+<h1 id="战前准备"><a href="#战前准备" class="headerlink" title="战前准备"></a>战前准备</h1><p>正所谓兵马未动粮草先行，熟谙已知信息，是在面对未知环境时仍然可以任凭风吹浪打，我自闲庭信步的底气。</p>
+<p>根据课前发放的预习资料及课程讲义，我们分析、汇总了如下内容。</p>
+<h2 id="市场特点"><a href="#市场特点" class="headerlink" title="市场特点"></a>市场特点</h2><p><img src="/contents/techmark-review/market-feature.png" alt=""></p>
+<ul>
+<li>北美联盟：成熟的市场，注重质量也关注价格，产品性能参数需求离散；</li>
+<li>亚太共和：人口众多，价格敏感，市场增长率不确定，同样的商品，在亚太共和生产比从北美联盟生产再运到亚太共和销售，销量会提升 30%；</li>
+<li>欧联邦：消费能力强，相对于价格，他们更在意商品本身的性能参数与产品质量，产品参数需求集中，同样的产品，欧联邦生产的质量要强于北美联盟。</li>
+</ul>
+<p>前四个财季订单数预测数据表示：</p>
+<ul>
+<li><code>墨晶1</code> 在北美市场需求最大，但呈下降趋势；</li>
+<li><code>墨晶2</code> 前期以北美市场需求量大，中期欧联邦需求强势增长；</li>
+<li><code>墨晶3</code> 在北美市场有巨大的市场需求。</li>
+</ul>
+<h2 id="产品研发费用"><a href="#产品研发费用" class="headerlink" title="产品研发费用"></a>产品研发费用</h2><p>每个产品的参数特性，被抽象为了两个维度：<code>感抗</code>、<code>内阻</code>。</p>
+<p>在课前的预习资料中，给出了调整每个产品的每个维度参数的试验数据，如：</p>
+<h3 id="实验室中的模拟试验-——-墨晶2"><a href="#实验室中的模拟试验-——-墨晶2" class="headerlink" title="实验室中的模拟试验 —— 墨晶2"></a>实验室中的模拟试验 —— 墨晶2</h3><table>
+<thead>
+<tr>
+<th align="left">特性</th>
+<th align="left">原有的特性水平</th>
+<th align="left">要求的特性水平</th>
+<th align="left">研发预算投入（百万）</th>
+<th align="left">研发的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">感抗<br>内阻</td>
+<td align="left">3.5<br>1.5</td>
+<td align="left">4.5<br>1.1</td>
+<td align="left">$0.18</td>
+<td align="left">失败</td>
+</tr>
+<tr>
+<td align="left">感抗<br>内阻</td>
+<td align="left">2.6<br>1.4</td>
+<td align="left">1.9<br>2.3</td>
+<td align="left">$1.150</td>
+<td align="left">成功</td>
+</tr>
+</tbody></table>
+<p>根据上面的两条数据，假设调整感抗参数所需的研发费用为 <code>x</code>，调整内阻参数所需的研发费用为 <code>y</code>，可以列出如下二元一次方程组：</p>
+<pre><code class="formula">  1x + 0.4y &gt;  0.18
+0.7x + 0.9y &lt;= 1.150</code></pre>
+<p>这里有一点需要注意，每个维度的值无论是增大还是减少，都按照 <code>|原有的特征水平 - 要求的特征水平|</code> 计算系数，即取两个值差的<strong>绝对值</strong>。</p>
+<p>根据所有的试验数据，我们可以为每个产品列出一组方程，通过计算，可以得出每个产品的 x 和 y 值的范围，即至少投入多少研发费用，能够保证特性水平调整成功。</p>
+<h2 id="其他信息"><a href="#其他信息" class="headerlink" title="其他信息"></a>其他信息</h2><ul>
+<li>多个小组参与竞争，每个小组处于相同起点，将来的发展取决于各组的决策</li>
+<li>产品参数初始状态（感抗: 3.0, 内阻: 3.0）</li>
+<li>调整产品参数需要研发费用支持，研发费用不足，可能导致产品研发失败，产品参数回到本次调整前状态</li>
+<li>初期各产品产地均在北美联盟</li>
+<li>产品参数及市场需求的预测数据只有前四期的，后两期没有提供预测数据</li>
+<li>产地调整决策当期不生效，下期才能完成产地更换</li>
+<li>产品参数当期调整当期生效</li>
+<li>当期新招聘的销售人员，要到下个季度才能正常工作</li>
+<li>下期销售代表的数量，受上期业绩影响，有上限，不能随意设置</li>
+</ul>
+<h1 id="第一财季-1A"><a href="#第一财季-1A" class="headerlink" title="第一财季 1A"></a>第一财季 1A</h1><p>第一个财季的决策，贴心的被分成了 <code>1A</code>、<code>1B</code> 两次完成，方便大家互相熟悉以及对态马商战游戏规则快速适应。<code>1A</code> 需要提交的决策内容为产品参数、研发费用、下期产地以及公司的组织架构和职责分工：</p>
+<p><img src="/contents/techmark-review/1a.png" alt=""></p>
+<h2 id="决策过程"><a href="#决策过程" class="headerlink" title="决策过程"></a>决策过程</h2><p>根据战前准备中分析的市场特点，我们将第一财季的产品目标市场锁定为北美联盟，并为 <code>墨晶2</code> 产品从下期开始进入欧联邦市场做准备。</p>
+<h3 id="研发方向"><a href="#研发方向" class="headerlink" title="研发方向"></a>研发方向</h3><ul>
+<li><code>墨晶1</code>：为兼顾亚太共和和北美联盟市场，产品参数取两个市场预测值的中间位置；</li>
+<li><code>墨晶2</code>：考虑到北美联盟市场需求的离散性特点、北美联盟对 <code>墨晶2</code> 产品的参数需求发展趋势（见下图），以及下期目标市场欧联邦对 <code>墨晶2</code> 的产品参数需求，经 CXO 们讨论决定，我们暂不调整 <code>墨晶2</code> 的产品参数；</li>
+<li><code>墨晶3</code>：同样因为需求的离散型，以及控制研发成本，内阻按预测值进行了调整，感抗参数减小了按预测值方向调整的幅度。</li>
+</ul>
+<p><img src="/contents/techmark-review/trend.png" alt=""></p>
+<p>确定好产品参数后，根据之前计算出的每个产品调整每项参数所需的费用范围，对产品研发费用进行了预算，并在计算结果基础上增加了一定的费用，以保证产品研发成功。</p>
+<h3 id="下期产地"><a href="#下期产地" class="headerlink" title="下期产地"></a>下期产地</h3><p>为进入欧洲市场，本期将 <code>墨晶2</code> 的下期生产地，调整到了欧联邦；其余两个产品继续在北美联盟生产。</p>
+<h2 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h2><p>在 1A 决策结果发布时，有小组出现了研发失败，导致未能按预期收获目标市场的订单数量。我们虽然有数据支撑保证了产品研发的成功，但在北美联盟目标市场的订单数量上，并没有那些产品参数更贴近预测值的小组收获的市场份额大，即使北美联盟的消费者样本调查显示其对产品参数的需求是非常离散的。这意味着我们需要更加精准的市场定位，在之后的产品参数调整中，我们需要产品更贴近目标市场的理想值。</p>
+<h1 id="第一财季-1B"><a href="#第一财季-1B" class="headerlink" title="第一财季 1B"></a>第一财季 1B</h1><p><code>1B</code> 需要决策的内容为，每个市场每种产品的销售价格，和运往每个市场的每种产品的发货数量：</p>
+<p><img src="/contents/techmark-review/1b.png" alt=""></p>
+<h2 id="决策过程-1"><a href="#决策过程-1" class="headerlink" title="决策过程"></a>决策过程</h2><p>基于成本预测分析，在仅有市场预测份额及预计销收入的情况下，我们单一维度的测算了生产成本及发货量，没有整体的思考销售成本及参考份额的重要性。</p>
+<p>在产品参数不是非常精确的情况下，我们尝试通过市场手段影响消费者的需求，使我们的产品参数能够更加符合目标市场的理想值，并按较大产量生产产品以期获得更高的利润。</p>
+<h2 id="结果分析-1"><a href="#结果分析-1" class="headerlink" title="结果分析"></a>结果分析</h2><p>从 <code>1B</code> 决策的结果来看，显然有其他小组做的比我们更出色。</p>
+<p>我们在三个目标市场取得的市场份额排名分别为：<code>美1</code>（北美联盟，<code>墨晶1</code>）第二，<code>美2</code> 第四，<code>美3</code> 第四。虽然在兼顾的 <code>亚1</code>（亚太共和，<code>墨晶1</code>）市场，我们取得了第二的市场份额并且 <code>亚1</code> 市场贡献了九个细分市场中排名第二的销售收入，但由于 <code>美3</code> 的定价略高且市场份额占有率较低，供过于求，产生了较多的存货。</p>
+<p>通常情况下，我们会认为供不应求是产品受欢迎的一个表现，而供不应求会造成库存进而产生成本。但从第一财季的损益表数据来看，期末存货会从当期的直接成本中进行扣除；有存货的 <code>墨晶3</code> 产品在各个市场上的实际销量都要比订货量有所增加，而没有存货的 <code>墨晶1</code> 和 <code>墨晶2</code> 两个产品，实际市场销量都要比订货量下降，这意味着一些本应属于我们的市场份额，由于供货不足，被其他竞争对手吃掉了。这给了我们下期增大产量的信号。</p>
+<p>由于产品参数的不精准及 <code>1A</code> 决策后我们的产品订货量市场份额不够出色，导致我们的产量决策略显保守，在本期销售收入减去直接成本及营运费用后，我们的当期利润是负值。</p>
+<h3 id="研发方向及市场份额排名汇总"><a href="#研发方向及市场份额排名汇总" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+</tbody></table>
+<h1 id="第二财季"><a href="#第二财季" class="headerlink" title="第二财季"></a>第二财季</h1><p>从第二财季开始，每期所要做的决策都是下图中的完整内容：</p>
+<p><img src="/contents/techmark-review/decision.png" alt=""></p>
+<p>要决策的内容非常多，时间非常紧张。一个好的组织架构，可以对决策顺利完成产生非常大的帮助。有的小组在这个过程中也会对其组织结构进行调整，以适应快节奏的决策制定。</p>
+<h2 id="决策过程-2"><a href="#决策过程-2" class="headerlink" title="决策过程"></a>决策过程</h2><p>可以说在第一财季，我们的执行是完美的，主要的问题出在目标上。吸取了第一财季的经验及教训，我们在第二财季决策过程中，首先明确了目标市场：<code>美1</code>、<code>欧2</code>、<code>美3</code>。</p>
+<p>在产品研发决策中，我们严格按照目标市场产品预测值调整产品研发参数，并为保证研发成功，对研发经费的投入加入了一些冗余。</p>
+<p>为使得六期决策后，我们公司的股价能够达到要求的最低值，在每轮决策的间隙，老师帮我们分析了影响股价的因素，以及预测股价的方法，并提醒我们期末毛利率需要大于等于 35% 这个指标。这些财务知识的补充，都给我们为产品定价提供了方向。</p>
+<p>按照第一财季的结果分析，我们在第二财季继续加大产品产量，以保证在目标市场有充足的产品供应，并能够借此抢占一部分竞争对手的市场份额。</p>
+<h2 id="结果分析-2"><a href="#结果分析-2" class="headerlink" title="结果分析"></a>结果分析</h2><p>第二财季决策结果公布时，我们在目标市场上的产品特性，更加贴近市场的理想值，并且在保证研发成功的同时，能够很好的控制研发费用。在三个目标市场取得的市场份额排名分别为：<code>美1</code> 第三，<code>欧2</code> 第二，<code>美3</code> 第四。得益于出色的产品特性、定价策略及品牌知名度，<code>墨晶1</code> 在三个地区的市场贡献了近一半的销售收入；<code>墨晶3</code> 在北美联盟虽然市场份额仅排第四（21.6%），但凭借北美联盟市场的体量，<code>美3</code> 的销售收入在九个细分市场中拔得头筹，占据了总收入的近三成。精准的目标及优秀的执行，使我们在本期决策后，取得了当期利润及累计利润双冠王的成绩。</p>
+<p>不过老师在讲解中的一句话 —— 增长能够掩盖一切问题，还是为我们的喜悦之情注入了一丝清醒。虽然本期决策成功的弥补了我们在第一期决策中的不足，但也同样可以发现一些问题：产品研发精准按照预测值调整的参数，与市场的理想值还是存在一定的偏差；<code>美1</code>、<code>美3</code> 市场期末库存量为 <code>0</code>，意味着我们本可以在这两个市场取得更好的成绩；<code>亚1</code>、<code>欧1</code> 期末库存量较大，对于 <code>墨晶1</code> 的产量分配可以更加合理。好在我们还有很多次决策机会，CXO 们对于决策也愈发的驾轻就熟了。</p>
+<h3 id="研发方向及市场份额排名汇总-1"><a href="#研发方向及市场份额排名汇总-1" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第二财季</td>
+<td align="left">美1（#3）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#4）</td>
+</tr>
+</tbody></table>
+<h1 id="第三财季"><a href="#第三财季" class="headerlink" title="第三财季"></a>第三财季</h1><h2 id="决策过程-3"><a href="#决策过程-3" class="headerlink" title="决策过程"></a>决策过程</h2><p>第三财季，我们依然首先明确了目标市场：<code>美1</code>、<code>欧2</code> 和 <code>美3</code>。</p>
+<p>在产品参数调整时，我们分析了前两期各目标市场产品参数的预测值及实际的市场理想值，决定本期按照实际理想值的变化趋势，来调整目标市场产品参数。</p>
+<p>以 <code>欧2</code> 为例，填入历史数据后，根据实际理想值的趋势，我们预测了本期 <code>欧2</code> 的理想值 ——（<code>4.2</code>，<code>2.8</code>）：</p>
+<p><img src="/contents/techmark-review/history.png" alt=""><br><img src="/contents/techmark-review/predict.png" alt=""></p>
+<h2 id="结果分析-3"><a href="#结果分析-3" class="headerlink" title="结果分析"></a>结果分析</h2><p>第三财季决策结果发布，产品特性成为了我们的绝对优势。以 <code>欧2</code> 为例，我们的产品特性为（<code>4.2</code>，<code>2.8</code>），市场理想值为（<code>4.21</code>，<code>2.72</code>）。决策时，产品参数只能精确到十分位，我们在目标市场上的三个产品，比所有竞争对手的参数都要精准，这得益于 CTO 团队的群策群力，CEO 的充分信任，以及 CXO 们的鼎力支持。</p>
+<p>本期三个目标市场的市场份额排名分别为：<code>美1</code> 第四，<code>欧2</code> 第二，<code>美3</code> 第三。</p>
+<p><code>美3</code> 的排名及份额均有所提升，依然是九个细分市场中的收入排名 No1，但 <code>美3</code> 依然出现了期末库存为 0 的情况，导致市场销量比订货量大幅下降。</p>
+<p><code>欧2</code> 保持着市场领导者的地位，并且销售收入排名第二，毛利率排名第一，是非常优质的第二曲线，不过 <code>欧2</code> 市场定价偏低，可能稍微影响了一些品牌形象，在 <code>欧2</code> 市场我们应该可以取得更好的成绩。</p>
+<p><code>美1</code> 较之前排名有所下滑，品牌知名度和销量都不如以往，这与 <code>美1</code> 市场整体需求下滑的大环境也有一些关联。在 <code>墨晶1</code> 产品的目标市场上，我们需要做出一些调整了。</p>
+<h3 id="研发方向及市场份额排名汇总-2"><a href="#研发方向及市场份额排名汇总-2" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第二财季</td>
+<td align="left">美1（#3）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第三财季</td>
+<td align="left">美1（#4）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#3）</td>
+</tr>
+</tbody></table>
+<h1 id="第四财季"><a href="#第四财季" class="headerlink" title="第四财季"></a>第四财季</h1><h2 id="决策过程-4"><a href="#决策过程-4" class="headerlink" title="决策过程"></a>决策过程</h2><p>考虑到第三期结果中 <code>美1</code> 市场呈现的萎缩趋势，以及 <code>亚1</code> 市场需求的增大和生产成本优势，本期我们进行了 <code>墨晶1</code> 产品产地的调整。因为产地的调整需要到下期才能生效，第四财季的目标市场，依然是 <code>美1</code>、<code>欧2</code> 和 <code>美3</code>。</p>
+<p>有了前几期积累下来的产品参数预测模型和研发费用预测公式，我们依然将产品特性精准的调教到了目标市场的预测理想值上。</p>
+<p>在定价和发货决策上，我们也不断摸索、调整，形成了可视化的计算表格，并通过上一财季的数据预估下期订单，用市场参考价值调整市场策略，基于库存余量判断下一期生产产值，为 CEO 提供了决策依据。</p>
+<p><img src="/contents/techmark-review/market-predict.png" alt=""></p>
+<h2 id="结果分析-4"><a href="#结果分析-4" class="headerlink" title="结果分析"></a>结果分析</h2><p>第四财季结果公布，三个目标市场的市场份额排名分别为：<code>美1</code> 第二，<code>欧2</code> 第四，<code>美3</code> 第三。</p>
+<p><code>欧2</code> 虽然市场份额及排名下降了不少，但优秀的定价策略使其首次超过 <code>美3</code> 成为最大的收入来源，</p>
+<p>北美联盟品牌知名度大幅上升，贡献了近一半的销售收入，<code>美1</code> 的市场份额也重新回到领头位置。</p>
+<p><code>美3</code> 全力生产，市场销量较订货量有所上升，且期末库存为 0，是我们当之无愧的现金牛。</p>
+<p>赛程过半，老师在决策中间穿插的讲解中，开始提醒我们除了关注增长的同时，还要关注每项 KPI 指标：期终股票价格、期末销售增长率、期末毛利率、期末存货资产比、期末资产负债率。只有这五项指标全部满足要求，且股票价格最高的组才能获得大奖。我们开始更多的关注存货及成本的控制。</p>
+<h3 id="研发方向及市场份额排名汇总-3"><a href="#研发方向及市场份额排名汇总-3" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第二财季</td>
+<td align="left">美1（#3）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第三财季</td>
+<td align="left">美1（#4）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#3）</td>
+</tr>
+<tr>
+<td align="left">第四财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">欧2（#4）</td>
+<td align="left">美3（#3）</td>
+</tr>
+</tbody></table>
+<h1 id="第五财季"><a href="#第五财季" class="headerlink" title="第五财季"></a>第五财季</h1><h2 id="决策过程-5"><a href="#决策过程-5" class="headerlink" title="决策过程"></a>决策过程</h2><p>第五财季，我们的 <code>墨晶1</code> 产品已完成了生产地向亚太共和的迁移，可以更好的利用亚太共和的生产成本优势以及其市场的保护性行为，在亚太共和市场取得更好的表现。本期我们的目标市场：<code>亚1</code>、<code>欧2</code> 和 <code>美3</code>。</p>
+<p>本期开始，已经没有了产品参数和市场需求的预测值，后两轮的决策，更多依靠的是我们在前几轮积累下来的模型和经验。</p>
+<p>在产品参数调整时，<code>欧2</code> 的感抗参数按趋势预测，已达到其极限值 <code>5.0</code>，考虑到市场上还没出现过参数到达极限值的情况，我们将 <code>欧2</code> 的感抗参数在保持趋势的同时，进行了一定的下调。</p>
+<h2 id="结果分析-5"><a href="#结果分析-5" class="headerlink" title="结果分析"></a>结果分析</h2><p>本期产品特性市场理想值发布后，我们发现 <code>欧2</code> 感抗偏差略大，斜率放缓的程度比我们预期的还要大。根据这个数据，我们将预测模型进行了微调。</p>
+<p>三个目标市场的市场份额排名分别为：<code>亚1</code> 第一，<code>欧2</code> 第三，<code>美3</code> 第二。</p>
+<p>首次进入 <code>亚1</code> 市场，市场给我们的反馈让我们看到了决策的正确及坚定该市场投入的决心。</p>
+<p>在本轮的决策结果公布时，有小组出现了销售额大幅增长，不仅当期利润第一，也完成了累计利润夺冠的逆袭（上期倒数第二）。老师在恭喜他们本轮出色决策的同时，也给我们提了个醒：第六期财务目标的五项指标中，有一项要求是期末销售额增长率大于等于 5%，这也意味着，逆袭组在第六期决策时，想要保持乃至超越本期的销售额，都有非常大的难度。他们的竞争对手，从我们变成了他们自己。而我们组，在本期的五项指标考核中，仍然有一项指标 —— 存货资产比，超出了要求的范围。最后一期的决策，对我们来讲，也变得至关重要。</p>
+<p><img src="/contents/techmark-review/5th.jpg" alt=""></p>
+<h3 id="研发方向及市场份额排名汇总-4"><a href="#研发方向及市场份额排名汇总-4" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第二财季</td>
+<td align="left">美1（#3）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第三财季</td>
+<td align="left">美1（#4）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#3）</td>
+</tr>
+<tr>
+<td align="left">第四财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">欧2（#4）</td>
+<td align="left">美3（#3）</td>
+</tr>
+<tr>
+<td align="left">第五财季</td>
+<td align="left">亚1（#1）</td>
+<td align="left">欧2（#3）</td>
+<td align="left">美3（#2）</td>
+</tr>
+</tbody></table>
+<h1 id="第六财季"><a href="#第六财季" class="headerlink" title="第六财季"></a>第六财季</h1><h2 id="决策过程-6"><a href="#决策过程-6" class="headerlink" title="决策过程"></a>决策过程</h2><p>在前五期决策后，五个小组中只有两个小组达成了五项指标全部在合格范围内。我们组股票价格目前排在第三，且有一项指标未达标。</p>
+<p>想要获得冠军，摆在我们面前的是两个问题：1. 保证五项指标全部达标；2. 继续提高股价。</p>
+<p>我们制定的策略是：保持稳扎稳打的决策作风，继续主打 <code>亚1</code>、<code>欧2</code> 和 <code>美3</code> 三个市场。通过调整后的预测模型，进行更加精准的产品研发及费用预算；在主打市场扩大生产，其他市场以消耗库存为主。</p>
+<p>在这一期决策时，我们还咨询了老师股票回购的意义，并在决策时进行了尝试，希望能够进一步提升股价。</p>
+<h2 id="结果分析-6"><a href="#结果分析-6" class="headerlink" title="结果分析"></a>结果分析</h2><p>随着老师将各项指标揭晓，可以看出每组都在最后一轮全力以赴，甚至做出了一些冒险的决策。市场证明了我们决策的成功，在保持之前各项指标在合格范围内的基础上，我们将存货资产比，也降到了合格范围内，成为了唯一一组五项指标全部合格的公司，最终赢得了这场在木星上墨晶产品商业决策模拟的胜利。</p>
+<table>
+<thead>
+<tr>
+<th align="left">资产负债率&lt;25%</th>
+<th align="left">存货资产比4%~9%</th>
+<th align="left">当期销售额增长率&gt;5%</th>
+<th align="left">毛利率&gt;35%</th>
+<th align="left">股票价格&gt;$168</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0%</td>
+<td align="left">5%</td>
+<td align="left">16%</td>
+<td align="left">51%</td>
+<td align="left">$340</td>
+</tr>
+</tbody></table>
+<h3 id="研发方向及市场份额排名汇总-5"><a href="#研发方向及市场份额排名汇总-5" class="headerlink" title="研发方向及市场份额排名汇总"></a>研发方向及市场份额排名汇总</h3><table>
+<thead>
+<tr>
+<th align="left">期间</th>
+<th align="left">墨晶1</th>
+<th align="left">墨晶2</th>
+<th align="left">墨晶3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">第一财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">美2（#4）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第二财季</td>
+<td align="left">美1（#3）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#4）</td>
+</tr>
+<tr>
+<td align="left">第三财季</td>
+<td align="left">美1（#4）</td>
+<td align="left">欧2（#2）</td>
+<td align="left">美3（#3）</td>
+</tr>
+<tr>
+<td align="left">第四财季</td>
+<td align="left">美1（#2）</td>
+<td align="left">欧2（#4）</td>
+<td align="left">美3（#3）</td>
+</tr>
+<tr>
+<td align="left">第五财季</td>
+<td align="left">亚1（#1）</td>
+<td align="left">欧2（#3）</td>
+<td align="left">美3（#2）</td>
+</tr>
+<tr>
+<td align="left">第六财季</td>
+<td align="left">亚1（#1）</td>
+<td align="left">欧2（#1）</td>
+<td align="left">美3（#2）</td>
+</tr>
+</tbody></table>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在最终结果公布之前，我们都是很忐忑的。大家紧张又兴奋的等待着，并对这两天一晚的商战旅程进行了初步的复盘。从最初的手忙脚乱，到过程中的力挽狂澜，每个人都在这个课程中完成了角色的转变，为了共同的目标，全身心的投入到这个模拟商战中。引用老师讲义中的一句话：</p>
+<blockquote>
+<p>Tell me and I forget; Teach me and I remember; Involve me and I learn</p>
+</blockquote>
+<p>有了这个经历，每个人都是这场商战的主角，每一组都是这次商战的冠军。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#态马商战简介"><span class="toc-number">1.</span> <span class="toc-text">态马商战简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#战前准备"><span class="toc-number">2.</span> <span class="toc-text">战前准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#市场特点"><span class="toc-number">2.1.</span> <span class="toc-text">市场特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#产品研发费用"><span class="toc-number">2.2.</span> <span class="toc-text">产品研发费用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实验室中的模拟试验-——-墨晶2"><span class="toc-number">2.2.1.</span> <span class="toc-text">实验室中的模拟试验 —— 墨晶2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他信息"><span class="toc-number">2.3.</span> <span class="toc-text">其他信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一财季-1A"><span class="toc-number">3.</span> <span class="toc-text">第一财季 1A</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程"><span class="toc-number">3.1.</span> <span class="toc-text">决策过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向"><span class="toc-number">3.1.1.</span> <span class="toc-text">研发方向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下期产地"><span class="toc-number">3.1.2.</span> <span class="toc-text">下期产地</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析"><span class="toc-number">3.2.</span> <span class="toc-text">结果分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一财季-1B"><span class="toc-number">4.</span> <span class="toc-text">第一财季 1B</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-1"><span class="toc-number">4.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-1"><span class="toc-number">4.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总"><span class="toc-number">4.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二财季"><span class="toc-number">5.</span> <span class="toc-text">第二财季</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-2"><span class="toc-number">5.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-2"><span class="toc-number">5.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总-1"><span class="toc-number">5.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三财季"><span class="toc-number">6.</span> <span class="toc-text">第三财季</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-3"><span class="toc-number">6.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-3"><span class="toc-number">6.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总-2"><span class="toc-number">6.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四财季"><span class="toc-number">7.</span> <span class="toc-text">第四财季</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-4"><span class="toc-number">7.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-4"><span class="toc-number">7.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总-3"><span class="toc-number">7.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第五财季"><span class="toc-number">8.</span> <span class="toc-text">第五财季</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-5"><span class="toc-number">8.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-5"><span class="toc-number">8.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总-4"><span class="toc-number">8.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第六财季"><span class="toc-number">9.</span> <span class="toc-text">第六财季</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#决策过程-6"><span class="toc-number">9.1.</span> <span class="toc-text">决策过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分析-6"><span class="toc-number">9.2.</span> <span class="toc-text">结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#研发方向及市场份额排名汇总-5"><span class="toc-number">9.2.1.</span> <span class="toc-text">研发方向及市场份额排名汇总</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">10.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

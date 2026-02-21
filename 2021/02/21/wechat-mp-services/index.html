@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>微信机器人的曲线实现 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,微信, 微信公众号, 自动回复, 订阅号, 机器人, hubot"> 
+    <meta name="description" content="在知道了 Hubot 之后，就一直想在微信里也有一个类似的机器人。虽然也有不少微信的 hubot adapter，但基本都是基于网页版微信实现的，而微信对网页版微信的态度，让人深刻的感受到，作为国内,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">微信机器人的曲线实现</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/wechat-mp-services/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                二月 21, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/02/21/wechat-mp-services/" title="微信机器人的曲线实现" class="">微信机器人的曲线实现</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.3k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在知道了 <a href="https://github.com/hubotio/hubot" target="_blank" rel="noopener">Hubot</a> 之后，就一直想在微信里也有一个类似的机器人。虽然也有不少微信的 hubot adapter，但基本都是基于网页版微信实现的，而微信对网页版微信的态度，让人深刻的感受到，作为国内的超级 App 所承担的责任。</p>
+<p>之后在 <a href="https://slack.com/intl/en-cn/" target="_blank" rel="noopener">Slack</a> 中用了一段 Hubot，还是挺不错的，但是在国内使用 Slack，无论是桌面端还是移动端，还都是有些难度和不稳定的。</p>
+<p><a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">微信公众平台</a>，给出了一个微信官方支持的，微信机器人的实现方式，公众平台提供的接口比较有限，尤其是对未认证的订阅号，提供的接口更少，但基本的被动回复消息的功能还是有的，这就给出了一定的空间来让我们在微信中，实现一个问答方式的机器人。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>先看看实例，可以关注公众号进行体验。</p>
+<p><img src="https://alphahinex.github.io/slides/topics/tdd-from-entry-to-abandon/resources/public.jpg" alt="WeChat"></p>
+<h2 id="查询汉字笔顺"><a href="#查询汉字笔顺" class="headerlink" title="查询汉字笔顺"></a>查询汉字笔顺</h2><p>向公众号发送单个汉字，回复该汉字的笔顺。如：</p>
+<p>发送 <code>何</code></p>
+<p>得到：</p>
+<p><img src="/contents/wechat-mp-services/4F55.gif" alt="he"></p>
+<h2 id="生成二维码"><a href="#生成二维码" class="headerlink" title="生成二维码"></a>生成二维码</h2><p>发送 <code>qr &lt;content&gt;</code>，会得到 <code>&lt;content&gt;</code> 内容对应的二维码图片。如：</p>
+<p>发送 <code>qr https://alphahinex.github.io</code></p>
+<p>得到：</p>
+<p><img src="/contents/wechat-mp-services/qr.png" alt="qr"></p>
+<h2 id="Google-搜索"><a href="#Google-搜索" class="headerlink" title="Google 搜索"></a>Google 搜索</h2><p>发送 <code>g &lt;content&gt;</code>，得到使用 Google 搜索的前 10 条记录。如：</p>
+<p><img src="/contents/wechat-mp-services/g.png" alt="g"></p>
+<h2 id="实时十大-Hacker-News"><a href="#实时十大-Hacker-News" class="headerlink" title="实时十大 Hacker News"></a>实时十大 Hacker News</h2><p>发送 <code>hn</code>，得到类似如下内容：</p>
+<blockquote>
+<p>Top 10 Hacker News</p>
+<p>UK Supreme Court rules Uber drivers are workers<br><a href="https://www.bbc.co.uk/news/business-56123668" target="_blank" rel="noopener">https://www.bbc.co.uk/news/business-56123668</a></p>
+<p>Monolith First<br><a href="https://martinfowler.com/bliki/MonolithFirst.html" target="_blank" rel="noopener">https://martinfowler.com/bliki/MonolithFirst.html</a></p>
+<p>Perseverance Rover lands on Mars [video]<br><a href="https://www.youtube.com/watch?v=gm0b_ijaYMQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=gm0b_ijaYMQ</a></p>
+<p>12 requests per second: A realistic look at Python web frameworks<br><a href="https://suade.org/dev/12-requests-per-second-with-python/" target="_blank" rel="noopener">https://suade.org/dev/12-requests-per-second-with-python/</a></p>
+<p>Why is it so hard to see code from 5 minutes ago?<br><a href="https://web.eecs.utk.edu/~azh/blog/yestercode.html" target="_blank" rel="noopener">https://web.eecs.utk.edu/~azh/blog/yestercode.html</a></p>
+<p>Checked C<br><a href="https://github.com/microsoft/checkedc" target="_blank" rel="noopener">https://github.com/microsoft/checkedc</a></p>
+<p>Where Everything Went Wrong: Error Handling and Error Messages in Rust<br><a href="https://msirringhaus.github.io/Where-everything-went-wrong/" target="_blank" rel="noopener">https://msirringhaus.github.io/Where-everything-went-wrong/</a></p>
+<p>Reflections on Using Haskell for My Startup<br><a href="https://alistairb.dev/reflections-on-haskell-for-startup/" target="_blank" rel="noopener">https://alistairb.dev/reflections-on-haskell-for-startup/</a></p>
+<p>A Follow-Up to “Location-Based Pay”<br><a href="https://blackshaw.substack.com/p/pay-2" target="_blank" rel="noopener">https://blackshaw.substack.com/p/pay-2</a></p>
+<p>Designing a RISC-V CPU, Part 1: Learning hardware design as a software engineer<br><a href="https://mcla.ug/blog/risc-v-cpu-part-1.html" target="_blank" rel="noopener">https://mcla.ug/blog/risc-v-cpu-part-1.html</a></p>
+</blockquote>
+<h2 id="base64-unicode-编解码"><a href="#base64-unicode-编解码" class="headerlink" title="base64/unicode 编解码"></a>base64/unicode 编解码</h2><p>使用 base64 及 unicode 关键字，加 encode 和 decode，进行对应的编解码：</p>
+<blockquote>
+<p>base64 encode hinex</p>
+<p>aGluZXg=</p>
+</blockquote>
+<blockquote>
+<p>base64 decode aGluZXg=</p>
+<p>hinex</p>
+</blockquote>
+<blockquote>
+<p>unicode encode 何</p>
+<p>%u4F55</p>
+</blockquote>
+<blockquote>
+<p>unicode decode 4F55</p>
+<p>何</p>
+</blockquote>
+<h2 id="抽奖"><a href="#抽奖" class="headerlink" title="抽奖"></a>抽奖</h2><p>发送带 <code>牛</code> 四字消息，得到抽奖结果演示文字：</p>
+<blockquote>
+<p>旺仔牛奶</p>
+<p>【演示文字】恭喜您获得 1476.10 元红包！祝您 2021 年牛年如意!</p>
+</blockquote>
+<h2 id="回声"><a href="#回声" class="headerlink" title="回声"></a>回声</h2><p>发送其他无特定含义的消息内容，会将内容原封不动的返回，并增加 <code>, you said.</code> 后缀，如：</p>
+<blockquote>
+<p>hello</p>
+<p>hello, you said.</p>
+</blockquote>
+<h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><p><a href="https://github.com/AlphaHinex/wechat-mp" target="_blank" rel="noopener">源码</a> 仿照 Hubot 的目录结构，将每类回复的脚本作为一个单独的文件，放在了 <code>scripts</code> 路径下。入口文件为 <code>wechat-mp-server.js</code>。</p>
+<p>受限于订阅号的 <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Passive_user_reply_message.html" target="_blank" rel="noopener">被动回复用户消息</a> 机制，只能被动响应用户发送过来的消息，并且只能回复一次；回复消息的类型、内容及长度，也都是有一定的限制的；回复图片等内容时，还需要先上传到公众号的素材库……</p>
+<p>不过这种 <code>请求 - 响应</code> 的模式，也是能够实现一些好玩的功能的，比如 <a href="https://cn.bing.com/search?q=chatops&rdr=1&rdrig=B6FA0334135242B0B1B0A6B4C6C78A04" target="_blank" rel="noopener">ChatOps</a> 等。您有什么有趣的想法吗？或者，直接提个 PR 也是欢迎的！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">1.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查询汉字笔顺"><span class="toc-number">1.1.</span> <span class="toc-text">查询汉字笔顺</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成二维码"><span class="toc-number">1.2.</span> <span class="toc-text">生成二维码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-搜索"><span class="toc-number">1.3.</span> <span class="toc-text">Google 搜索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实时十大-Hacker-News"><span class="toc-number">1.4.</span> <span class="toc-text">实时十大 Hacker News</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#base64-unicode-编解码"><span class="toc-number">1.5.</span> <span class="toc-text">base64&#x2F;unicode 编解码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#抽奖"><span class="toc-number">1.6.</span> <span class="toc-text">抽奖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回声"><span class="toc-number">1.7.</span> <span class="toc-text">回声</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#源码"><span class="toc-number">2.</span> <span class="toc-text">源码</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

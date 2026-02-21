@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iTerm2 快速通过跳板机 ssh 远程登录 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,ssh, sshpass, iTerm2, expect"> 
+    <meta name="description" content="场景假设有 A、B、C …… 几批主机：
+
+a0 为跳板机，a1 ~ an 为实际要操作的目标远程主机
+b0 为跳板机，b1 ~ bn 为实际要操作的目标远程主机
+
+以此类推，共有 n 批。
+客户端,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">iTerm2 快速通过跳板机 ssh 远程登录</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/iterm2-ssh-via-ssh/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                十一月 28, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/11/28/iterm2-ssh-via-ssh/" title="iTerm2 快速通过跳板机 ssh 远程登录" class="">iTerm2 快速通过跳板机 ssh 远程登录</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.2k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h1><p>假设有 A、B、C …… 几批主机：</p>
+<ul>
+<li>a0 为跳板机，a1 ~ an 为实际要操作的目标远程主机</li>
+<li>b0 为跳板机，b1 ~ bn 为实际要操作的目标远程主机</li>
+</ul>
+<p>以此类推，共有 n 批。</p>
+<p>客户端能联通各跳板机，但无法直接联通目标主机，每批主机之间网络隔离。</p>
+<p>需通过 ssh 远程登录目标主机时，是比较痛苦的一件事，一堆 ip 和密码不便记忆，从文档里找又效率很低。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="SSH-免密登录"><a href="#SSH-免密登录" class="headerlink" title="SSH 免密登录"></a>SSH 免密登录</h2><p>首先想到的是配置跳板机和各目标主机之间的 <a href="https://alphahinex.github.io/2020/09/13/ssh-authorized-keys/">SSH 免密登录</a>，能够起到不用记忆密码的作用，但需要配置客户端和各个跳板机的免密登录，以及各个跳板机和每个网络内目标主机的免密，在目标主机数量庞大时，配置操作量也很大，更重要的是，其他人登录到跳板机后，也能免密直接 ssh 到各目标主机了，安全性较差。</p>
+<h2 id="sshpass"><a href="#sshpass" class="headerlink" title="sshpass"></a>sshpass</h2><p>理想的状态是将密码保留在客户端，而免密登录，相当于将客户端的公钥，发给了服务端。</p>
+<p>ssh 命令，出于安全性的考虑，又不支持在命令中直接明文传入密码。这时可以使用 sshpass，将密码传给 ssh 命令，使用方式如下：</p>
+<pre><code class="bash">$ sshpass -p &lt;password&gt; ssh &lt;user&gt;@&lt;remote_host&gt;</code></pre>
+<h3 id="MacOS-安装-sshpass"><a href="#MacOS-安装-sshpass" class="headerlink" title="MacOS 安装 sshpass"></a>MacOS 安装 sshpass</h3><p>linux 中可以通过包管理工具，安装 sshpass，如 <code>yum install sshpass</code>，或者下载对应安装包，进行离线安装，如 CentOS 的 <a href="https://centos.pkgs.org/7/centos-extras-x86_64/sshpass-1.06-2.el7.x86_64.rpm.html" target="_blank" rel="noopener">rpm 包</a>。</p>
+<p>MacOS 中安装 sshpass 会稍微复杂一些，因为 <code>brew</code> 出于安全考虑也不让直接安装。具体安装方式可以参考 <a href="https://wsgzao.github.io/post/sshpass/" target="_blank" rel="noopener">macOS 安装 sshpass</a>：</p>
+<pre><code class="bash">$ brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb</code></pre>
+<p>或</p>
+<pre><code class="bash">$ wget https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+$ brew install sshpass.rb</code></pre>
+<p>某些原因下载不到这个脚本的话，可以保存下面内容到本地 <code>sshpass.rb</code> 文件，之后再执行 <code>brew install sshpass.rb</code>：</p>
+<pre><code class="ruby">require &#39;formula&#39;
+
+class Sshpass &lt; Formula
+  url &#39;http://sourceforge.net/projects/sshpass/files/sshpass/1.06/sshpass-1.06.tar.gz&#39;
+  homepage &#39;http://sourceforge.net/projects/sshpass&#39;
+  sha256 &#39;c6324fcee608b99a58f9870157dfa754837f8c48be3df0f5e2f3accf145dee60&#39;
+
+  def install
+    system &quot;./configure&quot;, &quot;--disable-debug&quot;, &quot;--disable-dependency-tracking&quot;,
+                          &quot;--prefix=#{prefix}&quot;
+    system &quot;make install&quot;
+  end
+
+  def test
+    system &quot;sshpass&quot;
+  end
+end</code></pre>
+<h3 id="通过-iTerm2-执行多条指令"><a href="#通过-iTerm2-执行多条指令" class="headerlink" title="通过 iTerm2 执行多条指令"></a>通过 iTerm2 执行多条指令</h3><p>因为需要先登录跳板机，再从跳板机登录到目标主机，故需要两次 ssh 动作。在 iTerm2 中，可以通过 Profile 进行设置。</p>
+<p><code>⌘+O</code> 打开 Profiles 设置界面，<code>Edit Profiles...</code> =&gt; <code>+</code> 新增 Profile，按如下方式配置：</p>
+<p><img src="/contents/iterm2-ssh-via-ssh/command.png" alt="command"></p>
+<p><code>Command</code> 处选择 <code>Command</code>，即可输入两个命令，上面为登录跳板机的命令，下面为从跳板机登录到目标机器的命令，具体内容如下：</p>
+<pre><code>/usr/local/bin/sshpass -p &lt;pwd&gt; ssh -o StrictHostKeyChecking=no root@a0</code></pre><pre><code>sshpass -p &lt;pwd&gt; ssh -o StrictHostKeyChecking=no root@a1</code></pre><blockquote>
+<p><code>-o StrictHostKeyChecking=no</code> 参数避免进行 host key 确认，导致第二个 ssh 命令失败</p>
+</blockquote>
+<p>配置好的效果如下图：</p>
+<p><img src="/contents/iterm2-ssh-via-ssh/sshpass.png" alt="sshpass"></p>
+<p>之后可以在 Profiles 界面中直接点击进行快速登录。</p>
+<h3 id="使用-iTerm2-的-Profile-组织主机树"><a href="#使用-iTerm2-的-Profile-组织主机树" class="headerlink" title="使用 iTerm2 的 Profile 组织主机树"></a>使用 iTerm2 的 Profile 组织主机树</h3><p>当 profile 配置数量增多时，尤其是上面假设场景中的分批次的情况，通过树形方式组织主机，是一个能够快速找到想要连接的主机的方法。</p>
+<p>在 iTerm2 中，可以通过 <code>tag</code> 来组织 Profile 的层级关系，以达到树形的效果。</p>
+<p>例如，在 a1 主机的 tag 中输入 <code>demo/A</code>、a2 主机 tag <code>demo/A</code>、b1 主机 tag <code>demo/B</code> ……</p>
+<p>打开 Profiles 时，可看到如下效果：</p>
+<p><img src="/contents/iterm2-ssh-via-ssh/profiles.png" alt="profiles"></p>
+<h2 id="expect"><a href="#expect" class="headerlink" title="expect"></a>expect</h2><p>sshpass 的方案也存在一个问题，即需要在客户端，和各个跳板机中安装 sshpass，无法直接通过包管理工具安装时，还是有些麻烦的，并且直接将密码作为参数传递，多少还是存在一些安全隐患的。</p>
+<p>终极方案 —— 使用 <a href="https://www.php.cn/linux-428101.html" target="_blank" rel="noopener">expect 脚本</a>。</p>
+<p>主要用到 expect 中的如下命令：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">send</td>
+<td align="left">用于向进程发送字符串</td>
+</tr>
+<tr>
+<td align="left">expect</td>
+<td align="left">从进程接收字符串</td>
+</tr>
+<tr>
+<td align="left">exp_continue</td>
+<td align="left">在expect中多次匹配就需要用到</td>
+</tr>
+<tr>
+<td align="left">spawn</td>
+<td align="left">启动新的进程</td>
+</tr>
+<tr>
+<td align="left">interact</td>
+<td align="left">允许用户交互</td>
+</tr>
+</tbody></table>
+<p>通过脚本，可以实现 ssh 连跳板机，输入跳板机密码，连接至跳板机后，ssh 连接目标主机，并输入目标主机密码，之后将控制权交还给用户的过程。</p>
+<p>参照 <a href="https://segmentfault.com/a/1190000009826457" target="_blank" rel="noopener">iTerm2 结合 Linux expect 实现 ssh 自动登陆, 通过跳板机登录服务器内网功能</a> 中内容，假设各跳板机密码是相同的，各目标主机密码也是相同的，使用如下脚本，可将跳板机和目标主机的 ip 作为参数传入，密码填写在脚本中，保存在客户端，以提高安全性。</p>
+<pre><code class="sh">#!/usr/bin/expect
+# 跳板机 ip
+set TERMSERV [lindex $argv 0] 
+# 通过跳板机才能访问的目标主机 ip
+set host [lindex $argv 1]
+
+# 跳板机用户名及密码
+set USER root
+set PASSWORD pwd0
+
+# 目标主机用户名及密码
+set UATUN root
+set UATPWD pwd123
+
+# 登录跳板机
+spawn ssh -l $USER $TERMSERV
+expect {
+    &quot;yes/no&quot; {send &quot;yes\r&quot;;exp_continue;}
+    &quot;*password:*&quot; { send &quot;$PASSWORD\r&quot; }
+}
+
+# 登录内网
+expect &quot;*$USER@*&quot; {send &quot;ssh -l $UATUN $host\r&quot;}
+expect {
+    &quot;yes/no&quot; {send &quot;yes\r&quot;;exp_continue;}
+    &quot;*password:*&quot; { send &quot;$UATPWD\r&quot; }
+}
+interact</code></pre>
+<p>假设上面脚本文件存储为 <code>/path/to/login_inner.sh</code>，在 iTerm2 的 Profile 中，<code>Command</code> 改为选择 <code>Login Shell</code>，在 <code>Send text at start:</code> 中输入：<code>/path/to/login_inner.sh a0 a1</code>（<code>a0</code>、<code>a1</code> 分别为 跳板机 和 目标主机的 ip 或 host），即可完成一个 profile 的设置。</p>
+<p>享受通过跳板机连接远程主机的极速体验吧！</p>
+<blockquote>
+<p><code>expect</code> 方案，也可配合 <code>alias</code> 命令，自定义连接各个主机的快捷指令，在终端中直接输入自定义指令进行连接，在其他终端模拟器中也可以使用。</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#场景"><span class="toc-number">1.</span> <span class="toc-text">场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案"><span class="toc-number">2.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH-免密登录"><span class="toc-number">2.1.</span> <span class="toc-text">SSH 免密登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sshpass"><span class="toc-number">2.2.</span> <span class="toc-text">sshpass</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MacOS-安装-sshpass"><span class="toc-number">2.2.1.</span> <span class="toc-text">MacOS 安装 sshpass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通过-iTerm2-执行多条指令"><span class="toc-number">2.2.2.</span> <span class="toc-text">通过 iTerm2 执行多条指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-iTerm2-的-Profile-组织主机树"><span class="toc-number">2.2.3.</span> <span class="toc-text">使用 iTerm2 的 Profile 组织主机树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#expect"><span class="toc-number">2.3.</span> <span class="toc-text">expect</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

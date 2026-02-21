@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】如何使用文件标志修改 macOS 中的文件行为 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,flags, macOS, file, chflags, ls, hidden, nodump, sappnd, schg, uappnd, uchg, hidden, opaque, immutable, append, chattr, lsattr, arch"> 
+    <meta name="description" content="
+
+原文地址：https://www.maketecheasier.com/use-file-flags-modify-file-behavior-macos/
+原文作者：Alexander Fox,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】如何使用文件标志修改 macOS 中的文件行为</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/macos-file-flags/flags.webp);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                九月 01, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/09/01/macos-file-flags/" title="【译】如何使用文件标志修改 macOS 中的文件行为" class="">【译】如何使用文件标志修改 macOS 中的文件行为</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    4.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    4 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/macos-file-flags/flags.webp" alt="flags"></p>
+<ul>
+<li>原文地址：<a href="https://www.maketecheasier.com/use-file-flags-modify-file-behavior-macos/" target="_blank" rel="noopener">https://www.maketecheasier.com/use-file-flags-modify-file-behavior-macos/</a></li>
+<li>原文作者：<a href="https://www.maketecheasier.com/author/alexfox/" target="_blank" rel="noopener">Alexander Fox</a></li>
+</ul>
+<p>在 macOS 中，可以使用文件标志（flags）来限制文件被修改的方式。它们与文件权限不同，并且与 <code>chown</code> 和 <code>chmod</code> 等命令并行运行。您将使用 <code>chflags</code> 来更改标志，以及使用 <code>ls</code> 来查看标志。Unix 运行一个类似的系统，但是选项更多，称为“属性”，而不是标志。</p>
+<h1 id="在-macOS-上查看已设置的标志"><a href="#在-macOS-上查看已设置的标志" class="headerlink" title="在 macOS 上查看已设置的标志"></a>在 macOS 上查看已设置的标志</h1><p>在终端中，您可以使用 <code>ls</code> 命令来查看任何已设置的标志。</p>
+<pre><code class="bash">$ ls -lO 
+drwx------@ 88  alexander staff hidden 2992 Jan 25 14:01 Library</code></pre>
+<p>如果文件或文件夹没有设置标志，则会显示一个短横线。</p>
+<pre><code class="bash">$ ls -lO ~/Library/Caches
+drwx------+ 234 alexander staff   -    7956 Jan 25 13:03 Caches</code></pre>
+<p>已设置的标志可以使用它们的相反形式来删除，就如下面描述的那样。</p>
+<h1 id="在-macOS-上设置和清除标志"><a href="#在-macOS-上设置和清除标志" class="headerlink" title="在 macOS 上设置和清除标志"></a>在 macOS 上设置和清除标志</h1><p><img src="/contents/macos-file-flags/set-flag.webp" alt="set flag"></p>
+<p>文件标志通常以问题形式出现。因为它们会设置额外的权限，且很容易被忽略。您是否发现自己有一个无法删除的文件，无论您的用户权限有多高？您可能需要清除一个或两个标志。</p>
+<p>可以在 macOS 上设置的标志如下所示。这是可用选项的完整列表，以及它们的功能说明。大多数标志只能由文件的所有者或超级用户设置；<code>sappnd</code> 和 <code>schg</code> 只能由超级用户设置，因为它们是系统级标志。只有隐藏标志可以在不升级权限的情况下设置。</p>
+<h2 id="在-macOS-上设置标志"><a href="#在-macOS-上设置标志" class="headerlink" title="在 macOS 上设置标志"></a>在 macOS 上设置标志</h2><p>在 macOS 上设置标志时，请使用以下命令。递归标志 <code>-R</code> 可用于目录级操作：</p>
+<pre><code class="bash">$ sudo chflags -R [标志] /usr/bin/local
+$ sudo chflags [标志] /usr/bin/local/mnt.sh
+$ chflags -R hidden ~/Desktop</code></pre>
+<p>将设置适当的标志。例如，以下命令将设置 nodump 标志：</p>
+<pre><code class="bash">sudo chflags nodump /usr/bin/local/tty.sh</code></pre>
+<p>每个 chflags 命令只能设置或删除一个标志。</p>
+<ul>
+<li><strong>opaque</strong> 将文件夹设置为在通过<a href="https://en.wikipedia.org/wiki/Union_mount" target="_blank" rel="noopener">联合挂载</a>查看时呈现为不透明的方式，这是一种同时查看多个目录的老式方法。</li>
+<li><strong>nodump</strong> 防止在使用 <code>dump</code> 命令备份系统时转储文件或文件夹。</li>
+<li><strong>sappnd, sappend</strong> 设置系统追加标志，允许向文件添加内容，但不允许修改或删除。要删除此标志，需要进入单用户模式。</li>
+<li><strong>schg, schange, simmutable</strong> 设置系统不可变标志，阻止任何权限级别的用户对文件进行更改。要删除此标志，需要进入单用户模式。</li>
+<li><strong>uappnd, uappend</strong> 设置用户追加标志。文件所有者可以设置此标志，并且可以在不升级权限的情况下取消设置。由于它锁定文件，在较低的安全级别下使用 <code>sappnd</code> 或 <code>schg</code>，它被更频繁地使用。</li>
+<li><strong>uchg, uchange, uimmutable</strong> 设置用户不可变标志，它与系统不可变标志的关系，跟 <code>uappnd</code> 标志与 <code>sappnd</code> 的关系相同。</li>
+<li><strong>hidden</strong> 设置隐藏标志。这将在 Finder GUI 和 ls 命令中隐藏该项。</li>
+</ul>
+<blockquote>
+<p>译注：除上述选项外，还有 <strong>arch, archived</strong> 用于设置存档标志（仅超级用户）。完整选项列表可见 <code>man chflags</code>。</p>
+</blockquote>
+<h2 id="在-macOS-上清除标志"><a href="#在-macOS-上清除标志" class="headerlink" title="在 macOS 上清除标志"></a>在 macOS 上清除标志</h2><p>要清除给定的标志，请设置其相反标志。在大多数情况下，这意味着在命令前加上“no”。对于 nodump，使用 dump 标志来清除，如下所示：</p>
+<pre><code class="bash">sudo chflags dump /usr/bin/local/oty.sh</code></pre>
+<p>更多标准选项可以使用“no”前缀进行反转，如下所示：</p>
+<pre><code class="bash">sudo chflags nosappnd /usr/bin/local/oty.sh</code></pre>
+<p>与 chmod 一样，递归标志也可用：</p>
+<pre><code class="bash">chflags -R nohidden ~/Desktop</code></pre>
+<p>清除标志后，您将可以按预期更改文件的所有权和权限。</p>
+<h1 id="在-Unix-上使用属性"><a href="#在-Unix-上使用属性" class="headerlink" title="在 Unix 上使用属性"></a>在 Unix 上使用属性</h1><p><img src="/contents/macos-file-flags/attributes.webp" alt="attributes"></p>
+<p>Unix 在后台运行类似的系统，但是使用不同的命令处理。在最流行的 Linux 平台上，您将使用 <code>chattr</code> 和 <code>lsattr</code> 来更改和查看“属性”，这也是文件标志在大多数其他 Unix 系统中的体现。</p>
+<p>可以使用 <code>lsattr</code> 查看属性：</p>
+<pre><code class="bash">lsattr /path/to/file.txt</code></pre>
+<p>更改属性依赖于一组首字母缩写，并在 <a href="https://linux.die.net/man/1/chattr" target="_blank" rel="noopener">chattr man 页面</a> 中列出：</p>
+<blockquote>
+<p>“The letters ‘acdeijstuADST’ select the new attributes for the files: append only (a), compressed (c), no dump (d), extent format (e), immutable (i), data journalling (j), secure deletion (s), no tail-merging (t), undeletable (u), no atime updates (A), synchronous directory updates (D), synchronous updates (S), and top of directory hierarchy (T).”</p>
+</blockquote>
+<blockquote>
+<p>“字母 ‘acdeijstuADST’ 选择文件的新属性：追加（a），压缩（c），不转储（d），扩展格式（e），不可变（i），数据日志（j），安全删除（s），不合并尾部（t），不可删除（u），不更新访问时间（A），同步目录更新（D），同步更新（S）和目录层次结构顶部（T）。”</p>
+</blockquote>
+<p>命令如下所示：</p>
+<pre><code class="bash">chattr +s /file/name.txt</code></pre>
+<p>这将为指定路径设置安全删除属性。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在限制谁可以更改文件时，标志非常有用。通过锁定文件，您可以在文件系统级别防止篡改或意外编辑。除非升级为 root 或文件所有者，否则无法更改这些权限，因此它们具有适度的安全性。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在-macOS-上查看已设置的标志"><span class="toc-number">1.</span> <span class="toc-text">在 macOS 上查看已设置的标志</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在-macOS-上设置和清除标志"><span class="toc-number">2.</span> <span class="toc-text">在 macOS 上设置和清除标志</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#在-macOS-上设置标志"><span class="toc-number">2.1.</span> <span class="toc-text">在 macOS 上设置标志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-macOS-上清除标志"><span class="toc-number">2.2.</span> <span class="toc-text">在 macOS 上清除标志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在-Unix-上使用属性"><span class="toc-number">3.</span> <span class="toc-text">在 Unix 上使用属性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

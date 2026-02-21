@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Web Speech API 之 Speech Synthesis - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,SpeechSynthesis, SpeechSynthesisUtterance, SpeechSynthesisVoice, Web Speech API, onvoiceschanged"> 
+    <meta name="description" content="Speech synthesisSpeech synthesis（语音合成，也被称作是文本转为语音，英语简写是 TTS）包括接收 app 中需要语音合成的文本，再在设备扬声器或音频输出连接中播放出来,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Web Speech API 之 Speech Synthesis</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/speech-synthesis.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Web"><b>「
+                    </b>WEB<b> 」</b></a>
+                
+                六月 23, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/06/23/speech-synthesis/" title="Web Speech API 之 Speech Synthesis" class="">Web Speech API 之 Speech Synthesis</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML5/" rel="tag">HTML5</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Speech-synthesis"><a href="#Speech-synthesis" class="headerlink" title="Speech synthesis"></a>Speech synthesis</h1><p>Speech synthesis（语音合成，也被称作是文本转为语音，英语简写是 TTS）包括接收 app 中需要语音合成的文本，再在设备扬声器或音频输出连接中播放出来这两个过程。</p>
+<p>Web Speech API 对此有一个主要控制接口 —— <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis" target="_blank" rel="noopener"><code>SpeechSynthesis</code></a> ，外加一些处理如何表示要被合成的文本 (也被称为 utterances)，用什么声音来播出 utterances 等工作的相关接口。同样的，许多操作系统都有自己的某种语音合成系统，在这个任务中我们调用可用的 API 来使用语音合成系统。</p>
+<h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>为了展示 Web 语音合成的简单使用，我们提供了一个例子 —— <a href="https://github.com/mdn/dom-examples/tree/main/web-speech-api/speak-easy-synthesis" target="_blank" rel="noopener">Speak easy synthesis</a> 。例子是一套表单控件，包括输入需要被合成的文本，设置音调、语速和说出文本时需要的语音。在输入文本之后，按下 <kbd>Enter</kbd>/<kbd>Return</kbd> 键使它播放。</p>
+<p><img src="/contents/covers/speech-synthesis.png" alt="UI"></p>
+<p>想跑这个例子，你可以 git clone Github 仓库中的部分 (或者<a href="https://github.com/mdn/dom-examples/archive/refs/heads/main.zip" target="_blank" rel="noopener">直接下载</a>)，在桌面版支持的浏览器打开 index.html 文件，或者在移动端浏览器直接导向 <a href="https://mdn.github.io/dom-examples/web-speech-api/speak-easy-synthesis/" target="_blank" rel="noopener">live demo URL</a> ，像 Chrome 和 Firefox OS。</p>
+<h2 id="浏览器兼容性"><a href="#浏览器兼容性" class="headerlink" title="浏览器兼容性"></a>浏览器兼容性</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Speech_API#api.speechsynthesis" target="_blank" rel="noopener">api.SpeechSynthesis</a></p>
+<h2 id="HTML-和-CSS"><a href="#HTML-和-CSS" class="headerlink" title="HTML 和 CSS"></a>HTML 和 CSS</h2><p>HTML 和 CSS 还是无足轻重，只是简单包含一个标题，一段介绍文字，以及一个表格带有一些简单控制功能。<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/select" target="_blank" rel="noopener">select</a> 元素初始是空的，之后会通过 JavaScript 使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/option" target="_blank" rel="noopener">option</a> 填充。</p>
+<pre><code class="html">&lt;h1&gt;Speech synthesiser&lt;/h1&gt;
+
+&lt;p&gt;
+  Enter some text in the input below and press return to hear it. change voices
+  using the dropdown menu.
+&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;input type=&quot;text&quot; class=&quot;txt&quot; /&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;rate&quot;&gt;Rate&lt;/label
+    &gt;&lt;input type=&quot;range&quot; min=&quot;0.5&quot; max=&quot;2&quot; value=&quot;1&quot; step=&quot;0.1&quot; id=&quot;rate&quot; /&gt;
+    &lt;div class=&quot;rate-value&quot;&gt;1&lt;/div&gt;
+    &lt;div class=&quot;clearfix&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label for=&quot;pitch&quot;&gt;Pitch&lt;/label
+    &gt;&lt;input type=&quot;range&quot; min=&quot;0&quot; max=&quot;2&quot; value=&quot;1&quot; step=&quot;0.1&quot; id=&quot;pitch&quot; /&gt;
+    &lt;div class=&quot;pitch-value&quot;&gt;1&lt;/div&gt;
+    &lt;div class=&quot;clearfix&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;select&gt;&lt;/select&gt;
+&lt;/form&gt;</code></pre>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><p>让我们看看 JavaScript 在这个 app 中的强大表现。</p>
+<h3 id="设置变量"><a href="#设置变量" class="headerlink" title="设置变量"></a>设置变量</h3><p>首先我们获得 UI 中涉及的 DOM 元素的引用，但更有趣的是，我们获得了<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/speechSynthesis" target="_blank" rel="noopener"><code>Window.speechSynthesis</code></a> 的引用。这是 API 的入口点 —— 它返回了<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis" target="_blank" rel="noopener"><code>SpeechSynthesis</code></a> 的一个实例，对于 web 语音合成的控制接口。</p>
+<pre><code class="js">var synth = window.speechSynthesis;
+
+var inputForm = document.querySelector(&quot;form&quot;);
+var inputTxt = document.querySelector(&quot;.txt&quot;);
+var voiceSelect = document.querySelector(&quot;select&quot;);
+
+var pitch = document.querySelector(&quot;#pitch&quot;);
+var pitchValue = document.querySelector(&quot;.pitch-value&quot;);
+var rate = document.querySelector(&quot;#rate&quot;);
+var rateValue = document.querySelector(&quot;.rate-value&quot;);
+
+var voices = [];</code></pre>
+<h3 id="填充-select-元素"><a href="#填充-select-元素" class="headerlink" title="填充 select 元素"></a>填充 select 元素</h3><p>为使用设备上可用的不同的语音选项填充 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/select" target="_blank" rel="noopener">select</a> 元素，我们写了一个 <code>populateVoiceList()</code> 方法。首先调用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis/getVoices" target="_blank" rel="noopener"><code>SpeechSynthesis.getVoices()</code></a> ，这个函数返回包含所有可用语音 (<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisVoice" target="_blank" rel="noopener"><code>SpeechSynthesisVoice</code></a>对象) 的列表。接下来循环这个列表，每次创建一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/option" target="_blank" rel="noopener">option</a> 元素，设置它的文本内容以显示声音的名称（从 <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice/name" target="_blank" rel="noopener">SpeechSynthesisVoice.name</a> 获取），语音的语言（从 <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice/lang" target="_blank" rel="noopener">SpeechSynthesisVoice.lang</a> 获取），如果某个语音是合成引擎默认的 (检查 <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice/default" target="_blank" rel="noopener">SpeechSynthesisVoice.default</a> 为 <code>true</code> 的属性) 在文本内容后面添加 <code>-- DEFAULT</code>。</p>
+<p>对于每个 <code>option</code> 元素，我们也创建了 <code>data-</code> 属性，属性值是语音的名字和语言，这样在之后我们可以轻松获取这个信息。之后把所有的 <code>option</code> 元素作为孩子添加到 <code>select</code> 元素内。</p>
+<pre><code class="js">function populateVoiceList() {
+  voices = synth.getVoices();
+
+  for (const voice of voices) {
+    const option = document.createElement(&quot;option&quot;);
+    option.textContent = `${voice.name} (${voice.lang})`;
+
+    if (voice.default) {
+      option.textContent += &quot; — DEFAULT&quot;;
+    }
+
+    option.setAttribute(&quot;data-lang&quot;, voice.lang);
+    option.setAttribute(&quot;data-name&quot;, voice.name);
+    voiceSelect.appendChild(option);
+  }
+}</code></pre>
+<p>早期版本的浏览器不支持 <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/voiceschanged_event" target="_blank" rel="noopener">voiceschanged</a> 事件，只有当 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis/getVoices" target="_blank" rel="noopener">SpeechSynthesis.getVoices()</a> 被触发时才返回语音列表。<br>而其他浏览器，比如 Chrome 中，你必须等待 <code>voiceschanged</code> 事件触发后才能获得可用语音列表。<br>为了兼容这两种情况，我们运行如下代码：</p>
+<pre><code class="js">populateVoiceList();
+if (speechSynthesis.onvoiceschanged !== undefined) {
+  speechSynthesis.onvoiceschanged = populateVoiceList;
+}</code></pre>
+<h3 id="说出输入的文本"><a href="#说出输入的文本" class="headerlink" title="说出输入的文本"></a>说出输入的文本</h3><p>接下来我们创建一个事件处理器（event handler），开始说出在文本框中输入的文本。我们把 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLFormElement/submit_event" target="_blank" rel="noopener">onsubmit</a> 处理器挂在表单上，当 <kbd>Enter</kbd>/<kbd>Return</kbd> 被按下，对应行为就会发生。我们首先通过构造函数创建一个新的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance/SpeechSynthesisUtterance" target="_blank" rel="noopener">SpeechSynthesisUtterance()</a> 实例 —— 把文本输入框中的值作为参数传递。</p>
+<p>接下来，我们需要弄清楚使用哪种语音。使用 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement" target="_blank" rel="noopener">HTMLSelectElement</a> <code>selectedOptions</code> 属性返回当前选中的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/option" target="_blank" rel="noopener"><code>&lt;option&gt;</code></a> 元素。然后使用元素的<code>data-name</code>属性，找到 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisVoice" target="_blank" rel="noopener"><code>SpeechSynthesisVoice</code></a> 对象的<code>name</code>匹配<code>data-name</code> 的值。把匹配的语音对象设置为<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisUtterance/voice" target="_blank" rel="noopener"><code>SpeechSynthesisUtterance.voice</code></a> 的属性值。</p>
+<p>最后，我们设置 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisUtterance/pitch" target="_blank" rel="noopener"><code>SpeechSynthesisUtterance.pitch</code></a> 和<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisUtterance/rate" target="_blank" rel="noopener"><code>SpeechSynthesisUtterance.rate</code></a> 属性值为对应范围表单元素中的值。哈哈所有准备工作就绪，调用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis/speak" target="_blank" rel="noopener"><code>SpeechSynthesis.speak()</code></a> 开始说话。把 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisUtterance" target="_blank" rel="noopener"><code>SpeechSynthesisUtterance</code></a> 实例作为参数传递。</p>
+<pre><code class="js">inputForm.onsubmit = function(event) {
+  event.preventDefault();
+
+  var utterThis = new SpeechSynthesisUtterance(inputTxt.value);
+  var selectedOption = voiceSelect.selectedOptions[0].getAttribute(&#39;data-name&#39;);
+  for (const voice of voices) {
+    if (voice.name === selectedOption) {
+      utterThis.voice = voice;
+    }
+  }
+  utterThis.pitch = pitch.value;
+  utterThis.rate = rate.value;
+  synth.speak(utterThis);</code></pre>
+<p>在事件处理器的最后部分，我们加入了一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisUtterance/onpause" target="_blank" rel="noopener"><code>SpeechSynthesisUtterance.onpause</code></a> 处理器，来展示<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesisEvent" target="_blank" rel="noopener"><code>SpeechSynthesisEvent</code></a> 如何可以很好地使用。当 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis/pause" target="_blank" rel="noopener"><code>SpeechSynthesis.pause()</code></a> 被调用，这将返回一条消息，报告该语音暂停时的字符编号和名称。</p>
+<pre><code class="js">utterThis.onpause = (event) =&gt; {
+  const char = event.utterance.text.charAt(event.charIndex);
+  console.log(
+    `Speech paused at character ${event.charIndex} of &quot;${event.utterance.text}&quot;, which is &quot;${char}&quot;.`,
+  );
+};</code></pre>
+<p>最后，我们在文本输入框添加了 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLElement/blur" target="_blank" rel="noopener">blur()</a> 方法。这主要是在 Firefox 操作系统上隐藏键盘</p>
+<pre><code class="js">  inputTxt.blur();
+}</code></pre>
+<h3 id="更新-pitch-和-rate-的显示数值"><a href="#更新-pitch-和-rate-的显示数值" class="headerlink" title="更新 pitch 和 rate 的显示数值"></a>更新 pitch 和 rate 的显示数值</h3><p>代码的最后部分，在每次滑动条移动时，更新 <code>pitch/rate</code> 在 UI 中展示的值。</p>
+<pre><code class="js">pitch.onchange = () =&gt; {
+  pitchValue.textContent = pitch.value;
+};
+
+rate.onchange = () =&gt; {
+  rateValue.textContent = rate.value;
+};</code></pre>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#speech_synthesis" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#speech_synthesis</a></li>
+<li><a href="https://github.com/mdn/translated-content/pull/21832" target="_blank" rel="noopener">https://github.com/mdn/translated-content/pull/21832</a></li>
+<li><a href="https://pr21832.content.dev.mdn.mozit.cloud/zh-CN/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#speech_synthesis" target="_blank" rel="noopener">https://pr21832.content.dev.mdn.mozit.cloud/zh-CN/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#speech_synthesis</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Speech-synthesis"><span class="toc-number">1.</span> <span class="toc-text">Speech synthesis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Demo"><span class="toc-number">1.1.</span> <span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#浏览器兼容性"><span class="toc-number">1.2.</span> <span class="toc-text">浏览器兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTML-和-CSS"><span class="toc-number">1.3.</span> <span class="toc-text">HTML 和 CSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaScript"><span class="toc-number">1.4.</span> <span class="toc-text">JavaScript</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置变量"><span class="toc-number">1.4.1.</span> <span class="toc-text">设置变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#填充-select-元素"><span class="toc-number">1.4.2.</span> <span class="toc-text">填充 select 元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#说出输入的文本"><span class="toc-number">1.4.3.</span> <span class="toc-text">说出输入的文本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更新-pitch-和-rate-的显示数值"><span class="toc-number">1.4.4.</span> <span class="toc-text">更新 pitch 和 rate 的显示数值</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

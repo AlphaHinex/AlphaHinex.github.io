@@ -1,0 +1,837 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>kubelet 架构设计解析之 CPU Manager - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,kubelet, CPU Manager, Kubernetes"> 
+    <meta name="description" content="作者：@weiliang-ms
+CPU Manager 介绍说明CPU Manager 是 kubelet 的一个组件，能够让用户给容器分配独占 CPU。CPU Manager 从 Kubernet,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">kubelet 架构设计解析之 CPU Manager</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/kubelet-cpu-manager/figure1.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                七月 30, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/07/30/kubelet-cpu-manager/" title="kubelet 架构设计解析之 CPU Manager" class="">kubelet 架构设计解析之 CPU Manager</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    20k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    18 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>作者：<a href="https://github.com/weiliang-ms" target="_blank" rel="noopener">@weiliang-ms</a></p>
+<h1 id="CPU-Manager-介绍说明"><a href="#CPU-Manager-介绍说明" class="headerlink" title="CPU Manager 介绍说明"></a>CPU Manager 介绍说明</h1><p>CPU Manager 是 kubelet 的一个组件，能够让用户给容器分配独占 CPU。CPU Manager 从 Kubernetes v1.10 进入 Beta 阶段， 在 Kubernetes v1.26 中，它进阶至正式发布（GA）状态。</p>
+<p>注：本文涉及源码基于 kubernetes v1.23</p>
+<h1 id="CPU-Manager-开发目的"><a href="#CPU-Manager-开发目的" class="headerlink" title="CPU Manager 开发目的"></a>CPU Manager 开发目的</h1><p>为 pod 固定 CPU（核心），减少 CPU 上下文切换，提高缓存亲和性，从而降低应用程序延迟和提高的 CPU 吞吐量。</p>
+<p><img src="/contents/kubelet-cpu-manager/figure1.png" alt="aim"></p>
+<h1 id="CPU-Manager-实现原理"><a href="#CPU-Manager-实现原理" class="headerlink" title="CPU Manager 实现原理"></a>CPU Manager 实现原理</h1><p>大多数 linux 平台基于以下三种方式控制 CPU用量 :</p>
+<ul>
+<li>前两种为：<code>cpu.cfs_period_us</code> 和 <code>cpu.cfs_quota_us</code>。这里的 cfs 是 Completely Fair Scheduler （完全公平调度器）的缩写。</li>
+</ul>
+<ol>
+<li><code>cpu.cfs_period_us</code>: 调度周期，默认为 100000，单位为微秒，即100ms</li>
+<li><code>cpu.cfs_quota_us</code>:  <code>cpu.cfs_period_us</code> 调度期间内可使用的 cpu 时间，单位为微秒，默认 -1，即无限制。</li>
+<li>CPU Manager 使用的是第三种：CPU 亲和性（cpuset.cpus, 在哪个逻辑CPU执行指令） </li>
+</ol>
+<p>当 CPU Manager 启用并设置为 <code>static</code> 策略时，它管理一个 CPU 共享池。最初，这个共享池包含计算节点中的所有 CPU。当 kubelet 在 Guaranteed Pod 中创建一个具有整数 CPU 请求的容器时，该容器的 CPU 将从共享池中移除，并在容器的生命周期内独占分配，并且其他容器将会从这些独占分配的 CPU 中迁移。</p>
+<p><img src="/contents/kubelet-cpu-manager/figure2.png" alt="pool"></p>
+<p>我们可以通过下面例子来验证：</p>
+<ol>
+<li><p>创建 <code>Guaranteed QoS</code> 类型 podA，CPU 配额为2（单节点，且开启CPU Manager static 策略）</p>
+<pre><code class="shell"> cat &lt;&lt;EOF | kubectl apply -f -
+ kind: Pod
+ apiVersion: v1
+ metadata:
+ name: pod-with-cpu-manager-6986db896d-j7r6c
+ namespace: default
+ labels:
+     app: pod-with-cpu-manager
+ spec:
+ containers:
+     - name: container-c677ki
+     image: nginx:latest
+     resources:
+         limits:
+         cpu: 2
+         memory: 1Gi
+         requests:
+         cpu: 2
+         memory: 1Gi
+ EOF</code></pre>
+</li>
+<li><p>创建辅助脚本，用于获取pod pid</p>
+<pre><code class="shell"> cat &gt; get-pid-with-podName.sh &lt;&lt;EOF
+ #!/usr/bin/env bash
+
+ Check_jq() {
+ which jq &amp;&gt; /dev/null
+ if [ $? != 0 ];then
+     echo -e &quot;\033[32;32m 系统没有安装 jq 命令，请参考下面命令安装！  \033[0m \n&quot;
+     echo -e &quot;\033[32;32m Centos 或者 RedHat 请使用命令 yum install jq -y 安装 \033[0m&quot;
+     echo -e &quot;\033[32;32m Ubuntu 或者 Debian 请使用命令 apt-get install jq -y 安装 \033[0m&quot;
+     exit 1
+ fi
+ }
+
+ Pid_info() {
+ docker_storage_location=`docker info  | grep &#39;Docker Root Dir&#39; | awk &#39;{print $NF}&#39;`
+
+ for docker_short_id in `docker ps | grep ${pod_name} | grep -v pause | awk &#39;{print $1}&#39;`
+ do
+     docker_long_id=`docker inspect ${docker_short_id} | jq &quot;.[0].Id&quot; | tr -d &#39;&quot;&#39;`
+     cat ${docker_storage_location}/containers/${docker_long_id}/config.v2.json | jq &quot;.State.Pid&quot;
+ done
+ }
+
+ pod_name=$1
+ Check_jq
+ Pid_info
+ EOF</code></pre>
+</li>
+<li><p>获取 <code>pod-with-cpu-manager-6986db896d-j7r6c</code> 进程id</p>
+<pre><code class="shell"> # sh get-pid-with-podName.sh pod-with-cpu-manager-6986db896d-j7r6c
+ 26846</code></pre>
+</li>
+<li><p>获取 <code>pod-with-cpu-manager-6986db896d-j7r6c</code> 的 cgroup 信息</p>
+<pre><code class="shell"> # cat /proc/26846/cgroup
+ 12:devices:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 11:hugetlb:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 10:rdma:/
+ 9:cpuset:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 8:blkio:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 7:perf_event:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 6:pids:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 5:memory:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 4:freezer:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 3:net_cls,net_prio:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 2:cpu,cpuacct:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 1:name=systemd:/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a
+ 0::/</code></pre>
+</li>
+<li><p>查看 <code>pod-with-cpu-manager-6986db896d-j7r6c</code> 的 cpuset 信息</p>
+<pre><code class="shell"> # cat /sys/fs/cgroup/cpuset/kubepods/podafde59d3-a1b5-40b5-9558-3a79c9f31213/db802b8521318a3d267b745b28ab2d655e77abea7647e6e8cebf5318d6c8310a/cpuset.cpus
+ 8,64</code></pre>
+<p> 我们看到，<code>pod-with-cpu-manager-6986db896d-j7r6c</code> 可用 CPU 为8、64。</p>
+</li>
+<li><p>此时我们再创建 <code>Guaranteed QoS</code> 类型 podB，CPU 配额为1.5</p>
+<pre><code class="shell"> cat &lt;&lt;EOF | kubectl apply -f -
+ kind: Pod
+ apiVersion: v1
+ metadata:
+ name: pod-without-cpu-manager-5f686bd75b-5q2bh
+ namespace: default
+ labels:
+     app: pod-with-cpu-manager
+ spec:
+ containers:
+     - name: container-c677ki
+     image: nginx:latest
+     resources:
+         limits:
+         cpu: 1.5
+         memory: 1Gi
+         requests:
+         cpu: 1.5
+         memory: 1Gi
+ EOF</code></pre>
+</li>
+<li><p>获取 <code>pod-without-cpu-manager-5f686bd75b-5q2bh</code> 进程id</p>
+<pre><code class="shell"> # sh get-pid-with-podName.sh pod-without-cpu-manager-5f686bd75b-5q2bh
+ 63119</code></pre>
+</li>
+<li><p>获取 <code>pod-without-cpu-manager-5f686bd75b-5q2bh</code> 的 cgroup 信息</p>
+<pre><code class="shell"> # cat /proc/63119/cgroup
+ 12:devices:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 11:hugetlb:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 10:rdma:/
+ 9:cpuset:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 8:blkio:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 7:perf_event:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 6:pids:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 5:memory:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 4:freezer:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 3:net_cls,net_prio:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 2:cpu,cpuacct:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 1:name=systemd:/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9
+ 0::/</code></pre>
+</li>
+<li><p>查看 <code>pod-without-cpu-manager-5f686bd75b-5q2bh</code> 的 cpuset 信息</p>
+<pre><code class="shell"> # cat /sys/fs/cgroup/cpuset/kubepods/pod145a1163-b54c-464d-b14e-07f6fb4c5ab7/1759cc5169f63ce5cef9a244c4b89e2bb4a8a0c1daab0c9bfec0cbe2bee9b3c9/cpuset.cpus
+ 0,7,9-55,62-63,65-111</code></pre>
+<p> 我们发现 <code>pod-without-cpu-manager-5f686bd75b-5q2bh</code> 可用 CPU 为  0,7,9-55,62-63,65-111（共享），并且 <code>pod-with-cpu-manager-6986db896d-j7r6c</code> 所用 CPU（8，64）并不在该列表内。</p>
+<p> <strong>值得注意的是: 如 pod 容器配额CPU数与节点单CPU的逻辑核心数一致时，会优先分配同一物理CPU的逻辑核心（比如下面的pod，申请56个cpu）</strong></p>
+<pre><code class="shell"> # cat /sys/fs/cgroup/cpuset/kubepods/pod1b76c2cf-b554-4a74-98b5-0674399c1437/e3c5ee424235ab35e29bb647508b0fc9d8e3d5251a22c06cf180d74963fc2b66/cpuset.cpus
+ 28-55,84-111
+
+ # lscpu
+ ...
+ CPU(s):                112
+ On-line CPU(s) list:   0-111
+ Thread(s) per core:    2
+ Core(s) per socket:    28
+ Socket(s):             2
+ NUMA node(s):          2
+ NUMA node0 CPU(s):     0-27,56-83
+ NUMA node1 CPU(s):     28-55,84-111
+ ...</code></pre>
+</li>
+</ol>
+<h1 id="CPU-Manager-架构设计"><a href="#CPU-Manager-架构设计" class="headerlink" title="CPU Manager 架构设计"></a>CPU Manager 架构设计</h1><p><img src="/contents/kubelet-cpu-manager/figure3.png" alt="arch"></p>
+<p>上图展示了 CPU Manager 的结构。 CPU Manager 使用容器运行时接口的 UpdateContainerResources 方法来修改容器可以在其上运行的 CPU。 </p>
+<pre><code class="go">func (c *runtimeServiceClient) UpdateContainerResources(ctx context.Context, in *UpdateContainerResourcesRequest, opts ...grpc.CallOption) (*UpdateContainerResourcesResponse, error) {
+   out := new(UpdateContainerResourcesResponse)
+   err := c.cc.Invoke(ctx, &quot;/runtime.v1.RuntimeService/UpdateContainerResources&quot;, in, out, opts...)
+   if err != nil {
+      return nil, err
+   }
+   return out, nil
+}
+
+// 更新内容
+type LinuxContainerResources struct {
+   // CPU CFS (Completely Fair Scheduler) period. Default: 0 (not specified).
+   CpuPeriod int64 `protobuf:&quot;varint,1,opt,name=cpu_period,json=cpuPeriod,proto3&quot; json:&quot;cpu_period,omitempty&quot;`
+   // CPU CFS (Completely Fair Scheduler) quota. Default: 0 (not specified).
+   CpuQuota int64 `protobuf:&quot;varint,2,opt,name=cpu_quota,json=cpuQuota,proto3&quot; json:&quot;cpu_quota,omitempty&quot;`
+   // CPU shares (relative weight vs. other containers). Default: 0 (not specified).
+   CpuShares int64 `protobuf:&quot;varint,3,opt,name=cpu_shares,json=cpuShares,proto3&quot; json:&quot;cpu_shares,omitempty&quot;`
+   // Memory limit in bytes. Default: 0 (not specified).
+   MemoryLimitInBytes int64 `protobuf:&quot;varint,4,opt,name=memory_limit_in_bytes,json=memoryLimitInBytes,proto3&quot; json:&quot;memory_limit_in_bytes,omitempty&quot;`
+   // OOMScoreAdj adjusts the oom-killer score. Default: 0 (not specified).
+   OomScoreAdj int64 `protobuf:&quot;varint,5,opt,name=oom_score_adj,json=oomScoreAdj,proto3&quot; json:&quot;oom_score_adj,omitempty&quot;`
+   // CpusetCpus constrains the allowed set of logical CPUs. Default: &quot;&quot; (not specified).
+   CpusetCpus string `protobuf:&quot;bytes,6,opt,name=cpuset_cpus,json=cpusetCpus,proto3&quot; json:&quot;cpuset_cpus,omitempty&quot;`
+   // CpusetMems constrains the allowed set of memory nodes. Default: &quot;&quot; (not specified).
+   CpusetMems string `protobuf:&quot;bytes,7,opt,name=cpuset_mems,json=cpusetMems,proto3&quot; json:&quot;cpuset_mems,omitempty&quot;`
+   // List of HugepageLimits to limit the HugeTLB usage of container per page size. Default: nil (not specified).
+   HugepageLimits []*HugepageLimit `protobuf:&quot;bytes,8,rep,name=hugepage_limits,json=hugepageLimits,proto3&quot; json:&quot;hugepage_limits,omitempty&quot;`
+   // Unified resources for cgroup v2. Default: nil (not specified).
+   // Each key/value in the map refers to the cgroup v2.
+   // e.g. &quot;memory.max&quot;: &quot;6937202688&quot; or &quot;io.weight&quot;: &quot;default 100&quot;.
+   Unified map[string]string `protobuf:&quot;bytes,9,rep,name=unified,proto3&quot; json:&quot;unified,omitempty&quot; protobuf_key:&quot;bytes,1,opt,name=key,proto3&quot; protobuf_val:&quot;bytes,2,opt,name=value,proto3&quot;`
+   // Memory swap limit in bytes. Default 0 (not specified).
+   MemorySwapLimitInBytes int64    `protobuf:&quot;varint,10,opt,name=memory_swap_limit_in_bytes,json=memorySwapLimitInBytes,proto3&quot; json:&quot;memory_swap_limit_in_bytes,omitempty&quot;`
+   XXX_NoUnkeyedLiteral   struct{} `json:&quot;-&quot;`
+   XXX_sizecache          int32    `json:&quot;-&quot;`
+}</code></pre>
+<h2 id="如何获取-CPU-拓扑信息？"><a href="#如何获取-CPU-拓扑信息？" class="headerlink" title="如何获取 CPU 拓扑信息？"></a>如何获取 CPU 拓扑信息？</h2><p>CPU Manager 通过 cAdvisor 获取 CPU 拓扑信息：</p>
+<pre><code class="go">// CPUTopology contains details of node cpu, where :
+// CPU  - logical CPU, cadvisor - thread
+// Core - physical CPU, cadvisor - Core
+// Socket - socket, cadvisor - Socket
+// NUMA Node - NUMA cell, cadvisor - Node
+type CPUTopology struct {
+   NumCPUs      int
+   NumCores     int
+   NumSockets   int
+   NumNUMANodes int
+   CPUDetails   CPUDetails
+}
+
+// Discover returns CPUTopology based on cadvisor node info
+func Discover(machineInfo *cadvisorapi.MachineInfo) (*CPUTopology, error) {
+   if machineInfo.NumCores == 0 {
+      return nil, fmt.Errorf(&quot;could not detect number of cpus&quot;)
+   }
+
+   CPUDetails := CPUDetails{}
+   numPhysicalCores := 0
+
+   for _, node := range machineInfo.Topology {
+      numPhysicalCores += len(node.Cores)
+      for _, core := range node.Cores {
+         if coreID, err := getUniqueCoreID(core.Threads); err == nil {
+            for _, cpu := range core.Threads {
+               CPUDetails[cpu] = CPUInfo{
+                  CoreID:     coreID,
+                  SocketID:   core.SocketID,
+                  NUMANodeID: node.Id,
+               }
+            }
+         } else {
+            klog.ErrorS(nil, &quot;Could not get unique coreID for socket&quot;, &quot;socket&quot;, core.SocketID, &quot;core&quot;, core.Id, &quot;threads&quot;, core.Threads)
+            return nil, err
+         }
+      }
+   }
+
+   return &amp;CPUTopology{
+      NumCPUs:      machineInfo.NumCores,
+      NumSockets:   machineInfo.NumSockets,
+      NumCores:     numPhysicalCores,
+      NumNUMANodes: CPUDetails.NUMANodes().Size(),
+      CPUDetails:   CPUDetails,
+   }, nil
+}</code></pre>
+<p>架构设计之初也曾考虑从以下几种方式获取，但最终都没有采纳：</p>
+<ol>
+<li>通过读取并解析虚拟文件 /proc/cpuinfo 获取 CPU 信息</li>
+<li>通过在子进程中执行一个简单的程序，如 lscpu -p 获取 CPU 信息</li>
+<li>执行成熟的外部拓扑程序，如 mpi-hwloc（需打包内嵌至kubelet）</li>
+</ol>
+<h2 id="如何配置-CPU-Manager？"><a href="#如何配置-CPU-Manager？" class="headerlink" title="如何配置 CPU Manager？"></a>如何配置 CPU Manager？</h2><p>CPU Manager 策略通过 kubelet 参数 <code>--cpu-manager-policy</code> 或 <a href="https://kubernetes.io/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/" target="_blank" rel="noopener">KubeletConfiguration</a> 中的 <code>cpuManagerPolicy</code> 字段来指定：</p>
+<ul>
+<li><strong>static</strong>：该策略下，对于 <code>Guaranteed QoS</code> 类型 pod 内的容器, 并且容器对CPU资源的资源限制是大于等于1的整数时，则会为容器分配独占 CPU。</li>
+<li><strong>none</strong>：默认策略，该策略保留了现有的 kubelet 行为，即对 cgroup cpuset 不做任何处理。</li>
+</ul>
+<p><strong>当为一个容器分配独占 CPU 时，这些 CPU 将从该节点上运行的所有其他容器的允许 CPU 中移除，并且在 pod 的生命周期内，该独占 CPU 不会被分配给其他容器(直到该 pod 终止)。</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Pod配置方式</th>
+<th align="left">CPU分配方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Pod [Guaranteed]:<br>容器A:<br>cpu: 0.5</td>
+<td align="left">共享</td>
+</tr>
+<tr>
+<td align="left">Pod [Guaranteed]:<br>容器A:<br>cpu: 2.0</td>
+<td align="left">独享</td>
+</tr>
+<tr>
+<td align="left">Pod [Guaranteed]:<br>容器A:<br>cpu: 1.0<br>容器B:<br>cpu: 0.5</td>
+<td align="left">容器A独享<br>容器B共享</td>
+</tr>
+<tr>
+<td align="left">Pod [Guaranteed]:<br>A:<br>cpu: 1.5<br>B:<br>cpu: 0.5</td>
+<td align="left">容器A共享<br>容器B共享</td>
+</tr>
+<tr>
+<td align="left">Pod [Burstable]</td>
+<td align="left">共享</td>
+</tr>
+<tr>
+<td align="left">Pod [BestEffort]</td>
+<td align="left">共享</td>
+</tr>
+</tbody></table>
+<h1 id="CPU-Manager-性能提升"><a href="#CPU-Manager-性能提升" class="headerlink" title="CPU Manager 性能提升"></a>CPU Manager 性能提升</h1><p>来自 Intel 的两位工程师：Balaji Subramaniam, Connor Doyle 针对启用 CPU Manager 静态策略后，对于工作负载的性能变化做了三个场景的测试</p>
+<ul>
+<li>测试平台：双插槽Intel Xeon CPU E5-2680 v3，共计48个逻辑 CPU (24个物理内核，支持超线程)</li>
+</ul>
+<h2 id="CPU-相关知识补充"><a href="#CPU-相关知识补充" class="headerlink" title="CPU 相关知识补充"></a>CPU 相关知识补充</h2><p>Linux 下 可以通过 <code>lscpu</code> 获取 CPU 信息，如：逻辑CPU数（112）、每个物理插槽核心数（28）、插槽数（2）、主频（2.7GHz）等</p>
+<pre><code class="shell"># lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                112
+On-line CPU(s) list:   0-111
+Thread(s) per core:    2
+Core(s) per socket:    28
+Socket(s):             2
+NUMA node(s):          2
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 85
+Model name:            Intel(R) Xeon(R) Gold 6258R CPU @ 2.70GHz
+Stepping:              7
+CPU MHz:               1200.003
+CPU max MHz:           4000.0000
+CPU min MHz:           1000.0000
+BogoMIPS:              5400.00
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              1024K
+L3 cache:              39424K
+NUMA node0 CPU(s):     0-27,56-83
+NUMA node1 CPU(s):     28-55,84-111</code></pre>
+<ul>
+<li>物理CPU：物理CPU就是插在主机上的真实的CPU硬件（Socket(s):  2）</li>
+<li>核心数：多核处理器中的核指的就是核心数，在Linux下可以通过cores来确认主机的物理CPU的核心数。（Core(s) per socket:  28）</li>
+<li>逻辑CPU：逻辑CPU跟超线程技术有联系，假如物理CPU不支持超线程的，那么逻辑CPU的数量等于核心数的数量；如果物理CPU支持超线程，那么逻辑CPU的数目是核心数数目的两倍。（Thread(s) per core * Core(s) per socket）</li>
+<li>超线程：超线程是英特尔开发出来的一项技术，使得单个处理器可以象两个逻辑处理器那样运行，这样单个处理器以并行执行线程。</li>
+</ul>
+<h2 id="场景一：吵闹的邻居"><a href="#场景一：吵闹的邻居" class="headerlink" title="场景一：吵闹的邻居"></a>场景一：吵闹的邻居</h2><p>该场景下，运行 <a href="http://parsec.cs.princeton.edu/" target="_blank" rel="noopener">PARSEC benchmark suite</a> 基准测试套件中6项基准测试，这些基准测试与CPU压力容器(stress)共存，并启用了CPU Manager特性。</p>
+<blockquote>
+<p>普林斯顿共享内存计算机应用程序存储库(PARSEC)是一个由多线程程序组成的基准套件，旨在成为多核处理器的下一代共享内存程序的代表。 </p>
+</blockquote>
+<p>CPU压力容器（<code>stress pod</code>） 以 <code>--cpus=48</code>参数启动，并设置容器配额 <code>requests.cpu = 23</code> ，不设置limits.cpu（Burstable QoS）。</p>
+<blockquote>
+<p>stress是一个linux下的压力测试工具</p>
+</blockquote>
+<p>基准测试 pod 容器（<a href="http://parsec.cs.princeton.edu/" target="_blank" rel="noopener">PARSEC</a>）设置配额设置如下：（Guaranteed QoS）</p>
+<pre><code class="YAML">resources:
+  requests:
+    cpu: 24
+    memory: 4Gi
+  limits:
+    cpu: 24
+    memory: 4Gi</code></pre>
+<p>下图显示了在启用和不启用CPU Manager静态策略的情况下，运行与stress pod共存的基准测试 pod 的规范化执行时间。当为所有测试用例启用静态策略时，性能得到一定提升。</p>
+<p><img src="/contents/kubelet-cpu-manager/figure4.png" alt="scene1"></p>
+<blockquote>
+<p>运行的执行时间被归一化为性能最佳的运行(y轴上的1.00表示性能最佳的运行，越低越好)。箱形图的高度显示了性能的变化。例如，如果框图是一条线，那么在不同的运行中，性能就没有变化。</p>
+</blockquote>
+<h2 id="场景二：共存工作负载"><a href="#场景二：共存工作负载" class="headerlink" title="场景二：共存工作负载"></a>场景二：共存工作负载</h2><p>共存工作负载为<code>PARSEC</code>基准测试套件中的基准测试 <code>Blackscholes</code> 和 <code>Canneal</code>，它们运行在相互共存的 Guaranteed (Gu) 和 Burstable (Bu) QoS 类型 pod 中。其中，Gu（Guaranteed） QoS 类中的 pod 请求的总核心数相当于一个物理 CPU 逻辑核心之和(即24个cpu)， Bu(Burstable) QoS类中的 pod 请求23个cpu。</p>
+<p>在四个排列组合测试中，在开启 CPU Manager 静态策略后，共存的工作负载都有性能提升。例如：</p>
+<p><code>Bu-blackscholes-Gu-canneal</code>(左上)和<code>Gu-cannel-Bu-blackscholes</code>(右下)情况下，<code>Canneal</code>由于是Guaranteed QoS 类型 pod , 并且 CPU 配额核心数为整数（24），因此获得独占 CPU。而<code>Blackscholes</code>也获得了独占的 CPU，因为它是 CPU 共享池中唯一的工作负载。因此，由于 CPU Manager的静态策略，<code>Blackscholes</code>和<code>Canneal</code>都获得了一定性能隔离的性能提升。</p>
+<p><img src="/contents/kubelet-cpu-manager/figure5.png" alt="scene2"></p>
+<h2 id="场景三：独占物理CPU"><a href="#场景三：独占物理CPU" class="headerlink" title="场景三：独占物理CPU"></a>场景三：独占物理CPU</h2><p>该场景下工作负载选用 <a href="https://github.com/tensorflow/models/tree/master/official" target="_blank" rel="noopener">TensorFlow官方模型</a>: <a href="https://github.com/tensorflow/models/tree/master/official/r1/wide_deep" target="_blank" rel="noopener">wide and deep</a> 与 <a href="https://github.com/tensorflow/models/tree/master/official/r1/resnet" target="_blank" rel="noopener">ResNet</a>。分别使用 census 和 CIFAR10 数据集用于<code>wide and deep</code> 与 <code>ResNet</code> 模型。在每种情况下，pod1(<code>wide and deep</code>) 与 pod2 (<code>ResNet</code>) 各请求24个cpu（与单一物理CPU 逻辑核心数一致，将独占物理CPU）。如图所示， CPU Manager 在这两种情况下都支持更好的性能隔离。</p>
+<p><img src="/contents/kubelet-cpu-manager/figure6.png" alt="scene3"></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://kubernetes.io/blog/2018/07/24/feature-highlight-cpu-manager/" target="_blank" rel="noopener">feature-highlight-cpu-manager</a></li>
+<li><a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/3570-cpumanager" target="_blank" rel="noopener">keps-3570-cpumanager</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-Manager-介绍说明"><span class="toc-number">1.</span> <span class="toc-text">CPU Manager 介绍说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-Manager-开发目的"><span class="toc-number">2.</span> <span class="toc-text">CPU Manager 开发目的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-Manager-实现原理"><span class="toc-number">3.</span> <span class="toc-text">CPU Manager 实现原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-Manager-架构设计"><span class="toc-number">4.</span> <span class="toc-text">CPU Manager 架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何获取-CPU-拓扑信息？"><span class="toc-number">4.1.</span> <span class="toc-text">如何获取 CPU 拓扑信息？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何配置-CPU-Manager？"><span class="toc-number">4.2.</span> <span class="toc-text">如何配置 CPU Manager？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CPU-Manager-性能提升"><span class="toc-number">5.</span> <span class="toc-text">CPU Manager 性能提升</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU-相关知识补充"><span class="toc-number">5.1.</span> <span class="toc-text">CPU 相关知识补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景一：吵闹的邻居"><span class="toc-number">5.2.</span> <span class="toc-text">场景一：吵闹的邻居</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景二：共存工作负载"><span class="toc-number">5.3.</span> <span class="toc-text">场景二：共存工作负载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#场景三：独占物理CPU"><span class="toc-number">5.4.</span> <span class="toc-text">场景三：独占物理CPU</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

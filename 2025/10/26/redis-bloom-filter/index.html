@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】Bloom filter - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Bloom, Bloom Filter, RedisBloom, hash, Cuckoo Filter, False Positive, error rate, sub-filter, stacked filter, total size"> 
+    <meta name="description" content="
+原文地址：https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/
+源码：https://github,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】Bloom filter</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/redis-bloom-filter.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Redis"><b>「
+                    </b>REDIS<b> 」</b></a>
+                
+                十月 26, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/10/26/redis-bloom-filter/" title="【译】Bloom filter" class="">【译】Bloom filter</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.3k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Data-Structures/" rel="tag">Data Structures</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/" target="_blank" rel="noopener">https://redis.io/docs/latest/develop/data-types/probabilistic/bloom-filter/</a></li>
+<li>源码：<a href="https://github.com/redis/docs/blob/e871df72be1af7a26a23bea62863650d3f648daa/content/develop/data-types/probabilistic/bloom-filter.md" target="_blank" rel="noopener">https://github.com/redis/docs/blob/e871df72be1af7a26a23bea62863650d3f648daa/content/develop/data-types/probabilistic/bloom-filter.md</a></li>
+</ul>
+<p>Redis 开源版本中的布隆过滤器是一个基于概率的数据结构，它使用非常小的固定大小内存空间来检查一个元素是否存在于一个集合中。</p>
+<p>不同于将所有数据项都存储在集合中，布隆过滤器只存储数据项的哈希表示，因此会牺牲一些精度。这种权衡带来的好处是，布隆过滤器在空间效率和速度上表现优异。</p>
+<p>布隆过滤器能够保证一个元素不在集合中，但只能估计它是否存在。因此，当它回答一个元素不在集合中（否定回答）时，你可以确定情况确实如此。但每 N 个肯定回答中会有一个是错误的。<br>尽管乍一看这种不确定性似乎不寻常，但在计算机科学中仍然有其应用场景。在许多情况下，否定的答案可以避免更昂贵的操作，例如检查用户名是否已被占用、信用卡是否被报告为被盗、用户是否已经看到过广告等等。</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p><strong>金融欺诈检测（金融）</strong></p>
+<p>这类应用能够回答“用户是否曾在此位置付款？”之类的问题，从而检查用户购物习惯中的可疑活动。</p>
+<p>为每个用户创建一个布隆过滤器，并在每次交易时进行检查。提供极快的响应（本地延迟）。在用户移动时，在不同地区进行复制。防止随着规模扩大而降低性能。</p>
+<p>使用 Redis 布隆过滤器可为此类应用提供以下好处：</p>
+<ul>
+<li>快速完成交易</li>
+<li>减少网络分区情况下交易中断的可能性（连接需要保持打开的时间更短）</li>
+<li>为信用卡持有人和零售商提供额外的安全层</li>
+</ul>
+<p>在金融行业，布隆过滤器还可以帮助回答其他问题：</p>
+<ul>
+<li>用户是否曾在此类产品/服务类别中进行过购买？</li>
+<li>当用户在经过验证的在线商店（如亚马逊、苹果应用商店等）购买商品时，是否需要跳过某些安全步骤？</li>
+<li>这张信用卡是否被报告为丢失/被盗？在这个场景使用布隆过滤器的另一个好处是，金融机构可以交换被盗/被封锁的信用卡号码列表，而无需透露号码本身。</li>
+</ul>
+<p><strong>广告投放（零售、广告）</strong></p>
+<p>此类应用程序回答以下问题：</p>
+<ul>
+<li>用户是否已经看过这个广告？</li>
+<li>用户是否已经购买了这个产品？</li>
+</ul>
+<p>使用布隆过滤器为每个用户存储所有购买的产品。推荐引擎建议一个新产品时可检查该产品是否已存在于用户的布隆过滤器中。</p>
+<ul>
+<li>如果不存在，则向用户展示广告并将其添加到布隆过滤器中。</li>
+<li>如果存在，则该过程将重新开始并重复，直到找到一个不在过滤器中的产品。</li>
+</ul>
+<p>使用 Redis 布隆过滤器可为此类应用提供以下好处：</p>
+<ul>
+<li>成本效益高，能够提供定制化的近实时体验</li>
+<li>无需投资昂贵的基础设施</li>
+</ul>
+<p><strong>检查用户名是否被占用（SaaS、内容发布平台）</strong></p>
+<p>此类应用程序回答以下问题：这个用户名/电子邮件/域名/别名是否已经被使用？</p>
+<p>使用布隆过滤器来存储每个已注册用户的用户名。新用户输入所需的用户名。应用程序检查该用户名是否存在于布隆过滤器中。</p>
+<ul>
+<li>如果不存在，则创建用户并将用户名添加到布隆过滤器中。</li>
+<li>如果存在，则应用程序可以选择检查主数据库或拒绝该用户名。</li>
+</ul>
+<p>查询时间在不同数据规模上保持相同级别。</p>
+<p>使用 Redis 布隆过滤器可为此类应用提供以下好处：</p>
+<ul>
+<li>非常快速和高效的方式来执行常见操作</li>
+<li>无需投资昂贵的基础设施</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>设想有一个制造一百万种不同自行车的制造商，您希望避免在新型号中使用重复的名称。可以使用布隆过滤器来检测重复项。<br>在接下来的示例中，您将创建一个具有一百万个条目空间和 0.1% 错误率的过滤器。添加一个型号并检查它是否存在。然后添加多个型号并检查它们是否存在。</p>
+<pre><code class="&gt;_Redis">&gt; BF.RESERVE bikes:models 0.001 1000000
+OK
+&gt; BF.ADD bikes:models &quot;Smoky Mountain Striker&quot;
+(integer) 1
+&gt; BF.EXISTS bikes:models &quot;Smoky Mountain Striker&quot;
+(integer) 1
+&gt; BF.MADD bikes:models &quot;Rocky Mountain Racer&quot; &quot;Cloudy City Cruiser&quot; &quot;Windy City Wippet&quot;
+1) (integer) 1
+2) (integer) 1
+3) (integer) 1
+&gt; BF.MEXISTS bikes:models &quot;Rocky Mountain Racer&quot; &quot;Cloudy City Cruiser&quot; &quot;Windy City Wippet&quot;
+1) (integer) 1
+2) (integer) 1
+3) (integer) 1</code></pre>
+<p>注意：即使只有少量项目，也总有可能出现误报，这意味着某个项目可能被认为是“存在”的，即使它并未被明确添加到布隆过滤器中。有关布隆过滤器概率性质的更深入理解，请查看本文底部链接的博客文章。</p>
+<h2 id="创建布隆过滤器"><a href="#创建布隆过滤器" class="headerlink" title="创建布隆过滤器"></a>创建布隆过滤器</h2><p>使用 Redis Bloom 过滤器时，大部分的大小调整工作都已为您完成：</p>
+<pre><code class="cli">BF.RESERVE {key} {error_rate} {capacity} [EXPANSION expansion] [NONSCALING]</code></pre>
+<h4 id="1-假正例率（error-rate）"><a href="#1-假正例率（error-rate）" class="headerlink" title="1. 假正例率（error_rate）"></a>1. 假正例率（<code>error_rate</code>）</h4><p>这是一个 0 到 1 之间的小数值。例如，对于 0.1%（千分之一）的假正例率，error_rate 应设置为 0.001。</p>
+<h4 id="2-预期容量（capacity）"><a href="#2-预期容量（capacity）" class="headerlink" title="2. 预期容量（capacity）"></a>2. 预期容量（<code>capacity</code>）</h4><p>这是您期望在过滤器中总共拥有的项目数量，当您拥有静态集合时，这个数字是微不足道的，但当您的集合随着时间的推移而增长时，它变得更加具有挑战性。正确获取这个数字非常重要，因为如果设置 <strong>过大</strong> —— 您将浪费内存。如果 <strong>过小</strong>，过滤器将很快被填满，致使新的过滤器将不得不堆叠在其上（子过滤器堆叠）。在过滤器由多个子过滤器堆叠在一起的情况下，添加的延迟保持不变，但存在性检查的延迟会增加。原因在于检查的工作方式：常规检查将首先在顶部（最新）过滤器上执行，如果返回否定答案，则检查下一个过滤器，依此类推。这就是增加的延迟来源。</p>
+<h4 id="3-扩展（EXPANSION）"><a href="#3-扩展（EXPANSION）" class="headerlink" title="3. 扩展（EXPANSION）"></a>3. 扩展（<code>EXPANSION</code>）</h4><p>向布隆过滤器添加项目永远不会因为数据结构“填满”而失败。相反，错误率会开始增长。为了保持错误率接近在过滤器初始化时设置的值，布隆过滤器将自动扩展，这意味着当达到预期容量时，将创建一个额外的子过滤器。</p>
+<p>新的子过滤器的大小是最后一个子过滤器大小乘以 <code>EXPANSION</code> 扩展值。如果要存储在过滤器中的项目数量未知，我们建议您使用 2 或更高的扩展率以减少子过滤器的数量。否则，我们建议您使用 1 的扩展率以减少内存消耗。默认的扩展值为 2。</p>
+<p>过滤器将继续为每个新的子过滤器添加更多的哈希函数，以维持所预期的错误率。</p>
+<p>也需你会想 “如果我知道我将要扩展，为什么还要创建一个较小的过滤器并使用高扩展率？”；答案是：是为了需要保持许多过滤器的情况（比如每个用户或每个产品一个过滤器），其中大多数过滤器将保持较小规模，但一些活动较多的过滤器将需要扩展。</p>
+<h4 id="4-NONSCALING"><a href="#4-NONSCALING" class="headerlink" title="4. NONSCALING"></a>4. <code>NONSCALING</code></h4><p>如果您确定不需要扩展过滤器，请使用 <code>NONSCALING</code> 标志，因为这样过滤器将少使用一个哈希函数。只要记住，如果您最终达到了最初分配的容量，错误率将开始增长。</p>
+<h3 id="布隆过滤器的总大小"><a href="#布隆过滤器的总大小" class="headerlink" title="布隆过滤器的总大小"></a>布隆过滤器的总大小</h3><p>布隆过滤器的实际内存使用量是所选错误率的函数：</p>
+<p>最优哈希函数数量为 <code>ceil(-ln(error_rate) / ln(2))</code>。</p>
+<p>给定所需的 <code>error_rate</code> 和最优哈希函数数量时，每个项目所需的 bit 数为 <code>-ln(error_rate) / ln(2)^2</code>。因此，过滤器所需总 bit 数为 <code>capacity * -ln(error_rate) / ln(2)^2</code>。</p>
+<ul>
+<li><strong>1%</strong> 错误率需要 7 个哈希函数，每个项目占 9.585 bit。</li>
+<li><strong>0.1%</strong> 错误率需要 10 个哈希函数，每个项目占 14.378 bit。</li>
+<li><strong>0.01%</strong> 错误率需要 14 个哈希函数，每个项目占 19.170 bit。</li>
+</ul>
+<p>作为比较，当使用 Redis 集合进行成员存在性校验时，所需的内存为：</p>
+<pre><code class="text">memory_with_sets = capacity*(192b + value)</code></pre>
+<p>例如，对于一组 IP 地址，每个项目大约需要 40 字节（320 bit）—— 远高于我们在 0.01% 假正例率的布隆过滤器中所需的 19.170 bit。</p>
+<h2 id="布隆过滤器-vs-布谷鸟过滤器"><a href="#布隆过滤器-vs-布谷鸟过滤器" class="headerlink" title="布隆过滤器 vs. 布谷鸟过滤器"></a>布隆过滤器 vs. 布谷鸟过滤器</h2><p>布隆过滤器通常在插入项目时表现出更好的性能和可扩展性（因此，如果您经常向数据集中添加项目，那么布隆过滤器可能是理想的选择）。布谷鸟过滤器在检查操作上更快，并且还允许删除操作。</p>
+<h2 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h2><p>布隆过滤器的插入操作时间复杂度为 O(K)，其中 <code>k</code> 是哈希函数的数量。</p>
+<p>检查某个项目是否存在的时间复杂度为 O(K) ，对于堆叠的过滤器则为 O(K*n)，其中 n 是堆叠过滤器的数量。</p>
+<h2 id="学术文献"><a href="#学术文献" class="headerlink" title="学术文献"></a>学术文献</h2><ul>
+<li><a href="http://www.dragonwins.com/domains/getteched/bbc/literature/Bloom70.pdf" target="_blank" rel="noopener">Space/Time Trade-offs in Hash Coding with Allowable Errors</a> by Burton H. Bloom.</li>
+<li><a href="https://gsd.di.uminho.pt/members/cbm/ps/dbloom.pdf" target="_blank" rel="noopener">Scalable Bloom Filters</a></li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><h3 id="网络研讨会"><a href="#网络研讨会" class="headerlink" title="网络研讨会"></a>网络研讨会</h3><ol>
+<li><a href="https://youtu.be/dq-0xagF7v8?t=102" target="_blank" rel="noopener">Probabilistic Data Structures - The most useful thing in Redis you probably aren’t using</a></li>
+</ol>
+<h3 id="博客文章"><a href="#博客文章" class="headerlink" title="博客文章"></a>博客文章</h3><ol>
+<li><a href="https://docs.redis.com/latest/modules/redisbloom/redisbloom-quickstart/" target="_blank" rel="noopener">RedisBloom Quick Start Tutorial</a></li>
+<li><a href="https://redis.io/blog/bloom-filter/" target="_blank" rel="noopener">Developing with Bloom Filters</a></li>
+<li><a href="https://redis.com/redis-enterprise/redis-bloom/" target="_blank" rel="noopener">RedisBloom on Redis Enterprise</a></li>
+<li><a href="https://redis.com/blog/redis-redisbloom-bloom-filters/" target="_blank" rel="noopener">Probably and No: Redis, RedisBloom, and Bloom Filters</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#适用场景"><span class="toc-number">1.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建布隆过滤器"><span class="toc-number">3.</span> <span class="toc-text">创建布隆过滤器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#布隆过滤器的总大小"><span class="toc-number">3.1.</span> <span class="toc-text">布隆过滤器的总大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#布隆过滤器-vs-布谷鸟过滤器"><span class="toc-number">4.</span> <span class="toc-text">布隆过滤器 vs. 布谷鸟过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#性能"><span class="toc-number">5.</span> <span class="toc-text">性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学术文献"><span class="toc-number">6.</span> <span class="toc-text">学术文献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">7.</span> <span class="toc-text">参考资料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#网络研讨会"><span class="toc-number">7.1.</span> <span class="toc-text">网络研讨会</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#博客文章"><span class="toc-number">7.2.</span> <span class="toc-text">博客文章</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

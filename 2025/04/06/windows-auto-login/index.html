@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】4 种实用方法：如何设置 Windows 10/11 自动登录 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Windows 10, Windows 11, 自动登录, Autologon, regedit, 注册表, 用户账户, 密码, 空密码"> 
+    <meta name="description" content="原文地址：https://www.sysgeek.cn/windows-auto-login/
+
+当启动 Windows PC 时，登录界面会列出一个或多个用户账户。你需要选择一个账户并通过身份验证,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】4 种实用方法：如何设置 Windows 10/11 自动登录</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/windows-auto-login/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Windows"><b>「
+                    </b>WINDOWS<b> 」</b></a>
+                
+                四月 06, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/04/06/windows-auto-login/" title="【转】4 种实用方法：如何设置 Windows 10&#x2F;11 自动登录" class="">【转】4 种实用方法：如何设置 Windows 10&#x2F;11 自动登录</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://www.sysgeek.cn/windows-auto-login/" target="_blank" rel="noopener">https://www.sysgeek.cn/windows-auto-login/</a></p>
+<p><img src="/contents/windows-auto-login/cover.png" alt=""></p>
+<p>当启动 Windows PC 时，登录界面会列出一个或多个用户账户。你需要选择一个账户并通过身份验证才能进入桌面。Windows 支持多种登录验证方式，如密码和 <a href="https://www.sysgeek.cn/introduction-windows-hello-business/" target="_blank" rel="noopener">Windows Hello</a>，这对于多用户设备来说会十分便利。</p>
+<p>虽然现代计算机加载 Windows 的速度已经非常快，但跳过登录验证可以更快地开始工作。如果你是电脑的唯一使用者，还可以选择取消登录验证。接下来，我们就介绍如何在 Windows 11/10 设备上设置自动登录。</p>
+<h1 id="什么是-Windows-自动登录"><a href="#什么是-Windows-自动登录" class="headerlink" title="什么是 Windows 自动登录"></a>什么是 Windows 自动登录</h1><p>自动登录是 Windows 的一项便捷功能，允许不输入密码或 PIN 码即可登录电脑。它不仅能缩短开机时间，还能在从睡眠状态唤醒时省去重复验证的步骤，从而提升效率。</p>
+<h2 id="使用场景与潜在风险"><a href="#使用场景与潜在风险" class="headerlink" title="使用场景与潜在风险"></a>使用场景与潜在风险</h2><p>通常情况下，我们不推荐在 Windows 设备上启用自动登录。因为任何能够物理接触到设备的人都能轻松访问你的敏感信息，并获得完整的管理权限。</p>
+<p>在决定启用 Windows 自动登录之前，请考虑以下几点：</p>
+<ul>
+<li>不推荐在笔记本电脑、平板电脑或其他便携设备上启用，因为这些设备通常会带着到处跑。</li>
+<li>不推荐在多人共用的电脑上启用。</li>
+<li>可以在没有重要数据的虚拟机上启用。</li>
+<li>可以在仅个人使用的家用电脑上启用（相对安全）。</li>
+</ul>
+<p>如果你的 Windows 中有多个用户账户，也可以只为某一个账户单独设置自动登录，从而保持其他主要账户的安全。</p>
+<h1 id="在-Windows-中设置自动登录"><a href="#在-Windows-中设置自动登录" class="headerlink" title="在 Windows 中设置自动登录"></a>在 Windows 中设置自动登录</h1><p>Windows 并没有直接开启自动登录的选项，但我们可以通过以下 4 种方法来实现自动登录。</p>
+<h2 id="方法-1：通过「用户账户」设置"><a href="#方法-1：通过「用户账户」设置" class="headerlink" title="方法 1：通过「用户账户」设置"></a>方法 1：通过「用户账户」设置</h2><ol>
+<li>如果你使用 Microsoft 账户，请用 <code>Windows + I</code> 快捷键打开「Windows 设置」。</li>
+<li>选择「账户」-「登录选项」，然后关闭「为了提高安全性，仅允许对此设备上的 Microsoft 账户使用 Windows Hello 登录 」开关。</li>
+</ol>
+<p><img src="/contents/windows-auto-login/win10.png" alt="Windows 10"></p>
+<p><img src="/contents/windows-auto-login/win11.png" alt="Windows 11"></p>
+<ol start="3">
+<li>使用 <code>Windows + R</code> 快捷键调出「运行」对话框，输入 <code>netplwiz</code> 打开「用户账户」设置窗口。</li>
+<li>取消勾选「要使用本计算机，用户必需输入用户名和密码」，然后点击「应用」按钮。</li>
+</ol>
+<p><img src="/contents/windows-auto-login/user_account.png" alt="通过「用户账户」设置 Windows 自动登录"></p>
+<ol start="5">
+<li>此时会弹出「自动登录」对话框，在此输入密码两次，确认无误后点击「确定」即可。</li>
+</ol>
+<p><img src="/contents/windows-auto-login/auto_login.png" alt="输入账户密码"></p>
+<p>设置完成后，在登录时会自动帮你验证密码，但密码并未删除。如果你更改了账户密码，需要按以上步骤重新设置。</p>
+<h2 id="方法-2：更改注册表设置"><a href="#方法-2：更改注册表设置" class="headerlink" title="方法 2：更改注册表设置"></a>方法 2：更改注册表设置</h2><p>我们也可以更改注册表配置来实现 Windows 10/11 自动登录，操作步骤如下：</p>
+<ol>
+<li>使用 <code>Windows + R</code> 快捷键打开「运行」，输入 <code>regedit</code> 打开注册表编辑器。</li>
+<li>浏览到以下路径：<pre><code class="text">HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</code></pre>
+</li>
+<li>在右侧窗口中并双击名为 <code>AutoAdminLogon</code> 的<strong>字符串值</strong>（如果没有就新建一个），并将其值设置为：</li>
+</ol>
+<ul>
+<li><code>0</code> 禁用自动登录</li>
+<li><code>1</code> 启用自动登录</li>
+</ul>
+<ol start="4">
+<li>在右侧窗口中分别并双击名为 <code>DefaultUserName</code> 和 <code>DefaultPassword</code> 的<strong>字符串值</strong>（如果没有就新建），并将其值设置为：</li>
+</ol>
+<ul>
+<li><code>DefaultUserName</code> 用于自动登录的账户名称</li>
+<li><code>DefaultPassword</code> 对应的账户密码</li>
+</ul>
+<p><img src="/contents/windows-auto-login/regedit.png" alt="通过注册表设置 Windows 自动登录"></p>
+<p>注册表更改完成后，重启 Windows 就会生效。</p>
+<blockquote>
+<p>手动更改注册表时，<code>DefaultPassword</code> 使用的是明文。使用 Autologon 时，密码在注册表中会加密为 LSA 密文。</p>
+</blockquote>
+<h2 id="方法-3：使用-Autologon-工具"><a href="#方法-3：使用-Autologon-工具" class="headerlink" title="方法 3：使用 Autologon 工具"></a>方法 3：使用 Autologon 工具</h2><p>如果想用更简单的方式来设置自动登录，<a href="https://www.sysgeek.cn/what-is-sysinternals-tools/" target="_blank" rel="noopener">Sysinternals</a> 提供的 Autologon 工具是个不错的选择。它会自动修改注册表，帮助你启用 Windows 的自动登录功能，而无需去手动编辑。</p>
+<ol>
+<li>从 Microsoft 官方网站<a href="https://learn.microsoft.com/en-us/sysinternals/downloads/autologon" target="_blank" rel="noopener">下载 Autologon 工具</a>。</li>
+<li>解压下载的文件，并根据你的 Windows 系统架构运行对应的 Autologon 程序。</li>
+<li>在打开的界面中核对用户名，然后在「Password」栏填入登录密码，并点击「Enable」按钮。一般家用电脑都是工作组环境，因此「Domain」一栏通常无需更改。</li>
+</ol>
+<p><img src="/contents/windows-auto-login/autologon.png" alt="使用 Autologon 工具设置 Windows 自动登录"></p>
+<blockquote>
+<p>Autologon 不会校验密码是否正确，也不会检查用户账户是否有权限登录。<br>4. 设置成功后，屏幕会有「Autologon successfully configured」提示。点击「OK」完成设置。</p>
+</blockquote>
+<p>完成以上步骤后，只需重启 Windows PC，就能实现免密码登录。要关闭此功能，可以重新打开 Autologon 并点击「Disable」禁用即可。</p>
+<h2 id="方法-4：使用空密码账户（不推荐）"><a href="#方法-4：使用空密码账户（不推荐）" class="headerlink" title="方法 4：使用空密码账户（不推荐）"></a>方法 4：使用空密码账户（不推荐）</h2><p>我们也可以通过删除账户密码，也就是使用「空密码」来实现 Windows 自动登录。以下是操作步骤：</p>
+<ol>
+<li>使用 <code>Windows + R</code> 快捷键打开「运行」，输入 <code>lusrmgr.msc</code> 打开「本地用户和组」。</li>
+<li>在打开的窗口中，点击左侧的「用户」选项卡，然后在右侧面板中选择要删除密码的账户，右键点击并选择「设置密码」。</li>
+<li>当出现警告框时，点击「继续」按钮。</li>
+<li>在接下来的对话框中，不要输入任何内容，保持「新密码」和「确认密码」栏为空，直接点击「确定」完成设置。</li>
+</ol>
+<p><img src="/contents/windows-auto-login/empty_password.png" alt="使用空密码账户实现 Windows 自动登录"></p>
+<p>执行以上步骤后，Windows 将不再要求输入密码来登录账户，也可以实现自动登录。</p>
+<blockquote>
+<p>因为账户没有了密码保护，所带来的安全风险极大。而且空密码默认无法使用远程桌面协议（RDP）和 NTLM 认证服务。</p>
+</blockquote>
+<hr>
+<p>开启 Windows 的自动登录功能虽然会带来便利，但也伴随着一定的安全风险。如果你已经权衡利弊并决定使用，可以参考本文介绍的 4 种方法来设置。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是-Windows-自动登录"><span class="toc-number">1.</span> <span class="toc-text">什么是 Windows 自动登录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景与潜在风险"><span class="toc-number">1.1.</span> <span class="toc-text">使用场景与潜在风险</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在-Windows-中设置自动登录"><span class="toc-number">2.</span> <span class="toc-text">在 Windows 中设置自动登录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-1：通过「用户账户」设置"><span class="toc-number">2.1.</span> <span class="toc-text">方法 1：通过「用户账户」设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-2：更改注册表设置"><span class="toc-number">2.2.</span> <span class="toc-text">方法 2：更改注册表设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-3：使用-Autologon-工具"><span class="toc-number">2.3.</span> <span class="toc-text">方法 3：使用 Autologon 工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-4：使用空密码账户（不推荐）"><span class="toc-number">2.4.</span> <span class="toc-text">方法 4：使用空密码账户（不推荐）</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

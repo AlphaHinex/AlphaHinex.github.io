@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>​Real-World Performance - 13 - Large Dynamic Connection Pools - Part 1 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,dynamic connction pools, static connection pools, fixed connection pools"> 
+    <meta name="description" content="https://mp.weixin.qq.com/s/D2PUOwAE93eHJpfYXARoXA
+Today we are going to talk about connecting to th,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">​Real-World Performance - 13 - Large Dynamic Connection Pools - Part 1</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/connection-pools-1.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Database"><b>「
+                    </b>DATABASE<b> 」</b></a>
+                
+                八月 29, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/08/29/connection-pools-1/" title="​Real-World Performance - 13 - Large Dynamic Connection Pools - Part 1" class="">​Real-World Performance - 13 - Large Dynamic Connection Pools - Part 1</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Connection-Pools/" rel="tag">Connection Pools</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://mp.weixin.qq.com/s/D2PUOwAE93eHJpfYXARoXA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/D2PUOwAE93eHJpfYXARoXA</a></p>
+<p>Today we are going to talk about connecting to the database and</p>
+<p>how we choose connect to the database.</p>
+<p>In previous YouTube videos, we’ve shown<br>how</p>
+<p>developers might connect to the database,<br>and how they would use</p>
+<p>cursors and arrays, and things like that. But we are going to do a</p>
+<p>topic that really should be thought about from both the system administrator</p>
+<p>and the system architect. And it’s the number of connections that we make to the database</p>
+<p>and how they connect to the database. Are<br>those connections permanent</p>
+<p>or are they dynamic? This is a topic that my colleagues within the Real World Performance group</p>
+<p>have been dealing with for<br>probably the best part of 20 years.</p>
+<p>And basically</p>
+<p>it’s done wrong in many cases, and it’s<br>usually done wrong</p>
+<p>because of over-optimistic views</p>
+<p>of how they think the database can just<br>keep on</p>
+<p>absorbing more and more connections. The reality of the situation is</p>
+<p>that there’s two things at stake here. One the database–you cannot add</p>
+<p>an infinite number connections to the<br>database. And</p>
+<p>the second thing is the number of<br>connections to the database should ideally</p>
+<p>be static–should be the same number all<br>time.</p>
+<p>Unfortunately, today’s applications<br>tend to get built in middle tiers</p>
+<p>and they tend to specify dynamic<br>connection pools. Very often it’s a</p>
+<p>minimum number and then maximum number.</p>
+<p>And there’s under…. people are under this illusion that basically</p>
+<p>the applications servers will keep on<br>creating connections as required,</p>
+<p>and they’ll potentially cut them back if the load goes off.</p>
+<p>Well in fact this is actually the worst<br>thing possible to do.</p>
+<p>In fact, one of my colleagues often defines this sort of architecture</p>
+<p>as a “gun ready to go off.” You have the<br>potential to rapidly create a large</p>
+<p>number</p>
+<p>connections. We have the ability to<br>basically</p>
+<p>destabilize the entire database<br>environment.</p>
+<p>And for this reason itself, um,</p>
+<p>we actually got quite tired of talking to<br>people about this.</p>
+<p>And for this reason we built demos and<br>we</p>
+<p>built graphical screens to actually show<br>what happens</p>
+<p>when the load comes on the system. So to<br>demonstrate the</p>
+<p>the challenges associated with both a<br>large connection pool and a</p>
+<p>dynamic connection pool, what we’re going to do is we are going to simulate load coming on a system</p>
+<p>in slow motion. So we can actually</p>
+<p>watch and interrogate a system  as the load comes up.</p>
+<p>The reasoning being for that is that if we see in slow motion</p>
+<p>we can actually see what is happening<br>and watch the system fall apart in</p>
+<p>front of you rather than it all<br>happening in two seconds</p>
+<p>and system just falling over and everyone<br>curious as to what has happened.</p>
+<p>And this it becomes particularly<br>important</p>
+<p>to understand what is happening and how<br>quickly these things</p>
+<p>can run out of control. So and</p>
+<p>we’re back using the Real World Performance demo screens</p>
+<p>and you’ll notice we have basically</p>
+<p>three windows down the middle which is<br>reporting what we’re doing. Now we have a</p>
+<p>very stable system here,</p>
+<p>running at this point in time. You can<br>notice that the response time from the</p>
+<p>applications</p>
+<p>is two milliseconds. We’re running at<br>quite a modest transaction rate of just</p>
+<p>under 2,000 transactions a second.</p>
+<p>But let’s talk about what our user<br>community is doing. What we actually have</p>
+<p>is nearly 15,000 individual Java threads</p>
+<p>all playing effectively cards online.</p>
+<p>And they’re</p>
+<p>basically pressing the button,<br>each thread, once every 10 seconds.</p>
+<p>What we’ve done is we’ve created a<br>connection pool that can</p>
+<p>literally go out of control and destabilize<br>the system.</p>
+<p>The initial connection pool was a 144<br>connections to the database, but we’re going</p>
+<p>let it grow</p>
+<p>to 6,000 connections to the database</p>
+<p>when the load comes on. Now if we look at the system at the moment you can see we’re</p>
+<p>barely recording anything on the AWR<br>report or ASH reports.</p>
+<p>The CPU utilization is extremely low.</p>
+<p>And the other thing to notice is that<br>even though the</p>
+<p>utilization on the system is extremely<br>low, we’ve already</p>
+<p>extended the connection pool at over 200<br>connections to the database</p>
+<p>up from 144, just because the<br>application servers</p>
+<p>occasionally found that all their connections were busy, we allowed it to grow.</p>
+<p>And with that in mind and I’m going to</p>
+<p>force it to grow even more. And we are going to watch the system as we start to grow.</p>
+<p>So I’m going to start doubling up the work load, so instead of everyone</p>
+<p>pressing the button every 10 seconds,<br>we are now going to make it every five seconds.</p>
+<p>And we’ll double this up.</p>
+<p>And I’m going to continue to double this up until it gets quite</p>
+<p>interesting and we’ve actually started to make the system yield.</p>
+<p>At this point just doubling up the<br>workload, you can see that there’s just a</p>
+<p>tiny</p>
+<p>increment in the workload, the transaction<br>rate is doubling,</p>
+<p>the response time hasn’t been impacted<br>it all,</p>
+<p>we’re starting to see a little bit of climb on<br>the CPU utilization,</p>
+<p>which we can see we’re barely even using<br>seven or eight</p>
+<p>percent of the system this point in time. So let’s double it up</p>
+<p>in another step.</p>
+<p>And again, here we go doubled up the<br>workload again. And</p>
+<p>at this point in time, we can see very<br>linear behavior</p>
+<p>on the system. We’re seeing the<br>transaction rate literally</p>
+<p>double with each step. We’re barely<br>impacting</p>
+<p>response time. And we’re seeing the CPU getting proportional response</p>
+<p>coming up as the workload comes up.</p>
+<p>So, at this point in time, people will<br>start to think we’ve built a linear and</p>
+<p>a scaleable system. The other thing to note</p>
+<p>is that we are starting to see the connections to the database</p>
+<p>and the size of the connection pool now is now approaching nearly 500, okay.</p>
+<p>So we are really about four times bigger</p>
+<p>nearly five times bigger than the<br>initial connection pool,</p>
+<p>yet we’ve hardly stretch the machine at all.</p>
+<p>So there’s a lot of connections that<br>actually aren’t doing anything</p>
+<p>in fact</p>
+<p>is 465 at this point in time, where we are not actually doing anything at all.</p>
+<p>We’ve only got 16 active. And this is on a<br>machine here</p>
+<p>with actually twenty four cores on. So<br>you can see we’re</p>
+<p>not even fully utilizing the machine in<br>terms of sessions per</p>
+<p>core at this point. But you can see, again,</p>
+<p>that connection count is increasing just<br>because you get occasional</p>
+<p>timing glitches where of all the 32<br>JVMs that</p>
+<p>we have driving this application, all the<br>connections are</p>
+<p>busy for one point in time and so we just<br>popped another connection.</p>
+<p>So let’s double up the workload a little<br>bit more, and then we should start</p>
+<p>getting into start seeing</p>
+<p>load come onto the system a little bit<br>more seriously.</p>
+<p>So we’re doubling it up now,</p>
+<p>and we are starting to push the transaction<br>rate</p>
+<p>much higher. We are getting up into the<br>15-16</p>
+<p>thousand transactions per second. Thing<br>to note here, you starting to see a much</p>
+<p>more</p>
+<p>noticeable increase in the CPU on the<br>system,</p>
+<p>and we’re approaching at this point 25<br>percent utilization on the system.</p>
+<p>But again nothing to see in database on<br>ASH report,</p>
+<p>not much to see of the user response time.<br>This is the point in time</p>
+<p>where very often we see system architects and administrators</p>
+<p>congratulating each other because they<br>think, “wow we’ve got this </p>
+<p>scaleable system.”  But it’s only<br>scaleable to </p>
+<p>25 percent utilization of the database server. That’s</p>
+<p>hardly the best utilization of hardware<br>resources,</p>
+<p>software licenses. So let’s double up<br>again</p>
+<p>and see where get to when we start. Hopefully, now that we’re going to get</p>
+<p>to use 50 percent of the utilization on the<br>machine.</p>
+<p>So we’re doubling up again and we can<br>see,</p>
+<p>again, a very immediate response. The<br>transaction rate is doubling.</p>
+<p>We are seeing the CPU workload doubling. And we’re nearly at</p>
+<p>50 percent utilization on the system.<br>Barely an increase on the system</p>
+<p>response time. Again a very stable system.</p>
+<p>The thing to note now is we really are<br>starting to grow a lot more connections to the</p>
+<p>database,</p>
+<p>is the middleware is now getting to<br>situation. It is running at a higher rate</p>
+<p>and the statistical chance that all the<br>connections used from one JVM</p>
+<p>being in use is increasing all the time. So literally as I’ve been speaking, we’re seeing the</p>
+<p>connections pop to</p>
+<p>over nearly 2000 here. We are at 1900</p>
+<p>as I spoke, before we were in the<br>hundreds,</p>
+<p>and within a second or so, I imagine we are going to be</p>
+<p>greater than 2000 fairly quickly. But you can see quite quickly that</p>
+<p>you know, still at this point in time the<br>system is very predictable,</p>
+<p>very linear, and everyone seeming great. And this is at the point where</p>
+<p>we’re about fifty percent utilization on the system.</p>
+<p>Now at fifty percent utilization on the<br>system,</p>
+<p>we can see this is a point where our<br>statistical chance of getting scheduled</p>
+<p>is 2 in 1. As I crank up the<br>utilization on the system,</p>
+<p>your chance of getting scheduled<br>immediately</p>
+<p>is starting to get reduced. We are starting to not get scheduled all of the</p>
+<p>time. We are going to start seeing more variation in the response time.</p>
+<p>As the response time varies, we are more likely to have</p>
+<p>more application servers waiting.</p>
+<p>And they are more likely to initiate more<br>connections.</p>
+<p>So you can see as we crank up the<br>utilization</p>
+<p>we can more likely to basically get more<br>variable response time,</p>
+<p>which is going to force the app servers<br>to throw more connections at the database,</p>
+<p>which in its turn, are going to get more and more unpredictable response time,</p>
+<p>and we’re get ourselves in what is known as a race condition. And this race condition we </p>
+<p>very often call a connection<br>storm, when basically we’re initiating a</p>
+<p>storm of  connection requests but we are actually getting </p>
+<p>nothing back. And remember what was shown in previous YouTubes</p>
+<p>the actually logging on and off the database is quite an expensive operation.</p>
+<p>So this just compounds this effect, and we start going into a spiral of degrading</p>
+<p>performance.</p>
+<p>So I’m going to not double the performance at this point in time.</p>
+<p>Because as you can see it’s been quite well behaved. We’ve got over</p>
+<p>2000 connections to the database at this<br>point. But what we’re going to do this we do</p>
+<p>is we are going to do it in smaller increments.</p>
+<p>So instead of doubling it, I’m just gonna</p>
+<p>take it up to four hundred milliseconds, so<br>0.4 percent of a second between each mouse clicks.</p>
+<p>So</p>
+<p>some fairly serious card players. And</p>
+<p>we are just going to jump the workload up a little bit more.</p>
+<p>And you can see that basically, suddenly the small increment in work suddenly</p>
+<p>caused</p>
+<p>quite an impact on the system, okay?</p>
+<p>So almost like a 50 percent increase in the<br>workload, we saw almost</p>
+<p>twice as much CPU. We see this disproportional response in CPU utilization</p>
+<p>getting extremely busy. We’re not seeing<br>proportional</p>
+<p>increase in the transaction rate, and<br>we’re now starting to see the</p>
+<p>transaction rate</p>
+<p>starting to become quite choppy. And we are starting to see</p>
+<p>queuing in the middle tier machine. And we’re seeing extended database response times.</p>
+<p>And for the first time, we are actually starting to see wait events</p>
+<p>inside the database through the ASH<br>reports.</p>
+<p>And some of you may have seen some of these</p>
+<p>wait events in your life before. Latches on end queues,</p>
+<p>row cache objects, latch free </p>
+<p>enq:TX index contention, buffer busy waits.</p>
+<p>Quite common wait events as and well, we getting to the situation where we’re  starting to</p>
+<p>oversubscribe the machine, but the CPU<br>is starting to get extremely busy.</p>
+<p>And we’re starting to see more and more wait events. We are starting to see the CPU get busier</p>
+<p>and busier.</p>
+<p>And you can see now that the database<br>connection pool</p>
+<p>that was at 2000 is now approaching 6000.</p>
+<p>Remember we have a limit here of 6144.</p>
+<p>So very quickly, we’re actually getting<br>to the situation where we are approaching our</p>
+<p>connection limits.</p>
+<p>And you’ll notice the number of active connections on the database</p>
+<p>is massively oversubscribed, compared to<br>the number</p>
+<p>of cores on the system. It’s now telling me I have</p>
+<p>6,000 active requests into the database</p>
+<p>at this point in time. As a result you can<br>actually see</p>
+<p>we’ve completely oversubscribed the machine so the response time</p>
+<p>has gone out of control, the wait event<br>inside the database has gone</p>
+<p>completely out of control. Just<br>looking at that you can see</p>
+<p>enq:TX index contention, contention events</p>
+<p>and the throughput is dropped right off.</p>
+<p>And in fact what we’re starting to see<br>is the monitoring of the thing</p>
+<p>is starting to become unpredictable. And<br>even in fact the CPU has dropped off</p>
+<p>because this machine has now actually rendered itself completely unstable.</p>
+<p>And at this point in time, we’ve<br>actually</p>
+<p>simulated a failure in the system.</p>
+<p>And then sometimes it starts to recover and it’s erratically</p>
+<p>you can see the trajectory sometimes<br>bounce-back, but</p>
+<p>effectively what we’ve done is hang<br>the system.</p>
+<p>And trying to use a keyboard and things like this</p>
+<p>becomes impossible. So getting debugging<br>information on such a system</p>
+<p>into this state becomes next to<br>impossible.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

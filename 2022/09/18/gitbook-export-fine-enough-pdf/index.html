@@ -1,0 +1,683 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitBook 本地使用排雷，及导出基本可用的 PDF 版本 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,GitBook, PDF, graceful-fs, ebook-convert"> 
+    <meta name="description" content="GitBook 简介GitBook 是一个现代的文档平台，提供了基于 Markdown 等方式的在线协作编辑文档方式，并可以方便的通过浏览器阅读文档内容。
+有大量的公司、开源项目等，都在使用，如 G,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">GitBook 本地使用排雷，及导出基本可用的 PDF 版本</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/gitbook-export-fine-enough-pdf/cover.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                九月 18, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/09/18/gitbook-export-fine-enough-pdf/" title="GitBook 本地使用排雷，及导出基本可用的 PDF 版本" class="">GitBook 本地使用排雷，及导出基本可用的 PDF 版本</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    16k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    14 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitBook/" rel="tag">GitBook</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="GitBook-简介"><a href="#GitBook-简介" class="headerlink" title="GitBook 简介"></a>GitBook 简介</h2><p><a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook</a> 是一个现代的文档平台，提供了基于 Markdown 等方式的在线协作编辑文档方式，并可以方便的通过浏览器阅读文档内容。</p>
+<p>有大量的公司、开源项目等，都在使用，如 <a href="https://docs.gitbook.com/" target="_blank" rel="noopener">GitBook 自己的文档</a>、<a href="https://docs.fluentbit.io/manual/" target="_blank" rel="noopener">Fluent Bit</a> 等。</p>
+<p>GitBook 团队曾经还提供过一个离线的命令行工具和 Node.js 类库 - <a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">gitbook</a>，用来在本地离线环境使用 Markdown 或 AsciiDoc 构建一个电子书，遗憾的是目前这个项目已经被弃用了。</p>
+<p>虽然 GitbookIO 的这个 <code>gitbook</code> 工具已经不再维护了，但其仍是目前通过 Markdown 编写可导出的电子书的比较好的工具，且简单易用。</p>
+<p>本文针对使用 <code>gitbook</code> 工具编写、发布 HTML 版本和导出成 PDF 版本所遇到的一些问题进行总结，并给出解决方案，使我们可以利用 <code>gitbook</code> 获得一个还算够好的 PDF 版本电子书。</p>
+<h2 id="本地使用-gitbook"><a href="#本地使用-gitbook" class="headerlink" title="本地使用 gitbook"></a>本地使用 gitbook</h2><p>本地使用 GitBook 需要 Node.js 运行环境，可全局安装命令行工具：</p>
+<pre><code class="bash">$ npm install gitbook-cli -g</code></pre>
+<p><code>gitbook-cli</code> 是一个安装和使用多个版本 <code>GitBook</code>（Node.js 类库）的工具，会自动安装所需要的 <code>GitBook</code> 版本。可通过如下命令查看 <code>CLI</code> 版本及自动安装 <code>GitBook</code> 最后发布版，一切顺利的话会看到：</p>
+<pre><code class="bash">$ gitbook --version
+CLI version: 2.3.2
+Installing GitBook 3.2.3
+...
+GitBook version: 3.2.3</code></pre>
+<blockquote>
+<p>如果不顺利，可以查看下面的 <code>问题1</code> ，及解决方案。</p>
+</blockquote>
+<p>常用命令：</p>
+<pre><code class="bash"># 初始化一个模板
+$ gitbook init
+# 本地启动一个 HTTP 服务进行预览
+$ gitbook serve
+# 编译静态网站，可将生成的 _book 路径中内容发布到 HTTP 服务中
+$ gitbook build</code></pre>
+<p>如果不想全局安装，也可以仅安装至当前路径，并按如下方式使用：</p>
+<pre><code class="bash">$ npm i gitbook-cli
+$ node node_modules/gitbook-cli/bin/gitbook.js fetch 3.2.3
+$ node node_modules/gitbook-cli/bin/gitbook.js --version
+CLI version: 2.3.2
+GitBook version: 3.2.3</code></pre>
+<h3 id="问题1：gitbook-cli-报错"><a href="#问题1：gitbook-cli-报错" class="headerlink" title="问题1：gitbook-cli 报错"></a>问题1：gitbook-cli 报错</h3><p>在使用 <code>gitbook-cli</code> 时，可能会遇到如下问题：</p>
+<pre><code class="bash">$ gitbook --version
+CLI version: 2.3.2
+Installing GitBook 3.2.3
+/Users/alphahinex/.nvm/versions/node/v12.22.12/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287
+      if (cb) cb.apply(this, arguments)
+                 ^
+
+TypeError: cb.apply is not a function
+    at /Users/alphahinex/.nvm/versions/node/v12.22.12/lib/node_modules/gitbook-cli/node_modules/npm/node_modules/graceful-fs/polyfills.js:287:18
+    at FSReqCallback.oncomplete (fs.js:169:5)</code></pre>
+<p>原因是依赖的 <code>graceful-fs</code> 版本有问题，可按照 <a href="https://github.com/GitbookIO/gitbook-cli/issues/110#issuecomment-863706455" target="_blank" rel="noopener">Gitbook build stopped to work in node 12.18.3 #110</a> 中提供的方式，修改 <code>gitbook-cli</code> 所依赖的 <code>graceful-fs</code> 版本解决。</p>
+<p>全局安装的 <code>CLI</code> 安装在 npm 配置的全局安装路径，如 <code>~/.nvm/versions/node/v12.22.12/lib/node_modules/gitbook-cli</code>。</p>
+<pre><code class="bash">$ cd ~/.nvm/versions/node/v12.22.12/lib/node_modules/gitbook-cli
+$ npm i graceful-fs@4.1.4 --save
+$ cd ~/.nvm/versions/node/v12.22.12/lib/node_modules/gitbook-cli/node_modules/npm
+$ npm i graceful-fs@4.1.4 --save</code></pre>
+<blockquote>
+<p>注意：有两处版本需要修改：</p>
+<ol>
+<li><code>gitbook-cli</code> 自身依赖的 <code>graceful-fs</code> </li>
+<li><code>gitbook-cli</code> 依赖的 <code>npm</code> 中依赖的 <code>graceful-fs</code></li>
+</ol>
+</blockquote>
+<p>除上面方法外，也可以直接将报错位置代码注掉，或降低 gitbook-cli 版本解决此问题：</p>
+<pre><code class="bash">$ npm install -g gitbook-cli@2.2.0
+$ gitbook fetch 3.2.3</code></pre>
+<h3 id="问题2：如何解除对-README-md-文件的依赖"><a href="#问题2：如何解除对-README-md-文件的依赖" class="headerlink" title="问题2：如何解除对 README.md 文件的依赖"></a>问题2：如何解除对 README.md 文件的依赖</h3><p>使用 <code>gitbook init</code> 生成模板工程后，会自动生成 <code>SUMMARY.md</code> 和 <code>README.md</code> 两个文件。<code>SUMMARY.md</code> 中内容为 GitBook 的目录，<code>README.md</code> 会被初始化为 <code>Introduction</code> 章节。这两个文件默认是必须存在的，即使在 <code>SUMMARY.md</code> 中去掉对 <code>README.md</code> 文件的依赖，使用 <code>gitbook serve</code> 等命令时也会提示找不到 <code>README.md</code> 文件。</p>
+<p>可以按照官方文档中关于配置文件的说明，在项目根路径放置一个 <code>book.json</code> 文件，通过 <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/config.md#structure" target="_blank" rel="noopener">structure.*</a> 参数调整默认文件，以解除对 <code>README.md</code> 文件的依赖。</p>
+<table>
+<thead>
+<tr>
+<th align="left">Variable</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">structure.readme</td>
+<td align="left">Readme file name (defaults to README.md)</td>
+</tr>
+<tr>
+<td align="left">structure.summary</td>
+<td align="left">Summary file name (defaults to SUMMARY.md)</td>
+</tr>
+<tr>
+<td align="left">structure.glossary</td>
+<td align="left">Glossary file name (defaults to GLOSSARY.md)</td>
+</tr>
+<tr>
+<td align="left">structure.languages</td>
+<td align="left">Languages file name (defaults to LANGS.md)</td>
+</tr>
+</tbody></table>
+<p><code>book.json</code> 示例：</p>
+<pre><code class="json">{
+  &quot;structure&quot;: {
+    &quot;readme&quot;: &quot;rdm.md&quot;
+  }
+}</code></pre>
+<h3 id="问题3：如何自动生成-SUMMARY-md-的内容"><a href="#问题3：如何自动生成-SUMMARY-md-的内容" class="headerlink" title="问题3：如何自动生成 SUMMARY.md 的内容"></a>问题3：如何自动生成 SUMMARY.md 的内容</h3><p>目录内容及层级较多时，可通过一些工具自动生成 <code>SUMMARY.md</code> 文件，如 <a href="https://github.com/imfly/gitbook-summary" target="_blank" rel="noopener">gitbook-summary</a>：</p>
+<pre><code class="bash">$ npm install -g gitbook-summary
+$ book sm</code></pre>
+<h3 id="问题4：如何添加插件"><a href="#问题4：如何添加插件" class="headerlink" title="问题4：如何添加插件"></a>问题4：如何添加插件</h3><p>GitBook 可通过插件对功能进行扩展，如添加页面内导航、目录折叠等。</p>
+<p>不过由于项目的弃用，如今已无法方便的搜索可用插件了。</p>
+<p>可利用搜索引擎，搜索介绍 GitBook 插件的文章，实现曲线救国，如 <a href="https://www.jianshu.com/p/09bf890ec8f6" target="_blank" rel="noopener">Gitbook常用插件合集</a>、<a href="http://www.zhaowenyu.com/gitbook-doc/plugins/" target="_blank" rel="noopener">Gitbook 插件</a> 等。</p>
+<p>设置插件时，同样是在 <code>book.json</code> 中配置，如：</p>
+<pre><code class="json">{
+    &quot;plugins&quot;: [
+        &quot;-lunr&quot;,
+        &quot;-search&quot;,
+        &quot;search-pro&quot;
+    ]
+}</code></pre>
+<p>在添加插件后，需通过 <code>gitbook install</code> 命令将插件安装（下载）至本地。</p>
+<blockquote>
+<p>注意：有些插件（如页面内导航等）会影响导出成 PDF 时生成的目录，建议在导出 PDF 文件时，尽量减少不必要的插件。</p>
+</blockquote>
+<h3 id="问题5：gitbook-build-报缺少插件中的文件"><a href="#问题5：gitbook-build-报缺少插件中的文件" class="headerlink" title="问题5：gitbook build 报缺少插件中的文件"></a>问题5：gitbook build 报缺少插件中的文件</h3><p>在 CI/CD 环境执行 <code>gitbook build</code> 时，即使已通过 <code>gitbook install</code> 完成了插件的安装，也会有较大概率出现随机缺少插件中的某个文件的报错（报错信息如下），导致构建失败。</p>
+<pre><code class="text">Error: ENOENT: no such file or directory, stat &#39;/opt/buildagent/work/173f165a668e1392/_book/gitbook/gitbook-plugin-code/plugin.css&#39;</code></pre>
+<p>遇到这个问题，需要修改 <code>GitBook</code> 中的 <code>copyPluginAssets.js</code> 文件中的内容。</p>
+<p><code>GitBook</code> 被安装在 <code>~/.gitbook/versions/</code> 路径的版本号文件夹下，如：<code>~/.gitbook/versions/3.2.3</code> 。</p>
+<p><code>copyPluginAssets.js</code> 文件的路径则为 <code>~/.gitbook/versions/3.2.3/lib/output/website/copyPluginAssets.js</code>，需将此文件中的 <code>confirm: true</code> 替换为 <code>confirm: false</code>：</p>
+<pre><code class="bash"># linux
+$ sed -i &quot;s#confirm: true#confirm: false#g&quot; copyPluginAssets.js
+# macOS
+$ sed -i &#39;&#39; &#39;s/confirm: true/confirm false/g&#39; copyPluginAssets.js</code></pre>
+<h2 id="GitBook-导出-PDF"><a href="#GitBook-导出-PDF" class="headerlink" title="GitBook 导出 PDF"></a>GitBook 导出 PDF</h2><p>之所以在 <code>gitbook</code> 项目被弃用了之后依然使用其编写文档，主要看重的是 GitBook 能够导出成电子书的能力。</p>
+<p>GitBook 导出电子书，需要安装 <a href="https://calibre-ebook.com/download" target="_blank" rel="noopener">Calibre 应用</a> ，并使命令行中可以使用 <code>ebook-convert</code> 工具。</p>
+<p>Mac 上将 <code>calibre.app</code> 移至应用文件夹后，还需参照 <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/ebook.md#installing-ebook-convert" target="_blank" rel="noopener">官方文档</a> 或如下内容，创建一个软链接，以便可以在终端中直接使用 <code>ebook-convert</code>：</p>
+<pre><code class="bash">$ ln -s /Applications/calibre.app/Contents/MacOS/ebook-convert /usr/local/bin/ebook-convert
+$ ebook-convert --version
+ebook-convert (calibre 6.3.0)
+Created by: Kovid Goyal &lt;kovid@kovidgoyal.net&gt;</code></pre>
+<p>Windows 上安装最新版 <code>Calibre</code> 后，可直接使用 <code>ebook-convert</code>，如果不行，可以在安装路径找到 <code>ebook-convert.exe</code>，并将其路径配置到环境变量的 <code>Path</code> 中。</p>
+<p><code>ebook-convert</code> 可用后，即可使用如下命令，将使用 GitBook 编写的文档，输出成 PDF 格式了：</p>
+<pre><code class="bash">$ gitbook pdf</code></pre>
+<p>一切看上去都很美，然而打开生成的 PDF 文件之后，会发现理想和现实还是有差距的。</p>
+<p>以 <a href="https://github.com/weiliang-ms/wl-awesome" target="_blank" rel="noopener">wl-awesome</a> 仓库中的 GitBook 为例，直接按上述方式生成的 PDF 电子书，打开后会发现存在不少问题：</p>
+<p><img src="/contents/gitbook-export-fine-enough-pdf/before.png" alt=""></p>
+<ul>
+<li>所有页的页眉都是第一个章节的名称</li>
+<li>点击目录书签只能跳转到文档中的目录页</li>
+<li>点击文档中的目录页则是打开浏览器跳转到一个无法访问的链接</li>
+<li>页边距过大，显得每页内容过少</li>
+<li>以电子书的角度来看，缺少封面</li>
+<li>生成的 PDF 文件名为 <code>book.pdf</code></li>
+<li>字体过小</li>
+<li>……</li>
+</ul>
+<p>这些问题，使得生成的 PDF 文件距离一本基本令人满意的电子书还有一定的距离。接下来让我们看看如何解决或缓解这些问题。</p>
+<h3 id="问题1：页眉问题"><a href="#问题1：页眉问题" class="headerlink" title="问题1：页眉问题"></a>问题1：页眉问题</h3><p>在 GitBook 的 <a href="https://github.com/GitbookIO/gitbook/tree/master/docs" target="_blank" rel="noopener">文档</a> 中，并未找到设置页眉相关的参数。但从依赖关系我们可以知道生成 PDF 使用的是 <code>ebook-convert</code>。</p>
+<p>通过查看 <code>gitbook</code> 的源码，在 <code>~/.gitbook/versions/3.2.3/lib/output/ebook/onFinish.js</code> 的 <code>runEbookConvert</code> 方法中，可以看到使用 <code>ebook-convert</code> 转换成 PDF 时所执行的命令：</p>
+<pre><code class="js">var cmd = [
+    &#39;ebook-convert&#39;,
+    path.resolve(outputFolder, SUMMARY_FILE),
+    path.resolve(outputFolder, &#39;index.&#39; + format),
+    command.optionsToShellArgs(options)
+].join(&#39; &#39;);
+
+return command.exec(cmd)</code></pre>
+<p>其中的 <code>options</code> 是传给 <code>ebook-convert</code> 的参数。完整的可用参数列表，可以在 <code>ebook-convert</code> 的 <a href="https://manual.calibre-ebook.com/generated/en/ebook-convert.html" target="_blank" rel="noopener">使用手册</a> 中查阅。</p>
+<p>继续查看源码，在 <a href="https://github.com/GitbookIO/gitbook/blob/master/lib/output/ebook/getConvertOptions.js" target="_blank" rel="noopener">lib/output/ebook/getConvertOptions.js</a> 中可以找到生成 PDF 文件所使用的参数。</p>
+<p>经过试验，去掉如下四行代码的内容，即可使页眉正常显示所属章节的标题：</p>
+<pre><code class="js">// &#39;--chapter&#39;:                    &#39;descendant-or-self::*[contains(concat(\&#39; \&#39;, normalize-space(@class), \&#39; \&#39;), \&#39; book-chapter \&#39;)]&#39;,
+// &#39;--level1-toc&#39;:                 &#39;descendant-or-self::*[contains(concat(\&#39; \&#39;, normalize-space(@class), \&#39; \&#39;), \&#39; book-chapter-1 \&#39;)]&#39;,
+// &#39;--level2-toc&#39;:                 &#39;descendant-or-self::*[contains(concat(\&#39; \&#39;, normalize-space(@class), \&#39; \&#39;), \&#39; book-chapter-2 \&#39;)]&#39;,
+// &#39;--level3-toc&#39;:                 &#39;descendant-or-self::*[contains(concat(\&#39; \&#39;, normalize-space(@class), \&#39; \&#39;), \&#39; book-chapter-3 \&#39;)]&#39;,</code></pre>
+<h3 id="问题2：目录书签跳转问题"><a href="#问题2：目录书签跳转问题" class="headerlink" title="问题2：目录书签跳转问题"></a>问题2：目录书签跳转问题</h3><p>在按照 <code>问题1</code> 的解决方式，去掉四个参数后，生成的 PDF 文件目录书签也发生了变化，从折叠的层级关系变成了平铺的，但点击书签跳转到对应页面的功能可以正常使用了，牺牲了一点美观性，换来了实用性，也还勉强可以接受。</p>
+<h3 id="问题3：目录跳转问题"><a href="#问题3：目录跳转问题" class="headerlink" title="问题3：目录跳转问题"></a>问题3：目录跳转问题</h3><p>点击 PDF 内目录页中链接，跳转到的地址（如：<a href="https://calibre-pdf-anchor.n/%2309Guan%20Bi%20Tu%20Xing%20Hua.html" target="_blank" rel="noopener">https://calibre-pdf-anchor.n/%2309Guan%20Bi%20Tu%20Xing%20Hua.html</a> ）转义后可以发现，跳转地址是由 <code>https://calibre-pdf-anchor.n/</code> +  <code>#09Guan Bi Tu Xing Hua.html</code> 两部分组成的。其中第二部分 <code>#</code> 后的内容，正是我们在 <code>SUMMARY.md</code> 关联的 Markdown 文件名（转换为了 <code>html</code> 格式）。</p>
+<p>而关联的 Markdown 文件名如果是英文的，则可以在 PDF 中正常跳转，如 <code>1.8网络</code> 下的 <code>03-wireshark</code> 章节。</p>
+<p>故要解决目录跳转问题，在 <code>SUMMARY.md</code> 中关联的 Markdown 文件，文件名中不能有中文（路径中可以有中文）。</p>
+<h3 id="问题4：边距太大"><a href="#问题4：边距太大" class="headerlink" title="问题4：边距太大"></a>问题4：边距太大</h3><p>关于 PDF 文件的边距，在 <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/config.md#pdf-options" target="_blank" rel="noopener">PDF Options</a> 文档中有说明，即可以通过在 <code>book.json</code> 添加配置进行调整。</p>
+<p>然而即使将边距都设置为 <code>0</code>，依然会感觉页边距有点大。</p>
+<pre><code class="json">&quot;pdf&quot;: {
+  &quot;margin&quot;: {
+    &quot;left&quot;: 0,
+    &quot;right&quot;: 0,
+    &quot;top&quot;: 0,
+    &quot;bottom&quot;: 0
+  }
+}</code></pre>
+<p>此时可以继续修改 <code>getConvertOptions.js</code> 文件，在 <code>getConvertOptions</code> 方法最后返回的 <code>options</code> 对象使用的 <code>extend</code> 方法的第二个参数中，增加 <code>ebook-convert</code> 中所支持的 <code>--pdf-page-margin-*</code> 参数。</p>
+<p>例如，将 <code>--pdf-page-margin-left</code> 和 <code>--pdf-page-margin-right</code> 默认的 <code>72px</code> 调整为 <code>50px</code>：</p>
+<pre><code class="js">return options = extend(options, {
+    &#39;--chapter-mark&#39;:           String(pdfOptions.chapterMark),
+    &#39;--page-breaks-before&#39;:     String(pdfOptions.pageBreaksBefore),
+    &#39;--margin-left&#39;:            String(pdfOptions.margin.left),
+    &#39;--margin-right&#39;:           String(pdfOptions.margin.right),
+    &#39;--margin-top&#39;:             String(pdfOptions.margin.top),
+    &#39;--margin-bottom&#39;:          String(pdfOptions.margin.bottom),
+    &#39;--pdf-default-font-size&#39;:  String(pdfOptions.fontSize),
+    &#39;--pdf-mono-font-size&#39;:     String(pdfOptions.fontSize),
+    &#39;--paper-size&#39;:             String(pdfOptions.paperSize),
+    &#39;--pdf-page-numbers&#39;:       Boolean(pdfOptions.pageNumbers),
+    &#39;--pdf-sans-family&#39;:        String(pdfOptions.fontFamily),
+    &#39;--pdf-header-template&#39;:    headerTpl,
+    &#39;--pdf-footer-template&#39;:    footerTpl,
+    &#39;--pdf-page-margin-left&#39;:   &#39;50&#39;,
+    &#39;--pdf-page-margin-right&#39;:  &#39;50&#39;,
+});</code></pre>
+<h3 id="问题5：如何添加封面"><a href="#问题5：如何添加封面" class="headerlink" title="问题5：如何添加封面"></a>问题5：如何添加封面</h3><p>为电子书添加封面，只需按照 <a href="https://github.com/GitbookIO/gitbook/blob/master/docs/ebook.md#cover" target="_blank" rel="noopener">Cover</a> 中说明，在根路径放置一个符合要求的 <code>cover.jpg</code> 图片即可。</p>
+<h3 id="问题6：指定-PDF-文件名"><a href="#问题6：指定-PDF-文件名" class="headerlink" title="问题6：指定 PDF 文件名"></a>问题6：指定 PDF 文件名</h3><p>在导出 PDF 命令中，可以指定生成 PDF 的文件名，如：</p>
+<pre><code class="bash">$ gitbook pdf . 文档集.pdf</code></pre>
+<h3 id="问题7：如何调整字体大小"><a href="#问题7：如何调整字体大小" class="headerlink" title="问题7：如何调整字体大小"></a>问题7：如何调整字体大小</h3><p><code>book.json</code> 中可设定字体大小（默认为 <code>12</code>）：</p>
+<pre><code class="json">  &quot;pdf&quot;: {
+    &quot;fontSize&quot;: 15
+  }</code></pre>
+<h3 id="问题8：目录（平铺）内容较多时，有不完整的情况"><a href="#问题8：目录（平铺）内容较多时，有不完整的情况" class="headerlink" title="问题8：目录（平铺）内容较多时，有不完整的情况"></a>问题8：目录（平铺）内容较多时，有不完整的情况</h3><p>当按 <code>问题1</code> 的方式去掉了识别目录层级的 XPath 表达式后，目录书签不再按照层级的方式展现，而是平铺了出来。此时如果目录内容较多，会出现仅有部分目录显示在书签里的情况。</p>
+<p>原因是 <code>ebook-convert</code> 的 <a href="https://manual.calibre-ebook.com/generated/en/ebook-convert.html#cmdoption-ebook-convert-max-toc-links" target="_blank" rel="noopener">–max-toc-links</a> 参数默认值是 <code>50</code>，意为最多只插入 50 个链接至目录书签中。</p>
+<p>同样可以修改 <code>getConvertOptions.js</code> 文件，在 <code>options</code> 中加入</p>
+<pre><code class="js">&#39;--max-toc-links&#39;:              &#39;0&#39;</code></pre>
+<p>以禁用最大数量的限制。</p>
+<h3 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h3><p><img src="/contents/gitbook-export-fine-enough-pdf/after.png" alt=""></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GitBook-简介"><span class="toc-number">1.</span> <span class="toc-text">GitBook 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本地使用-gitbook"><span class="toc-number">2.</span> <span class="toc-text">本地使用 gitbook</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题1：gitbook-cli-报错"><span class="toc-number">2.1.</span> <span class="toc-text">问题1：gitbook-cli 报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题2：如何解除对-README-md-文件的依赖"><span class="toc-number">2.2.</span> <span class="toc-text">问题2：如何解除对 README.md 文件的依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题3：如何自动生成-SUMMARY-md-的内容"><span class="toc-number">2.3.</span> <span class="toc-text">问题3：如何自动生成 SUMMARY.md 的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题4：如何添加插件"><span class="toc-number">2.4.</span> <span class="toc-text">问题4：如何添加插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题5：gitbook-build-报缺少插件中的文件"><span class="toc-number">2.5.</span> <span class="toc-text">问题5：gitbook build 报缺少插件中的文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GitBook-导出-PDF"><span class="toc-number">3.</span> <span class="toc-text">GitBook 导出 PDF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#问题1：页眉问题"><span class="toc-number">3.1.</span> <span class="toc-text">问题1：页眉问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题2：目录书签跳转问题"><span class="toc-number">3.2.</span> <span class="toc-text">问题2：目录书签跳转问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题3：目录跳转问题"><span class="toc-number">3.3.</span> <span class="toc-text">问题3：目录跳转问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题4：边距太大"><span class="toc-number">3.4.</span> <span class="toc-text">问题4：边距太大</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题5：如何添加封面"><span class="toc-number">3.5.</span> <span class="toc-text">问题5：如何添加封面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题6：指定-PDF-文件名"><span class="toc-number">3.6.</span> <span class="toc-text">问题6：指定 PDF 文件名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题7：如何调整字体大小"><span class="toc-number">3.7.</span> <span class="toc-text">问题7：如何调整字体大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题8：目录（平铺）内容较多时，有不完整的情况"><span class="toc-number">3.8.</span> <span class="toc-text">问题8：目录（平铺）内容较多时，有不完整的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终效果"><span class="toc-number">3.9.</span> <span class="toc-text">最终效果</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】使用Finalizers控制k8s资源删除 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Terminating, finalizers, ownerReferences"> 
+    <meta name="description" content="原文地址：https://www.jianshu.com/p/c46f449d5bf2
+
+文章引用
+
+
+using-finalizers-to-control-deletion
+
+你有没有在使用k8,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】使用Finalizers控制k8s资源删除</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/using-finalizers-to-control-deletion/state-diagram-finalize.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                十月 10, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/10/10/using-finalizers-to-control-deletion/" title="【转】使用Finalizers控制k8s资源删除" class="">【转】使用Finalizers控制k8s资源删除</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://www.jianshu.com/p/c46f449d5bf2" target="_blank" rel="noopener">https://www.jianshu.com/p/c46f449d5bf2</a></p>
+<blockquote>
+<p>文章引用</p>
+</blockquote>
+<ul>
+<li><a href="https://kubernetes.io/blog/2021/05/14/using-finalizers-to-control-deletion/" target="_blank" rel="noopener">using-finalizers-to-control-deletion</a></li>
+</ul>
+<p>你有没有在使用<code>k8s</code>过程中遇到过这种情况: 通过<code>kubectl delete</code>指令删除一些资源时，一直处于<code>Terminating</code>状态。<br>这是为什么呢？</p>
+<p>本文将介绍当你执行<code>kubectl delete</code>语句时，<code>K8s</code>内部都执行了哪些操作。<br>以及为何有些资源’删除不掉’(具体表现为一直<code>Terminating</code>，删除<code>namespace</code>时很容易遇到这种情况)</p>
+<p>接下来，我们聚焦讨论以下四个方面:</p>
+<ol>
+<li>资源的哪些属性会对删除操作产生影响？</li>
+<li><code>finalizers</code>与<code>owner references</code>属性是如何影响删除操作的？</li>
+<li>如何利用<code>Propagation Policy</code>（分发策略）更改删除顺序？</li>
+<li>删除操作的工作原理？</li>
+</ol>
+<p>方便起见，以下所有示例都将使用<code>ConfigMaps</code>和基本<code>shell</code>命令来演示该过程</p>
+<h2 id="词汇表"><a href="#词汇表" class="headerlink" title="词汇表"></a>词汇表</h2><ul>
+<li>资源: <code>k8s</code>的资源对象（如<code>configmap</code>, <code>secret</code>, <code>pod</code>…）</li>
+<li><code>finalizers</code>: 终结器，存放键的列表。列表内的键为空时资源才可被删除</li>
+<li><code>owner references</code>: 所有者引用（归谁管理/父资源对象是谁）</li>
+<li><code>kubectl</code>: <code>K8s</code>客户端工具</li>
+</ul>
+<h2 id="基本删除操作"><a href="#基本删除操作" class="headerlink" title="基本删除操作"></a>基本删除操作</h2><p><code>Kubernetes</code>提供了几个不同的命令，您可以使用它们来创建、读取、更新和删除对象。<br>出于本文的目的，我们将重点讨论四个<code>kubectl</code>命令:<code>create</code>、<code>get</code>、<code>patch</code>和<code>delete</code>.</p>
+<blockquote>
+<p>下面是<code>kubectl delete</code>命令的基本示例</p>
+</blockquote>
+<ul>
+<li>创建名为<code>mymap</code>的<code>configmap</code>对象</li>
+</ul>
+<pre><code class="shell">$ kubectl create configmap mymap
+configmap/mymap created</code></pre>
+<ul>
+<li>查看名为<code>mymap</code>的<code>configmap</code>对象</li>
+</ul>
+<pre><code class="shell">$ kubectl get configmap/mymap
+NAME    DATA   AGE
+mymap   0      12s</code></pre>
+<ul>
+<li>删除名为<code>mymap</code>的<code>configmap</code>对象</li>
+</ul>
+<pre><code class="shell">$ kubectl delete configmap/mymap
+configmap &quot;mymap&quot; deleted</code></pre>
+<ul>
+<li>查看名为<code>mymap</code>的<code>configmap</code>对象</li>
+</ul>
+<pre><code class="shell">$ kubectl get configmap/mymap
+Error from server (NotFound): configmaps &quot;mymap&quot; not found</code></pre>
+<p>基本<code>delete</code>命令的删除操作状态图非常简单:</p>
+<p><img src="/contents/using-finalizers-to-control-deletion/state-diagram-delete.png" alt="state diagram delete"></p>
+<p>删除操作看似简单，但是有很多因素可能会干扰删除，包括<code>finalizers</code>与<code>owner references</code>属性</p>
+<h2 id="Finalizers是什么？"><a href="#Finalizers是什么？" class="headerlink" title="Finalizers是什么？"></a>Finalizers是什么？</h2><p>上面我们提到了两个属性：<code>finalizers</code>与<code>owner references</code>可能会干扰删除操作，导致删除阻塞或失败。<br>那<code>Finalizers</code>是什么？会对删除有何影响呢？</p>
+<p>当要理解<code>Kubernetes</code>中的资源删除原理时，了解<code>finalizers</code>（以下我们称<code>finalizers</code>为终结器）的工作原理是很有帮助的，<br>可以帮助您理解为什么有些对象无法被删除。</p>
+<p>终结器是资源发出预删除操作信号的属性，<br>控制着资源的垃圾收集，并用于提示控制器在删除资源之前执行哪些清理操作。</p>
+<p><code>finalizers</code>本质是包含键的列表，不具有实际意义。与<code>annotations</code>（注释）类似，<code>finalizers</code>是可以被操作的（增删改）。</p>
+<p>以下终结器您可能遇到过：</p>
+<ul>
+<li><code>kubernetes.io/pv-protection</code></li>
+<li><code>kubernetes.io/pvc-protection</code></li>
+</ul>
+<p>这两个终结器作用于卷，以防止卷被意外删除。</p>
+<blockquote>
+<p>类似地，一些终结器可用于防止资源被删除，但不由任何控制器管理。<br>下面是一个自定义的<code>configmap</code>，它没有具体值，但包含一个终结器:</p>
+</blockquote>
+<pre><code class="shell">$ cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mymap
+  finalizers:
+  - kubernetes
+EOF</code></pre>
+<p>终结器通常用于名称空间(<code>namespace</code>)，而管理<code>configmap</code>资源的控制器不知道该如何处理<code>finalizers</code>字段。<br>下面我们尝试删除这个<code>configmap</code>对象:</p>
+<pre><code class="shell">$ kubectl delete configmap/mymap &amp;
+configmap &quot;mymap&quot; deleted
+$ jobs
+[1]+  Running kubectl delete configmap/mymap</code></pre>
+<p><code>Kubernetes</code>返回该对象已被删除，然而它并没有真正意义上被删除，而是在删除的过程中。<br>当我们试图再次获取该对象时，我们发现该对象多了个<code>deletionTimestamp</code>(删除时间戳)字段。</p>
+<pre><code class="shell">$ kubectl get cm mymap -o yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: &quot;2021-09-29T11:04:40Z&quot;
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: &quot;2021-09-29T11:04:55Z&quot;
+  finalizers:
+  - kubernetes
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:finalizers:
+          .: {}
+          v:&quot;kubernetes&quot;: {}
+    manager: kubectl
+    operation: Update
+    time: &quot;2021-09-29T11:04:40Z&quot;
+  name: mymap
+  namespace: default
+  resourceVersion: &quot;1378430&quot;
+  selfLink: /api/v1/namespaces/default/configmaps/mymap
+  uid: 8d6ca0b1-4840-4597-8164-a63b526dbf5f</code></pre>
+<blockquote>
+<p>简而言之，当我们删除带有<code>finalizers</code>字段的对象时，该对象仅仅是被更新了，而不是被删除了。<br>这是因为<code>Kubernetes</code>获取到该对象包含终结器，通过添加<code>deletionTimestamp</code>（删除时间戳）字段将其置于只读状态（删除终结器键更新除外）。<br>换句话说，在删除该对象终结器之前，删除都不会完成。</p>
+</blockquote>
+<p>接下来我们尝试通过<code>patch</code>命令删除终结器，并观察<code>configmap/mymap</code>是否会被’真正’删除。</p>
+<pre><code class="shell">$ kubectl patch configmap/mymap \
+    --type json \
+    --patch=&#39;[ { &quot;op&quot;: &quot;remove&quot;, &quot;path&quot;: &quot;/metadata/finalizers&quot; } ]&#39;
+configmap/mymap patched</code></pre>
+<p>再次检索该对象</p>
+<pre><code class="shell">$ kubectl get cm mymap
+Error from server (NotFound): configmaps &quot;mymap&quot; not found</code></pre>
+<p>发现该对象已被<code>真正删除</code>，下图描述了带有<code>finalizers</code>字段的对象删除流程：</p>
+<p><img src="/contents/using-finalizers-to-control-deletion/state-diagram-finalize.png" alt="state diagram finalize"></p>
+<blockquote>
+<p>总结：当您试图删除一个带有终结器的对象，它将一直处于预删除只读状态，<br>直到控制器删除了终结器键或使用<code>Kubectl</code>删除了终结器。一旦终结器列表为空，<code>Kubernetes</code>就可以回收该对象，并将其放入要从注册表中删除的队列中</p>
+</blockquote>
+<p>带有<code>finalizers</code>字段的对象无法删除的原因大致如下：</p>
+<ul>
+<li>对象存在<code>finalizers</code>，关联的控制器故障未能执行或执行<code>finalizer</code>函数<code>hang</code>住: 比如<code>namespace</code>控制器无法删除完空间内所有的对象，<br>特别是在使用<code>aggregated apiserver</code>时，第三方<code>apiserver</code>服务故障导致无法删除其对象。<br>此时，需要会恢复第三方<code>apiserver</code>服务或移除该<code>apiserver</code>的聚合，具体选择哪种方案需根据实际情况而定。</li>
+<li>集群内安装的控制器给一些对象增加了自定义<code>finalizers</code>，未删除完<code>fianlizers</code>就下线了该控制器，导致这些<code>fianlizers</code>没有控制器来移除他们。<br>此时，需要恢复该控制器会手动移除<code>finalizers</code>(多出现于自定义<code>operator</code>)，具体选择哪种方案根据实际情况而定。</li>
+</ul>
+<h2 id="Owner-References又是什么？"><a href="#Owner-References又是什么？" class="headerlink" title="Owner References又是什么？"></a>Owner References又是什么？</h2><p>上面我们提到了两个属性：<code>finalizers</code>与<code>owner references</code>可能会干扰删除操作，导致删除阻塞或失败。<br>并介绍了<code>Finalizers</code>，接下来我们聊聊<code>Owner References</code>.</p>
+<p><code>Owner References</code>（所有者引用或所有者归属）描述了对象组之间的关系。<br>指定了资源彼此关联的属性，因此可以级联删除整个资源树。</p>
+<blockquote>
+<p>当存在所有者引用时，将处理终结器规则。所有者引用由名称和<code>UID</code>组成</p>
+</blockquote>
+<p>所有者引用相同名称空间内的链接资源，它还需要<code>UID</code>以使该引用生效(确保唯一)。<br><code>Pods</code>通常具有对所属副本集的所有者引用。 因此，当<code>Deloyment</code>或有<code>StatefulSet</code>被删除时，子<code>ReplicaSet</code>和<code>Pod</code>将在流程中被删除。</p>
+<p>我们通过下面的例子，来理解<code>Owner References</code>（所有者引用）的工作原理：</p>
+<ol>
+<li>创建<code>cm/mymap-parent</code>对象<pre><code class="shell">$ cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+name: mymap-parent
+EOF</code></pre>
+</li>
+<li>获取<code>cm/mymap-parent</code>的<code>UID</code><pre><code class="shell">CM_UID=$(kubectl get configmap mymap-parent -o jsonpath=&quot;{.metadata.uid}&quot;)</code></pre>
+</li>
+<li>创建<code>cm/mymap-child</code>对象，并设置<code>ownerReferences</code>字段声明所有者引用（通过<code>kind</code>、<code>name</code>、<code>uid</code>字段确保选择器可以匹配到）<pre><code class="shell">cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+name: mymap-child
+ownerReferences:
+- apiVersion: v1
+ kind: ConfigMap
+ name: mymap-parent
+ uid: $CM_UID
+EOF</code></pre>
+</li>
+</ol>
+<p>即<code>cm/mymap-parent</code>为<code>cm/mymap-child</code>的父对象，此时我们删除<code>cm/mymap-parent</code>对象并观察<code>cm/mymap-child</code>对象状态</p>
+<pre><code class="shell">$ kubectl get cm
+NAME           DATA   AGE
+mymap-child    0      2m44s
+mymap-parent   0      3m
+
+$ kubectl delete cm mymap-parent
+configmap &quot;mymap-parent&quot; deleted
+
+$ kubectl get cm
+No resources found in default namespace.</code></pre>
+<p>即我们通过删除父对象，间接删除了父对象下的所有子对象。 这种删除<code>k8s</code>中被称为<code>级联删除</code>。我们可不可以只删除父对象，而不删除子对象呢？</p>
+<blockquote>
+<p>答案是: 可以的，删除时通过添加<code>--cascade=false</code>参数实现，我们通过下面的例子来验证：</p>
+</blockquote>
+<pre><code class="shell">$ cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mymap-parent
+EOF
+
+$ CM_UID=$(kubectl get configmap mymap-parent -o jsonpath=&quot;{.metadata.uid}&quot;)
+
+$ cat &lt;&lt;EOF | kubectl create -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mymap-child
+  ownerReferences:
+  - apiVersion: v1
+    kind: ConfigMap
+    name: mymap-parent
+    uid: $CM_UID
+EOF
+
+$ kubectl delete --cascade=false configmap/mymap-parent
+configmap &quot;mymap-parent&quot; deleted
+
+$ kubectl get cm
+NAME          DATA   AGE
+mymap-child   0      107s</code></pre>
+<blockquote>
+<p><code>--cascade=false</code>参数实际改变了父-子资源的删除顺序，<code>k8s</code>中关于<code>父-子</code>资源删除策略有以下三种：</p>
+</blockquote>
+<ul>
+<li><code>Foreground</code>: 子资源在父资源之前被删除(post-order)</li>
+<li><code>Background</code>: 父资源在子资源之前被删除 (pre-order)</li>
+<li><code>Orphan</code>: 忽略所有者引用进行删除</li>
+</ul>
+<p>下面这段内容比较晦涩，没太理解：</p>
+<p><code>Keep in mind that when you delete an object and owner references have been specified,
+finalizers will be honored in the process. 
+This can result in trees of objects persisting, and you end up with a partial deletion. 
+At that point, you have to look at any existing owner references on your objects,
+as well as any finalizers, to understand what’s happening</code></p>
+<h2 id="强制删除命名空间"><a href="#强制删除命名空间" class="headerlink" title="强制删除命名空间"></a>强制删除命名空间</h2><p>有一种情况可能需要强制删除命名空间：</p>
+<p>如果您已经删除了一个命名空间，并删除了它下面的所有对象，但名称空间仍然存在，一般为<code>Terminating</code>状态。<br>则可以通过更新名称空间的<code>finalize</code>属性来强制删除该名称空间。</p>
+<ul>
+<li>会话1</li>
+</ul>
+<pre><code class="shell">$ kubectl proxy</code></pre>
+<ul>
+<li>会话2</li>
+</ul>
+<pre><code class="shell">$ NAMESPACE_NAME=test
+cat &lt;&lt;EOF | curl -X PUT \
+  127.0.0.1:8001/api/v1/namespaces/$NAMESPACE_NAME/finalize \
+  -H &quot;Content-Type: application/json&quot; \
+  --data-binary @-
+{
+  &quot;kind&quot;: &quot;Namespace&quot;,
+  &quot;apiVersion&quot;: &quot;v1&quot;,
+  &quot;metadata&quot;: {
+    &quot;name&quot;: &quot;$NAMESPACE_NAME&quot;
+  },
+  &quot;spec&quot;: {
+    &quot;finalizers&quot;: null
+  }
+}
+EOF</code></pre>
+<p>我们应该谨慎思考是否强制删除命名空间，因为这样做可能只删除名称空间，命名空间下的其他资源删不完全，最终导致留下孤儿对象。<br>比如资源对象<code>A</code>存在于<code>ddd</code>命名空间，此时若强制删除<code>ddd</code>命名空间, 且对象<code>A</code>又未被删除，那么对象<code>A</code>便成了孤儿对象。</p>
+<p>当出现孤儿对象时，可以手动重新创建名称空间，随后可以手动清理和恢复该对象。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#词汇表"><span class="toc-number">1.</span> <span class="toc-text">词汇表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本删除操作"><span class="toc-number">2.</span> <span class="toc-text">基本删除操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Finalizers是什么？"><span class="toc-number">3.</span> <span class="toc-text">Finalizers是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Owner-References又是什么？"><span class="toc-number">4.</span> <span class="toc-text">Owner References又是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#强制删除命名空间"><span class="toc-number">5.</span> <span class="toc-text">强制删除命名空间</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

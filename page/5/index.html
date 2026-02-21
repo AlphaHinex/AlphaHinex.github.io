@@ -1,0 +1,1020 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/covers/new-features-of-java-versions.jpeg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Java"><b>「
+                </b>JAVA<b> 」</b></a>
+            
+            五月 18, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2025/05/18/new-features-of-java-versions/" title="【转】Java 8 到 Java 24 新特性一览" class="posttitle">【转】Java 8 到 Java 24 新特性一览</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                79k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                1:12
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JDK/" rel="tag">JDK</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p></p>
+<ul>
+<li>版权声明：本文为博主原创文章，遵循 <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。</li>
+<li>本文链接：<a href="https://blog.csdn.net/weixin_53933896/article/details/147856986" target="_blank" rel="noopener">https://blog.csdn.net/weixin_53933896/article...</a></li></ul>
+            
+            <span class="read-more"><a href="/2025/05/18/new-features-of-java-versions/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/new-features-of-java-versions.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            五月 18, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/05/18/new-features-of-java-versions/" title="【转】Java 8 到 Java 24 新特性一览" class="posttitle">【转】Java 8 到 Java 24 新特性一览</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        79k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1:12
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JDK/" rel="tag">JDK</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<ul>
+<li>版权声明：本文为博主原创文章，遵循 <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC 4.0 BY-SA</a> 版权协议，转载请附上原文出处链接和本声明。</li>
+<li>本文链接：<a href="https://blog.csdn.net/weixin_53933896/article/details/147856986" target="_blank" rel="noopener">https://blog.csdn.net/weixin_53933896/article/details/147856986</a></li>
+</ul>
+<ol>
+<li>本文整理了 Java 8 至 Java 24 各版本的新特性，内容包括每个版本的新增功能分类（如语法增强、性能优化、工具支持等）、详细的代码示例，并结合官方文档资料，分析每项特性的应用场景及优缺点。</li>
+<li>Java 8 发布于 2014 年，此后 Java...</li></ol>
+            
+            <span class="read-more"><a href="/2025/05/18/new-features-of-java-versions/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/short-free-llm-api/github.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            五月 11, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/05/11/short-free-llm-api/" title="一些短期免费调用 DeepSeek-V3-0324 等模型 API 的方法" class="posttitle">一些短期免费调用 DeepSeek-V3-0324 等模型 API 的方法</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        17k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        15 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>有哪些可以短期免费调用 DeepSeek-V3-0324 等模型 API 的方法？</p>
+<p><a href="https://huggingface.co/deepseek-ai/DeepSeek-V3-0324?inference_api=true&amp;inference_provider=sambanova&amp;language=sh" target="_blank" rel="noopener">https://huggingface.co/deepseek-ai/DeepSeek-V3-0324?inference_api=true&amp;inference_provider=sambanova&amp;language=sh</a></p>
+<p><a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener">https://huggingface.co/settings/tokens</a></p>
+<pre><code class="bash">curl https://router.huggingface.co/sambanova/v1/chat...</code></pre>
+            
+            <span class="read-more"><a href="/2025/05/11/short-free-llm-api/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/mindie-benchmark/client-text.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            五月 04, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/05/04/mindie-benchmark/" title="昇腾推理引擎性能测试套件 MindIE Benchmark" class="posttitle">昇腾推理引擎性能测试套件 MindIE Benchmark</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        17k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        16 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MindIE/" rel="tag">MindIE</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>MindIE Benchmark 是 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/whatismindie/mindie_what_0001.html" target="_blank" rel="noopener">昇腾推理引擎</a>（MindIE，Mind Inference Engine）中推理服务组件 <code>MindIE Service</code> 组件包含的性能测试套件，提供测试大语言模型在不同配置参数下推理性能和精度的能力。</p>
+<p>详细信息可参见官方文档 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0150.html" target="_blank" rel="noopener">MindIE Benchmark 1.0.0 功能介绍</a>。</p>
+<p>MindIE Benchmark 支持 Client 和 Engine 两种不同的推理模式：</p>
+<ol>
+<li>Client 模式调用 MindIE Client 的 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0192.html" target="_blank" rel="noopener">.generate()</a> 和 ...</li></ol>
+            
+            <span class="read-more"><a href="/2025/05/04/mindie-benchmark/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/yinxiangbiji-index.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            四月 26, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/04/26/yinxiangbiji-index/" title="【转】解决印象笔记无法搜索到对应标题或内容笔记的问题" class="posttitle">【转】解决印象笔记无法搜索到对应标题或内容笔记的问题</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        823
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://blog.csdn.net/he_menglong/article/details/79188465" target="_blank" rel="noopener">https://blog.csdn.net/he_menglong/article/details/79188465</a></li>
+<li>原文作者：<a href="https://blog.csdn.net/he_menglong" target="_blank" rel="noopener">梦龙mlong</a></li>
+</ul>
+<p>一直使用印象笔记这款笔记软件，前几天突然发现搜索功能出现了bug，我要搜索一篇笔记却搜索不到。比如有篇笔记名为”crontab 命令详解“，在搜索框中无论是输入”crontab“还是”crontab 命令详解“都无法搜索到这篇笔记，还有其他几篇含有关键字”crontab“标题或内容的笔记也都无法搜索到！</p>
+<p></p>
+<p>于是发邮件问印象笔记官方得到回复如...</p>
+            
+            <span class="read-more"><a href="/2025/04/26/yinxiangbiji-index/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/domain-driven-design/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            四月 20, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/04/20/domain-driven-design/" title="《领域驱动设计》书摘" class="posttitle">《领域驱动设计》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        48k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        44 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/26819666/" target="_blank" rel="noopener">豆瓣评分 7.8</a></p>
+<blockquote>
+<p>在领域建模过程中不应将概念与实现割裂开来。</p>
+</blockquote>
+<blockquote>
+<p>领域模型的最大价值是它提供了一种通用语言，这种语言是将领域专家和技术人员联系在一起的纽带。</p>
+</blockquote>
+<blockquote>
+<p>领域模型并不是按照“先建模，后实现”这个次序来工作的。</p>
+</blockquote>
+<blockquote>
+<p>真正强大的领域模型是随着时间演进的，即使是最有经验的建模人员也往往发现他们是在系统的初始版本完成之后才有了最好的想法。</p>
+</blockquote>
+<blockquote>
+<p>领域驱动设计的实质就是消化吸收大量知识，最后产生一个反映深层次领域知识并聚焦于关键概念的模型。</p>
+</blockquote>
+<blockquote>
+<p>近年来，反对“精细开发方法学”（elaborate ...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/04/20/domain-driven-design/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/rsync.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Linux">
+                  <b>「 </b>LINUX<b> 」</b>
+                </a>
+            
+            四月 13, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/04/13/linux-rsync/" title="【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性" class="posttitle">【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.pfjsb.com/kfyw/linux-rsync.html" target="_blank" rel="noopener">https://www.pfjsb.com/kfyw/linux-rsync.html</a></p>
+<p>对于海量文件的稳定复制，推荐使用 <code>rsync</code>，因为它支持断点续传、校验文件完整性，并能显示进度。</p>
+<pre><code class="bash">rsync -avh --progress --stats /源目录/ /目标磁盘/目标目录/</code></pre>
+<ul>
+<li><code>-a</code>：归档模式，保持文件的权限、时间戳、符号链接等属性。</li>
+<li><code>-v</code>：显示详细信息（可选）。</li>
+<li><code>-h</code>：人类可读格式（文件大小等）。</li>
+<li><code>--progress</code>：显示复制进度。</li>
+<li><code>--stats</code>：显示最终的统计信息。</li>
+</ul>
+<p>如果...</p>
+            
+            <span class="read-more"><a href="/2025/04/13/linux-rsync/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/windows-auto-login/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Windows">
+                  <b>「 </b>WINDOWS<b> 」</b>
+                </a>
+            
+            四月 06, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/04/06/windows-auto-login/" title="【转】4 种实用方法：如何设置 Windows 10&#x2F;11 自动登录" class="posttitle">【转】4 种实用方法：如何设置 Windows 10&#x2F;11 自动登录</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Windows/" rel="tag">Windows</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.sysgeek.cn/windows-auto-login/" target="_blank" rel="noopener">https://www.sysgeek.cn/windows-auto-login/</a></p>
+<p></p>
+<p>当启动 Windows PC 时，登录界面会列出一个或多个用户账户。你需要选择一个账户并通过身份验证才能进入桌面。Windows 支持多种登录验证方式，如密码和 <a href="https://www.sysgeek.cn/introduction-windows-hello-business/" target="_blank" rel="noopener">Windows Hello</a>，这对于多用户设备来说会十分便利。</p>
+<p>虽然现代计算机加载 Windows 的速度已经非常快，但跳过登录验证可以更快地开始工作。如果你是电脑的唯一使用者，还可以选择取消登录验证。接下来，我们就介绍如何在 Windows...</p>
+            
+            <span class="read-more"><a href="/2025/04/06/windows-auto-login/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/it-doesnt-have-to-be-crazy-at-work.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 30, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/03/30/it-doesnt-have-to-be-crazy-at-work/" title="《重来3：跳出疯狂的忙碌》书摘" class="posttitle">《重来3：跳出疯狂的忙碌》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        8 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/35135787/" target="_blank" rel="noopener">豆瓣评分 8.2</a></p>
+<blockquote>
+<p>冷静，意味着保护人们的时间与注意力。</p>
+<p>冷静，意味着每周工作40小时。</p>
+<p>冷静，意味着制定合理的目标。</p>
+<p>冷静，意味着充足的休息时间。</p>
+<p>冷静，意味着有意识地维持较小规模。</p>
+<p>冷静，意味着看得见的地平线。</p>
+<p>冷静，意味着把会议视作最后的沟通手段，不到万不得已的时候就不用。</p>
+<p>冷静，意味着非实时沟通优先，实时次之。</p>
+<p>冷静，意味着更加独立，减少依赖。</p>
+<p>冷静，意味着为了长远利益而采取可持续的行动。</p>
+<p>冷静，意味着赢利能力。</p>
+</blockquote>
+<blockquote>
+<p>马克·吐温的话一针见血：“攀比之心一起，快乐便荡然无存。”我们完全同意...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/03/30/it-doesnt-have-to-be-crazy-at-work/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/deepseek-prompt.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            三月 23, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/03/23/deepseek-prompt/" title="用不同姿势给 DeepSeek 提示词的效果对比实验" class="posttitle">用不同姿势给 DeepSeek 提示词的效果对比实验</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        47k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        42 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DeepSeek/" rel="tag">DeepSeek</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/vLLM/" rel="tag">vLLM</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 DeepSeek-R1 的官方 GitHub <a href="https://github.com/deepseek-ai/DeepSeek-R1" target="_blank" rel="noopener">仓库</a> 中，有如下一段推荐用法：</p>
+<p></p>
+<p>其中黑体字高亮的第二点提到：</p>
+<p><strong>避免添加系统提示词；所有指令应该被包含进用户提示词中。</strong></p>
+<p>这与其他 LLM 的通常用法有所不同。</p>
+<p>那么在 DeepSeek-R1 系列模型中，用不同方式给提示词的效果有何不同呢？</p>
+<p>本文除使用一些官方提示词对比实验外，还构建了一个复杂一些的场景：将 DeepSeek 作为一个知识问答助手，在一定限制条件下回答用户的问题。</p>
+<p>先说实验结论：</p>
+<ol>
+<li>在简单场景（如官方示例的提示库）下，使用系统提示...</li></ol>
+            
+            <span class="read-more"><a href="/2025/03/23/deepseek-prompt/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/remote.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            三月 16, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/03/16/remote/" title="《重来2：更为简单高效的工作方式》书摘" class="posttitle">《重来2：更为简单高效的工作方式》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/30383585/" target="_blank" rel="noopener">豆瓣评分 6.8</a></p>
+<blockquote>
+<p>当人们真心想把活儿做完的时候，工作时段里的办公室是他们最不愿去的地方。</p>
+</blockquote>
+<blockquote>
+<p>这是因为办公室早已变成了“干扰工厂”。</p>
+</blockquote>
+<blockquote>
+<p>当你的工作日被切割成工作“片段”，想完成一项有意义的工作简直太难了。</p>
+</blockquote>
+<blockquote>
+<p>要是你认为员工很糟糕，他们就会表现得很糟糕。人类“满足低期望值”的能力极强。如果你确信每个下属都是懒汉，那他们会不遗余力地证明你是对的。如果你认为他们都成熟又能干，即便你不在他们身后盯着，他们也能不断督促自己做到最好，那他们就会用惊喜回报你。</p>
+</blockquote>
+<blockquote>
+<p>“如果我们不知该不该信任某位员工，那就...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/03/16/remote/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/6/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

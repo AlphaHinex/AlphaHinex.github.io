@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ThreadLocal 泄露实例 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,ThreadLocal, remove, Context, jstat, G1, OOM"> 
+    <meta name="description" content="ThreadLocal 是什么Java 中，ThreadLocal 是线程本地变量，可用来在多线程环境，为每个线程保存一份独立的变量，不会被其他线程所操作。
+关于 ThreadLocal 详细的介绍,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">ThreadLocal 泄露实例</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/thread-local-leak.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                十二月 26, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/12/26/thread-local-leak/" title="ThreadLocal 泄露实例" class="">ThreadLocal 泄露实例</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="ThreadLocal-是什么"><a href="#ThreadLocal-是什么" class="headerlink" title="ThreadLocal 是什么"></a>ThreadLocal 是什么</h1><p>Java 中，<code>ThreadLocal</code> 是线程本地变量，可用来在多线程环境，为每个线程保存一份独立的变量，不会被其他线程所操作。</p>
+<p>关于 ThreadLocal 详细的介绍及用法，可以查阅 <a href="https://www.baeldung.com/java-threadlocal" target="_blank" rel="noopener">An Introduction to ThreadLocal in Java</a> 。</p>
+<h1 id="为什么会出现泄漏"><a href="#为什么会出现泄漏" class="headerlink" title="为什么会出现泄漏"></a>为什么会出现泄漏</h1><p>线程的创建和销毁是很昂贵的操作，需多线程执行时，一般会使用线程池。当线程池和 ThreadLocal 同时使用时，因为线程在使用完成后会归还给线程池，供下次使用，而并非销毁再重新创建，所以如果之前线程存入的本地变量没有进行清理，后续再使用这个线程时，还是会看到之前的线程本地变量内容。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p><a href="https://github.com/AlphaHinex/threadlocal-leak-demo" target="_blank" rel="noopener">https://github.com/AlphaHinex/threadlocal-leak-demo</a> 构造了一个能够重现 ThreadLocal 泄露的实例。</p>
+<pre><code class="bash"># 使用 Maven Wrapper 编译，也可使用本地安装好的 Maven
+$ ./mvnw clean package -DskipTests
+# 为尽快重现，将最大堆内存设置为 100mb
+$ java -Xms100m -Xmx100m -jar target/threadlocal-leak-demo-0.0.1-SNAPSHOT.jar</code></pre>
+<p>编译及运行后，访问 <a href="http://localhost:8080/leak/100000" target="_blank" rel="noopener">http://localhost:8080/leak/100000</a> ，通过 GET 请求触发，根据路径参数中指定的循环次数（100000），使用线程池中线程异步执行向线程本地变量放入 1KB 数据的操作。</p>
+<p>可使用 <a href="https://alphahinex.github.io/2021/12/12/find-the-reason-of-full-gc/">找出 Java 应用频繁 Full GC 的原因</a> 中介绍的工具，观察分析 gc 情况：</p>
+<pre><code class="bash">$ jstat -gcutil 31804 2s
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+  0.00  24.93  67.42   2.05  92.68  89.88      3    0.017     1    0.020    0.036
+  0.00  24.93  67.42   2.05  92.68  89.88      3    0.017     1    0.020    0.036
+  0.00  24.93  67.42   2.05  92.68  89.88      3    0.017     1    0.020    0.036
+ 99.83   0.00  34.28  30.37  93.15  90.81      6    0.198     1    0.020    0.218
+  0.00  14.13   3.81  51.37  93.16  90.83     13    0.283     1    0.020    0.303
+ 18.91   0.00  47.13  69.98  93.17  90.83     20    0.323     1    0.020    0.343
+ 29.23   0.00  93.33  83.31  93.17  90.83     24    0.352     1    0.020    0.372
+ 44.52   0.00   2.97  81.56  93.17  90.83     28    0.377     2    0.315    0.692
+  0.00  61.57   0.00  95.68  93.17  90.83     31    0.395     3    0.315    0.710
+  0.00   0.00  52.19 100.00  92.90  90.44     31    0.395     5    0.919    1.314
+  0.00   0.00  84.68  99.91  92.90  90.44     31    0.395     8    1.414    1.810
+  0.00   0.00 100.00  99.85  92.90  90.44     31    0.395    13    2.081    2.476
+  0.00   0.00 100.00  99.89  92.90  90.44     31    0.395    19    3.090    3.485
+  0.00   0.00 100.00  99.82  92.90  90.44     31    0.395    28    4.610    5.005
+  0.00   0.00 100.00  99.82  92.90  90.44     31    0.395    40    6.372    6.767
+  0.00   0.00  99.69  99.90  92.90  90.44     31    0.395    54    8.407    8.802
+  0.00   0.00 100.00  99.89  92.90  90.44     31    0.395    67   10.297   10.692
+  0.00   0.00 100.00  99.87  92.90  90.44     31    0.395    81   12.378   12.774
+  0.00   0.00 100.00  99.87  92.90  90.46     31    0.395   104   14.362   14.758</code></pre>
+<p>可以看到，迅速出现了 YGC 不增加，频繁 FGC 的情况。此时在应用日志中，可以观察到线程计数，执行了 7.3w 次左右时，出现类似 <code>java.lang.OutOfMemoryError: GC overhead limit exceeded</code> 的异常，且应用无响应。</p>
+<p>查看堆内存的分配及使用情况：</p>
+<pre><code class="bash">$ jmap -heap 31804
+...
+Heap Usage:
+PS Young Generation
+Eden Space:
+   capacity = 18350080 (17.5MB)
+   used     = 18350080 (17.5MB)
+   free     = 0 (0.0MB)
+   100.0% used
+From Space:
+   capacity = 8388608 (8.0MB)
+   used     = 0 (0.0MB)
+   free     = 8388608 (8.0MB)
+   0.0% used
+To Space:
+   capacity = 7864320 (7.5MB)
+   used     = 0 (0.0MB)
+   free     = 7864320 (7.5MB)
+   0.0% used
+PS Old Generation
+   capacity = 70254592 (67.0MB)
+   used     = 69874480 (66.63749694824219MB)
+   free     = 380112 (0.3625030517578125MB)
+   99.4589506690182% used
+...</code></pre>
+<p>如果将堆 dump，使用 MAT 可以看到堆中空间主要被线程池中的线程所占，而线程的本地变量中，存在大量随机生成的数据。</p>
+<h1 id="不同的垃圾收集器能屏蔽这个问题吗"><a href="#不同的垃圾收集器能屏蔽这个问题吗" class="headerlink" title="不同的垃圾收集器能屏蔽这个问题吗"></a>不同的垃圾收集器能屏蔽这个问题吗</h1><p>Java 8 默认使用的是 Parallel GC，改用其他收集器能否屏蔽这个问题呢？可以用上面的实例来验证一下。</p>
+<pre><code class="bash"># 改用 G1 收集器
+$ java -XX:+UseG1GC -Xms100m -Xmx100m -jar target/threadlocal-leak-demo-0.0.1-SNAPSHOT.jar</code></pre>
+<p>改用 G1 收集器后，再次访问 <a href="http://localhost:8080/leak/100000" target="_blank" rel="noopener">http://localhost:8080/leak/100000</a> ，可以通过日志中的线程计数器，看到执行了 8.9w 次左右，比使用默认收集器时的 7.3w 次，多了 1w 多次。</p>
+<pre><code class="log">DEBUG 26589 --- [         task-6] i.g.a.t.service.DemoService              : task-6 add 1kb to context, No.89548</code></pre>
+<p>此时再查看堆内存情况：</p>
+<pre><code class="bash">$ jmap -heap 26589
+...
+Heap Usage:
+G1 Heap:
+   regions  = 100
+   capacity = 104857600 (100.0MB)
+   used     = 103868872 (99.05707550048828MB)
+   free     = 988728 (0.9429244995117188MB)
+   99.05707550048828% used
+G1 Young Generation:
+Eden Space:
+   regions  = 0
+   capacity = 0 (0.0MB)
+   used     = 0 (0.0MB)
+   free     = 0 (0.0MB)
+   0.0% used
+Survivor Space:
+   regions  = 0
+   capacity = 0 (0.0MB)
+   used     = 0 (0.0MB)
+   free     = 0 (0.0MB)
+   0.0% used
+G1 Old Generation:
+   regions  = 0
+   capacity = 104857600 (100.0MB)
+   used     = 103868872 (99.05707550048828MB)
+   free     = 988728 (0.9429244995117188MB)
+   99.05707550048828% used
+...</code></pre>
+<p>可以看到 G1 将所有的 region 都分给了老年代，年轻代里的容量都变为了 0，这也能解释为什么用 G1 能比默认的垃圾收集器多跑了 1w 多次存入数据的操作。</p>
+<p>所以结论是：使用不同的垃圾收集器，并不能屏蔽这个问题，但有可能延长出现问题的时间，缓解症状。</p>
+<h1 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h1><h2 id="记得-remove"><a href="#记得-remove" class="headerlink" title="记得 remove"></a>记得 remove</h2><p>那么如何根治这个问题呢？最有效的办法，就是及时清理不再需要的 ThreadLocal 对象。在 ThreadLocal 类中，提供了一个 <code>remove()</code> 方法，在恰当的时机，进行调用，如 <a href="https://github.com/AlphaHinex/threadlocal-leak-demo/blob/main/src/main/java/io/github/alphahinex/threadlocalleakdemo/context/DemoContext.java#L30" target="_blank" rel="noopener">DemoContext:30</a> 。</p>
+<h2 id="使用插件进行代码检查"><a href="#使用插件进行代码检查" class="headerlink" title="使用插件进行代码检查"></a>使用插件进行代码检查</h2><p>在 IDEA 中，如果使用了 <code>Alibaba Java Coding Guidelines</code> 插件，有一个 “必须回收自定义的ThreadLocal变量” 的规则，会对自定义的 ThreadLocal 变量进行检查，如果没有对其执行过 <code>remove</code> 操作，会在编辑器中给出黄色告警信息。</p>
+<p>如果希望在编译过程中，对这个问题进行检查，可以加入 <a href="https://maven.apache.org/plugins/maven-pmd-plugin/index.html" target="_blank" rel="noopener">maven-pmd-plugin</a>，并配置 <a href="https://github.com/alibaba/p3c/tree/master/p3c-pmd" target="_blank" rel="noopener">p3c-pmd</a> 中增加的规则，在代码构建阶段进行检查，以便及时发现问题。</p>
+<p>具体 <code>pom.xml</code> 中需增加的内容如下：</p>
+<pre><code class="xml">&lt;properties&gt;
+   &lt;pmd.version&gt;6.15.0&lt;/pmd.version&gt;
+&lt;/properties&gt;
+
+&lt;build&gt;
+   &lt;plugins&gt;
+      &lt;plugin&gt;
+         &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+         &lt;artifactId&gt;maven-pmd-plugin&lt;/artifactId&gt;
+         &lt;version&gt;3.8&lt;/version&gt;
+         &lt;configuration&gt;
+            &lt;rulesets&gt;
+               &lt;!--&lt;ruleset&gt;rulesets/java/ali-comment.xml&lt;/ruleset&gt;--&gt;
+               &lt;ruleset&gt;rulesets/java/ali-concurrent.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-constant.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-exception.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-flowcontrol.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-naming.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-oop.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-orm.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-other.xml&lt;/ruleset&gt;
+               &lt;ruleset&gt;rulesets/java/ali-set.xml&lt;/ruleset&gt;
+            &lt;/rulesets&gt;
+            &lt;printFailingErrors&gt;true&lt;/printFailingErrors&gt;
+         &lt;/configuration&gt;
+         &lt;dependencies&gt;
+            &lt;dependency&gt;
+               &lt;groupId&gt;net.sourceforge.pmd&lt;/groupId&gt;
+               &lt;artifactId&gt;pmd-core&lt;/artifactId&gt;
+               &lt;version&gt;${pmd.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+               &lt;groupId&gt;net.sourceforge.pmd&lt;/groupId&gt;
+               &lt;artifactId&gt;pmd-java&lt;/artifactId&gt;
+               &lt;version&gt;${pmd.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+               &lt;groupId&gt;net.sourceforge.pmd&lt;/groupId&gt;
+               &lt;artifactId&gt;pmd-javascript&lt;/artifactId&gt;
+               &lt;version&gt;${pmd.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+               &lt;groupId&gt;net.sourceforge.pmd&lt;/groupId&gt;
+               &lt;artifactId&gt;pmd-jsp&lt;/artifactId&gt;
+               &lt;version&gt;${pmd.version}&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+               &lt;groupId&gt;com.alibaba.p3c&lt;/groupId&gt;
+               &lt;artifactId&gt;p3c-pmd&lt;/artifactId&gt;
+               &lt;version&gt;2.1.0&lt;/version&gt;
+            &lt;/dependency&gt;
+         &lt;/dependencies&gt;
+      &lt;/plugin&gt;
+   &lt;/plugins&gt;
+&lt;build&gt;</code></pre>
+<p>完整的 <code>pom.xml</code> 文件可见 <a href="https://github.com/AlphaHinex/threadlocal-leak-demo/blob/main/pom.xml" target="_blank" rel="noopener">这里</a>。</p>
+<p>配置后，执行 <code>mvn pmd:check</code> 可以检查代码，并给出所有违反检查规则的位置及问题。</p>
+<pre><code class="bash">$ mvn pmd:check
+...
+[INFO] --- maven-pmd-plugin:3.8:check (default-cli) @ threadlocal-leak-demo ---
+[INFO] PMD Failure: io.github.alphahinex.threadlocalleakdemo.context.DemoContext:9 Rule:ThreadLocalShouldRemoveRule Priority:2 ThreadLocal字段【CONTEXT】应该至少调用一次remove()方法。.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.771 s
+[INFO] Finished at: 2021-12-25T16:27:14+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-pmd-plugin:3.8:check (default-cli) on project threadlocal-leak-demo: You have 1 PMD violation. For more details see: /Users/alphahinex/github/origin/threadlocal-leak-demo/target/pmd.xml -&gt; [Help 1]
+...</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ThreadLocal-是什么"><span class="toc-number">1.</span> <span class="toc-text">ThreadLocal 是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为什么会出现泄漏"><span class="toc-number">2.</span> <span class="toc-text">为什么会出现泄漏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">3.</span> <span class="toc-text">实例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#不同的垃圾收集器能屏蔽这个问题吗"><span class="toc-number">4.</span> <span class="toc-text">不同的垃圾收集器能屏蔽这个问题吗</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何避免"><span class="toc-number">5.</span> <span class="toc-text">如何避免</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#记得-remove"><span class="toc-number">5.1.</span> <span class="toc-text">记得 remove</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用插件进行代码检查"><span class="toc-number">5.2.</span> <span class="toc-text">使用插件进行代码检查</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

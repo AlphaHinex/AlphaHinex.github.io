@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 Clear Key 加密 MP4 视频并播放 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    <meta name="description" content="使用 HTML5 技术播放视频简单方便，但同时也将视频源直接暴露了出去。针对一些需要保护以避免用户随意下载的视频，有没有鱼和熊掌兼得之策呢？
+在现代浏览器中，使用 HTML5 技术在线播放视频已不是,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 Clear Key 加密 MP4 视频并播放</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(https://www.ohgizmo.com/wp-content/uploads/2016/07/pic.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Web"><b>「
+                    </b>WEB<b> 」</b></a>
+                
+                十二月 31, 2015
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2015/12/31/how-to-encrypt-mp4-using-clearkey-and-play/" title="使用 Clear Key 加密 MP4 视频并播放" class="">使用 Clear Key 加密 MP4 视频并播放</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    14 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML5/" rel="tag">HTML5</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Video/" rel="tag">Video</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>使用 HTML5 技术播放视频简单方便，但同时也将视频源直接暴露了出去。针对一些需要保护以避免用户随意下载的视频，有没有鱼和熊掌兼得之策呢？</p>
+<p>在现代浏览器中，使用 HTML5 技术在线播放视频已不是难事，只需浏览器支持和视频格式兼容即可（参见 <a href="https://alphahinex.github.io/2015/12/11/play-video-with-html5/">使用 HTML5 技术播放视频</a>）。<code>&lt;video&gt;</code> 标签带给我们便利的同时，也将视频源地址直接暴露了出去。虽然 <code>开放</code> 是互联网精神之一，但总会有些内容需要限制传播或独家提供。在 HTML5 视频播放技术中，有没有一些可用的版权保护策略呢？</p>
+<p>既然 YouTube 已经将默认的播放器切换成了 HTML5，那么答案一定是<strong>肯定的</strong>。让我们从 YouTube 的这篇 <a href="http://youtube-eng.blogspot.jp/2015/01/youtube-now-defaults-to-html5_27.html" target="_blank" rel="noopener">博文</a> 中来找找线索。</p>
+<p>YouTube 在其中提到了这一重大进步中的一些关键技术：</p>
+<ul>
+<li><p><a href="https://w3c.github.io/media-source/" target="_blank" rel="noopener"><code>Media Source Extensions</code></a>：可变比特流（Adaptive Bitrate(ABR) streaming）在为用户提供高质量的视频体验中非常重要，它允许我们在面对多变的网络环境时快速且无缝的调整视频分辨率和比特率。<code>ABR</code> 能够在总体上减少超过 50% 的缓冲，在某些极度拥挤的网络环境下甚至能达到 80%。Media Source Extensions 不仅可以在浏览器中使用，还可以在如 XBox 和 PS4 等游戏主机的直播中使用。</p>
+</li>
+<li><p><a href="https://w3c.github.io/encrypted-media/" target="_blank" rel="noopener"><code>Encrypted Media Extensions</code></a> 和 <code>Common Encryption</code>：过去，视频分发平台（Flash、Silverlight 等）和版权保护技术（Access，PlayReady）是紧密连接的，内容保护深入集成在分发平台甚至文件格式中。Encrypted Media Extensions 将内容保护技术与分发平台分离，使得如 YouTube 的内容提供商可以使用同一个 HTML5 视频播放器覆盖大量不同平台。与 Common Encryption 技术联合使用可以针对不同平台提供不同的版权保护技术，这使得 YouTube 的视频播放更加平稳快速。</p>
+</li>
+</ul>
+<h2 id="Encrypted-Media-Extensions-EME"><a href="#Encrypted-Media-Extensions-EME" class="headerlink" title="Encrypted Media Extensions(EME)"></a>Encrypted Media Extensions(EME)</h2><p><a href="http://www.html5rocks.com/en/tutorials/eme/basics" target="_blank" rel="noopener">EME WTF?</a> 简单来说，EME 提供了一套 API 以允许 web 应用能够与内容保护系统进行交互，并使播放加密过的视频和音频成为可能。从 <code>Extensions</code> 可以看出，EME 是 <code>HTMLMediaElement</code> 标准的扩展，这意味着<strong>浏览器对其的支持不是必须的</strong>。从 <code>jwplayer</code> 的网站上我们能够找到<a href="http://www.jwplayer.com/html5/mediasource/" target="_blank" rel="noopener">一些浏览器对 <code>MSE</code> 和 <code>EME</code> 的支持情况</a>：</p>
+<p><img src="/contents/html5-video/jwplayer-test.png" alt="JW Player MSE and EME test"></p>
+<p>不过实际测试中发现这份数据<strong>并不完全准确</strong>，例如在 <code>win7</code> 下的 <code>Chrome41</code> 就无法播放使用 <code>Clear Key</code> 加密的 <code>MP4</code> 视频。</p>
+<p>EME 实现需要使用下列外部组件：</p>
+<ul>
+<li><strong>Key System</strong>：一种内容保护（DRM）机制。常见的 Key System 有 Clear Key、Playready、Widevine 等。EME 并没有定义 Key System 本身，除了 <code>Clear Key</code>。</li>
+<li><strong>Content Decryption Module</strong>：用来播放加密媒体资源的客户端软件或硬件机制。同 <code>Key System</code> 一样，EME 也没有定义任何内容解密模块（CDM），但为应用提供了一个接口用来与可用的 CDM 模块交互。</li>
+<li><strong>License（Key） server</strong>：与 CDM 模块交互并提供解密媒体资源所需的 <code>key</code>。与 <code>license server</code> 通信是由应用本身负责的。</li>
+<li><strong>Packaging service</strong>：编码并加密媒体资源以供发布和播放使用。</li>
+</ul>
+<h2 id="Common-Encryption"><a href="#Common-Encryption" class="headerlink" title="Common Encryption"></a>Common Encryption</h2><p><code>Common Encryption</code> 允许内容提供商按 <code>容器/编码</code> 加密并打包内容一次，而后在各种支持的 Key System、CDM 和 客户端中使用。例如一个使用 <code>Playready</code> 加密的视频可以在使用 <code>Widevine</code> 内容解密模块从 <code>Widevine license server</code> 获得解密 <code>key</code> 的浏览器中播放。</p>
+<h2 id="Clear-Key"><a href="#Clear-Key" class="headerlink" title="Clear Key"></a>Clear Key</h2><p>虽然 EME 没有定义 DRM 功能，但规范中要求所有支持 EME 的浏览器<strong>必须实现</strong> <code>Clear Key</code>。使用这套系统，媒体资源可以使用一个 <code>key</code> 来加密，在播放时只需简单的提供这个 <code>key</code> 即可。Clear Key 可以构建至浏览器中：它甚至不需要一个单独的解密模块。</p>
+<p>尽管不容易被用于许多类型的商业内容，Clear Key 可以与所有支持 EME 的浏览器完全兼容。它也可以用来测试 EME 的实现和应用，甚至可以直接提供 key 以免去授权服务器。在 <a href="http://simpl.info/eme/clearkey" target="_blank" rel="noopener">simpl.info/ck</a> 有一个简单的演示。演示中的视频使用的是加密过的 <code>WebM</code> 格式。</p>
+<p>要加密 WebM 视频并非易事，目前的一个可用方案是使用 <code>webm-crypt</code> 模块。按照 <a href="https://docs.google.com/document/d/17d6_KX5jX0gY1ygYbjqOEdVzuUGkPO53wL8t40dMGeQ/edit?usp=sharing" target="_blank" rel="noopener">How to build and use webm_crypt</a> 中的步骤来看，为了使用这个模块你需要编译整个 <code>chrome</code>，<a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a> 上的编译好的 chrome 镜像体积有 <strong>20G+</strong> 的规模。</p>
+<p>相比之下，<a href="http://www.cablelabs.com/" target="_blank" rel="noopener">Cable Labs</a> 提供的针对 <code>MP4</code> 的解决方案则简便许多。</p>
+<h2 id="用-Clear-Key-加密-MP4-并在浏览器中播放"><a href="#用-Clear-Key-加密-MP4-并在浏览器中播放" class="headerlink" title="用 Clear Key 加密 MP4 并在浏览器中播放"></a>用 Clear Key 加密 MP4 并在浏览器中播放</h2><p>终于到了今天的重头戏，先来看下 <a href="https://html5.cablelabs.com/mse-eme/doc/overview.html" target="_blank" rel="noopener">Cable Labs MSE-EME Overview</a> 中的方案总览：</p>
+<p><img src="https://html5.cablelabs.com/mse-eme/doc/images/EMETools.png" alt="EME Tools Overview"></p>
+<p>总体方案分为两部分：<a href="https://html5.cablelabs.com/mse-eme/doc/creation.html" target="_blank" rel="noopener">加密内容的创建</a>和<a href="https://html5.cablelabs.com/mse-eme/doc/playback.html" target="_blank" rel="noopener">内容播放</a>。</p>
+<ul>
+<li>加密内容的创建：包括对原始视频的转码以获得 <code>MP4(H.264/AAC)</code> 格式视频；视频内容加密；DASH 分割及打包。</li>
+<li>内容播放：在浏览器中播放加密并 DASH 视频。</li>
+</ul>
+<h3 id="Dynamic-Adaptive-Streaming-over-HTTP-DASH"><a href="#Dynamic-Adaptive-Streaming-over-HTTP-DASH" class="headerlink" title="Dynamic Adaptive Streaming over HTTP (DASH)"></a>Dynamic Adaptive Streaming over HTTP (DASH)</h3><p><code>DASH</code>（即 <code>MPEG-DASH</code>）设计用来最大限度的满足在实际环境中的媒体内容流播放及下载需求。很多其他技术也在做着类似的事情 —— 例如苹果的 <a href="https://en.wikipedia.org/wiki/HTTP_Live_Streaming" target="_blank" rel="noopener">HTTP Live Streaming(HLS)</a> 和微软的 <a href="https://en.wikipedia.org/wiki/Adaptive_bitrate_streaming#Microsoft_Smooth_Streaming" target="_blank" rel="noopener">Smooth Streaming</a> —— 但 DASH 是唯一的一个基于开放标准的使用 HTTP 提供可变比特率流技术。DASH 已经应用在 YouTube 等网站上。</p>
+<p>这与 EME 和 MSE 有什么关系？基于 MSE 的 DASH 实现能够解析清单（<code>mpd</code> 文件），下载恰当比特率的视频片段，并将其提供给 <code>&lt;video&gt;</code> 元素，这些都是在现有的 HTTP 之上完成的。换句话说，DASH 使商用内容提供商能够提供可变比特率的受保护内容。</p>
+<h3 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h3><ul>
+<li><a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener">ffmpeg</a>：视频转码，将源视频格式转换为 MP4(H.264/AAC)。</li>
+<li><a href="https://github.com/cablelabs/mse-eme" target="_blank" rel="noopener">mse-eme</a>：Cable Labs 提供的相关工具集合，使用其中的 Clear Key 加密文件生成器来生成加密用文件。</li>
+<li><a href="https://github.com/gpac/gpac" target="_blank" rel="noopener">MP4Box</a>：GPAC 项目中的 MP4Box 工具可用来对 MP4 视频进行加密及 DASH。</li>
+<li><a href="https://github.com/Dash-Industry-Forum/dash.js" target="_blank" rel="noopener">dash.js</a>：用来在浏览器中播放 DASH 视频。</li>
+</ul>
+<p>上述工具除 <code>dash.js</code> 外，基本都需要安装，可以自行按照官网的说明来安装，也可以直接使用我组装好的这个 <a href="https://hub.docker.com/r/alphahinex/try-docker/" target="_blank" rel="noopener">docker 镜像</a>，使用方式为：</p>
+<pre><code class="bash"># 拉取镜像
+$ docker pull alphahinex/try-docker:vc
+# 交互模式运行镜像，并将容器命名为 vc
+$ docker run --name vc -v /local/folder:/docker/folder -t -i alphahinex/try-docker:vc /bin/bash
+# 查看 ffmpeg 信息
+root@57ec3690605c:/usr/local# ffmpeg -version
+# 查看 MP4Box 信息
+root@57ec3690605c:/usr/local# MP4Box -version
+# 查看 clearkey 加密文件生成工具信息
+root@57ec3690605c:/usr/local# java -jar mse-eme/create/encrypt/clearkey/cryptgen/clearkey.jar -help
+# 退出容器
+root@57ec3690605c:/usr/local# exit</code></pre>
+<p>各个工具的具体参数请参考其帮助手册。好，让我们找个视频来试一下。</p>
+<h3 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h3><p>引用 <a href="http://www.html5rocks.com" target="_blank" rel="noopener">html5rocks</a> 上的这个 <a href="http://www.html5rocks.com/en/tutorials/video/basics/devstories.webm" target="_blank" rel="noopener">WebM 视频</a> 作为源视频，将其转换为 <code>MP4</code> 并使用 <code>Clear Key</code> 加密，之后使用 HTML5 播放。</p>
+<pre><code class="bash"># 交互模式启动之前创建的容器 vc
+$ docker start -i vc
+# 假定源文件在容器中的路径为 /usr/local/video/devstories.webm
+root@57ec3690605c:/usr/local/video# ffmpeg -i devstories.webm -codec:v libx264 -x264opts keyint=48:min-keyint=48:no-scenecut -codec:a aac -strict -2 devstories.mp4
+# 可通过 ffprobe 或 MP4Box 查看转换后的视频信息
+root@57ec3690605c:/usr/local/video# ffprobe -i devstories.mp4
+root@57ec3690605c:/usr/local/video# MP4Box -info devstories.mp4
+# 生成加密文件，key id 和 key 随便写，都是 16 位的 16 进制数，需要记住其转换成的 Base64 字符串
+root@57ec3690605c:/usr/local/video# java -jar /usr/local/mse-eme/create/encrypt/clearkey/cryptgen/clearkey.jar 1:20212223-2425-2627-2829-2A2B2C2D2E2F=15161718191A1B1C1D1E1F2021222324 2:12131415-1617-1819-1A1B-1C1D1E1F2021=25262728292A2B2C2D2E2F3031323334 -out devstories_drm.xml
+Ensure the following keys are available to the client:
+    202122232425262728292a2b2c2d2e2f : 15161718191a1b1c1d1e1f2021222324 (ICEiIyQlJicoKSorLC0uLw : FRYXGBkaGxwdHh8gISIjJA)
+    12131415161718191a1b1c1d1e1f2021 : 25262728292a2b2c2d2e2f3031323334 (EhMUFRYXGBkaGxwdHh8gIQ : JSYnKCkqKywtLi8wMTIzNA)
+# 使用上一步生成的 devstories_drm.xml 加密 MP4
+root@57ec3690605c:/usr/local/video# MP4Box -crypt devstories_drm.xml devstories.mp4 -out devstories_enc.mp4
+# 可再次通过 MP4Box -info devstories_enc.mp4 看到两个轨道都已被加密
+# dash
+root@57ec3690605c:/usr/local/video# MP4Box -dash 10000 -profile onDemand -out devstories_enc.mpd devstories_enc.mp4#video devstories_enc.mp4#audio</code></pre>
+<p>完成上述步骤后，会得到如下三个文件，从 <code>mpd</code> 中可以看到视频清单和加密使用的 <code>key id</code>。</p>
+<blockquote>
+<p>devstories_enc.mpd<br/>devstories_enc_track1_dashinit.mp4<br/>devstories_enc_track2_dashinit.mp4</p>
+</blockquote>
+<p>将上述文件部署至服务器，并在页面中增加如下代码：</p>
+<pre><code class="html">&lt;head&gt;
+  &lt;script src=&quot;dash.all-1.5.1.js&quot;&gt;&lt;/script&gt;
+  &lt;script&gt;
+  function init() {
+    var video, context, player;
+    video = document.querySelector(&#39;video&#39;);
+    context = new Dash.di.DashContext()
+    player = new MediaPlayer(context);
+    player.startup();
+    player.attachView(video);
+    player.setAutoPlay(true);
+    player.attachSource(&#39;devstories_enc.mpd&#39;, null, {
+      &#39;org.w3.clearkey&#39;: {
+        // 例子中是将解密视频所需的 key id 和 key 都硬编码在 js 中
+        &#39;clearkeys&#39;: {
+          &#39;ICEiIyQlJicoKSorLC0uLw&#39;: &#39;FRYXGBkaGxwdHh8gISIjJA&#39;,
+          &#39;EhMUFRYXGBkaGxwdHh8gIQ&#39;: &#39;JSYnKCkqKywtLi8wMTIzNA&#39;
+        }
+        // 还可以使用授权服务器在播放视频时根据 key id 请求解密所需 key
+        // &#39;serverURL&#39;: &#39;http://license-server-host:port&#39;
+      }
+    });
+  }
+  &lt;/script&gt;
+&lt;/head&gt;
+&lt;body onload=&quot;init()&quot;&gt;
+  &lt;video width=&quot;640&quot; height=&quot;360&quot; controls=&quot;true&quot;&gt;&lt;/video&gt;
+&lt;/body&gt;</code></pre>
+<h3 id="实际例子"><a href="#实际例子" class="headerlink" title="实际例子"></a>实际例子</h3><p>实际例子与上述代码片段略有不同。由于无法在 <code>onload</code> 中触发 <code>init</code> 函数，需点击下面 <code>初始化并播放</code> 按钮初始化视频后方可播放。</p>
+<p>为了显示效果，为视频增加了一个封面图片。</p>
+<blockquote>
+<p>目前 <code>dash.js</code> 版本已更新至 <code>1.6.0</code>，但实际测试时发现播放加密视频时会有解码错误或无法完整播放的情况，还有在视频播放完后无法重新播放等问题，故例子中使用 <code>1.5.1</code> 版本。</p>
+</blockquote>
+<blockquote>
+<p>据不完全测试，该段视频只能在 Chrome45+ 中播放。</p>
+</blockquote>
+<script src="https://alphahinex.github.io/contents/html5-video/dash.all-1.5.1.js"></script>
+<script>
+function init() {
+  var video, context, player;
+  video = document.querySelector('video');
+  context = new Dash.di.DashContext();
+  player = new MediaPlayer(context);
+  player.startup();
+  player.attachView(video);
+  player.setAutoPlay(true);
+  player.attachSource('/archives/html5-video/devstories_enc.mpd', null, {
+    'org.w3.clearkey': {
+      'clearkeys': {
+        'ICEiIyQlJicoKSorLC0uLw': 'FRYXGBkaGxwdHh8gISIjJA',
+        'EhMUFRYXGBkaGxwdHh8gIQ': 'JSYnKCkqKywtLi8wMTIzNA'
+      }
+    }
+  });
+}
+</script>
+
+<div>
+  <button onclick="init()">初始化并播放</button>
+  <video width="640" height="360" controls="true" poster="/contents/html5-video/poster.png"></video>
+</div>
+
+<h2 id="Clear-Key-License-Server"><a href="#Clear-Key-License-Server" class="headerlink" title="Clear Key License Server"></a>Clear Key License Server</h2><p>如上所述，除了直接将解密所需 key 硬编码进 js 之外，还可从授权服务器中根据 <code>key id</code> 获取 key。下面的 <code>server.js</code> 是一个简单的 <code>node.js</code> server，能够根据请求中发送过来的 key id 响应所需的 key。用法为：</p>
+<pre><code class="bash">$ node server.js</code></pre>
+<p>之后将上面代码片段中 <code>serverURL</code> 属性替换为服务发布的 ip 和端口并解注，注释掉 <code>clearkeys</code> 属性即可。</p>
+<pre><code class="javascript">var http = require(&#39;http&#39;);
+var url = require(&#39;url&#39;);
+
+console.log(&#39;&#39;);
+console.log(&#39;Clear Key License Server Demo&#39;);
+console.log(&#39;&#39;);
+
+keys = {
+  &#39;ICEiIyQlJicoKSorLC0uLw&#39;: &#39;FRYXGBkaGxwdHh8gISIjJA&#39;,
+  &#39;EhMUFRYXGBkaGxwdHh8gIQ&#39;: &#39;JSYnKCkqKywtLi8wMTIzNA&#39;
+};
+
+var addCORSHeaders = function(res, length) {
+  res.writeHeader(200, {
+    &#39;Content-Length&#39;: length,
+    &#39;Content-Type&#39;: &#39;application/json&#39;,
+    &#39;Access-Control-Allow-Origin&#39;: &#39;*&#39;,
+    &#39;Access-Control-Allow-Methods&#39;: &#39;GET, PUT, POST, DELETE, OPTIONS&#39;,
+    &#39;Access-Control-Allow-Headers&#39;: &#39;Content-Type, Authorization, Content-Length, X-Requested-Width&#39;});
+};
+
+var onReq = function(req, res) {
+  console.log(&#39;Request URL:&#39; + req.url);
+  var parsed_url = url.parse(req.url, true);
+  var query = parsed_url.query;
+
+  console.log(&#39;Received key request!  Query = %j&#39;, query);
+
+  // Validate query string
+  if (query === undefined) {
+    console.error(&#39;Illegal request!&#39;);
+    res.writeHeader(400, &#39;Illegal query string&#39;);
+    res.end();
+    return;
+  }
+
+  var keyIDs = [];
+  for (var p in query) {
+    keyIDs.push(p);
+  }
+
+  var keyarray = [];
+  for (var i = 0; i &lt; keyIDs.length; i++) {
+    var keyID = keyIDs[i];
+    if (!keys.hasOwnProperty(keyID)) {
+      console.warn(&#39;KeyID %s not registered in our lookup table!&#39;, keyID);
+      continue;
+    }
+    var keypair = {
+      kid: keyIDs[i],
+      k: keys[keyIDs[i]]
+    };
+    keyarray.push(keypair);
+  }
+  var response = {
+    keys: keyarray
+  };
+  console.log(&#39;Returning key array: %j&#39;, response);
+  var json_str_response = JSON.stringify(response);
+  addCORSHeaders(res, json_str_response.length);
+  res.write(json_str_response);
+  res.end();
+};
+
+http.createServer(onReq).listen(8584);</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://youtube-eng.blogspot.jp/2015/01/youtube-now-defaults-to-html5_27.html" target="_blank" rel="noopener">YouTube now defaults to HTML5</a></li>
+<li><a href="https://w3c.github.io/media-source/" target="_blank" rel="noopener">Media Source Extensions</a></li>
+<li><a href="https://w3c.github.io/encrypted-media/" target="_blank" rel="noopener">Encrypted Media Extensions</a></li>
+<li><a href="http://www.html5rocks.com/en/tutorials/eme/basics" target="_blank" rel="noopener">EME WTF?</a></li>
+<li><a href="https://gpac.wp.mines-telecom.fr/mp4box/encryption/common-encryption/" target="_blank" rel="noopener">Common Encryption</a></li>
+<li><a href="https://html5.cablelabs.com/mse-eme/doc/creation.html" target="_blank" rel="noopener">Content Creation</a></li>
+<li><a href="http://simpl.info/eme/clearkey/" target="_blank" rel="noopener">Clear Key demo</a></li>
+<li><a href="https://html5.cablelabs.com/mse-eme/doc/playback.html" target="_blank" rel="noopener">Client Player Applications</a></li>
+<li><a href="https://www.radiantmediaplayer.com/working-with-mp4box.html" target="_blank" rel="noopener">Working with MP4Box</a></li>
+<li><a href="https://github.com/cablelabs/mse-eme" target="_blank" rel="noopener">mse-eme</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Encrypted-Media-Extensions-EME"><span class="toc-number">1.</span> <span class="toc-text">Encrypted Media Extensions(EME)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Common-Encryption"><span class="toc-number">2.</span> <span class="toc-text">Common Encryption</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clear-Key"><span class="toc-number">3.</span> <span class="toc-text">Clear Key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用-Clear-Key-加密-MP4-并在浏览器中播放"><span class="toc-number">4.</span> <span class="toc-text">用 Clear Key 加密 MP4 并在浏览器中播放</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-Adaptive-Streaming-over-HTTP-DASH"><span class="toc-number">4.1.</span> <span class="toc-text">Dynamic Adaptive Streaming over HTTP (DASH)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所需工具"><span class="toc-number">4.2.</span> <span class="toc-text">所需工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作步骤"><span class="toc-number">4.3.</span> <span class="toc-text">操作步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实际例子"><span class="toc-number">4.4.</span> <span class="toc-text">实际例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clear-Key-License-Server"><span class="toc-number">5.</span> <span class="toc-text">Clear Key License Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

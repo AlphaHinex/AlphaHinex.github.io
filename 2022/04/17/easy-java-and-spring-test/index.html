@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>写测试用例都这么简单了，你不来试试？ - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,测试用例, 单元测试, 集成测试, Groovy, Spock Framework, Mockito"> 
+    <meta name="description" content="测试用例提到测试，所有人都知道它的重要性，但大部分开发人员都会觉得测试应该交给测试人员来做，或者直接到环境上执行一下、点一点看看没有问题就可以了。
+究其原因，个人觉得是因为写单元测试的成本太高了，尤,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">写测试用例都这么简单了，你不来试试？</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/easy-java-and-spring-test/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                四月 17, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/04/17/easy-java-and-spring-test/" title="写测试用例都这么简单了，你不来试试？" class="">写测试用例都这么简单了，你不来试试？</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Automation-test/" rel="tag">Automation test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Integration-test/" rel="tag">Integration test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Roll/" rel="tag">Spring Roll</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><p>提到测试，所有人都知道它的重要性，但大部分开发人员都会觉得测试应该交给测试人员来做，或者直接到环境上执行一下、点一点看看没有问题就可以了。</p>
+<p>究其原因，个人觉得是因为写单元测试的成本太高了，尤其是对外部环境依赖较多的项目，开发环境想运行起来都要依赖特定的组件，就更别提测试用例的运行了。</p>
+<p>一个好的测试用例，应该是自动化的、可重复执行的，容易理解、容易运行的，且有明确的断言，以便在代码出现不符合预期的结果时，能够快速发现且定位到问题的。</p>
+<p>本文以一些面向 Java 和 Spring 的常见测试场景为例，介绍一种简单的测试用例写法。</p>
+<h1 id="Scaffold"><a href="#Scaffold" class="headerlink" title="Scaffold"></a>Scaffold</h1><p>先来介绍几个脚手架，可以有效降低写测试用例的难度。</p>
+<h2 id="Groovy"><a href="#Groovy" class="headerlink" title="Groovy"></a>Groovy</h2><p><a href="http://www.groovy-lang.org/" target="_blank" rel="noopener">Groovy</a> 是一种运行在 JVM 上的动态语言，与 Java 有着极佳的兼容性，并且有着更加简洁的语法。</p>
+<p>使用 Groovy 的 <a href="http://www.groovy-lang.org/ecosystem.html" target="_blank" rel="noopener">Killer App</a> 也有不少，比如著名的 <a href="https://github.com/gradle/gradle" target="_blank" rel="noopener">Gradle</a> 和 <a href="https://github.com/grails" target="_blank" rel="noopener">Grails</a>，如果在生产环境中使用还有顾虑，不妨先在测试用例中体会 Groovy 的魅力。</p>
+<p>说 Groovy 与 Java 有着极佳的兼容性，是因为直接将一个 Java 文件的扩展名从 <code>.java</code> 改为 <code>.groovy</code> 你就得到了一个合法的 Groovy 文件，可以在 <code>.groovy</code> 的文件中混合使用 Java 和 Groovy 的语法，非常的方便。IDEA 对 Groovy 也有着开箱即用的支持，可以借助 IDEA 的提示，边用边学 Groovy 的语法。</p>
+<p>通过一个嵌套 Map 和类型转换的例子，简单对比一下相同功能的 Java 和 Groovy 代码：</p>
+<p>Java:</p>
+<pre><code class="java">Map&lt;String, String&gt; nested = new HashMap&lt;&gt;();
+nested.put(&quot;nested_key&quot;, &quot;nested_value&quot;);
+Map&lt;String, Object&gt; outer = new HashMap&lt;&gt;();
+outer.put(&quot;outer_key&quot;, &quot;outer_value&quot;);
+outer.put(&quot;nested&quot;, nested);
+
+System.out.println(((Map)outer.get(&quot;nested&quot;)).get(&quot;nested_key&quot;));</code></pre>
+<p>Groovy:</p>
+<pre><code class="groovy">def outer = [outer_key: &#39;outer_value&#39;, nested: [nested_key: &#39;nested_value&#39;]]
+
+println outer.nested.nested_key</code></pre>
+<p>感受到 Groovy 的简洁了吧！</p>
+<p>在一个 Java 项目中，可以将 Java 源码放在 <code>src/main/java</code> 目录下，将 Groovy 测试用例源码放在 <code>src/test/groovy</code> 目录下，并为项目添加 Groovy 的相关插件，这样就可以在 <code>src/test/groovy</code> 目录下直接运行 Groovy 的测试用例了。</p>
+<p>Gradle 项目中添加 Groovy 相关插件比较简单，只需在 <code>build.gradle</code> 文件中添加如下内容：</p>
+<pre><code class="groovy">plugins {
+    id &#39;groovy&#39;
+}
+
+dependencies {
+    implementation &#39;org.codehaus.groovy:groovy&#39;
+}</code></pre>
+<p>Maven 项目需要在 <code>pom.xml</code> 文件中添加如下内容：</p>
+<pre><code class="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.codehaus.groovy&lt;/groupId&gt;
+        &lt;artifactId&gt;groovy&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;plugins&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.gmavenplus&lt;/groupId&gt;
+        &lt;artifactId&gt;gmavenplus-plugin&lt;/artifactId&gt;
+    &lt;/plugin&gt;
+&lt;/plugins&gt;</code></pre>
+<p>在 Spring Initializr（ <a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a> ）中，可以直接生成 Groovy 语言的 Maven 或 Gradle 项目，可用作配置的参考。</p>
+<h2 id="Spock-Framework"><a href="#Spock-Framework" class="headerlink" title="Spock Framework"></a>Spock Framework</h2><p><a href="https://spockframework.org/" target="_blank" rel="noopener">Spock Framework</a> 是一个面向 Java 和 Groovy 应用的测试框架，基于这个框架写出的测试用例，具有更高的可读性，例如：</p>
+<pre><code class="groovy">@Unroll
+def &quot;Pinyin of #input is #result&quot;() {
+    expect:
+    result == PinyinUtil.quanpin(input)
+
+    where:
+    input       | result
+    &#39;&#39;          | &#39;&#39;
+    null        | &#39;&#39;
+    &#39;好似&#39;       | &#39;haosi&#39;
+    &#39;似的&#39;       | &#39;shide&#39;
+    &#39;混1a搭&#39;     | &#39;hun1ada&#39;
+    &#39;绿&#39;         | &#39;lv&#39;
+}</code></pre>
+<p>上面的测试用例，会使用一组输入数据（<code>input</code>）传入拼音工具类的全拼方法中，并校验转换结果是否与结果列（<code>result</code>）中对应的值一致，在出现不一致的情况时，会直接输出具体失败的那组数据，如 <code>Pinyin of 似的 is shide</code> 用例执行失败。</p>
+<p><img src="/contents/easy-java-and-spring-test/spock.png" alt="spock"></p>
+<h2 id="Spring-Roll"><a href="#Spring-Roll" class="headerlink" title="Spring Roll"></a>Spring Roll</h2><p><a href="https://github.com/AlphaHinex/spring-roll" target="_blank" rel="noopener">Spring Roll</a> 是一个 Side Project，其中的 <a href="https://github.com/AlphaHinex/spring-roll/tree/develop/modules/dev-kits/roll-test" target="_blank" rel="noopener">roll-test</a> 模块集成了 Spock Framework，并提供了一些测试类的基类，引入 <code>roll-test</code> 模块的方法可参考 <a href="https://github.com/AlphaHinex/spring-roll#how-to-use" target="_blank" rel="noopener">How to use</a>。</p>
+<p>目前，Spring Roll 主要提供以下三个基类：</p>
+<ol>
+<li><code>AbstractSpringTest</code>：用于需要 Spring 上下文的测试用例，包含常用的 RESTful 接口测试方法</li>
+<li><code>AbstractSpringTxTest</code>：继承自 <code>AbstractSpringTest</code>，并提供了事务支持，可用于需要事务的测试用例</li>
+<li><code>AbstractIntegrationTest</code>：提供一种集成测试方案，会在随机端口真正启动 Web 应用，并提供与 <code>AbstractSpringTest</code> 一致的 RESTful 接口测试用法</li>
+</ol>
+<p>下面基于一些常见的测试场景，来介绍测试用例的写法。</p>
+<h1 id="测试-Java-类"><a href="#测试-Java-类" class="headerlink" title="测试 Java 类"></a>测试 Java 类</h1><p>当要测试的类是一个 POJO（Plain Old Java Object），并不依赖 Spring 框架时，可直接使测试类继承 Spock Framework 提供的 <code>Specification</code> 基类，如：</p>
+<pre><code class="groovy">class AntResourceUtilSpec extends Specification {
+
+    def &quot;Support multi-locations separated by comma&quot;() {
+        def res = AntResourceUtil.getResources(&#39;classpath*:**/ant1.test,classpath*:**/springroll/**/*.test&#39;)
+
+        expect:
+        // According to actual files under path pattern
+        res.length == 2
+    }
+
+}</code></pre>
+<p>在 <code>expect:</code> 上面，可以编写测试的准备工作代码，如准备 <code>res</code> 的内容；<code>expect:</code> 下面，编写测试用例的断言，即期望的行为。如果需要使用一批数据，校验方法的行为，可像上面拼音工具类的测试用例一下，在 <code>expect:</code> 部分后面增加一个 <code>where:</code> 块，用来提供测试数据。</p>
+<h1 id="测试-Spring-Bean"><a href="#测试-Spring-Bean" class="headerlink" title="测试 Spring Bean"></a>测试 Spring Bean</h1><p>在基于 Spring 进行开发时，更多的情况下我们的测试目标类可能是一个 Spring Bean，这时可使测试类继承自 <code>AbstractSpringTest</code>。</p>
+<p>例如我们有一个 <code>ExportExcelController</code> 如下：</p>
+<pre><code class="java">@Controller
+@RequestMapping(&quot;/export/excel&quot;)
+public class ExportExcelController {
+
+    @GetMapping(&quot;/{title}&quot;)
+    public void export(@PathVariable String title, @RequestParam String cols, @RequestParam String url,
+                       String tomcatUriEncoding, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // ...
+    }
+
+}</code></pre>
+<p>测试用例中，希望验证这个 Get 接口的行为，可以这样写：</p>
+<pre><code class="groovy">class ExportExcelControllerTest extends AbstractSpringTest {
+
+    @Test
+    void test() {
+        def cols = &#39;[{&quot;display&quot;:&quot;名称&quot;,&quot;name&quot;:&quot;name&quot;,&quot;showTitle&quot;:true,&quot;field&quot;:&quot;name&quot;,&quot;hidden&quot;:false,&quot;label&quot;:&quot;名称&quot;,&quot;prop&quot;:&quot;name&quot;,&quot;title&quot;:&quot;名称&quot;},{&quot;label&quot;:&quot;名称&quot;,&quot;prop&quot;:&quot;name&quot;,&quot;width&quot;:&quot;40&quot;}]&#39;
+        cols = URLEncoder.encode(cols, &#39;UTF-8&#39;)
+        def url = URLEncoder.encode(&#39;/test/query&#39;, &#39;UTF-8&#39;)
+
+        get(&quot;/export/excel/abc?cols=$cols&amp;url=$url&quot;, HttpStatus.OK)
+    }
+}</code></pre>
+<p>其中，<code>get(&quot;/export/excel/abc?cols=$cols&amp;url=$url&quot;, HttpStatus.OK)</code> 意为使用 Get 方法调用 <code>/export/excel/abc</code> 接口，传入两个必须的参数，并预期返回状态码为 <code>200</code>。</p>
+<p>与 <code>MvcResult get(String url, HttpStatus statusCode)</code> 类似，在 <code>AbstractSpringTest</code> 基类中，还提供了 <code>post</code>、<code>put</code>、<code>delete</code> 等 RESTful 接口常用的各类方法的测试方法。为方便对接口返回内容进行进一步的验证，还有 <code>resOfGet</code>、<code>resOfPost</code> 和 <code>resOfPut</code> 方法，直接获取接口的返回对象，例如：</p>
+<pre><code class="groovy">@Test
+void test() {
+    assert resOfGet(&#39;/app/node&#39;, HttpStatus.OK).data.startsWith(&#39;http&#39;)
+}</code></pre>
+<p><code>AbstractSpringTest</code> 中定义的属性和方法如下图，大部分均为 <code>protected</code> 修饰，可被子类直接使用。</p>
+<p><img src="/contents/easy-java-and-spring-test/outline.png" alt="outline"></p>
+<h1 id="测试数据库相关操作"><a href="#测试数据库相关操作" class="headerlink" title="测试数据库相关操作"></a>测试数据库相关操作</h1><h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>在测试数据库相关的操作时，一般情况下不希望测试数据被真正的插入到数据库中，造成垃圾数据或测试方法之间的互相影响，此时可以使测试类继承 <code>AbstractSpringTxTest</code> 基类，测试数据会在测试用例执行完毕后自动回滚。</p>
+<p>如果需要真正将数据插入到数据库中，可以在类或方法上使用 <code>@NoTx</code> 注解。</p>
+<h2 id="使用内存数据库减少测试环境依赖"><a href="#使用内存数据库减少测试环境依赖" class="headerlink" title="使用内存数据库减少测试环境依赖"></a>使用内存数据库减少测试环境依赖</h2><p>为了测试用例能够更容易的被执行，应尽量减少测试用例对环境的依赖。数据库就是其中一个最主要的依赖。如果你的项目使用了一些数据库无关的 ORM 框架，可以方便的将测试环境所使用的数据库切换到内存数据库上。但如果你的项目是与具体数据库绑定的，这件事做起来就没有那么容易了。</p>
+<p>如果你的项目使用的是 MySQL，项目中包含了必需的数据库脚本，那么可以尝试使用 <code>roll-test</code> 模块所提供的 <code>MysqlTranslateToH2Executor</code> 来自动完成 MySQL 脚本至 H2 脚本的转换，并在 H2 中执行这些脚本。</p>
+<p>在项目中依赖了 <code>roll-test</code> 模块后，可以通过设置 <code>roll.test.datasource.type=mysql2h2</code> 参数来启用此功能，默认会扫描符合 <code>classpath*:sql/**/*.sql</code> 路径模式的所有脚本文件，可通过 <code>roll.test.datasource.mysql-scripts</code> 参数调整扫描路径。</p>
+<h1 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h1><p>继承 <code>AbstractSpringTest</code> 的测试用例，是通过 <code>MockMvc</code> 对象来模拟 HTTP 请求的。如果希望通过真实的 HTTP 请求调用 RESTful 接口，可以继承 <code>AbstractIntegrationTest</code> 基类，比如想测试一下项目配置的 <code>AllowCrossOriginFilter</code> 是否生效：</p>
+<pre><code class="groovy">class AllowCrossOriginFilterTest extends AbstractIntegrationTest {
+
+    @Test
+    void checkResponseHeaders() {
+        def connection = get(&#39;/test&#39;, HttpStatus.NOT_FOUND)
+        def headers = connection.headerFields
+        assert headers.containsKey(&#39;Access-Control-Allow-Credentials&#39;)
+        assert headers.containsKey(&#39;Access-Control-Allow-Headers&#39;)
+        assert headers.containsKey(&#39;Access-Control-Allow-Methods&#39;)
+        assert headers.containsKey(&#39;Access-Control-Allow-Origin&#39;)
+        assert headers.containsKey(&#39;Access-Control-Expose-Headers&#39;)
+        assert headers.containsKey(&#39;Access-Control-Max-Age&#39;)
+
+        options(&#39;/test&#39;, HttpStatus.OK)
+    }
+
+}</code></pre>
+<p><code>AbstractIntegrationTest</code> 基类提供了与 <code>AbstractSpringTest</code> 类似的测试 RESTful 接口的方法，这意味着可以简单的修改测试类的基类，以在单元测试和集成测试之间切换。</p>
+<p><img src="/contents/easy-java-and-spring-test/integration.png" alt="integration"></p>
+<p>集成测试基类会将服务运行在一个随机端口上，测试用例中可通过基类中的 <code>port</code> 属性获取服务运行的端口号。</p>
+<h1 id="测试条件-Bean"><a href="#测试条件-Bean" class="headerlink" title="测试条件 Bean"></a>测试条件 Bean</h1><p>当项目中存在条件 Bean 时，例如使用 <code>@ConditionalOnProperty</code> 注解来指定当某个属性为某个值时，该 Bean 才会被加载，在测试用例中可通过 <code>@TestPropertySource</code> 注解或直接使用 <code>@SpringBootTest</code> 注解来指定测试条件的属性值，例如：</p>
+<pre><code class="groovy">@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+    properties = [
+        &#39;sms.templateId=123456&#39;,
+        &#39;sms.url=http://localhost:8080&#39;,
+])
+@TestPropertySource(properties = [&#39;sms.type = phone&#39;])
+class SmsSendServiceImplTest extends AbstractIntegrationTest {
+
+    @Autowired
+    SmsSendService service
+
+    @Test
+    void test() {
+        assert service.sendSms([
+            Sms.builder().smsPhone(&#39;123456&#39;).smsContent(&#39;content1&#39;).build(),
+            Sms.builder().smsPhone(&#39;123456&#39;).smsContent(&#39;content2&#39;).build()
+        ]) == 2
+    }
+
+}</code></pre>
+<p>假设上例中，<code>SmsSendService</code> 有多种实现类，根据不同的 <code>sms.type</code> 进行注册：</p>
+<pre><code class="java">@ConditionalOnProperty(value = &quot;sms.type&quot;, havingValue = &quot;phone&quot;)
+public class SmsSendServicePhoneImpl implements SmsSendService {
+    // ...
+}</code></pre>
+<p><code>@TestPropertySource(properties = [&#39;sms.type = phone&#39;])</code> 相当于在配置文件中设置了 <code>sms.type=phone</code>，这样 <code>SmsSendServicePhoneImpl</code> 就会被注入到 <code>service</code> 属性中。</p>
+<h1 id="测试依赖三方服务的类"><a href="#测试依赖三方服务的类" class="headerlink" title="测试依赖三方服务的类"></a>测试依赖三方服务的类</h1><h2 id="本地-Controller-替代三方-HTTP-服务"><a href="#本地-Controller-替代三方-HTTP-服务" class="headerlink" title="本地 Controller 替代三方 HTTP 服务"></a>本地 Controller 替代三方 HTTP 服务</h2><p>上例中的 <code>SmsSendServicePhoneImpl</code> 实现类会向 <code>sms.url</code> 地址所代表的短信网关发送一个 HTTP 请求，在获得 <code>200</code> 响应后，认为短信发送成功。</p>
+<p>因为测试环境可能也没有短信网关环境，这时候可以将集成测试启动在本地的固定端口（<code>8080</code>）上，并将短信网关的地址指向集成测试服务，即上例中的：</p>
+<pre><code class="groovy">@SpringBootTest(
+    webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT,
+    properties = [
+        &#39;sms.templateId=123456&#39;,
+        &#39;sms.url=http://localhost:8080&#39;,
+])</code></pre>
+<p>这样就可以在测试用例中，编写响应替代短信网关服务接口的 RestController，来完成测试用例的内容了。</p>
+<h2 id="MockBean"><a href="#MockBean" class="headerlink" title="MockBean"></a>MockBean</h2><p>除了实现替代接口外，还可以使用 Mock 的方式，为三方服务接口模拟响应。</p>
+<p>还是以上面的短信服务为例，假设 <code>SmsService</code> 接口的 <code>SmsServiceRestImpl</code> 实现是通过 <code>RestTemplate</code> 从一个外部接口获得短信列表，<br>在测试用例中，可通过 <code>@MockBean</code> 和 <a href="https://site.mockito.org/" target="_blank" rel="noopener">Mockito</a> 来模拟调用 <code>RestTemplate</code> 方法时的返回内容，例如：</p>
+<pre><code class="groovy">class SmsServiceRestImplTest extends AbstractSpringTest {
+
+    @Autowired
+    private SmsService smsService
+
+    @MockBean
+    private RestTemplate restTemplate
+
+    @Test
+    void test() {
+        def vo = new PageVO()
+        vo.list = [
+                [smsContent: &#39;a&#39;],
+                [smsContent: &#39;b&#39;],
+                [smsContent: &#39;c&#39;]
+        ]
+        def res = new ResponseEntity&lt;PageVO&gt;(vo, HttpStatus.OK)
+        Mockito.when(restTemplate.getForEntity(Mockito.anyString(), Mockito.any(Class.class))).thenReturn(res)
+
+        smsService.restTemplate = restTemplate
+
+        def result = smsService.list()
+        assert result.size() == vo.list.size()
+        assert result[1].getSmsContent() == vo.list[1][&#39;smsContent&#39;]
+    }
+
+}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#测试用例"><span class="toc-number">1.</span> <span class="toc-text">测试用例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Scaffold"><span class="toc-number">2.</span> <span class="toc-text">Scaffold</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Groovy"><span class="toc-number">2.1.</span> <span class="toc-text">Groovy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spock-Framework"><span class="toc-number">2.2.</span> <span class="toc-text">Spock Framework</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-Roll"><span class="toc-number">2.3.</span> <span class="toc-text">Spring Roll</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试-Java-类"><span class="toc-number">3.</span> <span class="toc-text">测试 Java 类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试-Spring-Bean"><span class="toc-number">4.</span> <span class="toc-text">测试 Spring Bean</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试数据库相关操作"><span class="toc-number">5.</span> <span class="toc-text">测试数据库相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#事务"><span class="toc-number">5.1.</span> <span class="toc-text">事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用内存数据库减少测试环境依赖"><span class="toc-number">5.2.</span> <span class="toc-text">使用内存数据库减少测试环境依赖</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#集成测试"><span class="toc-number">6.</span> <span class="toc-text">集成测试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试条件-Bean"><span class="toc-number">7.</span> <span class="toc-text">测试条件 Bean</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试依赖三方服务的类"><span class="toc-number">8.</span> <span class="toc-text">测试依赖三方服务的类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#本地-Controller-替代三方-HTTP-服务"><span class="toc-number">8.1.</span> <span class="toc-text">本地 Controller 替代三方 HTTP 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MockBean"><span class="toc-number">8.2.</span> <span class="toc-text">MockBean</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

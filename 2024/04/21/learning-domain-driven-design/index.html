@@ -1,0 +1,1070 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Learning Domain-Driven Design》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,DDD, Domain-driven design, Strategic Design, Tactical Design, Business Domain, Subdomain, Core Subdomain, Generic subdomain, Supporting subdomain"> 
+    <meta name="description" content="https://book.douban.com/subject/35470134/
+Introduction
+Domain-driven design (DDD) proposes to attac,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Learning Domain-Driven Design》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/learning-domain-driven-design/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                四月 21, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/04/21/learning-domain-driven-design/" title="《Learning Domain-Driven Design》书摘" class="">《Learning Domain-Driven Design》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    65k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    59 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DDD/" rel="tag">DDD</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://book.douban.com/subject/35470134/" target="_blank" rel="noopener">https://book.douban.com/subject/35470134/</a></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><blockquote>
+<p>Domain-driven design (DDD) proposes to attack the root cause for failed software projects from a different angle. Effective communication is the central theme of the domain-driven design tools and practices you are about to learn in this book. DDD can be divided into two parts: strategic and tactical.</p>
+</blockquote>
+<h1 id="Part-I-Strategic-Design"><a href="#Part-I-Strategic-Design" class="headerlink" title="Part I. Strategic Design"></a>Part I. Strategic Design</h1><blockquote>
+<p>There is no sense in talking about the solution before we agree on the problem, and no sense talking about the implementation steps before we agree on the solution.</p>
+<p>– Efrat Goldratt-Ashlag</p>
+</blockquote>
+<h2 id="Chapter-1-Analyzing-Business-Domains"><a href="#Chapter-1-Analyzing-Business-Domains" class="headerlink" title="Chapter 1. Analyzing Business Domains"></a>Chapter 1. Analyzing Business Domains</h2><h3 id="What-Is-a-Business-Domain"><a href="#What-Is-a-Business-Domain" class="headerlink" title="What Is a Business Domain?"></a>What Is a Business Domain?</h3><blockquote>
+<p>A business domain defines a company’s main area of activity. Generally speaking, it’s the service the company provides to its clients.</p>
+</blockquote>
+<h3 id="What-Is-a-Subdomain"><a href="#What-Is-a-Subdomain" class="headerlink" title="What Is a Subdomain?"></a>What Is a Subdomain?</h3><blockquote>
+<p>A subdomain is a fine-grained area of business activity. All of a company’s subdomains form its business domain: the service it provides to its customers.</p>
+</blockquote>
+<blockquote>
+<p>The subdomains have to interact with each other to achieve the company’s goals in its business domain.</p>
+</blockquote>
+<h4 id="Types-of-Subdomains"><a href="#Types-of-Subdomains" class="headerlink" title="Types of Subdomains"></a>Types of Subdomains</h4><blockquote>
+<p>… subdomains bear different strategic/business values. Domain-driven design distinguishes between three types of subdomains: core, generic, and supporting.</p>
+</blockquote>
+<blockquote>
+<p><strong>Core subdomains</strong></p>
+<p>A core subdomain is what a company does differently from its competitors. This may involve inventing new products or services or reducing costs by optimizing existing processes.</p>
+</blockquote>
+<blockquote>
+<p><strong>Complexity.</strong> A core subdomain that is simple to implement can only provide a short-lived competitive advantage. Therefore, core subdomains are naturally complex.</p>
+</blockquote>
+<blockquote>
+<p><strong>Sources of competitive advantage.</strong> It’s important to note that core subdomains are not necessarily technical. Not all business problems are solved through algorithms or other technical solutions. A company’s competitive advantage can come from various sources.</p>
+</blockquote>
+<blockquote>
+<p>Consider, for example, a jewelry maker selling its products online. The online shop is important, but it’s not a core subdomain. The jewelry design is.</p>
+</blockquote>
+<blockquote>
+<p><strong>Core Subdomain Versus Core Domain</strong></p>
+<p>Core subdomains are also called core domains. For example, in the original domain-driven design book, Eric Evans uses “core subdomain” and “core domain” interchangeably. Although the term “core domain” is used often, I prefer to use “core subdomain” for a number of reasons. First, it is a subdomain, and I prefer to avoid confusion with business domains. Second, as you will learn in Chapter 11, it’s not uncommon for subdomains to evolve over time and change their types. For example, a core subdomain can turn into a generic subdomain. Hence, saying that “a generic subdomain has evolved into a core subdomain” is more straightforward than saying “a generic subdomain has evolved into a core domain.”</p>
+</blockquote>
+<blockquote>
+<p><strong>Generic subdomains</strong></p>
+<p>Generic subdomains are business activities that all companies are performing in the same way. Like core subdomains, generic subdomains are generally complex and hard to implement. However, generic subdomains do not provide any competitive edge for the company. There is no need for innovation or optimization here: battle-tested implementations are widely available, and all companies use them.</p>
+</blockquote>
+<blockquote>
+<p>For example, most systems need to authenticate and authorize their users. Instead of inventing a proprietary authentication mechanism, it makes more sense to use an existing solution. Such a solution is likely to be more reliable and secure since it has already been tested by many other companies that have the same needs.</p>
+</blockquote>
+<blockquote>
+<p><strong>Supporting subdomains</strong></p>
+<p>As the name suggests, supporting subdomains support the company’s business. However, contrary to core subdomains, supporting subdomains do not provide any competitive advantage.</p>
+</blockquote>
+<blockquote>
+<p>The distinctive characteristic of supporting subdomains is the complexity of the solution’s business logic. Supporting subdomains are simple.</p>
+</blockquote>
+<blockquote>
+<p>These activity areas do not provide any competitive advantage for the company, and therefore do not require high entry barriers.</p>
+</blockquote>
+<h4 id="Comparing-Subdomains"><a href="#Comparing-Subdomains" class="headerlink" title="Comparing Subdomains"></a>Comparing Subdomains</h4><blockquote>
+<p><strong>Competitive advantage</strong></p>
+<p>Only core subdomains provide a competitive advantage to a company. Core subdomains are the company’s strategy for differentiating itself from its competitors.</p>
+<p>Generic subdomains, by definition, cannot be a source for any competitive advantage. These are generic solutions—the same solutions used by the company and its competitors.</p>
+<p>Supporting subdomains have low entry barriers and cannot provide a competitive advantage either. Usually, a company wouldn’t mind its competitors copying its supporting subdomains—this won’t affect its competitiveness in the industry. On the contrary, strategically the company would prefer its supporting subdomains to be generic, ready-made solutions, thus eliminating the need to design and build their implementation.</p>
+</blockquote>
+<blockquote>
+<p>At times it may be challenging to differentiate between core and supporting subdomains. Complexity is a useful guiding principle. Ask whether the subdomain in question can be turned into a side business. Would someone pay for it on its own? If so, this is a core subdomain. Similar reasoning applies for differentiating supporting and generic subdomains: would it be simpler and cheaper to hack your own implementation, rather than integrating an external one? If so, this is a supporting subdomain.</p>
+</blockquote>
+<blockquote>
+<p>The chart in Figure 1-1 represents the interplay between the three types of subdomains in terms of business differentiation and business logic complexity. The intersection between the supporting and generic subdomains is a gray area: it can go either way. If a generic solution exists for a supporting subdomain’s functionality, the resultant subdomain type depends on whether it’s simpler and/or cheaper to integrate the generic solution than it is to implement the functionality from scratch.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/1-1.png" alt="Figure 1-1. The business differentiation and business logic complexity of the three types of subdomains"></p>
+</blockquote>
+<blockquote>
+<p><strong>Volatility</strong></p>
+<p>… core subdomains can change often.</p>
+</blockquote>
+<blockquote>
+<p>Contrary to the core subdomains, supporting subdomains do not change often.</p>
+</blockquote>
+<blockquote>
+<p>Despite having existing solutions, generic subdomains can change over time.</p>
+</blockquote>
+<blockquote>
+<p>Since core subdomains’ requirements are expected to change often and continuously, the solution must be maintainable and easy to evolve. Thus, core subdomains require implementation of the most advanced engineering techniques.</p>
+</blockquote>
+<blockquote>
+<p>Since generic subdomains are hard but already solved problems, it’s more cost-effective to buy an off-the-shelf product or adopt an open source solution than invest time and effort into implementing a generic subdomain in-house.</p>
+</blockquote>
+<blockquote>
+<p>Lack of competitive advantage makes it reasonable to avoid implementing supporting subdomains in-house. However, unlike generic subdomains, no ready-made solutions are available. So, a company has no choice but to implement supporting subdomains itself. That said, the simplicity of the business logic and infrequency of changes make it easy to cut corners.</p>
+</blockquote>
+<blockquote>
+<p>Supporting subdomains do not require elaborate design patterns or other advanced engineering techniques. A rapid application development framework will suffice to implement the business logic without introducing accidental complexities.</p>
+</blockquote>
+<blockquote>
+<p>From a staffing perspective, supporting subdomains do not require highly skilled technical aptitude and provide a great opportunity to train up-and-coming talent. Save the engineers on your team who are experienced in tackling complex challenges for the core subdomains. Finally, the simplicity of the business logic makes supporting subdomains a good candidate for outsourcing.</p>
+</blockquote>
+<blockquote>
+<p>Table 1-1 summarizes the aspects in which the three types of subdomains differ.<br><img src="/contents/learning-domain-driven-design/t-1-1.png" alt="Table 1-1. The differences between the three types of subdomains"></p>
+</blockquote>
+<h4 id="Identifying-Subdomain-Boundaries"><a href="#Identifying-Subdomain-Boundaries" class="headerlink" title="Identifying Subdomain Boundaries"></a>Identifying Subdomain Boundaries</h4><blockquote>
+<p>We can use the definition of “subdomains as a set of coherent use cases” as a guiding principle for when to stop looking for finer-grained subdomains. These are the most precise boundaries of the subdomains.</p>
+</blockquote>
+<blockquote>
+<p><strong>Focus on the essentials</strong></p>
+</blockquote>
+<blockquote>
+<p>When looking for subdomains, it’s important to identify business functions that are not related to software, acknowledge them as such, and focus on aspects of the business that are relevant to the software system you are working on.</p>
+</blockquote>
+<h3 id="Who-Are-the-Domain-Experts"><a href="#Who-Are-the-Domain-Experts" class="headerlink" title="Who Are the Domain Experts?"></a>Who Are the Domain Experts?</h3><blockquote>
+<p>As a rule of thumb, domain experts are either the people coming up with requirements or the software’s end users. The software is supposed to solve their problems.</p>
+</blockquote>
+<h2 id="Chapter-2-Discovering-Domain-Knowledge"><a href="#Chapter-2-Discovering-Domain-Knowledge" class="headerlink" title="Chapter 2. Discovering Domain Knowledge"></a>Chapter 2. Discovering Domain Knowledge</h2><h3 id="What-Is-a-Ubiquitous-Language"><a href="#What-Is-a-Ubiquitous-Language" class="headerlink" title="What Is a Ubiquitous Language?"></a>What Is a Ubiquitous Language?</h3><blockquote>
+<p>Using a ubiquitous language is the cornerstone practice of domain-driven design. The idea is simple and straightforward: if parties need to communicate efficiently, instead of relying on translations, they have to speak the same language.</p>
+</blockquote>
+<h3 id="Language-of-the-Business"><a href="#Language-of-the-Business" class="headerlink" title="Language of the Business"></a>Language of the Business</h3><blockquote>
+<p>It’s crucial to emphasize that the ubiquitous language is the language of the business. As such, it should consist of business domain–related terms only. No technical jargon! </p>
+</blockquote>
+<h3 id="Model-of-the-Business-Domain"><a href="#Model-of-the-Business-Domain" class="headerlink" title="Model of the Business Domain"></a>Model of the Business Domain</h3><h4 id="What-Is-a-Model"><a href="#What-Is-a-Model" class="headerlink" title="What Is a Model?"></a>What Is a Model?</h4><blockquote>
+<p>A model is a simplified representation of a thing or phenomenon that intentionally emphasizes certain aspects while ignoring others. Abstraction with a specific use in mind.</p>
+<p>– Rebecca Wirfs-Brock</p>
+</blockquote>
+<h4 id="Effective-Modeling"><a href="#Effective-Modeling" class="headerlink" title="Effective Modeling"></a>Effective Modeling</h4><blockquote>
+<p>… a useful model is not a copy of the real world. Instead, a model is intended to solve a problem, and it should provide just enough information for that purpose.</p>
+</blockquote>
+<h4 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h4><blockquote>
+<p>“Individuals and interactions over processes and tools.”</p>
+</blockquote>
+<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>Tools such as wiki-based glossaries and Gherkin tests can greatly alleviate the process of documenting and maintaining a ubiquitous language. However, the main prerequisite for an effective ubiquitous language is usage: the language has to be used consistently in all project-related communications.</p>
+</blockquote>
+<h2 id="Chapter-3-Managing-Domain-Complexity"><a href="#Chapter-3-Managing-Domain-Complexity" class="headerlink" title="Chapter 3. Managing Domain Complexity"></a>Chapter 3. Managing Domain Complexity</h2><h3 id="What-Is-a-Bounded-Context"><a href="#What-Is-a-Bounded-Context" class="headerlink" title="What Is a Bounded Context?"></a>What Is a Bounded Context?</h3><blockquote>
+<p>The solution in domain-driven design is trivial: divide the ubiquitous language into multiple smaller languages, then assign each one to the explicit context in which it can be applied: its bounded context.</p>
+</blockquote>
+<h4 id="Model-Boundaries"><a href="#Model-Boundaries" class="headerlink" title="Model Boundaries"></a>Model Boundaries</h4><blockquote>
+<p>A model cannot exist without a boundary; it will expand to become a copy of the real world. That makes defining a model’s boundary—its bounded contexts—an intrinsic part of the modeling process.</p>
+</blockquote>
+<blockquote>
+<p>A language’s terminology, principles, and business rules are only consistent inside its bounded context.</p>
+</blockquote>
+<h3 id="Bounded-Contexts-Versus-Subdomains"><a href="#Bounded-Contexts-Versus-Subdomains" class="headerlink" title="Bounded Contexts Versus Subdomains"></a>Bounded Contexts Versus Subdomains</h3><h4 id="The-Interplay-Between-Subdomains-and-Bounded-Contexts"><a href="#The-Interplay-Between-Subdomains-and-Bounded-Contexts" class="headerlink" title="The Interplay Between Subdomains and Bounded Contexts"></a>The Interplay Between Subdomains and Bounded Contexts</h4><blockquote>
+<p>It’s crucial to remember that subdomains are discovered and bounded contexts are designed. The subdomains are defined by the business strategy. However, we can design the software solution and its bounded contexts to address the specific project’s context and constraints.</p>
+</blockquote>
+<h3 id="Boundaries"><a href="#Boundaries" class="headerlink" title="Boundaries"></a>Boundaries</h3><blockquote>
+<p>As Ruth Malan says, architectural design is inherently about boundaries:</p>
+<p>Architectural design is system design. System design is contextual design—it is inherently about boundaries (what’s in, what’s out, what spans, what moves between), and about trade-offs. It reshapes what is outside, just as it shapes what is inside.</p>
+</blockquote>
+<h4 id="Physical-Boundaries"><a href="#Physical-Boundaries" class="headerlink" title="Physical Boundaries"></a>Physical Boundaries</h4><blockquote>
+<p>As we discussed earlier, a bounded context can contain multiple subdomains. In such a case, the bounded context is a physical boundary, while each of its subdomains is a logical boundary. Logical boundaries bear different names in different programming languages: namespaces, modules, or packages.</p>
+</blockquote>
+<h4 id="Ownership-Boundaries"><a href="#Ownership-Boundaries" class="headerlink" title="Ownership Boundaries"></a>Ownership Boundaries</h4><blockquote>
+<p>A bounded context should be implemented, evolved, and maintained by one team only. No two teams can work on the same bounded context.</p>
+</blockquote>
+<blockquote>
+<p>It’s important to note that the relationship between teams and bounded contexts is one-directional: a bounded context should be owned by only one team. However, a single team can own multiple bounded contexts, as Figure 3-8 illustrates.<br><img src="/contents/learning-domain-driven-design/3-8.png" alt="Figure 3-8. Team 1 working on the Marketing and Optimization bounded contexts, while Team 2 works on the Sales bounded context"></p>
+</blockquote>
+<h2 id="Chapter-4-Integrating-Bounded-Contexts"><a href="#Chapter-4-Integrating-Bounded-Contexts" class="headerlink" title="Chapter 4. Integrating Bounded Contexts"></a>Chapter 4. Integrating Bounded Contexts</h2><blockquote>
+<p>Moreover, models in different bounded contexts can be evolved and implemented independently. That said, bounded contexts themselves are not independent. Just as a system cannot be built out of independent components—the components have to interact with one another to achieve the system’s overarching goals—so, too, do the implementations in bounded contexts. Although they can evolve independently, they have to integrate with one another. As a result, there will always be touchpoints between bounded contexts. These are called contracts.</p>
+</blockquote>
+<h3 id="Cooperation"><a href="#Cooperation" class="headerlink" title="Cooperation"></a>Cooperation</h3><blockquote>
+<p>… two DDD patterns suitable for cooperating teams: the partnership and shared kernel patterns.</p>
+</blockquote>
+<h4 id="Partnership"><a href="#Partnership" class="headerlink" title="Partnership"></a>Partnership</h4><blockquote>
+<p>The coordination of integration here is two-way.</p>
+</blockquote>
+<h4 id="Shared-Kernel"><a href="#Shared-Kernel" class="headerlink" title="Shared Kernel"></a>Shared Kernel</h4><blockquote>
+<p>Despite bounded contexts being model boundaries, there still can be cases when the same model of a subdomain, or a part of it, will be implemented in multiple bounded contexts.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/4-2.png" alt="Figure 4-2. Shared kernel"></p>
+</blockquote>
+<h3 id="Customer–Supplier"><a href="#Customer–Supplier" class="headerlink" title="Customer–Supplier"></a>Customer–Supplier</h3><h4 id="Anticorruption-Layer"><a href="#Anticorruption-Layer" class="headerlink" title="Anticorruption Layer"></a>Anticorruption Layer</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/4-5.png" alt="Figure 4-5. Integration through an anticorruption layer"></p>
+</blockquote>
+<h4 id="Open-Host-Service"><a href="#Open-Host-Service" class="headerlink" title="Open-Host Service"></a>Open-Host Service</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/4-6.png" alt="Figure 4-6. Integration through an open-host service"></p>
+</blockquote>
+<blockquote>
+<p>The supplier’s public interface is not intended to conform to its ubiquitous language. Instead, it is intended to expose a protocol convenient for the consumers, expressed in an integration-oriented language. As such, the public protocol is called the published language.</p>
+</blockquote>
+<blockquote>
+<p>In a sense, the open-host service pattern is a reversal of the anticorruption layer pattern: instead of the consumer, the supplier implements the translation of its internal model.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/4-7.png" alt="Figure 4-7. Open-host service exposing multiple versions of the published language"></p>
+</blockquote>
+<h3 id="Separate-Ways"><a href="#Separate-Ways" class="headerlink" title="Separate Ways"></a>Separate Ways</h3><h4 id="Model-Differences"><a href="#Model-Differences" class="headerlink" title="Model Differences"></a>Model Differences</h4><blockquote>
+<p>The separate ways pattern should be avoided when integrating core subdomains. Duplicating the implementation of such subdomains would defy the company’s strategy to implement them in the most effective and optimized way.</p>
+</blockquote>
+<h3 id="Context-Map"><a href="#Context-Map" class="headerlink" title="Context Map"></a>Context Map</h3><h4 id="Maintenance"><a href="#Maintenance" class="headerlink" title="Maintenance"></a>Maintenance</h4><blockquote>
+<p>A context map can be managed and maintained as code, using a tool like <a href="https://contextmapper.org/" target="_blank" rel="noopener">Context Mapper</a>.</p>
+</blockquote>
+<h3 id="Conclusion-1"><a href="#Conclusion-1" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>Bounded contexts are not independent. They have to interact with one another. The following patterns define different ways bounded contexts can be integrated:</p>
+<p>Partnership</p>
+<p>Bounded contexts are integrated in an ad hoc manner.</p>
+<p>Shared kernel</p>
+<p>Two or more bounded contexts are integrated by sharing a limited overlapping model that belongs to all participating bounded contexts.</p>
+<p>Conformist</p>
+<p>The consumer conforms to the service provider’s model.</p>
+<p>Anticorruption layer</p>
+<p>The consumer translates the service provider’s model into a model that fits the consumer’s needs.</p>
+<p>Open-host service</p>
+<p>The service provider implements a published language—a model optimized for its consumers’ needs.</p>
+<p>Separate ways</p>
+<p>It’s less expensive to duplicate particular functionality than to collaborate and integrate it.</p>
+</blockquote>
+<h1 id="Part-II-Tactical-Design"><a href="#Part-II-Tactical-Design" class="headerlink" title="Part II. Tactical Design"></a>Part II. Tactical Design</h1><h2 id="Chapter-5-Implementing-Simple-Business-Logic"><a href="#Chapter-5-Implementing-Simple-Business-Logic" class="headerlink" title="Chapter 5. Implementing Simple Business Logic"></a>Chapter 5. Implementing Simple Business Logic</h2><h3 id="Active-Record"><a href="#Active-Record" class="headerlink" title="Active Record"></a>Active Record</h3><blockquote>
+<p>An object that wraps a row in a database table or view, encapsulates the database access, and adds domain logic on that data.</p>
+<p>– Martin Fowler</p>
+</blockquote>
+<h4 id="When-to-Use-Active-Record"><a href="#When-to-Use-Active-Record" class="headerlink" title="When to Use Active Record"></a>When to Use Active Record</h4><blockquote>
+<p>The active record pattern is also known as an anemic domain model antipattern; in other words, an improperly designed domain model. I prefer to restrain from the negative connotation of the words anemic and antipattern. This pattern is a tool. Like any tool, it can solve problems, but it can potentially introduce more harm than good when applied in the wrong context. There is nothing wrong with using active records when the business logic is simple. Furthermore, using a more elaborate pattern when implementing simple business logic will also result in harm by introducing accidental complexity. In the next chapter, you will learn what a domain model is and how it differs from an active record pattern.</p>
+</blockquote>
+<h3 id="Conclusion-2"><a href="#Conclusion-2" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>Transaction script</p>
+<p>This pattern organizes the system’s operations as simple, straightforward procedural scripts. The procedures ensure that each operation is transactional—either it succeeds or it fails. The transaction script pattern lends itself to supporting subdomains, with business logic resembling simple, ETL-like operations.</p>
+</blockquote>
+<blockquote>
+<p>Active record</p>
+<p>When the business logic is simple but operates on complicated data structures, you can implement those data structures as active records. An active record object is a data structure that provides simple CRUD data access methods.</p>
+</blockquote>
+<h2 id="Chapter-6-Tackling-Complex-Business-Logic"><a href="#Chapter-6-Tackling-Complex-Business-Logic" class="headerlink" title="Chapter 6. Tackling Complex Business Logic"></a>Chapter 6. Tackling Complex Business Logic</h2><h3 id="Domain-Model"><a href="#Domain-Model" class="headerlink" title="Domain Model"></a>Domain Model</h3><h4 id="Building-Blocks"><a href="#Building-Blocks" class="headerlink" title="Building Blocks"></a>Building Blocks</h4><blockquote>
+<p><strong>Value object</strong></p>
+<p>A value object is an object that can be identified by the composition of its values.</p>
+</blockquote>
+<blockquote>
+<p>… value objects eliminate the need for conventions —- for example, the need to keep in mind that this string is an email and the other string is a phone number —- and instead makes using the object model less error prone and more intuitive.</p>
+</blockquote>
+<blockquote>
+<p>Since a change to any of the fields of a value object results in a different value, value objects are implemented as immutable objects.</p>
+</blockquote>
+<blockquote>
+<p><strong>When to use value objects.</strong> The simple answer is, whenever you can. Not only do value objects make the code more expressive and encapsulate business logic that tends to spread apart, but the pattern makes the code safer. Since value objects are immutable, the value objects’ behavior is free of side effects and is thread safe.</p>
+</blockquote>
+<blockquote>
+<p>From a business domain perspective, a useful rule of thumb is to use value objects for the domain’s elements that describe properties of other objects.</p>
+</blockquote>
+<blockquote>
+<p>The examples you saw earlier used value objects to describe a person, including their ID, name, phone numbers, email, and so on.</p>
+</blockquote>
+<blockquote>
+<p>An especially important opportunity to introduce a value object is when modeling money and other monetary values. Relying on primitive types to represent money not only limits your ability to encapsulate all money-related business logic in one place, but also often leads to dangerous bugs, such as rounding errors and other precision-related issues.</p>
+</blockquote>
+<blockquote>
+<p><strong>Entities</strong></p>
+<p>An entity is the opposite of a value object. It requires an explicit identification field to distinguish between the different instances of the entity.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/6-2.png" alt="Figure 6-2. Introducing an explicit identification field, allowing differentiating instances of the object even if the values of all other fields are identical"></p>
+</blockquote>
+<blockquote>
+<p>Contrary to value objects, entities are not immutable and are expected to change. Another difference between entities and value objects is that value objects describe an entity’s properties.</p>
+</blockquote>
+<blockquote>
+<p>Entities are an essential building block of any business domain.</p>
+</blockquote>
+<blockquote>
+<p>… we don’t implement entities independently, but only in the context of the aggregate pattern.</p>
+</blockquote>
+<blockquote>
+<p><strong>Aggregates</strong></p>
+<p>An aggregate is an entity: it requires an explicit identification field and its state is expected to change during an instance’s lifecycle. However, it is much more than just an entity. The goal of the pattern is to protect the consistency of its data. Since an aggregate’s data is mutable, there are implications and challenges that the pattern has to address to keep its state consistent at all times.</p>
+</blockquote>
+<blockquote>
+<p>An aggregate’s public interface is responsible for validating the input and enforcing all of the relevant business rules and invariants. This strict boundary also ensures that all business logic related to the aggregate is implemented in one place: the aggregate itself.</p>
+</blockquote>
+<blockquote>
+<p>A change to an aggregate’s state can only be committed individually, one aggregate per database transaction.</p>
+</blockquote>
+<blockquote>
+<p>To support changes to multiple objects that have to be applied in one atomic transaction, the aggregate pattern resembles a hierarchy of entities, all sharing transactional consistency</p>
+</blockquote>
+<blockquote>
+<p>That’s why the pattern is named “aggregate”: it aggregates business entities and value objects that belong to the same transaction boundary.</p>
+</blockquote>
+<blockquote>
+<p>Only the information that is required by the aggregate’s business logic to be strongly consistent should be a part of the aggregate. All information that can be eventually consistent should reside outside of the aggregate’s boundary;</p>
+</blockquote>
+<blockquote>
+<p>The rule of thumb is to keep the aggregates as small as possible and include only objects that are required to be in a strongly consistent state by the aggregate’s business logic</p>
+</blockquote>
+<blockquote>
+<p>To decide whether an entity belongs to an aggregate or not, examine whether the aggregate contains business logic that can lead to an invalid system state if it will work on eventually consistent data.</p>
+</blockquote>
+<blockquote>
+<p>In addition to the aggregate root’s public interface, there is another mechanism through which the outer world can communicate with aggregates: domain events.</p>
+</blockquote>
+<blockquote>
+<p>Domain events are part of an aggregate’s public interface. An aggregate publishes its domain events. Other processes, aggregates, or even external systems can subscribe to and execute their own logic in response to the domain events</p>
+</blockquote>
+<blockquote>
+<p><strong>Domain services</strong></p>
+<p>Sooner or later, you may encounter business logic that either doesn’t belong to any aggregate or value object, or that seems to be relevant to multiple aggregates. In such cases, domain-driven design proposes to implement the logic as a domain service.</p>
+</blockquote>
+<blockquote>
+<p>A domain service is a stateless object that implements the business logic.</p>
+</blockquote>
+<h4 id="Managing-Complexity"><a href="#Managing-Complexity" class="headerlink" title="Managing Complexity"></a>Managing Complexity</h4><blockquote>
+<p>… when discussing the complexity of a system we are interested in evaluating the difficulty of controlling and predicting the system’s behavior. These two aspects are reflected by the system’s degrees of freedom.</p>
+</blockquote>
+<blockquote>
+<p>That’s what both aggregate and value object patterns do: encapsulate invariants and thus reduce complexity.</p>
+</blockquote>
+<blockquote>
+<p>All the business logic related to the state of a value object is located in its boundaries. The same is true for aggregates. An aggregate can only be modified by its own methods. Its business logic encapsulates and protects business invariants, thus reducing the degrees of freedom.</p>
+</blockquote>
+<blockquote>
+<p>Since the domain model pattern is applied only for subdomains with complex business logic, it’s safe to assume that these are core subdomains—the heart of the software.</p>
+</blockquote>
+<h3 id="Conclusion-3"><a href="#Conclusion-3" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>The domain model pattern is aimed at cases of complex business logic. It consists of three main building blocks:</p>
+<p>Value objects</p>
+<p>Concepts of the business domain that can be identified exclusively by their values and thus do not require an explicit ID field. Since a change in one of the fields semantically creates a new value, value objects are immutable.</p>
+<p>Value objects model not only data, but behavior as well: methods manipulating the values and thus initializing new value objects.</p>
+<p>Aggregates</p>
+<p>A hierarchy of entities sharing a transactional boundary. All of the data included in an aggregate’s boundary has to be strongly consistent to implement its business logic.</p>
+<p>The state of the aggregate, and its internal objects, can only be modified through its public interface, by executing the aggregate’s commands. The data fields are read-only for external components for the sake of ensuring that all the business logic related to the aggregate resides in its boundaries.</p>
+<p>The aggregate acts as a transactional boundary. All of its data, including all of its internal objects, has to be committed to the database as one atomic transaction.</p>
+<p>An aggregate can communicate with external entities by publishing domain events—messages describing important business events in the aggregate’s lifecycle. Other components can subscribe to the events and use them to trigger the execution of business logic.</p>
+<p>Domain services</p>
+<p>A stateless object that hosts business logic that naturally doesn’t belong to any of the domain model’s aggregates or value objects.</p>
+</blockquote>
+<h2 id="Chapter-7-Modeling-the-Dimension-of-Time"><a href="#Chapter-7-Modeling-the-Dimension-of-Time" class="headerlink" title="Chapter 7. Modeling the Dimension of Time"></a>Chapter 7. Modeling the Dimension of Time</h2><h3 id="Event-Sourcing"><a href="#Event-Sourcing" class="headerlink" title="Event Sourcing"></a>Event Sourcing</h3><blockquote>
+<p>The event sourcing pattern introduces the dimension of time into the data model. Instead of the schema reflecting the aggregates’ current state, an event sourcing– based system persists events documenting every change in an aggregate’s lifecycle.</p>
+</blockquote>
+<h4 id="Event-Store"><a href="#Event-Store" class="headerlink" title="Event Store"></a>Event Store</h4><blockquote>
+<p>The event store should not allow modifying or deleting the events2 since it’s append-only storage.</p>
+</blockquote>
+<h2 id="Chapter-8-Architectural-Patterns"><a href="#Chapter-8-Architectural-Patterns" class="headerlink" title="Chapter 8. Architectural Patterns"></a>Chapter 8. Architectural Patterns</h2><h3 id="Layered-Architecture"><a href="#Layered-Architecture" class="headerlink" title="Layered Architecture"></a>Layered Architecture</h3><blockquote>
+<p>Layered architecture is one of the most common architectural patterns. It organizes the codebase into horizontal layers, with each layer addressing one of the following technical concerns: interaction with the consumers, implementing business logic, and persisting the data.</p>
+</blockquote>
+<h4 id="Business-Logic-Layer"><a href="#Business-Logic-Layer" class="headerlink" title="Business Logic Layer"></a>Business Logic Layer</h4><blockquote>
+<p>This layer is where the business logic patterns described in Chapters 5–7 are implemented—for example, active records or a domain model</p>
+</blockquote>
+<h4 id="Variation"><a href="#Variation" class="headerlink" title="Variation"></a>Variation</h4><blockquote>
+<p>… the service layer is required if the business logic pattern requires external orchestration, as in the case of the active record pattern. In this case, the service layer implements the transaction script pattern, while the active records it oper‐ ates on are located in the business logic layer.</p>
+</blockquote>
+<h4 id="When-to-Use-Layered-Architecture"><a href="#When-to-Use-Layered-Architecture" class="headerlink" title="When to Use Layered Architecture"></a>When to Use Layered Architecture</h4><blockquote>
+<p>However, the pattern makes it challenging to implement a domain model. In a domain model, the business entities (aggregates and value objects) should have no dependency and no knowledge of the underlying infrastructure. The layered architec‐ ture’s top-down dependency requires jumping through some hoops to fulfill this requirement. It is still possible to implement a domain model in a layered architec‐ ture, but the pattern we will discuss next fits much better.</p>
+</blockquote>
+<blockquote>
+<p>… a layer is a logical boundary, whereas a tier is a physical boundary. All layers in the layered architecture are bound by the same lifecycle</p>
+</blockquote>
+<blockquote>
+<p>On the other hand, a tier is an independ‐ ently deployable service, server, or system. For example, consider the N-Tier system in Figure 8-7.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/8-7.png" alt="Figure 8-7. N-Tier system"></p>
+</blockquote>
+<blockquote>
+<p>However, since each component can be deployed and managed independent of the rest, these are tiers and not layers.</p>
+</blockquote>
+<blockquote>
+<p>Layers, on the other hand, are logical boundaries inside the web application.</p>
+</blockquote>
+<h3 id="Ports-amp-Adapters"><a href="#Ports-amp-Adapters" class="headerlink" title="Ports &amp; Adapters"></a>Ports &amp; Adapters</h3><h4 id="Integration-of-Infrastructural-Components"><a href="#Integration-of-Infrastructural-Components" class="headerlink" title="Integration of Infrastructural Components"></a>Integration of Infrastructural Components</h4><blockquote>
+<p>The core goal of the ports &amp; adapters architecture is to decouple the system’s business logic from its infrastructural components.</p>
+</blockquote>
+<blockquote>
+<p>Instead of referencing and calling the infrastructural components directly, the business logic layer defines “ports” that have to be implemented by the infrastructure layer. The infrastructure layer implements “adapters”: concrete implementations of the ports’ interfaces for working with different technologies (see Figure 8-11).</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/8-11.png" alt="Figure 8-11. Ports &amp; adapters architecture"></p>
+</blockquote>
+<h4 id="Variants"><a href="#Variants" class="headerlink" title="Variants"></a>Variants</h4><blockquote>
+<p>The ports &amp; adapters architecture is also known as hexagonal architecture, onion architecture, and clean architecture.</p>
+</blockquote>
+<h3 id="Command-Query-Responsibility-Segregation"><a href="#Command-Query-Responsibility-Segregation" class="headerlink" title="Command-Query Responsibility Segregation"></a>Command-Query Responsibility Segregation</h3><h4 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h4><blockquote>
+<p>CQRS devotes a single model to executing operations that modify the system’s state (system commands).</p>
+</blockquote>
+<blockquote>
+<p>The system can define as many models as needed to present data to users or supply information to other systems.</p>
+</blockquote>
+<h4 id="Projecting-Read-Models"><a href="#Projecting-Read-Models" class="headerlink" title="Projecting Read Models"></a>Projecting Read Models</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/8-12.png" alt="Figure 8-12. CQRS architecture"></p>
+</blockquote>
+<h4 id="Model-Segregation"><a href="#Model-Segregation" class="headerlink" title="Model Segregation"></a>Model Segregation</h4><blockquote>
+<p>A common misconception about CQRS-based systems is that a command can only modify data, and data can be fetched for display only through a read model. In other words, the command executing the methods should never return any data. This is wrong. This approach produces accidental complexities and leads to a bad user experience.</p>
+</blockquote>
+<blockquote>
+<p>Therefore, a command can—and in many cases should—return data;</p>
+</blockquote>
+<blockquote>
+<p>The only limitation here is that the returned data should originate from the strongly consistent model—the command execution model—as we cannot expect the projections, which will eventually be consistent, to be refreshed immediately.</p>
+</blockquote>
+<h4 id="When-to-Use-CQRS"><a href="#When-to-Use-CQRS" class="headerlink" title="When to Use CQRS"></a>When to Use CQRS</h4><blockquote>
+<p>The CQRS pattern can be useful for applications that need to work with the same data in multiple models, potentially stored in different kinds of databases.</p>
+</blockquote>
+<h3 id="Scope"><a href="#Scope" class="headerlink" title="Scope"></a>Scope</h3><blockquote>
+<p><img src="/contents/learning-domain-driven-design/8-18.png" alt="Figure 8-18. Architectural slices"></p>
+</blockquote>
+<h3 id="Conclusion-4"><a href="#Conclusion-4" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>The layered architecture decomposes the codebase based on its technological concerns. Since this pattern couples business logic with data access implementation, it’s a good fit for active record–based systems.</p>
+</blockquote>
+<blockquote>
+<p>The ports &amp; adapters architecture inverts the relationships: it puts the business logic at the center and decouples it from all infrastructural dependencies. This pattern is a good fit for business logic implemented with the domain model pattern.</p>
+</blockquote>
+<blockquote>
+<p>The CQRS pattern represents the same data in multiple models. Although this pattern is obligatory for systems based on the event-sourced domain model, it can also be used in any systems that need a way of working with multiple persistent models.</p>
+</blockquote>
+<h2 id="Chapter-9-Communication-Patterns"><a href="#Chapter-9-Communication-Patterns" class="headerlink" title="Chapter 9. Communication Patterns"></a>Chapter 9. Communication Patterns</h2><h3 id="Model-Translation"><a href="#Model-Translation" class="headerlink" title="Model Translation"></a>Model Translation</h3><h4 id="Stateful-Model-Translation"><a href="#Stateful-Model-Translation" class="headerlink" title="Stateful Model Translation"></a>Stateful Model Translation</h4><blockquote>
+<p>In some use cases, you can avoid implementing a custom solution for a stateful translation by using off-the-shelf products; for example, a stream-process platform (Kafka, AWS Kinesis, etc.), or a batching solution (Apache NiFi, AWS Glue, Spark, etc.).</p>
+</blockquote>
+<h3 id="Integrating-Aggregates"><a href="#Integrating-Aggregates" class="headerlink" title="Integrating Aggregates"></a>Integrating Aggregates</h3><h4 id="Outbox"><a href="#Outbox" class="headerlink" title="Outbox"></a>Outbox</h4><blockquote>
+<p>The outbox pattern (Figure 9-11) ensures reliable publishing of domain events using the following algorithm:</p>
+<ul>
+<li>Both the updated aggregate’s state and the new domain events are committed in the same atomic transaction.</li>
+<li>A message relay fetches newly committed domain events from the database.</li>
+<li>The relay publishes the domain events to the message bus.</li>
+<li>Upon successful publishing, the relay either marks the events as published in the database or deletes them completely.<br><img src="/contents/learning-domain-driven-design/9-11.png" alt="Figure 9-11. Outbox pattern"></li>
+</ul>
+</blockquote>
+<blockquote>
+<p>When using a relational database, it’s convenient to leverage the database’s ability to commit to two tables atomically and use a dedicated table for storing the messages</p>
+</blockquote>
+<blockquote>
+<p>When using a NoSQL database that doesn’t support multidocument transactions, the outgoing domain events have to be embedded in the aggregate’s record.</p>
+</blockquote>
+<h4 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h4><blockquote>
+<p>A saga is a long-running business process. It’s long running not necessarily in terms of time, as sagas can run from seconds to years, but rather in terms of transactions: a business process that spans multiple transactions. The transactions can be handled not only by aggregates but by any component emitting domain events and responding to commands. The saga listens to the events emitted by the relevant components and issues subsequent commands to the other components. If one of the execution steps fails, the saga is in charge of issuing relevant compensating actions to ensure the system state remains consistent.</p>
+</blockquote>
+<h4 id="Process-Manager"><a href="#Process-Manager" class="headerlink" title="Process Manager"></a>Process Manager</h4><blockquote>
+<p>The saga pattern manages simple, linear flow. Strictly speaking, a saga matches events to the corresponding commands.</p>
+</blockquote>
+<blockquote>
+<p>The process manager pattern, shown in Figure 9-14, is intended to implement a business-logic-based process. It is defined as a central processing unit that maintains the state of the sequence and determines the next processing steps.<br><img src="/contents/learning-domain-driven-design/9-14.png" alt="Figure 9-14. Process manager"></p>
+</blockquote>
+<blockquote>
+<p>As a simple rule of thumb, if a saga contains if-else statements to choose the correct course of action, it is probably a process manager.</p>
+</blockquote>
+<blockquote>
+<p>Another difference between a process manager and a saga is that a saga is instantiated implicitly when a particular event is observed</p>
+</blockquote>
+<blockquote>
+<p>A process manager, on the other hand, cannot be bound to a single source event. Instead, it’s a coherent business process consisting of multiple steps. Hence, a process manager has to be instantiated explicitly.</p>
+</blockquote>
+<h1 id="Part-III-Applying-Domain-Driven-Design-in-Practice"><a href="#Part-III-Applying-Domain-Driven-Design-in-Practice" class="headerlink" title="Part III. Applying Domain-Driven Design in Practice"></a>Part III. Applying Domain-Driven Design in Practice</h1><h2 id="Chapter-10-Design-Heuristics"><a href="#Chapter-10-Design-Heuristics" class="headerlink" title="Chapter 10. Design Heuristics"></a>Chapter 10. Design Heuristics</h2><h3 id="Bounded-Contexts"><a href="#Bounded-Contexts" class="headerlink" title="Bounded Contexts"></a>Bounded Contexts</h3><blockquote>
+<p>Broad bounded context boundaries, or those that encompass multiple subdomains, make it safer to be wrong about the boundaries or the models of the included subdomains. Refactoring logical boundaries is considerably less expensive than refactoring physical boundaries. Hence, when designing bounded contexts, start with wider boundaries. If required, decompose the wide boundaries into smaller ones as you gain domain knowledge.</p>
+</blockquote>
+<blockquote>
+<p>When creating a bounded context that contains a core subdomain, you can protect yourself against unforeseen changes by including other subdomains that the core subdomain interacts with most often. This can be other core subdomains, or even supporting and generic subdomains, as shown in Figure 10-2.<br><img src="/contents/learning-domain-driven-design/10-2.png" alt="Figure 10-2. Wide bounded context boundaries"></p>
+</blockquote>
+<h3 id="Business-Logic-Implementation-Patterns"><a href="#Business-Logic-Implementation-Patterns" class="headerlink" title="Business Logic Implementation Patterns"></a>Business Logic Implementation Patterns</h3><blockquote>
+<p>With all of this in mind, an effective heuristic for choosing the appropriate business logic implementation pattern is to ask the following questions:</p>
+<ul>
+<li>Does the subdomain track money or other monetary transactions or have to provide a consistent audit log, or is deep analysis of its behavior required by the business? If so, use the event-sourced domain model. Otherwise…</li>
+<li>Is the subdomain’s business logic complex? If so, implement a domain model. Otherwise…</li>
+<li>Does the subdomain include complex data structures? If so, use the active record pattern. Otherwise…</li>
+<li>Implement a transaction script.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/10-3.png" alt="Figure 10-3. Decision tree for business logic implementation pattern"></p>
+</blockquote>
+<blockquote>
+<p>Deciding on the business logic implementation pattern according to the complexity of the business logic and its data structures is a way to validate your assumptions about the subdomain type. Suppose you consider it to be a core subdomain, but the best pattern is active record or transaction script. Or suppose what you believe is a supporting subdomain requires a domain model or an event-sourced domain model; in this case, it’s an excellent opportunity to revisit your assumptions about the subdomain and business domain in general. Remember, a core subdomain’s competitive advantage is not necessarily technical.</p>
+</blockquote>
+<h3 id="Architectural-Patterns"><a href="#Architectural-Patterns" class="headerlink" title="Architectural Patterns"></a>Architectural Patterns</h3><blockquote>
+<p>Knowing the intended business logic implementation pattern makes choosing an architectural pattern straightforward:</p>
+<ul>
+<li>The event-sourced domain model requires CQRS. Otherwise, the system will be extremely limited in its data querying options, fetching a single instance by its ID only.</li>
+<li>The domain model requires the ports &amp; adapters architecture. Otherwise, the layered architecture makes it hard to make aggregates and value objects ignorant of persistence.</li>
+<li>The Active record pattern is best accompanied by a layered architecture with the additional application (service) layer. This is for the logic controlling the active records.</li>
+<li>The transaction script pattern can be implemented with a minimal layered architecture, consisting of only three layers.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>The only exception to the preceding heuristics is the CQRS pattern. CQRS can be beneficial not only for the event-sourced domain model, but also for any other pattern if the subdomain requires representing its data in multiple persistent models.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/10-4.png" alt="Figure 10-4. Architectural pattern decision tree"></p>
+</blockquote>
+<h3 id="Testing-Strategy"><a href="#Testing-Strategy" class="headerlink" title="Testing Strategy"></a>Testing Strategy</h3><blockquote>
+<p><img src="/contents/learning-domain-driven-design/10-5.png" alt="Figure 10-5. Testing strategies"></p>
+</blockquote>
+<h4 id="Reversed-Testing-Pyramid"><a href="#Reversed-Testing-Pyramid" class="headerlink" title="Reversed Testing Pyramid"></a>Reversed Testing Pyramid</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/10-6.png" alt="Figure 10-6. Testing strategy decision tree"></p>
+</blockquote>
+<h3 id="Tactical-Design-Decision-Tree"><a href="#Tactical-Design-Decision-Tree" class="headerlink" title="Tactical Design Decision Tree"></a>Tactical Design Decision Tree</h3><blockquote>
+<p><img src="/contents/learning-domain-driven-design/10-7.png" alt="Figure 10-7. Tactical design decision tree"></p>
+</blockquote>
+<h2 id="Chapter-12-EventStorming"><a href="#Chapter-12-EventStorming" class="headerlink" title="Chapter 12. EventStorming"></a>Chapter 12. EventStorming</h2><h3 id="What-Is-EventStorming"><a href="#What-Is-EventStorming" class="headerlink" title="What Is EventStorming?"></a>What Is EventStorming?</h3><blockquote>
+<p>In a sense, EventStorming is a tactical tool for sharing business domain knowledge.</p>
+</blockquote>
+<h3 id="The-EventStorming-Process"><a href="#The-EventStorming-Process" class="headerlink" title="The EventStorming Process"></a>The EventStorming Process</h3><blockquote>
+<p>An EventStorming workshop is usually conducted in 10 steps. During each step, the model is enriched with additional information and concepts.</p>
+</blockquote>
+<h4 id="Step-1-Unstructured-Exploration"><a href="#Step-1-Unstructured-Exploration" class="headerlink" title="Step 1: Unstructured Exploration"></a>Step 1: Unstructured Exploration</h4><h4 id="Step-2-Timelines"><a href="#Step-2-Timelines" class="headerlink" title="Step 2: Timelines"></a>Step 2: Timelines</h4><h4 id="Step-3-Pain-Points"><a href="#Step-3-Pain-Points" class="headerlink" title="Step 3: Pain Points"></a>Step 3: Pain Points</h4><h4 id="Step-4-Pivotal-Events"><a href="#Step-4-Pivotal-Events" class="headerlink" title="Step 4: Pivotal Events"></a>Step 4: Pivotal Events</h4><blockquote>
+<p>Pivotal events are an indicator of potential bounded context boundaries.</p>
+</blockquote>
+<h4 id="Step-5-Commands"><a href="#Step-5-Commands" class="headerlink" title="Step 5: Commands"></a>Step 5: Commands</h4><h4 id="Step-6-Policies"><a href="#Step-6-Policies" class="headerlink" title="Step 6: Policies"></a>Step 6: Policies</h4><h4 id="Step-7-Read-Models"><a href="#Step-7-Read-Models" class="headerlink" title="Step 7: Read Models"></a>Step 7: Read Models</h4><h4 id="Step-8-External-Systems"><a href="#Step-8-External-Systems" class="headerlink" title="Step 8: External Systems"></a>Step 8: External Systems</h4><h4 id="Step-9-Aggregates"><a href="#Step-9-Aggregates" class="headerlink" title="Step 9: Aggregates"></a>Step 9: Aggregates</h4><h4 id="Step-10-Bounded-Contexts"><a href="#Step-10-Bounded-Contexts" class="headerlink" title="Step 10: Bounded Contexts"></a>Step 10: Bounded Contexts</h4><h3 id="Variants-1"><a href="#Variants-1" class="headerlink" title="Variants"></a>Variants</h3><blockquote>
+<p>At the end of a full EventStorming session, you will have a model describing the business domain’s events, commands, aggregates, and even possible bounded contexts. However, all of these are just nice bonuses. The real value of an EventStorming session is the process itself—the sharing of knowledge among different stakeholders, alignment of their mental models of the business, discovery of conflicting models, and, last but not least, formulation of the ubiquitous language.</p>
+</blockquote>
+<h3 id="Facilitation-Tips"><a href="#Facilitation-Tips" class="headerlink" title="Facilitation Tips"></a>Facilitation Tips</h3><blockquote>
+<p><img src="/contents/learning-domain-driven-design/12-12.png" alt="Figure 12-12. Legend depicting the various elements of the EventStorming process written on the corresponding sticky notes"></p>
+</blockquote>
+<h2 id="Chapter-13-Domain-Driven-Design-in-the-Real-World"><a href="#Chapter-13-Domain-Driven-Design-in-the-Real-World" class="headerlink" title="Chapter 13. Domain-Driven Design in the Real World"></a>Chapter 13. Domain-Driven Design in the Real World</h2><h3 id="Pragmatic-Domain-Driven-Design"><a href="#Pragmatic-Domain-Driven-Design" class="headerlink" title="Pragmatic Domain-Driven Design"></a>Pragmatic Domain-Driven Design</h3><blockquote>
+<p>It’s worth reiterating that domain-driven design is not about aggregates or value objects. Domain-driven design is about letting your business domain drive software design decisions.</p>
+</blockquote>
+<h1 id="Part-IV-Relationships-to-Other-Methodologies-and-Patterns"><a href="#Part-IV-Relationships-to-Other-Methodologies-and-Patterns" class="headerlink" title="Part IV. Relationships to Other Methodologies and Patterns"></a>Part IV. Relationships to Other Methodologies and Patterns</h1><h2 id="Chapter-14-Microservices"><a href="#Chapter-14-Microservices" class="headerlink" title="Chapter 14. Microservices"></a>Chapter 14. Microservices</h2><h3 id="What-Is-a-Microservice"><a href="#What-Is-a-Microservice" class="headerlink" title="What Is a Microservice?"></a>What Is a Microservice?</h3><h4 id="System-Complexity"><a href="#System-Complexity" class="headerlink" title="System Complexity"></a>System Complexity</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/14-5.png" alt="Figure 14-5. Service granularity and system complexities"></p>
+</blockquote>
+<blockquote>
+<p>To design a proper microservices-based system, we have to optimize both global and local complexities.</p>
+</blockquote>
+<h3 id="Conclusion-5"><a href="#Conclusion-5" class="headerlink" title="Conclusion"></a>Conclusion</h3><blockquote>
+<p>All microservices are bounded contexts, but not all bounded contexts are necessarily microservices. In its essence, a microservice defines the smallest valid boundary of a service, while a bounded context protects the consistency of the encompassed model and represents the widest valid boundaries. Defining boundaries to be wider than their bounded contexts will result in a big ball of mud, while boundaries that are smaller than microservices will lead to a distributed big ball of mud.</p>
+</blockquote>
+<h2 id="Chapter-15-Event-Driven-Architecture"><a href="#Chapter-15-Event-Driven-Architecture" class="headerlink" title="Chapter 15. Event-Driven Architecture"></a>Chapter 15. Event-Driven Architecture</h2><h3 id="Event-Driven-Architecture"><a href="#Event-Driven-Architecture" class="headerlink" title="Event-Driven Architecture"></a>Event-Driven Architecture</h3><blockquote>
+<p>Although both event-driven architecture and event sourcing are based on events, the two patterns are conceptually different. EDA refers to the communication between services, while event sourcing happens inside a service.</p>
+</blockquote>
+<h3 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h3><h4 id="Events-Commands-and-Messages"><a href="#Events-Commands-and-Messages" class="headerlink" title="Events, Commands, and Messages"></a>Events, Commands, and Messages</h4><blockquote>
+<p>There are two types of messages:</p>
+<p>Event</p>
+<p>A message describing a change that has already happened</p>
+<p>Command</p>
+<p>A message describing an operation that has to be carried out</p>
+<p>An event is something that has already happened, whereas a command is an instruction to do something. Both events and commands can be communicated asynchronously as messages. However, a command can be rejected: the command’s target can refuse to execute the command, for example, if the command is invalid or if it contradicts the system’s business rules. A recipient of an event, on the other hand, cannot cancel the event. The event describes something that has already happened. The only thing that can be done to overturn an event is to issue a compensating action—a command, as it’s carried out in the saga pattern.</p>
+</blockquote>
+<h4 id="Types-of-Events"><a href="#Types-of-Events" class="headerlink" title="Types of Events"></a>Types of Events</h4><blockquote>
+<p>Events can be categorized into one of three types:2 event notification, event-carried state transfer, or domain events.</p>
+</blockquote>
+<blockquote>
+<p>Event-carried state transfer (ECST) messages notify subscribers about changes in the producer’s internal state. Contrary to event notification messages, ECST messages include all the data reflecting the change in the state.</p>
+</blockquote>
+<blockquote>
+<p>Conceptually, using event-carried state transfer messages is an asynchronous data replication mechanism.</p>
+</blockquote>
+<h3 id="Designing-Event-Driven-Integration"><a href="#Designing-Event-Driven-Integration" class="headerlink" title="Designing Event-Driven Integration"></a>Designing Event-Driven Integration</h3><blockquote>
+<p>… software design is predominantly about boundaries. Boundaries define what belongs inside, what remains outside, and most importantly, what goes across the boundaries—essentially, how the components are integrated with one another.</p>
+</blockquote>
+<h4 id="Event-Driven-Design-Heuristics"><a href="#Event-Driven-Design-Heuristics" class="headerlink" title="Event-Driven Design Heuristics"></a>Event-Driven Design Heuristics</h4><blockquote>
+<p>Use this as a guiding principle when designing event-driven systems:</p>
+<ul>
+<li>The network is going to be slow.</li>
+<li>Servers will fail at the most inconvenient moment.</li>
+<li>Events will arrive out of order.</li>
+<li>Events will be duplicated.</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Ensure that the events are always delivered consistently, no matter what:</p>
+<ul>
+<li>Use the outbox pattern to publish messages reliably.</li>
+<li>When publishing messages, ensure that the subscribers will be able to deduplicate the messages and identify and reorder out-of-order messages.</li>
+<li>Leverage the saga and process manager patterns when orchestrating cross- bounded context processes that require issuing compensating actions.</li>
+</ul>
+</blockquote>
+<h2 id="Chapter-16-Data-Mesh"><a href="#Chapter-16-Data-Mesh" class="headerlink" title="Chapter 16. Data Mesh"></a>Chapter 16. Data Mesh</h2><h3 id="Analytical-Data-Model-Versus-Transactional-Data-Model"><a href="#Analytical-Data-Model-Versus-Transactional-Data-Model" class="headerlink" title="Analytical Data Model Versus Transactional Data Model"></a>Analytical Data Model Versus Transactional Data Model</h3><h4 id="Dimension-Table"><a href="#Dimension-Table" class="headerlink" title="Dimension Table"></a>Dimension Table</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/16-4.png" alt="Figure 16-4. The SolvedCases fact surrounded by its dimensions"></p>
+</blockquote>
+<h4 id="Analytical-Models"><a href="#Analytical-Models" class="headerlink" title="Analytical Models"></a>Analytical Models</h4><blockquote>
+<p><img src="/contents/learning-domain-driven-design/16-5.png" alt="Figure 16-5. The many-to-one relationship between facts and their dimensions"></p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/16-6.png" alt="Figure 16-6. Multilevel dimensions in the snowflake schema"></p>
+</blockquote>
+<h3 id="Analytical-Data-Management-Platforms"><a href="#Analytical-Data-Management-Platforms" class="headerlink" title="Analytical Data Management Platforms"></a>Analytical Data Management Platforms</h3><h4 id="Data-Warehouse"><a href="#Data-Warehouse" class="headerlink" title="Data Warehouse"></a>Data Warehouse</h4><blockquote>
+<p>A data mart is a database that holds data relevant for well-defined analytical needs, such as analysis of a single business department.</p>
+</blockquote>
+<h4 id="Data-Lake"><a href="#Data-Lake" class="headerlink" title="Data Lake"></a>Data Lake</h4><blockquote>
+<p>A data lake–based system ingests the operational systems’ data. However, instead of being transformed right away into an analytical model, the data is persisted in its raw form, that is, in the original operational model.</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/learning-domain-driven-design/16-10.png" alt="Figure 16-10. Data lake architecture"></p>
+</blockquote>
+<blockquote>
+<p>Data lakes make it easy to ingest data but much more challenging to make use of it. Or, as is often said, a data lake becomes a data swamp.</p>
+</blockquote>
+<h3 id="Data-Mesh"><a href="#Data-Mesh" class="headerlink" title="Data Mesh"></a>Data Mesh</h3><blockquote>
+<p>The data mesh architecture is based on four core principles: decompose data around domains, data as a product, enable autonomy, and build an ecosystem. Let’s discuss each principle in detail.</p>
+</blockquote>
+<h4 id="Decompose-Data-Around-Domains"><a href="#Decompose-Data-Around-Domains" class="headerlink" title="Decompose Data Around Domains"></a>Decompose Data Around Domains</h4><blockquote>
+<p>Instead of building a monolithic analytical model, the data mesh architecture … use multiple analytical models and align them with the origin of the data.</p>
+</blockquote>
+<blockquote>
+<p>… the same team owns the operational model, now in charge of transforming it into the analytical model.</p>
+</blockquote>
+<h4 id="Data-as-a-Product"><a href="#Data-as-a-Product" class="headerlink" title="Data as a Product"></a>Data as a Product</h4><blockquote>
+<p>Contrary to the data warehouse and data lake architectures, with data mesh, accountability for data quality is a top- level concern.</p>
+</blockquote>
+<h4 id="Combining-Data-Mesh-and-Domain-Driven-Design"><a href="#Combining-Data-Mesh-and-Domain-Driven-Design" class="headerlink" title="Combining Data Mesh and Domain-Driven Design"></a>Combining Data Mesh and Domain-Driven Design</h4><blockquote>
+<p>These are the four principles that the data mesh architecture is based on. The emphasis on defining boundaries, and encapsulating the implementation details behind well-defined output ports, makes it evident that the data mesh architecture is based on the same reasoning as domain-driven design.</p>
+</blockquote>
+<h1 id="Appendix-A-Applying-DDD-A-Case-Study"><a href="#Appendix-A-Applying-DDD-A-Case-Study" class="headerlink" title="Appendix A. Applying DDD: A Case Study"></a>Appendix A. Applying DDD: A Case Study</h1><h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><h3 id="Ubiquitous-Language"><a href="#Ubiquitous-Language" class="headerlink" title="Ubiquitous Language"></a>Ubiquitous Language</h3><blockquote>
+<p>In my experience, ubiquitous language is the “core subdomain” of domain-driven design.</p>
+</blockquote>
+<blockquote>
+<p>… ubiquitous language is not optional, regardless of whether you’re working on a core, supporting, or generic subdomain.</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-I-Strategic-Design"><span class="toc-number">2.</span> <span class="toc-text">Part I. Strategic Design</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-1-Analyzing-Business-Domains"><span class="toc-number">2.1.</span> <span class="toc-text">Chapter 1. Analyzing Business Domains</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-a-Business-Domain"><span class="toc-number">2.1.1.</span> <span class="toc-text">What Is a Business Domain?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-a-Subdomain"><span class="toc-number">2.1.2.</span> <span class="toc-text">What Is a Subdomain?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Who-Are-the-Domain-Experts"><span class="toc-number">2.1.3.</span> <span class="toc-text">Who Are the Domain Experts?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-2-Discovering-Domain-Knowledge"><span class="toc-number">2.2.</span> <span class="toc-text">Chapter 2. Discovering Domain Knowledge</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-a-Ubiquitous-Language"><span class="toc-number">2.2.1.</span> <span class="toc-text">What Is a Ubiquitous Language?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Language-of-the-Business"><span class="toc-number">2.2.2.</span> <span class="toc-text">Language of the Business</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-of-the-Business-Domain"><span class="toc-number">2.2.3.</span> <span class="toc-text">Model of the Business Domain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion"><span class="toc-number">2.2.4.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-3-Managing-Domain-Complexity"><span class="toc-number">2.3.</span> <span class="toc-text">Chapter 3. Managing Domain Complexity</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-a-Bounded-Context"><span class="toc-number">2.3.1.</span> <span class="toc-text">What Is a Bounded Context?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bounded-Contexts-Versus-Subdomains"><span class="toc-number">2.3.2.</span> <span class="toc-text">Bounded Contexts Versus Subdomains</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boundaries"><span class="toc-number">2.3.3.</span> <span class="toc-text">Boundaries</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-4-Integrating-Bounded-Contexts"><span class="toc-number">2.4.</span> <span class="toc-text">Chapter 4. Integrating Bounded Contexts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cooperation"><span class="toc-number">2.4.1.</span> <span class="toc-text">Cooperation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Customer–Supplier"><span class="toc-number">2.4.2.</span> <span class="toc-text">Customer–Supplier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Separate-Ways"><span class="toc-number">2.4.3.</span> <span class="toc-text">Separate Ways</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Map"><span class="toc-number">2.4.4.</span> <span class="toc-text">Context Map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-1"><span class="toc-number">2.4.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-II-Tactical-Design"><span class="toc-number">3.</span> <span class="toc-text">Part II. Tactical Design</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-5-Implementing-Simple-Business-Logic"><span class="toc-number">3.1.</span> <span class="toc-text">Chapter 5. Implementing Simple Business Logic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Active-Record"><span class="toc-number">3.1.1.</span> <span class="toc-text">Active Record</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-2"><span class="toc-number">3.1.2.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-6-Tackling-Complex-Business-Logic"><span class="toc-number">3.2.</span> <span class="toc-text">Chapter 6. Tackling Complex Business Logic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Domain-Model"><span class="toc-number">3.2.1.</span> <span class="toc-text">Domain Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-3"><span class="toc-number">3.2.2.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-7-Modeling-the-Dimension-of-Time"><span class="toc-number">3.3.</span> <span class="toc-text">Chapter 7. Modeling the Dimension of Time</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Sourcing"><span class="toc-number">3.3.1.</span> <span class="toc-text">Event Sourcing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-8-Architectural-Patterns"><span class="toc-number">3.4.</span> <span class="toc-text">Chapter 8. Architectural Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Layered-Architecture"><span class="toc-number">3.4.1.</span> <span class="toc-text">Layered Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ports-amp-Adapters"><span class="toc-number">3.4.2.</span> <span class="toc-text">Ports &amp; Adapters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Command-Query-Responsibility-Segregation"><span class="toc-number">3.4.3.</span> <span class="toc-text">Command-Query Responsibility Segregation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Scope"><span class="toc-number">3.4.4.</span> <span class="toc-text">Scope</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-4"><span class="toc-number">3.4.5.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-9-Communication-Patterns"><span class="toc-number">3.5.</span> <span class="toc-text">Chapter 9. Communication Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Model-Translation"><span class="toc-number">3.5.1.</span> <span class="toc-text">Model Translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Integrating-Aggregates"><span class="toc-number">3.5.2.</span> <span class="toc-text">Integrating Aggregates</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-III-Applying-Domain-Driven-Design-in-Practice"><span class="toc-number">4.</span> <span class="toc-text">Part III. Applying Domain-Driven Design in Practice</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-10-Design-Heuristics"><span class="toc-number">4.1.</span> <span class="toc-text">Chapter 10. Design Heuristics</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bounded-Contexts"><span class="toc-number">4.1.1.</span> <span class="toc-text">Bounded Contexts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Business-Logic-Implementation-Patterns"><span class="toc-number">4.1.2.</span> <span class="toc-text">Business Logic Implementation Patterns</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Architectural-Patterns"><span class="toc-number">4.1.3.</span> <span class="toc-text">Architectural Patterns</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Testing-Strategy"><span class="toc-number">4.1.4.</span> <span class="toc-text">Testing Strategy</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tactical-Design-Decision-Tree"><span class="toc-number">4.1.5.</span> <span class="toc-text">Tactical Design Decision Tree</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-12-EventStorming"><span class="toc-number">4.2.</span> <span class="toc-text">Chapter 12. EventStorming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-EventStorming"><span class="toc-number">4.2.1.</span> <span class="toc-text">What Is EventStorming?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#The-EventStorming-Process"><span class="toc-number">4.2.2.</span> <span class="toc-text">The EventStorming Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Variants-1"><span class="toc-number">4.2.3.</span> <span class="toc-text">Variants</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Facilitation-Tips"><span class="toc-number">4.2.4.</span> <span class="toc-text">Facilitation Tips</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-13-Domain-Driven-Design-in-the-Real-World"><span class="toc-number">4.3.</span> <span class="toc-text">Chapter 13. Domain-Driven Design in the Real World</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pragmatic-Domain-Driven-Design"><span class="toc-number">4.3.1.</span> <span class="toc-text">Pragmatic Domain-Driven Design</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-IV-Relationships-to-Other-Methodologies-and-Patterns"><span class="toc-number">5.</span> <span class="toc-text">Part IV. Relationships to Other Methodologies and Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-14-Microservices"><span class="toc-number">5.1.</span> <span class="toc-text">Chapter 14. Microservices</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-Is-a-Microservice"><span class="toc-number">5.1.1.</span> <span class="toc-text">What Is a Microservice?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Conclusion-5"><span class="toc-number">5.1.2.</span> <span class="toc-text">Conclusion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-15-Event-Driven-Architecture"><span class="toc-number">5.2.</span> <span class="toc-text">Chapter 15. Event-Driven Architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-Driven-Architecture"><span class="toc-number">5.2.1.</span> <span class="toc-text">Event-Driven Architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Events"><span class="toc-number">5.2.2.</span> <span class="toc-text">Events</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Designing-Event-Driven-Integration"><span class="toc-number">5.2.3.</span> <span class="toc-text">Designing Event-Driven Integration</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-16-Data-Mesh"><span class="toc-number">5.3.</span> <span class="toc-text">Chapter 16. Data Mesh</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Analytical-Data-Model-Versus-Transactional-Data-Model"><span class="toc-number">5.3.1.</span> <span class="toc-text">Analytical Data Model Versus Transactional Data Model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analytical-Data-Management-Platforms"><span class="toc-number">5.3.2.</span> <span class="toc-text">Analytical Data Management Platforms</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Mesh"><span class="toc-number">5.3.3.</span> <span class="toc-text">Data Mesh</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Appendix-A-Applying-DDD-A-Case-Study"><span class="toc-number">6.</span> <span class="toc-text">Appendix A. Applying DDD: A Case Study</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Discussion"><span class="toc-number">6.1.</span> <span class="toc-text">Discussion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubiquitous-Language"><span class="toc-number">6.1.1.</span> <span class="toc-text">Ubiquitous Language</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

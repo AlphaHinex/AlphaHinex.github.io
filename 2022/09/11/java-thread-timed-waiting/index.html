@@ -1,0 +1,703 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】Java 线程状态之 TIMED_WAITING - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,java, timed waiting, thread.state, 线程, 线程状态"> 
+    <meta name="description" content="原文地址：https://xiaogd.net/md/java-线程状态之-timed_waiting
+目录
+
+定义
+timed_waiting 的场景
+虚假唤醒（spurious wakeup）
+,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】Java 线程状态之 TIMED_WAITING</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/java-thread-states/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                九月 11, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/09/11/java-thread-timed-waiting/" title="【转】Java 线程状态之 TIMED_WAITING" class="">【转】Java 线程状态之 TIMED_WAITING</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9.6k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-timed_waiting" target="_blank" rel="noopener">https://xiaogd.net/md/java-线程状态之-timed_waiting</a></p>
+<p>目录</p>
+<ul>
+<li>定义</li>
+<li>timed_waiting 的场景</li>
+<li>虚假唤醒（spurious wakeup）</li>
+<li>sleep 时的线程状态</li>
+<li>BLOCKED 和 WAITING 状态的区别和联系</li>
+<li>总结</li>
+</ul>
+<p>在<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-waiting" target="_blank" rel="noopener">上一篇章</a>中我们谈论了 WAITING 状态，在这一篇章里，我们来看剩余的最后的一个状态：TIMED_WAITING（限时等待）。</p>
+<p><img src="/contents/java-thread-states/state-timed-waiting.png" alt=""></p>
+<h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>一个正在限时等待另一个线程执行一个动作的线程处于这一状态。</p>
+<blockquote>
+<p>A thread that is waiting for another thread to perform an action for up to a specified waiting time is in this state.</p>
+</blockquote>
+<p>更详细的定义还是看 javadoc（jdk8）：</p>
+<p>带指定的等待时间的等待线程所处的状态。一个线程处于这一状态是因为用一个指定的正的等待时间（为参数）调用了以下方法中的其一：</p>
+<ul>
+<li>Thread.sleep</li>
+<li>带时限（timeout）的 Object.wait</li>
+<li>带时限（timeout）的 Thread.join</li>
+<li>LockSupport.parkNanos</li>
+<li>LockSupport.parkUntil</li>
+</ul>
+<p>对应的英文原文如下：</p>
+<blockquote>
+<p>Thread state for a waiting thread with a specified waiting time. A thread is in the timed waiting state due to calling one of the following methods with a specified positive waiting time:</p>
+<ul>
+<li>Thread.sleep</li>
+<li>Object.wait with timeout</li>
+<li>Thread.join with timeout</li>
+<li>LockSupport.parkNanos</li>
+<li>LockSupport.parkUntil</li>
+</ul>
+</blockquote>
+<p>不难看出，TIMED_WAITING 与 WAITING 间的联系还是很紧密的，主要差异在时限（timeout）参数上。</p>
+<blockquote>
+<p>另外则是 sleep 这一点上的不同。</p>
+</blockquote>
+<h1 id="timed-waiting-的场景"><a href="#timed-waiting-的场景" class="headerlink" title="timed_waiting 的场景"></a>timed_waiting 的场景</h1><p>实际上，在上一篇章中谈到的没有参数的 wait() 等价于 wait(0)，而 wait(0) 它不是等0毫秒，恰恰相反，它的意思是永久的等下去，到天荒地老，除非收到通知。</p>
+<blockquote>
+<p>具体可见 java 的源代码及相应 javadoc，注意：同时又还存在一种特殊的情况，所谓的“spurious wakeup”（虚假唤醒），我们在下面再讨论。</p>
+</blockquote>
+<p>即是把自己再次活动的命运完全交给了别人（通知者），那么这样会存在什么问题呢？</p>
+<blockquote>
+<p>在这里，我们还是继续上一篇章中的谈到的车厢场景，如不清楚的参见 <a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-waiting" target="_blank" rel="noopener">Java 线程状态之 WAITING</a>。</p>
+</blockquote>
+<p>设想一种情况，乘务员线程增加了厕纸，正当它准备执行 notify 时，这个线程因某种原因被杀死了（持有的锁也随之释放）。这种情况下，条件已经满足了，但等待的线程却没有收到通知，还在傻乎乎地等待。<br>简而言之，就是存在通知失效的情况。这时，如果有个心机婊线程，她考虑得比较周全，她不是调用 wait()，而是调用 wait(1000），如果把进入 wait set 比喻成在里面睡觉等待。那么 wait(1000）相当于自带设有倒计时 1000 毫秒的闹钟，换言之，她在同时等待两个通知，并取决于哪个先到：</p>
+<ul>
+<li>如果在1000毫秒内，她就收到了乘务员线程的通知从而唤醒，闹钟也随之失效；</li>
+<li>反之，超过1000毫秒，还没收到通知，则闹钟响起，此时她则被闹钟唤醒。</li>
+</ul>
+<p>这种情况类似于双保险。下面是一个动态的 gif 示意图（空的电池代表条件不满足，粉色的乘务员线程负责增加纸张，带有闹钟的乘客线程代表限时等待）：</p>
+<p><img src="/contents/java-thread-states/thread_timed_waiting.gif" alt=""></p>
+<p>这样，在通知失效的情况下，她还是有机会自我唤醒的，进而完成尿尿动作。</p>
+<blockquote>
+<p>可见，一个线程，她带不带表（闹钟），差别还是有的。其它死心眼的线程则等呀等，等到下面都湿了却依旧可能等不来通知。用本山大叔的话来说：那憋得是相当难受。</p>
+</blockquote>
+<p>以下代码模拟了上述情形，这次，没有让乘务员线程执行通知动作，但限时等待的线程2还是自我唤醒了：</p>
+<pre><code class="java">@Test
+public void testTimedWaitingState() throws Exception {
+    class Toilet { // 厕所类
+        int paperCount = 0; // 纸张
+
+        public void pee() { // 尿尿方法
+            try {
+                Thread.sleep(21000);// 研究表明，动物无论大小尿尿时间都在21秒左右
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    Toilet toilet = new Toilet();
+
+    // 一直等待的线程1
+    Thread passenger1 = new Thread(new Runnable() {
+        public void run() {
+            synchronized (toilet) {
+                while (toilet.paperCount &lt; 1) {
+                    try {
+                        toilet.wait(); // 条件不满足，等待
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+                toilet.paperCount--; // 使用一张纸
+                toilet.pee();
+            }
+        }
+    });
+
+    // 只等待1000毫秒的线程2
+    Thread passenger2 = new Thread(new Runnable() {
+        public void run() {
+            synchronized (toilet) {
+                while (toilet.paperCount &lt; 1) {
+                    try {
+                        toilet.wait(1000); // 条件不满足，但只等待1000毫秒
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
+                toilet.paperCount--; // 使用一张纸
+                toilet.pee();
+            }
+        }
+    });
+
+    // 乘务员线程
+    Thread steward = new Thread(new Runnable() {
+        public void run() {
+            synchronized (toilet) {
+                toilet.paperCount += 10;// 增加十张纸
+                // 粗心的乘务员线程，没有通知到，（这里简单把代码注释掉来模拟）
+                // toilet.notifyAll();// 通知所有在此对象上等待的线程
+            }
+        }
+    });
+
+    passenger1.start();
+    passenger2.start();
+
+    // 确保已经执行了 run 方法
+    Thread.sleep(100);
+
+    // 没有纸，两线程均进入等待状态，其中，线程2进入 TIMED_WAITING
+    assertThat(passenger1.getState()).isEqualTo(Thread.State.WAITING);
+    assertThat(passenger2.getState()).isEqualTo(Thread.State.TIMED_WAITING);
+
+    // 此时的纸张数应为0
+    assertThat(toilet.paperCount).isEqualTo(0);
+
+    // 乘务员线程启动
+    steward.start();
+
+    // 确保已经增加纸张
+    Thread.sleep(100);
+
+    // 此时的纸张数应为10
+    assertThat(toilet.paperCount).isEqualTo(10);
+
+    // 确保线程2已经自我唤醒
+    Thread.sleep(1000);
+
+    // 如果纸张已经被消耗一张，说明线程2已经成功自我唤醒
+    assertThat(toilet.paperCount).isEqualTo(9);
+
+}</code></pre>
+<h1 id="虚假唤醒（spurious-wakeup）"><a href="#虚假唤醒（spurious-wakeup）" class="headerlink" title="虚假唤醒（spurious wakeup）"></a>虚假唤醒（spurious wakeup）</h1><p>虽然，前面说到没有参数的 wait() 等价于 wait(0)，意思是永久的等下去直到被通知到。但事实上存在所谓的 “spurious wakeup”，也即是“虚假唤醒”的情况，具体可见 Object.wait(long timeout) 中的 javadoc 说明：</p>
+<blockquote>
+<p>A thread can also wake up without being notified, interrupted, or timing out, a so-called spurious wakeup. While this will rarely occur in practice, applications must guard against it by testing for the condition that should have caused the thread to be awakened, and continuing to wait if the condition is not satisfied.</p>
+<p>一个线程也能在没有被通知、中断或超时的情况下唤醒，也即所谓的“虚假唤醒”，虽然这点在实践中很少发生，应用应该检测导致线程唤醒的条件，并在条件不满足的情况下继续等待，以此来防止这一点。</p>
+</blockquote>
+<p>换言之，wait 应该总是在循环中调用（waits should always occur in loops），javadoc 中给出了样板代码：</p>
+<pre><code class="java">synchronized (obj) {
+    while (&lt;condition does not hold&gt;)
+        obj.wait(timeout);
+    ... // Perform action appropriate to condition
+}</code></pre>
+<p>简单讲，要避免使用 if 的方式来判断条件，否则一旦线程恢复，就继续往下执行，不会再次检测条件。由于可能存在的“虚假唤醒”，并不意味着条件是满足的，这点甚至对简单的“二人转”的两个线程的 wait/notify 情况也需要注意。</p>
+<blockquote>
+<p>另外，如果对于更多线程的情况，比如“生产者和消费者”问题，一个生产者，两个消费者，更加不能简单用 if 判断。因为可能用的是 notifyAll，两个消费者同时起来，其中一个先抢到了锁，进行了消费，等另一个也抢到锁时，可能条件又不满足了，所以还是要继续判断，不能简单认为被唤醒了就是条件满足了。</p>
+</blockquote>
+<p>关于此话题的更多信息，可参考：</p>
+<ul>
+<li>Doug Lea 的 《Concurrent Programming in Java (Second Edition)》3.2.3 节。</li>
+<li>Joshua Bloch 的 《Effective Java Programming Language Guide》，“Prefer concurrency utilities to  wait and  notify”章节。</li>
+</ul>
+<h1 id="sleep-时的线程状态"><a href="#sleep-时的线程状态" class="headerlink" title="sleep 时的线程状态"></a>sleep 时的线程状态</h1><p>进入 TIMED_WAITING 状态的另一种常见情形是调用的 sleep 方法，单独的线程也可以调用，不一定非要有协作关系，当然，依旧可以将它视作为一种特殊的 wait/notify 情形。</p>
+<blockquote>
+<p>这种情况下就是完全靠“自带闹钟”来通知了。<br>另：sleep(0) 跟 wait(0) 是不一样的，sleep 不存在无限等待的情况，sleep(0) 相当于几乎不等待。</p>
+</blockquote>
+<p>需要注意，sleep 方法没有任何同步语义。通常，我们会说，sleep 方法不会释放锁。</p>
+<blockquote>
+<p>javadoc中的确切说法是：The thread does not lose ownership of any monitors.（线程不会失去任何 monitor 的所有权）</p>
+</blockquote>
+<p>而较为夸张的说法则是说 sleep 时会抱住锁不放，这种说法不能说说错了，但不是很恰当。</p>
+<blockquote>
+<p>打个不太确切的比方，就好比你指着一个大老爷们说：“他下个月不会来大姨妈”，那么，我们能说你说错了吗？但是，显得很怪异。</p>
+</blockquote>
+<p>就锁这个问题而言，确切的讲法是 sleep 是跟锁无关的。</p>
+<blockquote>
+<p>JLS 中的说法是“It is important to note that neither  Thread.sleep nor  Thread.yield have any synchronization semantics”。（sleep 和 yield 均无任何同步语义），另一个影响是，在它们调用的前后都无需关心寄存器缓存与内存数据的一致性（no flush or reload）</p>
+<p>见《The Java Language Specification Java SE 7 Edition》17.3 Sleep and Yield</p>
+</blockquote>
+<p>所以，如果线程调用 sleep 时是带了锁，sleep 期间则锁还为线程锁拥有。</p>
+<blockquote>
+<p>比如在同步块中调用 sleep（需要特别注意，或许你需要的是 wait 的方法！）</p>
+</blockquote>
+<p>反之，如果线程调用 sleep 时没有带锁（这也是可以的，这点与 wait 不同，不是非得要在同步块中调用），那么自然也不会在sleep 期间“抱住锁不放”。</p>
+<blockquote>
+<p>压根就没有锁，你让它抱啥呢？而 sleep 君则完全是一脸懵逼：“锁？啥是锁？我没听过这玩意！”</p>
+</blockquote>
+<p>带 timeout 的 join 的情景与 wait(timeout) 原理类似，这里不再展开叙述。</p>
+<blockquote>
+<p>LockSupport.parkNanos 和 parkUnitl 也交由读者自行分析。</p>
+</blockquote>
+<h1 id="BLOCKED-和-WAITING-状态的区别和联系"><a href="#BLOCKED-和-WAITING-状态的区别和联系" class="headerlink" title="BLOCKED 和 WAITING 状态的区别和联系"></a>BLOCKED 和 WAITING 状态的区别和联系</h1><p>在说完了 BLOCKED，WAITING 和 TIMED_WAITING 后，我们可以综合来看看它们，比如，阻塞与等待到底有什么本质的区别呢？</p>
+<p>显然，BLOCKED 同样可以视作是一种特殊的，隐式的 wait/nofity 机制。等待的条件就是“有锁还是没锁”。</p>
+<blockquote>
+<p>不过，这是一个不确定的等待，可能等待（无法获取锁时），也可能不等待（能获取锁）。陷入这种阻塞后也没有自主退出的机制。</p>
+<p>有一点需要注意的是，BLOCKED 状态是与 Java 语言级别的 synchronized 机制相关的，我们知道在 Java 5.0 之后引入了更多的机制（java.util.concurrent），除了可以用 synchronized 这种内部锁，也可以使用外部的显式锁。</p>
+<p>显式锁有一些更好的特性，如能中断，能设置获取锁的超时，能够有多个条件等，尽管从表面上说，当显式锁无法获取时，我们还是说，线程被“阻塞”了，但却未必是 BLOCKED 状态。</p>
+</blockquote>
+<p>当锁可用时，其中的一个线程会被系统隐式通知，并被赋予锁，从而获得在同步块中的执行权。</p>
+<blockquote>
+<p>显然，等待锁的线程与系统同步机制形成了一个协作关系。</p>
+</blockquote>
+<p>对比来看， WAITING 状态属于主动地显式地申请的阻塞，BLOCKED 则属于被动的阻塞，但无论从字面意义还是从根本上来看，并无本质的区别。</p>
+<blockquote>
+<p>在前面我们也已经说过，这三个状态可以认为是传统 waiting 状态在 JVM 层面的一个细分。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最后，跟传统进（线）程状态划分的一个最终对比：</p>
+<p><img src="/contents/java-thread-states/os-jvm-thread-state-all.png" alt=""></p>
+<p>关于 Java 线程状态的所有分析就到此为止。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#定义"><span class="toc-number">1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#timed-waiting-的场景"><span class="toc-number">2.</span> <span class="toc-text">timed_waiting 的场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#虚假唤醒（spurious-wakeup）"><span class="toc-number">3.</span> <span class="toc-text">虚假唤醒（spurious wakeup）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sleep-时的线程状态"><span class="toc-number">4.</span> <span class="toc-text">sleep 时的线程状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BLOCKED-和-WAITING-状态的区别和联系"><span class="toc-number">5.</span> <span class="toc-text">BLOCKED 和 WAITING 状态的区别和联系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】向量搜索的相似度度量 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,vector, metrics, similarity, L2, Euclidean, Cosine Similarity, Inner Product, Hamming Distance, Jaccard Index, Jaccard Distance, HNSW, IVF, Milvus"> 
+    <meta name="description" content="
+英文原文：Similarity Metrics for Vector Search
+原文作者：Yujian Tang
+
+
+你不能比较苹果和橙子。或者你可以吗？像 Milvus 这样的向量数据库允许,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】向量搜索的相似度度量</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/similarity-metrics-for-vector-search/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                六月 16, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/06/16/similarity-metrics-for-vector-search/" title="【译】向量搜索的相似度度量" class="">【译】向量搜索的相似度度量</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.4k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Vector/" rel="tag">Vector</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>英文原文：<a href="https://zilliz.com/blog/similarity-metrics-for-vector-search" target="_blank" rel="noopener">Similarity Metrics for Vector Search</a></li>
+<li>原文作者：<a href="https://zilliz.com/authors/Yujian_Tang" target="_blank" rel="noopener">Yujian Tang</a></li>
+</ul>
+<hr>
+<p>你不能比较苹果和橙子。或者你可以吗？像 <a href="https://zilliz.com/what-is-milvus" target="_blank" rel="noopener">Milvus</a> 这样的向量数据库允许你比较任何你可以向量化的数据。你甚至可以在你的  <a href="https://zilliz.com/blog/exploring-magic-vector-databases-jupyter-notebooks" target="_blank" rel="noopener">Jupyter Notebook</a> 中做到这一点。但是 <a href="https://zilliz.com/glossary/semantic-search" target="_blank" rel="noopener">向量相似性搜索</a> 是如何工作的呢？</p>
+<p><img src="/contents/similarity-metrics-for-vector-search/metrics.png" alt="metrics"></p>
+<p>向量搜索有两个关键的概念组成部分：索引和距离度量。一些流行的向量索引包括 <a href="https://zilliz.com/learn/hierarchical-navigable-small-worlds-HNSW" target="_blank" rel="noopener">HNSW</a>、<a href="https://zilliz.com/learn/vector-index" target="_blank" rel="noopener">IVF</a> 和 <a href="https://github.com/google-research/google-research/tree/master/scann" target="_blank" rel="noopener">ScaNN</a>。主要的三种距离度量是：L2 或欧几里得距离、余弦相似度和内积。其他度量还有可用于二进制向量的汉明距离和杰卡德系数。</p>
+<p>在这篇文章中，我们将涵盖：</p>
+<ul>
+<li>向量相似度度量</li>
+<li>L2 或欧几里得距离</li>
+<li><ul>
+<li>L2 距离是如何工作的？</li>
+</ul>
+</li>
+<li><ul>
+<li>何时应该使用欧几里得距离？</li>
+</ul>
+</li>
+<li>余弦相似度</li>
+<li><ul>
+<li>余弦相似度是如何工作的？</li>
+</ul>
+</li>
+<li><ul>
+<li>何时应该使用余弦相似度？</li>
+</ul>
+</li>
+<li>内积</li>
+<li><ul>
+<li>内积是如何工作的？</li>
+</ul>
+</li>
+<li><ul>
+<li>何时应该使用内积？</li>
+</ul>
+</li>
+<li>其他有趣的向量相似度或距离度量</li>
+<li><ul>
+<li>汉明距离</li>
+</ul>
+</li>
+<li><ul>
+<li>杰卡德指数</li>
+</ul>
+</li>
+<li>向量相似度搜索度量总结</li>
+</ul>
+<h2 id="向量相似度度量"><a href="#向量相似度度量" class="headerlink" title="向量相似度度量"></a>向量相似度度量</h2><p>向量可以表示为数字列表或方向和大小。为了更容易理解，你可以将向量想象为指向特定方向的线段。</p>
+<ul>
+<li><strong>L2或欧几里得度量</strong> 是两个向量之间的“斜边”度量。它衡量了向量线条结束点之间的距离大小。</li>
+<li><strong>余弦相似度</strong> 是指它们相交时线之间的夹角。</li>
+<li><strong>内积</strong> 是将一个向量投影到另一个向量上的操作。直观地说，它同时衡量了向量之间的距离和角度。</li>
+</ul>
+<h2 id="L2-或欧几里得距离"><a href="#L2-或欧几里得距离" class="headerlink" title="L2 或欧几里得距离"></a>L2 或欧几里得距离</h2><p>L2 或欧几里得距离是最直观的距离度量。我们可以将其想象为两个物体之间的空间量。例如，你的屏幕离你的脸有多远。</p>
+<h3 id="L2-或欧几里得距离是如何工作的？"><a href="#L2-或欧几里得距离是如何工作的？" class="headerlink" title="L2 或欧几里得距离是如何工作的？"></a>L2 或欧几里得距离是如何工作的？</h3><p><img src="/contents/similarity-metrics-for-vector-search/l2.png" alt="l2"></p>
+<p>那么，我们已经想象了 L2 距离在空间中是如何工作的；在数学中它是如何工作的呢？让我们首先将两个向量想象为一列数字。将这些数字列表上下对齐，然后向下相减。接着，将所有结果平方并相加。最后，取平方根。</p>
+<p><a href="https://milvus.io/" target="_blank" rel="noopener">Milvus</a> 跳过了平方根步骤，因为平方根处理前后的排名顺序是相同的。这样，我们可以省去一个操作步骤并得到相同的结果，降低延迟和成本，提高吞吐量。下面是一个欧几里得或 L2 距离如何工作的例子。</p>
+<p>d(Queen, King) = $$\sqrt{(0.3-0.5)^2 + (0.9-0.7)^2}$$</p>
+<p>= $$\sqrt{(-0.2)^2 + (0.2)^2}$$</p>
+<p>= $$\sqrt{0.04 + 0.04}$$</p>
+<p>= $$\sqrt{0.08}$$ ≈ 0.28</p>
+<h3 id="何时应该使用-L2-或欧几里得距离？"><a href="#何时应该使用-L2-或欧几里得距离？" class="headerlink" title="何时应该使用 L2 或欧几里得距离？"></a>何时应该使用 L2 或欧几里得距离？</h3><p>使用欧几里得距离的一个主要原因是当您的向量具有不同的大小（magnitudes）时。您主要关心的是您的词汇在空间中或语义上的距离有多远。</p>
+<h2 id="余弦相似度"><a href="#余弦相似度" class="headerlink" title="余弦相似度"></a>余弦相似度</h2><p>我们使用“余弦相似度”或“余弦距离”来表示两个向量之间的方向差异。例如，你需要转多少度才能面向前门？</p>
+<p><strong>有趣且实用的事实</strong>：尽管“相似度”和“距离”两个词单独来看有不同的含义，但在它们前面加上“余弦”后会使它们的意思几乎相同！这是语义相似性的又一个例子。</p>
+<h3 id="余弦相似度是如何工作的？"><a href="#余弦相似度是如何工作的？" class="headerlink" title="余弦相似度是如何工作的？"></a>余弦相似度是如何工作的？</h3><p><img src="/contents/similarity-metrics-for-vector-search/cosine.png" alt="cosine"></p>
+<p>所以，我们知道了余弦相似度度量的是两个向量之间的夹角。让我们再次将我们的向量想象成一列数字。不过这次的过程稍微复杂一些。</p>
+<p>我们再次将向量上下对齐。首先，将数字向下相乘，然后将所有结果相加。现在保存这个数字；称它为“x”。接下来，我们必须将向量中的每个数字平方，并将平方的结果相加。想象一下，对于两个向量，将每个向量中的数字按水平方向平方，之后相加求和。</p>
+<p>接着，对这两个和求平方根，然后将它们相乘，称这个结果为“y”。我们将余弦距离的值定义为“x”除以“y”。</p>
+<h3 id="何时应该使用余弦相似度？"><a href="#何时应该使用余弦相似度？" class="headerlink" title="何时应该使用余弦相似度？"></a>何时应该使用余弦相似度？</h3><p>余弦相似度主要用于 NLP 应用。余弦相似度主要衡量的是语义方向的差异。如果您使用了归一化向量，余弦相似度等同于内积。</p>
+<h2 id="内积"><a href="#内积" class="headerlink" title="内积"></a>内积</h2><p>内积是一个向量投影到另一个向量上的操作。内积的值是向量的长度拉伸出来的。两个向量之间的夹角越大，内积越小。它还会随着较小向量的长度而缩放。因此，当我们关心方向和距离时，我们使用内积。例如，你必须穿过墙壁跑到冰箱的直线距离。</p>
+<h3 id="内积是如何工作的？"><a href="#内积是如何工作的？" class="headerlink" title="内积是如何工作的？"></a>内积是如何工作的？</h3><p><img src="/contents/similarity-metrics-for-vector-search/IP.png" alt="IP"></p>
+<p>内积应该看起来很熟悉。它只是余弦计算的前 ⅓ 部分。在你的脑海中将这些向量排成一行，向下相乘。然后将它们相加。这个过程测量了你和最近的点心之间的直线距离。</p>
+<h3 id="何时应该使用内积？"><a href="#何时应该使用内积？" class="headerlink" title="何时应该使用内积？"></a>何时应该使用内积？</h3><p>内积就像欧几里得距离和余弦相似度的混合体。当涉及到归一化数据集时，它等同于余弦相似度，因此内积适用于归一化或非归一化数据集。它是一个比余弦相似度更快的选项，也是一个更灵活的选项。</p>
+<p>需要记住的一件事是，内积不遵循三角不等式。更大的长度（大的幅度）被优先考虑。这意味着我们在使用<a href="https://zilliz.com/learn/vector-index" target="_blank" rel="noopener">倒排文件索引</a>或类似<a href="https://zilliz.com/learn/hierarchical-navigable-small-worlds-HNSW" target="_blank" rel="noopener">HNSW</a>的图索引时应该小心使用内积。</p>
+<blockquote>
+<p>译注：在倒排文件索引或HNSW（一种图索引方法）这类数据结构中，我们通常希望快速找到与给定查询最相似的项。如果使用内积作为相似性度量，那么更大的长度（或幅度）将优先考虑，这意味着具有较大长度的向量将被视为更相似，即使它们的实际方向可能相差很大。这可能导致不准确的搜索结果。</p>
+</blockquote>
+<h2 id="其他有趣的向量相似度或距离度量"><a href="#其他有趣的向量相似度或距离度量" class="headerlink" title="其他有趣的向量相似度或距离度量"></a>其他有趣的向量相似度或距离度量</h2><p>上面提到的是对于向量嵌入最有用的三个向量度量方法。然而，它们并不是衡量两个向量之间距离的所有方法。以下是衡量两个向量之间距离或相似度的另外两种方法。</p>
+<h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p><img src="/contents/similarity-metrics-for-vector-search/hamming.png" alt="hamming"></p>
+<p>汉明距离可以应用于向量或字符串。对于我们的用例，让我们继续使用向量。汉明距离衡量了两个向量的 <strong><em>条目</em></strong> 之间的“差异”。例如，“1011”和“0111”的汉明距离为 2。</p>
+<p>在向量嵌入方面，汉明距离只适用于二进制向量。<a href="https://youtube.com/shorts/d_XNrd8PrTc?feature=share" target="_blank" rel="noopener">浮点向量嵌入</a>是由神经网络的倒数第二层输出的，由 0 到 1 之间的浮点数。例如 [0.24, 0.111, 0.21, 0.51235] 和 [0.33, 0.664, 0.125152, 0.1]。</p>
+<p>正如你所看到的，两个向量嵌入之间的汉明距离几乎总是等于向量本身的长度。每个值的可能性太多了。这就是为什么汉明距离只能应用于二进制或稀疏向量。像 TF-IDF、BM25 或 SPLADE 这样的过程产生的向量就是这种类型的向量。</p>
+<p>汉明距离适用于衡量两个文本之间的措辞差异、单词拼写差异或任何两个二进制向量之间的差异。但不适用于衡量向量嵌入之间的差异。</p>
+<p>有趣的事实：汉明距离等于对两个向量执行 XOR 操作的结果的和。</p>
+<h3 id="杰卡德距离"><a href="#杰卡德距离" class="headerlink" title="杰卡德距离"></a>杰卡德距离</h3><p><img src="/contents/similarity-metrics-for-vector-search/jaccard.png" alt="jaccard"></p>
+<p>杰卡德距离是衡量两个向量相似性或距离的另一种方法。有趣的是，杰卡德有杰卡德 <strong><em>指数</em></strong> 和杰卡德 <strong><em>距离</em></strong> 两种方式。杰卡德距离等于 1 - 杰卡德系数，Milvus 中实现的是 Jaccard 距离度量。</p>
+<p>计算杰卡德距离或指数是一项有趣的任务，因为乍一看它并不太有效。与汉明距离一样，杰卡德只适用于二进制数据。我发现传统的“并集”和“交集”形式令人困惑。我用逻辑上的方式理解它。它本质上就是 A “或” B 减去 A “且” B 再除以 A “或” B。</p>
+<p>如上图所示，我们计算 A 或 B 为 1 的条目数作为“并集”，A 和 B 都为 1 的条目数作为“交集”。因此，A（01100111）和 B（01010110）的杰卡德指数为 ½。在这种情况下，杰卡德距离，1 减去杰卡德指数，也是 ½。</p>
+<h2 id="向量相似度搜索度量总结"><a href="#向量相似度搜索度量总结" class="headerlink" title="向量相似度搜索度量总结"></a>向量相似度搜索度量总结</h2><p>在这篇文章中，我们了解了三种最有用的向量相似度搜索度量：L2（也称为欧几里得）距离、余弦距离和内积。每种度量都有不同的使用场景。欧几里得距离用于我们关心大小的差异。余弦用于我们关心方向的差异。内积用于我们关心大小和方向的差异。</p>
+<p>查看这些视频，了解更多关于向量相似度度量的信息，或 <a href="https://milvus.io/docs/search.md" target="_blank" rel="noopener">阅读文档</a> 了解如何在 Milvus 中配置这些度量。</p>
+<ul>
+<li><a href="https://www.youtube.com/embed/o-eE-HZzUQY?list=PLPg7_faNDlT6wXMi2vfG0zJ6pK-gq6KE8" target="_blank" rel="noopener">Vector Similarity Metrics: Cosine Similarity</a></li>
+<li><a href="https://www.youtube.com/embed/Yg64cgeNhkE?list=PLPg7_faNDlT6wXMi2vfG0zJ6pK-gq6KE8" target="_blank" rel="noopener">Vector Similarity Metrics: Inner Product</a></li>
+<li><a href="https://www.youtube.com/embed/7M798u_J3rg?list=PLPg7_faNDlT6wXMi2vfG0zJ6pK-gq6KE8" target="_blank" rel="noopener">Vector Similarity Metrics: L2 or Euclidean</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#向量相似度度量"><span class="toc-number">1.</span> <span class="toc-text">向量相似度度量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#L2-或欧几里得距离"><span class="toc-number">2.</span> <span class="toc-text">L2 或欧几里得距离</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#L2-或欧几里得距离是如何工作的？"><span class="toc-number">2.1.</span> <span class="toc-text">L2 或欧几里得距离是如何工作的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时应该使用-L2-或欧几里得距离？"><span class="toc-number">2.2.</span> <span class="toc-text">何时应该使用 L2 或欧几里得距离？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#余弦相似度"><span class="toc-number">3.</span> <span class="toc-text">余弦相似度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#余弦相似度是如何工作的？"><span class="toc-number">3.1.</span> <span class="toc-text">余弦相似度是如何工作的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时应该使用余弦相似度？"><span class="toc-number">3.2.</span> <span class="toc-text">何时应该使用余弦相似度？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内积"><span class="toc-number">4.</span> <span class="toc-text">内积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#内积是如何工作的？"><span class="toc-number">4.1.</span> <span class="toc-text">内积是如何工作的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#何时应该使用内积？"><span class="toc-number">4.2.</span> <span class="toc-text">何时应该使用内积？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他有趣的向量相似度或距离度量"><span class="toc-number">5.</span> <span class="toc-text">其他有趣的向量相似度或距离度量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#汉明距离"><span class="toc-number">5.1.</span> <span class="toc-text">汉明距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#杰卡德距离"><span class="toc-number">5.2.</span> <span class="toc-text">杰卡德距离</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量相似度搜索度量总结"><span class="toc-number">6.</span> <span class="toc-text">向量相似度搜索度量总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

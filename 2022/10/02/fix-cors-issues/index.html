@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】跨域（CORS）问题分析与解决方案 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,CORS, fetch, @CrossFilter, Access-Control-Allow-Origin"> 
+    <meta name="description" content="原文地址：跨域（CORS）问题分析与解决方案
+复现场景新创建一个 VUE 工程，使用 fetch 函数（如下所示） 调用后台 GET 接口，希望能够在后台获得到响应。
+fetch(&amp;#39;http,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】跨域（CORS）问题分析与解决方案</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/fix-cors-issues.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Web"><b>「
+                    </b>WEB<b> 」</b></a>
+                
+                十月 02, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/10/02/fix-cors-issues/" title="【转】跨域（CORS）问题分析与解决方案" class="">【转】跨域（CORS）问题分析与解决方案</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2022/10/01/CROS/" target="_blank" rel="noopener">跨域（CORS）问题分析与解决方案</a></p>
+<h2 id="复现场景"><a href="#复现场景" class="headerlink" title="复现场景"></a>复现场景</h2><p>新创建一个 VUE 工程，使用 fetch 函数（如下所示） 调用后台 GET 接口，希望能够在后台获得到响应。</p>
+<pre><code class="js">fetch(&#39;http://127.0.0.1:8080/api/amber/userinfo/hello&#39;)
+  .then(response =&gt; response)</code></pre>
+<p>当浏览器访问：<code>http://127.0.0.1:8181/#/</code> 就出现了问题：后台能够接到请求，但返回响应被浏览器拦截。<br>查看浏览器的 NETWORK 中显示：</p>
+<ul>
+<li>Status code : 200</li>
+<li>Response 没有返回正确结果</li>
+<li>Console 报错：提示如下 :</li>
+</ul>
+<pre><code class="text">Access to fetch at &#39;http://127.0.0.1:8080/api/amber/userinfo/hello&#39; from origin &#39;http://127.0.0.1:8081&#39; has been blocked by CORS policy: 
+No &#39;Access-Control-Allow-Origin&#39; header is present on the requested resource. 
+If an opaque response serves your needs, set the request&#39;s mode to &#39;no-cors&#39; to fetch the resource with CORS disabled.</code></pre>
+<p>看报错信息，显然，遇到了跨域问题。根据浏览器策略，所以将请求拦截。<br>浏览器通过 URL 是否同源 判别我是否做了跨域的操作。</p>
+<h2 id="origin（源）"><a href="#origin（源）" class="headerlink" title="origin（源）"></a>origin（源）</h2><p>在 <a href="https://mp.weixin.qq.com/s/8PY1NlT_dd5EIiLS5tHtHw" target="_blank" rel="noopener">Origin 和 Site</a> 中：</p>
+<blockquote>
+<p>在 Web 中，origin（源）是指 协议（scheme）+ 主机名（host）+ 端口号（port）。</p>
+<p>同源（Same origin），意味着 scheme/host/port 三元组完全相同。任意一部分不同，即为跨源（cross-origin，或称为跨域）。</p>
+</blockquote>
+<p>前台地址：<code>http://127.0.0.1:8181/#/</code> ，后台地址：<code>http://127.0.0.1:8080/api/amber/userinfo/hello</code> ，<br>其中 端口号（port） 不同，协议（scheme）和 主机名（host） 一致，可见不同源，且进行了跨源操作。</p>
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>Cross-Origin Resource Sharing（CORS），跨源资源共享 或 跨域资源共享，是一种基于 HTTP Header 的机制，用来使服务端指定哪些其他的源可以从这个服务端加载资源。</p>
+<p>CORS 在规范区分了预检请求、简单请求。了解 CORS 的工作原理，可以阅读 <a href="https://mp.weixin.qq.com/s/fKm7aX5wfn9I6-sqfT1HHw" target="_blank" rel="noopener">CORS</a> ，<br>或参阅 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">规范</a> 以获取更多详细信息。</p>
+<p>为了允许跨域请求，需要添加 CORS 相关的 HTTP Header。如果在请求的响应中未匹配到 CORS 的 Header，浏览器会拒绝它们。</p>
+<h2 id="CORS-解决方案"><a href="#CORS-解决方案" class="headerlink" title="CORS 解决方案"></a>CORS 解决方案</h2><p>有时可能只有某一个或者部分接口允许跨域访问，也可能所有接口都需要允许。</p>
+<p>根据作用域不同，分为局部解决方案和全局解决方案。</p>
+<h3 id="一、局部设置-CORS"><a href="#一、局部设置-CORS" class="headerlink" title="一、局部设置 CORS"></a>一、局部设置 CORS</h3><h4 id="方法-1、响应上设置-CORS-Header"><a href="#方法-1、响应上设置-CORS-Header" class="headerlink" title="方法 1、响应上设置 CORS Header"></a>方法 1、响应上设置 CORS Header</h4><p>在请求的响应头上设置：<code>Access-Control-Allow-Origin: *</code>。</p>
+<pre><code class="java">@GetMapping(&quot;/hello&quot;)
+@ResponseStatus(HttpStatus.OK)
+public String getUser(HttpServletResponse response){
+   response.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+   return &quot;hello, amber!&quot;;
+}</code></pre>
+<h4 id="方法-2、fetch-时关闭-CORS"><a href="#方法-2、fetch-时关闭-CORS" class="headerlink" title="方法 2、fetch 时关闭 CORS"></a>方法 2、fetch 时关闭 CORS</h4><p>在 fetch 请求上增加：<code>mode: &#39;no-cors&#39;</code> 参数。</p>
+<pre><code class="js">fetch(&#39;http://127.0.0.1:8080/api/amber/userinfo/hello&#39;, {mode: &#39;no-cors&#39;})
+  .then(response =&gt; response)</code></pre>
+<h4 id="方法3、-CrossOrigin"><a href="#方法3、-CrossOrigin" class="headerlink" title="方法3、@CrossOrigin"></a>方法3、@CrossOrigin</h4><p>Spring 从 4.2 版本后开始支持 <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-cors-controller" target="_blank" rel="noopener">@CrossOrigin</a> 注解实现跨域，<br>这在一定程度上简化了我们实现跨域访问的开发成本，<br>在需要跨域访问的 <strong>方法</strong> 或者 <strong>类</strong> 加上该注解便可允许跨域访问。</p>
+<p>①、@CrossOrigin 基于方法级别使用，如下所示：</p>
+<pre><code class="java">@RestController
+@RequestMapping(&quot;/api/amber/userinfo&quot;)
+public class UserInfoController {
+
+    @GetMapping(&quot;/hello&quot;)
+    @CrossOrigin
+    @ResponseStatus(HttpStatus.OK)
+    public String getUser(){
+        return &quot;hello, amber!&quot;;
+    }
+}</code></pre>
+<p>②、@CrossOrigin 在类级别也受支持，并由所有方法继承。如下所示：</p>
+<pre><code class="java">@CrossOrigin
+@RestController
+@RequestMapping(&quot;/api/amber/userinfo&quot;)
+public class UserInfoController {
+
+    @GetMapping(&quot;/hello&quot;)
+    @ResponseStatus(HttpStatus.OK)
+    public String getUser(){
+        return &quot;hello, amber!&quot;;
+    }
+}</code></pre>
+<h3 id="二、全局设置-CORS"><a href="#二、全局设置-CORS" class="headerlink" title="二、全局设置 CORS"></a>二、全局设置 CORS</h3><p>除了细粒度、基于注解的配置之外，有时可能还需要全局 CORS 配置。</p>
+<h4 id="1、自定义-Filter-HandlerInterceptor"><a href="#1、自定义-Filter-HandlerInterceptor" class="headerlink" title="1、自定义 Filter/HandlerInterceptor"></a>1、自定义 Filter/HandlerInterceptor</h4><pre><code class="java">@WebFilter(filterName = &quot;corsFilter&quot;, urlPatterns = {&quot;/*&quot;})
+@Component
+public class CORSConfig implements Filter {
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletResponse res = (HttpServletResponse) response;
+        res.setHeader(&quot;Access-Control-Allow-Credentials&quot;, String.valueOf(true));
+        res.setHeader(&quot;Access-Control-Allow-Headers&quot;, &quot;Content-Type,Access-Token,Authorization,ybg&quot;);
+        res.setHeader(&quot;Access-Control-Allow-Methods&quot;, &quot;POST, GET, OPTIONS, DELETE, PUT&quot;);
+        res.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+        res.setHeader(&quot;Access-Control-Max-Age&quot;, &quot;3600&quot;);
+        chain.doFilter(request, response);
+    }
+}</code></pre>
+<h4 id="2、CorsFilter"><a href="#2、CorsFilter" class="headerlink" title="2、CorsFilter"></a>2、CorsFilter</h4><p>Spring 4.2 版本后内置了一个 <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-cors-filter" target="_blank" rel="noopener">CorsFilter</a> 专门用于处理 CORS 请求问题，所在包的位置：<code>org.springframework.web.filter.CorsFilter</code>。</p>
+<p>通过配置 CorsFilter 可实现基于 URL 级别控制跨域访问的范围。</p>
+<pre><code class="java">CorsConfiguration config = new CorsConfiguration();
+
+// Possibly...
+// config.applyPermitDefaultValues()
+
+config.setAllowCredentials(true);
+config.addAllowedOrigin(&quot;https://domain1.com&quot;);
+config.addAllowedHeader(&quot;*&quot;);
+config.addAllowedMethod(&quot;*&quot;);
+
+UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+source.registerCorsConfiguration(&quot;/**&quot;, config);
+
+CorsFilter filter = new CorsFilter(source);</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#复现场景"><span class="toc-number">1.</span> <span class="toc-text">复现场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#origin（源）"><span class="toc-number">2.</span> <span class="toc-text">origin（源）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS"><span class="toc-number">3.</span> <span class="toc-text">CORS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS-解决方案"><span class="toc-number">4.</span> <span class="toc-text">CORS 解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、局部设置-CORS"><span class="toc-number">4.1.</span> <span class="toc-text">一、局部设置 CORS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、全局设置-CORS"><span class="toc-number">4.2.</span> <span class="toc-text">二、全局设置 CORS</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

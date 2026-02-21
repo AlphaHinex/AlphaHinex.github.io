@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thymeleaf —— 简化 Java Web 开发的强大模板引擎 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Thymeleaf, template, fragment"> 
+    <meta name="description" content="原文地址：https://wyiyi.github.io/amber/2023/08/01/thymeleaf/
+Thymeleaf 是一种用于在服务器端和客户端之间渲染 HTML、XML、Java,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Thymeleaf —— 简化 Java Web 开发的强大模板引擎</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/thymeleaf.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                八月 13, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/08/13/thymeleaf/" title="Thymeleaf —— 简化 Java Web 开发的强大模板引擎" class="">Thymeleaf —— 简化 Java Web 开发的强大模板引擎</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    14 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Thymeleaf/" rel="tag">Thymeleaf</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2023/08/01/thymeleaf/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2023/08/01/thymeleaf/</a></p>
+<p>Thymeleaf 是一种用于在服务器端和客户端之间渲染 HTML、XML、JavaScript、CSS 和文本的 Java 模板引擎。</p>
+<p>模板引擎在 Web 领域的主要作用：让网站实现界面和数据分离，这样大大提高了开发效率，提供自然、灵活的模板处理功能，让代码重用更加容易。</p>
+<h1 id="Springboot-官方支持的模板引擎：Thymeleaf"><a href="#Springboot-官方支持的模板引擎：Thymeleaf" class="headerlink" title="Springboot 官方支持的模板引擎：Thymeleaf"></a>Springboot 官方支持的模板引擎：Thymeleaf</h1><ul>
+<li>官方支持：<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.spring-mvc.template-engines" target="_blank" rel="noopener">Spring Boot 提供对 Thymeleaf 的官方支持</a>，做了很多默认配置，开发者只需编写对应 html 即可，大大减轻了上手难度和配置复杂度。</li>
+<li>动静分离：Thymeleaf 选用 html 作为模板页，通过一些特定标签语法代表其含义，但并未破坏 html 结构，即使无网络、不通过后端渲染也能在浏览器成功打开，大大方便界面的测试和修改。</li>
+<li>强大的表达式功能: Thymeleaf 支持强大的表达式语言（SpEL），可以在模板中执行复杂的表达式操作，如变量赋值、条件判断、迭代循环等。</li>
+<li>易于集成：与 Spring Boot 框架紧密集成，提供了许多与 Spring Boot 相关的特性和扩展。它可以与 Spring MVC、Spring Security 等框架无缝集成。</li>
+<li>应用广泛：Thymeleaf 是目前应用广泛的模板引擎之一，拥有活跃的社区和丰富的生态系统。它被广泛用于开发各种类型的 Web 应用和邮件模板。</li>
+</ul>
+<h1 id="Thymeleaf-的用法"><a href="#Thymeleaf-的用法" class="headerlink" title="Thymeleaf 的用法"></a>Thymeleaf 的用法</h1><p><strong>1、添加 Thymeleaf 依赖</strong></p>
+<p>在项目的构建文件中添加 Thymeleaf 的相关依赖：</p>
+<ul>
+<li>Maven 依赖<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.thymeleaf&lt;/groupId&gt;
+    &lt;artifactId&gt;thymeleaf&lt;/artifactId&gt;
+    &lt;version&gt;3.1.2.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</li>
+<li>Gradle 依赖<pre><code class="groovy">dependencies {
+   implementation &#39;org.thymeleaf:thymeleaf:3.1.2.RELEASE&#39;
+}</code></pre>
+</li>
+</ul>
+<p><strong>2、编写模板文件</strong></p>
+<p>创建一个以 <code>.html</code> 为后缀的模板文件，在其中使用 Thymeleaf 的模板语法。</p>
+<p>通过使用 Thymeleaf 的标签和表达式，我们可以插入动态数据、进行条件判断、循环迭代等操作。</p>
+<p>示例：引入 <code>www.thymeleaf.org</code> <code>&lt;p&gt;</code> 中 <code>th:text=&quot;&#39;Hello, &#39; + ${name} + &#39;!&#39;&quot;</code> 为 Thymeleaf 语法。</p>
+<pre><code class="html">    &lt;!DOCTYPE HTML&gt;
+    &lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+    &lt;head&gt;
+        &lt;title&gt;Getting Started: Serving Web Content&lt;/title&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;p th:text=&quot;&#39;Hello, &#39; + ${name} + &#39;!&#39;&quot; /&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;</code></pre>
+<p><strong>3、控制器中使用 Thymeleaf</strong></p>
+<p>在 Spring MVC 的控制器中，参数的值将添加到 <code>Model</code> 对象，传递给 <code>Thymeleaf 模板</code>。<br>Thymeleaf 会自动根据模板中的表达式来渲染数据，并生成最终的 <code>HTML</code> 页面。</p>
+<pre><code class="java">package com.example.servingwebcontent;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class GreetingController {
+
+    @GetMapping(&quot;/greeting&quot;)
+    public String greeting(@RequestParam(name=&quot;name&quot;, required=false, defaultValue=&quot;World&quot;) String name, Model model) {
+        model.addAttribute(&quot;name&quot;, name);
+        return &quot;greeting&quot;;
+    }
+
+}</code></pre>
+<h1 id="如何使用标准方言"><a href="#如何使用标准方言" class="headerlink" title="如何使用标准方言"></a>如何使用标准方言</h1><p>如果你看过使用<a href="https://www.thymeleaf.org/doc/articles/sayhelloextendingthymeleaf5minutes.html" target="_blank" rel="noopener">标准方言</a>编写的代码片段，你应该注意到可处理的属性都是以 th: 开头。</p>
+<p>这个 <code>th</code> 被称为方言前缀，它意味着所有由该方言处理的标签和属性都将以这个前缀开始。每个方言可以指定自己的前缀。</p>
+<p>还要注意的是，一个模板引擎可以同时设置多个方言，从而允许处理包含所有指定方言特性的模板（把方言视为一种类似 JSP 标签库的增强功能）。<br>其中一些方言可以共享前缀，实际上充当一个聚合方言的作用。</p>
+<h2 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h2><p>Thymeleaf 提供了许多 <code>th</code> 属性，用于评估表达式并将这些属性的值设置为其结果。<br>它们的名称与它们所设置的属性的名称相似，用来对应不同的 XHTML 和 HTML5 属性。</p>
+<p>标准方言中的几个最基本的属性：</p>
+<pre><code class="html">// 替换了标签的主体
+&lt;p th:text=&quot;#{msg.welcome}&quot;&gt;Welcome everyone!&lt;/p&gt;
+
+// 语法等同于 foreach
+&lt;li th:each=&quot;book : ${books}&quot; th:text=&quot;${book.title}&quot;&gt;En las Orillas del Sar&lt;/li&gt;
+
+// 提交表单时，浏览器将向 /createOrder 发送POST请求 
+&lt;form th:action=&quot;@{/createOrder}&quot; method=&quot;post&quot;&gt;
+
+// 使用表达式 #{form.submit} 的求值结果作为按钮的值
+&lt;input type=&quot;button&quot; th:value=&quot;#{form.submit}&quot; /&gt;
+
+// 跳转到 /admin/users 地址
+&lt;a th:href=&quot;@{/admin/users}&quot;&gt;
+...</code></pre>
+<h2 id="Thymeleaf-标准表达式"><a href="#Thymeleaf-标准表达式" class="headerlink" title="Thymeleaf 标准表达式"></a>Thymeleaf 标准表达式</h2><p>大多数 Thymeleaf 属性允许将其值设置为或包含表达式，由于它们使用的方言，我们将其称为标准表达式。</p>
+<p>包含以下五种类型：</p>
+<h3 id="…-Variable-expressions"><a href="#…-Variable-expressions" class="headerlink" title="${…} : Variable expressions."></a>${…} : Variable expressions.</h3><p>变量表达式用于在模板中访问和显示变量的值。<br>变量可以是通过控制器传递给模板的模型属性、请求参数、会话属性等。</p>
+<p><strong>1、访问自定义对象</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;${user.name}&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>${user.name}</code> 表达式用于访问模型中名为 “user” 对象的 “name” 的属性，并将其值插入到 <code>&lt;p&gt;</code> 元素中。</p>
+<p><strong>2、访问内置对象</strong></p>
+<p>① 访问请求对象：</p>
+<pre><code class="html">&lt;input id=&quot;requestURI&quot; th:value=&quot;${#request.requestURI}&quot;/&gt;</code></pre>
+<p><a href="https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#base-objects" target="_blank" rel="noopener"">Thymeleaf 文档</a> 中可通过 <code>${ #ctx.request }</code> 在上下文对象中获取 request，也可以通过简化形式 <code>${ #request }</code> 获得到 request。再通过 request 中的 requestURI 获得。</p>
+<p>② 访问请求参数：</p>
+<pre><code class="html">&lt;p th:text=&quot;${param.email}&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>${param.email}</code> 表达式用于获取名为 “email” 的请求参数的值，并将其插入到 <code>&lt;p&gt;</code> 元素中。</p>
+<p>③ 访问会话属性：</p>
+<pre><code class="html">${session.user}</code></pre>
+<p><code>${session.user}</code> 表达式用于获取会话中名为 “user” 的属性的值，并将其插入到 <code>&lt;p&gt;</code> 元素中。</p>
+<p>【注意】：${…} 变量表达式在模板中只能读取变量的值，不能修改变量的值。</p>
+<h3 id="…-Selection-expressions"><a href="#…-Selection-expressions" class="headerlink" title="*{…} : Selection expressions."></a>*{…} : Selection expressions.</h3><p>选择表达式与变量表达式一样，将在选定的对象上执行，而不是在整个上下文变量映射上执行。</p>
+<pre><code class="html">&lt;div th:object=&quot;${user}&quot;&gt;
+   &lt;p th:text=&quot;${user.name}&quot;&gt;&lt;/p&gt;
+   &lt;p th:text=&quot;*{age}&quot;&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p><code>${user}</code> 是一个对象绑定到上下文变量中的用户对象。<code>th:object</code> 指令会将该对象设置为当前选择对象。<br>然后，我们可以使用选择表达式 <code>*{age}</code> 相当于 <code>${user.age}</code> 来获取对象的属性值。</p>
+<h3 id="…-Message-i18n-expressions"><a href="#…-Message-i18n-expressions" class="headerlink" title="#{…} : Message(i18n) expressions."></a>#{…} : Message(i18n) expressions.</h3><p>#{…} 是一种用于国际化（i18n）的消息表达式。它的主要目的是在软件中支持多语言的消息处理。</p>
+<pre><code class="JS">const name = &#39;Alice&#39;;
+const greeting = `Hello, #{name}!`;
+console.log(greeting);</code></pre>
+<p><code>#{name}</code> 表达式用来将变量 name 的值动态地插入到问候消息中，生成适当的本地化文本。</p>
+<h3 id="…-Link-URL-expressions"><a href="#…-Link-URL-expressions" class="headerlink" title="@{…} : Link(URL) expressions."></a>@{…} : Link(URL) expressions.</h3><p><code>@{...}</code> 表达式是链接表达式（Link Expressions），用于生成动态链接（URL）。可以轻松地处理路由和参数传递，无需手动构建 URL。</p>
+<p><strong>1、生成相对路径链接：</strong></p>
+<pre><code class="html">&lt;a th:href=&quot;@{/home}&quot;&gt;Home&lt;/a&gt;</code></pre>
+<p><code>@{/home}</code> 表达式将生成一个相对于当前上下文路径的链接，指向 “home” 路径。当用户点击链接时，将导航到 “/home” 页面。</p>
+<p><strong>2、生成带参数的链接：</strong></p>
+<pre><code class="html">&lt;a th:href=&quot;@{/user/details(userId=${user.id})}&quot;&gt;View Details&lt;/a&gt;</code></pre>
+<p><code>@{/user/details(userId=${user.id})}</code> 表达式生成一个带有参数的链接。<br><code>${user.id}</code> 是一个变量表达式，表示用户的 ID。生成的链接将包含用户 ID 作为查询参数，例如： “/user/details?userId=123”。</p>
+<p><strong>3、生成 URI 片段链接：</strong></p>
+<pre><code class="html">&lt;a th:href=&quot;@{#section-1}&quot;&gt;Go to Section 1&lt;/a&gt;</code></pre>
+<p>直接跳转到具有 ID 为 “section-1” 的页面片段。</p>
+<p>【注意】：</p>
+<ul>
+<li>链接表达式只能在 HTML 标签的属性中使用，用于生成正确的链接。</li>
+<li>片段表达式在 <code>Thymeleaf 3.0</code> 及更高版本中引入。</li>
+</ul>
+<h3 id="…-Fragment-expressions"><a href="#…-Fragment-expressions" class="headerlink" title="~{…} : Fragment expressions."></a>~{…} : Fragment expressions.</h3><p><code>~{...}</code> 表达式是<a href="https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#template-layout" target="_blank" rel="noopener"">片段表达式（Fragment Expressions）</a>，用于引入和使用模板片段，重用可独立使用的模块或组件。<br>通过引入和参数化片段，在不同的地方使用相同的代码片段，提高了模板的可维护性和重用性。</p>
+<p>通过 <code>th:fragment</code> 定义模板，然后用 <code>th:insert</code> 或 <code>th:replace</code> 使用定义的模板。</p>
+<p><strong>使用格式为：</strong> <code>{templatename::selector}</code>，应用于名为 <code>templatename</code> 的模板上的指定标记选择器所得到的片段。也可以使用：</p>
+<ul>
+<li><code>~{templatename}</code> ：包含名为 templatename 的完整模板。</li>
+<li><code>~{::selector} 或 ~{this::selector}</code> ：插入与选择器匹配的来自同一个模板的片段。</li>
+</ul>
+<p><strong>常见属性：</strong></p>
+<ul>
+<li>th:insert：它将简单地插⼊指定宿主标签的标签体中</li>
+<li>th:replace：⽤指定的⽚段替换其宿主标签</li>
+</ul>
+<p><strong>1、包含模板片段：</strong></p>
+<p>定义了一个名为 <code>copy</code> 的片段：</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;body&gt;
+    &lt;footer th:fragment=&quot;copy&quot;&gt;
+        &amp;copy; 2011 The Good Thymes Virtual Grocery
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>使用 <code>th:insert</code> 或 <code>th:replace</code> 属性在页面中包含该片段：</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;div th:insert=&quot;~{footer :: copy}&quot;&gt;&lt;/div&gt;
+  &lt;div th:replace=&quot;~{footer :: copy}&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+<p><code>th:insert</code> 或 <code>th:replace</code> 期望一个片段表达式（~{…}），它是一个返回片段的表达式。执行结果：</p>
+<pre><code class="html">&lt;body&gt;
+  &lt;div&gt;
+    &lt;footer&gt;
+        &amp;copy; 2011 The Good Thymes Virtual Grocery
+    &lt;/footer&gt;
+  &lt;/div&gt;
+
+  &lt;footer&gt;
+      &amp;copy; 2011 The Good Thymes Virtual Grocery
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+<p>借助于标记选择器的强大功能，可以不使用任何 <code>th:fragment</code> 属性的片段。通过 <code>CSS</code> 选择器的方式如：选择器 <code>id</code> 引用它。</p>
+<pre><code class="html">&lt;div id=&quot;copy-section&quot;&gt;
+    &amp;copy; 2011 The Good Thymes Virtual Grocery
+&lt;/div&gt;</code></pre>
+<pre><code class="html">&lt;body&gt;
+    &lt;div th:insert=&quot;~{footer :: #copy-section}&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;</code></pre>
+<p><strong>2、参数化片段：</strong></p>
+<p>使用 <code>th:fragment</code> 属性为片段定义参数，并调用带参数的片段。</p>
+<p>代码定义了一个名为 <code>myFragment</code> 的片段，接收两个参数 <code>param1</code> 和 <code>param2</code>：</p>
+<pre><code class="html">&lt;div th:fragment=&quot;myFragment (param1, param2)&quot;&gt;
+    &lt;p th:text=&quot;${param1} + &#39; - &#39; + ${param2}&quot;&gt;...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p>调用带参数的片段：</p>
+<pre><code class="html">&lt;div th:replace=&quot;~{ ::myFragment (${value1},${value2}) }&quot;&gt;...&lt;/div&gt;
+&lt;div th:replace=&quot;~{ ::myFragment (param1=${value1},param2=${value2}) }&quot;&gt;...&lt;/div&gt;</code></pre>
+<p><code>th:replace=&quot;~{::myFragment (param1=${value1},param2=${value2})}&quot;</code> 这相当于 <code>th:replace</code> 和 <code>th:with</code> 的组合：</p>
+<pre><code class="html">&lt;div th:replace=&quot;~{::myFragment}&quot; th:with=&quot;param1=${value1},param2=${value2}&quot;&gt;</code></pre>
+<p>【注意】：片段表达式在 <code>Thymeleaf 3.0</code> 及更高版本中引入。</p>
+<h3 id="Literals-and-operations"><a href="#Literals-and-operations" class="headerlink" title="Literals and operations"></a>Literals and operations</h3><p>在Thymeleaf模板引擎中，字面量（Literals）和表达式操作（Operations）用于在模板中进行数据处理和计算。<br>这些表达式可以用于文本替换、条件判断、循环迭代等操作，从而使模板更具动态性和灵活性。</p>
+<p><strong>文字：</strong><br>    - 文本文字：’一段文字’，’另一个！’，…<br>    - 数字文字：0，34，3.0，12.3，…<br>    - 布尔文字：true，false<br>    - 空文字：null<br>    - 文字标记：one，sometext，main，…</p>
+<p><strong>文字操作：</strong><br>    - 字符串连接：+<br>    - 文字替换：|The name is ${name}|</p>
+<p><strong>算术操作：</strong><br>    - 二元运算符：+，-，*，/，%<br>    - 减号（一元运算符）：-</p>
+<p><strong>布尔操作：</strong><br>    - 二元运算符：and，or<br>    - 布尔否定（一元运算符）：！，not</p>
+<p><strong>比较和相等：</strong><br>    - 比较运算符：&gt;，&lt;，&gt;=，&lt;=（gt，lt，ge，le）<br>    - 相等运算符：==，!=（eq，ne）</p>
+<p><strong>条件运算符：</strong><br>    - If-then: (if) ? (then)<br>    - If-then-else: (if) ? (then) : (else)<br>    - Default: (value) ?: (defaultvalue)</p>
+<p>示例：</p>
+<p><strong>1、字符串字面量：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;&#39;Hello, Thymeleaf!&#39;&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>&#39;Hello, Thymeleaf!&#39;</code> 是一个字符串字面量，可以在 <code>&lt;p&gt;</code> 元素中显示文本 “Hello, Thymeleaf!”。</p>
+<p><strong>2、数字字面量：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;42&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>42</code> 是一个数字字面量，可以在 <code>&lt;p&gt;</code> 元素中显示数字 42。</p>
+<p><strong>3、变量引用：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;${username}&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>${username}</code> 是一个变量引用，通过该表达式可以获取名为 “username” 的变量的值，并在 <code>&lt;p&gt;</code> 元素中显示。</p>
+<p><strong>4、算术操作：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;${number1 + number2}&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>${number1 + number2}</code>是一个算术操作，通过该表达式可以对 number1 和 number2 变量进行加法运算，并在 <code>&lt;p&gt;</code> 元素中显示结果。</p>
+<p><strong>5、逻辑操作：</strong></p>
+<pre><code class="html">&lt;p th:if=&quot;${age &gt;= 18}&quot;&gt;You are an adult.&lt;/p&gt;</code></pre>
+<p><code>${age &gt;= 18}</code> 是一个逻辑操作，通过该表达式可以判断 age 变量是否大于或等于 18，如果条件满足，则显示 “You are an adult.”。</p>
+<h3 id="Expression-preprocessing"><a href="#Expression-preprocessing" class="headerlink" title="Expression preprocessing"></a>Expression preprocessing</h3><p>表达式预处理（Expression Preprocessing）是一种用于对表达式进行预处理和修改的机制。可以使用预处理器在表达式求值之前对其进行操作和转换。<br>预处理器提供了一些特殊语法和功能，可以扩展表达式的功能并提供更好的灵活性和可读性。</p>
+<p>预处理的具体用法：</p>
+<p><strong>1、转义表达式：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;|Hello, \${name}!|&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>|\${name}|</code> 是一个转义表达式，通过在表达式外添加竖线字符 “|”，可以防止表达式被求值，而直接显示为文本 “Hello, ${name}!”。</p>
+<p><strong>2、默认值设置：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;${username} ?: &#39;Guest&#39;&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>${username} ?: &#39;Guest&#39;</code> 是一个默认值设置，如果 username 变量为空或不存在，将使用默认值 “Guest”。</p>
+<p><strong>3、集合选择：</strong></p>
+<pre><code class="html">&lt;ul&gt;
+    &lt;li th:each=&quot;item : ${items}&quot; th:text=&quot;${item.name}&quot;&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+<p><code>${item.name}</code> 是一个集合选择表达式，用于从 items 集合中选取每个元素的 name 属性并显示在列表项中。</p>
+<p><strong>4、字符串拼接：</strong></p>
+<pre><code class="html">&lt;p th:text=&quot;&#39;Hello &#39; + ${name}&quot;&gt;&lt;/p&gt;</code></pre>
+<p><code>&#39;Hello &#39; + ${name}</code> 是一个字符串拼接表达式，可将字符串 “Hello “ 和 name 变量的值进行拼接。</p>
+<p>【注意】：片段表达式在 <code>Thymeleaf 3.0</code> 及更高版本中引入。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><code>Thymeleaf</code> 是一种 Java 模板引擎，大大提高开发效率，提高代码复用率，拥有快速开发网页能力，掌握它还是很有必要的！<br>若想了解更多 <code>Thymeleaf</code> ，请到<a href="https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#introducing-thymeleaf" target="_blank" rel="noopener">Thymeleaf 官网</a>深入学习。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Springboot-官方支持的模板引擎：Thymeleaf"><span class="toc-number">1.</span> <span class="toc-text">Springboot 官方支持的模板引擎：Thymeleaf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Thymeleaf-的用法"><span class="toc-number">2.</span> <span class="toc-text">Thymeleaf 的用法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用标准方言"><span class="toc-number">3.</span> <span class="toc-text">如何使用标准方言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本属性"><span class="toc-number">3.1.</span> <span class="toc-text">基本属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thymeleaf-标准表达式"><span class="toc-number">3.2.</span> <span class="toc-text">Thymeleaf 标准表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#…-Variable-expressions"><span class="toc-number">3.2.1.</span> <span class="toc-text">${…} : Variable expressions.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#…-Selection-expressions"><span class="toc-number">3.2.2.</span> <span class="toc-text">*{…} : Selection expressions.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#…-Message-i18n-expressions"><span class="toc-number">3.2.3.</span> <span class="toc-text">#{…} : Message(i18n) expressions.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#…-Link-URL-expressions"><span class="toc-number">3.2.4.</span> <span class="toc-text">@{…} : Link(URL) expressions.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#…-Fragment-expressions"><span class="toc-number">3.2.5.</span> <span class="toc-text">~{…} : Fragment expressions.</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Literals-and-operations"><span class="toc-number">3.2.6.</span> <span class="toc-text">Literals and operations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Expression-preprocessing"><span class="toc-number">3.2.7.</span> <span class="toc-text">Expression preprocessing</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

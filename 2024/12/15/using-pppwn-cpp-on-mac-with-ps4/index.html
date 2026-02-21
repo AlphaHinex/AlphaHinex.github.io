@@ -1,0 +1,646 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用 PPPwn_cpp 在 Mac 上折腾 PS4 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,pppwn, goldhen, PS4, pkg, stage1, stage2, pppwn_cpp"> 
+    <meta name="description" content="PS4 能不能用 PPPwn 方式折腾，主要取决于 GoldHEN 和 SiSTR0/PPPwn stage2 支持的固件版本。
+目前最新的 GoldHEN v2.4b18 版本和 GoldHEN ,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">用 PPPwn_cpp 在 Mac 上折腾 PS4</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/using-pppwn-cpp-on-mac-with-ps4/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                十二月 15, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/12/15/using-pppwn-cpp-on-mac-with-ps4/" title="用 PPPwn_cpp 在 Mac 上折腾 PS4" class="">用 PPPwn_cpp 在 Mac 上折腾 PS4</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9.6k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PS4/" rel="tag">PS4</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>PS4 能不能用 <a href="https://github.com/TheOfficialFloW/PPPwn" target="_blank" rel="noopener">PPPwn</a> 方式折腾，主要取决于 <a href="https://github.com/GoldHEN/GoldHEN" target="_blank" rel="noopener">GoldHEN</a> 和 <a href="https://github.com/SiSTR0/PPPwn" target="_blank" rel="noopener">SiSTR0/PPPwn</a> stage2 支持的固件版本。</p>
+<p>目前最新的 <a href="https://github.com/GoldHEN/GoldHEN/releases/tag/2.4b18" target="_blank" rel="noopener">GoldHEN v2.4b18</a> 版本和 <a href="https://github.com/SiSTR0/PPPwn/releases/tag/1.03" target="_blank" rel="noopener">GoldHEN stage2 v1.03</a> 支持的固件版本交集如下：</p>
+<blockquote>
+<p><strong>Supported Firmware</strong></p>
+<ul>
+<li>9.00</li>
+<li>9.60</li>
+<li>10.00 / 10.01</li>
+<li>10.50</li>
+<li>10.70 / 10.71</li>
+<li>11.00</li>
+</ul>
+</blockquote>
+<p>主要折腾两件事：</p>
+<ol>
+<li>把 PS4 系统版本升级到上面支持的固件版本</li>
+<li>通过 PPPwn 扫描到漏洞并加载 <code>stage2.bin</code> 及 <code>goldhen.bin</code></li>
+</ol>
+<h1 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h1><ol>
+<li>系统版本不高于支持固件版本的 PS4</li>
+<li>网线</li>
+<li>Mac 及网口转换器（或其他能执行 PPPwn 的电脑、设备）</li>
+</ol>
+<h1 id="离线升级固件版本"><a href="#离线升级固件版本" class="headerlink" title="离线升级固件版本"></a>离线升级固件版本</h1><p><a href="http://caicai.zicp.vip:1100/" target="_blank" rel="noopener">这里</a> 提供了一些支持的固件版本的离线升级系统文件下载，可选择升级至离当前版本最近的固件版本（保持最低可用的固件版本，避免需要降级）。</p>
+<p>从百度网盘下载后，拷入格式化为 <code>FAT32</code> 或 <code>exFAT</code> 格式的 U 盘：<code>/PS4/UPDATE/PS4UPDATE.PUP</code>，将 U 盘插入 PS4。</p>
+<ul>
+<li>升级方式一：关机状态下的 PS4 主机，长长长长长按电源键，刚按的时候会听到第一次哔声，约 8 秒后听到第二次哔声后松开，主机会进入安全模式，<strong>此模式下需要 USB 线连接手柄才能控制</strong>。依次选择：3.升级系统软件 =&gt; 1.使用USB储存装置更新 =&gt; OK =&gt; 等待升级完成</li>
+<li>升级方式二：若用方法一进入安全模式后，USB 线连接手柄无反应，可尝试直接 <a href="https://www.wikimoe.com/post/193" target="_blank" rel="noopener">使用U盘给PS4进行系统升级</a> —— 在【设定】中选择【系统软件升级】=&gt; 检测到新版本后选择【继续】=&gt;【升级】=&gt; 等待升级完成</li>
+</ul>
+<p>等待升级完成会自动重启，重启后进入设置看下系统版本，升级完成。</p>
+<h1 id="PPPwn-cpp"><a href="#PPPwn-cpp" class="headerlink" title="PPPwn_cpp"></a>PPPwn_cpp</h1><p>Python 版本的 PPPwn 需手工执行，且并不是每次都能执行成功（尝试几十次都有可能，效率很低），可使用 C++ 重写版 <a href="https://github.com/xfangfang/PPPwn_cpp" target="_blank" rel="noopener">PPPwn_cpp</a>，能够在失败时自动重试且无需依赖 Python 环境，效率大大提升。</p>
+<p>在 <a href="https://github.com/xfangfang/PPPwn_cpp/releases" target="_blank" rel="noopener">Releases</a> 页面直接下载编译好的可执行版本，如 <a href="https://github.com/xfangfang/PPPwn_cpp/releases/download/1.1.0/x86_64-macos-none.zip" target="_blank" rel="noopener">x86_64-macos-none.zip
+</a>。</p>
+<p>在 macOS 上，下载后需要执行 <code>sudo xattr -rd com.apple.quarantine &lt;path-to-pppwn&gt;</code>。<a href="https://github.com/xfangfang/PPPwn_cpp/issues/10" target="_blank" rel="noopener">#10</a> 里有更多相关信息。</p>
+<blockquote>
+<p>Windows 环境需要提前安装 <a href="https://npcap.com/" target="_blank" rel="noopener">npcap</a>。</p>
+</blockquote>
+<p>在命令行执行 <code>pppwn</code> 查看帮助，<code>pppwn list</code> 列出所有网卡。</p>
+<h2 id="stage1-bin"><a href="#stage1-bin" class="headerlink" title="stage1.bin"></a>stage1.bin</h2><p>可以使用 <a href="https://github.com/TheOfficialFloW/PPPwn" target="_blank" rel="noopener">PPPwn</a> 或 <a href="https://github.com/SiSTR0/PPPwn" target="_blank" rel="noopener">SiSTR0/PPPwn</a> 项目源码编译 <code>stage1.bin</code>，或直接使用编译好的版本 <a href="/contents/using-pppwn-cpp-on-mac-with-ps4/stage1.bin">stage1.bin</a>（MD5：<code>87e198da92a4c8e53abd7be6d8e7ce02</code>）。</p>
+<h2 id="stage2-bin"><a href="#stage2-bin" class="headerlink" title="stage2.bin"></a>stage2.bin</h2><p>下载 <a href="https://github.com/SiSTR0/PPPwn/releases/download/1.03/stage2_v1.03.7z" target="_blank" rel="noopener">stage2_v1.03.7z</a>，解压后得到对应固件版本的 <code>stage2.bin</code>，如：<code>stage2_9.60.bin</code>。</p>
+<h2 id="goldhen-bin"><a href="#goldhen-bin" class="headerlink" title="goldhen.bin"></a>goldhen.bin</h2><p>下载 <a href="https://github.com/GoldHEN/GoldHEN/releases/download/2.4b18/GoldHEN_v2.4b18.7z" target="_blank" rel="noopener">GoldHEN_v2.4b18.7z
+</a>，解压后得到 <code>goldhen.bin</code>。将 <code>goldhen.bin</code> 拷贝至之前离线升级系统的 U 盘根路径，插入 PS4 等待后续使用。</p>
+<p>SiSTR0 定制版本的 stage2 会先在 U 盘根路径寻找 <code>goldhen.bin</code>，找到后将其拷贝至 PS4 内部存储的 <code>/data/GoldHEN/payloads/goldhen.bin</code>。首次折腾成功之后即可使用内部存储中的 <code>goldhen.bin</code>，不再需要将 U 盘插入 PS4。</p>
+<p><strong>首次折腾时须确保根路径下放有 <code>goldhen.bin</code> 文件的 U 盘已插入 PS4。后续折腾不再需要。</strong></p>
+<h2 id="PS4"><a href="#PS4" class="headerlink" title="PS4"></a>PS4</h2><p>在 PS4 中进行如下操作：</p>
+<ul>
+<li>进入【设定】=&gt;【网络】=&gt;【设定互联网连接】=&gt;【使用LAN连接线】=&gt;【定制】=&gt;【PPPoE】</li>
+<li>输入任意 PPPoE 用户ID 和 密码，点【继续】</li>
+<li>DNS 设定和 MTU 设定均选择【自动】</li>
+<li>选择【不使用】Proxy服务器</li>
+<li>最后一步【测试互联网连接】先不点</li>
+</ul>
+<h2 id="终端"><a href="#终端" class="headerlink" title="终端"></a>终端</h2><p>准备好 <code>stage1.bin</code>、<code>stage2.bin</code> 和 <code>goldhen.bin</code> 之后，先将 PS4 与 Mac 通过网线连接。首次执行时确保根路径下放有 <code>goldhen.bin</code> 文件的 U 盘已插入 PS4。</p>
+<p>在终端中准备好如下命令（<strong>先不执行</strong>），需根据实际环境网卡名、<code>stage1.bin</code> 和 <code>stage2.bin</code> 的路径及文件名进行调整，如：</p>
+<pre><code class="bash">./pppwn --interface en8 --fw 960 --stage1 SiSTR0/PPPwn/stage1/stage1.bin --stage2 stage2_v1.03/stage2_9.60.bin --timeout 10 --auto-retry</code></pre>
+<blockquote>
+<p>其他固件版本需修改 <code>fw</code> 值，如 <code>11.00</code> 传入 <code>--fw 1100</code>。</p>
+</blockquote>
+<h2 id="折腾"><a href="#折腾" class="headerlink" title="折腾"></a>折腾</h2><p>在终端执行准备好的命令，之后会出现类似下面的日志：</p>
+<pre><code class="text">[+] PPPwn - PlayStation 4 PPPoE RCE by theflow
+[+] args: interface=enp0s3 fw=1100 stage1=stage1/stage1.bin stage2=stage2/stage2.bin
+
+[+] STAGE 0: Initialization
+[*] Waiting for PADI...</code></pre>
+<p>此时在 PS4 上操作点击【测试互联网连接】。</p>
+<p>顺利的话稍后会在 PS4 界面看到 <code>获取IP地址 成功</code>、<code>互联网连接 失败</code> 字样，一般不会一次就直接成功，失败时 PS4 界面左侧会弹出 <code>NW-31274-7</code> 的错误提示，此时无需任何操作，会自动重试。一般三五分钟内即可成功（运气不好半个多小时也有可能），耐心等待执行成功即可。</p>
+<p>失败一般会出现在 STAGE 1 的最后一步，最后一行出现类似 <code>found fe80::0fdf:4141:4141:4141</code> 的内容即为成功。</p>
+<pre><code class="text">[+] STAGE 1: Memory corruption
+[+] Pinning to CPU 0...done
+[*] Sending malicious LCP configure request...
+[*] Waiting for LCP configure request...
+[*] Sending LCP configure ACK...
+[*] Sending LCP configure request...
+[*] Waiting for LCP configure ACK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure NAK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure ACK...
+[*] Sending IPCP configure request...
+[*] Waiting for IPCP configure ACK...
+[+] Scanning for corrupted object...found fe80::0fdf:4141:4141:4141</code></pre>
+<p>完整的成功日志类似下面情况：</p>
+<pre><code class="text">[+] PPPwn - PlayStation 4 PPPoE RCE by theflow
+[+] args: interface=enp0s3 fw=1100 stage1=stage1/stage1.bin stage2=stage2/stage2.bin
+
+[+] STAGE 0: Initialization
+[*] Waiting for PADI...
+[+] pppoe_softc: 0xffffabd634beba00
+[+] Target MAC: xx:xx:xx:xx:xx:xx
+[+] Source MAC: 07:ba:be:34:d6:ab
+[+] AC cookie length: 0x4e0
+[*] Sending PADO...
+[*] Waiting for PADR...
+[*] Sending PADS...
+[*] Waiting for LCP configure request...
+[*] Sending LCP configure ACK...
+[*] Sending LCP configure request...
+[*] Waiting for LCP configure ACK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure NAK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure ACK...
+[*] Sending IPCP configure request...
+[*] Waiting for IPCP configure ACK...
+[*] Waiting for interface to be ready...
+[+] Target IPv6: fe80::2d9:d1ff:febc:83e4
+[+] Heap grooming...done
+
+[+] STAGE 1: Memory corruption
+[+] Pinning to CPU 0...done
+[*] Sending malicious LCP configure request...
+[*] Waiting for LCP configure request...
+[*] Sending LCP configure ACK...
+[*] Sending LCP configure request...
+[*] Waiting for LCP configure ACK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure NAK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure ACK...
+[*] Sending IPCP configure request...
+[*] Waiting for IPCP configure ACK...
+[+] Scanning for corrupted object...found fe80::0fdf:4141:4141:4141
+
+[+] STAGE 2: KASLR defeat
+[*] Defeating KASLR...
+[+] pppoe_softc_list: 0xffffffff884de578
+[+] kaslr_offset: 0x3ffc000
+
+[+] STAGE 3: Remote code execution
+[*] Sending LCP terminate request...
+[*] Waiting for PADI...
+[+] pppoe_softc: 0xffffabd634beba00
+[+] Target MAC: xx:xx:xx:xx:xx:xx
+[+] Source MAC: 97:df:ea:86:ff:ff
+[+] AC cookie length: 0x511
+[*] Sending PADO...
+[*] Waiting for PADR...
+[*] Sending PADS...
+[*] Triggering code execution...
+[*] Waiting for stage1 to resume...
+[*] Sending PADT...
+[*] Waiting for PADI...
+[+] pppoe_softc: 0xffffabd634be9200
+[+] Target MAC: xx:xx:xx:xx:xx:xx
+[+] AC cookie length: 0x0
+[*] Sending PADO...
+[*] Waiting for PADR...
+[*] Sending PADS...
+[*] Waiting for LCP configure request...
+[*] Sending LCP configure ACK...
+[*] Sending LCP configure request...
+[*] Waiting for LCP configure ACK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure NAK...
+[*] Waiting for IPCP configure request...
+[*] Sending IPCP configure ACK...
+[*] Sending IPCP configure request...
+[*] Waiting for IPCP configure ACK...
+
+[+] STAGE 4: Arbitrary payload execution
+[*] Sending stage2 payload...
+[+] Done!</code></pre>
+<h1 id="安装游戏"><a href="#安装游戏" class="headerlink" title="安装游戏"></a>安装游戏</h1><p><code>pkg</code> 格式的游戏文件拷贝至 <code>exFAT</code> 格式的移动硬盘根目录后，插入 PS4，进入折腾后的 GoldHEN 界面，选择【Debug Settings】=&gt;【Package Installer】进入后即可选择 U 盘中的 pkg 文件进行安装。</p>
+<p>一般游戏文件较大，如需通过百度网盘下载又没有 SVIP，可参考 <a href="https://alphahinex.github.io/2024/12/08/pan-baidu-svip-per-day/">百度网盘每天不限速下载</a> 中内容。</p>
+<h1 id="关机后重新折腾"><a href="#关机后重新折腾" class="headerlink" title="关机后重新折腾"></a>关机后重新折腾</h1><p>PS4 关机后需重新折腾，连接 PS4 和电脑后，先执行 <code>pppwn</code> 命令，然后在 PS4 的网络设置中点击【测试互联网连接】，等待执行成功即可。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#所需工具"><span class="toc-number">1.</span> <span class="toc-text">所需工具</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#离线升级固件版本"><span class="toc-number">2.</span> <span class="toc-text">离线升级固件版本</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PPPwn-cpp"><span class="toc-number">3.</span> <span class="toc-text">PPPwn_cpp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#stage1-bin"><span class="toc-number">3.1.</span> <span class="toc-text">stage1.bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stage2-bin"><span class="toc-number">3.2.</span> <span class="toc-text">stage2.bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#goldhen-bin"><span class="toc-number">3.3.</span> <span class="toc-text">goldhen.bin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS4"><span class="toc-number">3.4.</span> <span class="toc-text">PS4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#终端"><span class="toc-number">3.5.</span> <span class="toc-text">终端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#折腾"><span class="toc-number">3.6.</span> <span class="toc-text">折腾</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装游戏"><span class="toc-number">4.</span> <span class="toc-text">安装游戏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关机后重新折腾"><span class="toc-number">5.</span> <span class="toc-text">关机后重新折腾</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

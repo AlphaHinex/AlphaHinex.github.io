@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TeamCity Kotlin DSL - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,TeamCity, Kotlin, DSL, CI, portable"> 
+    <meta name="description" content="将持续集成环境的配置代码化（Configuration as code）有很多好处：
+
+可借助版本控制系统（VCS）对配置进行管理
+很容易对配置变更进行审查（review）
+提高配置的可移植性
+不同,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">TeamCity Kotlin DSL</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/teamcity-kotlin-dsl/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/DevOps"><b>「
+                    </b>DEVOPS<b> 」</b></a>
+                
+                十二月 20, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/12/20/teamcity-kotlin-dsl/" title="TeamCity Kotlin DSL" class="">TeamCity Kotlin DSL</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    13k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/CI/" rel="tag">CI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DSL/" rel="tag">DSL</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>将持续集成环境的配置代码化（Configuration as code）有很多好处：</p>
+<ol>
+<li>可借助版本控制系统（VCS）对配置进行管理</li>
+<li>很容易对配置变更进行审查（review）</li>
+<li>提高配置的可移植性</li>
+<li>不同的分支可以执行不同的构建，甚至是未合并的请求分支以及历史构建</li>
+</ol>
+<p>目前常见的持续集成服务都提供（甚至仅有）代码化配置方式，如：</p>
+<ol>
+<li><a href="https://travis-ci.org/" target="_blank" rel="noopener">Travis CI</a> 的 <code>.travis.yml</code></li>
+<li><a href="https://github.com/features/actions" target="_blank" rel="noopener">GitHub Actions</a> 的放在代码仓库 <code>.github/workflows</code> 路径下的 <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions" target="_blank" rel="noopener">workflow yml 文件</a></li>
+<li><a href="https://docs.gitlab.com/ee/ci/README.html" target="_blank" rel="noopener">GitLab CI/CD</a> 的 <code>.gitlab-ci.yml</code></li>
+<li><a href="https://www.jenkins.io/" target="_blank" rel="noopener">Jenkins</a> 的 <a href="https://www.jenkins.io/doc/book/pipeline/jenkinsfile/" target="_blank" rel="noopener">Jenkinsfile</a></li>
+<li><a href="https://www.jetbrains.com/teamcity/" target="_blank" rel="noopener">TeamCity</a> 的 <a href="https://www.jetbrains.com/help/teamcity/storing-project-settings-in-version-control.html" target="_blank" rel="noopener">Kotlin DSL 及 XML 格式配置</a></li>
+</ol>
+<p>TeamCity 从 10.0 版本起，<a href="https://confluence.jetbrains.com/display/TCD10/What%27s+New+in+TeamCity+10.0#What' target="_blank" rel="noopener"sNewinTeamCity10.0-DSLforTeamCityProjectConfiguration">引入了通过 Kotlin DSL 的方式定义构建配置</a>，并且在 <a href="https://confluence.jetbrains.com/display/TCD18/What%27s+New+in+TeamCity+2018.1#What' target="_blank" rel="noopener"sNewinTeamCity2018.1-PortableKotlinDSLformat">2018.x</a> 版本进行了较大改进。</p>
+<p>之前也多次尝试过使用 Kotlin DSL，但体验上总是差一点未能下定决心切换。在 Everything as Code 的强大执念下，使用当前最新的 <a href="https://www.jetbrains.com/help/teamcity/2020.2/what-s-new-in-teamcity.html" target="_blank" rel="noopener">TeamCity 2020.2</a> 版本再次踏上了体验之旅。</p>
+<h2 id="将已有配置转换为-Kotlin-DSL"><a href="#将已有配置转换为-Kotlin-DSL" class="headerlink" title="将已有配置转换为 Kotlin DSL"></a>将已有配置转换为 Kotlin DSL</h2><p>为帮助已有项目切换至 DSL，TeamCity 针对 build configuration 提供了 <code>View DSL</code> 按钮，即时查看当前配置对应的 kotlin 代码。</p>
+<p>启用 DSL 作为构建配置时，需要在 project 的编辑界面的 <code>Versioned Settings</code> 中进行手动启用。</p>
+<p><img src="/contents/teamcity-kotlin-dsl/versioned-settings.png" alt="Versioned Settings"></p>
+<p>Settings format 有 xml 和 Kotlin 两种类型。点击 <code>Apply</code> 按钮完成切换。</p>
+<p><strong>注意：在启用 <code>Versioned Settings</code> 后，TeamCity 会创建 <code>.teamcity</code> 目录，以及对应配置文件，并立刻 commit/push 到对应的代码仓库中！</strong></p>
+<p>生成的配置文件，即 <a href="https://www.jetbrains.com/help/teamcity/2020.2/kotlin-dsl.html#KotlinDSL-portableDSL" target="_blank" rel="noopener">portable DSL scripts</a>，主要有如下两个：</p>
+<ul>
+<li><code>settings.kts</code> – 主 DSL 脚本，包含整个 project 的配置</li>
+<li><code>pom.xml</code> – 使 <code>.teamcity</code> 文件夹可以按 Maven Project 形式被 IDE 打开，以便获得自动补全、编译以及编写单元测试等能力。<strong>此文件对 TeamCity Server 来讲是非必须的，仅用来帮助进行 DSL 开发</strong>。</li>
+</ul>
+<blockquote>
+<p>通常情况下，<code>.teamcity</code> 中应该仅包括上面两个文件。但若项目中配置了一些附加内容（如使用自定义的 Maven <code>settings.xml</code>），在自动提交的文件中也会有所体现，以便可以进行整个 project 的移植。</p>
+</blockquote>
+<p>另外，为方便在 DSL 较复杂的场景进行配置拆分，可以保持 <code>settings.kts</code> 这个 Kotlin Script 文件作为主入口，将部分配置拆分到 Kotlin（.kt）文件中，再被 kts 文件引用。</p>
+<p>在启用了 DSL，且未使用 Context Parameters 时，是允许通过 UI 及 DSL 两种方式对配置进行调整的。</p>
+<p>如果 DSL 在由 TeamCity 生成并提交后未做过任何手动调整，通过 Web 界面做出的修改将直接更新代码库中的 DSL。</p>
+<p>但如果手动修改过 DSL ，之后再通过 UI 做出的任何配置变更，都将以 <a href="https://www.jetbrains.com/help/teamcity/kotlin-dsl.html#Editing+Project+Settings+via+Web+UI" target="_blank" rel="noopener">patch</a> 的形式被提交到代码库中，此时需要手动将 patch 中的内容合并到 <code>settings.kts</code> 或 <code>.kt</code> 文件中，并将 <code>patches</code> 路径清理掉。</p>
+<h2 id="Use-settings-from-VCS"><a href="#Use-settings-from-VCS" class="headerlink" title="Use settings from VCS"></a>Use settings from VCS</h2><p>在 <code>Versioned Settings</code> 的 <a href="https://www.jetbrains.com/help/teamcity/2020.2/storing-project-settings-in-version-control.html#Defining+Settings+to+Apply+to+Builds" target="_blank" rel="noopener">Configuration</a> 中，建议选择 <code>use settings from VCS</code>，这样做的好处是不同的分支可以执行不同的构建，甚至是未合并的请求分支以及历史构建，因为构建执行时会使用对应版本的代码库中的 DSL。</p>
+<h2 id="在-DSL-中使用密文"><a href="#在-DSL-中使用密文" class="headerlink" title="在 DSL 中使用密文"></a>在 DSL 中使用密文</h2><p>在 Kotlin DSL 中，有两种方式处理密文：</p>
+<ol>
+<li>Context Parameters</li>
+<li>Tokens</li>
+</ol>
+<p><img src="/contents/teamcity-kotlin-dsl/context-parameters.png" alt="Context Parameters"></p>
+<blockquote>
+<p>注意：在 project 配置页的 Parameters 中配置的三类参数，都会以明文形式体现到 DSL 中！</p>
+</blockquote>
+<p><img src="/contents/teamcity-kotlin-dsl/parameters.png" alt="Parameters"></p>
+<h3 id="Context-Parameters"><a href="#Context-Parameters" class="headerlink" title="Context Parameters"></a>Context Parameters</h3><p>使用 Context Parameters 可以避免 DSL 出现密码等敏感信息，因为 DSL 是要提交到代码库的。</p>
+<p>在 DSL 中引用 Context Parameters 时，可使用 <code>DslContext.getParameter(&quot;key&quot;)</code> 的方式。</p>
+<p>在 TeamCity Server 中能看到设置的 Context Parameters 的 Name 和 Value 内容，并且可修改及删除。</p>
+<p>当使用了 Context Parameters 后，通过 UI 编辑 DSL 的功能自动被禁用。</p>
+<h3 id="Tokens"><a href="#Tokens" class="headerlink" title="Tokens"></a>Tokens</h3><p>在 TeamCity 中可为敏感信息生成一个 Token，会得到一个类似 <code>credentialsJSON:254e505a-697d-4962-9ba3-c90a3dab6c6e</code> 的 Token 字符串。使用时可参照 <a href="https://www.jetbrains.com/help/teamcity/2020.2/kotlin-dsl.html#Working+with+secure+values+in+DSL" target="_blank" rel="noopener">Working with secure values in DSL</a> 中描述，将 Token 字符串直接填入 DSL 中需要密文的位置。</p>
+<p><strong>注意：仅填写时能看到明文，一旦生成 token 就只能引用，不能查看明文或进行修改，也不能删除，即使未被引用。</strong></p>
+<h2 id="可移植性"><a href="#可移植性" class="headerlink" title="可移植性"></a>可移植性</h2><p>使用 DSL 的优势之一就是使配置可以被同一个 CI Server 的不同 project 或在不同 Server 中使用，即可移植性。</p>
+<p>按照 <a href="https://www.jetbrains.com/help/teamcity/2020.2/kotlin-dsl.html#Sharing+Kotlin+DSL+Scripts" target="_blank" rel="noopener">官方文档</a> 的说法，如果代码仓库中包含合法 DSL，可以很容易的使用 <a href="https://www.jetbrains.com/help/teamcity/2020.2/creating-and-editing-projects.html" target="_blank" rel="noopener">Create Project From URL</a> 方式，基于 DSL 新建一个 project。</p>
+<p><img src="/contents/teamcity-kotlin-dsl/import-scan-kts.png" alt="Import DSL"></p>
+<p>但实际使用中发现，如果代码仓库的 master 分支中不包含 DSL，即使默认分支（比如 develop）中有 DSL，在使用上述方式创建 project 的时候，也不能自动检测到配置。</p>
+<p>在这种情况下，可以先创建 project，之后在 VCS Root 中指定包含 DSL 的分支作为 Default branch，再到 <code>Versioned Settings</code> 中启用 DSL，点击 Apply 后，即可检测到原有配置。</p>
+<p><img src="/contents/teamcity-kotlin-dsl/detect-kts.png" alt="Detect DSL"></p>
+<h2 id="使用-IDE-编辑-DSL"><a href="#使用-IDE-编辑-DSL" class="headerlink" title="使用 IDE 编辑 DSL"></a>使用 IDE 编辑 DSL</h2><p>不同于 <a href="https://yaml.org/" target="_blank" rel="noopener">YAML</a> 格式的配置文件，TeamCity 的 DSL 基于 <a href="https://kotlinlang.org/" target="_blank" rel="noopener">Kotlin</a>，复用代码、动态创建配置、自动补全及代码导航等，真真正正的 Configuration as Code。</p>
+<p>如何在 IDE 里做到这些呢？借助自动生成的 <code>pom.xml</code>，你可以将 <code>.teamcity</code> 路径，作为一个独立的 Maven 工程，引入到 IDE 中。</p>
+<p>注意因为一些依赖是由 TeamCity Server 提供的（如：<a href="http://localhost:8111/app/dsl-plugins-repository），导入" target="_blank" rel="noopener">http://localhost:8111/app/dsl-plugins-repository），导入</a> IDE 的时候需要能够连接到持续集成服务。</p>
+<h3 id="简化相同内容配置"><a href="#简化相同内容配置" class="headerlink" title="简化相同内容配置"></a>简化相同内容配置</h3><p>DRY（<a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself）" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Don%27t_repeat_yourself）</a> 在编程时是一个重要的原则，编写 Kotlin DSL 时，我们可以借助编程思想来解决这个问题。</p>
+<p>比如在每一个构建（buildType）中，我们都希望加入一个 feature（<em>Build Files Cleaner</em>，AKA <em>Swabra</em>），违反 DRY 原则的做法是在每个 buildType 中都增加如下内容：</p>
+<pre><code class="kotlin">features {
+   swabra {
+   }
+}</code></pre>
+<p>可以定义一个 function，将需要添加这个 feature 的 buildType 包起来，实现简化配置的目的：</p>
+<pre><code class="kotlin">fun cleanFiles(buildType: BuildType): BuildType {
+   buildType.features {
+       swabra {}
+   }
+   return buildType
+}</code></pre>
+<p>在使用时：</p>
+<pre><code class="kotlin">buildType(cleanFiles(Build))
+buildType(cleanFiles(AnotherBuild))
+buildType(cleanFiles(OneMoreBuild))</code></pre>
+<h2 id="TeamCity-Configuration-as-Code-Roadmap"><a href="#TeamCity-Configuration-as-Code-Roadmap" class="headerlink" title="TeamCity Configuration as Code Roadmap"></a><a href="https://www.jetbrains.com/teamcity/roadmap/#configuration-as-code" target="_blank" rel="noopener">TeamCity Configuration as Code Roadmap</a></h2><p>目前官网上放出的关于配置代码化的路线图有如下三个方面：</p>
+<h3 id="Viewing-project-configuration-as-DSL-Developing"><a href="#Viewing-project-configuration-as-DSL-Developing" class="headerlink" title="Viewing project configuration as DSL - Developing"></a>Viewing project configuration as DSL - Developing</h3><blockquote>
+<p>The View DSL button provides a great way to learn how to describe your build configuration in Kotlin code. Right now it is available only for build configurations, which is not very helpful if you want to write configurations for complete projects or if you are looking for the right piece of code to configure one particular thing. We are going to add similar buttons to other sections of TeamCity, so you can always find the correct way to configure your VCS roots, clean-up settings, or entire projects – as Kotlin code.</p>
+</blockquote>
+<p>当前最新的 2020.2 版本仅能使用 <code>View DSL</code> 按钮查看 build configuration 的代码，未来将增加可通过 <code>View DSL</code> 按钮查看整个 project 的 kotlin 代码。这将进一步的提升配置的可移植性。</p>
+<h3 id="Omitting-imports-in-DSL-code-Designing"><a href="#Omitting-imports-in-DSL-code-Designing" class="headerlink" title="Omitting imports in DSL code - Designing"></a>Omitting imports in DSL code - Designing</h3><blockquote>
+<p>We want the Kotlin DSL to be as brief and expressive as possible. To make it easier for you to describe your build configurations in Kotlin, we will allow you to omit the imports section in the beginning of the settings.kts file. This means that settings.kts can start directly with the project {…} section and will not require you to explicitly specify imports that are required to compile the script.</p>
+</blockquote>
+<p>允许省略 DSL 头部的 import。比较期待的改进。</p>
+<h3 id="Disabling-UI-editing-Developing"><a href="#Disabling-UI-editing-Developing" class="headerlink" title="Disabling UI editing - Developing"></a>Disabling UI editing - Developing</h3><blockquote>
+<p>TeamCity lets you set up CI/CD pipelines in a variety of ways based on your preferred workflow. Your projects can be configured through the DSL, through the UI, or through a mix of both. However, mixing manual edits with DSL changes may lead to a lot of confusion and versioning problems. To ensure that your configurations stay predictable and easy to manage, we will add a new option that will allow administrators to prohibit editing project configurations through the UI if they are set up using the Kotlin DSL.</p>
+</blockquote>
+<p>目前在未使用 <a href="https://blog.jetbrains.com/teamcity/2020/09/creating-teamcity-project-templates-with-kotlin-dsl-context-parameters/" target="_blank" rel="noopener">Kotlin DSL Context Parameter</a> 时，是允许使用 UI 及 DSL 混用的方式进行构建配置的调整的。未来将允许管理员对启用了 DSL 配置的项目禁用 UI 配置。</p>
+<h2 id="总体感受"><a href="#总体感受" class="headerlink" title="总体感受"></a>总体感受</h2><p>虽然使用 Kotlin DSL 会带来一些学习成本，并且在使用密文的时候（尤其是 Token）可能需要做一些尝试，但与其所带来的好处相比，还是可以承受的。</p>
+<p>如果你想尝试 TeamCity Kotlin DSL，现在是个不错的时机。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://rodm.github.io/blog/2017/03/teamcity-versioned-settings.html" target="_blank" rel="noopener">TeamCity Versioned Settings with Kotlin</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/03/configuration-as-code-part-1-getting-started-with-kotlin-dsl/" target="_blank" rel="noopener">Configuration as Code, Part 1: Getting Started with Kotlin DSL</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/03/configuration-as-code-part-2-working-with-kotlin-scripts/" target="_blank" rel="noopener">Configuration as Code, Part 2: Working with Kotlin Scripts</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/04/configuration-as-code-part-3-creating-build-configurations-dynamically/" target="_blank" rel="noopener">Configuration as Code, Part 3: Creating Build Configurations Dynamically</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/04/configuration-as-code-part-4-extending-the-teamcity-dsl/" target="_blank" rel="noopener">Configuration as Code, Part 4: Extending the TeamCity DSL
+</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/04/configuration-as-code-part-5-using-dsl-extensions-as-a-library/" target="_blank" rel="noopener">Configuration as Code, Part 5: Using DSL extensions as a library</a></li>
+<li><a href="https://blog.jetbrains.com/teamcity/2019/05/configuration-as-code-part-6-testing-configuration-scripts/" target="_blank" rel="noopener">Configuration as Code, Part 6: Testing Configuration Scripts</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#将已有配置转换为-Kotlin-DSL"><span class="toc-number">1.</span> <span class="toc-text">将已有配置转换为 Kotlin DSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Use-settings-from-VCS"><span class="toc-number">2.</span> <span class="toc-text">Use settings from VCS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-DSL-中使用密文"><span class="toc-number">3.</span> <span class="toc-text">在 DSL 中使用密文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-Parameters"><span class="toc-number">3.1.</span> <span class="toc-text">Context Parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tokens"><span class="toc-number">3.2.</span> <span class="toc-text">Tokens</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可移植性"><span class="toc-number">4.</span> <span class="toc-text">可移植性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-IDE-编辑-DSL"><span class="toc-number">5.</span> <span class="toc-text">使用 IDE 编辑 DSL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简化相同内容配置"><span class="toc-number">5.1.</span> <span class="toc-text">简化相同内容配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TeamCity-Configuration-as-Code-Roadmap"><span class="toc-number">6.</span> <span class="toc-text">TeamCity Configuration as Code Roadmap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Viewing-project-configuration-as-DSL-Developing"><span class="toc-number">6.1.</span> <span class="toc-text">Viewing project configuration as DSL - Developing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Omitting-imports-in-DSL-code-Designing"><span class="toc-number">6.2.</span> <span class="toc-text">Omitting imports in DSL code - Designing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Disabling-UI-editing-Developing"><span class="toc-number">6.3.</span> <span class="toc-text">Disabling UI editing - Developing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总体感受"><span class="toc-number">7.</span> <span class="toc-text">总体感受</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">8.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

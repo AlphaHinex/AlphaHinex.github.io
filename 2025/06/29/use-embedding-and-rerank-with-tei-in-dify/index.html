@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用 TEI 部署向量嵌入和重排模型，并在 Dify 中使用 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,RAG, Retrieval-Augmented Generation, TEI, Embeddings, Reranker, mis-tei, 昇腾, Dify, Jina, OpenAI-API-compatible"> 
+    <meta name="description" content="TEITEI（Text Embeddings Inference）是 Hugging Face 提供的一个服务框架，用于部署和运行文本嵌入模型，以及序列分类模型（重排模型）。它支持多种模型格式，性能,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">用 TEI 部署向量嵌入和重排模型，并在 Dify 中使用</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/use-embedding-and-rerank-with-tei-in-dify/swagger.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                六月 29, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/06/29/use-embedding-and-rerank-with-tei-in-dify/" title="用 TEI 部署向量嵌入和重排模型，并在 Dify 中使用" class="">用 TEI 部署向量嵌入和重排模型，并在 Dify 中使用</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    21k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    19 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/RAG/" rel="tag">RAG</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="TEI"><a href="#TEI" class="headerlink" title="TEI"></a>TEI</h1><p><a href="https://github.com/huggingface/text-embeddings-inference" target="_blank" rel="noopener">TEI</a>（Text Embeddings Inference）是 Hugging Face 提供的一个服务框架，用于部署和运行文本嵌入模型，以及序列分类模型（重排模型）。它支持多种模型格式，性能优异，并提供了 RESTful API 接口，方便与其他应用集成。</p>
+<blockquote>
+<p>Benchmark for <a href="https://huggingface.co/BAAI/bge-base-en-v1.5" target="_blank" rel="noopener">BAAI/bge-base-en-v1.5</a> on an Nvidia A10 with a sequence length of 512 tokens:<br><img src="https://alphahinex.github.io/contents/use-embedding-and-rerank-with-tei-in-dify/benchmark.png" alt="benchmark"></p>
+</blockquote>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="CPU-环境部署"><a href="#CPU-环境部署" class="headerlink" title="CPU 环境部署"></a>CPU 环境部署</h3><p>最新 1.7 版本 CPU 镜像可能存在某些模型无法启动问题，可能是 <a href="https://github.com/huggingface/text-embeddings-inference/issues/388" target="_blank" rel="noopener">https://github.com/huggingface/text-embeddings-inference/issues/388</a> 原因导致，使用 1.4 版本可以正常启动：</p>
+<pre><code class="bash">$ image=ghcr.io/huggingface/text-embeddings-inference:cpu-1.4
+$ docker pull $image
+
+$ model=/data/bge-large-zh-v1.5
+# Set the models directory as the volume path
+$ volume=/path/to/models 
+$ docker run -d --name tei-cpu -p 9090:80 -v $volume:/data $image --model-id $model</code></pre>
+<blockquote>
+<p>启动时若遇 <code>OS can&#39;t spawn worker thread: Operation not permitted (os error 1)</code> 报错，可添加 <code>--privileged</code> 参数：<code>docker run --privileged -d --name tei-cpu -p 9090:80 -v $volume:/data $image --model-id $model</code></p>
+</blockquote>
+<blockquote>
+<p>需要为模型设置 API KEY 时，可以在 docker 启动命令中设置环境变量参数 <code>-e API_KEY=sk-xxx</code>，或在命令最后添加 <code>--api-key sk-xxx</code> 启动参数。设置 API KEY 后，访问 TEI 接口时均需设置 <code>Authorization: Bearer sk-xxx</code> 请求头。</p>
+</blockquote>
+<p>查看启动日志：</p>
+<pre><code class="bash">$ docker logs -f tei-cpu
+2025-06-28T07:42:35.789940Z  INFO text_embeddings_router: router/src/main.rs:175: Args { model_id: &quot;/dat*/***-*****-**-v1.5&quot;, revision: None, tokenization_workers: None, dtype: None, pooling: None, max_concurrent_requests: 512, max_batch_tokens: 16384, max_batch_requests: None, max_client_batch_size: 32, auto_truncate: false, default_prompt_name: None, default_prompt: None, hf_api_token: None, hostname: &quot;e8bd63738b34&quot;, port: 80, uds_path: &quot;/tmp/text-embeddings-inference-server&quot;, huggingface_hub_cache: Some(&quot;/data&quot;), payload_limit: 2000000, api_key: None, json_output: false, otlp_endpoint: None, otlp_service_name: &quot;text-embeddings-inference.server&quot;, cors_allow_origin: None }
+2025-06-28T07:42:35.806005Z  INFO text_embeddings_router: router/src/lib.rs:199: Maximum number of tokens per request: 512
+2025-06-28T07:42:35.807919Z  INFO text_embeddings_core::tokenization: core/src/tokenization.rs:26: Starting 20 tokenization workers
+2025-06-28T07:42:35.914301Z  INFO text_embeddings_router: router/src/lib.rs:250: Starting model backend
+2025-06-28T07:42:35.919736Z  INFO text_embeddings_backend_candle: backends/candle/src/lib.rs:194: Starting Bert model on Cpu
+2025-06-28T07:42:37.985431Z  WARN text_embeddings_router: router/src/lib.rs:276: Backend does not support a batch size &gt; 4
+2025-06-28T07:42:37.985467Z  WARN text_embeddings_router: router/src/lib.rs:277: forcing `max_batch_requests=4`
+2025-06-28T07:42:37.985669Z  WARN text_embeddings_router: router/src/lib.rs:328: Invalid hostname, defaulting to 0.0.0.0
+2025-06-28T07:42:37.988948Z  INFO text_embeddings_router::http::server: router/src/http/server.rs:1684: Starting HTTP server: 0.0.0.0:80
+2025-06-28T07:42:37.988971Z  INFO text_embeddings_router::http::server: router/src/http/server.rs:1685: Ready</code></pre>
+<p>启动后可访问 <a href="http://localhost:9090/docs" target="_blank" rel="noopener">http://localhost:9090/docs</a> 查看 Swagger 文档：</p>
+<p><img src="https://alphahinex.github.io/contents/use-embedding-and-rerank-with-tei-in-dify/swagger.png" alt="swagger"></p>
+<p>调用向量嵌入接口：</p>
+<pre><code class="bash">$ curl localhost:9090/embed \
+    -X POST \
+    -d &#39;{&quot;inputs&quot;:&quot;What is Deep Learning?&quot;}&#39; \
+    -H &#39;Content-Type: application/json&#39;
+[[-0.005919599,0.005813143,0.01830068,0.012513345,……,-0.006120732]]</code></pre>
+<h3 id="华为昇腾环境部署"><a href="#华为昇腾环境部署" class="headerlink" title="华为昇腾环境部署"></a>华为昇腾环境部署</h3><p>在华为昇腾推理环境使用 TEI 需进行适配，可参考 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/Thirdpartyservitization/mindie_openthird_0028.html" target="_blank" rel="noopener">MindIE开源第三方服务化框架适配开发指南 - TEI</a>，或直接使用华为提供的 <a href="https://www.hiascend.com/developer/ascendhub/detail/mis-tei" target="_blank" rel="noopener"><code>mis-tei</code>镜像</a>。</p>
+<blockquote>
+<p>镜像需申请权限后才能下载，也可在 <a href="https://modelers.cn/models/Sunhuan/mis-tei/tree/main" target="_blank" rel="noopener">魔乐社区</a> 直接下载 <a href="https://modelers.cn/coderepo/web/v1/file/Sunhuan/mis-tei/main/media/7.0.RC1-800I-A2-aarch64.tar.gz" target="_blank" rel="noopener">mis-tei:7.0.RC1-800I-A2-aarch64.tar.gz</a>。</p>
+</blockquote>
+<p><code>mis-tei:7.0.RC1-800I-A2-aarch64</code> 镜像中 TEI 版本为 <code>1.2.3</code>。</p>
+<p><a href="https://www.hiascend.com/developer/ascendhub" target="_blank" rel="noopener">昇腾镜像仓库</a> 中还有提供配置好 TEI <code>model-id</code> 的镜像（启动时只需传入 host 和 port，需要更换 <code>model-id</code> 时较为麻烦，建议需要启动不同模型时，直接使用 <code>mis-tei</code> 镜像），如 <a href="https://www.hiascend.com/developer/ascendhub/detail/0ec47fdcbb3a4634bbdcbcc0f8b2f5ce" target="_blank" rel="noopener">bge-reranker-v2-m3:7.1.T2-800I-A2-aarch64</a>，该镜像中 TEI 版本为 <code>1.6.1</code>。</p>
+<p><a href="https://www.hiascend.com/developer/ascendhub/detail/mis-tei" target="_blank" rel="noopener"><code>mis-tei</code> 镜像页面</a> 中提供的启动命令如下：</p>
+<pre><code class="bash">docker run -u &lt;user&gt; -e ENABLE_BOOST=True -e ASCEND_VISIBLE_DEVICES=0 -itd --name=tei --net=host \
+-v &lt;model dir&gt;:/home/HwHiAiUser/model \
+&lt;image id&gt;  &lt;model id&gt; &lt;listen ip&gt; &lt;listen port&gt;</code></pre>
+<p>按此方式启动时可能会遇到如下报错：</p>
+<pre><code class="log">...
+2025-06-28T06:21:36.936649Z  INFO text_embeddings_router: router/src/lib.rs:234: Starting model backend
+2025-06-28T06:21:36.948436Z  INFO text_embeddings_backend_python::management: backends/python/src/management.rs:68: Starting Python backend
+2025-06-28 06:21:38.658 | INFO     | __main__:&lt;module&gt;:8 - wait tei service ready...
+2025-06-28T06:21:40.001106Z ERROR text_embeddings_backend: backends/src/lib.rs:414: Could not start Python backend: Could not start backend: Python backend failed to start
+2025-06-28 06:21:41.737 | INFO     | __main__:&lt;module&gt;:8 - wait tei service ready...
+...
+2025-06-28 06:22:55.662 | INFO     | __main__:&lt;module&gt;:8 - wait tei service ready...
+Error: Could not create backend
+
+Caused by:
+    Could not start backend: Could not start a suitable backend
+2025-06-28 06:22:58.663 | ERROR    | __main__:&lt;module&gt;:8 - create engine meet error:tei-service start error
+2025-06-28 06:22:58.663 | ERROR    | __main__:&lt;module&gt;:8 - create engine failed</code></pre>
+<p>如遇类似报错，可尝试按该页面<code>关键参数解释中</code>内容，改成下面方式启动容器：</p>
+<blockquote>
+<p>-e ASCEND_VISIBLE_DEVICES: 挂载指定的npu卡到容器中，只有宿主机安装了Ascend Docker Runtime，此环境变量才会生效，如果未安装Ascend Docker Runtime,可参考配置如下参数挂载指定的卡到容器</p>
+<pre><code>   --device=/dev/davinci_manager \
+   --device=/dev/hisi_hdc \
+   --device=/dev/devmm_svm \
+   --device=/dev/davinci0 \
+   --device=/dev/davinci1 \
+   -v /usr/local/Ascend/driver:/usr/local/Ascend/driver:ro \
+   -v /usr/local/sbin:/usr/local/sbin:ro</code></pre></blockquote>
+<pre><code class="bash">docker run -u &lt;user&gt; -e ENABLE_BOOST=True \
+    --device=/dev/davinci_manager \
+    --device=/dev/hisi_hdc \
+    --device=/dev/devmm_svm \
+    --device=/dev/davinci0 \
+    --device=/dev/davinci1 \
+    -v /usr/local/Ascend/driver:/usr/local/Ascend/driver:ro \
+    -v /usr/local/sbin:/usr/local/sbin:ro \
+-itd --name=tei --net=host \
+-v &lt;model dir&gt;:/home/HwHiAiUser/model \
+&lt;image id&gt;  &lt;model id&gt; &lt;listen ip&gt; &lt;listen port&gt;</code></pre>
+<blockquote>
+<p>使用 <code>mis-tei</code> 镜像启动 TEI 服务时，因为镜像的 <code>entrypoint</code> 调整为了自定义脚本，不是官方镜像中的 <code>text-embeddings-router</code> 命令，所以不能在 docker 启动命令中以命令行参数形式设置 API KEY。可参考官方镜像方式，在 docker 启动命令中设置环境变量，或在镜像中 <code>/home/HwHiAiUser/start.sh</code> 脚本内的 <code>text-embeddings-router</code> 命令后添加命令行参数来配置 API KEY。</p>
+</blockquote>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><h3 id="v1-embeddings"><a href="#v1-embeddings" class="headerlink" title="/v1/embeddings"></a>/v1/embeddings</h3><p>查看本地部署的 TEI 服务 Swagger 文档，或在线文档（ <a href="https://huggingface.github.io/text-embeddings-inference" target="_blank" rel="noopener">https://huggingface.github.io/text-embeddings-inference</a> ），可以看到除了 <code>/embed</code> 接口外，还有兼容 <a href="https://platform.openai.com/docs/api-reference/embeddings" target="_blank" rel="noopener">OpenAI 向量嵌入接口</a> 格式的 <code>/v1/embeddings</code> 接口：</p>
+<p><img src="https://alphahinex.github.io/contents/use-embedding-and-rerank-with-tei-in-dify/embeddings.png" alt="embeddings"></p>
+<p>可在源码中找到相关内容：</p>
+<p><a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/server.rs#L1728-L1743" target="_blank" rel="noopener">https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/server.rs#L1728-L1743</a></p>
+<pre><code class="server.rs">    let mut routes = Router::new()
+        // Base routes
+        .route(&quot;/info&quot;, get(get_model_info))
+        .route(&quot;/embed&quot;, post(embed))
+        .route(&quot;/embed_all&quot;, post(embed_all))
+        .route(&quot;/embed_sparse&quot;, post(embed_sparse))
+        .route(&quot;/predict&quot;, post(predict))
+        .route(&quot;/rerank&quot;, post(rerank))
+        .route(&quot;/similarity&quot;, post(similarity))
+        .route(&quot;/tokenize&quot;, post(tokenize))
+        .route(&quot;/decode&quot;, post(decode))
+        // OpenAI compat route
+        .route(&quot;/embeddings&quot;, post(openai_embed))
+        .route(&quot;/v1/embeddings&quot;, post(openai_embed))
+        // Vertex compat route
+        .route(&quot;/vertex&quot;, post(vertex_compatibility));</code></pre>
+<p><a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/server.rs#L1114-L1297" target="_blank" rel="noopener">https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/server.rs#L1114-L1297</a></p>
+<pre><code class="server.rs">async fn openai_embed(
+    infer: Extension&lt;Infer&gt;,
+    info: Extension&lt;Info&gt;,
+    Extension(context): Extension&lt;Option&lt;opentelemetry::Context&gt;&gt;,
+    Json(req): Json&lt;OpenAICompatRequest&gt;,
+) -&gt; Result&lt;(HeaderMap, Json&lt;OpenAICompatResponse&gt;), (StatusCode, Json&lt;OpenAICompatErrorResponse&gt;)&gt;</code></pre>
+<p>并通过 curl 验证：</p>
+<pre><code class="bash">$ curl http://localhost:9090/v1/embeddings \
+    -X POST \
+    -d &#39;{&quot;input&quot;: &quot;What is Deep Learning?&quot;}&#39; \
+    -H &#39;Content-Type: application/json&#39;
+{&quot;object&quot;:&quot;list&quot;,&quot;data&quot;:[{&quot;object&quot;:&quot;embedding&quot;,&quot;embedding&quot;:[-0.005919599,0.005813143,0.01830068,0.012513345,...,-0.006120732],&quot;index&quot;:0}],&quot;model&quot;:&quot;/data/bge-large-zh-v1.5&quot;,&quot;usage&quot;:{&quot;prompt_tokens&quot;:7,&quot;total_tokens&quot;:7}}</code></pre>
+<h3 id="rerank"><a href="#rerank" class="headerlink" title="/rerank"></a>/rerank</h3><p>重排接口请求体结构在 <a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/types.rs#L240-L258" target="_blank" rel="noopener">https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/types.rs#L240-L258</a> 中定义：</p>
+<pre><code class="rs">#[derive(Deserialize, ToSchema)]
+pub(crate) struct RerankRequest {
+    #[schema(example = &quot;What is Deep Learning?&quot;)]
+    pub query: String,
+    #[schema(example = json!([&quot;Deep Learning is ...&quot;]))]
+    pub texts: Vec&lt;String&gt;,
+    #[serde(default)]
+    #[schema(default = &quot;false&quot;, example = &quot;false&quot;, nullable = true)]
+    pub truncate: Option&lt;bool&gt;,
+    #[serde(default)]
+    #[schema(default = &quot;right&quot;, example = &quot;right&quot;)]
+    pub truncation_direction: TruncationDirection,
+    #[serde(default)]
+    #[schema(default = &quot;false&quot;, example = &quot;false&quot;)]
+    pub raw_scores: bool,
+    #[serde(default)]
+    #[schema(default = &quot;false&quot;, example = &quot;false&quot;)]
+    pub return_text: bool,
+}</code></pre>
+<p>响应体结构在 <a href="https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/types.rs#L260-L272" target="_blank" rel="noopener">https://github.com/huggingface/text-embeddings-inference/blob/v1.7.2/router/src/http/types.rs#L260-L272</a> 定义：</p>
+<pre><code class="rs">#[derive(Serialize, ToSchema)]
+pub(crate) struct Rank {
+    #[schema(example = &quot;0&quot;)]
+    pub index: usize,
+    #[schema(nullable = true, example = &quot;Deep Learning is ...&quot;, default = &quot;null&quot;)]
+    #[serde(skip_serializing_if = &quot;Option::is_none&quot;)]
+    pub text: Option&lt;String&gt;,
+    #[schema(example = &quot;1.0&quot;)]
+    pub score: f32,
+}
+
+#[derive(Serialize, ToSchema)]
+pub(crate) struct RerankResponse(pub Vec&lt;Rank&gt;);</code></pre>
+<p>可通过如下方式调用：</p>
+<pre><code class="bash">$ curl http://localhost:9093/rerank \
+    -X POST \
+    -d &#39;{&quot;query&quot;:&quot;What is Deep Learning?&quot;, &quot;texts&quot;: [&quot;Deep Learning is not...&quot;, &quot;Deep learning is...&quot;]}&#39; \
+    -H &#39;Content-Type: application/json&#39;
+[{&quot;index&quot;:1,&quot;score&quot;:0.99762183},{&quot;index&quot;:0,&quot;score&quot;:0.0.12474516}]</code></pre>
+<blockquote>
+<p>需要通过 TEI 启动多个模型时，需要启动多个 <code>text-embeddings-router</code> 进程，或多个 docker 容器。</p>
+</blockquote>
+<h1 id="在-Dify-中配置-TEI-部署的模型"><a href="#在-Dify-中配置-TEI-部署的模型" class="headerlink" title="在 Dify 中配置 TEI 部署的模型"></a>在 Dify 中配置 TEI 部署的模型</h1><p>Dify 支持通过 <code>Text Embedding Inference</code> 模型提供商配置 TEI 部署的向量嵌入和重排模型：</p>
+<p><img src="https://alphahinex.github.io/contents/use-embedding-and-rerank-with-tei-in-dify/provider.png" alt="provider"></p>
+<h2 id="嵌入模型"><a href="#嵌入模型" class="headerlink" title="嵌入模型"></a>嵌入模型</h2><p>配置嵌入模型时，会调用以下接口进行验证：<code>/info</code>、<code>/tokenize</code>、<code>/v1/embeddings</code>。</p>
+<p>没错，用的是兼容 OpenAI 接口格式的向量嵌入接口，不是 TEI 自定义的 <code>/embed</code> 接口，在通过反向代理访问 TEI 服务时需注意。</p>
+<p>既然如此，也可以直接使用 Dify 中 <code>OpenAI-API-compatible</code> 模型供应商配置 TEI 发布的嵌入模型服务。</p>
+<p>相关源码位置：</p>
+<ul>
+<li>v0.15.x：<a href="https://github.com/langgenius/dify/blob/0.15.8/api/core/model_runtime/model_providers/huggingface_tei/tei_helper.py" target="_blank" rel="noopener">https://github.com/langgenius/dify/blob/0.15.8/api/core/model_runtime/model_providers/huggingface_tei/tei_helper.py</a></li>
+<li>v1.x：<a href="https://github.com/langgenius/dify-official-plugins/blob/main/models/huggingface_tei/models/helper.py" target="_blank" rel="noopener">https://github.com/langgenius/dify-official-plugins/blob/main/models/huggingface_tei/models/helper.py</a></li>
+</ul>
+<h2 id="重排模型"><a href="#重排模型" class="headerlink" title="重排模型"></a>重排模型</h2><p>使用 TEI 模型供应商配置重排模型时，会调用 <code>/info</code> 及 <code>/rerank</code> 接口进行校验。</p>
+<p>若 <code>/info</code> 接口返回的模型类型（<code>model_type</code>）不是 <code>reranker</code>，则无法完成配置。</p>
+<ul>
+<li>向量嵌入模型 info 示例：</li>
+</ul>
+<pre><code class="json">{
+  &quot;model_id&quot;: &quot;/data/bge-large-zh-v1.5&quot;,
+  &quot;model_sha&quot;: null,
+  &quot;model_dtype&quot;: &quot;float32&quot;,
+  &quot;model_type&quot;: {
+    &quot;embedding&quot;: {
+      &quot;pooling&quot;: &quot;cls&quot;
+    }
+  },
+  &quot;max_concurrent_requests&quot;: 512,
+  &quot;max_input_length&quot;: 512,
+  &quot;max_batch_tokens&quot;: 16384,
+  &quot;max_batch_requests&quot;: 4,
+  &quot;max_client_batch_size&quot;: 32,
+  &quot;auto_truncate&quot;: false,
+  &quot;tokenization_workers&quot;: 20,
+  &quot;version&quot;: &quot;1.4.0&quot;,
+  &quot;sha&quot;: &quot;a0549e625b7c9045257d61d302322d9b64fc7395&quot;,
+  &quot;docker_label&quot;: &quot;sha-a0549e6&quot;
+}</code></pre>
+<ul>
+<li>重排模型 info 示例：</li>
+</ul>
+<pre><code class="json">{
+  &quot;model_id&quot;: &quot;/data/bge-reranker-v2-m3&quot;,
+  &quot;model_sha&quot;: null,
+  &quot;model_dtype&quot;: &quot;float16&quot;,
+  &quot;model_type&quot;: {
+    &quot;reranker&quot;: {
+      &quot;id2label&quot;: {&quot;0&quot;:&quot;LABEL_0&quot;},
+      &quot;label2id&quot;: {&quot;LABEL_0&quot;:0}
+    }
+  },
+  &quot;max_concurrent_requests&quot;: 512,
+  &quot;max_input_length&quot;: 8192,
+  &quot;max_batch_tokens&quot;: 16384,
+  &quot;max_batch_requests&quot;: null,
+  &quot;max_client_batch_size&quot;: 32,
+  &quot;auto_truncate&quot;: false,
+  &quot;tokenization_workers&quot;: 20,
+  &quot;version&quot;: &quot;1.2.3&quot;,
+  &quot;sha&quot;: &quot;a0549e625b7c9045257d61d302322d9b64fc7395&quot;,
+  &quot;docker_label&quot;: null
+}</code></pre>
+<p><a href="https://platform.openai.com/docs/api-reference" target="_blank" rel="noopener">OpenAI API Reference</a> 中并没有 <code>/rerank</code> 接口的定义。</p>
+<p>Dify 中的 <code>OpenAI-API-compatible</code> 模型供应商在配置 <code>Rerank</code> 模型时，使用的是 <a href="https://jina.ai/reranker/" target="_blank" rel="noopener">Jina 重排器</a> 的接口：</p>
+<blockquote>
+<ul>
+<li>v0.15.x: <a href="https://github.com/langgenius/dify/blob/0.15.8/api/core/model_runtime/model_providers/openai_api_compatible/rerank/rerank.py#L25" target="_blank" rel="noopener">https://github.com/langgenius/dify/blob/0.15.8/api/core/model_runtime/model_providers/openai_api_compatible/rerank/rerank.py#L25</a></li>
+<li>v1.x: <a href="https://github.com/langgenius/dify-plugin-sdks/blob/main/python/dify_plugin/interfaces/model/openai_compatible/rerank.py#L20" target="_blank" rel="noopener">https://github.com/langgenius/dify-plugin-sdks/blob/main/python/dify_plugin/interfaces/model/openai_compatible/rerank.py#L20</a></li>
+</ul>
+</blockquote>
+<p><a href="https://docs.jina.ai/" target="_blank" rel="noopener">Jina API 文档</a> 中关于 Reranker API 的定义如下：</p>
+<blockquote>
+<p>Endpoint: <a href="https://api.jina.ai/v1/rerank" target="_blank" rel="noopener">https://api.jina.ai/v1/rerank</a></p>
+</blockquote>
+<blockquote>
+<p>Request body schema: </p>
+</blockquote>
+<pre><code class="json">{
+  &quot;application/json&quot;: {
+    &quot;documents&quot;: {
+      &quot;description&quot;: &quot;A list of strings, TextDocs, and/or images to rerank. If a document object is provided, all text fields will be preserved in the response. Only jina-reranker-m0 supports images.&quot;,
+      &quot;required&quot;: true,
+      &quot;type&quot;: &quot;If v2 or colbert reranker: array of strings and/or TextDocs. If m0 reranker: object with keys \&quot;text\&quot; and/or \&quot;image\&quot;, and values of strings, TextDocs, and/or images (URLs or base64-encoded strings)&quot;
+    },
+    &quot;model&quot;: {
+      &quot;description&quot;: &quot;Identifier of the model to use.&quot;,
+      &quot;options&quot;: [
+        {
+          &quot;name&quot;: &quot;jina-reranker-m0&quot;,
+          &quot;size&quot;: &quot;2.4B&quot;
+        },
+        {
+          &quot;name&quot;: &quot;jina-reranker-v2-base-multilingual&quot;,
+          &quot;size&quot;: &quot;278M&quot;
+        },
+        {
+          &quot;name&quot;: &quot;jina-colbert-v2&quot;,
+          &quot;size&quot;: &quot;560M&quot;
+        }
+      ],
+      &quot;required&quot;: true,
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;query&quot;: {
+      &quot;description&quot;: &quot;The search query.&quot;,
+      &quot;required&quot;: true,
+      &quot;type&quot;: &quot;string, TextDoc, or image (URL or base64-encoded string)&quot;
+    },
+    &quot;return_documents&quot;: {
+      &quot;default&quot;: true,
+      &quot;description&quot;: &quot;If false, returns only the index and relevance score without the document text. If true, returns the index, text, and relevance score.&quot;,
+      &quot;required&quot;: false,
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;top_n&quot;: {
+      &quot;description&quot;: &quot;The number of most relevant documents or indices to return, defaults to the length of documents.&quot;,
+      &quot;required&quot;: false,
+      &quot;type&quot;: &quot;integer&quot;
+    }
+  }
+}</code></pre>
+<blockquote>
+<p>Example response: </p>
+</blockquote>
+<pre><code class="json">{
+  &quot;model&quot;: &quot;jina-reranker-m0&quot;,
+  &quot;results&quot;: [
+    {
+      &quot;index&quot;: 0,
+      &quot;relevance_score&quot;: 0.9587112551898949
+    },
+    {
+      &quot;index&quot;: 1,
+      &quot;relevance_score&quot;: 0.9337408271911014
+    }
+  ],
+  &quot;usage&quot;: {
+    &quot;total_tokens&quot;: 2829
+  }
+}</code></pre>
+<p>可以看到，与 TEI 定义的 <code>/rerank</code> 接口在主要的请求和响应体结构上均有区别，TEI 接口传入待排序文本列表使用的属性是 <code>texts</code>，而 Jina 接口使用的是 <code>documents</code>。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TEI"><span class="toc-number">1.</span> <span class="toc-text">TEI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#部署"><span class="toc-number">1.1.</span> <span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU-环境部署"><span class="toc-number">1.1.1.</span> <span class="toc-text">CPU 环境部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#华为昇腾环境部署"><span class="toc-number">1.1.2.</span> <span class="toc-text">华为昇腾环境部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#API"><span class="toc-number">1.2.</span> <span class="toc-text">API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v1-embeddings"><span class="toc-number">1.2.1.</span> <span class="toc-text">&#x2F;v1&#x2F;embeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rerank"><span class="toc-number">1.2.2.</span> <span class="toc-text">&#x2F;rerank</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在-Dify-中配置-TEI-部署的模型"><span class="toc-number">2.</span> <span class="toc-text">在 Dify 中配置 TEI 部署的模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#嵌入模型"><span class="toc-number">2.1.</span> <span class="toc-text">嵌入模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重排模型"><span class="toc-number">2.2.</span> <span class="toc-text">重排模型</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

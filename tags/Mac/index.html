@@ -1,0 +1,971 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: Mac - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/package-on-mac-without-hidden-files/workflow.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Mac"><b>「
+                </b>MAC<b> 」</b></a>
+            
+            一月 18, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2026/01/18/package-on-mac-without-hidden-files/" title="在 Mac 不包含隐藏文件打包" class="posttitle">在 Mac 不包含隐藏文件打包</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                10k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                9 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>在 Mac 上无论使用命令行工具，还是右键菜单打包、压缩文件，在其他操作系统打开时，都会看到一些隐藏文件，例如：</p>
+<p>Mac 文件系统中包含如下内容：</p>
+<pre><code class="bash">$ tree -a
+.
+├── .DS_Store
+...</code></pre>
+            
+            <span class="read-more"><a href="/2026/01/18/package-on-mac-without-hidden-files/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/docker-compose-redis-cluster.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Redis">
+                  <b>「 </b>REDIS<b> 」</b>
+                </a>
+            
+            十一月 16, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/11/16/docker-compose-redis-cluster/" title="Docker Compose 单机 Redis Cluster" class="posttitle">Docker Compose 单机 Redis Cluster</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>安装 Docker 和 Docker Compose</li>
+<li>有一个可用 IP 地址（可以是内网 IP），以便端口映射后，容器间通过此 IP 进行通讯</li>
+</ul>
+<blockquote>
+<p>不依赖 host 网络模式，Mac 可用。</p>
+</blockquote>
+<pre><code class="bash">$ tree
+.
+├── cleanup.sh
+├── docker-compose.yml
+├── redis.conf
+└── start.sh</code></pre>
+<blockquote>
+<p><a href="https://github.com/AlphaHinex/compose-docker/tree/master/redis-cluster" target="_blank" rel="noopener">https://github.com/AlphaHinex/compose-docker/tree/master/redis-cluster</a></p>
+</blockquote>
+<pre><code class="yml">version...</code></pre>
+            
+            <span class="read-more"><a href="/2025/11/16/docker-compose-redis-cluster/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/yinxiangbiji-index.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            四月 26, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/04/26/yinxiangbiji-index/" title="【转】解决印象笔记无法搜索到对应标题或内容笔记的问题" class="posttitle">【转】解决印象笔记无法搜索到对应标题或内容笔记的问题</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        823
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://blog.csdn.net/he_menglong/article/details/79188465" target="_blank" rel="noopener">https://blog.csdn.net/he_menglong/article/details/79188465</a></li>
+<li>原文作者：<a href="https://blog.csdn.net/he_menglong" target="_blank" rel="noopener">梦龙mlong</a></li>
+</ul>
+<p>一直使用印象笔记这款笔记软件，前几天突然发现搜索功能出现了bug，我要搜索一篇笔记却搜索不到。比如有篇笔记名为”crontab 命令详解“，在搜索框中无论是输入”crontab“还是”crontab 命令详解“都无法搜索到这篇笔记，还有其他几篇含有关键字”crontab“标题或内容的笔记也都无法搜索到！</p>
+<p></p>
+<p>于是发邮件问印象笔记官方得到回复如...</p>
+            
+            <span class="read-more"><a href="/2025/04/26/yinxiangbiji-index/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/using-pppwn-cpp-on-mac-with-ps4/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            十二月 15, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/12/15/using-pppwn-cpp-on-mac-with-ps4/" title="用 PPPwn_cpp 在 Mac 上折腾 PS4" class="posttitle">用 PPPwn_cpp 在 Mac 上折腾 PS4</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PS4/" rel="tag">PS4</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>PS4 能不能用 <a href="https://github.com/TheOfficialFloW/PPPwn" target="_blank" rel="noopener">PPPwn</a> 方式折腾，主要取决于 <a href="https://github.com/GoldHEN/GoldHEN" target="_blank" rel="noopener">GoldHEN</a> 和 <a href="https://github.com/SiSTR0/PPPwn" target="_blank" rel="noopener">SiSTR0/PPPwn</a> stage2 支持的固件版本。</p>
+<p>目前最新的 <a href="https://github.com/GoldHEN/GoldHEN/releases/tag/2.4b18" target="_blank" rel="noopener">GoldHEN v2.4b18</a> 版本和 <a href="https://github.com/SiSTR0/PPPwn/releases/tag/1.03" target="_blank" rel="noopener">GoldHEN stage2 v1.03</a> 支持的固件版本交集如下：</p>
+<blockquote>
+<p><strong>Supported Firmware</strong></p>
+<ul>
+<li>9.00</li>
+<li>9.60</li>
+<li>10.00 / 10.01</li>
+<li>10.50</li>
+<li>10.70 / 10.71</li>
+<li>11.00</li>
+</ul>
+</blockquote>
+<p>主要折腾两件事：</p>
+<ol>
+<li>把 PS4 系统版本升级到上面支持的固件版本</li>
+<li>通过 PPPwn 扫描到漏洞并加载 <code>stage2...</code></li></ol>
+            
+            <span class="read-more"><a href="/2024/12/15/using-pppwn-cpp-on-mac-with-ps4/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/macos-file-flags/flags.webp);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            九月 01, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/09/01/macos-file-flags/" title="【译】如何使用文件标志修改 macOS 中的文件行为" class="posttitle">【译】如何使用文件标志修改 macOS 中的文件行为</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<ul>
+<li>原文地址：<a href="https://www.maketecheasier.com/use-file-flags-modify-file-behavior-macos/" target="_blank" rel="noopener">https://www.maketecheasier.com/use-file-flags-modify-file-behavior-macos/</a></li>
+<li>原文作者：<a href="https://www.maketecheasier.com/author/alexfox/" target="_blank" rel="noopener">Alexander Fox</a></li>
+</ul>
+<p>在 macOS 中，可以使用文件标志（flags）来限制文件被修改的方式。它们与文件权限不同，并且与 <code>chown</code> 和 <code>chmod</code> 等命令并行运行。您将使用 <code>chflags</code> 来更改标志，以及使用 <code>ls</code> 来查看标志。Unix 运行一个类似的系统，但是选项更多，称为“属性”，而不是标志。</p>
+<p>在终端中，您可...</p>
+            
+            <span class="read-more"><a href="/2024/09/01/macos-file-flags/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/give-mac-rm-a-chance.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            五月 26, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/05/26/give-mac-rm-a-chance/" title="给 Mac 上一个保险" class="posttitle">给 Mac 上一个保险</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>如果你体会过在 Mac 上手残 <code>rm -f</code> 了一个重要的文件的痛苦，可以试试 <a href="http://hasseg.org/trash/" target="_blank" rel="noopener">trash</a>。</p>
+<p>安装 <code>trash</code> 命令：</p>
+<pre><code class="bash">brew install trash</code></pre>
+<p>然后将下面的命令添加到 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 文件中：</p>
+<pre><code class="bash">alias rm=&#39;/usr/local/bin/trash -F&#39;</code></pre>
+<p>这样，以后使用 <code>rm</code> 命令删除文件时，文件会被移动到回收站（并且可以在回收站使用“放回原处”功能），而不是直接删除。</p>
+<p><a href="https://github.com/ali-rantakari/trash" target="_blank" rel="noopener">trash</a> 是一个 MIT 协议的开源命令行工具，可将文件或文件...</p>
+            
+            <span class="read-more"><a href="/2024/05/26/give-mac-rm-a-chance/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/macos-auto-switch-scroll-direction/10-inspector.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            五月 05, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/05/05/macos-auto-switch-scroll-direction/" title="MacOS 实现自动切换鼠标滚动方向" class="posttitle">MacOS 实现自动切换鼠标滚动方向</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AppleScript/" rel="tag">AppleScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>想在 macOS 上实现如下效果：</p>
+<ol>
+<li>连接了（非 Magic Mouse）鼠标时，系统自动切换鼠标滚动方向为“非自然”；</li>
+<li>断开鼠标连接时（使用触控板），系统自动切换鼠标滚动方向为“自然”。</li>
+</ol>
+<blockquote>
+<p>注：本文使用的脚本在 macOS Monterey 12.7.4 上测试通过，其他系统版本可能存在一些差异。</p>
+</blockquote>
+<h3 id="切换滚动方向为-“自然”"><a href="#切换滚动方向为-“自然”" class="headerlink" title="切换滚动方向为 “自然”"></a>切换滚动方向为 “自然”</h3><p><a href="/contents/macos-auto-switch-scroll-direction/scroll-direction-trackpad.applescript">scroll-direction-trackpad.applescript</a></p>
+<pre><code class="applescript">tell application &quot;System Preferences&quot;...</code></pre>
+            
+            <span class="read-more"><a href="/2024/05/05/macos-auto-switch-scroll-direction/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/iterm2-ssh-via-ssh/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            四月 06, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/04/06/speed-up-iterm2/" title="iTerm2 冷启动提速" class="posttitle">iTerm2 冷启动提速</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        20k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        18 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>iTerm2 在升级系统之后，冷启动（开机后第一次启动）的速度异常的慢，需要几十秒才能进入可用状态。之后无论是开新窗口还是退出重进的速度都还挺正常的。</p>
+<p>虽然升级系统之前冷启动速度也不快，但并没有慢到这么令人难以忍受。</p>
+<p>经过几轮较量，最终恢复了秒级冷启动。将过程和尝试的办法记录如下。</p>
+<p>效果最明显的改动：将系统自带的 <code>Apple Git</code> 替换为 <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> 中的 <code>Git</code>:</p>
+<pre><code class="bash"># 系统自带 Git 版本
+$ git --version
+git version 2.24.3 (Apple Git-128...</code></pre>
+            
+            <span class="read-more"><a href="/2024/04/06/speed-up-iterm2/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/mir4ag-disable-ping.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Python">
+                  <b>「 </b>PYTHON<b> 」</b>
+                </a>
+            
+            二月 25, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/02/25/mir4ag-disable-ping/" title="小米 4A 千兆版路由器禁 ping" class="posttitle">小米 4A 千兆版路由器禁 ping</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/OpenWRT/" rel="tag">OpenWRT</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>小米路由器的官方固件中并不支持设置禁 ping。</p>
+<p>本文借助 OpenWRTInvasion 利用 Root Shell 漏洞实现小米4A千兆版路由器禁 ping。</p>
+<p><a href="https://github.com/acecilia/OpenWRTInvasion" target="_blank" rel="noopener">OpenWRTInvasion</a> 是一个可以获得小米路由器 Root Shell 权限的工具，<a href="https://github.com/acecilia/OpenWRTInvasion?tab=readme-ov-file#supported-routers-and-firmware-versions" target="_blank" rel="noopener">支持多种路由型号和固件版本</a>，也有一些写明 <a href="https://github.com/acecilia/OpenWRTInvasion?tab=readme-ov-file#unsupported-routers-and-firmware-versions" target="_blank" rel="noopener">不支持的型号和固件版本</a>。</p>
+<p>以小米4A千兆版路由器为例，分为国内版、国际版，还有 v1、v2 版本，可参照 <a href="https://openwrt.org/inbox/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition#how_to_tell_the_different_versions_apart" target="_blank" rel="noopener">这里</a> 区分不同版本。</p>
+<p>未写明支持或不支持的版本，也有能成功的可能，比如下面的过程是在 小米4A千...</p>
+            
+            <span class="read-more"><a href="/2024/02/25/mir4ag-disable-ping/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/clean-macbook-pro-2015/silicone.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            二月 11, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/02/11/clean-macbook-pro-2015/" title="MacBook Pro (Retina, 15-inch, Mid 2015) 风扇清灰及重涂导热硅脂" class="posttitle">MacBook Pro (Retina, 15-inch, Mid 2015) 风扇清灰及重涂导热硅脂</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.9k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        3 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>服役 8 年多的 MacBook Pro (Retina, 15-inch, Mid 2015) 几乎只在刚开机时稍微安静一些</p>
+<p></p>
+<p>一旦起飞，风扇就一直满速旋转，直到关机才能再次安静下来：</p>
+<p></p>
+<p></p>
+<p>年前进行了风扇清灰和重涂导热硅脂的操作，简要记录一下过程和效果。</p>
+<p><a href="https://www.bilibili.com/video/BV1mt4y197L5" target="_blank" rel="noopener">Macbook Pro Retina 15’A1398（2013年末，i7，GT 750M）拆卸、清洁、重新组装</a></p>
+<iframe class="bv" src="//player.bilibili.com/player.html?aid=626202823&bvid=BV1mt4y197L5&cid=207464367&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+
+
+<p>这个视频比较清晰完整的展示了该款 macbook 的拆卸、清洁和重新组装过程，建议动手操作前反复观看关注部分的内容。</p>
+<blockquote>
+<p>b...</p></blockquote>
+            
+            <span class="read-more"><a href="/2024/02/11/clean-macbook-pro-2015/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/tags/Mac/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

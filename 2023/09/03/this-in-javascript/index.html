@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】探索前端的 this 指向 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,this, use strict, call, apply, bind, context, function, class, global"> 
+    <meta name="description" content="原文地址：https://wyiyi.github.io/amber/2023/09/01/this/
+在前端开发中，this 是一个常见的概念。它代表了当前执行上下文中的对象或函数，并且在不同的情,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】探索前端的 this 指向</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/this-in-javascript.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/JavaScript"><b>「
+                    </b>JAVASCRIPT<b> 」</b></a>
+                
+                九月 03, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/09/03/this-in-javascript/" title="【转】探索前端的 this 指向" class="">【转】探索前端的 this 指向</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2023/09/01/this/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2023/09/01/this/</a></p>
+<p>在前端开发中，this 是一个常见的概念。<br>它代表了当前执行上下文中的对象或函数，并且在不同的情况下，this 的指向也会有所不同。</p>
+<p>本文将深入探讨 <code>this</code> 在前端开发中的应用场景以及不同情况下的指向规则，更好地理解和运用 <code>this</code> 指向。</p>
+<h1 id="小试牛刀"><a href="#小试牛刀" class="headerlink" title="小试牛刀"></a>小试牛刀</h1><h2 id="1、普通函数、箭头函数组合使用"><a href="#1、普通函数、箭头函数组合使用" class="headerlink" title="1、普通函数、箭头函数组合使用"></a>1、普通函数、箭头函数组合使用</h2><pre><code class="js">var name = &quot;TOM&quot;
+let obj={
+  name:&quot;Jerry&quot;,
+  SayHi:()=&gt;{
+   return function(){
+      console.log(this.name) //问题1 这个this又指向谁
+    }
+  },
+  SayFoo:function(){
+    return ()=&gt;{
+      console.log(this.name) //问题2 这个this又指向谁
+    }
+  }
+}
+obj.SayHi()()
+obj.SayFoo()()</code></pre>
+<h2 id="2、改变-this-指向"><a href="#2、改变-this-指向" class="headerlink" title="2、改变 this 指向"></a>2、改变 this 指向</h2><pre><code class="js">var name = &#39;win&#39;;
+const obj = {
+    name: &#39;obj&#39;,
+    a: () =&gt; {
+        console.log(this.name);
+    }
+};
+const obj1 = {
+    name: &#39;obj1&#39;
+};
+obj.a.call(obj1);</code></pre>
+<p>别急，答案和解析逐步揭晓。</p>
+<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><p>在 <code>JavaScript</code> 中，函数的 <code>this</code> 关键字与其他语言有一些不同。<br>它也在<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="noopener">严格模式</a>和非严格模式下有一些区别。</p>
+<p>在大多数情况下，<code>this</code> 的值取决于函数的调用方式（运行时绑定）。<br><code>this</code> 不能在执行期间被赋值，在每次函数被调用时 this 的值也可能会不同。</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p><code>this</code> 的值取决于它出现在哪个上下文中：函数、类、或者全局。</p>
+<ul>
+<li><p>在非严格模式下，始终是对象的引用。当函数被调用时，<code>JavaScript</code> 会自动设置 <code>this</code> 的值。</p>
+<ul>
+<li>如果函数作为对象的方法调用，<code>this</code> 指向该对象</li>
+<li>如果函数独立调用，<code>this</code> 指向全局对象</li>
+</ul>
+</li>
+<li><p>在严格模式下，它可以是任何值。<code>this</code> 的值不再是默认绑定到全局对象，而是根据调用方式和上下文来确定。</p>
+<ul>
+<li>如果函数作为对象的方法调用，this 将绑定到该对象</li>
+<li>如果使用 <code>call()</code>、<code>apply()</code> 或 <code>bind()</code> 显示指定 <code>this</code> 值，将绑定到相应的值</li>
+<li>如果函数是使用构造函数调用，<code>this</code> 将绑定到新创建的对象</li>
+<li>对于箭头函数，没有自己的 <code>this</code> 绑定，而是集成了外部函数的 <code>this</code> 值</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数上下文"><a href="#函数上下文" class="headerlink" title="函数上下文"></a>函数上下文</h2><p>函数中的 <code>this</code> 的值取决于函数的调用方式，可将 <code>this</code> 视为函数的隐藏参数，就像函数定义中声明的参数一样，当函数体被执行时，会创建这个绑定 <code>this</code>。</p>
+<ul>
+<li><p>对象方法调用：如果函数是作为对象的方法调用时，<code>this</code> 指向调用该方法的对象。换句话说，如果函数调用形式为 <code>obj.f()</code>，那么 <code>this</code> 指向 <code>obj</code>。</p>
+<pre><code class="js">  const obj = {
+    name: &quot;John&quot;,
+    greet: function() {
+      console.log(&quot;Hello, &quot; + this.name + &quot;!&quot;); // this 指向 obj 对象
+    }
+  };
+
+  obj.greet(); // 输出 &quot;Hello, John!&quot;</code></pre>
+</li>
+<li><p>函数调用：如果函数是作为普通函数调用时，this 指向全局对象。</p>
+<pre><code class="js">  function sayHello() {
+      console.log(&quot;Hello, &quot; + this.name + &quot;!&quot;); // this 指向全局对象
+  }
+  sayHello(); // 输出 &quot;Hello, undefined!&quot;（假设全局对象的 name 属性未定义）</code></pre>
+</li>
+</ul>
+<h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><p>当函数被作为回调传递时，<code>this</code> 的值取决于回调的调用方式，这由 API 实现者决定。</p>
+<p>通常情况下，回调函数会以 <code>undefined</code> 作为 <code>this</code> 值进行调用（直接调用而没有附加到任何对象上），这意味着如果函数是非严格模式的话，<code>this</code> 的值就是全局对象（<code>globalThis</code>）。<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#iterative_methods" target="_blank" rel="noopener">迭代数组方法</a> 和 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/Promise" target="_blank" rel="noopener">Promise()</a> 构造函数等都是这种情况。</p>
+<pre><code class="js">function logThis() {
+  &quot;use strict&quot;;
+  console.log(this);
+}
+
+[1, 2, 3].forEach(logThis); // undefined, undefined, undefined</code></pre>
+<p>有些 API 允许你为回调的调用设置 <code>this</code> 值。<br>如：所有迭代数组方法以及相关的方法如 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/forEach" target="_blank" rel="noopener">Set.prototype.forEach()</a> 都接受一个可选的 <code>thisArg</code> 参数。</p>
+<pre><code class="js">[1, 2, 3].forEach(logThis, { name: &quot;obj&quot; });
+// { name: &#39;obj&#39; }, { name: &#39;obj&#39; }, { name: &#39;obj&#39; }</code></pre>
+<p>偶尔，某些回调会以非 <code>undefined</code> 的值作为 <code>this</code> 进行调用。<br>如：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse" target="_blank" rel="noopener">JSON.parse()</a> 的 <code>reviver</code> 参数和 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank" rel="noopener">JSON.stringify()</a> 的 <code>replacer</code> 参数会以当前被解析/序列化属性所属的对象作为 <code>this</code> 进行调用。</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="noopener">箭头函数</a> 通过继承封闭上下文的 <code>this</code> 值来简化函数的定义。<br>换句话说，它们不会创建自己的 <code>this</code> 绑定，而是将 <code>this</code> 捕获为函数创建时的值，无论如何调用函数，<code>this</code> 都将保持不变。</p>
+<p>在全局代码中，无论是否使用严格模式，<code>this</code> 始终是 <code>globalThis</code>，这是由于全局上下文的绑定：</p>
+<pre><code class="js">const globalObject = this;
+const foo = () =&gt; this;
+console.log(foo() === globalObject); // true</code></pre>
+<p>当使用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call" target="_blank" rel="noopener">call()</a>、<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply" target="_blank" rel="noopener">apply()</a> 或 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank" rel="noopener">bind()</a> 调用箭头函数时，<code>thisArg</code> 参数会被忽略。但仍然可以使用这些方法传递其他参数。</p>
+<p>区别：<br>call 和 apply 调用时候立即执行，bind 调用返回新的函数。<br>当需要传递参数时候，call 直接写多个参数，apply 将多个参数写成数组，<br>bind 在绑定时候需要固定参数时候，也是直接写多个参数。</p>
+<pre><code class="js">const obj = { name: &quot;obj&quot; };
+
+// 使用 call 设置 this
+console.log(foo.call(obj) === globalObject); // true
+
+// 使用 bind 设置 this
+const boundFoo = foo.bind(obj);
+console.log(boundFoo() === globalObject); // true</code></pre>
+<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>当函数作为构造函数使用（使用 <code>new</code> 关键字），它的 <code>this</code> 会绑定到正在构建的新对象上，而不管构造函数在哪个对象上被访问。<br><code>this</code> 的值将成为 <code>new</code> 表达式的值，除非构造函数返回另一个非原始值。</p>
+<pre><code class="js">function C() {
+  this.a = 37;
+}
+
+let o = new C();
+console.log(o.a); // 37
+
+function C2() {
+  this.a = 37;
+  return { a: 38 };
+}
+
+o = new C2();
+console.log(o.a); // 38</code></pre>
+<p>在上面 C2 的例子中，由于构造过程中返回了一个对象，因此绑定到 <code>this</code> 的新对象被丢弃了。<br>（这实际上使语句 <code>this.a = 37</code>; 成为无效代码。虽然它被执行了，但可以被消除而没有外部影响。）</p>
+<h3 id="super"><a href="#super" class="headerlink" title="super"></a>super</h3><p>在使用 <code>super.method()</code> 形式调用函数时，<br>方法函数内部的 <code>this</code> 的值与 <code>super.method()</code> 调用周围的 <code>this</code> 值相同，并且通常与 <code>super</code> 引用的对象不相等。<br>因为 <code>super.method</code> 不是像上述的对象成员访问一样，它是具有不同绑定规则的特殊语法。<br>详细示例，请参阅 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super#calling_methods_from_super" target="_blank" rel="noopener">super 的相关文档</a>。</p>
+<p>简而言之，super 可以用来访问和调用父类的内容。</p>
+<h2 id="类上下文"><a href="#类上下文" class="headerlink" title="类上下文"></a>类上下文</h2><p>一个类可以拆分为两个上下文：静态和实例。</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor" target="_blank" rel="noopener">构造函数</a>、方法和实例字段初始值设定项（公共或私有）属于实例上下文。</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static" target="_blank" rel="noopener">静态</a>方法、静态字段初始值设定项和<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Static_initialization_blocks" target="_blank" rel="noopener">静态初始化块</a>属于静态上下文。<br><code>this</code> 的值在每个上下文中的值都不同。</li>
+</ul>
+<pre><code class="js">class C {
+  instanceField = this;
+  static staticField = this;
+}
+
+const c = new C();
+console.log(c.instanceField === c); // true
+console.log(C.staticField === C); // true</code></pre>
+<h2 id="派生类构造函数"><a href="#派生类构造函数" class="headerlink" title="派生类构造函数"></a>派生类构造函数</h2><p>与基类构造函数不同，派生构造函数没有初始的 <code>this</code> 绑定。<br>调用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super" target="_blank" rel="noopener">super()</a> 会在构造函数内部创建一个 <code>this</code> 绑定。<br>其中，<code>Base</code> 是基类。</p>
+<pre><code class="js">this = new Base();</code></pre>
+<p><strong>警告</strong>：在调用 <code>super()</code> 之前引用 <code>this</code> 将会抛出错误。</p>
+<p>派生类必须在调用 <code>super()</code> 之前不返回任何值，除非构造函数返回一个对象（因此覆盖了 <a href="">this</a> 值），或者该类根本没有构造函数。</p>
+<pre><code class="js">class Base {}
+class Good extends Base {}
+class AlsoGood extends Base {
+  constructor() {
+    return { a: 5 };
+  }
+}
+class Bad extends Base {
+  constructor() {}
+}
+
+new Good();
+new AlsoGood();
+new Bad(); // 报错：必须在派生类构造函数中调用 super() 才能访问 &#39;this&#39; 或返回出派生构造函数。</code></pre>
+<h2 id="全局环境"><a href="#全局环境" class="headerlink" title="全局环境"></a>全局环境</h2><p>在全局环境下，<code>this</code> 值取决于脚本执行的上下文中运行。<code>this</code> 指向全局对象（通常是 window 对象）。<br>指在浏览器环境中，全局作用域下使用 this 可以直接访问 window 对象的属性和方法。</p>
+<p>在脚本的顶层，<code>this</code> 引用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/globalThis" target="_blank" rel="noopener">globalThis</a> 无论是否处于严格模式，这通常与全局对象相同。</p>
+<pre><code class="js">console.log(this === window); // true</code></pre>
+<h1 id="公布答案及解析，你的战绩如何？"><a href="#公布答案及解析，你的战绩如何？" class="headerlink" title="公布答案及解析，你的战绩如何？"></a>公布答案及解析，你的战绩如何？</h1><h2 id="小试牛刀-1"><a href="#小试牛刀-1" class="headerlink" title="小试牛刀 1"></a>小试牛刀 1</h2><p><strong>答案</strong>：TOM、Jerry</p>
+<p><strong>解析</strong>：<br>问题1：<code>SayHi</code> 函数返回一个新的匿名函数，所以主要看谁调用了它，没有具体的调用者，所以this 指向 window。<br>问题2：<code>SayFoo</code> 函数返回一个新的匿名箭头函数，所以主要看定义该箭头函数其父级的 this，其父级的 this 指向的是该函数的调用者，所以 this 指向 obj。</p>
+<h2 id="小试牛刀-2"><a href="#小试牛刀-2" class="headerlink" title="小试牛刀 2"></a>小试牛刀 2</h2><p><strong>答案</strong>：win。</p>
+<p><strong>解析</strong>：<br>使用箭头函数定义了对象 obj 的属性 a。<br>箭头函数不会绑定自己的 this 值，而是继承外层作用域的 this 值。<br>在全局作用域中，this 指向全局对象（例如浏览器中的 window 对象），所以 this.name 实际上是在全局作用域中查找 name 变量的值。<br>在 obj1 对象上使用了 call 方法来显式设置 obj.a 函数中的 this 值为 obj1，但由于箭头函数不受 this 绑定的影响，它仍然会继承全局作用域中的 this 值。</p>
+<h1 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…"></a>Ending…</h1><p>要正确理解和使用 this，需要了解当前代码的执行上下文，合理运用 this 指向，使得代码更加灵活和易于维护。</p>
+<p>了解更多请参考<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this#description" target="_blank" rel="noopener">文档</a>。<br>希望这篇文章对您理解和使用 this 有所帮助。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#小试牛刀"><span class="toc-number">1.</span> <span class="toc-text">小试牛刀</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、普通函数、箭头函数组合使用"><span class="toc-number">1.1.</span> <span class="toc-text">1、普通函数、箭头函数组合使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、改变-this-指向"><span class="toc-number">1.2.</span> <span class="toc-text">2、改变 this 指向</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#this"><span class="toc-number">2.</span> <span class="toc-text">this</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#语法"><span class="toc-number">3.</span> <span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数上下文"><span class="toc-number">3.1.</span> <span class="toc-text">函数上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#回调"><span class="toc-number">3.2.</span> <span class="toc-text">回调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#箭头函数"><span class="toc-number">3.3.</span> <span class="toc-text">箭头函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数"><span class="toc-number">3.4.</span> <span class="toc-text">构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#super"><span class="toc-number">3.4.1.</span> <span class="toc-text">super</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类上下文"><span class="toc-number">3.5.</span> <span class="toc-text">类上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#派生类构造函数"><span class="toc-number">3.6.</span> <span class="toc-text">派生类构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局环境"><span class="toc-number">3.7.</span> <span class="toc-text">全局环境</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#公布答案及解析，你的战绩如何？"><span class="toc-number">4.</span> <span class="toc-text">公布答案及解析，你的战绩如何？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#小试牛刀-1"><span class="toc-number">4.1.</span> <span class="toc-text">小试牛刀 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小试牛刀-2"><span class="toc-number">4.2.</span> <span class="toc-text">小试牛刀 2</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Ending…"><span class="toc-number">5.</span> <span class="toc-text">Ending…</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

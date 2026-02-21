@@ -1,0 +1,785 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TiDB 数据库管理 [TiDB v6]（303）笔记 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,TiDB, PD, TiDB Server, TiKV, TiFlash, Raft, RocksDB, Region, HTAP, OLTP, OLAP, MVCC"> 
+    <meta name="description" content="在线学习地址：https://learn.pingcap.com/learner/course/1110001
+软件包下载地址：https://cn.pingcap.com/product-comm,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">TiDB 数据库管理 [TiDB v6]（303）笔记</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/tidb-v6-pcta-303/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Database"><b>「
+                    </b>DATABASE<b> 」</b></a>
+                
+                十二月 25, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/12/25/tidb-v6-pcta-303/" title="TiDB 数据库管理 [TiDB v6]（303）笔记" class="">TiDB 数据库管理 [TiDB v6]（303）笔记</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/TiDB/" rel="tag">TiDB</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在线学习地址：<a href="https://learn.pingcap.com/learner/course/1110001" target="_blank" rel="noopener">https://learn.pingcap.com/learner/course/1110001</a></p>
+<p>软件包下载地址：<a href="https://cn.pingcap.com/product-community/" target="_blank" rel="noopener">https://cn.pingcap.com/product-community/</a></p>
+<h1 id="Lesson-01-TiDB-Cluster-部署"><a href="#Lesson-01-TiDB-Cluster-部署" class="headerlink" title="Lesson 01 TiDB Cluster 部署"></a>Lesson 01 TiDB Cluster 部署</h1><ul>
+<li>TiUP 是从 TiDB 4.0 引入的包管理器</li>
+<li>TiUP 在执行时，命令 <command> 和组件 &lt; component &gt; 可以同时出现</li>
+<li>TiDB 集群启动顺序：PD =&gt; TiKV =&gt; TiDB =&gt; TiFlash；停止顺序是启动顺序倒序</li>
+<li><code>tiup cluster start tidb-test --init</code> 安全启动，为 root 用户生成初始密码</li>
+<li><code>set password = password(&#39;new pwd&#39;);</code> 可修改密码</li>
+</ul>
+<h1 id="Lesson-02-TiDB-的连接管理"><a href="#Lesson-02-TiDB-的连接管理" class="headerlink" title="Lesson 02 TiDB 的连接管理"></a>Lesson 02 TiDB 的连接管理</h1><ul>
+<li>100% 兼容 MySQL 5.7 协议</li>
+<li>支持 MySQL 5.7 常用的功能及语法</li>
+<li>不支持的功能特性：存储过程与函数、触发器、外键、函数、全文索引、CREATE TABLE AS SELECT</li>
+<li>TiDB 默认端口 4000</li>
+<li>查看 TiDB 版本：<code>select tidb_version()\G</code></li>
+</ul>
+<h1 id="Lesson-03-TiDB-的配置"><a href="#Lesson-03-TiDB-的配置" class="headerlink" title="Lesson 03 TiDB 的配置"></a>Lesson 03 TiDB 的配置</h1><ul>
+<li>TiDB 配置分两类</li>
+</ul>
+<ol>
+<li>系统配置：TiDB Server，跟 SQL 有关的，存在 TiKV 里，更新配置不需要重启，可以通过 MySQL 客户端进行修改，有作用域</li>
+<li>集群配置：TiKV、PD、一部分的 TiDB Server，存在自己节点的配置文件中，重启节点方可生效，没有作用域</li>
+</ol>
+<ul>
+<li>TiDB 系统参数的作用域：SESSION（会话级别，默认）、GLOBAL（全局级别）、INSTANCE（实例级别）</li>
+<li>修改集群配置：<code>tiup cluster edit-config tidb-test</code>，之后 <code>tiup cluster reload tidb-test</code> 重启所有节点应用新配置。<code>tiup cluster show-config tidb-test</code> 查看配置。</li>
+<li>6.0 有在线修改集群配置，但是实验特性，所以集群配置的修改还是需要重启节点才能生效</li>
+</ul>
+<h1 id="Lesson-04-用户管理与安全"><a href="#Lesson-04-用户管理与安全" class="headerlink" title="Lesson 04 用户管理与安全"></a>Lesson 04 用户管理与安全</h1><ul>
+<li>查看用户信息<pre><code class="sql">select user, host, authentication_string from mysql.user;</code></pre>
+</li>
+<li>创建/删除用户<pre><code class="sql">create user &#39;jack&#39;@&#39;172.31.0.%&#39; identified by &#39;pingcap&#39;;
+drop user &#39;user3&#39;@&#39;localhost&#39;;</code></pre>
+</li>
+<li>修改密码<pre><code class="sql">SET PASSWORD FOR &#39;test&#39;@&#39;localhost&#39;=password(&#39;mypass&#39;);
+ALTER USER &#39;test&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;mypass&#39;;</code></pre>
+</li>
+<li>创建/删除角色<pre><code class="sql">create role r_emp@&#39;172.31.0.159&#39;;
+create role r_emp@&#39;%&#39;;
+create role r_emp;
+drop role &#39;r_admin&#39;,&#39;r_dev&#39;@&#39;localhost&#39;;</code></pre>
+</li>
+<li>授权<pre><code class="sql">  grant select,insert on test.emp to &#39;jack&#39;@&#39;172.31.0.159&#39;;
+  grant select,insert on test.emp to &#39;r_emp&#39;;
+  -- 赋予用户全部权限
+  grant all privileges on *.* to &#39;user2&#39;@&#39;localhost&#39; with grant option;
+  -- 将角色赋予用户
+  grant r_emp to &#39;jack&#39;@&#39;172.31.0.%&#39;;
+  -- 拥有角色的用户登录后，需开启角色
+  set role all;
+  -- 查看授权
+  show grants;
+  show grants for &#39;admin&#39;@&#39;localhost&#39;;
+  -- 回收用户全部权限
+  revoke all privileges on *.* from &#39;user2&#39;@&#39;localhost&#39;;</code></pre>
+</li>
+<li>角色与用户相似之处为：</li>
+</ul>
+<ol>
+<li>是被锁住（locked）的（不能用于登录）</li>
+<li>没有密码</li>
+<li>被存储在 mysql.user 表中</li>
+<li>当用户登录后，必须使用 <code>set role all</code> 命令开启用户被赋予的角色</li>
+</ol>
+<ul>
+<li>忘记 root 密码的解决办法：</li>
+</ul>
+<ol>
+<li>修改配置文件<pre><code class="conf">[security]
+skip-grant-table = true</code></pre>
+</li>
+<li>重启数据库后生效 <code>mysql -h 127.0.0.1 -P 4000 -u root</code></li>
+</ol>
+<h1 id="Lesson-05-监控-TiDB"><a href="#Lesson-05-监控-TiDB" class="headerlink" title="Lesson 05 监控 TiDB"></a>Lesson 05 监控 TiDB</h1><ul>
+<li>两套体系：</li>
+</ul>
+<ol>
+<li>Grafana + Prometheus —— http://{grafana-ip}:3000，用户名密码默认 admin / admin</li>
+<li>TiDB Dashboard —— http://{pd-ip}:2379/dashboard，root / tidb</li>
+</ol>
+<ul>
+<li>确认 TiDB 集群状态<pre><code class="bash">$ tiup cluster display didb-test</code></pre>
+</li>
+<li>报警项由低到高分为：警告、严重、紧急 三个级别</li>
+</ul>
+<h1 id="Lesson-06-TiDB-集群管理"><a href="#Lesson-06-TiDB-集群管理" class="headerlink" title="Lesson 06 TiDB 集群管理"></a>Lesson 06 TiDB 集群管理</h1><ul>
+<li>TiDB/TiKV/PD 在线扩容步骤：</li>
+</ul>
+<ol>
+<li>编辑配置文件</li>
+<li>执行扩容命令 <code>tiup cluster scale-out tidb-test scale-out-tikv.yaml -uroot -p</code></li>
+<li>确认新节点是否加入 <code>tiup cluster display tidb-test</code></li>
+</ol>
+<ul>
+<li>TiFlash 在线扩容</li>
+</ul>
+<ol>
+<li>确认当前 TiDB 的版本支持 TiFlash</li>
+<li>Enable-plcaement-rules 开启参数</li>
+<li>编辑配置文件</li>
+<li>执行扩容命令</li>
+<li>确认新节点加入</li>
+</ol>
+<ul>
+<li>TiDB/TiKV/PD 在线缩容步骤：</li>
+</ul>
+<ol>
+<li>查看节点 ID 信息 <code>tiup cluster display tidb-test</code></li>
+<li>执行缩容操作 <code>tiup cluster scale-in tidb --node &lt;node-IP&gt;:&lt;node-Port&gt;</code>，执行后节点变为 <code>Tombstone</code> 状态，可继续通过 <code>tiup cluster prune tidb-test</code> 命令清理节点</li>
+<li>检查集群状态</li>
+</ol>
+<ul>
+<li>TiFlash 在线缩容</li>
+</ul>
+<ol>
+<li>根据 TiFlash 剩余节点数调整数据表的副本数 <code>alter table &lt;db-name&gt;.&lt;table-name&gt; set tiflash replica 0;</code></li>
+<li>确认表的副本已经被删除 <code>SELECT * FROM information_schema.tiflash_replica WHERE TABLE_SCHEMA=&#39;&lt;db_name&gt;&#39; and TABLE_NAME=&#39;&lt;table_name&gt;&#39;</code></li>
+<li>查看节点 ID 信息</li>
+<li>通过 TiUP 缩容 TiFlash 节点</li>
+<li>检查集群状态</li>
+</ol>
+<ul>
+<li>重命名集群 <code>tiup cluster rename ${cluster-name} ${new-name}</code></li>
+<li>清理集群数据 <code>tiup cluster clean ${clust4er-name} --xxx</code>，清理会停库，再使用需要重新启动 TiDB，清理后 root 用户没有密码了，可以直接登录</li>
+</ul>
+<ol>
+<li><code>--log</code> 清理日志</li>
+<li><code>--data</code> 清理数据</li>
+<li><code>--all</code> 清理日志和数据</li>
+</ol>
+<ul>
+<li>销毁集群 <code>tiup cluster destroy tidb-test</code></li>
+<li>查看全局和 session 的时区：<pre><code class="sql">select @@global.time_zone, @@session.time_zone;</code></pre>
+</li>
+<li>设置 session 级别时区<pre><code class="sql">set session time_zone=&#39;UTC&#39;;</code></pre>
+</li>
+<li>Datetime 类型不受时区影响，timestamp 类型受时区影响</li>
+</ul>
+<h1 id="Lesson-07-升级-TiDB-Cluster"><a href="#Lesson-07-升级-TiDB-Cluster" class="headerlink" title="Lesson 07 升级 TiDB Cluster"></a>Lesson 07 升级 TiDB Cluster</h1><ul>
+<li>升级集群上的所有 TiDB 实例，<code>-R</code> 指定要升级的组件，tidb、tikv、pd 等<pre><code class="bash">$ tiup cluster patch ${cluster-name} /tmp/tidb-hotfix.tar.gz -R tidb</code></pre>
+</li>
+<li>替换其中一个 TiDB 实例<pre><code class="bash">$ tiup cluster patch ${cluster-name} /tmp/tidb-hotfix.tar.gz -N ${Node_IP}:${Node_Port}</code></pre>
+</li>
+<li>升级 TiDB 集群分为不停机升级和停机升级</li>
+<li>版本升级流程：升级 TiUP =&gt; 修改 TiUP Cluster 拓扑配置文件 =&gt; 检查当前集群健康状况 =&gt; 将集群升级到指定版本 =&gt; 验证</li>
+<li>5.3 之前 TiFlash 不支持在线升级</li>
+<li>升级时报错中断，处理完报错后如何继续<pre><code class="bash"># 查看操作记录，找到失败的升级操作记录的 ID
+$ tiup cluster audit
+# 重试上次的升级操作记录
+$ tiup cluster replay &lt;audit-id&gt;</code></pre>
+</li>
+<li>升级过程中 evict leader 等待时间过长，如何跳过该步骤快速升级<pre><code class="bash">$ tiup cluster upgrade &lt;cluster-name&gt; &lt;version&gt; --force</code></pre>
+</li>
+</ul>
+<h1 id="Lesson-08-备份恢复策略"><a href="#Lesson-08-备份恢复策略" class="headerlink" title="Lesson 08 备份恢复策略"></a>Lesson 08 备份恢复策略</h1><ul>
+<li>备份的类型</li>
+</ul>
+<ol>
+<li>热备份：允许读写，对性能有影响，TiDB 采用 MVCC 方式实现</li>
+<li>冷备份：不允许读写</li>
+<li>温备份：允许读，不允许写</li>
+</ol>
+<ul>
+<li>按输出分类：</li>
+</ul>
+<ol>
+<li>逻辑备份：SQL、CSV，可读性好，速度慢，支持异构数据迁移</li>
+<li>物理备份：二进制副本，恢复速度快，不可读，只能同构恢复</li>
+<li>基于复制增量备份：主从模式，对主库影响小，主库出问题备库能立即提供服务</li>
+</ol>
+<ul>
+<li>BR 是热备份 &amp; 物理备份</li>
+</ul>
+<h1 id="Lesson-09-数据导出工具-Dumpling"><a href="#Lesson-09-数据导出工具-Dumpling" class="headerlink" title="Lesson 09 数据导出工具 Dumpling"></a>Lesson 09 数据导出工具 Dumpling</h1><ul>
+<li>用于完成逻辑上的全量备份或者导出，不支持增量导出</li>
+<li>支持 table-filter，筛选数据导出</li>
+<li>适用于数据量小于 50G 的导出场景</li>
+<li>导出数据的一致性：通过 –consistency <consistency level> 标识控制导出数据，默认是 <code>Snapshot</code> 级别（获取指定时间戳的一致性快照），还有 <code>Flush</code>（全库加只读锁）, <code>Lock</code>（给要导出的表加读锁）, <code>None</code>（不要一致性）, <code>Auto</code>（根据数据库类型，如果是 TiDB，设置为 Snapshot，如果是 MySQL，设置为 Flush）<pre><code class="bash">$ ./dumpling --snapshot 417773951312461825
+$ ./dumpling --snapshot &quot;2020-07-02 17:12:45&quot;</code></pre>
+</li>
+</ul>
+<h1 id="Lesson-10-使用-TiDB-Lightning-导入数据"><a href="#Lesson-10-使用-TiDB-Lightning-导入数据" class="headerlink" title="Lesson 10 使用 TiDB Lightning 导入数据"></a>Lesson 10 使用 TiDB Lightning 导入数据</h1><ul>
+<li>TiDB Lightning 是导入 SQL、CSV 至 TiDB 的工具</li>
+<li>TiDB Lightning 的两种导入模式：</li>
+</ul>
+<ol>
+<li>Physical Import Mode</li>
+<li>Logical Import Mode：连到 TiDB Server 上执行 SQL<br><img src="/contents/tidb-v6-pcta-303/lightning.png" alt=""></li>
+</ol>
+<ul>
+<li>Physical Import Mode 原理</li>
+</ul>
+<ol>
+<li>切换 TiKV 为导入模式</li>
+<li>Schema &amp; 表创建</li>
+<li>分割源数据</li>
+<li>读取 dump 文件</li>
+<li>写入本地临时文件（转换成 key-value 格式，并排序）</li>
+<li>导入临时文件到 TiKV 集群</li>
+<li>检验与分析</li>
+<li>切换回普通模式</li>
+</ol>
+<ul>
+<li>并行导入时，TiDB Lightning 实例数不宜超过 10 个</li>
+<li>支持断点续传，断点可以存储在文件或数据库中</li>
+<li>逻辑模式不直接写 TiKV，是向 TiDB Server 执行 SQL</li>
+</ul>
+<h1 id="Lesson-11-使用-BR-进行备份恢复"><a href="#Lesson-11-使用-BR-进行备份恢复" class="headerlink" title="Lesson 11 使用 BR 进行备份恢复"></a>Lesson 11 使用 BR 进行备份恢复</h1><ul>
+<li>BR —— Backup &amp; Restore</li>
+<li>BR 直接与 PD 和 TiKV 交互，不经过 TiDB Server</li>
+<li>BR 是二进制备份，只能恢复到 TiDB 数据库中</li>
+<li>备份输出文件：SST 文件、backupmeta 文件、backup.lock 文件</li>
+<li>TiDB 5.4 版本之后才开始支持 GBK 字符集</li>
+<li>BR 恢复的工具无法通过 TiCDC 或 TiDB Binlog 同步到下游</li>
+<li>备份时，每个 TiKV 备份自己 TiKV 节点里存储的数据</li>
+<li>恢复时，要将各个节点的数据先进行汇总，保证每个节点都有全量的恢复数据，才能进行恢复<pre><code class="bash">  $ br backup/restore full/db/table \
+  --pd &quot;${PDIP}:2379&quot; \
+  --db test \
+  --table usertable \
+  --storage &quot;s3://backup-data/table/&quot; \
+  --ratelimit 128 \
+  --log-file backup.log</code></pre>
+</li>
+<li>增量备份需先获得最近一次备份的时间点，并传入备份指令</li>
+<li>BR 是热备份，物理备份，支持增量备份 &amp; 恢复</li>
+</ul>
+<h1 id="Lesson-12-使用-sync-diff-inspector-校验数据"><a href="#Lesson-12-使用-sync-diff-inspector-校验数据" class="headerlink" title="Lesson 12 使用 sync-diff-inspector 校验数据"></a>Lesson 12 使用 sync-diff-inspector 校验数据</h1><ul>
+<li>原理：并行切分数据并行比较，比较时采用二分法，缩小逐行比较的范围</li>
+<li>限制：</li>
+</ul>
+<ol>
+<li>不支持 JSON、BIT、BINARY、BLOG 等类型的数据</li>
+<li>FLOAT、DOUBLE 等浮点数类型无法在 TiDB 和 MySQL 之间进行校验</li>
+<li>不包含主键或者唯一索引的表可以进行校验，但修复 SQL 可能无法正确修复数据</li>
+<li>MySQL 与 TiDB 之间或者 MySQL 与 MySQL 之间的数据校验不支持数据同步在线校验</li>
+</ol>
+<ul>
+<li><code>sharding</code> 选项默认打开，支持源端分表分库目标并表的验证</li>
+</ul>
+<h1 id="Lesson-13-使用-TiDB-DataMigration（DM）同步数据"><a href="#Lesson-13-使用-TiDB-DataMigration（DM）同步数据" class="headerlink" title="Lesson 13 使用 TiDB DataMigration（DM）同步数据"></a>Lesson 13 使用 TiDB DataMigration（DM）同步数据</h1><ul>
+<li>一个 DM worker 对应上游的一个数据库实例，读取上游 binlog 进行同步</li>
+<li>数据源多于 worker 数量时，多出的 worker 空闲</li>
+<li>DM 的目标端只能是 TiDB，源端可以是多个兼容 MySQL 协议的数据库</li>
+<li>DM 依赖源端数据库开启 binlog，可以通过 binlog event filter 过滤某些操作不进行复制</li>
+<li>用户通过 dmctl 命令行工具向 DM master 发送指令，DM master 再操作 DM worker 进行同步</li>
+<li>支持全量及增量同步、源库表与目标库异构表的同步、进行分表分库的合并同步</li>
+<li>DM 可以支持一定程度的异构表迁移，只要异构表存在包含关系（源库不能选择列，需要复制全部列；目标表的列可以多于源库表的列）</li>
+<li>DM 部署相关命令<pre><code class="bash">$ tiup install dm dmctl
+$ tiup dm display dm-test
+$ tiup dm start dm-test
+$ tiup dm list
+# DM 集群缩容
+$ tiup dm scale-in dm-test -N 172.31.0.175:8262
+# DM 集群扩容
+$ tiup dm scale-out dm-test dm-scale.yaml -uroot -p
+$ tiup dm stop dm-test
+$ tiup dm destory dm-test</code></pre>
+</li>
+<li>DM 的任务包含：源端、目标端、数据过滤（黑白名单、事件过滤）和表路由<br><img src="/contents/tidb-v6-pcta-303/dm.png" alt=""><pre><code class="bash"># 检查与启动任务
+$ tiup dmctl --master-addr=172.31.0.49:8261 start-task dm-task.yaml
+# 暂停任务
+$ tiup dmctl --master-addr=172.31.0.49:8261 pause-task dm-task.yaml
+# 恢复任务
+$ tiup dmctl --master-addr=172.31.0.49:8261 resume-task dm-task.yaml
+# 查询任务
+$ tiup dmctl --master-addr=172.31.0.49:8261 query-status dm-task.yaml
+# 停止任务
+$ tiup dmctl --master-addr=172.31.0.49:8261 stop-task dm-task.yaml</code></pre>
+</li>
+</ul>
+<h1 id="Lesson-14-使用-TiCDC-同步数据"><a href="#Lesson-14-使用-TiCDC-同步数据" class="headerlink" title="Lesson 14 使用 TiCDC 同步数据"></a>Lesson 14 使用 TiCDC 同步数据</h1><ul>
+<li>数据源是 TiDB，下游是兼容 MySQL 协议的数据库或 kafka 等，与 DM 是反向的</li>
+<li>TiCDC 集群中的一个节点负责多个 TiKV</li>
+<li>TiCDC 读取的是 TiKV 的 changelog，比 TiDB Binlog 的效率高</li>
+<li>TiCDC 是异步复制，目标端与源端有时间延迟；源头数据库出现灾难后依然有丢失数据的可能</li>
+<li>TiCDC 只能同步至少存在一个有效索引的表</li>
+<li>同步任务不能在线修改配置，需要先 pause，然后 update，再 resume</li>
+<li>TiCDC capture 可以有多个，并行从 TiKV 读取 changelog；导入目标端时，一个 capture 对应一个目标端，但是会将其他 capture 中的数据复制到自己这再向下游同步。只有负责汇聚数据的 capture 里才有全量的 changelog 数据</li>
+<li>TiCDC 目标端不支持 Oracle</li>
+<li>Changelog 抽取到 TiCDC 中时，会在本地进行排序</li>
+<li>TiCDC 可以通过 TiDB 集群的拓扑文件进行部署及扩缩容</li>
+</ul>
+<h1 id="Lesson-15-使用-TiDB-Binlog-同步数据"><a href="#Lesson-15-使用-TiDB-Binlog-同步数据" class="headerlink" title="Lesson 15 使用 TiDB Binlog 同步数据"></a>Lesson 15 使用 TiDB Binlog 同步数据</h1><ul>
+<li>TiDB Binlog 的作用与 TiCDC 类似，TiDB 5.0 版本后，推荐使用 TiCDC 替代 TiDB Binlog</li>
+<li>只能做增量复制，不能做全量复制</li>
+<li>可以使用 tiup 工具为 TiDB 集群增加 TiDB Binlog 所使用的 pump 和 drainer 节点</li>
+<li>Pump 会先将数据进行排序，之后发送给 drainer，drainer 再进行合并排序</li>
+<li>TiDB Binlog 类似 MySQL row 格式的 binlog，记录的是已经提交的事务，默认未开启</li>
+<li>Pump 不是从 TiKV 读取，是直接从 TiDB 读取 TiDB 产生的 binlog 日志</li>
+<li>一个 drainer 对应一个目标端</li>
+</ul>
+<h1 id="Lesson-16-数据库高可用概述"><a href="#Lesson-16-数据库高可用概述" class="headerlink" title="Lesson 16 数据库高可用概述"></a>Lesson 16 数据库高可用概述</h1><ul>
+<li>恢复时间目标（Recovery Time Objective，RTO）</li>
+<li>恢复点目标（Recovery Point Objective，RPO）</li>
+<li>TiDB 支持 CP，不支持 AP，出现网络隔离时，保证一致性，不保证可用性</li>
+<li>TiDB 数据库提供强一致性，如不能保证强一致性，则拒绝服务</li>
+<li>故障解决会伴随有服务的降级</li>
+</ul>
+<h1 id="Lesson-17-TiDB-数据库常用高可用架构"><a href="#Lesson-17-TiDB-数据库常用高可用架构" class="headerlink" title="Lesson 17 TiDB 数据库常用高可用架构"></a>Lesson 17 TiDB 数据库常用高可用架构</h1><ul>
+<li>同城三中心：网络延迟小，RTO 较小，RPO 为 0</li>
+<li>同城两中心（50km 内），中心之间同步复制，DR AutoSync，建议四副本，3 voter 1 leaner，非极端情况可保证 RPO = 0</li>
+<li>两地三中心，城市之间是异步复制，不能保证 RPO = 0 和一致性恢复</li>
+<li>异步复制是通过 TiDB Binlog 或 CDC 组件完成，会丢失数据（RPO 不为 0），有损恢复后，保证一致性</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-01-TiDB-Cluster-部署"><span class="toc-number">1.</span> <span class="toc-text">Lesson 01 TiDB Cluster 部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-02-TiDB-的连接管理"><span class="toc-number">2.</span> <span class="toc-text">Lesson 02 TiDB 的连接管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-03-TiDB-的配置"><span class="toc-number">3.</span> <span class="toc-text">Lesson 03 TiDB 的配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-04-用户管理与安全"><span class="toc-number">4.</span> <span class="toc-text">Lesson 04 用户管理与安全</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-05-监控-TiDB"><span class="toc-number">5.</span> <span class="toc-text">Lesson 05 监控 TiDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-06-TiDB-集群管理"><span class="toc-number">6.</span> <span class="toc-text">Lesson 06 TiDB 集群管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-07-升级-TiDB-Cluster"><span class="toc-number">7.</span> <span class="toc-text">Lesson 07 升级 TiDB Cluster</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-08-备份恢复策略"><span class="toc-number">8.</span> <span class="toc-text">Lesson 08 备份恢复策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-09-数据导出工具-Dumpling"><span class="toc-number">9.</span> <span class="toc-text">Lesson 09 数据导出工具 Dumpling</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-10-使用-TiDB-Lightning-导入数据"><span class="toc-number">10.</span> <span class="toc-text">Lesson 10 使用 TiDB Lightning 导入数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-11-使用-BR-进行备份恢复"><span class="toc-number">11.</span> <span class="toc-text">Lesson 11 使用 BR 进行备份恢复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-12-使用-sync-diff-inspector-校验数据"><span class="toc-number">12.</span> <span class="toc-text">Lesson 12 使用 sync-diff-inspector 校验数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-13-使用-TiDB-DataMigration（DM）同步数据"><span class="toc-number">13.</span> <span class="toc-text">Lesson 13 使用 TiDB DataMigration（DM）同步数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-14-使用-TiCDC-同步数据"><span class="toc-number">14.</span> <span class="toc-text">Lesson 14 使用 TiCDC 同步数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-15-使用-TiDB-Binlog-同步数据"><span class="toc-number">15.</span> <span class="toc-text">Lesson 15 使用 TiDB Binlog 同步数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-16-数据库高可用概述"><span class="toc-number">16.</span> <span class="toc-text">Lesson 16 数据库高可用概述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Lesson-17-TiDB-数据库常用高可用架构"><span class="toc-number">17.</span> <span class="toc-text">Lesson 17 TiDB 数据库常用高可用架构</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

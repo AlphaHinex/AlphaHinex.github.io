@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>无外网环境部署 AgentFabric 及使用 AgentFabric 构建的 Agent - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,modelscope, modelscope-agent, agentfabric, docker, local, offline, LLM, AI Agent"> 
+    <meta name="description" content="
+目标：在纯内网环境完成基于 ModelScope-Agent 的可定制化的 Agent 的构建和发布
+前提：需在有外网环境提前下载好所需内容
+
+一、外网环境中下载所需内容在可以访问外网的环境中，准,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">无外网环境部署 AgentFabric 及使用 AgentFabric 构建的 Agent</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/local-deploy-agentfabric-and-agent/cover.gif);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                四月 14, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/04/14/local-deploy-agentfabric-and-agent/" title="无外网环境部署 AgentFabric 及使用 AgentFabric 构建的 Agent" class="">无外网环境部署 AgentFabric 及使用 AgentFabric 构建的 Agent</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/ModelScope-Agent/" rel="tag">ModelScope-Agent</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>目标：在纯内网环境完成基于 <a href="https://github.com/modelscope/modelscope-agent" target="_blank" rel="noopener">ModelScope-Agent</a> 的可定制化的 Agent 的构建和发布</li>
+<li>前提：需在有外网环境提前下载好所需内容</li>
+</ul>
+<h2 id="一、外网环境中下载所需内容"><a href="#一、外网环境中下载所需内容" class="headerlink" title="一、外网环境中下载所需内容"></a>一、外网环境中下载所需内容</h2><p>在可以访问外网的环境中，准备一个工作目录（如：<code>/data/work</code>），在这个目录下进行后续操作。</p>
+<h3 id="1-拉取镜像"><a href="#1-拉取镜像" class="headerlink" title="1. 拉取镜像"></a>1. 拉取镜像</h3><p>拉取 ModelScope-Agent 镜像，镜像中已经安装好所需依赖。</p>
+<pre><code class="shell">docker pull registry.cn-hangzhou.aliyuncs.com/modelscope-repo/modelscope-agent:v0.3.0</code></pre>
+<p>导出镜像文件：</p>
+<pre><code class="shell">docker save &gt; modelscope-agent.tar \
+registry.cn-hangzhou.aliyuncs.com/modelscope-repo/modelscope-agent:v0.3.0</code></pre>
+<p>启动容器：</p>
+<pre><code class="shell">docker run -ti -v /data/work:/data/work \
+registry.cn-hangzhou.aliyuncs.com/modelscope-repo/modelscope-agent:v0.3.0 bash</code></pre>
+<blockquote>
+<p>其中 <code>-v /data/work:/data/work</code> 把本地 <code>/data/work</code> 目录挂载到容器中的相同路径。执行命令此命令后已进入容器，后续操作都将在容器中进行。</p>
+</blockquote>
+<p>从容器中进入到工作目录：</p>
+<pre><code class="shell">cd /data/work</code></pre>
+<h3 id="2-下载-LLM-模型"><a href="#2-下载-LLM-模型" class="headerlink" title="2. 下载 LLM 模型"></a>2. 下载 LLM 模型</h3><p>在容器工作目录中下载模型到本地：以 qwen/Qwen1.5-7B-Chat 模型为例，可以换成其他微调的模型：</p>
+<pre><code class="shell">python -c &quot;from modelscope import snapshot_download; snapshot_download(&#39;qwen/Qwen1.5-7B-Chat&#39;, cache_dir=&#39;qwen1.5-7b-chat&#39;)&quot;</code></pre>
+<h3 id="3-下载-Embedding-模型"><a href="#3-下载-Embedding-模型" class="headerlink" title="3. 下载 Embedding 模型"></a>3. 下载 Embedding 模型</h3><p>在容器工作目录中下载 ModelScope-Agent 使用的 Embedding 模型<br><a href="https://github.com/modelscope/modelscope-agent/blob/master/modelscope_agent/storage/vector_storage.py#L31" target="_blank" rel="noopener">damo/nlp_gte_sentence-embedding_chinese-base</a>，<br>也可换成其他模型:</p>
+<pre><code class="shell">git clone https://www.modelscope.cn/iic/nlp_gte_sentence-embedding_chinese-base.git</code></pre>
+<h3 id="4-下载-ModelScope-Agent-代码"><a href="#4-下载-ModelScope-Agent-代码" class="headerlink" title="4. 下载 ModelScope-Agent 代码"></a>4. 下载 ModelScope-Agent 代码</h3><p>在容器工作目录中拉取 ModelScope-Agent 最新 master 分支代码：</p>
+<pre><code class="shell">git clone https://github.com/modelscope/modelscope-agent.git</code></pre>
+<h3 id="5-下载内容传输至内网环境"><a href="#5-下载内容传输至内网环境" class="headerlink" title="5. 下载内容传输至内网环境"></a>5. 下载内容传输至内网环境</h3><p>将工作目录传输至内网离线环境对应目录中，可同样使用 <code>/data/work</code>。</p>
+<h2 id="二、内网环境部署-LLM"><a href="#二、内网环境部署-LLM" class="headerlink" title="二、内网环境部署 LLM"></a>二、内网环境部署 LLM</h2><h3 id="导入镜像"><a href="#导入镜像" class="headerlink" title="导入镜像"></a>导入镜像</h3><p>进入工作路径 <code>/data/work</code>，导入镜像文件：</p>
+<pre><code class="shell">docker load &lt; modelscope-agent.tar</code></pre>
+<h3 id="部署-LLM-服务"><a href="#部署-LLM-服务" class="headerlink" title="部署 LLM 服务"></a>部署 LLM 服务</h3><p>ModelScope 提供模型 <a href="https://modelscope.cn/docs/%E6%9C%AC%E5%9C%B0%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1" target="_blank" rel="noopener">本地启动服务</a> 功能。</p>
+<p>这里我们使用该功能，将模型部署成 Openai API 兼容的接口。具体操作可参考如下：</p>
+<pre><code class="shell"># 创建并进入容器
+nvidia-docker run -ti --net host -v /data/work:/data/work \
+registry.cn-hangzhou.aliyuncs.com/modelscope-repo/modelscope-agent:v0.3.0 bash</code></pre>
+<p>从容器中进入到工作目录：</p>
+<pre><code class="shell">cd /data/work</code></pre>
+<p>在容器工作目录中启动服务：</p>
+<pre><code class="shell">MODELSCOPE_CACHE=&#39;qwen1.5-7b-chat&#39; python -m vllm.entrypoints.openai.api_server \
+    --model qwen/Qwen1.5-7B-Chat --dtype=half --max-model-len 8192  --gpu-memory-utilization 0.95 &amp;</code></pre>
+<p>随后测试模型服务，如果正确返回，说明模型服务部署完成。</p>
+<pre><code class="shell">curl http://localhost:8000/v1/chat/completions \
+    -H &quot;Content-Type: application/json&quot; \
+    -d &#39;{
+        &quot;model&quot;: &quot;qwen/Qwen1.5-7B-Chat&quot;,
+        &quot;messages&quot;: [
+            {&quot;role&quot;: &quot;system&quot;, &quot;content&quot;: &quot;You are a helpful assistant.&quot;},
+            {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;写一篇春天为主题的作文&quot;}
+        ],
+        &quot;stop&quot;: [&quot;&lt;|im_end|&gt;&quot;, &quot;&lt;|endoftext|&gt;&quot;]
+    }&#39;</code></pre>
+<h2 id="三、内网环境部署-AgentFabric"><a href="#三、内网环境部署-AgentFabric" class="headerlink" title="三、内网环境部署 AgentFabric"></a>三、内网环境部署 AgentFabric</h2><p>另起一个终端窗口，登录到上面拉起的 docker 容器中：</p>
+<pre><code class="shell"># 查看之前容器ID
+sudo docker ps -a
+# 进入对应容器ID的容器
+sudo docker exec -ti CONTAINER_ID bash</code></pre>
+<p>在容器工作目录（<code>/data/work</code>）中进行后续操作。</p>
+<h3 id="编辑模型配置文件"><a href="#编辑模型配置文件" class="headerlink" title="编辑模型配置文件"></a>编辑模型配置文件</h3><p>编辑 <code>modelscope-agent/apps/agentfabric/config/model_config.json</code>， 增加如下配置：</p>
+<pre><code class="diff">diff --git a/apps/agentfabric/config/model_config.json b/apps/agentfabric/config/model_config.json
+index 4db68ce..be7fbf3 100644
+--- a/apps/agentfabric/config/model_config.json
++++ b/apps/agentfabric/config/model_config.json
+@@ -124,5 +124,12 @@
+         &quot;api_base&quot;: &quot;http://localhost:8000/v1&quot;,
+         &quot;is_chat&quot;: true,
+         &quot;is_function_call&quot;: false
++    },
++    &quot;qwen1.5-7b-chat&quot;: {
++        &quot;type&quot;: &quot;openai&quot;,
++        &quot;model&quot;: &quot;qwen/Qwen1.5-7B-Chat&quot;,
++        &quot;api_base&quot;: &quot;http://localhost:8000/v1&quot;,
++        &quot;is_chat&quot;: true,
++        &quot;is_function_call&quot;: false
+     }
+ }</code></pre>
+<h3 id="编辑-Embedding-模型-model-id"><a href="#编辑-Embedding-模型-model-id" class="headerlink" title="编辑 Embedding 模型 model_id"></a>编辑 Embedding 模型 model_id</h3><p>编辑 <code>modelscope-agent/modelscope_agent/storage/vector_storage.py</code>，将该文件中的模型 <code>model_id</code> 修改为本地模型路径：</p>
+<pre><code class="diff">diff --git a/modelscope_agent/storage/vector_storage.py b/modelscope_agent/storage/vector_storage.py
+index c6f9fdc..29f518a 100644
+--- a/modelscope_agent/storage/vector_storage.py
++++ b/modelscope_agent/storage/vector_storage.py
+@@ -28,7 +28,7 @@ class VectorStorage(BaseStorage):
+         self.storage_path = storage_path
+         self.index_name = index_name
+         self.embedding = embedding or ModelScopeEmbeddings(
+-            model_id=&#39;damo/nlp_gte_sentence-embedding_chinese-base&#39;)
++            model_id=&#39;/data/work/nlp_gte_sentence-embedding_chinese-base&#39;)
+         self.vs_cls = vs_cls
+         self.vs_params = vs_params
+         self.index_ext = index_ext</code></pre>
+<h3 id="拉起-AgentFabric"><a href="#拉起-AgentFabric" class="headerlink" title="拉起 AgentFabric"></a>拉起 AgentFabric</h3><p>在 <code>modelscope-agent/apps/agentfabric</code> 目录下执行如下命令拉起 AgentFabric Gradio：</p>
+<pre><code class="shell">GRADIO_SERVER_NAME=0.0.0.0 PYTHONPATH=../../  python app.py</code></pre>
+<blockquote>
+<p>启动时如遇 <code>ModuleNotFoundError: No module named &#39;modelscope_studio&#39;</code> 报错，请将 <code>modelscope-agent</code> 仓库回滚至 <code>8deef6d4</code>（<code>git checkout 8deef6d4</code>），因为后面的 <a href="https://github.com/modelscope/modelscope-agent/commit/68c7dd7ffae0a1f93938ac3fa3fed7bfdfcdfb2b#diff-8544efbeb959a409d00730a025fd51bf9da42cd560aa4d2bd5e24f6ddbd8c9f5R7" target="_blank" rel="noopener">68c7dd7f</a> 提交修改了依赖，导致镜像中缺少新增的依赖。</p>
+</blockquote>
+<blockquote>
+<p>如需更改默认配置文件路径，可修改 <code>modelscope-agent/apps/agentfabric/config_utils.py</code> 中的 <code>DEFAULT_AGENT_DIR</code> 和通过环境变量指定 <code>CODE_INTERPRETER_WORK_DIR</code>，如：</p>
+<pre><code class="shell">CODE_INTERPRETER_WORK_DIR=/data/work/agentfabric/ci_workspace \
+GRADIO_SERVER_NAME=0.0.0.0 PYTHONPATH=../../  python app.py</code></pre>
+</blockquote>
+<p>然后在浏览器中输入 http://内网服务器IP:7860 打开即可看到如下界面。</p>
+<p><a href="https://github.com/modelscope/modelscope-agent/blob/master/docs/resource/local_deploy.png" target="_blank" rel="noopener"><img src="/contents/local-deploy-agentfabric-and-agent/local_deploy.png" alt="AgentFabric"></a></p>
+<h2 id="四、内网环境发布使用-AgentFabric-构建的-Agent"><a href="#四、内网环境发布使用-AgentFabric-构建的-Agent" class="headerlink" title="四、内网环境发布使用 AgentFabric 构建的 Agent"></a>四、内网环境发布使用 AgentFabric 构建的 Agent</h2><p>通过 AgentFabric 完成 Agent 的基本配置之后，在 <code>配置(Configure)</code> tab 页点击左侧下方的 <code>更新配置</code> 按钮，<br>即可将自定义的配置内容生成至指定的配置文件中（默认路径为 <code>/tmp/agentfabric/config/local_user/builder_config.json</code>）。</p>
+<p>完成配置后可停掉 AgentFabric 的 Gradio 应用。</p>
+<p>发布配置好的 Agent Gradio 应用，可在 <code>modelscope-agent/apps/agentfabric</code> 目录下执行如下命令：</p>
+<pre><code class="shell">GRADIO_SERVER_NAME=0.0.0.0 GRADIO_SERVER_PORT=7865 PYTHONPATH=../../  python appBot.py</code></pre>
+<blockquote>
+<p>如启动 AgentFabric 时指定了配置文件路径，启动 Agent 时也需指定相同路径。</p>
+</blockquote>
+<p>然后在浏览器中输入 http://内网服务器IP:7865 打开即可看到界面。</p>
+<p><img src="/contents/local-deploy-agentfabric-and-agent/local_deploy_agent.png" alt="Custom Agent"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、外网环境中下载所需内容"><span class="toc-number">1.</span> <span class="toc-text">一、外网环境中下载所需内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-拉取镜像"><span class="toc-number">1.1.</span> <span class="toc-text">1. 拉取镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-下载-LLM-模型"><span class="toc-number">1.2.</span> <span class="toc-text">2. 下载 LLM 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-下载-Embedding-模型"><span class="toc-number">1.3.</span> <span class="toc-text">3. 下载 Embedding 模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-下载-ModelScope-Agent-代码"><span class="toc-number">1.4.</span> <span class="toc-text">4. 下载 ModelScope-Agent 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-下载内容传输至内网环境"><span class="toc-number">1.5.</span> <span class="toc-text">5. 下载内容传输至内网环境</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、内网环境部署-LLM"><span class="toc-number">2.</span> <span class="toc-text">二、内网环境部署 LLM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导入镜像"><span class="toc-number">2.1.</span> <span class="toc-text">导入镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署-LLM-服务"><span class="toc-number">2.2.</span> <span class="toc-text">部署 LLM 服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、内网环境部署-AgentFabric"><span class="toc-number">3.</span> <span class="toc-text">三、内网环境部署 AgentFabric</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑模型配置文件"><span class="toc-number">3.1.</span> <span class="toc-text">编辑模型配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑-Embedding-模型-model-id"><span class="toc-number">3.2.</span> <span class="toc-text">编辑 Embedding 模型 model_id</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拉起-AgentFabric"><span class="toc-number">3.3.</span> <span class="toc-text">拉起 AgentFabric</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、内网环境发布使用-AgentFabric-构建的-Agent"><span class="toc-number">4.</span> <span class="toc-text">四、内网环境发布使用 AgentFabric 构建的 Agent</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

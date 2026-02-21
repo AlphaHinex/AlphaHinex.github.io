@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Maven 实用技巧 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,maven, mvn, maven wrapper, mvnw, reactor, multi-module, aggregator, parent, inheritance"> 
+    <meta name="description" content="Maven WrapperMaven Wrapper 借鉴了 Gradle Wrapper 的思想，可以在工程源码中提交 Wrapper 的脚本和配置，之后在工程目录中使用 mvnw 或 mvnw.,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Maven 实用技巧</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/maven-in-action/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                七月 28, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/07/28/maven-in-action/" title="Maven 实用技巧" class="">Maven 实用技巧</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Maven/" rel="tag">Maven</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Maven-Wrapper"><a href="#Maven-Wrapper" class="headerlink" title="Maven Wrapper"></a>Maven Wrapper</h1><p><a href="https://maven.apache.org/wrapper/" target="_blank" rel="noopener">Maven Wrapper</a> 借鉴了 <a href="https://docs.gradle.org/current/userguide/gradle_wrapper.html" target="_blank" rel="noopener">Gradle Wrapper</a> 的思想，可以在工程源码中提交 Wrapper 的脚本和配置，之后在工程目录中使用 <code>mvnw</code> 或 <code>mvnw.cmd</code> 命令代替 <code>mvn</code> 命令，从而保证了各个开发及持续集成环境在构建时使用的 Maven 版本是一致的。</p>
+<h2 id="主要文件"><a href="#主要文件" class="headerlink" title="主要文件"></a>主要文件</h2><p>Maven Wrapper 最主要的是下面三个文件，可以使用 <code>mvn wrapper:wrapper -Dtype=only-script</code>（或 <code>-Dtype=script</code>） 命令生成，也可直接从其他工程复制：</p>
+<pre><code class="text">├── .mvn
+│   └── wrapper
+│       └── maven-wrapper.properties
+├── mvnw
+└── mvnw.cmd</code></pre>
+<ol>
+<li><code>.mvn/wrapper/maven-wrapper.properties</code>：指定了 Maven 版本及下载地址</li>
+<li><code>mvnw</code>：Linux/Unix 系统下的 Maven Wrapper 脚本</li>
+<li><code>mvnw.cmd</code>：Windows 系统下的 Maven Wrapper 脚本</li>
+</ol>
+<blockquote>
+<p>除上面三个文件外，根据使用 <code>mvn wrapper:wrapper</code> 命令时指定的 <code>type</code> 参数的不同，还可能生成 <code>.mvn/wrapper/maven-wrapper.jar</code>（<code>mvn wrapper:wrapper</code>） 或 <code>.mvn/wrapper/MavenWrapperDownloader.java</code>（<code>mvn wrapper:wrapper -Dtype=source</code>） 文件，用以下载指定的 Maven 版本发布包。</p>
+</blockquote>
+<h2 id="指定版本"><a href="#指定版本" class="headerlink" title="指定版本"></a>指定版本</h2><p>要指定使用的 Maven 版本，可以通过如 <code>mvn wrapper:wrapper -Dmaven=3.8.1</code> 命令，或直接修改 <code>maven-wrapper.properties</code> 文件中的 <code>distributionUrl</code> 属性值：</p>
+<pre><code class="properties">distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.8.1/apache-maven-3.8.1-bin.zip</code></pre>
+<blockquote>
+<p>使用带身份认证的私有 Maven 仓库时，可以通过在 URL 中添加用户名和密码的方式进行认证（<code>http://uname:pwd@url</code>），或设定 <code>MVNW_USERNAME</code> 和 <code>MVNW_PASSWORD</code> 环境变量。</p>
+</blockquote>
+<h2 id="存放路径"><a href="#存放路径" class="headerlink" title="存放路径"></a>存放路径</h2><p>通过 Maven Wrapper 下载的 Maven 版本放在 <code>~/.m2/wrapper</code> 路径下：</p>
+<pre><code class="text">└── .m2
+    └── wrapper
+        └── dists
+            ├── apache-maven-3.5.4
+            │   └── 23a80dd6
+            │       ├── .DS_Store
+            │       ├── LICENSE
+            │       ├── NOTICE
+            │       ├── README.txt
+            │       ├── bin
+            │       ├── boot
+            │       ├── conf
+            │       ├── lib
+            │       └── mvnw.url
+            ├── apache-maven-3.6.1
+            │   └── 29f90916
+            │       ├── LICENSE
+            │       ├── NOTICE
+            │       ├── README.txt
+            │       ├── bin
+            │       ├── boot
+            │       ├── conf
+            │       ├── lib
+            │       └── mvnw.url
+            └── apache-maven-3.9.8
+                └── 8e4360d6
+                    ├── LICENSE
+                    ├── NOTICE
+                    ├── README.txt
+                    ├── bin
+                    ├── boot
+                    ├── conf
+                    ├── lib
+                    └── mvnw.url</code></pre>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><p>在包含 Maven Wrapper 的工程中，可以直接使用 <code>./mvnw</code> 或 <code>./mvnw.cmd</code> 命令代替 <code>mvn</code> 命令，例如：</p>
+<pre><code class="bash">$ ./mvnw clean package</code></pre>
+<h1 id="Multi-module-vs-Inheritance"><a href="#Multi-module-vs-Inheritance" class="headerlink" title="Multi-module vs. Inheritance"></a>Multi-module vs. Inheritance</h1><p>在 Maven 中，多模块构建（Multi-module）和继承（Inheritance）是两个不同的概念，互相独立，可分别使用。</p>
+<h2 id="多模块"><a href="#多模块" class="headerlink" title="多模块"></a>多模块</h2><p>Maven 在 pom 中通过 <code>&lt;modules&gt;</code> 元素表示 <a href="https://maven.apache.org/pom.html#aggregation-or-multi-module" target="_blank" rel="noopener">多模块或聚合</a>，如：</p>
+<pre><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+  &lt;artifactId&gt;my-parent&lt;/artifactId&gt;
+  &lt;version&gt;2.0&lt;/version&gt;
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+
+  &lt;modules&gt;
+    &lt;module&gt;my-project&lt;/module&gt;
+    &lt;module&gt;another-project&lt;/module&gt;
+    &lt;module&gt;third-project/pom-example.xml&lt;/module&gt;
+  &lt;/modules&gt;
+&lt;/project&gt;</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p><code>&lt;parent&gt;</code> 元素可将多个模块的配置抽取到一个父模块中，子模块可以继承父模块的配置，包括依赖、插件、属性等。继承关系是单向的，父模块不会知道子模块的存在：</p>
+<pre><code class="xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;parent&gt;
+    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+    &lt;artifactId&gt;my-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.0&lt;/version&gt;
+    &lt;relativePath&gt;../my-parent&lt;/relativePath&gt;
+  &lt;/parent&gt;
+
+  &lt;artifactId&gt;my-project&lt;/artifactId&gt;
+&lt;/project&gt;</code></pre>
+<p>通常情况下，多模块构建和继承可以结合使用，例如将多个模块聚合在一起，同时抽取公共配置到父模块中：</p>
+<p><a href="https://books.sonatype.com/mvnref-book/reference/pom-relationships-sect-pom-best-practice.html#fig-multi-module" target="_blank" rel="noopener"><img src="/contents/maven-in-action/pom_real_multi.png" alt="Enterprise Multi-module vs. Inheritance"></a></p>
+<blockquote>
+<p>上图中，红线代表继承关系，蓝线代表聚合关系，可见二者是相互独立的两个体系。</p>
+</blockquote>
+<p>子模块可以从父模块 <a href="https://maven.apache.org/pom.html#inheritance" target="_blank" rel="noopener">继承</a> 的属性包括：</p>
+<pre><code class="text">- groupId
+- version
+- description
+- url
+- inceptionYear
+- organization
+- licenses
+- developers
+- contributors
+- mailingLists
+- scm
+- issueManagement
+- ciManagement
+- properties
+- dependencyManagement
+- dependencies
+- repositories
+- pluginRepositories
+- build
+  - plugin executions with matching ids
+  - plugin configuration
+  - etc.
+- reporting</code></pre>
+<p>不可继承的属性包括：</p>
+<pre><code class="text">- artifactId
+- name
+- prerequisites
+- profiles (but the effects of active profiles from parent POMs are)</code></pre>
+<h1 id="Reactor"><a href="#Reactor" class="headerlink" title="Reactor"></a>Reactor</h1><p><a href="https://maven.apache.org/guides/mini/guide-multiple-modules.html" target="_blank" rel="noopener">Reactor</a> 是 Maven 用来处理多模块项目的一个核心组件，负责收集可用模块并按照依赖关系排序，确保每个模块都能够在依赖它的其他模块被编译之前完成编译。</p>
+<p>以 <a href="http://books.sonatype.com/mvnref-book/mvnref-examples.zip" target="_blank" rel="noopener">http://books.sonatype.com/mvnref-book/mvnref-examples.zip</a> 示例代码包中 <code>ch-running</code> 文件夹下 Maven 工程为例，其中包含的模块和模块间依赖关系如下：</p>
+<p><a href="https://books.sonatype.com/mvnref-book/reference/_using_advanced_reactor_options.html#fig-running-aro-dir-struct" target="_blank" rel="noopener"><img src="/contents/maven-in-action/running_aro-project-dir.png" alt="Directory Structure of Sample Multi-module Project"></a></p>
+<p><a href="https://books.sonatype.com/mvnref-book/reference/_using_advanced_reactor_options.html#fig-running-aro-depends" target="_blank" rel="noopener"><img src="/contents/maven-in-action/running_aro-dependencies.png" alt="Dependencies within Sample Multi-module Project"></a></p>
+<p>其中 <code>sample-parent</code> 模块 <code>pom.xml</code> 中定义的 <code>&lt;modules&gt;</code> 元素如下：</p>
+<pre><code class="xml">  &lt;modules&gt;
+    &lt;module&gt;sample-admin-webapp&lt;/module&gt;
+    &lt;module&gt;sample-webapp&lt;/module&gt;
+    &lt;module&gt;sample-services&lt;/module&gt;
+    &lt;module&gt;sample-rest&lt;/module&gt;
+    &lt;module&gt;sample-persist&lt;/module&gt;
+    &lt;module&gt;sample-util&lt;/module&gt;
+    &lt;module&gt;sample-model&lt;/module&gt;
+    &lt;module&gt;sample-security&lt;/module&gt;
+    &lt;module&gt;sample-gui&lt;/module&gt;
+    &lt;module&gt;sample-admin-gui&lt;/module&gt;
+    &lt;module&gt;sample-client-connector&lt;/module&gt;
+  &lt;/modules&gt;</code></pre>
+<p>Reactor 会根据模块间的依赖关系排序，最后没有其他规则需要遵守时，也会参照 <code>&lt;modules&gt;</code> 元素中定义的顺序排序：</p>
+<pre><code class="bash">$ mvn package
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] sample-parent 1.0-SNAPSHOT ......................... SUCCESS [  0.003 s]
+[INFO] sample-model ....................................... SUCCESS [  0.706 s]
+[INFO] sample-persist ..................................... SUCCESS [  0.016 s]
+[INFO] sample-services .................................... SUCCESS [  0.014 s]
+[INFO] sample-util ........................................ SUCCESS [  0.012 s]
+[INFO] sample-security .................................... SUCCESS [  0.011 s]
+[INFO] sample-admin-webapp ................................ SUCCESS [  0.015 s]
+[INFO] sample-webapp ...................................... SUCCESS [  0.011 s]
+[INFO] sample-rest ........................................ SUCCESS [  0.014 s]
+[INFO] sample-client-connector ............................ SUCCESS [  0.012 s]
+[INFO] sample-gui ......................................... SUCCESS [  0.012 s]
+[INFO] sample-admin-gui 1.0-SNAPSHOT ...................... SUCCESS [  0.021 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+...</code></pre>
+<h1 id="模块间依赖及部分构建"><a href="#模块间依赖及部分构建" class="headerlink" title="模块间依赖及部分构建"></a>模块间依赖及部分构建</h1><p>在多模块项目中，有时候只需要构建其中的某个模块，或者只需要构建某个模块及其依赖的模块，这时可以使用 Maven 的一些 <a href="https://books.sonatype.com/mvnref-book/reference/_using_advanced_reactor_options.html" target="_blank" rel="noopener">高级 Reactor 选项</a>：</p>
+<ul>
+<li><code>-rf</code>, <code>--resume-from</code>：从指定的项目恢复构建</li>
+<li><code>-pl</code>, <code>--projects</code>：构建指定的项目而不是所有项目</li>
+<li><code>-am</code>, <code>--also-make</code>：如果通过 <code>-pl</code> 参数指定了项目列表，还会构建列表中项目所依赖的项目</li>
+<li><code>-amd</code>, <code>--also-make-dependents</code>：如果通过 <code>-pl</code> 参数指定了项目列表，还会构建依赖于列表中项目的项目</li>
+</ul>
+<h2 id="恢复构建"><a href="#恢复构建" class="headerlink" title="恢复构建"></a>恢复构建</h2><p>仍然以上面的 <code>sample-parent</code> 项目为例，如果需要从 <code>sample-client-connector</code> 模块继续构建，可以使用 <code>-rf</code> 参数：</p>
+<pre><code class="bash">$ mvn --resume-from sample-client-connector package
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO]
+[INFO] sample-client-connector                                            [jar]
+[INFO] sample-gui                                                         [jar]
+[INFO] sample-admin-gui                                                   [jar]
+...</code></pre>
+<p>如果遇到找不到其他模块报错问题（如下），可先执行 install 将模块安装到本地仓库：</p>
+<pre><code class="bash">$ mvn package -rf sample-client-connector
+...
+[WARNING] The POM for org.sonatype.mavenbook.running:sample-model:jar:1.0-SNAPSHOT is missing, no dependency information available
+[WARNING] The POM for org.sonatype.mavenbook.running:sample-util:jar:1.0-SNAPSHOT is missing, no dependency information available
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] sample-client-connector 1.0-SNAPSHOT ............... FAILURE [  0.105 s]
+[INFO] sample-gui ......................................... SKIPPED
+[INFO] sample-admin-gui 1.0-SNAPSHOT ...................... SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 0.218 s
+[INFO] Finished at: 2024-07-27T16:24:22+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project sample-client-connector: Could not resolve dependencies for project org.sonatype.mavenbook.running:sample-client-connector:jar:1.0-SNAPSHOT: The following artifacts could not be resolved: org.sonatype.mavenbook.running:sample-model:jar:1.0-SNAPSHOT, org.sonatype.mavenbook.running:sample-util:jar:1.0-SNAPSHOT: Failure to find org.sonatype.mavenbook.running:sample-model:jar:1.0-SNAPSHOT in http://repo.maven.apache.org/maven2 was cached in the local repository, resolution will not be reattempted until the update interval of local-nexus has elapsed or updates are forced -&gt; [Help 1]
+...</code></pre>
+<pre><code class="bash">$ mvn install
+$ mvn package -rf sample-client-connector</code></pre>
+<h2 id="多层级模块"><a href="#多层级模块" class="headerlink" title="多层级模块"></a>多层级模块</h2><p>当存在多层级模块的聚合，使用 <code>-rf</code>、<code>-pl</code> 等参数指定模块名时，需要在模块名前面加冒号。</p>
+<p>比如在 <code>ch-running</code> 目录下：</p>
+<pre><code class="text">├── pom.xml
+└── sample-parent
+    ├── mvn
+    ├── pom.xml
+    ├── sample-admin-gui
+    ├── sample-admin-webapp
+    ├── sample-client-connector
+    ├── sample-gui
+    ├── sample-model
+    ├── sample-persist
+    ├── sample-rest
+    ├── sample-security
+    ├── sample-services
+    ├── sample-util
+    └── sample-webapp</code></pre>
+<pre><code class="bash">$ mvn package -pl sample-util
+[INFO] Scanning for projects...
+[ERROR] [ERROR] Could not find the selected project in the reactor: sample-util @
+[ERROR] Could not find the selected project in the reactor: sample-util -&gt; [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MavenExecutionException</code></pre>
+<pre><code class="bash">$ mvn package -pl :sample-util
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------&lt; org.sonatype.mavenbook.running:sample-util &gt;-------------
+[INFO] Building sample-util 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+...</code></pre>
+<h1 id="执行指定的测试"><a href="#执行指定的测试" class="headerlink" title="执行指定的测试"></a>执行指定的测试</h1><p>在 Maven 项目中，可以通过 <code>-Dtest</code> 参数指定执行的测试类或测试方法，例如：</p>
+<pre><code class="bash">$ mvn test -Dtest=com.example.MyTestClass
+$ mvn -pl :module-a -am test -Dtest=com.example.MyTestClass -DfailIfNoTests=false</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Maven-Wrapper"><span class="toc-number">1.</span> <span class="toc-text">Maven Wrapper</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主要文件"><span class="toc-number">1.1.</span> <span class="toc-text">主要文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定版本"><span class="toc-number">1.2.</span> <span class="toc-text">指定版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#存放路径"><span class="toc-number">1.3.</span> <span class="toc-text">存放路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用方式"><span class="toc-number">1.4.</span> <span class="toc-text">使用方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Multi-module-vs-Inheritance"><span class="toc-number">2.</span> <span class="toc-text">Multi-module vs. Inheritance</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#多模块"><span class="toc-number">2.1.</span> <span class="toc-text">多模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#继承"><span class="toc-number">2.2.</span> <span class="toc-text">继承</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reactor"><span class="toc-number">3.</span> <span class="toc-text">Reactor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块间依赖及部分构建"><span class="toc-number">4.</span> <span class="toc-text">模块间依赖及部分构建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#恢复构建"><span class="toc-number">4.1.</span> <span class="toc-text">恢复构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多层级模块"><span class="toc-number">4.2.</span> <span class="toc-text">多层级模块</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#执行指定的测试"><span class="toc-number">5.</span> <span class="toc-text">执行指定的测试</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

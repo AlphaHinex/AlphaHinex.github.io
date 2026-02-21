@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>How to integrate SEATA AT mode with Spring Cloud - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Distributed Transaction, SEATA, AT Mode, Spring Cloud, Spring Cloud Alibaba"> 
+    <meta name="description" content="本文基于一个 Spring Cloud 业务实例，说明如何集成 SEATA AT 模式，进行分布式事务控制。
+背景介绍SEATA 是什么？Seata: Simple Extensible Auton,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">How to integrate SEATA AT mode with Spring Cloud</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/distributed-transaction/seata-at.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                一月 22, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/01/22/how-to-integrate-seata-at-mode-with-spring-cloud/" title="How to integrate SEATA AT mode with Spring Cloud" class="">How to integrate SEATA AT mode with Spring Cloud</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.4k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Nacos/" rel="tag">Nacos</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/OpenFeign/" rel="tag">OpenFeign</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SEATA/" rel="tag">SEATA</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>本文基于一个 Spring Cloud 业务实例，说明如何集成 SEATA AT 模式，进行分布式事务控制。</p>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><h3 id="SEATA-是什么？"><a href="#SEATA-是什么？" class="headerlink" title="SEATA 是什么？"></a>SEATA 是什么？</h3><p>Seata: Simple Extensible Autonomous Transaction Architecture</p>
+<blockquote>
+<p>Seata 是一款开源的分布式事务解决方案，致力于提供高性能和简单易用的分布式事务服务。Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打造一站式的分布式解决方案。 —— 引用自 SEATA <a href="https://seata.io/zh-cn/docs/overview/what-is-seata.html" target="_blank" rel="noopener">官方文档</a></p>
+</blockquote>
+<h3 id="AT-模式是什么？"><a href="#AT-模式是什么？" class="headerlink" title="AT 模式是什么？"></a>AT 模式是什么？</h3><p><a href="https://blog.csdn.net/m0_38110132/article/details/77043580" target="_blank" rel="noopener">TXC分布式事务简介</a> 中提到，AT 模式意为 Automatic Taobao Transaction Constructor，但在 SEATA 的官方文档中，并没有关于 AT 名称具体的解释。个人认为 AT 模式可以归类为柔性事务中的二阶段提交方式实现，一阶段先将本地事务进行提交，二阶段如果需要回滚，会根据一阶段生成的 undo log 自动进行回滚，所以可以认为 AT 模式是自动完成回滚的二阶段提交分布式事务处理模型，这也应该是 AT 模式名称的由来。</p>
+<h3 id="为什么要使用-SEATA-AT-模式？"><a href="#为什么要使用-SEATA-AT-模式？" class="headerlink" title="为什么要使用 SEATA AT 模式？"></a>为什么要使用 SEATA AT 模式？</h3><p>由上述内容可以看到，AT 模式的优缺点非常明显：</p>
+<ul>
+<li>优点：侵入性小，可以用较小代价获得基本的分布式事务控制</li>
+<li>缺点：一阶段会直接提交，不保证读隔离性</li>
+</ul>
+<blockquote>
+<p>如果应用在特定场景下，必需要求全局的 <strong>读已提交</strong> ，目前 Seata 的方式是通过 SELECT FOR UPDATE 语句的代理。</p>
+</blockquote>
+<p>为了付出二成努力获得八成效果，AT 模式的优点具有很强吸引力。</p>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><p>假设当前有这样一个基础微服务环境：</p>
+<ul>
+<li>基于 <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener">Spring Cloud</a> 构建，使用 <a href="https://nacos.io" target="_blank" rel="noopener">Nacos</a> 作为注册中心，利用 <a href="https://github.com/OpenFeign/feign" target="_blank" rel="noopener">OpenFeign</a> 进行服务间 RESTFul API 的调用。</li>
+</ul>
+<p>包含以下服务：</p>
+<ol>
+<li>库存服务（storage）</li>
+<li>用户账户服务（account）</li>
+<li>订单服务（order）</li>
+<li>业务服务（business）</li>
+</ol>
+<p>业务服务作为直接被调用的接口，组织关联其他三个服务。下订单时，服务的调用顺序如下：</p>
+<pre><code>1. 减库存（storage）
+2. 创建订单
+2.1. 扣减用户账户（account）
+2.2. 生成订单（order）</code></pre><h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p><a href="https://github.com/AlphaHinex/seata-at-demo/tree/master" target="_blank" rel="noopener">这里</a> 构建了一个包含上述环境的可运行实例，可导入 IDEA 中或使用提供的 docker-compose 查看效果。</p>
+<blockquote>
+<p>注意：该实例运行需要用到发布到 GitHub Packages Registry 的 jar 包，可参考 <a href="https://alphahinex.github.io/2020/01/17/github-packages-in-action/">GitHub Packages in Action</a> 进行配置。</p>
+</blockquote>
+<p>可以在发送第二个 POST 请求得到异常之后查看数据库的数据变化情况，也可以通过集成测试来验证在没有分布式事务控制的情况下，发生异常时三个服务的数据状态出现了不一致。</p>
+<h2 id="集成-SEATA-AT-模式"><a href="#集成-SEATA-AT-模式" class="headerlink" title="集成 SEATA AT 模式"></a>集成 SEATA AT 模式</h2><p>集成所需所有改动可见 <a href="https://github.com/AlphaHinex/seata-at-demo/compare/master...seata-at" target="_blank" rel="noopener">https://github.com/AlphaHinex/seata-at-demo/compare/master...seata-at</a></p>
+<h3 id="添加-SEATA-依赖"><a href="#添加-SEATA-依赖" class="headerlink" title="添加 SEATA 依赖"></a>添加 SEATA 依赖</h3><pre><code class="gradle">implementation &#39;com.alibaba.cloud:spring-cloud-starter-alibaba-seata:2.1.1.RELEASE&#39;
+implementation &#39;io.seata:seata-all:1.0.0&#39;
+implementation &#39;io.seata:seata-spring-boot-starter:1.0.0&#39;</code></pre>
+<h4 id="为什么需要三个-SEATA-的依赖？每个依赖的作用是什么？"><a href="#为什么需要三个-SEATA-的依赖？每个依赖的作用是什么？" class="headerlink" title="为什么需要三个 SEATA 的依赖？每个依赖的作用是什么？"></a>为什么需要三个 SEATA 的依赖？每个依赖的作用是什么？</h4><ol>
+<li><p>spring-cloud-starter-alibaba-seata</p>
+<p> 对 Feign Client 和全局事务 XID 进行了自动配置。</p>
+<p> 需要注意的是 Spring Cloud Alibaba 的毕业版本的 GroupId 是 <code>com.alibaba.cloud</code>。<code>spring-cloud-starter-alibaba-seata</code> 这个依赖中只依赖了 <code>spring-cloud-alibaba-seata</code>，所以在项目中添加 <code>spring-cloud-starter-alibaba-seata</code> 和 <code>spring-cloud-alibaba-seata</code> 是一样的。</p>
+</li>
+<li><p>seata-all</p>
+<p> <code>spring-cloud-starter-alibaba-seata</code> 装配的 SEATA 版本为 0.9.0，若需使用其他版本，需额外进行依赖。本例中使用的 SEATA 版本为 1.0.0，故需单独配置 <code>io.seata:seata-all:1.0.0</code> 依赖。</p>
+</li>
+<li><p>seata-spring-boot-starter</p>
+<p>包括自动代理数据源，及支持 yml 配置。</p>
+<p>此处需注意，虽说引入此 jar 包后可以通过 yml 的方式对 registry.conf 及 file.conf 中内容进行配置，但目前仍存在一些问题导致无法全部替代 conf 配置文件。例如：</p>
+<p>用 yml 配置与 registry.conf 相同的内容，会报 <code>no available service &#39;null&#39; found, please make sure registry config correct</code></p>
+<p>服务启动后，持续报如下警告：<code>io.seata.config.FileConfiguration        : Could not found property service.disableGlobalTransaction, try to use default value instead.</code></p>
+<p>类似问题在 <a href="https://github.com/seata/seata/issues/2114" target="_blank" rel="noopener">https://github.com/seata/seata/issues/2114</a> 中也有讨论。目前的解决方案为：还是通过 registry.conf 和 file.conf 来存放 yml 中配置无效的内容，</p>
+<p>另外，在同时引入 <code>spring-cloud-starter-alibaba-seata</code> 及 <code>seata-spring-boot-starter</code> 依赖时，需要排除掉 <code>spring-cloud-alibaba-seata</code> 里的 <code>GlobalTransactionAutoConfiguration</code>，否则会报错，详见 <a href="https://github.com/seata/seata/issues/2076" target="_blank" rel="noopener">https://github.com/seata/seata/issues/2076</a> 。</p>
+</li>
+</ol>
+<h3 id="在各服务数据库中增加-undo-log-表"><a href="#在各服务数据库中增加-undo-log-表" class="headerlink" title="在各服务数据库中增加 undo_log 表"></a>在各服务数据库中增加 undo_log 表</h3><p>建表语句可从 SEATA 发布版中获得，如 <a href="https://github.com/seata/seata/blob/v1.0.0/script/client/at/db/mysql.sql" target="_blank" rel="noopener">https://github.com/seata/seata/blob/v1.0.0/script/client/at/db/mysql.sql</a> 。</p>
+<p>示例中为简化过程，所有服务共用一个数据库，并通过 mysql 启动初始化过程，在库中创建了 undo_log 表。</p>
+<h3 id="各服务中配置-SEATA-服务端地址"><a href="#各服务中配置-SEATA-服务端地址" class="headerlink" title="各服务中配置 SEATA 服务端地址"></a>各服务中配置 SEATA 服务端地址</h3><p>因引入了 <code>seata-spring-boot-starter</code>，可使用 yml 进行配置，如：</p>
+<pre><code class="yml">seata:
+  service:
+    grouplist: seata-server:8091</code></pre>
+<h3 id="添加全局事务注解"><a href="#添加全局事务注解" class="headerlink" title="添加全局事务注解"></a>添加全局事务注解</h3><p>终于把准备工作都完成了，使用 SEATA AT 模式最核心的一步：在 controller 或者 service 上，标记 <code>@GlobalTransactional</code> 注解。That’s all。</p>
+<p>没错，这就结束了。</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>可通过集成测试对分布式事务的效果进行验证。如 <a href="https://github.com/AlphaHinex/seata-at-demo" target="_blank" rel="noopener">seata-at-demo</a> 中 README 所示，使用 seata-at 分支代码，在所有服务均正常启动完毕之后，可通过提供的 curl 或编写好的集成测试对效果进行验证。</p>
+<p>集成测试结果通过，即表示分布式事务生效，在调用过程中出现异常时，之前执行过的服务对数据进行的变更会自动回滚。</p>
+<p>使用 curl 进行验证时，需自己检查数据库中数据变化情况。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景介绍"><span class="toc-number">1.</span> <span class="toc-text">背景介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SEATA-是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">SEATA 是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AT-模式是什么？"><span class="toc-number">1.2.</span> <span class="toc-text">AT 模式是什么？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么要使用-SEATA-AT-模式？"><span class="toc-number">1.3.</span> <span class="toc-text">为什么要使用 SEATA AT 模式？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础环境"><span class="toc-number">2.</span> <span class="toc-text">基础环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-number">2.1.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集成-SEATA-AT-模式"><span class="toc-number">3.</span> <span class="toc-text">集成 SEATA AT 模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加-SEATA-依赖"><span class="toc-number">3.1.</span> <span class="toc-text">添加 SEATA 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在各服务数据库中增加-undo-log-表"><span class="toc-number">3.2.</span> <span class="toc-text">在各服务数据库中增加 undo_log 表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各服务中配置-SEATA-服务端地址"><span class="toc-number">3.3.</span> <span class="toc-text">各服务中配置 SEATA 服务端地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加全局事务注解"><span class="toc-number">3.4.</span> <span class="toc-text">添加全局事务注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证"><span class="toc-number">4.</span> <span class="toc-text">验证</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

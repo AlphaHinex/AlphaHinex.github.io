@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Netty in Action》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Netty"> 
+    <meta name="description" content="Start at: 2020-01-05End at: 2020-03-28Process: 298/298
+
+https://www.manning.com/books/netty-in-acti,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Netty in Action》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(https://img3.doubanio.com/view/subject/l/public/s28361212.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                四月 10, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/04/10/netty-in-action/" title="《Netty in Action》书摘" class="">《Netty in Action》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    17k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    15 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Netty/" rel="tag">Netty</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>Start at: 2020-01-05<br>End at: 2020-03-28<br>Process: 298/298</p>
+<ul>
+<li><a href="https://www.manning.com/books/netty-in-action" target="_blank" rel="noopener">https://www.manning.com/books/netty-in-action</a></li>
+<li><a href="https://github.com/normanmaurer/netty-in-action" target="_blank" rel="noopener">https://github.com/normanmaurer/netty-in-action</a></li>
+</ul>
+<h1 id="3-Netty-components-and-design"><a href="#3-Netty-components-and-design" class="headerlink" title="3 Netty components and design"></a>3 Netty components and design</h1><h2 id="3-1-Channel-EventLoop-and-ChannelFuture"><a href="#3-1-Channel-EventLoop-and-ChannelFuture" class="headerlink" title="3.1 Channel, EventLoop, and ChannelFuture"></a>3.1 Channel, EventLoop, and ChannelFuture</h2><h3 id="3-1-2-Interface-EventLoop"><a href="#3-1-2-Interface-EventLoop" class="headerlink" title="3.1.2 Interface EventLoop"></a>3.1.2 Interface EventLoop</h3><p><img src="/contents/netty-in-action/3.1.2.png" alt="Channels, EventLoops, and EventLoopGroups"></p>
+<ul>
+<li>An <code>EventLoopGroup</code> contains one or more <code>EventLoop</code>s.</li>
+<li>An <code>EventLoop</code> is bound to a single <code>Thread</code> for its lifetime.</li>
+<li>All I/O events processed by an <code>EventLoop</code> are handled on its dedicated <code>Thread</code>.</li>
+<li>A <code>Channel</code> is registered for its lifetime with a single <code>EventLoop</code>.</li>
+<li>A single <code>EventLoop</code> may be assigned to one or more <code>Channel</code>s.</li>
+</ul>
+<h1 id="4-Transports"><a href="#4-Transports" class="headerlink" title="4 Transports"></a>4 Transports</h1><h2 id="4-3-Included-transports"><a href="#4-3-Included-transports" class="headerlink" title="4.3 Included transports"></a>4.3 Included transports</h2><h3 id="4-3-1-NIO-——-non-blocking-I-O"><a href="#4-3-1-NIO-——-non-blocking-I-O" class="headerlink" title="4.3.1 NIO —— non-blocking I/O"></a>4.3.1 NIO —— non-blocking I/O</h3><ul>
+<li>Zero-copy is a feature currently available only with NIO and Epoll transport. It allows you to quickly and efficiently move data from a file system to the network without copying from kernel space to user space, which can significantly improve performance in protocols such as FTP or HTTP. This feature is not supported by all OSes. Specifically it is not usable with file systems that implement data encryption or compression—only the raw content of a file can be transferred. Conversely, transferring files that have already been encrypted isn’t a problem.</li>
+</ul>
+<h1 id="5-ByteBuf"><a href="#5-ByteBuf" class="headerlink" title="5 ByteBuf"></a>5 ByteBuf</h1><h2 id="5-2-Class-ByteBuf—Netty’s-data-container"><a href="#5-2-Class-ByteBuf—Netty’s-data-container" class="headerlink" title="5.2 Class ByteBuf—Netty’s data container"></a>5.2 Class ByteBuf—Netty’s data container</h2><h3 id="5-2-2-ByteBuf-usage-patterns"><a href="#5-2-2-ByteBuf-usage-patterns" class="headerlink" title="5.2.2 ByteBuf usage patterns"></a>5.2.2 ByteBuf usage patterns</h3><ul>
+<li>If ByteBuf isn’t backed by an array. If not, this is a direct buffer.</li>
+<li>The ByteBuf instances in a CompositeByteBuf may include both direct and nondirect allocations. If there is only one instance, calling has- Array() on a CompositeByteBuf will return the hasArray() value of that component; otherwise it will return false.</li>
+</ul>
+<h2 id="5-3-Byte-level-operations"><a href="#5-3-Byte-level-operations" class="headerlink" title="5.3 Byte-level operations"></a>5.3 Byte-level operations</h2><h3 id="5-3-2-Sequential-access-indexing"><a href="#5-3-2-Sequential-access-indexing" class="headerlink" title="5.3.2 Sequential access indexing"></a>5.3.2 Sequential access indexing</h3><ul>
+<li>While ByteBuf has both reader and writer indices, the JDK’s ByteBuffer has only one, which is why you have to call flip() to switch between read and write modes.</li>
+</ul>
+<h3 id="5-3-8-Derived-buffers"><a href="#5-3-8-Derived-buffers" class="headerlink" title="5.3.8 Derived buffers"></a>5.3.8 Derived buffers</h3><ul>
+<li><code>duplicate()</code>, <code>slice()</code>, <code>slice(int, int)</code>, <code>Unpooled.unmodifiableBuffer(...)</code>, <code>order(ByteOrder)</code>, <code>readSlice(int)</code>, each returns a new <code>ByteBuf</code> instance with its own reader, writer, and marker indices. The internal storage is shared just as in a JDK <code>ByteBuffer</code>. This makes a derived buffer inexpensive to create, but it also means that if you modify its contents you are modifying the source instance as well, so beware.</li>
+<li>If you need a true copy of an existing buffer, use <code>copy()</code> or <code>copy(int,int)</code>. Unlike a derived buffer, the <code>ByteBuf</code> returned by this call has an independent copy of the data.</li>
+</ul>
+<h1 id="6-ChannelHandler-and-ChannelPipeline"><a href="#6-ChannelHandler-and-ChannelPipeline" class="headerlink" title="6 ChannelHandler and ChannelPipeline"></a>6 ChannelHandler and ChannelPipeline</h1><h2 id="6-1-The-ChannelHandler-family"><a href="#6-1-The-ChannelHandler-family" class="headerlink" title="6.1 The ChannelHandler family"></a>6.1 The ChannelHandler family</h2><h3 id="6-1-3-Interface-ChannelInboundHandler"><a href="#6-1-3-Interface-ChannelInboundHandler" class="headerlink" title="6.1.3 Interface ChannelInboundHandler"></a>6.1.3 Interface ChannelInboundHandler</h3><ul>
+<li>When a ChannelInboundHandler implementation overrides channelRead(), it is responsible for explicitly releasing the memory associated with pooled ByteBuf instances. Netty provides a utility method for this purpose, ReferenceCountUtil.relese()</li>
+<li>A simpler alternative is to use SimpleChannelInboundHandler. … Because SimpleChannelInboundHandler releases resources automatically, you shouldn’t store references to any messages for later use, as these will become invalid.</li>
+</ul>
+<h3 id="6-1-4-Interface-ChannelOutboundHandler"><a href="#6-1-4-Interface-ChannelOutboundHandler" class="headerlink" title="6.1.4 Interface ChannelOutboundHandler"></a>6.1.4 Interface ChannelOutboundHandler</h3><ul>
+<li>ChannelPromise vs. ChannelFuture: ChannelPromise is a subinterface of ChannelFuture that defines the writable methods, … thus making ChannelFuture immutable.</li>
+</ul>
+<h3 id="6-1-6-Resource-management"><a href="#6-1-6-Resource-management" class="headerlink" title="6.1.6 Resource management"></a>6.1.6 Resource management</h3><ul>
+<li>On the outbound side, if you handle a write() operation and discard a message, you’re responsible for releasing it.</li>
+<li>It’s important not only to release resources but also to notify the ChannelPromise. Otherwise a situation might arise where a ChannelFutureListener has not been notified about a message that has been handled.</li>
+<li>In sum, it is the responsibility of the user to call ReferenceCountUtil.release() if a message is consumed or discarded and not passed to the next ChannelOutboundHandler in the ChannelPipeline. If the message reaches the actual transport layer, it will be released automatically when it’s written or the Channel is closed.</li>
+</ul>
+<h2 id="6-2-Interface-ChannelPipeline"><a href="#6-2-Interface-ChannelPipeline" class="headerlink" title="6.2 Interface ChannelPipeline"></a>6.2 Interface ChannelPipeline</h2><ul>
+<li>Every new Channel that’s created is assigned a new ChannelPipeline. This association is permanent; the Channel can neither attach another ChannelPipeline nor detach the current one. This is a fixed operation in Netty’s component lifecycle and requires no action on the part of the developer.</li>
+</ul>
+<h2 id="6-3-Interface-ChannelHandlerContext"><a href="#6-3-Interface-ChannelHandlerContext" class="headerlink" title="6.3 Interface ChannelHandlerContext"></a>6.3 Interface ChannelHandlerContext</h2><ul>
+<li><code>ChannelHandlerContext</code> has numerous methods, some of which are also present on <code>Channel</code> and on <code>ChannelPipeline</code> itself, but there is an important difference. If you invoke these methods on a <code>Channel</code> or <code>ChannelPipeline</code> instance, they propagate through the entire pipeline. The same methods called on a <code>ChannelHandlerContext</code> will start at the current associated <code>ChannelHandler</code> and propagate only to the next <code>ChannelHandler</code> in the pipeline that is capable of handling the event.</li>
+</ul>
+<h1 id="7-EventLoop-and-threading-model"><a href="#7-EventLoop-and-threading-model" class="headerlink" title="7 EventLoop and threading model"></a>7 EventLoop and threading model</h1><h2 id="7-3-Task-scheduling"><a href="#7-3-Task-scheduling" class="headerlink" title="7.3 Task scheduling"></a>7.3 Task scheduling</h2><h3 id="7-3-1-JDK-scheduling-API"><a href="#7-3-1-JDK-scheduling-API" class="headerlink" title="7.3.1 JDK scheduling API"></a>7.3.1 JDK scheduling API</h3><ul>
+<li>Although the <code>ScheduledExecutorService</code> API is straightforward, under heavy load it can introduce performance costs. In the next section we’ll see how Netty provides the same functionality with greater efficiency.</li>
+</ul>
+<h3 id="7-3-2-Scheduling-tasks-using-EventLoop"><a href="#7-3-2-Scheduling-tasks-using-EventLoop" class="headerlink" title="7.3.2 Scheduling tasks using EventLoop"></a>7.3.2 Scheduling tasks using EventLoop</h3><ul>
+<li>The <code>ScheduledExecutorService</code> implementation has limitations, such as the fact that extra threads are created as part of pool management. This can become a bottleneck if many tasks are aggressively scheduled.</li>
+</ul>
+<h2 id="7-4-Implementation-details"><a href="#7-4-Implementation-details" class="headerlink" title="7.4 Implementation details"></a>7.4 Implementation details</h2><h3 id="7-4-1-Thread-management"><a href="#7-4-1-Thread-management" class="headerlink" title="7.4.1 Thread management"></a>7.4.1 Thread management</h3><ul>
+<li>Note that each EvetnLoop has its own task queue, independent of that of any other EventLoop.</li>
+<li>Never put a long-running task in the execution queue, because it will block any other task from executing on the same thread.</li>
+<li>If you must make blocking calls or execute long-running tasks, we advise the use of a dedicated EventExecutor.</li>
+</ul>
+<h3 id="7-4-2-EventLoop-thread-allocation"><a href="#7-4-2-EventLoop-thread-allocation" class="headerlink" title="7.4.2 EventLoop/thread allocation"></a>7.4.2 EventLoop/thread allocation</h3><p><img src="/contents/netty-in-action/7.4.png" alt="Figure 7.4"></p>
+<p><img src="/contents/netty-in-action/7.5.png" alt="Figure 7.5"></p>
+<h1 id="8-Bootstrapping"><a href="#8-Bootstrapping" class="headerlink" title="8 Bootstrapping"></a>8 Bootstrapping</h1><h2 id="8-4-Bootstrapping-clients-from-a-Channel"><a href="#8-4-Bootstrapping-clients-from-a-Channel" class="headerlink" title="8.4 Bootstrapping clients from a Channel"></a>8.4 Bootstrapping clients from a Channel</h2><ul>
+<li>a general guideline in coding Netty applications: reuse EventLoops wherever possible to reduce the cost of thread creation.</li>
+</ul>
+<h1 id="9-Unit-testing"><a href="#9-Unit-testing" class="headerlink" title="9 Unit testing"></a>9 Unit testing</h1><ul>
+<li><p>Best practices dictate that you test not only to prove that your implementation is correct, but also to make it easy to isolate problems that crop up as code is modified. This type of testing is called unit testing.</p>
+</li>
+<li><p>The basic idea is to test your code in the smallest possible chunks, isolated as much as possible from other code modules and from runtime dependencies such as databases and networks. If you can verify through testing that each unit works correctly by itself, it will be much easier to find the culprit when something goes awry.</p>
+</li>
+</ul>
+<h1 id="10-The-codec-framework"><a href="#10-The-codec-framework" class="headerlink" title="10 The codec framework"></a>10 The codec framework</h1><h2 id="10-3-Encoders"><a href="#10-3-Encoders" class="headerlink" title="10.3 Encoders"></a>10.3 Encoders</h2><h3 id="10-3-1-Abstract-class-MessageToByteEncoder"><a href="#10-3-1-Abstract-class-MessageToByteEncoder" class="headerlink" title="10.3.1 Abstract class MessageToByteEncoder"></a>10.3.1 Abstract class MessageToByteEncoder</h3><ul>
+<li>You may have noticed that this class has only one method, while decoders have two. The reason is that decoders often need to produce a last message after the <code>Channel</code> has closed (hence the <code>decodeLast()</code> method). This is clearly not the case for an encoder—there is no sense in producing a message after the connection has been closed.</li>
+</ul>
+<h1 id="11-Provided-ChannelHandlers-and-codecs"><a href="#11-Provided-ChannelHandlers-and-codecs" class="headerlink" title="11 Provided ChannelHandlers and codecs"></a>11 Provided ChannelHandlers and codecs</h1><h2 id="11-5-Writing-big-data"><a href="#11-5-Writing-big-data" class="headerlink" title="11.5 Writing big data"></a>11.5 Writing big data</h2><ul>
+<li>In cases where you need to copy the data from the file system into user memory, you can use <code>ChunkedWriteHandler</code>, which provides support for writing a large data stream asynchronously without incurring high memory consumption.</li>
+<li>The key is <code>interface ChunkedInput&lt;B&gt;</code>, where the parameter <code>B</code> is the type returned by the method <code>readChunk()</code>. Four implementations of this interface are provided, as listed in table 11.7. Each one represents a data stream of indefinite length to be consumed by a <code>ChunkedWriteHandler</code>.</li>
+</ul>
+<h2 id="11-6-Serializing-data"><a href="#11-6-Serializing-data" class="headerlink" title="11.6 Serializing data"></a>11.6 Serializing data</h2><h3 id="11-6-2-Serialization-with-JBoss-Marshalling"><a href="#11-6-2-Serialization-with-JBoss-Marshalling" class="headerlink" title="11.6.2 Serialization with JBoss Marshalling"></a>11.6.2 Serialization with JBoss Marshalling</h3><ul>
+<li>It’s up to three times faster than JDK Serialization and more compact. The overview on the JBoss Marshalling homepage defines it this way:</li>
+<li>JBoss Marshalling is an alternative serialization API that fixes many of the problems found in the JDK serialization API while remaining fully compatible with java.io.Serializable and its relatives, and adds several new tunable parameters and additional features, all of which are pluggable via factory configuration (externalizers, class/instance lookup tables, class resolution, and object replacement, to name a few).</li>
+</ul>
+<h1 id="14-Case-studies-part-1"><a href="#14-Case-studies-part-1" class="headerlink" title="14 Case studies, part 1"></a>14 Case studies, part 1</h1><h2 id="14-3-Urban-Airship—building-mobile-services"><a href="#14-3-Urban-Airship—building-mobile-services" class="headerlink" title="14.3 Urban Airship—building mobile services"></a>14.3 Urban Airship—building mobile services</h2><h3 id="14-3-5-Netty-excels-at-managing-large-numbers-of-concurrent-connections"><a href="#14-3-5-Netty-excels-at-managing-large-numbers-of-concurrent-connections" class="headerlink" title="14.3.5 Netty excels at managing large numbers of concurrent connections"></a>14.3.5 Netty excels at managing large numbers of concurrent connections</h3><ul>
+<li>As mentioned in the previous section, Netty makes supporting asynchronous I/O on the JVM trivial. Because Netty operates on the JVM, and because the JVM on Linux ultimately uses the Linux epoll facility to manage interest in socket file descriptors, Netty makes it possible to accommodate the rapid growth of mobile by allowing developers to easily accept large numbers of open sockets—close to 1 million TCP connections per single Linux process. At numbers of this scale, service providers can keep costs low, allowing a large number of devices to connect to a single process on a physical server.</li>
+<li>Note the distinction of a physical server in this case. Although virtualization offers many benefits, leading cloud providers were regularly unable to accommodate more than 200,000–300,000 concurrent TCP connections to a single virtual host. With connections at or above this scale, expect to use bare metal servers and expect to pay close attention to the NIC (Network Interface Card) vendor.</li>
+</ul>
+<h1 id="Introduction-to-Maven"><a href="#Introduction-to-Maven" class="headerlink" title="Introduction to Maven"></a>Introduction to Maven</h1><h2 id="A2-2-POM-Inheritance-and-aggregation"><a href="#A2-2-POM-Inheritance-and-aggregation" class="headerlink" title="A2.2 POM Inheritance and aggregation"></a>A2.2 POM Inheritance and aggregation</h2><ul>
+<li>The POM executed by Maven after all inherited information is assembled and all active profiles are applied is referred to as the “effective POM”. To see it, run the following Maven command in the same directory as any POM file: <code>mvn help:effective-pom</code></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Netty-components-and-design"><span class="toc-number">1.</span> <span class="toc-text">3 Netty components and design</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-Channel-EventLoop-and-ChannelFuture"><span class="toc-number">1.1.</span> <span class="toc-text">3.1 Channel, EventLoop, and ChannelFuture</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-Interface-EventLoop"><span class="toc-number">1.1.1.</span> <span class="toc-text">3.1.2 Interface EventLoop</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Transports"><span class="toc-number">2.</span> <span class="toc-text">4 Transports</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-Included-transports"><span class="toc-number">2.1.</span> <span class="toc-text">4.3 Included transports</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-1-NIO-——-non-blocking-I-O"><span class="toc-number">2.1.1.</span> <span class="toc-text">4.3.1 NIO —— non-blocking I&#x2F;O</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-ByteBuf"><span class="toc-number">3.</span> <span class="toc-text">5 ByteBuf</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-Class-ByteBuf—Netty’s-data-container"><span class="toc-number">3.1.</span> <span class="toc-text">5.2 Class ByteBuf—Netty’s data container</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-ByteBuf-usage-patterns"><span class="toc-number">3.1.1.</span> <span class="toc-text">5.2.2 ByteBuf usage patterns</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Byte-level-operations"><span class="toc-number">3.2.</span> <span class="toc-text">5.3 Byte-level operations</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-2-Sequential-access-indexing"><span class="toc-number">3.2.1.</span> <span class="toc-text">5.3.2 Sequential access indexing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-8-Derived-buffers"><span class="toc-number">3.2.2.</span> <span class="toc-text">5.3.8 Derived buffers</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-ChannelHandler-and-ChannelPipeline"><span class="toc-number">4.</span> <span class="toc-text">6 ChannelHandler and ChannelPipeline</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-The-ChannelHandler-family"><span class="toc-number">4.1.</span> <span class="toc-text">6.1 The ChannelHandler family</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3-Interface-ChannelInboundHandler"><span class="toc-number">4.1.1.</span> <span class="toc-text">6.1.3 Interface ChannelInboundHandler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-4-Interface-ChannelOutboundHandler"><span class="toc-number">4.1.2.</span> <span class="toc-text">6.1.4 Interface ChannelOutboundHandler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-6-Resource-management"><span class="toc-number">4.1.3.</span> <span class="toc-text">6.1.6 Resource management</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-Interface-ChannelPipeline"><span class="toc-number">4.2.</span> <span class="toc-text">6.2 Interface ChannelPipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-Interface-ChannelHandlerContext"><span class="toc-number">4.3.</span> <span class="toc-text">6.3 Interface ChannelHandlerContext</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-EventLoop-and-threading-model"><span class="toc-number">5.</span> <span class="toc-text">7 EventLoop and threading model</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-Task-scheduling"><span class="toc-number">5.1.</span> <span class="toc-text">7.3 Task scheduling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-JDK-scheduling-API"><span class="toc-number">5.1.1.</span> <span class="toc-text">7.3.1 JDK scheduling API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-Scheduling-tasks-using-EventLoop"><span class="toc-number">5.1.2.</span> <span class="toc-text">7.3.2 Scheduling tasks using EventLoop</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-Implementation-details"><span class="toc-number">5.2.</span> <span class="toc-text">7.4 Implementation details</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-Thread-management"><span class="toc-number">5.2.1.</span> <span class="toc-text">7.4.1 Thread management</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-2-EventLoop-thread-allocation"><span class="toc-number">5.2.2.</span> <span class="toc-text">7.4.2 EventLoop&#x2F;thread allocation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Bootstrapping"><span class="toc-number">6.</span> <span class="toc-text">8 Bootstrapping</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4-Bootstrapping-clients-from-a-Channel"><span class="toc-number">6.1.</span> <span class="toc-text">8.4 Bootstrapping clients from a Channel</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-Unit-testing"><span class="toc-number">7.</span> <span class="toc-text">9 Unit testing</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-The-codec-framework"><span class="toc-number">8.</span> <span class="toc-text">10 The codec framework</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#10-3-Encoders"><span class="toc-number">8.1.</span> <span class="toc-text">10.3 Encoders</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-1-Abstract-class-MessageToByteEncoder"><span class="toc-number">8.1.1.</span> <span class="toc-text">10.3.1 Abstract class MessageToByteEncoder</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-Provided-ChannelHandlers-and-codecs"><span class="toc-number">9.</span> <span class="toc-text">11 Provided ChannelHandlers and codecs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-5-Writing-big-data"><span class="toc-number">9.1.</span> <span class="toc-text">11.5 Writing big data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-6-Serializing-data"><span class="toc-number">9.2.</span> <span class="toc-text">11.6 Serializing data</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-6-2-Serialization-with-JBoss-Marshalling"><span class="toc-number">9.2.1.</span> <span class="toc-text">11.6.2 Serialization with JBoss Marshalling</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-Case-studies-part-1"><span class="toc-number">10.</span> <span class="toc-text">14 Case studies, part 1</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#14-3-Urban-Airship—building-mobile-services"><span class="toc-number">10.1.</span> <span class="toc-text">14.3 Urban Airship—building mobile services</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#14-3-5-Netty-excels-at-managing-large-numbers-of-concurrent-connections"><span class="toc-number">10.1.1.</span> <span class="toc-text">14.3.5 Netty excels at managing large numbers of concurrent connections</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction-to-Maven"><span class="toc-number">11.</span> <span class="toc-text">Introduction to Maven</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A2-2-POM-Inheritance-and-aggregation"><span class="toc-number">11.1.</span> <span class="toc-text">A2.2 POM Inheritance and aggregation</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

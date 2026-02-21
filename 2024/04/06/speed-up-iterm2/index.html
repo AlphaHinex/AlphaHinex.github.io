@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>iTerm2 冷启动提速 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,iTerm2, zsh, git, nvm, conda, zprof, xcodebuild"> 
+    <meta name="description" content="iTerm2 在升级系统之后，冷启动（开机后第一次启动）的速度异常的慢，需要几十秒才能进入可用状态。之后无论是开新窗口还是退出重进的速度都还挺正常的。
+虽然升级系统之前冷启动速度也不快，但并没有慢到,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">iTerm2 冷启动提速</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/iterm2-ssh-via-ssh/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                四月 06, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/04/06/speed-up-iterm2/" title="iTerm2 冷启动提速" class="">iTerm2 冷启动提速</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    20k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    18 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Shell/" rel="tag">Shell</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>iTerm2 在升级系统之后，冷启动（开机后第一次启动）的速度异常的慢，需要几十秒才能进入可用状态。之后无论是开新窗口还是退出重进的速度都还挺正常的。</p>
+<p>虽然升级系统之前冷启动速度也不快，但并没有慢到这么令人难以忍受。</p>
+<p>经过几轮较量，最终恢复了秒级冷启动。将过程和尝试的办法记录如下。</p>
+<h2 id="TL-DR-Final-Round-——-git"><a href="#TL-DR-Final-Round-——-git" class="headerlink" title="TL;DR: Final Round —— git"></a>TL;DR: Final Round —— git</h2><p>效果最明显的改动：将系统自带的 <code>Apple Git</code> 替换为 <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> 中的 <code>Git</code>:</p>
+<pre><code class="bash"># 系统自带 Git 版本
+$ git --version
+git version 2.24.3 (Apple Git-128)
+# 使用 Homebrew 安装 git
+$ brew install git
+$ git --version
+git version 2.33.0</code></pre>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://blog.csdn.net/lxyoucan/article/details/116259842" target="_blank" rel="noopener">macOS开机iterm2 + oh my zsh会显示xcodebuild</a></li>
+<li><a href="https://github.com/ohmyzsh/ohmyzsh/issues/2189" target="_blank" rel="noopener">vi-mode plugin makes zsh painfully slow in OSX Mavericks</a></li>
+</ul>
+<h2 id="Round-0：zprof"><a href="#Round-0：zprof" class="headerlink" title="Round 0：zprof"></a>Round 0：zprof</h2><p>要解决慢的问题，首先得知道慢在什么地方了。</p>
+<p>系统使用的默认 shell 是 <a href="https://alphahinex.github.io/2020/12/13/zsh/">zsh</a>。 <code>zsh</code> 中有一个性能监控模块 <a href="https://zsh.sourceforge.io/Doc/Release/Zsh-Modules.html#The-zsh_002fzprof-Module" target="_blank" rel="noopener">22.35 The zsh/zprof Module</a>，可以输出所有函数的调用时间。</p>
+<p>在 <code>~/.zshrc</code> 文件的最前面加上：</p>
+<pre><code class="zsh">zmodload zsh/zprof</code></pre>
+<p>最后面加上：</p>
+<pre><code class="zsh">zprof</code></pre>
+<p>之后每次打开 iTerm2 时，就会看到一个类似下面的统计信息：</p>
+<pre><code class="zsh">Last login: Sun Mar 17 22:12:06 on console
+num  calls                time                       self            name
+-----------------------------------------------------------------------------------
+ 1)    1         752.28   752.28   59.80%    376.78   376.78   29.95%  nvm_auto
+ 2)    2         258.53   129.26   20.55%    258.47   129.24   20.55%  __conda_activate
+ 3)    2         375.49   187.75   29.85%    228.86   114.43   18.19%  nvm
+ 4)   23         114.59     4.98    9.11%     98.89     4.30    7.86%  _omz_source
+ 5)    1         105.03   105.03    8.35%     90.79    90.79    7.22%  nvm_ensure_version_installed
+ 6)    4          72.13    18.03    5.73%     72.13    18.03    5.73%  compaudit
+ 7)    2         110.83    55.41    8.81%     38.70    19.35    3.08%  compinit
+ 8)    1          41.04    41.04    3.26%     33.11    33.11    2.63%  nvm_die_on_prefix
+ 9)    1          14.23    14.23    1.13%     14.23    14.23    1.13%  nvm_is_version_installed
+10)    1          11.00    11.00    0.87%     11.00    11.00    0.87%  (anon)
+11)    1           7.25     7.25    0.58%      7.25     7.25    0.58%  nvm_grep
+12)    1          16.39    16.39    1.30%      5.39     5.39    0.43%  handle_update
+13)    1           4.58     4.58    0.36%      4.58     4.58    0.36%  test-ls-args
+14)    1           3.76     3.76    0.30%      3.76     3.76    0.30%  regexp-replace
+15)    1           2.95     2.95    0.23%      2.95     2.95    0.23%  grep-flags-available
+16)    6           2.44     0.41    0.19%      2.44     0.41    0.19%  is_plugin
+17)    1           1.80     1.80    0.14%      1.80     1.80    0.14%  zrecompile
+18)   16           1.32     0.08    0.10%      1.32     0.08    0.10%  compdef
+19)    5           1.28     0.26    0.10%      1.28     0.26    0.10%  is-at-least
+20)    1           1.14     1.14    0.09%      1.14     1.14    0.09%  colors
+21)    3           0.71     0.24    0.06%      0.71     0.24    0.06%  add-zsh-hook
+22)    3           0.68     0.23    0.05%      0.68     0.23    0.05%  is_theme
+23)    4           7.93     1.98    0.63%      0.68     0.17    0.05%  nvm_npmrc_bad_news_bears
+24)    1           0.56     0.56    0.04%      0.56     0.56    0.04%  nvm_has
+25)    1           0.24     0.24    0.02%      0.12     0.12    0.01%  complete
+26)    2         258.61   129.30   20.56%      0.08     0.04    0.01%  conda
+27)    2           0.07     0.04    0.01%      0.07     0.04    0.01%  env_default
+28)    2           0.07     0.03    0.01%      0.07     0.03    0.01%  bashcompinit
+29)    2           0.06     0.03    0.00%      0.06     0.03    0.00%  __conda_hashr
+30)    1         752.31   752.31   59.80%      0.04     0.04    0.00%  nvm_process_parameters
+31)    1           0.01     0.01    0.00%      0.01     0.01    0.00%  nvm_is_zsh
+
+-----------------------------------------------------------------------------------
+
+30)    1         752.31   752.31   59.80%      0.04     0.04    0.00%  nvm_process_parameters
+       1/1       752.28   752.28   59.80%    376.78   376.78             nvm_auto [1]
+
+-----------------------------------------------------------------------------------
+
+       1/1       752.28   752.28   59.80%    376.78   376.78             nvm_process_parameters [30]
+ 1)    1         752.28   752.28   59.80%    376.78   376.78   29.95%  nvm_auto
+       1/2       375.49   375.49   29.85%     10.23    10.23             nvm [3]
+
+-----------------------------------------------------------------------------------
+
+       1/2       375.49   375.49   29.85%     10.23    10.23             nvm_auto [1]
+       1/2       365.26   365.26   29.04%    218.63   218.63             nvm [3]
+ 3)    2         375.49   187.75   29.85%    228.86   114.43   18.19%  nvm
+       1/1         0.56     0.56    0.04%      0.56     0.56             nvm_has [24]
+       1/1        41.04    41.04    3.26%     33.11    33.11             nvm_die_on_prefix [8]
+       1/1       105.03   105.03    8.35%     90.79    90.79             nvm_ensure_version_installed [5]
+       1/2       365.26   365.26   29.04%    218.63   218.63             nvm [3]
+
+-----------------------------------------------------------------------------------
+
+26)    2         258.61   129.30   20.56%      0.08     0.04    0.01%  conda
+       2/2       258.53   129.26   20.55%    258.47   129.24             __conda_activate [2]
+
+-----------------------------------------------------------------------------------
+
+       2/2       258.53   129.26   20.55%    258.47   129.24             conda [26]
+ 2)    2         258.53   129.26   20.55%    258.47   129.24   20.55%  __conda_activate
+       2/2         0.06     0.03    0.00%      0.06     0.03             __conda_hashr [29]
+
+-----------------------------------------------------------------------------------
+
+ 4)   23         114.59     4.98    9.11%     98.89     4.30    7.86%  _omz_source
+       1/2         0.03     0.03    0.00%      0.03     0.03             bashcompinit [28]
+       2/2         0.07     0.04    0.01%      0.07     0.04             env_default [27]
+       3/3         0.71     0.24    0.06%      0.71     0.24             add-zsh-hook [21]
+       1/1         1.14     1.14    0.09%      1.14     1.14             colors [20]
+      15/16        1.19     0.08    0.09%      1.19     0.08             compdef [18]
+       5/5         1.28     0.26    0.10%      1.28     0.26             is-at-least [19]
+       1/1         2.95     2.95    0.23%      2.95     2.95             grep-flags-available [15]
+       1/1         3.76     3.76    0.30%      3.76     3.76             regexp-replace [14]
+       1/1         4.58     4.58    0.36%      4.58     4.58             test-ls-args [13]
+
+-----------------------------------------------------------------------------------
+
+ 7)    2         110.83    55.41    8.81%     38.70    19.35    3.08%  compinit
+       2/4        72.13    36.06    5.73%      1.23     0.61             compaudit [6]
+
+-----------------------------------------------------------------------------------
+
+       1/1       105.03   105.03    8.35%     90.79    90.79             nvm [3]
+ 5)    1         105.03   105.03    8.35%     90.79    90.79    7.22%  nvm_ensure_version_installed
+       1/1        14.23    14.23    1.13%     14.23    14.23             nvm_is_version_installed [9]
+
+-----------------------------------------------------------------------------------
+
+       2/4        72.13    36.06    5.73%      1.23     0.61             compinit [7]
+       2/4        70.90    35.45    5.64%     70.90    35.45             compaudit [6]
+ 6)    4          72.13    18.03    5.73%     72.13    18.03    5.73%  compaudit
+       2/4        70.90    35.45    5.64%     70.90    35.45             compaudit [6]
+
+-----------------------------------------------------------------------------------
+
+       1/1        41.04    41.04    3.26%     33.11    33.11             nvm [3]
+ 8)    1          41.04    41.04    3.26%     33.11    33.11    2.63%  nvm_die_on_prefix
+       4/4         7.93     1.98    0.63%      0.68     0.17             nvm_npmrc_bad_news_bears [23]
+
+-----------------------------------------------------------------------------------
+
+12)    1          16.39    16.39    1.30%      5.39     5.39    0.43%  handle_update
+       1/1        11.00    11.00    0.87%     11.00    11.00             (anon) [10]
+
+-----------------------------------------------------------------------------------
+
+       1/1        14.23    14.23    1.13%     14.23    14.23             nvm_ensure_version_installed [5]
+ 9)    1          14.23    14.23    1.13%     14.23    14.23    1.13%  nvm_is_version_installed
+
+-----------------------------------------------------------------------------------
+
+       1/1        11.00    11.00    0.87%     11.00    11.00             handle_update [12]
+10)    1          11.00    11.00    0.87%     11.00    11.00    0.87%  (anon)
+
+-----------------------------------------------------------------------------------
+
+       4/4         7.93     1.98    0.63%      0.68     0.17             nvm_die_on_prefix [8]
+23)    4           7.93     1.98    0.63%      0.68     0.17    0.05%  nvm_npmrc_bad_news_bears
+       1/1         7.25     7.25    0.58%      7.25     7.25             nvm_grep [11]
+
+-----------------------------------------------------------------------------------
+
+       1/1         7.25     7.25    0.58%      7.25     7.25             nvm_npmrc_bad_news_bears [23]
+11)    1           7.25     7.25    0.58%      7.25     7.25    0.58%  nvm_grep
+
+-----------------------------------------------------------------------------------
+
+       1/1         4.58     4.58    0.36%      4.58     4.58             _omz_source [4]
+13)    1           4.58     4.58    0.36%      4.58     4.58    0.36%  test-ls-args
+
+-----------------------------------------------------------------------------------
+
+       1/1         3.76     3.76    0.30%      3.76     3.76             _omz_source [4]
+14)    1           3.76     3.76    0.30%      3.76     3.76    0.30%  regexp-replace
+
+-----------------------------------------------------------------------------------
+
+       1/1         2.95     2.95    0.23%      2.95     2.95             _omz_source [4]
+15)    1           2.95     2.95    0.23%      2.95     2.95    0.23%  grep-flags-available
+
+-----------------------------------------------------------------------------------
+
+16)    6           2.44     0.41    0.19%      2.44     0.41    0.19%  is_plugin
+
+-----------------------------------------------------------------------------------
+
+17)    1           1.80     1.80    0.14%      1.80     1.80    0.14%  zrecompile
+
+-----------------------------------------------------------------------------------
+
+      15/16        1.19     0.08    0.09%      1.19     0.08             _omz_source [4]
+       1/16        0.13     0.13    0.01%      0.13     0.13             complete [25]
+18)   16           1.32     0.08    0.10%      1.32     0.08    0.10%  compdef
+
+-----------------------------------------------------------------------------------
+
+       5/5         1.28     0.26    0.10%      1.28     0.26             _omz_source [4]
+19)    5           1.28     0.26    0.10%      1.28     0.26    0.10%  is-at-least
+
+-----------------------------------------------------------------------------------
+
+       1/1         1.14     1.14    0.09%      1.14     1.14             _omz_source [4]
+20)    1           1.14     1.14    0.09%      1.14     1.14    0.09%  colors
+
+-----------------------------------------------------------------------------------
+
+       3/3         0.71     0.24    0.06%      0.71     0.24             _omz_source [4]
+21)    3           0.71     0.24    0.06%      0.71     0.24    0.06%  add-zsh-hook
+
+-----------------------------------------------------------------------------------
+
+22)    3           0.68     0.23    0.05%      0.68     0.23    0.05%  is_theme
+
+-----------------------------------------------------------------------------------
+
+       1/1         0.56     0.56    0.04%      0.56     0.56             nvm [3]
+24)    1           0.56     0.56    0.04%      0.56     0.56    0.04%  nvm_has
+
+-----------------------------------------------------------------------------------
+
+25)    1           0.24     0.24    0.02%      0.12     0.12    0.01%  complete
+       1/16        0.13     0.13    0.01%      0.13     0.13             compdef [18]
+
+-----------------------------------------------------------------------------------
+
+       2/2         0.07     0.04    0.01%      0.07     0.04             _omz_source [4]
+27)    2           0.07     0.04    0.01%      0.07     0.04    0.01%  env_default
+
+-----------------------------------------------------------------------------------
+
+       1/2         0.03     0.03    0.00%      0.03     0.03             _omz_source [4]
+28)    2           0.07     0.03    0.01%      0.07     0.03    0.01%  bashcompinit
+
+-----------------------------------------------------------------------------------
+
+       2/2         0.06     0.03    0.00%      0.06     0.03             __conda_activate [2]
+29)    2           0.06     0.03    0.00%      0.06     0.03    0.00%  __conda_hashr
+
+-----------------------------------------------------------------------------------
+
+31)    1           0.01     0.01    0.00%      0.01     0.01    0.00%  nvm_is_zsh</code></pre>
+<p>统计信息分为两部分：</p>
+<ol>
+<li>概述：按每个函数自身的总耗时（<code>self</code> 下的第一列。<code>time</code> 和 <code>self</code> 分别有三列）降序排序，单位是毫秒</li>
+<li>详情：列出了每个被调用的函数的详细信息</li>
+</ol>
+<p>可以看到，耗时排名前几位的：<code>nvm</code>、<code>conda</code>、<code>oh my zsh</code>。</p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/68303393" target="_blank" rel="noopener">解决zsh启动速度慢的优化方法</a></li>
+</ul>
+<h2 id="Round-1：nvm"><a href="#Round-1：nvm" class="headerlink" title="Round 1：nvm"></a>Round 1：nvm</h2><p>因为只是偶尔需要使用 <code>nvm</code> 切换 node 版本，故在 <code>.zshrc</code> 中添加懒加载脚本，将 <code>nvm</code> 的初始化从每次打开终端延迟到首次使用相关命令时。</p>
+<p><code>.zshrc</code> 中注掉如下内容：</p>
+<pre><code class="zsh">export NVM_DIR=&quot;$HOME/.nvm&quot;
+[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
+[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion</code></pre>
+<p><code>.zshrc</code> 中添加如下内容：</p>
+<pre><code class="zsh"># Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .zshrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+if [ -s &quot;$HOME/.nvm/nvm.sh&quot; ] &amp;&amp; [ ! &quot;$(whence -w __init_nvm)&quot; = function ]; then
+  export NVM_DIR=&quot;$HOME/.nvm&quot;
+  [ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;
+  local -a __node_commands=(&#39;nvm&#39; &#39;node&#39; &#39;npm&#39; &#39;yarn&#39; &#39;gulp&#39; &#39;grunt&#39; &#39;webpack&#39;)
+  function __init_nvm() {
+    for i in &quot;${__node_commands[@]}&quot;; do unalias $i; done
+    \. &quot;$NVM_DIR&quot;/nvm.sh
+    unset __node_commands
+    unset -f __init_nvm
+  }
+  for i in &quot;${__node_commands[@]}&quot;; do alias $i=&#39;__init_nvm &amp;&amp; &#39;$i; done
+fi</code></pre>
+<p><strong>一顿操作之后，除了 <code>zprof</code> 中看不到 nvm 相关函数了，冷启动速度并无太大起色。</strong></p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://blog.skk.moe/post/make-oh-my-zsh-fly/" target="_blank" rel="noopener">我就感觉到快 —— zsh 和 oh my zsh 冷启动速度优化</a></li>
+<li><a href="https://www.growingwiththeweb.com/2018/01/slow-nvm-init.html" target="_blank" rel="noopener">How to fix nvm slowing down terminal initialisation</a></li>
+</ul>
+<h2 id="Round-2：conda"><a href="#Round-2：conda" class="headerlink" title="Round 2：conda"></a>Round 2：conda</h2><p>之前安装 <a href="https://alphahinex.github.io/2024/01/14/jupyter-lab-in-action/">miniconda</a> 之后，每次进入终端会激活 <code>base</code> 环境，当时只是简单粗暴的在 <code>.zshrc</code> 中添加了一条 <code>conda deactivate</code> 命令，所以在 <code>zprof</code> 中可以看到 <code>__conda_activate</code> 还是执行并且消耗了不少时间。</p>
+<p>在 <code>~/.condarc</code> 中添加如下行取消 conda 的自动激活，并去掉 <code>conda deactive</code> 命令：</p>
+<pre><code class="condarc">auto_activate_base: false</code></pre>
+<p><strong>再次打开 iTerm2，<code>zprof</code> 中已经没有了 conda 相关的函数，但冷启动速度依然很慢。</strong></p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_43698781/article/details/124154268" target="_blank" rel="noopener">一打开终端就默认进入conda的base环境，取消方法</a></li>
+</ul>
+<h2 id="Round-3：oh-my-zsh"><a href="#Round-3：oh-my-zsh" class="headerlink" title="Round 3：oh my zsh"></a>Round 3：oh my zsh</h2><p>一直以为 iTerm2 在使用了 oh my zsh 之后冷启动慢是因为启动的时候会去进行 omz 的自动更新导致的，根据使用的版本，在 <code>.zshrc</code> 中关闭自动更新：</p>
+<p>老版本：</p>
+<pre><code class="zsh"># Uncomment the following line to disable bi-weekly auto-update checks.
+DISABLE_AUTO_UPDATE=&quot;true&quot;</code></pre>
+<p>新版本：</p>
+<pre><code class="zsh">zstyle &#39;:omz:update&#39; mode disabled</code></pre>
+<p><strong>事实证明，冷启动慢跟这个也没有关系。</strong></p>
+<p>参考资料：</p>
+<ul>
+<li><a href="https://juejin.cn/post/6923448225571700750" target="_blank" rel="noopener">关闭Oh my zsh自动更新</a></li>
+</ul>
+<h2 id="Round-4：xcodebuild"><a href="#Round-4：xcodebuild" class="headerlink" title="Round 4：xcodebuild"></a>Round 4：xcodebuild</h2><p>过了三招，此时 <code>zprof</code> 的结果中已经没有了什么耗时大户，然而冷启动时间依然慢的令人发指。</p>
+<pre><code class="zprof">num  calls                time                       self            name
+-----------------------------------------------------------------------------------
+ 1)   24         151.95     6.33   49.82%    133.18     5.55   43.67%  _omz_source
+ 2)    4          74.80    18.70   24.53%     74.80    18.70   24.53%  compaudit
+ 3)    2         145.87    72.94   47.83%     71.07    35.53   23.30%  compinit
+ 4)    1           6.59     6.59    2.16%      6.59     6.59    2.16%  test-ls-args
+ 5)    1           4.94     4.94    1.62%      4.94     4.94    1.62%  regexp-replace
+ 6)    1           3.37     3.37    1.10%      3.37     3.37    1.10%  zrecompile
+ 7)    6           2.95     0.49    0.97%      2.95     0.49    0.97%  is_plugin
+ 8)    5           1.90     0.38    0.62%      1.90     0.38    0.62%  is-at-least
+ 9)    1           1.85     1.85    0.61%      1.85     1.85    0.61%  colors
+10)    4           1.74     0.44    0.57%      1.74     0.44    0.57%  add-zsh-hook
+11)   15           1.59     0.11    0.52%      1.59     0.11    0.52%  compdef
+12)    3           0.87     0.29    0.29%      0.87     0.29    0.29%  is_theme
+13)    2           0.11     0.06    0.04%      0.11     0.06    0.04%  env_default
+14)    1           0.03     0.03    0.01%      0.03     0.03    0.01%  bashcompinit</code></pre>
+<p>iTerm2 冷启动时，标题栏确有出现过 xcode 相关的字样，参照 <a href="https://qastack.cn/apple/119864/xcodebuild-firing-after-every-terminal-command" target="_blank" rel="noopener">每个终端命令后触发xcodebuild</a> 中提到的方式接受了 xcodebuild 的许可：</p>
+<pre><code class="zsh">$ sudo xcodebuild -license accept</code></pre>
+<p>依旧没有什么改变。不过二楼的回复内容，最终引导我走向 Final Round 彻底解决了 iTerm2 冷启动速度慢的问题。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TL-DR-Final-Round-——-git"><span class="toc-number">1.</span> <span class="toc-text">TL;DR: Final Round —— git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-0：zprof"><span class="toc-number">2.</span> <span class="toc-text">Round 0：zprof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-1：nvm"><span class="toc-number">3.</span> <span class="toc-text">Round 1：nvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-2：conda"><span class="toc-number">4.</span> <span class="toc-text">Round 2：conda</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-3：oh-my-zsh"><span class="toc-number">5.</span> <span class="toc-text">Round 3：oh my zsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-4：xcodebuild"><span class="toc-number">6.</span> <span class="toc-text">Round 4：xcodebuild</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

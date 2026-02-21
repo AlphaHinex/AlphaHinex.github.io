@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MySQL 脚本转 H2 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MySQL, H2, mysql2h2, parser, converter"> 
+    <meta name="description" content="MySQL引用 MySQL 官网 的介绍：
+
+The world’s most popular open source database
+
+只要接触过数据库，应该就知道 MySQL，现行的两个主要版,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">MySQL 脚本转 H2</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/mysql2h2.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                五月 08, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/05/08/mysql2h2/" title="MySQL 脚本转 H2" class="">MySQL 脚本转 H2</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/H2/" rel="tag">H2</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><p>引用 <a href="https://www.mysql.com/" target="_blank" rel="noopener">MySQL 官网</a> 的介绍：</p>
+<blockquote>
+<p>The world’s most popular open source database</p>
+</blockquote>
+<p>只要接触过数据库，应该就知道 MySQL，现行的两个主要版本为 <a href="https://dev.mysql.com/doc/refman/5.7/en/" target="_blank" rel="noopener">5.7</a> 和 <a href="https://dev.mysql.com/doc/refman/8.0/en/" target="_blank" rel="noopener">8.0</a>，本文主要关注通常所说的 SQL 脚本，即 <code>SQL Statements</code>，两个版本的文档链接如下：</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/sql-statements.html" target="_blank" rel="noopener">SQL Statements version 5.7</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/sql-statements.html" target="_blank" rel="noopener">SQL Statements version 8.0</a></li>
+</ul>
+<h1 id="H2"><a href="#H2" class="headerlink" title="H2"></a>H2</h1><p>H2 即 H2 Database，是一个使用 Java 编写的嵌入式的内存关系型数据库，<a href="https://h2database.com" target="_blank" rel="noopener">官网</a> 中介绍的主要特点如下：</p>
+<ul>
+<li>Very fast, open source, JDBC API</li>
+<li>Embedded and server modes; disk-based or in-memory databases</li>
+<li>Transaction support, multi-version concurrency</li>
+<li>Browser based Console application</li>
+<li>Encrypted databases</li>
+<li>Fulltext search</li>
+<li>Pure Java with small footprint: around 2.5 MB jar file size</li>
+<li>ODBC driver</li>
+</ul>
+<p>关于为什么使用 Java 数据库，官网中也给出了 <a href="https://h2database.com/html/history.html#why_java" target="_blank" rel="noopener">自己的理解</a>。对于 Java 应用来讲，需要使用数据库时，只需要添加一个依赖，这简直是太方便了，尤其是在执行测试用例的时候，减少一个依赖，能够进一步降低运行测试用例的难度。</p>
+<p>H2 的 <code>SQL Statements</code> 文档在 <a href="https://h2database.com/html/commands.html" target="_blank" rel="noopener">这里</a> 。</p>
+<h1 id="mysql2h2-converter"><a href="#mysql2h2-converter" class="headerlink" title="mysql2h2-converter"></a>mysql2h2-converter</h1><p>那么问题来了，如果我的应用是基于 MySQL 构建的，相关数据库脚本都是 MySQL 的，如果想基于 H2 运行或使用 H2 作为测试用例执行环境的数据库，有没有什么简单的方法呢？毕竟二者的语法是有区别的，无法完全兼容。</p>
+<p>使用 ETL 类的工具，将 MySQL 的库导出并转换至 H2 库是一种方案，不过这种方案只解决了某个时间点数据库状态的问题，操作繁琐，后续的变更同步也是个麻烦。</p>
+<p>如果你的应用有 MySQL 的 SQL 脚本，可以试试 <code>mysql2h2-converter</code>，能够将 MySQL 的脚本，转换成 H2 可执行的脚本。想象一下：在执行测试用例的环境，测试用例可以借助 <code>mysql2h2-converter</code> 读取代码库中的 MySQL 脚本，转换并自动在 H2 内存数据库中执行，无需提前搭建测试库即可完成数据库相关测试用例的运行，香不香？</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p><code>mysql2h2-converter</code> 项目最初由 <a href="https://github.com/bgranvea/mysql2h2-converter" target="_blank" rel="noopener">@bgranvea</a> 创建，2015 年后不再维护；<a href="https://github.com/andrewparmet/mysql2h2-converter" target="_blank" rel="noopener">@andrewparmet</a> fork 进行了 <a href="https://github.com/bgranvea/mysql2h2-converter/compare/master...andrewparmet:master" target="_blank" rel="noopener">完善</a>，并在 Maven 中央库中发布了 <code>v0.2.1</code> 版本，但在 2018 年之后也没再进行维护了。</p>
+<h3 id="AlphaHinex-fork"><a href="#AlphaHinex-fork" class="headerlink" title="@AlphaHinex fork"></a>@AlphaHinex fork</h3><p><a href="https://github.com/AlphaHinex/mysql2h2-converter" target="_blank" rel="noopener">enhance 分支</a> 在 v0.2.1 版本的基础上，进行了一些完善，支持了如下语句的解析：</p>
+<pre><code class="sql">-- 字段约束中的 UNIQUE INDEX
+-- 字段类型中的 datetime(0) 形式（之前仅支持 datetime 形式）
+-- 表的 CHARACTER SET, COLLATE
+CREATE TABLE test (
+  t1 int(10) NOT NULL AUTO_INCREMENT,
+  t2 int(10) NOT NULL,
+  t3 varchar(55) DEFAULT &#39;&#39;,
+  t4 datetime DEFAULT &#39;&#39;,
+  t5 datetime(0) DEFAULT &#39;&#39;,
+  PRIMARY KEY (t1) USING BTREE,
+  UNIQUE KEY u1 (t1,t2),
+  KEY k1 (t2),
+  CONSTRAINT c1 FOREIGN KEY (t2) REFERENCES test2 (t2) ON DELETE CASCADE,
+  UNIQUE INDEX `UNIQUE_NAME_NAMESPACES` (`NAME`,`NAMESPACE`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE test (t1 int(10)) ENGINE=InnoDB CHARACTER SET=utf8mb4;
+
+-- ALTER TABLE MODIFY
+ALTER TABLE test MODIFY c1 VARCHAR(255) NULL;
+ALTER TABLE test MODIFY COLUMN c1 VARCHAR(255) NULL;
+ALTER TABLE test MODIFY c1 VARCHAR(255) NULL FIRST;
+ALTER TABLE test MODIFY COLUMN c1 VARCHAR(255) NULL AFTER c0;
+ALTER TABLE test MODIFY c1 VARCHAR(256) AFTER c0, MODIFY c2 VARCHAR(256);
+
+-- SET
+SET NAMES utf8mb4;
+
+-- UPDATE
+UPDATE test SET t1=1,t2=&#39;test&#39;,t3=5.0 WHERE t4=1;
+UPDATE test SET t1=CONCAT(t1,&#39;-&quot;)-&#39;, &quot;&#39;&quot;,&#39;-&#39;,t2) WHERE t4=1;
+
+-- DELETE
+DELETE FROM test;
+DELETE FROM test WHERE t1=1;
+DELETE FROM test WHERE t1=&#39;abc&#39; AND t2=1;
+DELETE FROM test WHERE t1=&quot;2&quot; OR t2=1;
+
+DELETE FROM test WHERE t1 IN (&#39;1&#39;,&#39;2&#39;,&#39;3&#39;);
+DELETE FROM test WHERE t1&lt;&gt;&#39;&#39; &amp;&amp; t2 IS NOT NULL;</code></pre>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="command-line"><a href="#command-line" class="headerlink" title="command line"></a>command line</h3><p>在项目根路径使用 <code>mvn package</code> 进行构建（<code>converter/target/mysql2h2-converter-tool-0.2.2.jar</code>），或直接下载发布包 <a href="https://github.com/AlphaHinex/mysql2h2-converter/releases/download/v0.2.2/mysql2h2-converter-tool-0.2.2.jar" target="_blank" rel="noopener">mysql2h2-converter-tool-0.2.2.jar</a>，然后使用如下命令进行转换：</p>
+<pre><code class="bash">$ java -jar /path/to/mysql2h2-converter-tool-0.2.2.jar input_mysql.sql &gt; output_h2.sql</code></pre>
+<h3 id="library"><a href="#library" class="headerlink" title="library"></a>library</h3><p>因为之前的版本都不再维护了，所以并没有将上述扩展提交给原始项目，并修改了 group 和 version 以便区分。作为类库使用时，可以通过 <a href="https://jitpack.io/#AlphaHinex/mysql2h2-converter/v0.2.2" target="_blank" rel="noopener">JitPack</a> 进行引用。调用时，可参照如下代码：</p>
+<pre><code class="java">private static void convertAndCreate(Statement stmt, String sqlDump) throws SQLException, ParseException {
+    Iterator&lt;SqlStatement&gt; sourceIterator = SQLParserManager.parseScript(new StringReader(sqlDump));
+    Iterator&lt;SqlStatement&gt; converted = H2Converter.convertScript(sourceIterator);
+    while (converted.hasNext()) {
+        stmt.execute(converted.next().toString());
+    }
+}</code></pre>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p><code>mysql2h2-converter</code> 项目使用 <a href="https://javacc.github.io/javacc/" target="_blank" rel="noopener">JavaCC</a> 编写了 SQL 语法描述文件 <a href="https://github.com/AlphaHinex/mysql2h2-converter/blob/enhance/parser/src/main/javacc/sqlgrammar.jj" target="_blank" rel="noopener">sqlgrammar.jj</a>，通过 JavaCC 编译生成了 MySQL 的 SQL 语句解析器，作为 <a href="https://github.com/AlphaHinex/mysql2h2-converter/tree/enhance/parser" target="_blank" rel="noopener">parser</a> 模块的基础；在 <a href="https://github.com/AlphaHinex/mysql2h2-converter/tree/enhance/converter" target="_blank" rel="noopener">converter</a> 模块中，对解析出的 MySQL 语句进行了 H2 语法的转换，并提供了在命令行中执行的主类。</p>
+<p>关于 JavaCC 的用法，可参考 <a href="https://alphahinex.github.io/2022/05/01/javacc-in-action/">JavaCC 实战</a> 。</p>
+<p><code>sqlgrammar.jj</code> 目前并未支持 MySQL 的所有语法，但在 <code>converter</code> 模块的 <a href="https://github.com/AlphaHinex/mysql2h2-converter/tree/enhance/converter/src/test/resources/scripts" target="_blank" rel="noopener">测试资源</a> 中，包含了大量的 MySQL 脚本，基本能够满足通常场景的脚本转换需求。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL"><span class="toc-number">1.</span> <span class="toc-text">MySQL</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#H2"><span class="toc-number">2.</span> <span class="toc-text">H2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql2h2-converter"><span class="toc-number">3.</span> <span class="toc-text">mysql2h2-converter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">3.1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AlphaHinex-fork"><span class="toc-number">3.1.1.</span> <span class="toc-text">@AlphaHinex fork</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用法"><span class="toc-number">3.2.</span> <span class="toc-text">用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#command-line"><span class="toc-number">3.2.1.</span> <span class="toc-text">command line</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#library"><span class="toc-number">3.2.2.</span> <span class="toc-text">library</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">3.3.</span> <span class="toc-text">原理</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

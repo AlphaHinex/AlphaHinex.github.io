@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用 Go 构建全平台命令行工具 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,golang, cli, urfave/cli, exe, postman, mdnice, gitlab"> 
+    <meta name="description" content="Write once, run anywhere 是 Sun 1995 年为宣传 Java 语言的跨平台特性而提出的口号。
+然而了解 Java 的人都知道，这个 run anywhere 是以目标环,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">用 Go 构建全平台命令行工具</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/building-command-line-apps-in-go/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Go"><b>「
+                    </b>GO<b> 」</b></a>
+                
+                十二月 11, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/12/11/building-command-line-apps-in-go/" title="用 Go 构建全平台命令行工具" class="">用 Go 构建全平台命令行工具</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://en.wikipedia.org/wiki/Write_once,_run_anywhere" target="_blank" rel="noopener">Write once, run anywhere</a> 是 Sun 1995 年为宣传 Java 语言的跨平台特性而提出的口号。</p>
+<p>然而了解 Java 的人都知道，这个 run anywhere 是以目标环境存在 JVM 为前提的。当我们希望构建一个可以 run anywhere 的命令行工具时，Java 显然不是最好的选择。</p>
+<h1 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h1><p>作为一个更加简洁、现代的编程语言，<a href="https://golang.google.cn/" target="_blank" rel="noopener">Golang</a> 可以通过指定 <code>GOOS</code> 和 <code>GOARCH</code> 两个环境变量，将 Go 代码编译为目标环境的可执行文件（无需 Go 运行环境等其他任何依赖），真正做到 Write Once, (Build multi-times), Run Anywhere。</p>
+<pre><code class="bash"># 编译本地环境可执行文件
+$ go build
+# 编译 Windows 环境 64 位 x86 架构可执行文件
+$ GOOS=windows GOARCH=amd64 go build</code></pre>
+<blockquote>
+<p>更多可用的 <code>GOOS</code> 和 <code>GOARCH</code> 组合可参照 <a href="https://golang.google.cn/doc/install/source#environment" target="_blank" rel="noopener">https://golang.google.cn/doc/install/source#environment</a> 。</p>
+</blockquote>
+<p>在 Golang 的官网上，也有一个专门的页面 —— <a href="https://golang.google.cn/solutions/clis" target="_blank" rel="noopener">Command-line Interfaces (CLIs)</a> —— 介绍使用 Go 开发命令行工具的好处，并给出了一些流行的开源项目，以便开发者能够更快速的使用 Go 构建命令行应用：</p>
+<ul>
+<li><a href="https://github.com/spf13/cobra" target="_blank" rel="noopener">spf13/cobra</a></li>
+<li><a href="https://github.com/spf13/viper" target="_blank" rel="noopener">spf13/viper</a></li>
+<li><a href="https://github.com/urfave/cli" target="_blank" rel="noopener">urfave/cli</a></li>
+<li><a href="https://github.com/go-delve/delve" target="_blank" rel="noopener">delve</a></li>
+<li><a href="https://github.com/chzyer/readline" target="_blank" rel="noopener">chzyer/readline</a></li>
+</ul>
+<p>接下来以 <code>urfave/cli</code> 为例，构建一些命令行应用。</p>
+<h1 id="urfave-cli"><a href="#urfave-cli" class="headerlink" title="urfave/cli"></a>urfave/cli</h1><p>按照 <a href="https://cli.urfave.org/v2/getting-started/" target="_blank" rel="noopener">https://cli.urfave.org/v2/getting-started/</a> 中的例子，让我们创建一个 <code>boom.go</code> 文件</p>
+<pre><code class="go">package main
+
+import (
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;os&quot;
+
+    &quot;github.com/urfave/cli/v2&quot;
+)
+
+func main() {
+    app := &amp;cli.App{
+        Name:  &quot;boom&quot;,
+        Usage: &quot;make an explosive entrance&quot;,
+        Action: func(*cli.Context) error {
+            fmt.Println(&quot;boom! I say!&quot;)
+            return nil
+        },
+    }
+
+    if err := app.Run(os.Args); err != nil {
+        log.Fatal(err)
+    }
+}</code></pre>
+<p>因为需要将 <code>urfave/cli</code> v2 的包引入进来，所以我们需要 <a href="https://go.dev/blog/using-go-modules" target="_blank" rel="noopener">使用 Go Modules</a> 。在 <code>boom.go</code> 所在路径中，执行：</p>
+<pre><code class="bash">$ go mod init example.com/boom</code></pre>
+<p>之后按照 <a href="https://cli.urfave.org/#installation" target="_blank" rel="noopener">安装文档</a> ，添加 <code>urfave/cli</code> v2 模块：</p>
+<pre><code class="bash">$ go get github.com/urfave/cli/v2</code></pre>
+<p>此时即可编译 <code>boom.go</code> 获得您使用 <code>urfave/cli</code> 构建的第一个命令行应用了：</p>
+<pre><code class="bash">$ go build
+$ ./boom
+boom! I say!
+$ ./boom --help
+NAME:
+   boom - make an explosive entrance
+
+USAGE:
+   boom [global options] command [command options] [arguments...]
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --help, -h  show help (default: false)</code></pre>
+<p>更多用法可参考 <a href="https://cli.urfave.org/v2/getting-started/" target="_blank" rel="noopener">v2 Manual</a> 中的 Examples。</p>
+<blockquote>
+<p>在执行 <code>go get github.com/urfave/cli/v2</code> 时如果遇到连接超时问题，可以按照 <a href="https://goproxy.cn/" target="_blank" rel="noopener">https://goproxy.cn/</a> 中的说明，使用七牛提供的 Go 模块代理。</p>
+</blockquote>
+<h1 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h1><p>还不怎么会写 Go 代码？如果你想构建的命令行应用是一个调用三方 RESTful API 实现一些功能的工具（如下面的 <code>mdnice</code> 样例），可以先使用 <a href="https://www.postman.com/" target="_blank" rel="noopener">Postman</a> 进行接口的调用和调试，之后直接生成 go 代码：</p>
+<p><img src="/contents/building-command-line-apps-in-go/postman.png" alt=""></p>
+<p>关于 Postman 的更多用法，可参考 <a href="https://alphahinex.github.io/2022/05/22/use-postman-to-do-system-acceptance-test/">使用 Postman 进行系统可接受性测试</a> 。</p>
+<h1 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h1><p>提供几个样例，源码地址：<a href="https://github.com/AlphaHinex/go-toolkit" target="_blank" rel="noopener">https://github.com/AlphaHinex/go-toolkit</a></p>
+<h2 id="random-pick"><a href="#random-pick" class="headerlink" title="random-pick"></a>random-pick</h2><p><a href="https://github.com/AlphaHinex/go-toolkit/tree/main/random-pick" target="_blank" rel="noopener">https://github.com/AlphaHinex/go-toolkit/tree/main/random-pick</a></p>
+<p>随机选择指定类型文件，复制或移动到指定路径。</p>
+<pre><code class="bash">$ ./random-pick -h
+NAME:
+   random-pick - Random pick files in some path
+
+USAGE:
+   random-pick [global options] command [command options] [arguments...]
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   -n value    Pick n files (default: 10)
+   -t value    File type(s) to pick, * means all types, comma separated for multi values: &#39;jpg,png&#39;, case insensitive (default: &quot;*&quot;)
+   -i value    Path to pick files (default: &quot;.&quot;)
+   -o value    Output picked files (default: &quot;.&quot;)
+   -k          Keep picked files in path (default: false)
+   --help, -h  show help (default: false)</code></pre>
+<p>从 <code>./foo</code> 路径选择 5 个 jpg 或 png 类型的文件，复制到 <code>./bar</code> 路径：</p>
+<pre><code class="bash">$ ./random-pick -i ./foo -n 5 -t jpg,png -o ./bar -k
+./random-pick -i ./foo -n 5 -t jpg,png -o ./bar -k
+Copy ./foo/21670642460.JPG to ./bar/01670679254.JPG
+Copy ./foo/31670642460.JPG to ./bar/11670679254.JPG
+Copy ./foo/51670642460.JPG to ./bar/21670679254.JPG
+Copy ./foo/11670642460.JPG to ./bar/31670679254.JPG
+Copy ./foo/71670642460.PNG to ./bar/41670679254.PNG</code></pre>
+<h2 id="mdnice"><a href="#mdnice" class="headerlink" title="mdnice"></a>mdnice</h2><p><a href="https://github.com/AlphaHinex/go-toolkit/tree/main/mdnice" target="_blank" rel="noopener">https://github.com/AlphaHinex/go-toolkit/tree/main/mdnice</a></p>
+<p>将指定路径下的所有图片文件，上传至 <a href="https://editor.mdnice.com/" target="_blank" rel="noopener">mdnice</a> 的图床，需要 mdnice 的 JWT token。图片在图床的链接以 markdown 格式输出到图片来源路径的 README.md 文件中，上传失败的也会将失败原因记录至 md 文件。</p>
+<pre><code class="bash">$ ./mdnice -h
+NAME:
+   mdnice - Upload pictures to mdnice
+
+USAGE:
+   mdnice [global options] command [command options] [arguments...]
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   -i value            Path to be uploaded (default: &quot;.&quot;)
+   --token value       Bearer token of mdnice
+   --token-file value  Bearer token file of mdnice
+   --help, -h          show help (default: false)</code></pre>
+<p>使用 token 文件中的 JWT Token，将 <code>./foo</code> 路径下的所有（图片）文件上传：</p>
+<pre><code class="bash">$ ./mdnice -i ./foo --token-file token
+Failed to upload 01670642460.GIF
+Upload 01670642460.JPG done
+Upload 11670642460.JPG done
+Upload 21670642460.JPG done
+Upload 31670642460.JPG done
+Upload 41670642460.JPG done
+Upload 51670642460.JPG done
+Upload 61670642460.JPG done
+Failed to upload 71670642460.PNG
+Upload 81670642460.JPG done
+Failed to upload README.md
+$ cat ./foo/README.md
+![](https://files.mdnice.com/user/30377/89e8cb29-4f58-4afc-a9cd-37018de437e3.JPG)
+![](https://files.mdnice.com/user/30377/263b7008-eb99-4a0a-b502-2b3b1ceb6e3c.JPG)
+![](https://files.mdnice.com/user/30377/4df30bf5-b763-4c94-801b-a7f52573e5c1.JPG)
+![](https://files.mdnice.com/user/30377/bf4099ce-b81e-4320-aed7-7501bf06a22f.JPG)
+![](https://files.mdnice.com/user/30377/f6183597-1929-42c9-bfa8-962b9521b0c7.JPG)
+![](https://files.mdnice.com/user/30377/6f204840-cedd-4d67-909f-ef373bdf5443.JPG)
+![](https://files.mdnice.com/user/30377/d42fa98a-0f30-4a87-8a26-32add001aa8d.JPG)
+![](https://files.mdnice.com/user/30377/1a5152b1-a665-461e-8324-b58e3209a13a.JPG)
+
+---
+Upload ./foo/01670642460.GIF failed: 50005:文件过大
+Upload ./foo/71670642460.PNG failed: 50005:文件过大
+Upload ./foo/README.md failed: 50005:文件类型错误，仅支持jpg、jpeg、png、gif、svg类型</code></pre>
+<h2 id="gitlab"><a href="#gitlab" class="headerlink" title="gitlab"></a>gitlab</h2><p><a href="https://github.com/AlphaHinex/go-toolkit/tree/main/gitlab" target="_blank" rel="noopener">https://github.com/AlphaHinex/go-toolkit/tree/main/gitlab</a></p>
+<p>调用 GitLab RESTful API，分析指定项目和分支在某时间范围内的 Commit 情况，对每个 commit 中修改的文件进行逐个分析，统计新增代码行数、减少代码行数，以及忽略空格和换行改动的新增代码行数、减少代码行数（相当于 <code>git diff -w</code>），将分析结果生成 csv 文件，并按提交人邮箱进行汇总排名，输出至 console，并可通过飞书机器人发送统计结果。支持过滤初始 Commit 及 Merge Request Commit。</p>
+<p>主要使用了以下两个 API：</p>
+<ol>
+<li><a href="https://docs.gitlab.com/ee/api/projects.html" target="_blank" rel="noopener">/help/api/projects.md</a></li>
+<li><a href="https://docs.gitlab.com/ee/api/commits.html" target="_blank" rel="noopener">/help/api/commits.md</a></li>
+</ol>
+<pre><code class="bash">$ ./gitlab -h
+NAME:
+   gitlab - Use GitLab API to do some analysis works
+
+USAGE:
+   gitlab [global options] command [command options] [arguments...]
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --url value, -u value            GitLab host url
+   --access-token value, -t value   Access token to use GitLab API
+   --project-id value, -p value     Project ID in GitLab
+   --branch value, -b value         Branch of project
+   --since value                    Date of since, from 00:00:00 (default: &quot;2022-01-01&quot;)
+   --until value                    Date of until, to 23:59:59 (default: &quot;2022-12-31&quot;)
+   --parallel value                 Number of commit parsers (default: 16)
+   --lark value                     Lark webhook url
+   --commit-parents commit-parents  Only count the commit has commit-parents number parent(s),
+                                        -1 means counting all commits,
+                                        0 means only counting the initial commit,
+                                        2 means only counting merge request commit,
+                                        1 means exclude initial commit and merge request commit (default: -1)
+   --help, -h                       show help (default: false)</code></pre>
+<p>统计 <a href="https://gitlab.com/gnachman/iterm2" target="_blank" rel="noopener">https://gitlab.com/gnachman/iterm2</a> 项目 2022 年 11 月代码提交情况：</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com/ -t XXXXXX -p 252461 -b master --commit-parents 1 --since 2022-11-01 --until 2022-11-30
+2022/12/10 22:47:19 Start to analyse iterm2 ...
+2022/12/10 22:47:22 Load all commits
+2022/12/10 22:47:31 Generate 252461_iterm2_master_2022-11-01~2022-11-30.csv use 24.443924546s.
+
+iterm2 项目 master  分支代码分析结果（2022-11-01~2022-11-30)
+
+No. author                    effLines(ratio)    effAdds(ratio)    commits    files
+ 1. gnachman@gmail.com        2366(90.31%)    1538(90.26%)    23    64
+ 2. brewingcode@users.noreply.github.com 2(50.00%)    2(50.00%)    1    2
+
+以上结果统计了除初始 Commit 和 Merge Request 外的所有 Commit（时间范围内）
+* effLines（有效代码行数）= 有效增加代码行数 + 有效减少代码行数
+* effLines ratio（有效代码率）= 有效代码行数 / 总代码行数 * 100%
+* effAdds（有效增加行数）= 有效增加代码行数
+* effAdds ratio（有效增加率）= 有效增加代码行数 / 总增加代码行数 * 100%
+* commits：Commit 总数
+* files：文件总数（不去重）
+* 有效代码：忽略仅有空格或换行的代码改动，diff -w</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Golang"><span class="toc-number">1.</span> <span class="toc-text">Golang</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#urfave-cli"><span class="toc-number">2.</span> <span class="toc-text">urfave&#x2F;cli</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Postman"><span class="toc-number">3.</span> <span class="toc-text">Postman</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sample"><span class="toc-number">4.</span> <span class="toc-text">Sample</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#random-pick"><span class="toc-number">4.1.</span> <span class="toc-text">random-pick</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mdnice"><span class="toc-number">4.2.</span> <span class="toc-text">mdnice</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gitlab"><span class="toc-number">4.3.</span> <span class="toc-text">gitlab</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

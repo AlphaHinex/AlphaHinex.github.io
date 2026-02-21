@@ -1,0 +1,693 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>正确管理kubernetes有状态应用之nacos - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kubernetes, k8s, operator, nacos, helm, CR, CRD"> 
+    <meta name="description" content="介绍本文旨在分享 kubernetes 环境下如何管理 nacos，阅读本文需要一定 kubernetes 基础。
+nacos介绍nacos 是阿里开源的一款注册中心、配置中心软件。更多信息移步：h,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">正确管理kubernetes有状态应用之nacos</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/nacos-operator/api.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                一月 19, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/01/19/nacos-operator/" title="正确管理kubernetes有状态应用之nacos" class="">正确管理kubernetes有状态应用之nacos</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Nacos/" rel="tag">Nacos</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>本文旨在分享 <code>kubernetes</code> 环境下如何管理 <code>nacos</code>，阅读本文需要一定 <code>kubernetes</code> 基础。</p>
+<h2 id="nacos介绍"><a href="#nacos介绍" class="headerlink" title="nacos介绍"></a>nacos介绍</h2><p><code>nacos</code> 是阿里开源的一款注册中心、配置中心软件。更多信息移步：<a href="https://nacos.io/zh-cn/docs/what-is-nacos.html" target="_blank" rel="noopener">https://nacos.io/zh-cn/docs/what-is-nacos.html</a></p>
+<h2 id="有状态应用管理方式"><a href="#有状态应用管理方式" class="headerlink" title="有状态应用管理方式"></a>有状态应用管理方式</h2><p><code>Kubernetes</code> 有状态应用管理方式，通常有三种：手动、<code>helm</code>、<code>operator</code></p>
+<p>推荐的优先级：手动 &lt; <code>helm</code> &lt; <code>operator</code></p>
+<p><img src="/contents/nacos-operator/priority.png" alt="priority"></p>
+<p><code>kubernetes</code> 发展初期，用户通常使用 <code>helm</code> 管理有状态应用（例如zk集群），管理方式则是以预置 <code>webhook</code> 函数形式，当 <code>helm</code> 执行 <code>update</code> 命令时，触发对应钩子函数进而执行相关动作（扩容/更换镜像）。</p>
+<p>随着后续 <code>operator</code> 的引入，有状态应用的管理更加便捷。由于 <code>operator</code> 引入有状态 <code>CRD</code> 及对应的控制器，从而扩展了 <code>Kubernetes</code> 的 <code>API</code>，管理有状态应用变得像管理 <code>Kubernetes</code> 原生资源对象（Deployment、StatefulSet）一样简单。</p>
+<pre><code class="bash">$ kubectl get nacos
+NAME    REPLICAS   READY     TYPE         DBTYPE   VERSION   CREATETIME
+nacos   1          Running   standalone            2.0.4     2023-09-18T02:31:23Z</code></pre>
+<h2 id="operator介绍"><a href="#operator介绍" class="headerlink" title="operator介绍"></a>operator介绍</h2><p>上面我们提到了，现阶段 <code>kubernetes</code> 推荐用户使用 <code>operator</code> 管理集群内的有状态应用。那接下来，我们来了解下 <code>kubernetes</code> 的 <code>operator</code> 究竟是什么。</p>
+<p>维护应用程序基础结构需要许多重复性的人为操作，而这些重复性操作通常没有太大的意义。计算机是执行精确任务的首选方法，可以验证对象的状态，从而使基础设施需求能够被编码。<code>operator</code> 提供了一种方法来封装应用程序所需的活动、检查和语句管理。</p>
+<p>在 <code>Kubernetes</code> 中，<code>operator</code> 通过扩展 <code>API</code> 的功能来提供智能的动态管理功能。这些 <code>operator</code> 组件允许通用流程的自动化以及响应式应用程序不断适应其环境。这反过来促进应用更快速的开发，减少故障点，更低的平均恢复时间，并增加了工程自治权。</p>
+<p><code>Kubernetes</code> 和其他容器协调器的成功，一直归功于他们对容器的主要功能的关注。尽管部分企业开启了云原生路线，但与更具体的用例(微服务、无状态应用程序)合作更有意义。<code>operator</code> 模式可以解决状态管理问题。通过利用 <code>Kubernetes</code> 内置的功能，如自愈、协调和扩展应用程序特定的复杂性; 可以将任何应用程序的生命周期、操作自动化，并将其转化为功能强大的产品。</p>
+<p><code>operator</code> 与 <code>Kubernetes</code> 不应是绑定的，管理完全自动化的应用程序的思想可以导出到其他平台。</p>
+<p>当然，你也可以将 <code>operator</code> 理解为基于 <code>Kubernetes</code> 的扩展控制器，管理 <code>Kubernetes</code> <code>API</code> 扩展资源类型（CR）生命周期。</p>
+<p><img src="/contents/nacos-operator/cr.png" alt="cr"></p>
+<h2 id="CR-amp-CRD介绍"><a href="#CR-amp-CRD介绍" class="headerlink" title="CR&amp;CRD介绍"></a>CR&amp;CRD介绍</h2><p><code>CR</code> 全称是 <code>Custom Resource</code>，即自定义资源（ConfigMap、Secret等为kubernetes内置资源类型）。<br><code>CRD</code>全称是<code>Custom Resource Definition</code>，<code>CRD</code>本身是一种 <code>Kubernetes</code> 内置的资源类型，即自定义资源的定义，用于描述用户定义的资源（CR）是什么样子。<code>CRD</code> 的相关概念：</p>
+<ol>
+<li>从 <code>Kubernetes</code> 的用户角度来看，所有东西都叫资源 <code>Resource</code>，就是 <code>Yaml</code> 里的字段 <strong><code>Kind</code></strong> 的内容，例如 <code>Service</code>、<code>Deployment</code>等。</li>
+<li>除了常见内置资源之外，<code>Kubernetes</code> 允许用户自定义资源 <code>Custom Resource</code>，而 CRD 表示自定义资源的定义。</li>
+</ol>
+<p><img src="/contents/nacos-operator/cr-crd.png" alt="cr&amp;crd"></p>
+<h1 id="Nacos-operator选型"><a href="#Nacos-operator选型" class="headerlink" title="Nacos operator选型"></a>Nacos operator选型</h1><p><code>operator</code> 可以自己开发，或者选择已有开源项目，当然优先选取官方的 <code>operator</code>，而 <code>nacos</code> 为使用者提供了 <code>operator</code>，我们直接拿来用就可以了。</p>
+<p><a href="https://github.com/nacos-group/nacos-k8s/blob/master/operator/README.md" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-k8s/blob/master/operator/README.md</a></p>
+<h1 id="Nacos-operator-chart改造"><a href="#Nacos-operator-chart改造" class="headerlink" title="Nacos operator chart改造"></a>Nacos operator chart改造</h1><p>为方便在内网环境使用，我们需要对官方的 <code>operator</code> 进行一定的改造。</p>
+<h2 id="1-下载官方项目"><a href="#1-下载官方项目" class="headerlink" title="1. 下载官方项目"></a>1. 下载官方项目</h2><p><a href="https://github.com/nacos-group/nacos-k8s/archive/refs/heads/master.zip" target="_blank" rel="noopener">https://github.com/nacos-group/nacos-k8s/archive/refs/heads/master.zip</a></p>
+<h2 id="2-修改-operator-镜像-tag"><a href="#2-修改-operator-镜像-tag" class="headerlink" title="2. 修改 operator 镜像 tag"></a>2. 修改 <code>operator</code> 镜像 <code>tag</code></h2><p>如果您的 <code>kubernetes</code> 环境可以联网，则不需要使用私有镜像库。</p>
+<p>下载完项目后，我们上传至 <code>Linux</code> 服务器（需安装 <code>helm</code>），编辑 <code>operator/chart/nacos-operator/values.yaml</code> 修改以下内容:</p>
+<pre><code class="yaml"># 更改前
+image:
+  repository: nacos/nacos-operator
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: &quot;latest&quot;
+
+ # 更改后
+image:
+  repository: harbor.cloud.io/nacos/nacos-operator
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: &quot;latest&quot;</code></pre>
+<p>即引用私有镜像库中的镜像，注：<code>harbor.cloud.io</code> 为脱敏后的域名。</p>
+<h2 id="3-修改默认配额（可选）"><a href="#3-修改默认配额（可选）" class="headerlink" title="3. 修改默认配额（可选）"></a>3. 修改默认配额（可选）</h2><p>编辑<code>operator/chart/nacos-operator/values.yaml</code>修改以下内容:</p>
+<pre><code class="yaml"># 更改前
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after &#39;resources:&#39;.
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+# 更改后
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after &#39;resources:&#39;.
+  limits:
+    cpu: 1
+    memory: 2048Mi
+  requests:
+    cpu: 500m
+    memory: 1024Mi</code></pre>
+<h2 id="4-对chart进行打包，方便后续使用及分发"><a href="#4-对chart进行打包，方便后续使用及分发" class="headerlink" title="4. 对chart进行打包，方便后续使用及分发"></a>4. 对chart进行打包，方便后续使用及分发</h2><pre><code class="bash">$ helm package operator/chart/nacos-operator
+Successfully packaged chart and saved it to: /root/nacos-k8s-master/nacos-operator-0.1.0.tgz</code></pre>
+<p>由此我们获取了<code>chart</code>文件：<code>nacos-operator-0.1.0.tgz</code></p>
+<h2 id="5-下载相关镜像，导入私有镜像库内"><a href="#5-下载相关镜像，导入私有镜像库内" class="headerlink" title="5. 下载相关镜像，导入私有镜像库内"></a>5. 下载相关镜像，导入私有镜像库内</h2><pre><code class="text"># 镜像列表
+nacos/nacos-operator
+nacos/nacos-server:v2.0.4</code></pre>
+<h1 id="Nacos-operator使用方式"><a href="#Nacos-operator使用方式" class="headerlink" title="Nacos operator使用方式"></a>Nacos operator使用方式</h1><p>首先我们将修改好的 <code>nacos-operator</code> 发布至集群内</p>
+<pre><code class="bash">$ kubectl create ns nacos
+$ helm install nacos-operator -n nacos ./nacos-operator-0.1.0.tgz</code></pre>
+<p>查看 <code>nacos-operator</code> 发布情况</p>
+<pre><code class="bash">$ kubectl get pod -n nacos -w
+NAME                              READY   STATUS    RESTARTS   AGE
+nacos-operator-5865c799f5-pdc4n   1/1     Running   0          36s</code></pre>
+<p>运行成功！我们接下来创建几个样例，熟悉使用方式</p>
+<h2 id="单点"><a href="#单点" class="headerlink" title="单点"></a>单点</h2><p>创建一个单节点实例，选择 <code>v2.0.4</code> 版本进行发布，数据库选择内嵌类型，并挂载 <code>10Gi</code> 的卷。</p>
+<pre><code class="bash">$ cat &gt; nacos.yaml &lt;&lt;EOF
+apiVersion: nacos.io/v1alpha1
+kind: Nacos
+metadata:
+  name: nacos-single
+spec:
+  type: standalone
+  image: harbor.cloud.io/nacos/nacos-server:v2.0.4
+  replicas: 1
+  database:
+    type: embedded
+  # Start the data volume, otherwise the data will be lost after restart
+  volume:
+    enabled: true
+    requests:
+      storage: 10Gi
+EOF
+
+# Install demo standalone mode
+$ kubectl apply -f nacos.yaml -n nacos</code></pre>
+<p>观察 <code>nacos</code> 实例状态</p>
+<pre><code class="bash">$ kubectl get nacos -n nacos -w
+NAME           REPLICAS   READY      TYPE         DBTYPE     VERSION   CREATETIME
+nacos-single   1          Creating   standalone   embedded             2023-09-26T06:30:19Z</code></pre>
+<p>创建完毕后，会自动生成 <code>svc</code>、<code>pvc</code>、<code>pod</code> 等实例</p>
+<pre><code class="bash">$ kubectl get svc -n nacos nacos-single
+NAME           TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)                      AGE
+nacos-single   ClusterIP   10.233.4.18   &lt;none&gt;        8848/TCP,7848/TCP,9848/TCP   2m39s
+
+$ kubectl get pvc -n nacos
+NAME                STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS           AGE
+db-nacos-single-0   Bound    pvc-3f391db7-738e-4597-853a-a69a0219d6a5   10Gi       RWO            default   3m10s
+
+$ kubectl get pod -n nacos nacos-single-0
+NAME             READY   STATUS    RESTARTS   AGE
+nacos-single-0   1/1     Running   0          3m53s</code></pre>
+<p>当然数据库类型也可以选择外部 <code>mysql</code>，但单点 <code>nacos</code> 一般用于开发、测试环境，没有必要单独创建一个 <code>mysql</code> 实例，内嵌数据库比较简单。</p>
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>接下来，我们创建一个3节点实例的 <code>nacos</code> 集群，选择 <code>v2.0.4</code> 版本进行发布，数据库选择外部数据库，并配置相关配额及环境变量。数据库表需要提前创建：<a href="https://raw.githubusercontent.com/alibaba/nacos/develop/distribution/conf/mysql-schema.sql" target="_blank" rel="noopener">nacos表结构sql</a></p>
+<pre><code class="bash">$ cat &gt; nacos-cluster.yaml &lt;&lt;EOF
+apiVersion: nacos.io/v1alpha1
+kind: Nacos
+metadata:
+  name: nacos-cluster
+spec:
+  type: cluster
+  image: harbor.cloud.io/nacos/nacos-server:v2.0.4
+  replicas: 3
+  database:
+    type: mysql
+    mysqlHost: mysql.nacos
+    mysqlDb: nacos
+    mysqlUser: ******
+    mysqlPort: &quot;3306&quot;
+    mysqlPassword: &quot;******&quot;
+  resources:
+    limits:
+      cpu: &quot;1&quot;
+      memory: 4Gi
+    requests:
+      cpu: 500m
+      memory: 2Gi
+EOF</code></pre>
+<p>查看创建状态</p>
+<pre><code class="bash">$ kubectl get nacos.nacos.io -n nacos
+NAME            REPLICAS   READY      TYPE         DBTYPE     VERSION   CREATETIME
+nacos-cluster   3          Creating   cluster      mysql                2023-09-26T08:02:03Z
+nacos-single    1          Running    standalone   embedded   2.0.4     2023-09-26T06:30:19Z
+
+$ kubectl get pod -n nacos -l app=nacos-cluster
+NAME              READY   STATUS    RESTARTS   AGE
+nacos-cluster-0   1/1     Running   0          35s
+nacos-cluster-1   1/1     Running   0          35s
+nacos-cluster-2   1/1     Running   0          35s</code></pre>
+<p>通过 <code>pod</code> 名称我们可以发现，<code>nacos operator</code> 底层基于 <code>StatefulSet</code> 管理 <code>nacos</code> 实例</p>
+<pre><code class="bash">$ kubectl describe pod nacos-cluster-0 -n nacos |grep Controlled
+Controlled By:  StatefulSet/nacos-cluster</code></pre>
+<p>通过观察 <code>Service</code> 可知，<code>nacos operator</code> 创建集群类型 <code>nacos</code> 时会创建两种类型 <code>Service</code>，分别用于 <code>Web</code> 控制台（nacos-cluster-client）与程序侧配置（nacos-cluster-headless）</p>
+<pre><code class="bash">$ kubectl get svc -n nacos -l app=nacos-cluster
+NAME                     TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+nacos-cluster-client     ClusterIP   10.233.48.176   &lt;none&gt;        8848/TCP                     3m54s
+nacos-cluster-headless   ClusterIP   None            &lt;none&gt;        8848/TCP,7848/TCP,9848/TCP   3m54s</code></pre>
+<p>开启 <code>NodePort</code> 访问控制台，观察集群状态</p>
+<p><img src="/contents/nacos-operator/nacos.png" alt="nacos"></p>
+<h1 id="进阶：封装nacos管理接口"><a href="#进阶：封装nacos管理接口" class="headerlink" title="进阶：封装nacos管理接口"></a>进阶：封装nacos管理接口</h1><p>通过 <code>nacos operator</code> 我们可以方便的管理<code>nacos</code>实例，但仅限于后台操作（kubectl）。如果我们能将对<code>nacos</code>的操作封装成一个服务，可以很方便的对外提供服务。</p>
+<h2 id="架构设计"><a href="#架构设计" class="headerlink" title="架构设计"></a>架构设计</h2><p>调用者通过 <code>REST HTTP</code> 接口访问 <code>nacos</code> 管理服务实现对集群内 <code>nacos</code> 服务的运维管理。</p>
+<p>接口类型可分为四类：</p>
+<ul>
+<li>创建：创建 <code>nacos</code> 实例，入参类型：配额、<code>nacos</code> 部署类型、<code>nacos</code> 数据存储类型等</li>
+<li>删除：删除 <code>nacos</code> 实例，入参类型：<code>nacos</code>名称、命名空间</li>
+<li>修改：修改 <code>nacos</code> 实例，入参类型：配额</li>
+<li>查询：查询 <code>nacos</code> 实例及运行状态、查询当前可创建<code>nacos</code>版本</li>
+</ul>
+<p><img src="/contents/nacos-operator/crud.png" alt="crud"></p>
+<h2 id="接口设计样例"><a href="#接口设计样例" class="headerlink" title="接口设计样例"></a>接口设计样例</h2><p>篇幅有限，以下仅展示部分接口设计。</p>
+<p><img src="/contents/nacos-operator/api.png" alt="api"></p>
+<h2 id="实现解析"><a href="#实现解析" class="headerlink" title="实现解析"></a>实现解析</h2><p>本质就是对 <code>Kubernetes</code> 的 <code>CRD</code> 对象操作，操作时使用 <code>DynamicK8sClientSet</code> 对象。</p>
+<ul>
+<li>查询核心代码</li>
+</ul>
+<pre><code class="go">var gvr = schema.GroupVersionResource{
+   Group:    &quot;nacos.io&quot;,
+   Version:  &quot;v1alpha1&quot;,
+   Resource: &quot;nacos&quot;,
+}
+func getNacosItem(name, namespace string) (Nacos, error) {
+   resp, err := client.DynamicK8sClientSet.
+   Resource(gvr).
+   Namespace(namespace).
+   Get(context.Background(), name, v1.GetOptions{})
+   if err != nil {
+      return FindItem{}, err
+   }
+   data, _ := resp.MarshalJSON()
+   nacos := &amp;v1alpha1.Nacos{}
+   json.Unmarshal(data, nacos)
+
+   return nacos
+}</code></pre>
+<ul>
+<li>删除核心代码</li>
+</ul>
+<pre><code class="go">func deleteNacosItem(name, namespace string) error {
+   return client.
+   DynamicK8sClientSet.
+   Resource(gvr).
+   Namespace(namespace).
+   Delete(context.Background(), name, v1.DeleteOptions{})
+}</code></pre>
+<p>其他接口类似，只是出入参不同而已。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#nacos介绍"><span class="toc-number">1.1.</span> <span class="toc-text">nacos介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有状态应用管理方式"><span class="toc-number">1.2.</span> <span class="toc-text">有状态应用管理方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#operator介绍"><span class="toc-number">1.3.</span> <span class="toc-text">operator介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CR-amp-CRD介绍"><span class="toc-number">1.4.</span> <span class="toc-text">CR&amp;CRD介绍</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nacos-operator选型"><span class="toc-number">2.</span> <span class="toc-text">Nacos operator选型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nacos-operator-chart改造"><span class="toc-number">3.</span> <span class="toc-text">Nacos operator chart改造</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-下载官方项目"><span class="toc-number">3.1.</span> <span class="toc-text">1. 下载官方项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-修改-operator-镜像-tag"><span class="toc-number">3.2.</span> <span class="toc-text">2. 修改 operator 镜像 tag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-修改默认配额（可选）"><span class="toc-number">3.3.</span> <span class="toc-text">3. 修改默认配额（可选）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-对chart进行打包，方便后续使用及分发"><span class="toc-number">3.4.</span> <span class="toc-text">4. 对chart进行打包，方便后续使用及分发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-下载相关镜像，导入私有镜像库内"><span class="toc-number">3.5.</span> <span class="toc-text">5. 下载相关镜像，导入私有镜像库内</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Nacos-operator使用方式"><span class="toc-number">4.</span> <span class="toc-text">Nacos operator使用方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单点"><span class="toc-number">4.1.</span> <span class="toc-text">单点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群"><span class="toc-number">4.2.</span> <span class="toc-text">集群</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进阶：封装nacos管理接口"><span class="toc-number">5.</span> <span class="toc-text">进阶：封装nacos管理接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#架构设计"><span class="toc-number">5.1.</span> <span class="toc-text">架构设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口设计样例"><span class="toc-number">5.2.</span> <span class="toc-text">接口设计样例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现解析"><span class="toc-number">5.3.</span> <span class="toc-text">实现解析</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

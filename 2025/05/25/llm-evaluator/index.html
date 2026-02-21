@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>基于对话补全接口的问答能力评估 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,LLM, Agent, RAG, OpenAI API, Chat Completions, Go, go-toolkit, llm-evaluator"> 
+    <meta name="description" content="LLM Evaluator
+LLM Evaluator 是一个跨平台的命令行工具，旨在帮助用户评估基于兼容 OpenAI API 对话补全接口的大语言模型（或智能体、RAG 流程）对于有标准答案的问,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">基于对话补全接口的问答能力评估</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/llm-evaluator/arch.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                五月 25, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/05/25/llm-evaluator/" title="基于对话补全接口的问答能力评估" class="">基于对话补全接口的问答能力评估</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="LLM-Evaluator"><a href="#LLM-Evaluator" class="headerlink" title="LLM Evaluator"></a>LLM Evaluator</h1><p><img src="https://alphahinex.github.io/contents/llm-evaluator/arch.png" alt="architecture"></p>
+<p>LLM Evaluator 是一个跨平台的命令行工具，旨在帮助用户评估基于兼容 OpenAI API 对话补全接口的大语言模型（或智能体、RAG 流程）对于有标准答案的问题的回答能力。</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p>基本工作流程为：</p>
+<ol>
+<li><code>llm-evaluator</code> 通过配置文件读取待评估的问题及标准答案，评估标准可选，默认为本质含义一致，可设置为 <code>=</code> 表示必须与标准答案完全一致；</li>
+<li>调用候选模型对话补全接口，获得候选模型对待评估问题的回答；</li>
+<li>使用评估提示词组装问题、标准答案和候选模型回答的内容，交由评估模型对回答进行评估；</li>
+<li>评估结果输出至 CSV 文件中，并可选同步至 <a href="https://langfuse.com/" target="_blank" rel="noopener">Langfuse</a> 平台以便可视化观察及对比多次评估结果。</li>
+</ol>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>跨平台，体积小（<code>~10MB</code>），无需其他环境依赖</li>
+<li>与候选模型及评估模型通过 <a href="https://platform.openai.com/docs/api-reference/chat" target="_blank" rel="noopener">OpenAI Chat Completions API</a> 交互</li>
+<li>支持对多轮问答效果的评估</li>
+<li>支持并发评估多个问题</li>
+<li>评估提示词可配置</li>
+<li>支持按照完全一致和本质一致两种方式评估候选模型回答</li>
+<li>评估结果附加在输入的 CSV 副本中，并可选同步至 <code>Langfuse</code></li>
+</ol>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="配置模板"><a href="#配置模板" class="headerlink" title="配置模板"></a>配置模板</h3><pre><code class="bash">$ ./llm-evaluator -t</code></pre>
+<p>生成配置文件模板，如：</p>
+<pre><code class="yaml"># 必填
+model:
+  # 运动员
+  candidate:
+    endpoint: https://api.openai.com
+    api-key: sk-xxxxxxxx
+    model: text-davinci-003
+    temperature: 0
+  # 裁判员
+  evaluator:
+    endpoint: https://api.openai.com
+    api-key: sk-xxxxxxxx
+    model: GPT-4o
+    temperature: 0
+
+# 必填
+input:
+  file: ./input.csv
+  columns:
+    # 问题列名
+    question: question
+    # 标准答案列名
+    expected-answer: expected-answer
+    # 评价标准（值为 = 时表示回答内容必须与标准答案完全一致，其余值或无此列表示语义一致）
+    standard: standard
+
+# 可使用默认值
+output:
+  folder: ./result
+
+# 可使用默认值
+prompt:
+  # 提示词中的 {question}、{expectedAnswer}、{answer} 分别会被替换为 问题、标准答案、实际回答内容
+  evaluator: |
+
+    ## 目标
+
+    请根据问题和标准答案，评估回答的内容与标准答案中内容是否存在本质上的区别，并给出评估依据。以 json 结构返回评估结果，score 代表得分，reason 代表原因。
+    无区别 score 为 1，有区别为 0，不确定为 -1。
+
+    ## 返回结构示例
+
+    {&quot;score&quot;:&quot;1&quot;, &quot;reason&quot;:&quot;给出评分依据&quot;}
+
+    ## 评估内容 
+
+    ### 问题: 
+
+    {question}
+
+    ### 标准答案: 
+
+    {expectedAnswer}
+
+    ### 回答: 
+
+    {answer}
+
+
+# 可选
+langfuse:
+  enable: false
+  host: https://cloud.langfuse.com
+  public-key: pk-lf-xxx
+  secret-key: sk-lf-xxx
+  score-name: llm-evaluator</code></pre>
+<h3 id="问答数据"><a href="#问答数据" class="headerlink" title="问答数据"></a>问答数据</h3><p>以使用 <a href="https://modelscope.cn/datasets/zhuangxialie/Llama3-Chinese-Dataset/summary" target="_blank" rel="noopener">Llama3 中文数据集</a> 中的 <a href="https://modelscope.cn/datasets/zhuangxialie/Llama3-Chinese-Dataset/resolve/master/computer_zh_26k(fixed).jsonl" target="_blank" rel="noopener">computer_zh_26k(fixed).jsonl</a> 问答数据为例。</p>
+<ul>
+<li>一问一答场景，输入的 csv 文件格式为：</li>
+</ul>
+<pre><code class="csv">question,expected-answer,standard
+什么原因会导致邮件被退回？,邮件被退回是指你发送的邮件无法被送达到收件人的邮箱。邮件被退回的原因有很多，包括：\n1. 无效的邮箱地址：你输入的邮箱地址可能无效或者有拼写错误，这会导致邮件无法被送达。\n2. 收件人邮箱已满：如果收件人的邮箱已经满了，邮件就会被退回到发件人的邮箱。\n3. 服务器问题：如果收件人的邮箱服务器出现问题或者宕机，邮件就无法被送达并会被退回到发件人的邮箱。\n4. 垃圾邮件过滤器：如果你的邮件被标记为垃圾邮件或者包含某些触发垃圾邮件过滤器的关键词或短语，邮件就会被屏蔽并退回到发件人的邮箱。\n5. 发件人被屏蔽：如果收件人已经屏蔽了你的邮箱地址，你的邮件就会被退回。\n\n为了避免邮件被退回，重要的是要确保邮箱地址正确，收件人的邮箱没有满，以及你的邮件没有被标记为垃圾邮件。你也可以与收件人核实是否收到了邮件，以及他们的邮箱服务器或垃圾邮件过滤器是否有问题。,=
+给我写一个垂直轮播的代码，用于我的落地页。,&quot;很抱歉，作为一个AI语言模型，我无法访问您的落地页代码，也不知道您使用的编程语言。但是，我可以给您提供使用HTML、CSS和JavaScript创建垂直轮播的一般思路。\n\n以下是一个示例：\n\nHTML：\n```\nhtml&lt;div class=&quot;&quot;carousel&quot;&quot;&gt;\n  &lt;div class=&quot;&quot;carousel-inner&quot;&quot;&gt;\n    &lt;div class=&quot;&quot;carousel-item active&quot;&quot;&gt;\n      &lt;img src=&quot;&quot;image1.jpg&quot;&quot; alt=&quot;&quot;Image 1&quot;&quot;&gt;\n    &lt;/div&gt;\n    &lt;div class=&quot;&quot;carousel-item&quot;&quot;&gt;\n      &lt;img src=&quot;&quot;image2.jpg&quot;&quot; alt=&quot;&quot;Image 2&quot;&quot;&gt;\n    &lt;/div&gt;\n    &lt;div class=&quot;&quot;carousel-item&quot;&quot;&gt;\n      &lt;img src=&quot;&quot;image3.jpg&quot;&quot; alt=&quot;&quot;Image 3&quot;&quot;&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n```\nCSS：\n```css\n.carousel {\n  position: relative;\n  width: 100%;\n  height: 500px; /* 设置轮播的高度 */\n  overflow: hidden;\n}\n.carousel-inner {\n  position: absolute;\n  top: 0;\n  left: 0;\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  transition: transform 0.6s ease-in-out;\n}\n.carousel-item {\n  flex: 1 0 auto;\n  position: relative;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n}\n.carousel-item img {\n  height: 100%;\n  width: 100%;\n  object-fit: cover;\n}\n```\nJavaScript：\n```javascript\nlet slideIndex = 1;\nshowSlides(slideIndex);\nfunction plusSlides(n) {\n  showSlides(slideIndex += n);\n}\nfunction showSlides(n) {\n  let i;\n  let slides = document.getElementsByClassName(&quot;&quot;carousel-item&quot;&quot;);\n  if (n &gt; slides.length) {slideIndex = 1}\n  if (n &lt; 1) {slideIndex = slides.length}\n  for (i = 0; i &lt; slides.length; i++) {\n      slides[i].style.transform = &quot;&quot;translateY(&quot;&quot; + ((i-slideIndex+1)*100) + &quot;&quot;%)&quot;&quot;;\n  }\n}\n```\n在HTML中，具有“carousel”类的“div”是轮播的容器。在此容器内部是另一个具有“carousel-inner”类的“div”，它将包含单个轮播项，每个项都包装在具有“carousel-item”类的“div”中。CSS设置轮播的高度，隐藏任何溢出，并使用flexbox垂直排列项。JavaScript将初始幻灯片索引设置为1，并定义“showSlides”函数，该函数接受一个参数“n”，表示要显示的幻灯片。 “plusSlides”函数通过参数“n”更新幻灯片索引并调用“showSlides”。在“showSlides”中，当前幻灯片垂直翻译到轮播容器的顶部，而其他幻灯片则翻译到其下方。\n\n这只是创建垂直轮播的一种示例。您可能需要修改代码以适应您特定的用例和偏好。&quot;,%</code></pre>
+<ul>
+<li>多轮对话场景，参照对话接口发送会话历史的格式，输入的 csv 文件格式为（可不提供评估标准字段，默认使用含义是否一致进行评估）：</li>
+</ul>
+<pre><code class="csv">question,expected-answer
+&quot;[
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;大多数人在网上搜索什么类型的地板？&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;在英国，大多数人在网上搜索什么类型的地板？&quot;&quot;
+    }
+]&quot;,&quot;[
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;大多数人在网上搜索什么类型的地板？&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;assistant&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;当涉及到地板时，很难说大多数人在网上搜索什么类型的地板，因为这取决于地理位置、个人喜好和当前的趋势。一些经常在网上搜索的受欢迎的地板类型包括实木、强化木地板、瓷砖、地毯和乙烯基。&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;在英国，大多数人在网上搜索什么类型的地板？&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;assistant&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;很难准确地说英国大多数人在网上搜索什么类型的地板，因为这取决于地理位置、个人喜好和当前的趋势。然而，在英国，一些经常在网上搜索的受欢迎的地板类型包括：\n* 地毯\n* 强化木地板\n* 实木\n* 乙烯基\n* 瓷砖（如陶瓷或瓷砖）\n* 工程木\n* 豪华乙烯基瓷砖（LVT）\n* 天然石材\n需要注意的是，某些类型的地板的受欢迎程度会随着时间的推移而改变，因此最好定期检查搜索数据和趋势以保持最新。&quot;&quot;
+    }
+]&quot;
+&quot;[
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;AI中的N-Tile问题？&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;上述的启发式算法&quot;&quot;
+    }
+]&quot;,&quot;[
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;AI中的N-Tile问题？&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;assistant&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;AI中的N-Tile问题是将一组项目分成N个子集，使得每个子集尽可能相似的问题。该问题通常用于机器学习中将数据集分成训练、验证和测试集，或将人口分组进行研究。该问题可以使用各种优化算法解决，例如线性规划或遗传算法。要优化的目标函数通常是子集的方差或熵的总和。&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;user&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;上述的启发式算法&quot;&quot;
+    },
+    {
+        &quot;&quot;role&quot;&quot;: &quot;&quot;assistant&quot;&quot;,
+        &quot;&quot;content&quot;&quot;: &quot;&quot;有几种启发式算法可用于解决N-Tile问题。其中一些最常见的包括：\n1. 随机抽样：这涉及从集合中随机选择项目并将其放入子集中。这是一种简单快速的方法，但可能不会导致最优解。\n2. K-means聚类：这涉及根据其特征对项目进行聚类，然后将聚类分成子集。\n3. 遗传算法：这涉及使用遗传算法演化解决方案的种群，其中每个解决方案表示将项目划分为子集的可能性。\n4. 贪心算法：这涉及从空子集开始，反复添加最大程度减少子集方差的下一个项目。\n5. 局部搜索：这涉及从初始随机解开始，反复对子集进行小的更改，以尝试改善目标函数。\n6. 分而治之：这涉及将项目集递归地划分为越来越小的子集，直到每个子集仅包含一个项目。\n启发式算法的选择取决于特定的用例和可用资源。&quot;&quot;
+    }
+]&quot;</code></pre>
+<h3 id="评估结果示例"><a href="#评估结果示例" class="headerlink" title="评估结果示例"></a>评估结果示例</h3><p><img src="https://alphahinex.github.io/contents/llm-evaluator/result.png" alt="result"></p>
+<h3 id="同步评测结果至-Langfuse"><a href="#同步评测结果至-Langfuse" class="headerlink" title="同步评测结果至 Langfuse"></a>同步评测结果至 Langfuse</h3><p><img src="https://alphahinex.github.io/contents/llm-evaluator/langfuse_scores.png" alt="scores"></p>
+<p><img src="https://alphahinex.github.io/contents/llm-evaluator/langfuse_dashboard.png" alt="dashboard"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#LLM-Evaluator"><span class="toc-number">1.</span> <span class="toc-text">LLM Evaluator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流程"><span class="toc-number">1.1.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特点"><span class="toc-number">1.2.</span> <span class="toc-text">特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用法"><span class="toc-number">1.3.</span> <span class="toc-text">用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置模板"><span class="toc-number">1.3.1.</span> <span class="toc-text">配置模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问答数据"><span class="toc-number">1.3.2.</span> <span class="toc-text">问答数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#评估结果示例"><span class="toc-number">1.3.3.</span> <span class="toc-text">评估结果示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#同步评测结果至-Langfuse"><span class="toc-number">1.3.4.</span> <span class="toc-text">同步评测结果至 Langfuse</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

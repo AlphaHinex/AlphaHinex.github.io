@@ -1,0 +1,549 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cloud Native Healthcare Security Application Management Platform - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Champ, Cloud Native, 医保"> 
+    <meta name="description" content="首先进行个简单的介绍：
+东软医保云应用管理平台，这个名字比较长，所以我们内部起了个代号，即 Code Name —— CHAMP，意为：Cloud Native Healthcare Securit,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Cloud Native Healthcare Security Application Management Platform</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/champ.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Cloud Native"><b>「
+                    </b>CLOUD NATIVE<b> 」</b></a>
+                
+                十月 24, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/10/24/champ/" title="Cloud Native Healthcare Security Application Management Platform" class="">Cloud Native Healthcare Security Application Management Platform</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    4.2k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    4 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Champ/" rel="tag">Champ</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>首先进行个简单的介绍：</p>
+<p>东软医保云应用管理平台，这个名字比较长，所以我们内部起了个代号，即 Code Name —— CHAMP，<br>意为：Cloud Native Healthcare Security Application Management Platform，<br>是一个 面向多云微服务架构新医保应用的 / 云原生应用管理平台，<br>之后我会简称为云平台或 CHAMP。</p>
+<p>再来介绍一下 面向多云微服务架构新医保应用：<br>2018 年国家医保局挂牌，随即便启动了新医保系统的建设。在系统建设初期，即确立了新医保应用要以分布式微服务架构为基础，同时适配多云环境。<br>新医保系统的发布版本，也会同时提供阿里云版、腾讯云版和开源版三套版本。<br>在国家医保局信息系统的建设中，核心业务区搭建在了阿里云上，公共服务区搭建在腾讯云上，<br>并明确要求，各地医保采用开源产品时，其稳定性、可管理性、性能等，要由承建商保证。</p>
+<p>CHAMP 的目标，就是为新医保应用开源版本，提供稳定、高效、可管理的云平台运行环境。</p>
+<p>云平台面对的难点，包括：</p>
+<ol>
+<li>新医保应用面向云，但不云原生 —— 在国家局，以及目前各省市的医保项目建设中，均是以云平台提供中间件服务，和应用部署虚拟机的方式进行建设。</li>
+<li>医保应用部署方案复杂 —— 据不完全统计，某个项目下发的部署包内包含的部署包、部署手册、数据库脚本，变更记录等文件共计 7k 余份，200+ GB</li>
+<li>在基数巨大的配置文件中，每个文件里还涉及大量需要调整的内容，比如有些服务间的 HTTP 调用是通过 ip 进行的</li>
+<li>国家局对新医保系统的云平台，明确提出了数据中台的需求，要求云平台包含分布式数据库，及大数据相关工具</li>
+</ol>
+<p>为解决这些问题，我们的 CHAMP 具备如下特色：</p>
+<ol>
+<li>云原生 —— 对照 CNCF 发布的云原生路线图，CHAMP 覆盖了所有主要内容</li>
+<li>医保应用容器化 —— 使用下发的开源部署包进行镜像构建，使新医保应用能够以镜像的形式进行部署和分发</li>
+<li>医保服务整合 —— 发布形式基于 Helm Chart，配置中的服务地址以域名方式进行设置，由 k8s coredns 负责解析，简化部署及配置变更</li>
+<li>提供一站式解决方案 —— 包括 IaaS 层基础设施、PaaS 层支撑服务和数据中台、SaaS 层业务中台及子系统，其中分布式数据库以与三方数据库厂商合作的形式进行集成，大数据部分集成了公司内部的 SaCa 系列相关产品</li>
+</ol>
+<p>对比公有云提供商，如阿里云、腾讯云、华为云等，我们的 CHAMP 在行业属性、性价比以及售后服务上具有绝对优势；<br>对比传统 IT 厂商，如创智和宇云和银海云平台，我们的云平台同时提供基于容器和虚拟机的部署模式，<br>并且在 网关、大数据相关服务上，有丰富的公司级产品作为支撑。</p>
+<p>接下来我们看一下具体的场景和分析。</p>
+<p>国家医保一张图中，明确划分了医保系统的分层模型，以及各组件、服务、系统所在的位置。</p>
+<p>医保系统的约束，包括下发版本具有强弱约束和基础约束，以及整个系统由多个厂商共同建设。</p>
+<p>医保系统对云平台的要求，包括：</p>
+<ol>
+<li>满足医保分布式云架构设计要求</li>
+<li>提供分布式服务支撑</li>
+<li>实现服务和资源的统一管理和分配</li>
+<li>保障业务的平稳运行和可持续发展</li>
+</ol>
+<p>在这样的一个场景下，包括前期咨询团队与用户的沟通，我们得出用户最大的痛点 ——<br>国家局仅验证过阿里云和腾讯云，但<br>公有云提供商解决方案造价起步点高，私有云与公有云是两个团队，服务质量较难保证，缺少医保行业经验。</p>
+<p>如何破题？带来我们的分析</p>
+<p>首先，东软的优势：<br>在 IDC 中国今年发布的中国医疗保障信息系统市场份额报告中，东软集团以 27.9% 的份额，市场占有率第一，<br>东软的行业经验、服务质量，以及今年所有参与的医保项目中没有延期上线的东软速度，<br>均是东软集团在医保领域积累下来的优势。</p>
+<p>其次，云原生的优势，包括：</p>
+<ol>
+<li>不绑定专有设备，可充分利旧，资源利用率高</li>
+<li>相比虚拟机或系统镜像，容器镜像具有更高的部署及启动效率</li>
+<li>健康检查、滚动更新、弹性伸缩、容器调度等原生特性，更有助于保障应用的高可用性</li>
+<li>服务网格，边车模式，无侵入式为应用赋能，提供链路跟踪、流量治理、灰度发布等高阶特性</li>
+<li>容器相对于虚拟机，具有更高的安全性</li>
+</ol>
+<p>所以我们认为，结合东软集团与云原生技术的优势，我们能够为用户创造价值。</p>
+<p>破题之后，我们来看下如何解题，即 —— 设计。</p>
+<p>技术架构方面，以 Kubernetes 为根基，整合分布式数据库、数据治理、报表及数据可视化相关产品，提供医保系统所必需的支撑服务，<br>建设应用商店、监控告警及持续集成等上层应用。</p>
+<p>总体架构分为平台管理中心和应用管理中心，分别面向不同角色的用户。</p>
+<p>医保系统的部署，分为公共服务区和核心业务区，两个区域之间设有网闸，需通过服务网关进行通信。</p>
+<p>资源规划方面，更多的考虑弹性，而不是一步到位，可充分利用已有设备，并且将计算资源和存储资源分别规划。</p>
+<p>服务部署时，可采用应用商店形式，选择预置应用进行快速部署，方便快捷；<br>也可使用精心设计的应用管理功能，贴合传统模式部署习惯，降低上手门槛；<br>在易用性方面，也进行了大量的设计，如配置文件格式校验、多服务批量调整配置，和历史容器监控等。</p>
+<p>安全方面：</p>
+<ol>
+<li>提供了基于 RBAC 的区分可使用权限及可分配权限的授权机制</li>
+<li>配有租户隔离、网络隔离、应用隔离三种隔离手段</li>
+<li>通过安全上下文，可以控制容器的准入策略<br>此外，还会利用工具，对集群中部署的应用是否符合 NSA/CISA 发布的 k8s 加固指南要求进行扫描。</li>
+</ol>
+<p>运维方面：</p>
+<ol>
+<li>提供了四个维度的可观测性，包括基于业务概览的应用可观测性、中间件可观测性、集群可观测性和计算资源可观测性</li>
+<li>通过多副本、负载均衡及滚动更新等策略，满足医保系统高可用性要求</li>
+<li>引入健康检查机制，为应用提供自愈能力，轻松应对应用自身故障、容器故障、集群节点故障</li>
+<li>应用的弹性伸缩，能有效应对业务洪峰的冲击；云原生应用的横向扩展能力及资源池的可扩展性，可满足业务的持续发展需求</li>
+<li>监控告警可有效监控应用状态及集群状态，在物理资源使用率达到阈值时，可触发告警通知，预防事故的发生</li>
+</ol>
+<p>为了实现上述设计，在工程和过程领域，我们也进行了一些实践。</p>
+<p>云平台在制作过程中，采用了 Scrum 结合 KANBAN 的敏捷开发模式。</p>
+<p>包含三个角色：Product Owner、Scrum Master、开发团队；<br>两周一个 Sprint，Sprint 开始时进行目标沟通及任务分解，中间过程中通过每日站会及时跟踪进度、排除阻碍性问题；<br>结束时进行复盘及回顾，总结不足，并在之后的迭代中进行改善。</p>
+<p>看板的使用，为物理看板和电子看板相结合：物理看板跟踪总体目标达成情况，电子看板侧重任务分解及每个 WBS 的状态。<br>电子看板的每个横向泳道，对应每轮迭代的目标，纵向分为 To-Do、Doing、To verify 和 Done 四个状态。</p>
+<p>这是我们 DevOps 的整体流程：以 git 为中心，秉承 Everything as code 的原则，使用配置库管理系统的配置，<br>并由 CD 工具负责监听配置的变更，进而同步到部署环境中。</p>
+<p>开发过程中，采用 git 分支开发模型的一个最佳实践，设有稳定的 master/develop 分支，以及不同作用的临时分支。</p>
+<p>所有代码通过 MergeRequest 的形式进行提交，由 MR 触发静态代码检查、自动化测试及 Code Review；<br>稳定分支触发构建，包括打包、构建镜像、发布制品及更新配置库。</p>
+<p>通过 CNCF 的 ArgoCD 持续交付项目，实现配置库内的应用清单与应用运行时的同步。</p>
+<p>此外，云平台引入了开源产品 Reloader 来实现配置中心的配置热更新功能，Reloader 以控制器模式工作，通过监控配置变化，触发应用的滚动更新。</p>
+<p>云平台的性能，也是我们重点关注的内容。在项目结项前，我们对比使用 CHAMP 部署及采用传统方式部署的相同业务系统的性能表现，<br>得出 TPS 损耗在 5% 以内，可以满足业务系统需求的结论。</p>
+<p>在实际医保项目上线前的压测中，联网结算综合场景，90% 的业务请求，300 并发响应时间在 2s 以内，500 并发在 3s 以内。</p>
+<p>今年 9 月份，我们的云平台迎来了第一个地市级医保项目 —— 临沂市医疗保障信息平台。<br>项目的建设范围包括云平台，以及医保核心业务和公共服务。<br>临沂拥有 1kw 人口，是山东省人口规模最大的地市，<br>在临沂，我们的云平台分为两个区域部署（公服区及核心区），60个节点，共计运行 1k+ 容器。</p>
+<p>我们还规划了云平台的发展路线图，计划在明年继续迭代云平台 2.0 版本，并扩展行业线，对非医保行业应用提供更多适配。</p>
+<p>最后进行一些简单的演示。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

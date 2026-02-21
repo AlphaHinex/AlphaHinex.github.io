@@ -1,0 +1,773 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>多 Servlet 环境下，请求的 ServletPath 是什么 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Servlet, HttpServletRequest, ServletPath, PathInfo, Tomcat, Jetty, Undertow, Jakarta"> 
+    <meta name="description" content="ServletServlet 是 Java EE（现为 Jakarta EE）规范中的一个重要组件，用于处理客户端请求并生成动态响应。Servlet 通常运行在 Servlet 容器（如 Apach,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">多 Servlet 环境下，请求的 ServletPath 是什么</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/servlet-path-of-request-in-multi-servlets-env.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                九月 07, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/09/07/servlet-path-of-request-in-multi-servlets-env/" title="多 Servlet 环境下，请求的 ServletPath 是什么" class="">多 Servlet 环境下，请求的 ServletPath 是什么</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    17k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    15 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h1><p>Servlet 是 Java EE（现为 Jakarta EE）规范中的一个重要组件，用于处理客户端请求并生成动态响应。Servlet 通常运行在 Servlet 容器（如 Apache Tomcat、Jetty 等）中，负责接收 HTTP 请求、处理业务逻辑并返回 HTTP 响应。</p>
+<p>以下内容引自 <a href="https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html" target="_blank" rel="noopener">廖雪峰的官方网站 - 手写Tomcat - Servlet规范</a>：</p>
+<blockquote>
+<p>Servlet规范有好几个版本，每个版本都有一些新的功能。以下是一些常见版本的新功能：</p>
+<p>Servlet 1.0：定义了Servlet组件，一个Servlet组件运行在Servlet容器（Container）中，通过与容器交互，就可以响应一个HTTP请求；</p>
+<p>Servlet 2.0：定义了JSP组件，一个JSP页面可以被动态编译为Servlet组件；</p>
+<p>Servlet 2.4：定义了Filter（过滤器）组件，可以实现过滤功能；</p>
+<p>Servlet 2.5：支持注解，提供了ServletContextListener接口，增加了一些安全性相关的特性；</p>
+<p>Servlet 3.0：支持异步处理的Servlet，支持注解配置Servlet和过滤器，增加了SessionCookieConfig接口；</p>
+<p>Servlet 3.1：提供了WebSocket的支持，增加了对HTTP请求和响应的流式操作的支持，增加了对HTTP协议的新特性的支持；</p>
+<p>Servlet 4.0：支持HTTP/2的新特性，提供了HTTP/2的Server Push等特性；</p>
+<p>Servlet 5.0：主要是把javax.servlet包名改成了jakarta.servlet；</p>
+<p>Servlet 6.0：继续增加一些新功能，并废除一部分功能。</p>
+</blockquote>
+<p>Servlet 4.0 及之前的规范，可以从 <a href="https://jcp.org/en/jsr/summary?id=servlet" target="_blank" rel="noopener">https://jcp.org/en/jsr/summary?id=servlet</a> 获取：</p>
+<ul>
+<li><a href="https://download.oracle.com/otndocs/jcp/servlet-4-final-spec/index.html" target="_blank" rel="noopener">JSR-000369 Java Servlet 4.0 Specification Final Release</a></li>
+<li><a href="https://jakarta.ee/specifications/servlet/4.0/apidocs/" target="_blank" rel="noopener">Online JavaDoc</a></li>
+</ul>
+<p>Servlet 5.0 及之后的规范，可直接在线获取：</p>
+<ul>
+<li><a href="https://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1" target="_blank" rel="noopener">Jakarta Servlet Specification 6.1</a></li>
+<li><a href="https://javadoc.io/doc/jakarta.servlet/jakarta.servlet-api/" target="_blank" rel="noopener">Online JavaDoc</a></li>
+<li><a href="https://github.com/jakartaee/servlet" target="_blank" rel="noopener">Project jakartaee/servlet on GitHub</a></li>
+</ul>
+<p>Maven 坐标从 4.0.2 开始，由</p>
+<pre><code class="xml">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;4.0.1&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+<p>更换为：</p>
+<pre><code class="xml">&lt;!-- https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+    &lt;version&gt;4.0.2&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+<p>源码 package 从 5.0 开始由 <a href="https://github.com/jakartaee/servlet/tree/4.0.4-RELEASE/api/src/main/java/javax/servlet" target="_blank" rel="noopener">javax.servlet</a> 更换为 <a href="https://github.com/jakartaee/servlet/tree/5.0.0-RELEASE/api/src/main/java/jakarta/servlet" target="_blank" rel="noopener">jakarta.servlet</a>。</p>
+<h2 id="附：Servlet-规范相关资源"><a href="#附：Servlet-规范相关资源" class="headerlink" title="附：Servlet 规范相关资源"></a>附：Servlet 规范相关资源</h2><ul>
+<li><a href="https://jakarta.ee/specifications/servlet/" target="_blank" rel="noopener">Jakarta Servlet 4.0~6.2</a></li>
+<li><a href="https://jakartaee.github.io/servlet/" target="_blank" rel="noopener">Jakarta Servlet GitHub Pages</a></li>
+<li><a href="https://jcp.org/en/jsr/summary?id=servlet" target="_blank" rel="noopener">Java Community Process</a></li>
+<li><a href="https://projects.eclipse.org/projects/ee4j.servlet" target="_blank" rel="noopener">Eclipse EE4J Servlet Project</a></li>
+</ul>
+<h1 id="HttpServletRequest-getServletPath"><a href="#HttpServletRequest-getServletPath" class="headerlink" title="HttpServletRequest.getServletPath()"></a>HttpServletRequest.getServletPath()</h1><p>Servlet 规范中，<code>HttpServletRequest</code> 接口关于 <code>getServletPath()</code> 方法的描述如下。</p>
+<p><a href="https://jakarta.ee/specifications/servlet/4.0/apidocs/javax/servlet/http/httpservletrequest#getServletPath--" target="_blank" rel="noopener">Servlet 4.0</a></p>
+<pre><code class="java">    /**
+     * Returns the part of this request&#39;s URL that calls the servlet. This path
+     * starts with a &quot;/&quot; character and includes either the servlet name or a
+     * path to the servlet, but does not include any extra path information or a
+     * query string. Same as the value of the CGI variable SCRIPT_NAME.
+     * &lt;p&gt;
+     * This method will return an empty string (&quot;&quot;) if the servlet used to
+     * process this request was matched using the &quot;/*&quot; pattern.
+     *
+     * @return a &lt;code&gt;String&lt;/code&gt; containing the name or path of the servlet
+     *         being called, as specified in the request URL, decoded, or an
+     *         empty string if the servlet used to process the request is
+     *         matched using the &quot;/*&quot; pattern.
+     */
+    public String getServletPath();</code></pre>
+<p><a href="https://github.com/jakartaee/servlet/blob/6.1.0-RELEASE/api/src/main/java/jakarta/servlet/http/HttpServletRequest.java#L432-L452" target="_blank" rel="noopener">Servlet 6.1</a></p>
+<pre><code class="java">    /**
+     * Returns the part of this request&#39;s URL that calls the servlet. This path starts with a &quot;/&quot; character and includes the
+     * path to the servlet, but does not include any extra path information or a query string.
+     *
+     * &lt;p&gt;
+     * This method will return an empty string (&quot;&quot;) if the servlet used to process this request was matched using the &quot;/*&quot;
+     * pattern.
+     *
+     * @return a &lt;code&gt;String&lt;/code&gt; containing the path of the servlet being called, as specified in the request URL, or an
+     * empty string if the servlet used to process the request is matched using the &quot;/*&quot; pattern. The path will be
+     * canonicalized as per &lt;a href=
+     * &quot;https://jakarta.ee/specifications/servlet/6.0/jakarta-servlet-spec-6.0.html#request-uri-path-processing&quot;&gt;Servlet
+     * 6.0, 3.5&lt;/a&gt;. This method will not return any encoded characters unless the container is configured specifically to
+     * allow them.
+     * @throws IllegalArgumentException In standard configuration, this method will never throw. However, a container may be
+     * configured to not reject some suspicious sequences identified by &lt;a href=
+     * &quot;https://jakarta.ee/specifications/servlet/6.0/jakarta-servlet-spec-6.0.html#uri-path-canonicalization&quot;&gt;Servlet 6.0,
+     * 3.5.2&lt;a/&gt;, furthermore the container may be configured to allow such paths to only be accessed via safer methods like
+     * {@link #getRequestURI()} and to throw IllegalArgumentException if this method is called for such suspicious paths.
+     */
+    String getServletPath();</code></pre>
+<p>两个版本细节处有些区别，没有本质差异。</p>
+<p>规范文档中，针对 <code>requestURI</code> 的组成部分及各部分含义有明确的说明，以及一个简明的例子：</p>
+<blockquote>
+<p>requestURI = contextPath + servletPath + pathInfo</p>
+</blockquote>
+<p>有三个 Servlet：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Context Path</th>
+<th align="left">/catalog</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Servlet Mapping</td>
+<td align="left">Pattern: <code>/lawn/*</code><br>Servlet: <code>LawnServlet</code></td>
+</tr>
+<tr>
+<td align="left">Servlet Mapping</td>
+<td align="left">Pattern: <code>/garden/*</code><br>Servlet: <code>GardenServlet</code></td>
+</tr>
+<tr>
+<td align="left">Servlet Mapping</td>
+<td align="left">Pattern: <code>*.jsp</code><br>Servlet: <code>JSPServlet</code></td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>不同请求 URI 对应的各部分值：</p>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Request Path</th>
+<th align="left">Path Elements</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/catalog/lawn/index.html</td>
+<td align="left">ContextPath: <code>/catalog</code><br>ServletPath: <code>/lawn</code><br>PathInfo: <code>/index.html</code></td>
+</tr>
+<tr>
+<td align="left">/catalog/garden/implements/</td>
+<td align="left">ContextPath: <code>/catalog</code><br>ServletPath: <code>/garden</code><br>PathInfo: <code>/implements/</code></td>
+</tr>
+<tr>
+<td align="left">/catalog/help/feedback.jsp</td>
+<td align="left">ContextPath: <code>/catalog</code><br>ServletPath: <code>/help/feedback.jsp</code><br>PathInfo: null</td>
+</tr>
+</tbody></table>
+</blockquote>
+<p>可以看到其中 <code>ServletPath</code> 与 <code>Servlet Mapping</code> 的 <code>Pattern</code> 是对应的。</p>
+<p>但是这个例子中没有提到存在匹配 <code>/*</code> 路径的 Servlet 的情况。按照接口描述中说明，此时返回的 <code>ServletPath</code> 应该是空字符串 <code>&quot;&quot;</code>。让我们看看一些 Servlet 容器实际的实现情况。</p>
+<h1 id="Demo-工程"><a href="#Demo-工程" class="headerlink" title="Demo 工程"></a>Demo 工程</h1><p>延续 <a href="https://alphahinex.github.io/2020/04/24/multi-dispatcherservlet/">还在给每个请求加前缀避免模块间接口冲突呢？</a>  中构造的 demo 工程 <a href="https://github.com/AlphaHinex/multi-dispatcher" target="_blank" rel="noopener">multi-dispatcher</a>，略微调整以适应本文示例需求。</p>
+<p>通过 env 参数切换使用不同的 Servlet 容器：</p>
+<pre><code class="bash"># 默认使用 tomcat 容器
+$ ./gradlew bootRun
+# 使用 jetty 容器
+$ ./gradlew bootRun -Denv=jetty
+# 使用 undertow 容器
+$ ./gradlew bootRun -Denv=undertow</code></pre>
+<p>添加 <code>--args=&#39;--server.servlet.context-path=/demo&#39;</code> 指定上下文根：</p>
+<pre><code class="bash">$ ./gradlew bootRun -Denv=undertow --args=&#39;--server.servlet.context-path=/demo&#39;</code></pre>
+<p>启动后可通过类似下面的日志验证使用的容器：</p>
+<pre><code class="log">2025-09-06 11:18:52.297  INFO 6679 --- [           main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 8080 (http) with context path &#39;/demo&#39;</code></pre>
+<p>之后访问如下地址：</p>
+<ul>
+<li><a href="http://localhost:8080/demo/same/path" target="_blank" rel="noopener">http://localhost:8080/demo/same/path</a></li>
+<li><a href="http://localhost:8080/demo/foo/same/path" target="_blank" rel="noopener">http://localhost:8080/demo/foo/same/path</a></li>
+<li><a href="http://localhost:8080/demo/bar/same/path" target="_blank" rel="noopener">http://localhost:8080/demo/bar/same/path</a></li>
+</ul>
+<p>示例响应：</p>
+<pre><code class="json">{
+  &quot;Context Path&quot;: &quot;/demo&quot;,
+  &quot;Request URL&quot;: &quot;http://localhost:8080/demo/foo/same/path&quot;,
+  &quot;Servlet Path&quot;: &quot;/foo&quot;,
+  &quot;Request URI&quot;: &quot;/demo/foo/same/path&quot;,
+  &quot;Servlet&quot;: &quot;Foo Servlet&quot;,
+  &quot;Path Info&quot;: &quot;/same/path&quot;,
+  &quot;URL Mapping&quot;: &quot;/foo/*&quot;
+}</code></pre>
+<h1 id="Tomcat-的实现"><a href="#Tomcat-的实现" class="headerlink" title="Tomcat 的实现"></a>Tomcat 的实现</h1><p>在 <a href="https://alphahinex.github.io/2020/04/30/where-are-servlets/">Servlet 注册到了哪？</a> 和 <a href="https://alphahinex.github.io/2020/08/02/how-request-find-servlet/">Tomcat 是怎么找到用来处理请求的 Servlet 的？</a> 中，我们梳理过 Tomcat 处理请求的过程。本文继续以 Tomcat 9 为例，说明其实现 Servlet 4.0 规范的情况，Tomcat 版本与 Servlet 版本的对应关系可见：<a href="https://tomcat.apache.org/whichversion.html" target="_blank" rel="noopener">Apache Tomcat Versions</a>。</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.109/java/org/apache/catalina/connector/Request.java#L2273-L2276" target="_blank" rel="noopener">org.apache.catalina.connector.Request</a> 实现了 <code>HttpServletRequest</code> 接口，对 <code>getServletPath()</code> 方法的实现如下：</p>
+<pre><code class="java">    @Override
+    public String getServletPath() {
+        return mappingData.wrapperPath.toStringType();
+    }</code></pre>
+<p><code>mappingData</code> 是在 <a href="https://github.com/apache/tomcat/blob/9.0.109/java/org/apache/catalina/connector/CoyoteAdapter.java#L697" target="_blank" rel="noopener">org.apache.catalina.connector.CoyoteAdapter.postParseRequest</a> 方法中映射上的：</p>
+<pre><code class="java">connector.getService().getMapper().map(serverName, decodedURI, version, request.getMappingData());</code></pre>
+<p>不同类型的 Servlet，对 <a href="https://github.com/apache/tomcat/blob/9.0.109/java/org/apache/catalina/mapper/MappingData.java" target="_blank" rel="noopener">MappingData</a> 的 <code>wrapperPath</code> 的设置方式不同。</p>
+<p>默认 Serlvet：</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.109/java/org/apache/catalina/mapper/Mapper.java#L950-L957" target="_blank" rel="noopener">Mapper.internalMapWrapper</a></p>
+<pre><code class="java">        // Rule 7 -- Default servlet
+        if (mappingData.wrapper == null &amp;&amp; !checkJspWelcomeFiles) {
+            if (contextVersion.defaultWrapper != null) {
+                mappingData.wrapper = contextVersion.defaultWrapper.object;
+                mappingData.requestPath.setChars(path.getBuffer(), path.getStart(), path.getLength());
+                mappingData.wrapperPath.setChars(path.getBuffer(), path.getStart(), path.getLength());
+                mappingData.matchType = MappingMatch.DEFAULT;
+            }
+        ...</code></pre>
+<p>通配符匹配的 Servlet：</p>
+<p><a href="https://github.com/apache/tomcat/blob/9.0.109/java/org/apache/catalina/mapper/Mapper.java#L1052-L1062" target="_blank" rel="noopener">Mapper.internalMapWildcardWrapper</a></p>
+<pre><code class="java">            if (found) {
+                mappingData.wrapperPath.setString(wrappers[pos].name);
+                if (path.getLength() &gt; length) {
+                    mappingData.pathInfo.setChars(path.getBuffer(), path.getStart() + length,
+                            path.getLength() - length);
+                }
+                mappingData.requestPath.setChars(path.getBuffer(), path.getStart(), path.getLength());
+                mappingData.wrapper = wrappers[pos].object;
+                mappingData.jspWildCard = wrappers[pos].jspWildCard;
+                mappingData.matchType = MappingMatch.PATH;
+            }</code></pre>
+<h2 id="实测"><a href="#实测" class="headerlink" title="实测"></a>实测</h2><pre><code class="bash">$ ./gradlew bootRun --args=&#39;--server.servlet.context-path=/demo&#39;</code></pre>
+<table>
+<thead>
+<tr>
+<th>Servlet</th>
+<th>Default Servlet</th>
+<th>Foo Servlet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>url mapping</td>
+<td><code>/*</code></td>
+<td><code>/foo/*</code></td>
+</tr>
+<tr>
+<td>request.getContextPath()</td>
+<td><code>/demo</code></td>
+<td><code>/demo</code></td>
+</tr>
+<tr>
+<td>request.getServletPath()</td>
+<td><code>/same/path</code></td>
+<td><code>/foo</code></td>
+</tr>
+<tr>
+<td>request.PathInfo()</td>
+<td></td>
+<td><code>/same/path</code></td>
+</tr>
+<tr>
+<td>request.getRequestURI()</td>
+<td><code>/demo/same/path</code></td>
+<td><code>/demo/foo/same/path</code></td>
+</tr>
+<tr>
+<td>request.getRequestURL()</td>
+<td><code>http://localhost:8080/demo/same/path</code></td>
+<td><code>http://localhost:8080/demo/foo/same/path</code></td>
+</tr>
+</tbody></table>
+<p>由默认 Servlet（URL mapping 是 <code>/*</code>）处理的请求，其 <code>ServletPath</code> 是请求的实际路径，跟 Servlet 规范中描述的情况不一致：</p>
+<blockquote>
+<p><strong>Servlet Path</strong>: The path section that directly corresponds to the mapping which<br>activated this request. This path starts with a ’/’ character except in the case<br>where the request is matched with the ‘/*’ or ““ pattern, in which case it is an<br>empty string</p>
+</blockquote>
+<h1 id="Jetty-和-Undertow-的结果"><a href="#Jetty-和-Undertow-的结果" class="headerlink" title="Jetty 和 Undertow 的结果"></a>Jetty 和 Undertow 的结果</h1><p>以下面命令分别切换容器启动：</p>
+<pre><code class="bash">$ ./gradlew bootRun -Denv=jetty --args=&#39;--server.servlet.context-path=/demo&#39;
+$ ./gradlew bootRun -Denv=undertow --args=&#39;--server.servlet.context-path=/demo&#39;</code></pre>
+<p>结果与使用 Tomcat 容器的情况一致，均是：</p>
+<table>
+<thead>
+<tr>
+<th>Servlet</th>
+<th>Default Servlet</th>
+<th>Foo Servlet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>url mapping</td>
+<td><code>/*</code></td>
+<td><code>/foo/*</code></td>
+</tr>
+<tr>
+<td>request.getContextPath()</td>
+<td><code>/demo</code></td>
+<td><code>/demo</code></td>
+</tr>
+<tr>
+<td>request.getServletPath()</td>
+<td><code>/same/path</code></td>
+<td><code>/foo</code></td>
+</tr>
+<tr>
+<td>request.PathInfo()</td>
+<td></td>
+<td><code>/same/path</code></td>
+</tr>
+<tr>
+<td>request.getRequestURI()</td>
+<td><code>/demo/same/path</code></td>
+<td><code>/demo/foo/same/path</code></td>
+</tr>
+<tr>
+<td>request.getRequestURL()</td>
+<td><code>http://localhost:8080/demo/same/path</code></td>
+<td><code>http://localhost:8080/demo/foo/same/path</code></td>
+</tr>
+</tbody></table>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>目前三个主流的开源 Servlet 容器：Tomcat、Jetty 和 Undertow，处理请求的 ServletPath 方式基本一致：</p>
+<ol>
+<li>由默认 Servlet 处理的请求，其 ServletPath 是请求的实际路径（Context Path 之后，不包括请求参数等）；</li>
+<li>非默认 Servlet 处理的请求，其 ServletPath 是 Servlet 的映射路径，不包括请求的实际路径。</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Servlet"><span class="toc-number">1.</span> <span class="toc-text">Servlet</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#附：Servlet-规范相关资源"><span class="toc-number">1.1.</span> <span class="toc-text">附：Servlet 规范相关资源</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HttpServletRequest-getServletPath"><span class="toc-number">2.</span> <span class="toc-text">HttpServletRequest.getServletPath()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Demo-工程"><span class="toc-number">3.</span> <span class="toc-text">Demo 工程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tomcat-的实现"><span class="toc-number">4.</span> <span class="toc-text">Tomcat 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实测"><span class="toc-number">4.1.</span> <span class="toc-text">实测</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Jetty-和-Undertow-的结果"><span class="toc-number">5.</span> <span class="toc-text">Jetty 和 Undertow 的结果</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结论"><span class="toc-number">6.</span> <span class="toc-text">结论</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

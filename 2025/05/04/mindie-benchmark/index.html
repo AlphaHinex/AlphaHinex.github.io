@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>昇腾推理引擎性能测试套件 MindIE Benchmark - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MindIE, benchmark, GSM8K, metrics, prometheus, grafana, node-exporter"> 
+    <meta name="description" content="MindIE BenchmarkMindIE Benchmark 是 昇腾推理引擎（MindIE，Mind Inference Engine）中推理服务组件 MindIE Service 组件包含的,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">昇腾推理引擎性能测试套件 MindIE Benchmark</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/mindie-benchmark/client-text.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                五月 04, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/05/04/mindie-benchmark/" title="昇腾推理引擎性能测试套件 MindIE Benchmark" class="">昇腾推理引擎性能测试套件 MindIE Benchmark</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    17k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    16 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MindIE/" rel="tag">MindIE</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="MindIE-Benchmark"><a href="#MindIE-Benchmark" class="headerlink" title="MindIE Benchmark"></a>MindIE Benchmark</h1><p>MindIE Benchmark 是 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/whatismindie/mindie_what_0001.html" target="_blank" rel="noopener">昇腾推理引擎</a>（MindIE，Mind Inference Engine）中推理服务组件 <code>MindIE Service</code> 组件包含的性能测试套件，提供测试大语言模型在不同配置参数下推理性能和精度的能力。</p>
+<p>详细信息可参见官方文档 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0150.html" target="_blank" rel="noopener">MindIE Benchmark 1.0.0 功能介绍</a>。</p>
+<p>MindIE Benchmark 支持 Client 和 Engine 两种不同的推理模式：</p>
+<ol>
+<li>Client 模式调用 MindIE Client 的 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0192.html" target="_blank" rel="noopener">.generate()</a> 和 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0193.html" target="_blank" rel="noopener">.generate_stream()</a> 接口，对应 MindIE Server 的 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0085.html" target="_blank" rel="noopener">兼容Triton的文本推理接口</a> 和 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0086.html" target="_blank" rel="noopener">兼容Triton的流式推理接口</a>。适用于模拟多用户并发场景，主要用于测量服务化性能。Client测量的吞吐量为用户真实感知的吞吐量，其计入包括网络请求和数据处理等消耗的时间。</li>
+<li>Engine 模式直接调用底层 API，并将 NPU 推理返回的结果暂存，当所有推理完成后再由 CPU 处理暂存的数据，其测量的吞吐量更接近 NPU 卡的真实性能。</li>
+</ol>
+<h2 id="Client-推理模式样例"><a href="#Client-推理模式样例" class="headerlink" title="Client 推理模式样例"></a>Client 推理模式样例</h2><ul>
+<li>文本非流式推理</li>
+</ul>
+<pre><code class="bash">benchmark \
+--DatasetPath &quot;/{数据集路径}/GSM8K&quot; \
+--DatasetType &quot;gsm8k&quot; \
+--ModelName llama_7b \
+--ModelPath &quot;/{模型权重路径}/llama_7b&quot; \
+--TestType client \
+--Http https://{ipAddress}:{port} \
+--ManagementHttp https://{managementIpAddress}:{managementPort} \
+--Concurrency 128 \
+--TaskKind text \
+--Tokenizer True \
+--MaxOutputLen 512</code></pre>
+<ul>
+<li>文本流式推理</li>
+</ul>
+<pre><code class="bash">benchmark \
+--DatasetPath &quot;/{数据集路径}/GSM8K&quot; \
+--DatasetType &quot;gsm8k&quot; \
+--ModelName llama_7b \
+--ModelPath &quot;/{模型权重路径}/llama_7b&quot; \
+--TestType client \
+--Http https://{ipAddress}:{port} \
+--ManagementHttp https://{managementIpAddress}:{managementPort} \
+--Concurrency 128 \
+--TaskKind stream \
+--Tokenizer True \
+--MaxOutputLen 512</code></pre>
+<h2 id="Engine-推理模式样例"><a href="#Engine-推理模式样例" class="headerlink" title="Engine 推理模式样例"></a>Engine 推理模式样例</h2><ul>
+<li>文本推理模式</li>
+</ul>
+<pre><code class="bash"># Engine模式 文本推理
+benchmark \ 
+--DatasetPath &quot;/{数据集路径}/GSM8K&quot; \
+--DatasetType gsm8k \
+--ModelName baichuan2_13b \
+--ModelPath &quot;/{模型权重路径}/baichuan2-13b&quot; \
+--TestType engine \
+--MaxOutputLen 512 \
+--Tokenizer True</code></pre>
+<h1 id="测试数据集"><a href="#测试数据集" class="headerlink" title="测试数据集"></a>测试数据集</h1><p>支持的数据集以及数据集获取链接，可在 MindIE 镜像中获取，以 <code>1.0.0</code> 版本为例，镜像中 <a href="https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/mindie-benchmark/README_NEW.md" target="_blank" rel="noopener">/usr/local/Ascend/atb-models/tests/modeltest/README_NEW.md</a> 文档包含支持数据集相关信息如下：</p>
+<table>
+<thead>
+<tr>
+<th>支持数据集</th>
+<th>下载地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BoolQ</td>
+<td><a href="https://storage.cloud.google.com/boolq/dev.jsonl" target="_blank" rel="noopener">dev.jsonl</a></td>
+</tr>
+<tr>
+<td>CEval</td>
+<td><a href="https://huggingface.co/datasets/ceval/ceval-exam/resolve/main/ceval-exam.zip" target="_blank" rel="noopener">ceval-exam</a></td>
+</tr>
+<tr>
+<td>CMMLU</td>
+<td><a href="https://huggingface.co/datasets/haonan-li/cmmlu/resolve/main/cmmlu_v1_0_1.zip" target="_blank" rel="noopener">cmmlu</a></td>
+</tr>
+<tr>
+<td>HumanEval</td>
+<td><a href="https://github.com/openai/human-eval/raw/refs/heads/master/data/HumanEval.jsonl.gz" target="_blank" rel="noopener">humaneval</a></td>
+</tr>
+<tr>
+<td>HumanEval_X</td>
+<td><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/cpp/data" target="_blank" rel="noopener">cpp</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/java/data" target="_blank" rel="noopener">java</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/go/data" target="_blank" rel="noopener">go</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/js/data" target="_blank" rel="noopener">js</a><br><a href="https://huggingface.co/datasets/THUDM/humaneval-x/tree/main/data/python/data" target="_blank" rel="noopener">python</a></td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td><a href="https://github.com/openai/grade-school-math/blob/master/grade_school_math/data/test.jsonl" target="_blank" rel="noopener">gsm8k</a></td>
+</tr>
+<tr>
+<td>LongBench</td>
+<td><a href="https://huggingface.co/datasets/THUDM/LongBench/resolve/main/data.zip" target="_blank" rel="noopener">longbench</a></td>
+</tr>
+<tr>
+<td>MMLU</td>
+<td><a href="https://people.eecs.berkeley.edu/~hendrycks/data.tar" target="_blank" rel="noopener">mmlu</a></td>
+</tr>
+<tr>
+<td>NeedleBench</td>
+<td><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">PaulGrahamEssays</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">multi_needle_reasoning_en</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">multi_needle_reasoning_zh</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">names</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">needles</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_finance</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_game</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_general</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_government</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_movie</a><br><a href="https://huggingface.co/datasets/opencompass/NeedleBench/tree/main" target="_blank" rel="noopener">zh_tech</a></td>
+</tr>
+<tr>
+<td>TextVQA</td>
+<td><a href="https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip" target="_blank" rel="noopener">train_val_images.zip</a><br><a href="https://ofasys-wlcb.oss-cn-wulanchabu.aliyuncs.com/Qwen-VL/evaluation/textvqa/textvqa_val.jsonl" target="_blank" rel="noopener">textvqa_val.jsonl</a><br><a href="https://ofasys-wlcb.oss-cn-wulanchabu.aliyuncs.com/Qwen-VL/evaluation/textvqa/textvqa_val_annotations.json" target="_blank" rel="noopener">textvqa_val_annotations.json</a><br></td>
+</tr>
+<tr>
+<td>VideoBench</td>
+<td><a href="https://github.com/PKU-YuanGroup/Video-Bench" target="_blank" rel="noopener">Eval_QA/</a><br><a href="https://huggingface.co/datasets/LanguageBind/Video-Bench/tree/main" target="_blank" rel="noopener">Video-Bench</a><br></td>
+</tr>
+<tr>
+<td>VocalSound</td>
+<td><a href="https://www.dropbox.com/s/c5ace70qh1vbyzb/vs_release_16k.zip?dl=1" target="_blank" rel="noopener">VocalSound 16kHz Version</a><br></td>
+</tr>
+<tr>
+<td>TruthfulQA</td>
+<td><a href="https://huggingface.co/datasets/domenicrosati/TruthfulQA/tree/main" target="_blank" rel="noopener">truthfulqa</a></td>
+</tr>
+</tbody></table>
+<h1 id="实测数据"><a href="#实测数据" class="headerlink" title="实测数据"></a>实测数据</h1><h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>以使用 <code>swr.cn-south-1.myhuaweicloud.com/ascendhub/mindie:1.0.0-800I-A2-py311-openeuler24.03-lts</code> 镜像和 <code>GSM8K</code> 数据集为例（测试数据集在 <code>/data</code> 路径下）：</p>
+<pre><code class="bash"># 启动容器
+docker run -it -d --net=host --shm-size=1800g \
+    --name=mindie-bench \
+    --privileged \
+    --device=/dev/davinci_manager \
+    --device=/dev/hisi_hdc \
+    --device=/dev/devmm_svm \
+    --device=/dev/davinci0 \
+    --device=/dev/davinci1 \
+    --device=/dev/davinci2 \
+    --device=/dev/davinci3 \
+    --device=/dev/davinci4 \
+    --device=/dev/davinci5 \
+    --device=/dev/davinci6 \
+    --device=/dev/davinci7 \
+    -v /usr/local/Ascend/driver:/usr/local/Ascend/driver:ro \
+    -v /usr/local/Ascend/firmware:/usr/local/Ascend/firmware \
+    -v /usr/local/sbin/npu-smi:/usr/local/sbin/npu-smi \
+    -v /usr/local/sbin:/usr/local/sbin:ro \
+    -v /etc/hccn.conf:/etc/hccn.conf \
+    -v /data:/data:rw \
+swr.cn-south-1.myhuaweicloud.com/ascendhub/mindie:1.0.0-800I-A2-py311-openeuler24.03-lts bash</code></pre>
+<pre><code class="bash"># 进入容器
+docker exec -it mindie-bench bash</code></pre>
+<pre><code class="bash"># 修改 benchmark 中 config.json 文件权限
+chmod 640 /usr/local/lib/python3.11/site-packages/mindiebenchmark/config/config.json</code></pre>
+<h2 id="Client-模式非流式推理性能测试"><a href="#Client-模式非流式推理性能测试" class="headerlink" title="Client 模式非流式推理性能测试"></a>Client 模式非流式推理性能测试</h2><pre><code class="bash"># Client 模式非流式 128 并发数执行性能测试
+nohup benchmark \
+--DatasetPath &quot;/data/test.jsonl&quot; \
+--DatasetType &quot;gsm8k&quot; \
+--ModelName llama_7b \
+--ModelPath &quot;/{模型权重路径}/llama_7b&quot; \
+--TestType client \
+--Http https://{ipAddress}:{port} \
+--ManagementHttp https://{managementIpAddress}:{managementPort} \
+--Concurrency 128 \
+--TaskKind text \
+--Tokenizer True \
+--MaxOutputLen 2048 \
+&gt; /home/client_text_128.log 2&gt;&amp;1 &amp;</code></pre>
+<blockquote>
+<p>mindie 2.0 需要先设定 <code>MINDIE_LOG_TO_STDOUT</code> 环境变量，否则日志中没有输出内容：<code>export MINDIE_LOG_TO_STDOUT=&quot;benchmark:1; client:1&quot;</code></p>
+</blockquote>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/client-text.png" alt="client-text"></p>
+<h2 id="Client-模式流式推理性能测试"><a href="#Client-模式流式推理性能测试" class="headerlink" title="Client 模式流式推理性能测试"></a>Client 模式流式推理性能测试</h2><p><img src="https://alphahinex.github.io/contents/mindie-benchmark/client-stream.png" alt="client-stream"></p>
+<h1 id="性能监控"><a href="#性能监控" class="headerlink" title="性能监控"></a>性能监控</h1><p><code>MindIE Service</code> 中提供了普罗米修斯格式的服务监控指标查询接口：<code>GET: http(s)://{ip}:{port}/metrics</code>。</p>
+<blockquote>
+<ul>
+<li>{ip}字段优先读取环境变量值MIES_CONTAINER_MANAGEMENT_IP；如果没有该环境变量，则取配置文件的“managementIpAddress”参数；如果配置文件中没有“managementIpAddress”参数，则取配置文件的“ipAddress”参数。</li>
+<li>{port}字段读取配置文件的“metricsPort”参数。</li>
+</ul>
+</blockquote>
+<p>如需使用该接口，请确保在<strong>启动服务前</strong>，开启服务化监控开关。开启服务化监控功能的命令如下：</p>
+<pre><code class="bash">export MIES_SERVICE_MONITOR_MODE=1</code></pre>
+<p>接口详情可参考 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0103.html" target="_blank" rel="noopener">服务监控指标查询接口（普罗格式）</a>。</p>
+<h2 id="使用-Prometheus-存储和检索监控数据"><a href="#使用-Prometheus-存储和检索监控数据" class="headerlink" title="使用 Prometheus 存储和检索监控数据"></a>使用 Prometheus 存储和检索监控数据</h2><p>使用 ARM 版镜像启动 Prometheus 服务：</p>
+<pre><code class="bash"># 拉取镜像
+$ docker pull prom/prometheus-linux-arm64:v3.3.0
+# 启动容器
+$ docker run --name prometheus -d -p 9090:9090 \
+-v /root/prometheus-conf:/etc/prometheus/ \
+prom/prometheus-linux-arm64:v3.3.0</code></pre>
+<p>Prometheus 配置 MindIE Metrics 端点地址时，需要添加 <a href="https://github.com/prometheus/prometheus/issues/15485#issuecomment-2541713114" target="_blank" rel="noopener">fallback_scrape_protocol: PrometheusText0.0.4</a>：</p>
+<pre><code class="yaml"># /root/prometheus-conf/prometheus.yml
+...
+scrape_configs:
+...
+    - job_name: &quot;mindie&quot;
+    # set fallback_scrape_protocol to be compatible with mindie metrics API&#39;s response content type (application/json)
+    fallback_scrape_protocol: PrometheusText0.0.4
+    static_configs:
+      - targets: [&quot;localhost:1027&quot;, &quot;localhost:1028&quot;]
+        labels:
+          app: &quot;mindie&quot;</code></pre>
+<pre><code class="bash"># 重启容器
+docker restart prometheus</code></pre>
+<p>更新配置重启容器后，可通过 <a href="http://localhost:9090" target="_blank" rel="noopener">http://localhost:9090</a> 访问 Prometheus Web UI。</p>
+<h3 id="节点监控"><a href="#节点监控" class="headerlink" title="节点监控"></a>节点监控</h3><p>普罗米修斯官方也提供了很多 Exporter 组件用于监控各类资源使用情况，如监控计算资源节点的 <a href="https://prometheus.io/download/#node_exporter" target="_blank" rel="noopener">Node Exporter</a>。同样可以通过官方镜像快速启动：</p>
+<pre><code class="bash"># 拉取镜像
+$ docker pull prom/node-exporter:v1.9.1 --platform arm64
+# 启动容器
+$ docker run -d \
+  --net=&quot;host&quot; \
+  --pid=&quot;host&quot; \
+  -v &quot;/:/host:ro,rslave&quot; \
+  prom/node-exporter:v1.9.1 \
+  --path.rootfs=/host</code></pre>
+<p><code>node_exporter</code> 默认监听 HTTP 9100 端口。容器启动成功后，可添加到 Prometheus 配置文件中：</p>
+<pre><code class="yaml"># /root/prometheus-conf/prometheus.yml
+...
+scrape_configs:
+...
+  - job_name: &quot;node&quot;
+    static_configs:
+      - targets: [&quot;localhost:9100&quot;]
+        labels:
+          app: &quot;node&quot;</code></pre>
+<blockquote>
+<p>包含 Node Exporter 和 MindIE Metrics 的完整配置文件可参考 <a href="https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/mindie-benchmark/prometheus.yml" target="_blank" rel="noopener">prometheus.yml</a>。</p>
+</blockquote>
+<h2 id="使用-Grafana-可视化监控数据"><a href="#使用-Grafana-可视化监控数据" class="headerlink" title="使用 Grafana 可视化监控数据"></a>使用 Grafana 可视化监控数据</h2><p>使用 ARM 版镜像启动 Grafana 服务：</p>
+<pre><code class="bash"># 拉取镜像
+$ docker pull grafana/grafana:11.6.0 --platform arm64
+# 启动容器
+$ docker run -d --name=grafana -p 3000:3000 grafana/grafana:11.6.0</code></pre>
+<p>容器启动成功后，访问 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> 可进入 Grafana Web UI。默认用户名和密码均为 <code>admin</code>，第一次登录会需要修改密码。</p>
+<p>以下内容引自 <a href="https://www.hiascend.com/developer/techArticles/20250327-1" target="_blank" rel="noopener">MindIE服务化部署实现监控功能</a>：</p>
+<blockquote>
+<p>点击 Connection &gt; Data sources &gt; Add new data source，选择 prometheus，之后把 prometheus 的 URL <a href="http://localhost:9090/" target="_blank" rel="noopener">http://localhost:9090/</a> 填上去，点击最下面 Save &amp; test。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/datasource.png" alt="datasource"></p>
+</blockquote>
+<blockquote>
+<p>之后可以在 Grafana 页面建立 dashboard，在 Home &gt; Dashboards &gt; New dashboard 建立 dashboard， Dashboard 手动构建较麻烦，可以参考一些 Grafana教程 <a href="https://imageslr.com/2024/grafana.html。" target="_blank" rel="noopener">https://imageslr.com/2024/grafana.html。</a></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/dashboard.png" alt="dashboard"></p>
+</blockquote>
+<blockquote>
+<p>好在可以通过 json 格式输入或 json 文件 import 快速构建 dashboard<br>这里选择参考下面 vllm 的 grafana json 文件，将其中的 vllm: 字段去掉（因为 MindIE 的 metrics 字段和 vllm 的 metric 有区别）<br><a href="http://www.gitpp.com/digiman/vllm/-/blob/main/examples/production_monitoring/grafana.json?ref_type=heads" target="_blank" rel="noopener">http://www.gitpp.com/digiman/vllm/-/blob/main/examples/production_monitoring/grafana.json?ref_type=heads</a></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/import.png" alt="import"></p>
+</blockquote>
+<blockquote>
+<p>最终得到MindIE指标监控看板界面</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/mindie-dashboard.png" alt="mindie-dashboard"></p>
+</blockquote>
+<p>MindIE Dashboard json 配置文件可参考 <a href="https://alphahinex.github.io/contents/mindie-benchmark/mindie-dashboard.json">mindie-dashboard.json</a>。</p>
+<p>Node Exporter Dashboard json 配置文件可从 <a href="https://grafana.com/grafana/dashboards/16098-node-exporter-dashboard-20240520-job/" target="_blank" rel="noopener">https://grafana.com/grafana/dashboards/16098-node-exporter-dashboard-20240520-job/</a> 下载，或直接使用 <a href="https://alphahinex.github.io/contents/mindie-benchmark/node-exporter-dashboard.json">node-exporter-dashboard.json</a>。</p>
+<h3 id="实测数据-1"><a href="#实测数据-1" class="headerlink" title="实测数据"></a>实测数据</h3><p><img src="https://alphahinex.github.io/contents/mindie-benchmark/client-text-grafana.png" alt="client-text-grafana"></p>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/client-stream-grafana.png" alt="client-stream-grafana"></p>
+<p><img src="https://alphahinex.github.io/contents/mindie-benchmark/client-stream-1000-grafana.png" alt="client-stream-1000-grafana"></p>
+<p>由上面的图表可知（使用 GSM8K 数据集）：</p>
+<ul>
+<li>128 并发进行推理时，流式及非流式推理性能差别不大：请求提示词 token 数在 <code>10~200</code> 范围，响应 token 数在 <code>200~5000</code> 范围，并行推理数基本能够稳定在 128，等待推理的请求数基本为 0，每秒生成 token 数量在 <code>1500~2000</code> 左右。</li>
+<li>1000 并发时：出现大量等待请求，并行推理数与等待请求数呈互补型波动，每秒生成 token 数也呈现出较大范围的波动。</li>
+</ul>
+<p>每秒输出 token 总数，会受到输入 token 数、输出 token 数、并行推理数、等待请求数的影响：</p>
+<ul>
+<li>输入输出 token 数越多，能够并行的推理数就会越少；</li>
+<li>等待的请求数增多，并行推理数也会减少；</li>
+<li>并行推理数下降，每秒输出的 token 总数就会下降；</li>
+<li>并行推理数最大值，受限于 NPU 卡的性能和 maxBatchSize 配置参数及 TotalBlockNum 影响。计算 maxBatchSize 最大值，可参考 <a href="https://www.hiascend.com/document/detail/zh/mindie/100/mindieservice/servicedev/mindie_service0105.html#ZH-CN_TOPIC_0000002151290336__li14344155810581" target="_blank" rel="noopener">性能调优流程</a> 文档；TotalBlockNum 值也可参照该文档，且可能会根据不同的输入输出 token 数而变化。</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MindIE-Benchmark"><span class="toc-number">1.</span> <span class="toc-text">MindIE Benchmark</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Client-推理模式样例"><span class="toc-number">1.1.</span> <span class="toc-text">Client 推理模式样例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Engine-推理模式样例"><span class="toc-number">1.2.</span> <span class="toc-text">Engine 推理模式样例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试数据集"><span class="toc-number">2.</span> <span class="toc-text">测试数据集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实测数据"><span class="toc-number">3.</span> <span class="toc-text">实测数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">3.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Client-模式非流式推理性能测试"><span class="toc-number">3.2.</span> <span class="toc-text">Client 模式非流式推理性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Client-模式流式推理性能测试"><span class="toc-number">3.3.</span> <span class="toc-text">Client 模式流式推理性能测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#性能监控"><span class="toc-number">4.</span> <span class="toc-text">性能监控</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Prometheus-存储和检索监控数据"><span class="toc-number">4.1.</span> <span class="toc-text">使用 Prometheus 存储和检索监控数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#节点监控"><span class="toc-number">4.1.1.</span> <span class="toc-text">节点监控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Grafana-可视化监控数据"><span class="toc-number">4.2.</span> <span class="toc-text">使用 Grafana 可视化监控数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实测数据-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">实测数据</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

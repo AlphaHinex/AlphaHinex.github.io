@@ -1,0 +1,557 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SOP、CORS 和 CSRF、XSS - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,origin, site, same origin, cross-origin, same site, corss site, SOP, CORS, CSRF, XSS"> 
+    <meta name="description" content="在 Origin 和 Site 中，我们介绍了 源 和 站 的概念，这两个概念在浏览器的安全策略中有着广泛的应用，接下来再介绍几个与之相关的概念。
+SOPSame Origin Policy（SOP,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">SOP、CORS 和 CSRF、XSS</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/sop-cors-csrf-xss/cover.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Web"><b>「
+                    </b>WEB<b> 」</b></a>
+                
+                五月 23, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/05/23/sop-cors-csrf-xss/" title="SOP、CORS 和 CSRF、XSS" class="">SOP、CORS 和 CSRF、XSS</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.6k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在 <a href="https://alphahinex.github.io/2021/05/16/origin-and-site/">Origin 和 Site</a> 中，我们介绍了 <code>源</code> 和 <code>站</code> 的概念，这两个概念在浏览器的安全策略中有着广泛的应用，接下来再介绍几个与之相关的概念。</p>
+<h2 id="SOP"><a href="#SOP" class="headerlink" title="SOP"></a>SOP</h2><p>Same Origin Policy（<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">SOP</a>），同源策略，是浏览器的一个重要安全机制，用来限制从某一 Origin（源）加载的文档或脚本，如何与其他源中的资源进行交互。它能帮助隔离潜在的恶意文档，减少被攻击的可能。</p>
+<h3 id="跨源网络访问"><a href="#跨源网络访问" class="headerlink" title="跨源网络访问"></a>跨源网络访问</h3><p>跨源网络访问，通常分为三类：</p>
+<ol>
+<li>跨源<strong>写操作</strong>（Cross-origin writes）：通常是被允许的，例如链接、重定向，以及表单提交。这类操作又分为 <code>简单请求（simple request）</code> 及 <code>预检请求（preflighted request）</code> 两类，需预检的请求，要求必须首先使用 <code>OPTIONS</code> 方法发起一个预检请求到服务器，以获知服务器是否允许该实际请求。</li>
+<li>跨源<strong>资源嵌入</strong>（Cross-origin embedding）：一般是被允许的。</li>
+<li>跨源<strong>读操作</strong>（Cross-origin reads）：一般是不被允许的，但常可以通过内嵌资源来巧妙的进行读取访问。例如，可以读取嵌入图片的高度和宽度，调用内嵌脚本的方法，或像 <a href="https://www.grepular.com/Abusing_HTTP_Status_Codes_to_Expose_Private_Information" target="_blank" rel="noopener">Abusing HTTP Status Codes to Expose Private Information</a> 中描述的方式，通过嵌入资源的请求的响应状态获得一些信息。</li>
+</ol>
+<h3 id="源的继承"><a href="#源的继承" class="headerlink" title="源的继承"></a>源的继承</h3><p>在页面中通过 <code>about:blank</code> 或 <code>javascript:</code> URL 执行的脚本会继承打开该 URL 的文档的源，因为这些类型的 URLs 没有包含源服务器的相关信息。</p>
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>Cross-Origin Resource Sharing（<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">CORS</a>），跨源资源共享 或 跨域资源共享，是一种基于 HTTP Header 的机制，用来使服务端指定哪些其他的源可以从这个服务端加载资源。对那些可能对服务器数据产生副作用的 HTTP 请求方法（特别是 GET 以外的 HTTP 请求，或者搭配某些 MIME 类型的 POST 请求），浏览器必须首先使用 OPTIONS 方法发起一个预检请求（preflight request），从而获知服务端是否允许该跨源请求。服务器确认允许之后，才发起实际的 HTTP 请求。在预检请求的返回中，服务器端也可以通知客户端，是否需要携带身份凭证（包括 Cookies 和 HTTP 认证相关数据）。</p>
+<p>CORS 请求失败会产生错误，但是为了安全，在 JavaScript 代码层面是无法获知到底具体是哪里出了问题。你只能查看浏览器的控制台以得知具体是哪里出现了错误。</p>
+<p><img src="/contents/sop-cors-csrf-xss/cors_principle.png" alt="CORS"></p>
+<h3 id="HTTP-response-headers"><a href="#HTTP-response-headers" class="headerlink" title="HTTP response headers"></a>HTTP response headers</h3><p>CORS 响应头字段包括：</p>
+<ul>
+<li>Access-Control-Allow-Origin：指定允许访问该资源的外源 URL，或设定为 <code>*</code> 以允许来自所有域的请求</li>
+<li>Access-Control-Expose-Headers：设定除基本的响应头之外，允许浏览器访问的其他响应头</li>
+<li>Access-Control-Max-Age：指定 preflight 请求的结果能被缓存多久</li>
+<li>Access-Control-Allow-Credentials：预检请求的响应通过此 header 控制实际请求发送的时候是否会携带凭证</li>
+<li>Access-Control-Allow-Methods：用于预检请求的响应，指明了实际请求所允许使用的 HTTP 方法</li>
+<li>Access-Control-Allow-Headers：用于预检请求的响应，指明了实际请求中允许携带的 header 字段</li>
+</ul>
+<h3 id="HTTP-request-headers"><a href="#HTTP-request-headers" class="headerlink" title="HTTP request headers"></a>HTTP request headers</h3><ul>
+<li>Origin：表明预检请求或实际请求的源站</li>
+<li>Access-Control-Request-Method：用于预检请求，其作用是，将实际请求所使用的 HTTP 方法告诉服务器</li>
+<li>Access-Control-Request-Headers：用于预检请求，将实际请求所携带的 header 字段告诉服务器</li>
+</ul>
+<h3 id="简单请求（simple-request）"><a href="#简单请求（simple-request）" class="headerlink" title="简单请求（simple request）"></a>简单请求（simple request）</h3><p>若请求满足所有下述条件，则该请求可视为“简单请求”，不会触发“预检请求”：</p>
+<ul>
+<li>使用下列方法之一：</li>
+</ul>
+<ol>
+<li>GET</li>
+<li>HEAD</li>
+<li>POST</li>
+</ol>
+<ul>
+<li>除了被用户代理自动设置的 header（如 <code>Connection</code>，<code>User-Agent</code>）和在 Fetch 规范中定义为 <a href="https://fetch.spec.whatwg.org/#forbidden-header-name" target="_blank" rel="noopener">禁用的 header</a>，允许人为设置的字段为 Fetch 规范定义的 <a href="https://fetch.spec.whatwg.org/#cors-safelisted-request-header" target="_blank" rel="noopener">对 CORS 安全的首部字段集合</a>：</li>
+</ul>
+<ol>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Content-Type （需要注意下面的限制）</li>
+</ol>
+<ul>
+<li>Content-Type 的值仅限于下列三者之一：</li>
+</ul>
+<ol>
+<li>application/x-www-form-urlencoded</li>
+<li>multipart/form-data</li>
+<li>text/plain</li>
+</ol>
+<ul>
+<li>如果请求中使用了 XMLHttpRequest 对象，则需要没有在 XMLHttpRequest.upload 属性返回的对象上注册任何事件监听器，比如给定一个 XMLHttpRequest 实例 <code>xhr</code>，没有对 xhr 实例调用过 <code>xhr.upload.addEventListener()</code> 来监听上传操作</li>
+<li>请求中没有使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/ReadableStream" target="_blank" rel="noopener">ReadableStream</a> 对象</li>
+</ul>
+<p><img src="/contents/sop-cors-csrf-xss/simple-req-updated.png" alt="simple request"></p>
+<h3 id="预检请求（preflight-request）"><a href="#预检请求（preflight-request）" class="headerlink" title="预检请求（preflight request）"></a>预检请求（preflight request）</h3><p>不满足“简单请求”条件的请求，都需要先发送一个 HTTP method 为 <code>OPTIONS</code> 的预检请求（preflight request）给外源站点，并根据响应头中的设定，判断是否可以发送实际请求。</p>
+<p><img src="/contents/sop-cors-csrf-xss/preflight_correct.png" alt="preflight request"></p>
+<h3 id="凭证请求（requests-with-credentials）"><a href="#凭证请求（requests-with-credentials）" class="headerlink" title="凭证请求（requests with credentials）"></a>凭证请求（requests with credentials）</h3><p>XMLHttpRequest 或 Fetch 与 CORS 的一个有趣的特性是，可以基于 HTTP cookies 和 HTTP 认证信息发送身份凭证。一般而言，对于跨源 XMLHttpRequest 或 Fetch 请求，浏览器不会发送身份凭证信息。如果要发送凭证信息，需要设置 XMLHttpRequest 的某个特殊标志位，或在构造 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Request" target="_blank" rel="noopener">Request</a> 对象时指明。</p>
+<p>即使是不需要发送预检请求的简单请求，也可以在跨源请求中携带凭证，但如果响应头中没有 <code>Access-Control-Allow-Credentials: true</code>，浏览器不会把响应内容返回给请求的发送者。</p>
+<p><img src="/contents/sop-cors-csrf-xss/cred-req-updated.png" alt="with credential"></p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>Cross Site Request Forgery（<a href="https://owasp.org/www-community/attacks/csrf" target="_blank" rel="noopener">CSRF</a>），跨站请求伪造，是指利用用户已经在某网站登录的凭证，在用户不知情的情况下，伪造用户操作此网站的请求。用户在此网站的权限越大，对此网站造成的危害越大。</p>
+<h3 id="如何阻止跨站访问"><a href="#如何阻止跨站访问" class="headerlink" title="如何阻止跨站访问"></a>如何阻止跨站访问</h3><p>大部分框架都提供了内置的 CSRF 支持，如 Joomla，<a href="https://docs.spring.io/spring-security/site/docs/current/reference/html5/#csrf" target="_blank" rel="noopener">Spring</a>，Struts，Ruby on Rails，.NET 等。</p>
+<p>通常的做法是设定一个 CSRF token，一个由服务端生成的随机值，请求需携带这个 token，并由服务端验证请求的合法性。</p>
+<p>阻止跨站写操作，可以通过 CSRF token 进行校验。</p>
+<p>阻止跨站读操作，需确保该资源是不可嵌入的。阻止跨站嵌入，需确保资源不能通过 <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#cross-origin_network_access" target="_blank" rel="noopener">可嵌入资源格式</a> 使用。浏览器可能不会遵守 Content-Type 头部定义的类型，例如在 HTML 文档外面套上 <code>&lt;script&gt;</code> 标签，浏览器会尝试按照 JavaScript 来解析其中的 HTML 内容。当资源不是网站入口时，也可以考虑使用 CSRF token 来防止嵌入。</p>
+<p>更多阻止方案，可参考 <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">Cross-Site Request Forgery Prevention Cheat Sheet</a> 。</p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><p>Cross Site Scripting（<a href="https://owasp.org/www-community/attacks/xss/" target="_blank" rel="noopener">XSS</a>），跨站脚本攻击，缩写不使用 CSS 是为了避免与 层叠样式表 混淆。</p>
+<p>跨站脚本攻击通常是指对用户通过表单等方式写入的数据未进行合法性校验，导致可能将恶意脚本注入到网站中，并对其他用户造成危害。</p>
+<p>通常采取的防范措施是由前端对用户输入内容进行转义等，避免用户上传的恶意脚本能够被直接执行。目前大部分主流的前端框架，也对 XSS 进行了基本的防御。</p>
+<p>更多阻止 XSS 的方案，可参考 <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html" target="_blank" rel="noopener">Cross Site Scripting Prevention Cheat Sheet</a> 。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">Same-origin policy</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener">Cross-Origin Resource Sharing (CORS)</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SOP"><span class="toc-number">1.</span> <span class="toc-text">SOP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#跨源网络访问"><span class="toc-number">1.1.</span> <span class="toc-text">跨源网络访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源的继承"><span class="toc-number">1.2.</span> <span class="toc-text">源的继承</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS"><span class="toc-number">2.</span> <span class="toc-text">CORS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-response-headers"><span class="toc-number">2.1.</span> <span class="toc-text">HTTP response headers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-request-headers"><span class="toc-number">2.2.</span> <span class="toc-text">HTTP request headers</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单请求（simple-request）"><span class="toc-number">2.3.</span> <span class="toc-text">简单请求（simple request）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预检请求（preflight-request）"><span class="toc-number">2.4.</span> <span class="toc-text">预检请求（preflight request）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#凭证请求（requests-with-credentials）"><span class="toc-number">2.5.</span> <span class="toc-text">凭证请求（requests with credentials）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CSRF"><span class="toc-number">3.</span> <span class="toc-text">CSRF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#如何阻止跨站访问"><span class="toc-number">3.1.</span> <span class="toc-text">如何阻止跨站访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS"><span class="toc-number">4.</span> <span class="toc-text">XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

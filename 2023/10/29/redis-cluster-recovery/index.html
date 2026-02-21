@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Redis 5 集群断电故障处理指北 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Redis CLI, Redis Cluster, nodes.conf, corrupted cluster config file, bitnami"> 
+    <meta name="description" content="现象
+Redis 版本：5.0.9
+Redis 集群使用 Bitnami Redis Cluster Chart（appVersion: 5.0.9, version: 2.0.14）部署在 K8s,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Redis 5 集群断电故障处理指北</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/redis-cluster-recovery.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Redis"><b>「
+                    </b>REDIS<b> 」</b></a>
+                
+                十月 29, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/10/29/redis-cluster-recovery/" title="Redis 5 集群断电故障处理指北" class="">Redis 5 集群断电故障处理指北</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><ul>
+<li>Redis 版本：5.0.9</li>
+<li>Redis 集群使用 <a href="https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster" target="_blank" rel="noopener">Bitnami Redis Cluster Chart</a>（appVersion: 5.0.9, version: 2.0.14）部署在 K8s 中</li>
+<li>集群配置：三主三从六节点</li>
+</ul>
+<p>集群断电后重启出现故障节点，报错日志 <code>Unrecoverable error: corrupted cluster config file.</code>。</p>
+<h2 id="故障时集群各节点状态"><a href="#故障时集群各节点状态" class="headerlink" title="故障时集群各节点状态"></a>故障时集群各节点状态</h2><p>在 <a href="https://redis.io/docs/connect/cli/" target="_blank" rel="noopener">Redis CLI</a> 中可通过 <a href="https://redis.io/commands/cluster-nodes/" target="_blank" rel="noopener">cluster nodes</a>、<a href="https://redis.io/commands/cluster-info/" target="_blank" rel="noopener">cluster info</a>、<a href="https://redis.io/commands/info/" target="_blank" rel="noopener">info</a> 等命令查看集群节点、集群状态及节点主从关系，也可以直接从各节点的 <code>nodes.conf</code> 文件中查看。</p>
+<h3 id="redis-cluster-0（主）"><a href="#redis-cluster-0（主）" class="headerlink" title="redis-cluster-0（主）"></a>redis-cluster-0（主）</h3><ul>
+<li>IP：10.0.2.131</li>
+<li>nodes.conf</li>
+</ul>
+<pre><code class="conf">cd17f6c6c9808521f23b6f2d35e797f2a62444fc 10.1.59.108:6379@16379 slave e998e0c78ddd89ef7d0989a19ff5dcd11348656c 0 1695612120166 8 connected
+e998e0c78ddd89ef7d0989a19ff5dcd11348656c 10.0.2.131:6379@16379 myself,master - 0 1695612121000 8 connected 5461-10922
+53e4379e78ed29a16ba752daa244329b16fd4d12 10.0.0.8:6379@16379 master - 0 1695612121603 7 connected 0-5460
+008179f63e12ca74cfac49fb305bcdec33d0f988 10.1.61.78:6379@16379 slave,fail 53e4379e78ed29a16ba752daa244329b16fd4d12 1695612044535 1695612044535 7 disconnected
+955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 10.0.0.175:6379@16379 master,fail - 1695612044535 1695612044535 3 disconnected 10923-16383
+682b478c0ae0c6a02cecd47a04e8a6c9a53b0a1f 10.0.2.148:6379@16379 slave,fail 955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 1695612044535 1695612044535 4 disconnected
+vars currentEpoch 8 lastVoteEpoch 0</code></pre>
+<h3 id="redis-cluster-1（主）"><a href="#redis-cluster-1（主）" class="headerlink" title="redis-cluster-1（主）"></a>redis-cluster-1（主）</h3><ul>
+<li>IP：10.0.0.8</li>
+<li>nodes.conf</li>
+</ul>
+<pre><code class="conf">682b478c0ae0c6a02cecd47a04e8a6c9a53b0a1f 10.0.2.76:6379@16379 slave,fail 955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 1695612121508 1695612121508 3 connected
+955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 10.0.0.175:6379@16379 master,fail - 1695612121508 1695612121508 3 disconnected 10923-16383
+e998e0c78ddd89ef7d0989a19ff5dcd11348656c 10.0.2.131:6379@16379 master - 0 1697706582722 8 connected 5461-10922
+cd17f6c6c9808521f23b6f2d35e797f2a62444fc 10.1.59.108:6379@16379 slave e998e0c78ddd89ef7d0989a19ff5dcd11348656c 0 1697706582118 8 connected
+008179f63e12ca74cfac49fb305bcdec33d0f988 10.1.61.78:6379@16379 slave,fail 53e4379e78ed29a16ba752daa244329b16fd4d12 1695612121508 1695612121508 7 disconnected
+53e4379e78ed29a16ba752daa244329b16fd4d12 10.0.0.8:6379@16379 myself,master - 0 1697706582000 7 connected 0-5460
+vars currentEpoch 8 lastVoteEpoch 8</code></pre>
+<h3 id="redis-cluster-2（从，故障）"><a href="#redis-cluster-2（从，故障）" class="headerlink" title="redis-cluster-2（从，故障）"></a>redis-cluster-2（从，故障）</h3><ul>
+<li>IP：10.0.2.148</li>
+<li>nodes.conf 内容为空</li>
+</ul>
+<h3 id="redis-cluster-3（主，故障）"><a href="#redis-cluster-3（主，故障）" class="headerlink" title="redis-cluster-3（主，故障）"></a>redis-cluster-3（主，故障）</h3><ul>
+<li>IP：10.0.0.175</li>
+<li>nodes.conf 内容为空</li>
+</ul>
+<h3 id="redis-cluster-4（从）"><a href="#redis-cluster-4（从）" class="headerlink" title="redis-cluster-4（从）"></a>redis-cluster-4（从）</h3><ul>
+<li>IP：10.1.59.108</li>
+<li>nodes.conf</li>
+</ul>
+<pre><code class="conf">e998e0c78ddd89ef7d0989a19ff5dcd11348656c 10.0.2.131:6379@16379 master - 0 1697706582714 8 connected 5461-10922
+682b478c0ae0c6a02cecd47a04e8a6c9a53b0a1f 10.0.2.76:6379@16379 slave,fail 955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 1695612016917 1695612016917 3 connected
+cd17f6c6c9808521f23b6f2d35e797f2a62444fc 10.1.59.108:6379@16379 myself,slave e998e0c78ddd89ef7d0989a19ff5dcd11348656c 0 1697706582000 2 connected
+53e4379e78ed29a16ba752daa244329b16fd4d12 10.0.0.8:6379@16379 master - 0 1697706582412 7 connected 0-5460
+955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a 10.0.0.175:6379@16379 master,fail - 1695612016917 1695612016917 3 disconnected 10923-16383
+008179f63e12ca74cfac49fb305bcdec33d0f988 10.1.61.78:6379@16379 slave,fail 53e4379e78ed29a16ba752daa244329b16fd4d12 1695612016917 1695612016917 7 disconnected
+vars currentEpoch 8 lastVoteEpoch 7</code></pre>
+<h3 id="redis-cluster-5（从，故障）"><a href="#redis-cluster-5（从，故障）" class="headerlink" title="redis-cluster-5（从，故障）"></a>redis-cluster-5（从，故障）</h3><ul>
+<li>IP：10.1.61.78</li>
+<li>nodes.conf 内容为空</li>
+</ul>
+<h2 id="主从关系"><a href="#主从关系" class="headerlink" title="主从关系"></a>主从关系</h2><p>根据 <code>nodes.conf</code> 中的 <code>node-id</code> 整理故障集群节点主从关系如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">主</th>
+<th align="left">从</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">redis-cluster-0（5461-10922）<br><code>e998e0c78ddd89ef7d0989a19ff5dcd11348656c</code><br>10.0.2.131</td>
+<td align="left">redis-cluster-4<br><code>cd17f6c6c9808521f23b6f2d35e797f2a62444fc</code><br>10.1.59.108</td>
+</tr>
+<tr>
+<td align="left">redis-cluster-1（0-5460）<br><code>53e4379e78ed29a16ba752daa244329b16fd4d12</code><br>10.0.0.8</td>
+<td align="left">redis-cluster-5（故障）<br><code>008179f63e12ca74cfac49fb305bcdec33d0f988</code><br>10.1.61.78</td>
+</tr>
+<tr>
+<td align="left">redis-cluster-3（10923-16383）（故障）<br><code>955c9b55ecfb0cee0b2e906db4a5bc8ae227b68a</code><br>10.0.0.175</td>
+<td align="left">redis-cluster-2（故障）<br><code>682b478c0ae0c6a02cecd47a04e8a6c9a53b0a1f</code><br>10.0.2.148 / 10.0.2.76</td>
+</tr>
+</tbody></table>
+<h1 id="故障恢复"><a href="#故障恢复" class="headerlink" title="故障恢复"></a>故障恢复</h1><h2 id="清理故障节点信息"><a href="#清理故障节点信息" class="headerlink" title="清理故障节点信息"></a>清理故障节点信息</h2><p>在集群健康节点中使用 <a href="https://redis.io/commands/cluster-forget/" target="_blank" rel="noopener">cluster forget</a> 清理故障节点信息。</p>
+<p>可创建如下脚本协助自动清理，根据实际情况调整 <code>host_array</code> 中 <code>host</code>、<code>-p</code> 端口和 <code>-a</code> 密码：</p>
+<pre><code class="shell">host_array=&quot;10.0.2.131 10.0.0.8 10.1.59.108&quot;
+for var in $host_array;
+do
+    nodeids=`redis-cli -c -h $var -p 6379 -a redis cluster nodes|grep fail|awk &#39;{print $1}&#39;`
+    for d in $nodeids
+    do
+        echo $d
+        redis-cli -c -h $var -p 6379 -a redis cluster forget $d
+    done
+done</code></pre>
+<h2 id="创建-Sidecar-容器"><a href="#创建-Sidecar-容器" class="headerlink" title="创建 Sidecar 容器"></a>创建 Sidecar 容器</h2><p>创建 <a href="https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster#sidecars-and-init-containers" target="_blank" rel="noopener">Sidecar</a> 容器 <code>redis-tool</code> 挂载 Redis 主容器配置文件、数据目录等，以便重建故障节点。可参考如下配置：</p>
+<pre><code class="yml">sidecars:
+  - name: redis-tool
+    image: {{ include "redis-cluster.image" . }}
+    imagePullPolicy: Always
+    volumeMounts:
+      - name: redis-data
+        mountPath: {{ .Values.persistence.path }}
+        subPath: {{ .Values.persistence.subPath }}
+      - name: redis-tmp-conf
+        mountPath: /opt/bitnami/redis/etc/</code></pre>
+<h2 id="修复主节点"><a href="#修复主节点" class="headerlink" title="修复主节点"></a>修复主节点</h2><p>优先修复主节点。</p>
+<p>在故障主节点 redis-cluster-3 的 <code>redis-tool</code> 容器终端中，删除内容为空的 <code>nodes.conf</code>，使用 <code>/opt/bitnami/redis/etc/redis.conf</code> 配置文件重新启动 Redis 进程：</p>
+<pre><code class="shell">redis-server /opt/bitnami/redis/etc/redis.conf</code></pre>
+<p>启动成功后，在集群任意非故障节点使用 <a href="https://redis.io/commands/cluster-meet/" target="_blank" rel="noopener">cluster meet</a> 将重新启动的主节点添加到集群中：</p>
+<pre><code class="redis-cli">127.0.0.1:6379&gt; cluster meet 10.0.0.175 6379
+OK</code></pre>
+<p>完成配置后，可直接移除该 pod，使其自动重建，完成该节点故障恢复。</p>
+<h2 id="修复从节点"><a href="#修复从节点" class="headerlink" title="修复从节点"></a>修复从节点</h2><p>从节点的修复步骤与修复主节点类似：</p>
+<ol>
+<li>清理已损坏的 <code>nodes.conf</code></li>
+<li>重新启动 Redis 进程</li>
+<li>将重启后的节点加入集群</li>
+</ol>
+<p>此外，修复从节点还需一步操作：配置节点的主从关系。</p>
+<p>以将 redis-cluster-5 配置为 redis-cluster-1 的从节点为例：在 redis-cluster-5 实例的 Redis CLI 中使用 <a href="https://redis.io/commands/cluster-replicate/" target="_blank" rel="noopener">cluster replicate</a> 指定 redis-cluster-1 节点的 <code>node-id</code>（可从 <code>nodes.conf</code> 中获得）：</p>
+<pre><code class="redis-cli">127.0.0.1:6379&gt; cluster replicate 53e4379e78ed29a16ba752daa244329b16fd4d12
+OK</code></pre>
+<p>完成配置后，可直接移除该 pod，使其自动重建，完成该节点故障恢复。</p>
+<h1 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h1><h2 id="集群节点-IP-错误"><a href="#集群节点-IP-错误" class="headerlink" title="集群节点 IP 错误"></a>集群节点 IP 错误</h2><p>使用 Bitnami 早期版本的 Redis Cluster Chart 时，可能会遇到 Redis 节点的 <code>nodes.conf</code> 中出现非法 IP 的情况，如：<code>10.233.95.2365</code>。</p>
+<p>Chart 所使用的 <a href="https://github.com/bitnami/containers/tree/main/bitnami/redis-cluster" target="_blank" rel="noopener">Redis Cluster 镜像</a> 中有一个 <code>/opt/bitnami/scripts/librediscluster.sh</code> 脚本，负责在容器启动时更新 <code>nodes.conf</code> 中当前节点的 IP。</p>
+<p>出现上述非法 IP 的原因是该脚本的早期版本在使用 <code>sed</code> 更新 IP 时存在 bug，可在 git 仓库中找新版脚本，再覆盖镜像中问题脚本即可。</p>
+<h2 id="集群状态为-fail"><a href="#集群状态为-fail" class="headerlink" title="集群状态为 fail"></a>集群状态为 fail</h2><p>Redis 集群模式需要将 16384 个 slot 都分配到主节点上，集群状态才会是 ok，否则为 fail，如：</p>
+<pre><code class="info">cluster_state:ok
+cluster_slots_assigned:16384
+cluster_slots_ok:16384
+cluster_slots_pfail:0
+cluster_slots_fail:0
+cluster_known_nodes:6
+cluster_size:3
+cluster_current_epoch:6
+cluster_my_epoch:2
+cluster_stats_messages_sent:1483972
+cluster_stats_messages_received:1483968
+total_cluster_links_buffer_limit_exceeded:0</code></pre>
+<pre><code class="info">cluster_state:fail
+cluster_slots_assigned:10922
+cluster_slots_ok:10922</code></pre>
+<p>可通过 <a href="https://redis.io/commands/cluster-slots/" target="_blank" rel="noopener">cluster slots</a> 查看 Redis 集群各主节点的 slot 分配情况，<a href="https://redis.io/commands/cluster-addslots/" target="_blank" rel="noopener">cluster addslots</a> 为主节点分配 slot，如：</p>
+<pre><code class="redis-cli">cluster addslots 10922 10923 10924</code></pre>
+<p><code>cluster addslots</code> 命令只能逐个 slot 分配，不能像 Redis 7.0 版本引入的 <a href="https://redis.io/commands/cluster-addslotsrange/" target="_blank" rel="noopener">cluster addslotsrange</a> 命令一样分配一个范围的 slot。遇到需要分配大量连续 slot 时，可参考如下 Shell 脚本方式实现批量分配：</p>
+<pre><code class="shell">for i in $(seq 10923 16383); do
+    echo $i
+    redis-cli -c -h localhost -p 6379 -a redis cluster addslots $i
+done</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#现象"><span class="toc-number">1.</span> <span class="toc-text">现象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#故障时集群各节点状态"><span class="toc-number">1.1.</span> <span class="toc-text">故障时集群各节点状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-0（主）"><span class="toc-number">1.1.1.</span> <span class="toc-text">redis-cluster-0（主）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-1（主）"><span class="toc-number">1.1.2.</span> <span class="toc-text">redis-cluster-1（主）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-2（从，故障）"><span class="toc-number">1.1.3.</span> <span class="toc-text">redis-cluster-2（从，故障）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-3（主，故障）"><span class="toc-number">1.1.4.</span> <span class="toc-text">redis-cluster-3（主，故障）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-4（从）"><span class="toc-number">1.1.5.</span> <span class="toc-text">redis-cluster-4（从）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#redis-cluster-5（从，故障）"><span class="toc-number">1.1.6.</span> <span class="toc-text">redis-cluster-5（从，故障）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主从关系"><span class="toc-number">1.2.</span> <span class="toc-text">主从关系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#故障恢复"><span class="toc-number">2.</span> <span class="toc-text">故障恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#清理故障节点信息"><span class="toc-number">2.1.</span> <span class="toc-text">清理故障节点信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-Sidecar-容器"><span class="toc-number">2.2.</span> <span class="toc-text">创建 Sidecar 容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修复主节点"><span class="toc-number">2.3.</span> <span class="toc-text">修复主节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修复从节点"><span class="toc-number">2.4.</span> <span class="toc-text">修复从节点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他问题"><span class="toc-number">3.</span> <span class="toc-text">其他问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集群节点-IP-错误"><span class="toc-number">3.1.</span> <span class="toc-text">集群节点 IP 错误</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群状态为-fail"><span class="toc-number">3.2.</span> <span class="toc-text">集群状态为 fail</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

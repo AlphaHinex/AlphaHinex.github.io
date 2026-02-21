@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】bpmn和cmmn与dmn结合举例 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Workflow, BPM, BPMN, CMMN, DMN, Camunda"> 
+    <meta name="description" content="
+
+原文出处已无从考证，流传的比较广的是 csdn 上这个版本，应该是 盘古BPM 翻译的 Camunda 的文章。
+上图出自：http://www.bpm-guide.de/wp-content/,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】bpmn和cmmn与dmn结合举例</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/bpmn-cmmn-dmn/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Workflow"><b>「
+                    </b>WORKFLOW<b> 」</b></a>
+                
+                九月 25, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/09/25/bpmn-cmmn-dmn/" title="【转】bpmn和cmmn与dmn结合举例" class="">【转】bpmn和cmmn与dmn结合举例</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    4.1k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    4 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Workflow/" rel="tag">Workflow</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/bpmn-cmmn-dmn/cover.png" alt=""></p>
+<blockquote>
+<p>原文出处已无从考证，流传的比较广的是 <a href="https://blog.csdn.net/qq_30739519/article/details/106622771" target="_blank" rel="noopener">csdn</a> 上这个版本，应该是 <a href="http://pangubpm.com/" target="_blank" rel="noopener">盘古BPM</a> 翻译的 <a href="https://camunda.com/" target="_blank" rel="noopener">Camunda</a> 的文章。</p>
+<p>上图出自：<a href="http://www.bpm-guide.de/wp-content/uploads/2016/07/camunda_poster_en.pdf" target="_blank" rel="noopener">http://www.bpm-guide.de/wp-content/uploads/2016/07/camunda_poster_en.pdf</a></p>
+</blockquote>
+<p>我们演示这三个标准的场景来自保险行业。它被简化了，但它代表了我们反复遇到的各种现实生活情况。注意，这里使用的模型不仅仅是理论构造或文档;它们可以通过引擎执行，其中之一就是我们自己的产品camunda bpm。camunda bpm允许您在所有三个标准中建模和执行模型:bpmn、cmmn和dmn。</p>
+<p>让我们开始吧。</p>
+<p><img src="/contents/bpmn-cmmn-dmn/website.png" alt=""></p>
+<p>图：camundanzia网站。</p>
+<p>假设你想买汽车保险。现在，你的第一站是互联网，在那里你比较报价并决定供应商。您访问您选择的保险公司的网站——在这种情况下，是虚构的camundanzia保险公司。使用以下数据填写申请表格(见上图:）</p>
+<p>你的出生日期是1980年1月1日。我们写这篇文章的时候，你36岁。</p>
+<p>你的汽车是宝马公司生产的。车型为x3。</p>
+<p>您点击提交表单，然后向后靠，急切地等待您的保险政策。</p>
+<p>表单中的数据立即在camundanzia创建一个业务流程实例，该实例是在bpmn中建模的，在技术上是在camunda bpm中实现的(参见下图)。我们可以从接收到的启动事件应用程序看出这一点。上篇文章中首先提到的兼容bpmn的工作流引擎现在开始工作。</p>
+<p><img src="/contents/bpmn-cmmn-dmn/bpmn.png" alt=""></p>
+<p>图:bpmn中的请求处理。</p>
+<p>该流程从确定风险业务规则任务开始。在模型端，该任务与决策引擎执行的dmn决策表风险评估(参见下图)相关联。决策引擎评估申请人年龄、汽车制造商和汽车模型的输入值。当执行业务规则任务时，工作流模型将这些值转移到决策引擎。</p>
+<p><img src="/contents/bpmn-cmmn-dmn/dmn.png" alt=""></p>
+<p>图:dmn的风险评估。</p>
+<p>因为你说你开的是宝马x3，所以第四条规则适用于任何年龄的人。这条规则规定，任何高价值车辆的驾驶员都将得到黄色风险评级。</p>
+<p>决策引擎提供两个输出值——一个用于车辆，另一个用于车辆对于风险评级——回到工作流引擎，它继续执行流程。在接下来的步骤中，我们将遇到一个异或网关，它将根据风险评估决定流程如何继续。</p>
+<p>如果没有发现任何风险，网关就会选择标签为none的路径。这将导致问题策略服务任务。工作流引擎将通过接口调用camundanzia的后端系统，后端系统将生成一个文档。反过来，文档将被反馈给工作流引擎。下一步是send policy任务，它将文档转发给您。</p>
+<p>然而，你的风险属于黄色类别。异或网关激活应用程序检查调用活动。这个调用活动在bpmn模型的属性中链接到cmmn模型(参见下图)，并且cmmn模型现在在case引擎中实例化。工作流引擎等待case引擎报告完成。工作流引擎是耐心的，但由于附加的时间事件，在等待两天后，它将启动升级。它将启动一个名为加速应用程序评估的用户任务。例如，可以将用户任务分配给负责应用程序评估的知识工作者的团队领导。</p>
+<p><img src="/contents/bpmn-cmmn-dmn/cmmn.png" alt=""></p>
+<p>图:cmmn中的应用检入。</p>
+<p>让我们假设知识工作者，即具有专家知识的办公室职员，立即处理案例。他问自己:“尽管这辆车价值很高，这个申请人还应该投保吗?”除了必须处理的决定申请任务外，职员可选择:</p>
+<ul>
+<li>请求进一步的文档:职员可以启动请求文档流程任务，该任务反过来被链接到一个单独的bpmn流程模型。</li>
+<li>询问其他意见:职员可以启动用户任务评估应用程序，该应用程序将任务分配给他的团队领导。</li>
+</ul>
+<p><img src="/contents/bpmn-cmmn-dmn/decide.png" alt=""></p>
+<p>图:决定应用程序时办公室职员的任务表单。</p>
+<p>上面的步骤可以以任何顺序和多次执行，或者可以跳过这些步骤并立即决定应用程序。那是由办公室职员决定的。在上图中，我们看到了职员的任务表单。他可用的选项显示在右边。</p>
+<p>如果职员接受了请求，则哨兵会用小钻石表示，表示该决定必须由另一人授权。使授权成为必要的环境可能已经作为表达式存储在哨兵中，或者它们可能已经定义在由哨兵引用的单独dmn决策表中。在任何一种情况下，case引擎都会自动确定是否必须执行approve decision用户任务。</p>
+<p>如果最终结果是接受应用程序，cmmn案例将在该状态中完成。现在，bpmn流程继续进行，也就是说，工作流引擎到达xor网关决策并选择应用程序接受的路径。现在，上面描述的可能性变成了现实:服务任务从后端系统检索保险策略，发送任务通过电子邮件将其发送给申请人。</p>
+<p>也许从你递交汽车保险申请书到现在才过了半个小时。你把时间都浪费在了打盹上，不是吗?但是当你收到一封新邮件时，你的幻想就结束了。您激动的速度，Camundanzia  能够发布您的保险政策。</p>
+<p>我们的示例到此结束。我们希望它能起到启发作用。如果你愿意，你可以在 <a href="http://camunda.com/poster" target="_blank" rel="noopener">http://camunda.com/poster</a> 上看到这个例子的一张时髦的海报。我们很乐意免费寄给你。</p>
+<p>如您所见，这三种bpm标准中的每一种都有各自的角色，但它们也有重叠之处。关于这个问题，我们经常会遇到两个问题:</p>
+<ol>
+<li>基于业务规则的决策可以通过网关在bpmn中表示，那么我们为什么需要决策表呢?我们将在后面的文章中回答这个问题。</li>
+<li>在bpmn中，存在特别的子进程。这不是专门为cmmn现在要处理的用例开发的吗?我们在后面的文章中讨论这个问题。</li>
+</ol>
+<p>还有另一个棘手的主题:在流程协调期间实现高度结构的困难。相关人员可能会得出结论，这个过程必须保持他们行动的灵活性。也许他们担心bpmn会变得过于严格，所以他们很快就避开了cmmn作为替代。他们希望保持灵活性，但仍然享受过程改进的所有好处。这是一个谬论!明确定义的过程结构和过程改进之间的联系是不容置疑的。依靠cmmn而不是bpmn是要冒放弃的风险:</p>
+<ol>
+<li>透明度:cmmn图较少地揭示了业务过程是如何被处理的，也就是说，在什么情况下执行了哪些活动。毕竟，决策权是留给知识工作者的。因此，公司相对依赖于知识型员工。</li>
+<li>效率:知识型员工具有长期积累的特殊知识和经验。这意味着它们价格昂贵，而且很难被取代——或者随着业务量的增加而复制。在这样的条件下，你怎么能设想整个过程的自动化呢?因此，业务模型的可伸缩性受到限制。</li>
+<li>(结构)灵活性:如果过程需要修改，cmmn可以简单地调整。然而，如果一个知识工作者被期望以不同于过去的方式工作，他或她将不得不被告知和说服。这样做很麻烦，在某种意义上，也降低了结构的灵活性。是的，你可以争辩说cmmn的重点是为知识工作者提供很大的灵活性来进行自主决策，但是与使用bpmn相比，它需要更多的时间和精力来影响公司的决策行为。如果市场状况的变化比知识型员工改变习惯的能力或意愿更快，就可能出现问题。</li>
+</ol>
+<p>我们现在是在反对cmmn吗?不。cmmn建立在合理的思考之上，如果使用得当，它是非常有价值的。我们努力要指出的一点是，当用BPMN开发一个清晰定义的过程结构似乎很难的时候，简单地使用cmmn作为最小阻力的路径是错误的。我们不希望产生软件开发中所谓的技术债务——这种债务在短期内使生活更容易，但在未来会产生更顽固、更昂贵的问题。</p>
+<p>未来会出现更顽固、更昂贵的问题。</p>
+<p>因此，我们的建议(基本上也是我们的经验法则)是，首先认真尝试在bpmn中定义所需的流程。对于那些不能获得清晰的过程结构并且需要给知识工作者留有余地的过程，考虑cmmn。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

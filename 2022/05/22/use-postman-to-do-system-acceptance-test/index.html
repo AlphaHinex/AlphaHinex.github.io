@@ -1,0 +1,636 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 Postman 进行系统可接受性测试 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Postman, 测试, Newman, Automation test, Integration test"> 
+    <meta name="description" content="在微服务架构盛行的今天，一套系统涉及到的组件数量是非常庞大的，这不仅增大了系统部署的难度，也提出了一个在系统部署完成后如何进行基本的可用性检查这样一个问题。
+有人可能会说我们有完善的测试用例，有专门,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 Postman 进行系统可接受性测试</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/use-postman-to-do-system-acceptance-test/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Test"><b>「
+                    </b>TEST<b> 」</b></a>
+                
+                五月 22, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/05/22/use-postman-to-do-system-acceptance-test/" title="使用 Postman 进行系统可接受性测试" class="">使用 Postman 进行系统可接受性测试</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Automation-test/" rel="tag">Automation test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Integration-test/" rel="tag">Integration test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在微服务架构盛行的今天，一套系统涉及到的组件数量是非常庞大的，这不仅增大了系统部署的难度，也提出了一个在系统部署完成后如何进行基本的可用性检查这样一个问题。</p>
+<p>有人可能会说我们有完善的测试用例，有专门的测试团队，这完全不是问题，那么问题来了：</p>
+<ol>
+<li>人工执行的测试用例，通常需要执行人具备一定的专业测试技能及责任心；自动化测试用例则不仅有更高的技能要求，对测试工具及环境也有依赖；</li>
+<li>测试团队的资源是有限的，通常申请测试资源时都需要进行排队等待。</li>
+</ol>
+<p>可以用检车来类比一下：检车的流程是固定的，检测的项目就好比测试用例。然而作为车主，在需要检车时，仍然需要将车开到检车线，由专业的人员使用专业设备进行检测，通常还需要排队等待，并支付必需的费用。</p>
+<p>在系统进行全新部署、更新升级后，用户会希望能够像检车或保养一样，对系统的主要功能进行一个基本的可用性检测，以避免在需要使用系统某些功能时才发现功能无法正常使用。</p>
+<p>这个过程如果能够由用户自己完成，并且不需要付出额外的代价（排队等待、测试资源、技能门槛等），岂不美哉？</p>
+<p>如果你也觉得真香，不妨看看下面的方案。</p>
+<h1 id="Postman"><a href="#Postman" class="headerlink" title="Postman"></a>Postman</h1><p>最初对 Postman 的印象，是一个浏览器插件，可以帮助用户通过浏览器发送非 GET 类请求。在可以使用 <a href="https://curl.se/" target="_blank" rel="noopener">curl</a> 及 IDEA 的 <a href="https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html" target="_blank" rel="noopener">HTTP Client</a> 完成各类请求的发送时，对 Postman 确实没有什么额外的需求。</p>
+<p>但当我们从技术视角切换到用户视角时，Postman 就变得非常有用了。<a href="https://www.postman.com/" target="_blank" rel="noopener">Postman</a> 现在不仅仅是一个浏览器插件，引用官网的描述：</p>
+<blockquote>
+<p>What is Postman?</p>
+<p>Postman is an API platform for building and using APIs. Postman simplifies each step of the API lifecycle and streamlines collaboration so you can create better APIs—faster.</p>
+</blockquote>
+<p>从 <a href="https://www.postman.com/downloads/" target="_blank" rel="noopener">官方下载页面</a> 可以选择一种习惯的使用 Postman 的方式。以桌面客户端为例，安装后可以注册一个账号或跳过登录直接使用，大致界面如下：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/app.png" alt="主界面"></p>
+<p>如果像上图一样，将测试用例都通过 Postman 进行描述和组织，那么用户只需要点击最明显的那个 <code>Send</code> 按钮，就可以完成测试请求的发送，甚至得到如下图一样的测试报告：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/result.png" alt="测试报告"></p>
+<p>通过测试报告中的成功和失败数量以及明显的颜色标识（绿色成功、红色失败），可以直观的观测到测试用例的执行通过情况。使用 Postman 进行系统的一个基本的可接受性测试，操作简单，结果直观，可以随时进行，不受任何资源限制。</p>
+<p>唯一复杂一些的可能是测试用例的编写，而这是可以由技术人员事先编写好的。下面先来具体说说如何执行这些测试用例，再来介绍一些常见场景的测试用例如何编写。</p>
+<h1 id="如何执行测试用例"><a href="#如何执行测试用例" class="headerlink" title="如何执行测试用例"></a>如何执行测试用例</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>在 Postman 中，请求需要放在一个 <code>Collection</code> 下，可以将之理解为一个请求的集合，集合中可以任意创建文件夹及子文件夹，但导入导出是以集合为单位的。每个集合中所配置的文件夹、请求及测试脚本等内容，可以导出为一个 <code>.json</code> 文件。例如下图中，<code>云平台可用性验证</code> 即为一个 <code>Collection</code>，可以在右侧 <code>。。。</code> 按钮中找到导出（<code>Export</code>）功能，得到一个 <code>云平台可用性验证.postman_collection.json</code> 文件；用户拿到 JSON 文件后，通过下图右上角的导入（<code>Import</code>）功能导入，即可在 Postman 中看到这个集合了。</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/exp-imp.png" alt="导出导入"></p>
+<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><p>执行的粒度则要灵活得多，可以集合或文件夹为单位批量执行，也可以像最开始提到的那样直接点击 <code>Send</code> 按钮发送请求进行单一接口的测试。</p>
+<p>选择集合或文件夹后，可以在主界面找到 <code>Run</code> 按钮，点击后会弹出一个 <code>Runner</code> tab 页，可调整一些执行参数，如接口调用顺序、全部或部分执行、循环次数（<code>Iterations</code>）、两个接口的调用间隔（<code>Delay</code>），及是否保存响应（<code>Save responses</code>）。</p>
+<p>在进行系统可接受性测试时，可只循环一次，并适当加长调用间隔时间来模拟人工操作，以免接口调用过快造成有前后依赖关系的接口失败。配置完成后，点击页面蓝色主按钮进行执行，并可在执行结束后获得前面提到的测试报告。</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/runner.png" alt="执行配置"></p>
+<p>简单总结一下，执行测试用例的过程：</p>
+<ol>
+<li>获取并选择要执行的用例集合（或文件夹）；</li>
+<li>调整或使用默认的运行参数，运行用例；</li>
+<li>得到执行报告，根据是否有失败的用例，判断系统是否可被接受。</li>
+</ol>
+<p>系统是否可被接受的标准，可以通过测试用例来描述。接下来让我们来看看如何使用 Postman 来编写一些常见场景的测试用例。</p>
+<h1 id="如何编写测试用例"><a href="#如何编写测试用例" class="headerlink" title="如何编写测试用例"></a>如何编写测试用例</h1><p>Postman 中可以方便的配置 HTTP 请求信息，如 URL、方法、请求头、请求体等，并且可以在请求发送之前（<a href="https://learning.postman.com/docs/writing-scripts/pre-request-scripts/" target="_blank" rel="noopener">Pre-request Script</a>），以及请求响应之后（<a href="https://learning.postman.com/docs/writing-scripts/test-scripts/" target="_blank" rel="noopener">Test Script</a>），执行一些 JS 脚本。</p>
+<p>Postman 可用的 JS 内容可参考 <a href="https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/" target="_blank" rel="noopener">Postman JavaScript reference</a> 。</p>
+<p>如果你想先快速写一些测试脚本体验一下，可以直接使用界面右侧的链接快速获得对应测试脚本片段，如校验响应的状态码为 <code>200</code>：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/snippets.png" alt="测试脚本"></p>
+<h2 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h2><p>Postman 中 <a href="https://learning.postman.com/docs/writing-scripts/script-references/postman-sandbox-api-reference/#writing-test-assertions" target="_blank" rel="noopener">断言</a> 可以这样写：</p>
+<p><code>pm.test(testName:String, specFunction:Function):Function</code></p>
+<p>如：</p>
+<pre><code class="js">pm.test(&quot;Status code is 200&quot;, function () {
+    pm.response.to.have.status(200);
+});</code></pre>
+<p>此外，目前还是可以使用以前的 <a href="https://learning.postman.com/docs/writing-scripts/script-references/test-examples/#previous-style-of-writing-postman-tests-deprecated" target="_blank" rel="noopener">已经弃用</a> 的语法：</p>
+<pre><code class="js">tests[&quot;Status code is 200&quot;] = responseCode.code === 200</code></pre>
+<p>虽然已弃用的语法看着更简洁，但在断言失败时，只会提示出本应为真的 <code>responseCode.code === 200</code> 这个表达式得到的是 <code>false</code>；而第一种断言写法会在执行结果中，明确的告诉你断言失败的原因是因为期望得到 <code>200</code> 响应码，实际得到的却是 <code>XXX</code>。</p>
+<h2 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h2><p>通常我们可能需要在请求中使用之前请求得到的响应中的数据。例如先新增了一条数据，之后需要通过新增这条数据的 ID 来进行更新和删除等操作。</p>
+<p>在 Postman 中，可以使用 <a href="https://learning.postman.com/docs/sending-requests/variables/" target="_blank" rel="noopener">变量</a>，来完成这类操作。</p>
+<p>集合的变量可以在界面中直接进行设定：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/variables.png" alt="变量"></p>
+<p>例如请求的 URL 前缀、Cookie 等内容，可以设定为集合变量，供集合内的所有请求所使用。</p>
+<p>设定变量时有两个值：初始值（<code>INITIAL VALUE</code>）与当前值（<code>CURRENT VALUE</code>）。可以这样理解这两个值：</p>
+<ol>
+<li>初始值是会被持久化的值，即导出的 JSON 文件中会包含初始值，但不会包含当前值；</li>
+<li>如果未设置当前值，当前值默认取初始值；</li>
+<li>获取和更改变量值时，操作的是当前值，而不是初始值。</li>
+</ol>
+<p>除预先设置变量外，还可以通过 JS 脚本对变量进行操作，如：</p>
+<pre><code class="js">// 设置集合变量
+pm.collectionVariables.set(&quot;variable_key&quot;, &quot;variable_value&quot;);
+// 获取集合变量
+pm.collectionVariables.get(&quot;variable_key&quot;);</code></pre>
+<p>在非 JS 脚本环境，变量可以直接通过 <code>{‎{variable_key}}</code> 的方式获取。</p>
+<p>回到上面新增再删除记录的场景，可以先创建一个新增记录的请求，在其 <code>Tests</code> 标签页中解析响应报文中的记录 ID，并将其设置为集合变量：</p>
+<pre><code class="js">pm.test(&quot;Status code is 200&quot;, function () {
+    pm.response.to.have.status(200);
+    pm.collectionVariables.set(&quot;ID&quot;, pm.response.json().data.id);
+});</code></pre>
+<p>在后续的删除请求中，可直接设置 URL 为 <code>{‎{base_url}}/records/{‎{ID}}</code>，方法设置为 <code>DELETE</code>。</p>
+<h2 id="在-test-中发送其他请求"><a href="#在-test-中发送其他请求" class="headerlink" title="在 test 中发送其他请求"></a>在 test 中发送其他请求</h2><p>比如有一组关联操作，会发送很多请求，每个请求都配置到集合里，显得比较乱且不方便一同操作，创建个文件夹进行归类又不方便设置与前后请求之间的执行顺序。这时可以考虑在请求的 <code>Tests</code> 中，通过 JS 发送其他请求，如：</p>
+<pre><code class="js">const base_url = pm.collectionVariables.get(&quot;base_url&quot;);
+const cookie = pm.collectionVariables.get(&quot;cookie&quot;);
+const xsrfToken = pm.collectionVariables.get(&quot;xsrf_token&quot;);
+
+const url = {
+    url: base_url + &#39;/records&#39;,
+    method: &#39;PUT&#39;,
+    header: {
+        &#39;Cookie&#39;: cookie,
+        &#39;X-XSRF-TOKEN&#39;: xsrfToken,
+        &#39;Content-Type&#39;: &#39;application/json;charset=UTF-8&#39;
+    },
+    body: {
+        mode: &#39;raw&#39;,
+        raw: JSON.stringify({&quot;description&quot;:&quot;postman&quot;,&quot;updateBy&quot;:&quot;postman&quot;})
+    }
+};
+pm.sendRequest(url, function (err, response) {
+    pm.test(&quot;Successful delete app&quot;, function () {
+        pm.expect(response.code).to.be.eql(200);
+        pm.expect(response.json().message).to.be.eql(&#39;success&#39;);
+    });
+});</code></pre>
+<h2 id="重试请求"><a href="#重试请求" class="headerlink" title="重试请求"></a>重试请求</h2><p>加入一个资源的删除操作，依赖与其关联的其他所有资源的释放，而这些关联资源的释放是一个耗时操作，在 <code>Tests</code> 中可以根据响应内容等待一段时间后重发请求，如：</p>
+<pre><code class="js">tests[&quot;Status code is 200&quot;] = responseCode.code === 200;
+
+const base_url = pm.collectionVariables.get(&quot;base_url&quot;);
+const cookie = pm.collectionVariables.get(&quot;cookie&quot;);
+const xsrfToken = pm.collectionVariables.get(&quot;xsrf_token&quot;);
+
+let waitAndTryAgain = function (code) {
+    if (code === 0) {
+        pm.test(&quot;Delete namespace successfully&quot;, {});
+    } else {
+        setTimeout(() =&gt; {
+            pm.test(&quot;Wait 3 seconds and try again&quot;, {});
+            const url = {
+                url: base_url + &#39;/system/namespace/postman-test-ns&#39;,
+                method: &#39;DELETE&#39;,
+                header: {
+                    &#39;Cookie&#39;: cookie,
+                    &#39;X-XSRF-TOKEN&#39;: xsrfToken
+                }
+            };
+            pm.sendRequest(url, function (err, response) {
+                waitAndTryAgain(response.json().code);
+            });
+        }, 1000 * 3);
+    }
+};
+
+waitAndTryAgain(JSON.parse(responseBody).code);</code></pre>
+<p>执行效果如图：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/retry.png" alt="重试"></p>
+<blockquote>
+<p>注意，这种场景下，想通过断言输出重试信息，需要使用 <code>pm.test(testName:String, specFunction:Function):Function</code> 形式，弃用的断言写法无法正确输出信息。</p>
+</blockquote>
+<h2 id="延迟请求"><a href="#延迟请求" class="headerlink" title="延迟请求"></a>延迟请求</h2><p>每个请求间的时间间隔，可以通过上面提到的 Runner 中的 <code>Delay</code> 参数来设置。</p>
+<p>当需要为单个请求增加延迟时间时，可以在 <code>Pre-request Script</code> 中通过如下脚本，实现类似 <code>sleep</code> 的效果：</p>
+<pre><code class="js">setTimeout(() =&gt; {}, 1000 * 5);</code></pre>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>更多测试脚本样例，可参考 <a href="https://learning.postman.com/docs/writing-scripts/script-references/test-examples/" target="_blank" rel="noopener">Test script examples</a> 。</p>
+<h1 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h1><p>文末附录几个使用 Postman 的小技巧。</p>
+<h2 id="发送文件及设置工作目录"><a href="#发送文件及设置工作目录" class="headerlink" title="发送文件及设置工作目录"></a>发送文件及设置工作目录</h2><p>使用 Postman 发送带附件的请求时，可按下图方式设置：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/file.png" alt="发送文件"></p>
+<p>选择文件后，多半会出现未设置工作目录的警告信息。</p>
+<p>Postman 中，工作目录（<code>Working directory</code>）的含义是：当请求中包含文件时，文件的路径会以相对于工作目录的相对路径形式，记录到集合中。当需要在其他环境使用该集合时，只要该环境基于工作目录的相对路径中也存在这个文件，就可以保证文件被正确的找到。</p>
+<p>工作目录可以在下图位置进行设置：</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/dir.png" alt="工作目录"></p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>编写测试用例时难免要调试。在 <code>Console</code> 中，可以看到发送出去的请求的相关信息，甚至是在 JS 脚本中通过 <code>console</code> 打印的信息（<code>info</code> 以上级别）。此外，还可以在使用 <code>Runner</code> 执行时，勾选 <code>Save responses</code> 参数，这样在测试报告中，就可以直接点击请求的名称，查看相关的请求和响应信息了。</p>
+<p><img src="/contents/use-postman-to-do-system-acceptance-test/debug.png" alt="调试"></p>
+<blockquote>
+<p>注意：测试报告中，无法看到通过 JS 脚本发送的请求相关信息，只能在 <code>Console</code> 中根据请求地址查找具体请求。</p>
+</blockquote>
+<h2 id="命令行运行"><a href="#命令行运行" class="headerlink" title="命令行运行"></a>命令行运行</h2><p>除通过 Postman 客户端执行外，还可以通过命令行运行。官方提供了一个命令行工具 <a href="https://github.com/postmanlabs/newman" target="_blank" rel="noopener">newman</a>，可参照如下方式安装及运行：</p>
+<pre><code class="bash">$ npm install -g newman
+$ newman run 云平台可用性验证.postman_collection.json --folder 创建测试资源</code></pre>
+<blockquote>
+<p>注意：命令行方式运行时，预置的变量需要设定 <code>INITIAL VALUE</code>，因为 <code>CURRENT VALUE</code> 不会被持久化到 JSON 文件中。</p>
+</blockquote>
+<p><code>newman</code> 中变量相关的参数只有环境变量（<code>--env-var</code>）和全局变量（<code>--global-var</code>）两个。当需要通过命令行传入参数覆盖 js 脚本中使用的集合变量时（如在 js 中使用了 <code>pm.collectionVariables.get(&quot;base_url&quot;)</code>，想通过命令行传参覆盖 <code>base_url</code> 的 <code>INITIAL VALUE</code>），无法直接通过参数传入集合变量。可在集合的请求前脚本（<code>Pre-request Script</code>）中，读取到传入的环境变量或全局变量时将集合变量覆盖，如：</p>
+<pre><code class="js">if (pm.environment.get(&quot;base_url&quot;)) {
+    pm.collectionVariables.set(&quot;base_url&quot;, pm.environment.get(&quot;base_url&quot;));
+}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Postman"><span class="toc-number">1.</span> <span class="toc-text">Postman</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何执行测试用例"><span class="toc-number">2.</span> <span class="toc-text">如何执行测试用例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">2.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行"><span class="toc-number">2.2.</span> <span class="toc-text">执行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何编写测试用例"><span class="toc-number">3.</span> <span class="toc-text">如何编写测试用例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#断言"><span class="toc-number">3.1.</span> <span class="toc-text">断言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用变量"><span class="toc-number">3.2.</span> <span class="toc-text">使用变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-test-中发送其他请求"><span class="toc-number">3.3.</span> <span class="toc-text">在 test 中发送其他请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重试请求"><span class="toc-number">3.4.</span> <span class="toc-text">重试请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#延迟请求"><span class="toc-number">3.5.</span> <span class="toc-text">延迟请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更多"><span class="toc-number">3.6.</span> <span class="toc-text">更多</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Tips"><span class="toc-number">4.</span> <span class="toc-text">Tips</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#发送文件及设置工作目录"><span class="toc-number">4.1.</span> <span class="toc-text">发送文件及设置工作目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调试"><span class="toc-number">4.2.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行运行"><span class="toc-number">4.3.</span> <span class="toc-text">命令行运行</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

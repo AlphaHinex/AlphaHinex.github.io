@@ -1,0 +1,1021 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/easy-java-and-spring-test/cover.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Java"><b>「
+                </b>JAVA<b> 」</b></a>
+            
+            四月 17, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2022/04/17/easy-java-and-spring-test/" title="写测试用例都这么简单了，你不来试试？" class="posttitle">写测试用例都这么简单了，你不来试试？</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                14k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                13 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Automation-test/" rel="tag">Automation test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Integration-test/" rel="tag">Integration test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Roll/" rel="tag">Spring Roll</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>提到测试，所有人都知道它的重要性，但大部分开发人员都会觉得测试应该交给测试人员来做，或者直接到环境上执行一下、点一点看看没有问题就可以了。</p>
+<p>究其原因，个人觉得是因为写单元测试的成本太高了，尤其是对外部...</p>
+            
+            <span class="read-more"><a href="/2022/04/17/easy-java-and-spring-test/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/easy-java-and-spring-test/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            四月 17, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/04/17/easy-java-and-spring-test/" title="写测试用例都这么简单了，你不来试试？" class="posttitle">写测试用例都这么简单了，你不来试试？</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        13 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Automation-test/" rel="tag">Automation test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Integration-test/" rel="tag">Integration test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Roll/" rel="tag">Spring Roll</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>提到测试，所有人都知道它的重要性，但大部分开发人员都会觉得测试应该交给测试人员来做，或者直接到环境上执行一下、点一点看看没有问题就可以了。</p>
+<p>究其原因，个人觉得是因为写单元测试的成本太高了，尤其是对外部环境依赖较多的项目，开发环境想运行起来都要依赖特定的组件，就更别提测试用例的运行了。</p>
+<p>一个好的测试用例，应该是自动化的、可重复执行的，容易理解、容易运行的，且有明确的断言，以便在代码出现不符合预期的结果时，能够快速发现且定位到问题的。</p>
+<p>本文以一些面向 Java 和 Spring 的常见测试场景为例，...</p>
+            
+            <span class="read-more"><a href="/2022/04/17/easy-java-and-spring-test/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/emotional-intelligence.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            四月 10, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/04/10/emotional-intelligence/" title="24 个沟通套路，让你一开口就大受欢迎" class="posttitle">24 个沟通套路，让你一开口就大受欢迎</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>产品力：解决问题、创造价值的能力</p>
+<ol>
+<li>高感性特质</li>
+<li>结构整理力</li>
+<li>共情力</li>
+</ol>
+<p>领导力：与人沟通协作的能力</p>
+<ol>
+<li>专注力</li>
+<li>倾听能力</li>
+<li>意义感</li>
+</ol>
+<p>两个方法：</p>
+<ol>
+<li>用 <strong>升维打击</strong> 去发挥</li>
+<li>解决问题 —— 挖掘自己的特质，最重要的方法</li>
+</ol>
+<ul>
+<li>因为他们总是能洞察人性，设计出能够破解人们防御的伟大产品。</li>
+<li>好的产品，可以轻松打破一个人的防御。</li>
+<li>怎么才算了解一个人？明确一个人的边界 —— 边界之内，找到存在感；边界之外，充满焦虑。</li>
+</ul>
+<p>如何设计，在别人眼中的第一印象？</p>
+<ol>
+<li>角色：快速取得对方信任</li>
+<li>经历：直接连接对方感性部分</li>
+<li>价值观：告...</li></ol>
+            
+            <span class="read-more"><a href="/2022/04/10/emotional-intelligence/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/wechat-mp-services/menu.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            四月 03, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/04/03/wechat-mp-functions/" title="微信公众号功能介绍" class="posttitle">微信公众号功能介绍</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.9k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>公众号里积累了一些由用户主动发送消息触发的实用功能，因为都需要特定关键词触发，对记忆力有一定的考验，汇总如下，以便使用。</p>
+<p></p>
+<p></p>
+<p>关键字：<code>字帖</code>、<code>字帖1</code></p>
+<p>发送关键字 + 空格 + 文字内容，可将文字内容（去标点符号）生成一个楷体的 pdf 字帖，可用来临摹或描红使用。</p>
+<p>关键字 <code>字帖1</code> 与 <code>字帖</code> 的区别是会隔行输出一行文字内容。</p>
+<p>字帖由 <a href="https://tools.yunzitie.cn/" target="_blank" rel="noopener">https://tools.yunzitie.cn/</a> 提供。</p>
+<p></p>
+<p>向公众号发送单个汉字，回复该汉字的笔顺。如：</p>
+<p>发送 <code>何</code></p>
+<p>得到：</p>
+<p></p>
+<p>笔顺由 <a href="http://bishun.shufaji.com/" target="_blank" rel="noopener">http://bishun.shufaji...</a></p>
+            
+            <span class="read-more"><a href="/2022/04/03/wechat-mp-functions/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/hsa-faq/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            三月 27, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/27/hsa-faq/" title="新医保系统开发常见问题自助搜索" class="posttitle">新医保系统开发常见问题自助搜索</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/%E5%8C%BB%E4%BF%9D/" rel="tag">医保</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>新医保系统开发常见问题自助搜索功能上线了，欢迎大家贡献内容，及提出意见。</p>
+<p></p>
+<p>从上面的图标可以看出，这是一个类似 <a href="https://stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a> 的问答服务，面向的是新医保系统的开发人员，内容是新医保系统建设过程中遇到的各类问题及解决办法，目前共包含 24 个类别：</p>
+<ol>
+<li>druid</li>
+<li>dubbo</li>
+<li>java</li>
+<li>mbs</li>
+<li>mybatis</li>
+<li>mysql</li>
+<li>oceanbase</li>
+<li>plc</li>
+<li>pmd</li>
+<li>redis</li>
+<li>sonar</li>
+<li>spring</li>
+<li>tomcat</li>
+<li>Web Service</li>
+<li>windows</li>
+<li>一站式</li>
+<li>业务协同平台</li>
+<li>东软医保云</li>
+<li>公...</li></ol>
+            
+            <span class="read-more"><a href="/2022/03/27/hsa-faq/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/javascript-rounding-off.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            三月 20, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/20/javascript-rounding-off/" title="JS 中的四舍五入" class="posttitle">JS 中的四舍五入</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>由于 JS 中 Number 对象的 toFixed 方法在对某些值进行四舍五入计算时 <a href="https://alphahinex.github.io/2021/07/04/to-fixed/">存在误差</a>，而这种误差在进行货币金额计算时是不能接受的，那么在 JS 中我们应该如何正确的进行四舍五入呢？</p>
+<p>以保留两位小数为例，选取几种典型的方法，其中 <code>n</code> 为要进行四舍五入运算的浮点数。</p>
+<p>为 n 添加一个小的偏移量，再进行四舍五入：</p>
+<pre><code class="js">(n + Number.EPSILON).toFixed(2)</code></pre>
+<p>保留两位小数时，先将 n 扩大 10^2 倍，然后通过 <code>Math.round</code> 获得最接近的整数，缩小 10^2 倍...</p>
+            
+            <span class="read-more"><a href="/2022/03/20/javascript-rounding-off/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/jianshu-reading-report/report.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/DevOps">
+                  <b>「 </b>DEVOPS<b> 」</b>
+                </a>
+            
+            三月 13, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/13/jianshu-reading-report/" title="简书阅读量报告" class="posttitle">简书阅读量报告</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Dingtalk/" rel="tag">Dingtalk</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Jianshu/" rel="tag">Jianshu</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://alphahinex.github.io/">博客</a> 上的文章，会同步发布到 公众号 和 <a href="https://www.jianshu.com/" target="_blank" rel="noopener">简书</a> 平台上，简书对 markdown 格式的支持、展现效果，以及文章的 SEO 和阅读量都非常不错，在有点赞和评论时，app 也会有即时通知。但当我们想知道自己的哪些文章阅读量最多，哪些文章阅读量增长较快以及近期哪些文章的阅读量有增加时，无论官网还是官方 app 上都缺少可用的工具。</p>
+<p>我们可以借助一些简单的、免费的工具和脚本，来实现一个《简书阅读量报告》。 </p>
+<p>先来看下效果：</p>
+<p></p>
+<p>上面消息，为使用 NodeJS 脚本，在 <a href="https://alphahinex.github.io/2021/01/17/aws-free-tier/">AWS</a> 上定时执行，并将 markdown...</p>
+            
+            <span class="read-more"><a href="/2022/03/13/jianshu-reading-report/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/dingtalk-custom-robot.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/DevOps">
+                  <b>「 </b>DEVOPS<b> 」</b>
+                </a>
+            
+            三月 06, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/06/dingtalk-custom-robot/" title="钉钉自定义机器人" class="posttitle">钉钉自定义机器人</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Dingtalk/" rel="tag">Dingtalk</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Robot/" rel="tag">Robot</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>从 <a href="https://hubot.github.com/" target="_blank" rel="noopener">hubot</a> 起接触到聊天机器人，其使用场景还是非常丰富的：</p>
+<ol>
+<li>群管理：新人入群欢迎、关键字自动回复、同类消息汇总 ……</li>
+<li>结合 SaaS 服务：翻译、生成二维码、编解码、智能客服 ……</li>
+<li>定时通知：天气预报、股市行情、监控信息 ……</li>
+</ol>
+<p>简单归纳一下，需要机器人具备的能力主要包括：主动发送消息（单聊、群聊）和 被动响应消息（单聊、群聊）。</p>
+<p>相关的开源实现也有很多，如上面提到的 hubot 和其与各种聊天工具的 <a href="https://hubot.github.com/docs/adapters/" target="_blank" rel="noopener">适配</a>、基于微信的 chatbot —— <a href="https://wechaty.js.org/" target="_blank" rel="noopener">Wechaty</a> 等。</p>
+<p>不过因为众所周知的原因，国...</p>
+            
+            <span class="read-more"><a href="/2022/03/06/dingtalk-custom-robot/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/mac-route-settings.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            二月 27, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/02/27/mac-route-settings/" title="macOS 路由设置" class="posttitle">macOS 路由设置</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>经常会有需要连接多个网络环境的需求，比如通过网线连接内网，通过无线连接外网，想要同时连接内外网时，需要进行路由的配置，以通过不同的网卡访问不同的地址。</p>
+<p>macOS 下可通过如下方式，配置临时（重启后失效）或永久（重启仍有效）路由。</p>
+<p>在配置路由之前，先说一下网络顺序的问题。在同时连接内外网时，可能会有能上内网不能上外网的情况，也可能会有能上外网不能上内网的情况，这是什么原因呢？</p>
+<p>在 <code>系统偏好设置</code> =&gt; <code>网络</code> 中，我们可以看到 Mac 当前连接的网络，如下图：</p>
+<p></p>
+<p><code>Wi-Fi</code> 是外网连接，<code>USB...</code></p>
+            
+            <span class="read-more"><a href="/2022/02/27/mac-route-settings/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/trillion-dollar-coach.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            二月 20, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/02/20/trillion-dollar-coach/" title="《成就》书摘" class="posttitle">《成就》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>要成为优秀的管理者，必须先得是优秀的教练。说到底，一个人的职位越高，他的成功就越取决于能否让别人取得成功。从本质上讲，这也恰恰是教练的责任。</li>
+<li>坎贝尔认为，IT 企业需要新型经理人，他们是通过下属对他们的信任，而非公司赋予的权威来管理团队的。</li>
+<li>在商界，越来越多的证据表明，同情心是取得成功的关键因素。事实证明，让同情心融入团队的想法在商界的作用比在橄榄球场上大得多。</li>
+<li>当下成功的关键，就在于快速而持续地打造具有创新性的新功能、新产品和新服务。</li>
+<li>实现这种速度和创新的关键，在于要有一批新型员工，即聪明的...</li></ul>
+            
+            <span class="read-more"><a href="/2022/02/20/trillion-dollar-coach/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/override-mapper-files.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            二月 13, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/02/13/override-mapper-files/" title="覆盖 MyBatis Mapper 文件" class="posttitle">覆盖 MyBatis Mapper 文件</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        12 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2022/01/23/bootclasspath-in-action/">通过 -Xbootclasspath/a 参数修改 Spring Boot 应用行为实例</a> 的 场景2 中，我们通过 <code>-Xbootclasspath/a</code> 参数，对 Spring Boot 应用 JAR 包中的 Mapper 文件进行了覆盖，但美中不足的是需要将未修改的 Mapper 文件也重新附加进去。</p>
+<p>本文将演示两种仅需将改动的 Mapper 文件覆盖进去的方式。</p>
+<p>先让我们看一下，在使用 MyBatis 时，如果仅将修改了的 Mapper 文件（即非全部 Mapper 文件）添加到 <code>bootclasspath...</code></p>
+            
+            <span class="read-more"><a href="/2022/02/13/override-mapper-files/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/22/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

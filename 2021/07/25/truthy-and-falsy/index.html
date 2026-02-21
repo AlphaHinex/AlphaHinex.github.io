@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JavaScript 中的 Truthy 和 Falsy - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,truthy, falsy, true, false, internal method, internal slot, document.all, [[IsHTMLDDA]]"> 
+    <meta name="description" content="Truthy在 JavaScript 中，Truthy 是指在一个需要 Boolean 值的上下文中，会被认为是 true 的值，例如：
+&amp;gt; Boolean(true)
+true
+&amp;gt; B,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">JavaScript 中的 Truthy 和 Falsy</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/truthy-and-falsy/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/JavaScript"><b>「
+                    </b>JAVASCRIPT<b> 」</b></a>
+                
+                七月 25, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/07/25/truthy-and-falsy/" title="JavaScript 中的 Truthy 和 Falsy" class="">JavaScript 中的 Truthy 和 Falsy</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="Truthy"><a href="#Truthy" class="headerlink" title="Truthy"></a>Truthy</h2><p>在 JavaScript 中，<code>Truthy</code> 是指在一个需要 Boolean 值的上下文中，会被认为是 <code>true</code> 的值，例如：</p>
+<pre><code class="js">&gt; Boolean(true)
+true
+&gt; Boolean({})
+true
+&gt; Boolean([])
+true
+&gt; Boolean(42)
+true
+&gt; Boolean(&#39;0&#39;)
+true
+&gt; Boolean(&#39;false&#39;)
+true
+&gt; Boolean(new Date())
+true
+&gt; Boolean(-42)
+true
+&gt; Boolean(12n)
+true
+&gt; Boolean(3.14)
+true
+&gt; Boolean(Infinity)
+true
+&gt; Boolean(-Infinity)
+true</code></pre>
+<p>与 <code>Truthy</code> 相对的，即是 <code>Falsy</code>，所有不是 <code>Falsy</code> 的值，都是 <code>Truthy</code>。</p>
+<h2 id="Falsy"><a href="#Falsy" class="headerlink" title="Falsy"></a>Falsy</h2><p>完整的 JavaScript 中 falsy 值 <a href="https://developer.mozilla.org/en-US/docs/Glossary/Falsy" target="_blank" rel="noopener">列表</a> 如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">object</th>
+<th align="left">describe</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">false</td>
+<td align="left">The keyword <code>false</code>.</td>
+</tr>
+<tr>
+<td align="left">0</td>
+<td align="left">The Number zero (so, also <code>0.0</code>, etc., and <code>0x0</code>).</td>
+</tr>
+<tr>
+<td align="left">-0</td>
+<td align="left">The Number negative zero (so, also <code>-0.0</code>, etc., and <code>-0x0</code>).</td>
+</tr>
+<tr>
+<td align="left">0n</td>
+<td align="left">The BigInt zero (so, also <code>0x0n</code>). Note that there is no BigInt negative zero — the negation of 0n is 0n.</td>
+</tr>
+<tr>
+<td align="left">“”, ‘’, ``</td>
+<td align="left">Empty string value.</td>
+</tr>
+<tr>
+<td align="left">null</td>
+<td align="left">null — the absence of any value.</td>
+</tr>
+<tr>
+<td align="left">undefined</td>
+<td align="left">undefined — the primitive value.</td>
+</tr>
+<tr>
+<td align="left">NaN</td>
+<td align="left">NaN — not a number.</td>
+</tr>
+<tr>
+<td align="left">document.all</td>
+<td align="left">Objects are falsy if and only if they have the [[IsHTMLDDA]] internal slot.That slot only exists in document.all and cannot be set using JavaScript.</td>
+</tr>
+</tbody></table>
+<p>注意最后一个值：<code>document.all</code></p>
+<h3 id="Document-all"><a href="#Document-all" class="headerlink" title="Document.all"></a>Document.all</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/all" target="_blank" rel="noopener">Document.all</a> 是一个不建议再被使用的特性，但为了考虑旧代码的兼容性，目前依然被保留了下来。</p>
+<p>通过 <code>document.all</code> 获得到的是一个 <code>HTMLAllCollection</code> 对象，例如：</p>
+<pre><code class="js">&gt; document.all
+HTMLAllCollection(22) [html.focus-outline-visible, head, meta, title, style, custom-style, style, custom-style, style, custom-style, style, custom-style, style, style, body, ntp3p-most-visited, script, link, dom-module#cr-hidden-style, template, dom-module#cr-icons, template, cr-hidden-style: dom-module#cr-hidden-style, cr-icons: dom-module#cr-icons]</code></pre>
+<p>现代浏览器中，<code>Boolean(document.all)</code> 得到的是 <code>false</code>；在 IE11 中也是 <code>false</code>，但在更老版本的 IE 中，<code>Boolean(document.all)</code> 得到的是 <code>true</code>：</p>
+<p><img src="/contents/truthy-and-falsy/ie11.png" alt="ie11"></p>
+<p><img src="/contents/truthy-and-falsy/ie10.png" alt="ie10"></p>
+<p><img src="/contents/truthy-and-falsy/ie5.png" alt="ie5"></p>
+<p>在老 web 页面中，经常会使用 <a href="https://stackoverflow.com/questions/10350142/why-is-document-all-falsy" target="_blank" rel="noopener">如下方式</a> 检测脚本是否运行在古董浏览器中：</p>
+<pre><code class="js">if (document.all) {
+  // code that uses `document.all`, for ancient browsers
+} else if (document.getElementById) {
+  // code that uses `document.getElementById`, for “modern” browsers
+}</code></pre>
+<p>为了兼容这种写法，最简单的方式，就是将 <code>document.all</code> 设置为 <code>falsy</code>。</p>
+<p>从 ES9 起，ECMAScript 语言规范中添加了一个 [[<a href="https://262.ecma-international.org/9.0/#sec-IsHTMLDDA-internal-slot" target="_blank" rel="noopener">IsHTMLDDA</a>]] internal slot，明确了这个内部槽是专门为 <code>document.all</code> 所设，并且规范了如下操作：</p>
+<ol>
+<li><code>Boolean(document.all) === false</code></li>
+<li><code>typeof(document.all) === &#39;undefined&#39;</code></li>
+<li><code>document.all == null &amp;&amp; document.all == undefined &amp;&amp; null == document.all &amp;&amp; undefined == document.all</code></li>
+</ol>
+<h3 id="Internal-slot"><a href="#Internal-slot" class="headerlink" title="Internal slot"></a>Internal slot</h3><p>关于 <code>internal slot</code>，在 ES12 中有 <a href="https://262.ecma-international.org/12.0/#sec-object-internal-methods-and-internal-slots" target="_blank" rel="noopener">Object Internal Methods and Internal Slots</a> 专门描述，<code>internal slot</code> 相当于 Object 的内部状态，不是对象的属性，不会被继承，也没有直接访问对象的 <code>internal slot</code> 的方式。在 ES 规范中，internal method 和 internal slot 均通过双中括号 <code>[[ ]]</code> 的形式来表示。</p>
+<p>这部分内容不太好理解，Stack Overflow 上也有 <a href="https://stackoverflow.com/questions/33075262/what-is-an-internal-slot-of-an-object-in-javascript" target="_blank" rel="noopener">What is an “internal slot” of an object in JavaScript?</a> 的提问，感兴趣的读者可以再深入挖掘一下。</p>
+<h2 id="Truthy-之间和-Falsy-之间值的比较"><a href="#Truthy-之间和-Falsy-之间值的比较" class="headerlink" title="Truthy 之间和 Falsy 之间值的比较"></a>Truthy 之间和 Falsy 之间值的比较</h2><blockquote>
+<p>这里的比较指的是 <code>x == y</code> 的形式，非严格等于（<code>===</code>）。</p>
+</blockquote>
+<p>可以参照 <a href="https://262.ecma-international.org/12.0/#sec-abstract-equality-comparison" target="_blank" rel="noopener">Abstract Equality Comparison</a> 提供的算法。</p>
+<p>Truthy 一般包含具体的数据值，如果类型相同，直接执行严格等于的比较；如果类型不同，一般会先进行类型转换。</p>
+<p>Falsy 中：</p>
+<ol>
+<li><code>false</code>、<code>0</code>、<code>&#39;&#39;</code> 互等</li>
+<li><code>null</code>、<code>undefined</code> 和 <code>document.all</code> 互等，但不与 false、0 或空字符串相等</li>
+<li>x 或 y 中有任意一个值为 <code>NaN</code>，比较结果即为 false</li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Truthy"><span class="toc-number">1.</span> <span class="toc-text">Truthy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Falsy"><span class="toc-number">2.</span> <span class="toc-text">Falsy</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Document-all"><span class="toc-number">2.1.</span> <span class="toc-text">Document.all</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Internal-slot"><span class="toc-number">2.2.</span> <span class="toc-text">Internal slot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Truthy-之间和-Falsy-之间值的比较"><span class="toc-number">3.</span> <span class="toc-text">Truthy 之间和 Falsy 之间值的比较</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

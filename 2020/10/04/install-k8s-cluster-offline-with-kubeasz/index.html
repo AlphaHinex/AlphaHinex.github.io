@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 kubeasz 离线安装 k8s 集群 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kubernetes, K8s, Ansible, Cluster, Offline, kubeasz"> 
+    <meta name="description" content="kubeasz 将 k8s 集群的部署难度降低到了傻瓜相机的级别。本文以 kubeasz v2.2.1 为例，介绍一下使用 kubeasz 离线安装 k8s 集群的方式。
+下载离线安装所需内容在一个,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 kubeasz 离线安装 k8s 集群</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/kubeasz.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Cloud"><b>「
+                    </b>CLOUD<b> 」</b></a>
+                
+                十月 04, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/10/04/install-k8s-cluster-offline-with-kubeasz/" title="使用 kubeasz 离线安装 k8s 集群" class="">使用 kubeasz 离线安装 k8s 集群</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    13k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://github.com/easzlab/kubeasz" target="_blank" rel="noopener">kubeasz</a> 将 k8s 集群的部署难度降低到了傻瓜相机的级别。<br>本文以 <a href="https://github.com/easzlab/kubeasz/tree/2.2.1" target="_blank" rel="noopener">kubeasz v2.2.1</a> 为例，介绍一下使用 kubeasz 离线安装 k8s 集群的方式。</p>
+<h2 id="下载离线安装所需内容"><a href="#下载离线安装所需内容" class="headerlink" title="下载离线安装所需内容"></a>下载离线安装所需内容</h2><p>在一个可联网的环境，按 <a href="https://github.com/easzlab/kubeasz/blob/master/docs/setup/offline_install.md" target="_blank" rel="noopener">离线安装集群</a> 文档中内容，将所需文件都下载到本地：</p>
+<pre><code class="bash"># 下载工具脚本 easzup，举例使用 kubeasz 版本 2.2.1
+$ export release=2.2.1
+$ curl -C- -fLO --retry 3 https://github.com/easzlab/kubeasz/releases/download/${release}/easzup
+$ chmod +x ./easzup
+# kubeasz v2.2.1 默认使用 docker 版本 `19.03.8`，k8s 版本 `1.18.3`
+# 如需更换版本，可使用 ./easzup -D -d 19.03.5 -k v1.18.2
+# 下载默认版本离线安装包
+$ ./easzup -D
+# 下载离线系统软件包
+$ ./easzup -P</code></pre>
+<p>执行成功后，所有文件均已整理好放入目录 <code>/etc/ansible</code> 。</p>
+<p>离线文件包括：</p>
+<ul>
+<li><code>/etc/ansible</code> 包含 kubeasz 版本为 ${release} 的发布代码</li>
+<li><code>/etc/ansible/bin</code> 包含 k8s/etcd/docker/cni 等二进制文件</li>
+<li><code>/etc/ansible/down</code> 包含集群安装时需要的离线容器镜像</li>
+<li><code>/etc/ansible/down/packages</code> 包含集群安装时需要的系统基础软件</li>
+</ul>
+<p>离线文件不包括：</p>
+<ul>
+<li>管理端 ansible 安装，但可以使用 kubeasz 容器运行 ansible 脚本</li>
+<li>其他更多 kubernetes 插件镜像</li>
+</ul>
+<p>为防止出现在 kubeasz 容器无法 ping 通集群中其他主机的情况，也可以考虑打包个离线安装版本的 <a href="https://www.ansible.com/" target="_blank" rel="noopener">ansible</a>，可参考如下路径组织离线安装包内容：</p>
+<pre><code class="tree">├── ansible
+│   ├── PyYAML-3.10-11.el7.x86_64.rpm
+│   ├── ansible-2.6.18-1.el7.ans.noarch.rpm
+│   ├── install.sh
+│   ├── libyaml-0.1.4-11.el7_0.x86_64.rpm
+│   ├── python-babel-0.9.6-8.el7.noarch.rpm
+│   ├── python-backports-1.0-8.el7.x86_64.rpm
+│   ├── python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch.rpm
+│   ├── python-cffi-1.6.0-5.el7.x86_64.rpm
+│   ├── python-enum34-1.0.4-1.el7.noarch.rpm
+│   ├── python-httplib2-0.9.2-1.el7.noarch.rpm
+│   ├── python-idna-2.4-1.el7.noarch.rpm
+│   ├── python-ipaddress-1.0.16-2.el7.noarch.rpm
+│   ├── python-jinja2-2.7.2-4.el7.noarch.rpm
+│   ├── python-markupsafe-0.11-10.el7.x86_64.rpm
+│   ├── python-netaddr-0.7.5-9.el7.noarch.rpm
+│   ├── python-paramiko-2.1.1-9.el7.noarch.rpm
+│   ├── python-ply-3.4-11.el7.noarch.rpm
+│   ├── python-pycparser-2.14-1.el7.noarch.rpm
+│   ├── python-setuptools-0.9.8-7.el7.noarch.rpm
+│   ├── python-six-1.9.0-2.el7.noarch.rpm
+│   ├── python2-cryptography-1.7.2-2.el7.x86_64.rpm
+│   ├── python2-jmespath-0.9.0-3.el7.noarch.rpm
+│   ├── python2-pyasn1-0.1.9-7.el7.noarch.rpm
+│   └── sshpass-1.06-2.el7.x86_64.rpm
+├── easzup
+└── k8s-1.18.3-offline.tar</code></pre>
+<ul>
+<li><code>ansible/install.sh</code> 中内容为 <code>ls *.rpm |xargs -n1 rpm -ivh --nodeps</code>，可安装该路径下所有 rpm 文件</li>
+<li><code>easzup</code> 为基于 kubeasz 2.2.1 版本内容，将安装调整为离线安装的版本，可参照 <a href="https://github.com/AlphaHinex/kubeasz" target="_blank" rel="noopener">fork 仓库</a> offline 分支内容</li>
+<li><code>k8s-1.18.3-offline.tar</code> 为 <code>/etc/ansible</code> 内容打包</li>
+</ul>
+<p>以上内容打包进 <code>kubeasz-2.2.1-offline.tar</code>，作为本次安装使用的离线包。</p>
+<p>可从百度网盘获得此离线安装包：</p>
+<p>链接: <a href="https://pan.baidu.com/s/1xtL9EYldFrpUrANB9tBlpQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1xtL9EYldFrpUrANB9tBlpQ</a> 提取码: <code>xx2r</code></p>
+<h2 id="部署环境准备"><a href="#部署环境准备" class="headerlink" title="部署环境准备"></a>部署环境准备</h2><p>本文使用 <a href="https://www.virtualbox.org/" target="_blank" rel="noopener">VirtualBox</a> 创建虚拟机，系统使用 <a href="http://isoredirect.centos.org/centos/7/isos/x86_64/" target="_blank" rel="noopener">CentOS 7 x86_64</a> <code>Minimal</code> 版本，1核1G 配置，网络连接方式选用 <code>桥接网卡</code>。</p>
+<p>完成第一个虚拟机的安装后，启动并进入系统，开启网络服务：</p>
+<pre><code class="bash"># 修改配置文件
+$ vi /etc/sysconfig/network-scripts/ifcfg-enp0s3</code></pre>
+<p>找到选项 ONBOOT，默认为 <code>no</code>，将其设置为 <code>yes</code>，之后使用 <code>reboot</code> 重启。</p>
+<p>重启后可通过 <code>ip addr</code> 命令查看 IP 地址。</p>
+<p>完成上述配置后，可将此虚拟机作为模板，快速复制出部署集群环境所需的虚拟机。</p>
+<h2 id="设置-hostname"><a href="#设置-hostname" class="headerlink" title="设置 hostname"></a>设置 hostname</h2><p>为方便起见，可先为每台虚拟机设置 hostname：</p>
+<pre><code class="bash"># 设置 hostname 为 k8s-m1
+$ hostnamectl set-hostname k8s-m1</code></pre>
+<h2 id="集群规划及安装"><a href="#集群规划及安装" class="headerlink" title="集群规划及安装"></a>集群规划及安装</h2><p>假设准备了四个主机：</p>
+<ul>
+<li>192.168.1.2</li>
+<li>192.168.1.3</li>
+<li>192.168.1.4</li>
+<li>192.168.1.5</li>
+</ul>
+<p>选取一个主机作为安装节点，解压初始化：</p>
+<pre><code class="bash">$ tar zxvf kubeasz-2.2.1-offline.tar &amp;&amp; cd kubeasz-2.2.1-offline
+$ ./easzup -S</code></pre>
+<blockquote>
+<p>以上命令执行完毕后，离线安装包及解压出来的路径均可以清理掉，因为所有内容已经被复制到 <code>/etc/ansible</code> 路径下了，之后使用的也是 <code>/etc/ansible</code> 路径下内容。</p>
+</blockquote>
+<p>安装节点执行以下命令，依次分发安装节点公钥至 k8s 集群节点（<strong><em>含安装节点</em></strong>，<strong>部署时需换为实际IP</strong>） 根据提示输入 <code>yes</code> 与节点 root 口令：</p>
+<pre><code class="bash">$ ssh-copy-id root@192.168.1.2
+$ ssh-copy-id root@192.168.1.3
+$ ssh-copy-id root@192.168.1.4
+$ ssh-copy-id root@192.168.1.5</code></pre>
+<blockquote>
+<p>注意：ssh-copy-id 操作 <em>必须</em> 也包含安装节点本身！</p>
+</blockquote>
+<h3 id="AIO-All-in-One"><a href="#AIO-All-in-One" class="headerlink" title="AIO (All in One)"></a>AIO (All in One)</h3><p>单节点集群模式将主节点安装在安装节点上，可先使用此模式快速开始，之后再通过增加节点的方式扩展集群。</p>
+<p>在确保在安装节点执行过 <code>./easzup -S</code> 及 <code>ssh-copy-id</code> 后，可使用下面命令安装单节点集群</p>
+<pre><code class="bash">$ docker exec -it kubeasz easzctl start-aio</code></pre>
+<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3><p>预先对集群进行了规划时，可按下述方式直接部署好 k8s 集群。</p>
+<p>先复制并调整多节点配置文件：</p>
+<pre><code class="bash">$ cp /etc/ansible/example/hosts.multi-node /etc/ansible/hosts</code></pre>
+<p>调整配置文件内容，<code>etcd</code> 一般为奇数（建议三个，存储 k8s 节点信息及元数据）</p>
+<pre><code class="text">[etcd]
+192.168.1.2 NODE_NAME=etcd1
+192.168.1.3 NODE_NAME=etcd2
+192.168.1.4 NODE_NAME=etcd3
+
+# master node(s)
+[kube-master]
+192.168.1.2
+
+# work node(s)
+[kube-node]
+192.168.1.3
+192.168.1.4
+192.168.1.5
+
+# [optional] ntp server for the cluster
+[chrony]
+192.168.1.2</code></pre>
+<p>分发及安装各节点（在安装节点执行）</p>
+<pre><code class="bash">$ ansible-playbook /etc/ansible/90.setup.yml</code></pre>
+<p>等待安装完成。。。</p>
+<blockquote>
+<p>注意：以上所有操作均在安装节点执行即可。</p>
+</blockquote>
+<p>如果一切顺利，上述命令均可正常执行。之后可在集群各节点查看集群状态：</p>
+<pre><code class="bash">$ kubectl get node</code></pre>
+<blockquote>
+<p>注意：非安装节点使用 <code>kubectl</code> 等命令若提示不存在，重新 ssh 登录一下即可。</p>
+</blockquote>
+<h3 id="管理-MASTER-节点"><a href="#管理-MASTER-节点" class="headerlink" title="管理 MASTER 节点"></a><a href="https://github.com/easzlab/kubeasz/blob/master/docs/op/op-master.md" target="_blank" rel="noopener">管理 MASTER 节点</a></h3><h4 id="增加-master-节点"><a href="#增加-master-节点" class="headerlink" title="增加 master 节点"></a>增加 master 节点</h4><p>首先配置 ssh 免密码登录新增节点，然后执行 (假设待增加节点为 192.168.1.11)：</p>
+<pre><code class="bash"># dir: /etc/ansible/tools
+$ easzctl add-master 192.168.1.11</code></pre>
+<p>之后可使用 <code>kubectl get node</code> 进行验证</p>
+<h4 id="删除-master-节点"><a href="#删除-master-节点" class="headerlink" title="删除 master 节点"></a>删除 master 节点</h4><pre><code class="bash"># dir: /etc/ansible/tools
+$ easzctl del-master 192.168.1.11 # 假设待删除节点 192.168.1.11</code></pre>
+<h3 id="管理-NODE-节点"><a href="#管理-NODE-节点" class="headerlink" title="管理 NODE 节点"></a><a href="https://github.com/easzlab/kubeasz/blob/master/docs/op/op-node.md" target="_blank" rel="noopener">管理 NODE 节点</a></h3><h4 id="增加-node-节点"><a href="#增加-node-节点" class="headerlink" title="增加 node 节点"></a>增加 node 节点</h4><p>首先配置 ssh 免密码登录新增节点，然后执行 (假设待增加节点为 192.168.1.11)：</p>
+<pre><code class="bash"># dir: /etc/ansible/tools
+$ easzctl add-node 192.168.1.11</code></pre>
+<h4 id="删除-node-节点"><a href="#删除-node-节点" class="headerlink" title="删除 node 节点"></a>删除 node 节点</h4><pre><code class="bash"># dir: /etc/ansible/tools
+$ easzctl del-node 192.168.1.11 # 假设待删除节点 192.168.1.11</code></pre>
+<h3 id="管理-ETCD-节点"><a href="#管理-ETCD-节点" class="headerlink" title="管理 ETCD 节点"></a><a href="https://github.com/easzlab/kubeasz/blob/master/docs/op/op-etcd.md" target="_blank" rel="noopener">管理 ETCD 节点</a></h3><h2 id="可能遇到的问题"><a href="#可能遇到的问题" class="headerlink" title="可能遇到的问题"></a>可能遇到的问题</h2><h3 id="master-节点重启后状态始终为-NotReady"><a href="#master-节点重启后状态始终为-NotReady" class="headerlink" title="master 节点重启后状态始终为 NotReady"></a>master 节点重启后状态始终为 NotReady</h3><p>查看 <code>journalctl -f -u kubelet</code> 提示 /etc/cni/net.d 没初始化，到路径下查看，发现内容为空，其他 Ready 的 work node 中，该路径下有 <code>10-flannel.conflist</code> 文件，且文件内容相同。<br>将此文件内容复制到 master 节点相同路径下，稍等一会后再使用 <code>kubectl get node</code> 查看节点状态就都 Ready 了。</p>
+<h3 id="启动-kube-apiserver-服务报错"><a href="#启动-kube-apiserver-服务报错" class="headerlink" title="启动 kube-apiserver 服务报错"></a>启动 kube-apiserver 服务报错</h3><p>安装过程中遇到报错</p>
+<pre><code class="error">fatal: [192.168.174.72]: FAILED! =&gt; {&quot;changed&quot;: true, &quot;cmd&quot;: &quot;systemctl daemon-reload &amp;&amp; systemctl restart kube-apiserver &amp;&amp; systemctl restart kube-controller-manager &amp;&amp; systemctl restart kube-scheduler&quot;, &quot;delta&quot;: &quot;0:00:00.221579&quot;, &quot;end&quot;: &quot;2020-09-28 15:21:21.710485&quot;, &quot;msg&quot;: &quot;non-zero return code&quot;, &quot;rc&quot;: 1, &quot;start&quot;: &quot;2020-09-28 15:21:21.488906&quot;, &quot;stderr&quot;: &quot;Job for kube-apiserver.service failed because the control process exited with error code. See \&quot;systemctl status kube-apiserver.service\&quot; and \&quot;journalctl -xe\&quot; for details.&quot;, &quot;stderr_lines&quot;: [&quot;Job for kube-apiserver.service failed because the control process exited with error code. See \&quot;systemctl status kube-apiserver.service\&quot; and \&quot;journalctl -xe\&quot; for details.&quot;], &quot;stdout&quot;: &quot;&quot;, &quot;stdout_lines&quot;: []}</code></pre>
+<p>按提示通过 <code>systemctl status kube-apiserver.service</code> 看到服务启动报错时执行的命令，将命令在终端中直接执行，有具体的报错信息：</p>
+<pre><code class="error">Error: failed to create listener: failed to listen on 127.0.0.1:8080: listen tcp 127.0.0.1:8080: bind: address already in use</code></pre>
+<p>因为 <code>kube-apiserver</code> 默认启用 http 服务，且端口为 <code>8080</code>。可修改服务配置的命令（需修改 ansible 里的 .j2 模板 <code>/etc/ansible/roles/kube-master/templates/kube-apiserver.service.j2</code>），在 <code>ExeccStart</code> 中增加 –insecure-port 参数，指定其他端口或直接禁用（=0），如：</p>
+<pre><code class="j2">[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+
+[Service]
+ExecStart={{ bin_dir }}/kube-apiserver \
+  --advertise-address={{ inventory_hostname }} \
+  --allow-privileged=true \
+  --anonymous-auth=false \
+  --authorization-mode=Node,RBAC \
+{% if BASIC_AUTH_ENABLE == "yes" %}
+  --basic-auth-file={{ ca_dir }}/basic-auth.csv \
+{% endif %}
+  --bind-address={{ inventory_hostname }} \
+  --insecure-port=0 \
+  --client-ca-file={{ ca_dir }}/ca.pem \
+  --endpoint-reconciler-type=lease \
+  --etcd-cafile={{ ca_dir }}/ca.pem \
+  --etcd-certfile={{ ca_dir }}/kubernetes.pem \
+  --etcd-keyfile={{ ca_dir }}/kubernetes-key.pem \
+  --etcd-servers={{ ETCD_ENDPOINTS }} \
+  --kubelet-certificate-authority={{ ca_dir }}/ca.pem \
+  --kubelet-client-certificate={{ ca_dir }}/admin.pem \
+  --kubelet-client-key={{ ca_dir }}/admin-key.pem \
+  --kubelet-https=true \
+  --service-account-key-file={{ ca_dir }}/ca.pem \
+  --service-cluster-ip-range={{ SERVICE_CIDR }} \
+  --service-node-port-range={{ NODE_PORT_RANGE }} \
+  --tls-cert-file={{ ca_dir }}/kubernetes.pem \
+  --tls-private-key-file={{ ca_dir }}/kubernetes-key.pem \
+  --requestheader-client-ca-file={{ ca_dir }}/ca.pem \
+  --requestheader-allowed-names= \
+  --requestheader-extra-headers-prefix=X-Remote-Extra- \
+  --requestheader-group-headers=X-Remote-Group \
+  --requestheader-username-headers=X-Remote-User \
+  --proxy-client-cert-file={{ ca_dir }}/aggregator-proxy.pem \
+  --proxy-client-key-file={{ ca_dir }}/aggregator-proxy-key.pem \
+  --enable-aggregator-routing=true \
+  --v=2
+Restart=always
+RestartSec=5
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+<p>之后重新执行报错步骤即可。</p>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><ul>
+<li><a href="https://www.kubernetes.org.cn/7315.html" target="_blank" rel="noopener">手把手从零搭建与运营生产级的 Kubernetes 集群与 KubeSphere</a></li>
+<li><a href="https://yuerblog.cc/2019/02/25/flannel-and-calico/" target="_blank" rel="noopener">白话 flannel 和 calico 网络原理</a></li>
+<li><a href="http://www.dockone.io/article/4884" target="_blank" rel="noopener">Kubernetes 的三种外部访问方式：NodePort、LoadBalancer 和 Ingress</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载离线安装所需内容"><span class="toc-number">1.</span> <span class="toc-text">下载离线安装所需内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署环境准备"><span class="toc-number">2.</span> <span class="toc-text">部署环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置-hostname"><span class="toc-number">3.</span> <span class="toc-text">设置 hostname</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群规划及安装"><span class="toc-number">4.</span> <span class="toc-text">集群规划及安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AIO-All-in-One"><span class="toc-number">4.1.</span> <span class="toc-text">AIO (All in One)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cluster"><span class="toc-number">4.2.</span> <span class="toc-text">Cluster</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理-MASTER-节点"><span class="toc-number">4.3.</span> <span class="toc-text">管理 MASTER 节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理-NODE-节点"><span class="toc-number">4.4.</span> <span class="toc-text">管理 NODE 节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理-ETCD-节点"><span class="toc-number">4.5.</span> <span class="toc-text">管理 ETCD 节点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可能遇到的问题"><span class="toc-number">5.</span> <span class="toc-text">可能遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master-节点重启后状态始终为-NotReady"><span class="toc-number">5.1.</span> <span class="toc-text">master 节点重启后状态始终为 NotReady</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动-kube-apiserver-服务报错"><span class="toc-number">5.2.</span> <span class="toc-text">启动 kube-apiserver 服务报错</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关资料"><span class="toc-number">6.</span> <span class="toc-text">相关资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,574 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Linux, rsync, 断点续传, screen, nohup"> 
+    <meta name="description" content="原文地址：https://www.pfjsb.com/kfyw/linux-rsync.html
+对于海量文件的稳定复制，推荐使用 rsync，因为它支持断点续传、校验文件完整性，并能显示进度。
+推,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/rsync.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Linux"><b>「
+                    </b>LINUX<b> 」</b></a>
+                
+                四月 13, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/04/13/linux-rsync/" title="【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性" class="">【转】linux大量文件的复制转移好工具之rsync——支持断点续传校验文件完整性</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.6k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://www.pfjsb.com/kfyw/linux-rsync.html" target="_blank" rel="noopener">https://www.pfjsb.com/kfyw/linux-rsync.html</a></p>
+<p>对于海量文件的稳定复制，推荐使用 <code>rsync</code>，因为它支持断点续传、校验文件完整性，并能显示进度。</p>
+<h1 id="推荐方法：使用-rsync-进行稳定复制"><a href="#推荐方法：使用-rsync-进行稳定复制" class="headerlink" title="推荐方法：使用 rsync 进行稳定复制"></a>推荐方法：使用 <code>rsync</code> 进行稳定复制</h1><pre><code class="bash">rsync -avh --progress --stats /源目录/ /目标磁盘/目标目录/</code></pre>
+<h2 id="参数解释"><a href="#参数解释" class="headerlink" title="参数解释"></a>参数解释</h2><ul>
+<li><code>-a</code>：归档模式，保持文件的权限、时间戳、符号链接等属性。</li>
+<li><code>-v</code>：显示详细信息（可选）。</li>
+<li><code>-h</code>：人类可读格式（文件大小等）。</li>
+<li><code>--progress</code>：显示复制进度。</li>
+<li><code>--stats</code>：显示最终的统计信息。</li>
+</ul>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>如果你的源目录是 <code>/mnt/images/</code>，目标磁盘是 <code>/mnt2/backup/</code>，执行：</p>
+<pre><code class="bash">rsync -avh --progress --stats /mnt/images/ /mnt2/backup/</code></pre>
+<p>这样会把 <code>/mnt/images/</code> 整个复制到 <code>/mnt2/backup/</code> 目录下。</p>
+<h1 id="提高复制速度（适用于海量小文件）"><a href="#提高复制速度（适用于海量小文件）" class="headerlink" title="提高复制速度（适用于海量小文件）"></a>提高复制速度（适用于海量小文件）</h1><h2 id="方法-1：使用-rsync-info-progress2（实时进度-断点续传）"><a href="#方法-1：使用-rsync-info-progress2（实时进度-断点续传）" class="headerlink" title="方法 1：使用 rsync --info=progress2（实时进度 + 断点续传）"></a>方法 1：使用 <code>rsync --info=progress2</code>（实时进度 + 断点续传）</h2><pre><code class="bash">rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li><code>--info=progress2</code>：显示整体进度（比 <code>--progress</code> 更友好）。</li>
+<li><code>rsync</code> 断点续传，不会重复复制已经存在的文件。</li>
+</ul>
+<h2 id="方法-2：使用-rsync-bwlimit-限制带宽（防止服务器负载过高）"><a href="#方法-2：使用-rsync-bwlimit-限制带宽（防止服务器负载过高）" class="headerlink" title="方法 2：使用 rsync --bwlimit 限制带宽（防止服务器负载过高）"></a>方法 2：使用 <code>rsync --bwlimit</code> 限制带宽（防止服务器负载过高）</h2><p>如果你要在生产环境下复制，避免影响业务，可以限制带宽：</p>
+<pre><code class="bash">rsync -avh --info=progress2 --bwlimit=100000 /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li><code>--bwlimit=100000</code> 限制速度为 100MB/s，你可以根据情况调整。</li>
+</ul>
+<h2 id="方法-3：使用-rsync-remove-source-files（删除已复制的文件，适用于迁移）"><a href="#方法-3：使用-rsync-remove-source-files（删除已复制的文件，适用于迁移）" class="headerlink" title="方法 3：使用 rsync --remove-source-files（删除已复制的文件，适用于迁移）"></a>方法 3：使用 <code>rsync --remove-source-files</code>（删除已复制的文件，适用于迁移）</h2><p>如果你想复制完后删除源文件，释放磁盘空间：</p>
+<pre><code class="bash">rsync -avh --progress --remove-source-files /mnt/images/ /mnt2/backup/
+find /mnt/images/ -type f -empty -delete</code></pre>
+<ul>
+<li><code>--remove-source-files</code>：复制成功后删除已复制的文件（但不删除空目录）。</li>
+<li><code>find ... -delete</code>：清理空目录。</li>
+</ul>
+<blockquote>
+<p>⚠ 注意：如果你要彻底删除源目录，最后用：</p>
+<pre><code class="bash">rm -rf /mnt/images/</code></pre>
+</blockquote>
+<h1 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h1><h2 id="使用-cp（不推荐）"><a href="#使用-cp（不推荐）" class="headerlink" title="使用 cp（不推荐）"></a>使用 <code>cp</code>（不推荐）</h2><pre><code class="bash">cp -a /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li><code>cp -a</code> 可以保持文件属性。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不支持断点续传，失败后需要重新开始。</li>
+<li>复制大文件时效率较低，无法显示进度。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>✅ 推荐</p>
+<pre><code class="bash">rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<p>（稳定、高效、可断点续传）</p>
+<p>✅ 限速</p>
+<pre><code class="bash">rsync --bwlimit=100000</code></pre>
+<p>（避免服务器过载）</p>
+<p>✅ 迁移</p>
+<pre><code class="bash">rsync --remove-source-files</code></pre>
+<p>（复制完后删除源文件）</p>
+<p>❌ 不要用</p>
+<pre><code class="bash">cp -a</code></pre>
+<p>（不稳定，大数据复制容易失败）</p>
+<h1 id="使用rsync-avh-–info-progress2命令中断后，该如何接着上次继续？"><a href="#使用rsync-avh-–info-progress2命令中断后，该如何接着上次继续？" class="headerlink" title="使用rsync -avh –info=progress2命令中断后，该如何接着上次继续？"></a>使用rsync -avh –info=progress2命令中断后，该如何接着上次继续？</h1><p><code>rsync</code> 默认支持断点续传，如果命令执行中断，你可以直接重新运行相同的 <code>rsync</code> 命令，它会自动跳过已完成的文件，仅复制未完成或新变化的文件。</p>
+<h1 id="💡-继续上次的-rsync-复制"><a href="#💡-继续上次的-rsync-复制" class="headerlink" title="💡 继续上次的 rsync 复制"></a>💡 继续上次的 <code>rsync</code> 复制</h1><p>假设你之前运行的命令是：</p>
+<pre><code class="bash">rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<p>如果中断了，直接运行 同样的命令：</p>
+<pre><code class="bash">rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<p>✅ 它会自动跳过已复制的文件，只同步未完成的文件。</p>
+<h1 id="🛠-进阶优化（适用于大文件）"><a href="#🛠-进阶优化（适用于大文件）" class="headerlink" title="🛠 进阶优化（适用于大文件）"></a>🛠 进阶优化（适用于大文件）</h1><p>如果你复制的文件特别大，可以加上 <code>--partial</code> 和 <code>--append-verify</code> 参数：</p>
+<pre><code class="bash">rsync -avh --info=progress2 --partial --append-verify /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li><code>--partial</code>：保留部分已复制的文件，避免重新复制。</li>
+<li><code>--append-verify</code>：对大文件进行增量复制，确保完整性（比 <code>--append</code> 更安全）。</li>
+</ul>
+<p>🔹 适用于大文件（如 1GB+ 视频、ISO、数据库备份等）。</p>
+<h1 id="🎯-让-rsync-在后台运行（防止-SSH-断连）"><a href="#🎯-让-rsync-在后台运行（防止-SSH-断连）" class="headerlink" title="🎯 让 rsync 在后台运行（防止 SSH 断连）"></a>🎯 让 <code>rsync</code> 在后台运行（防止 SSH 断连）</h1><p>如果你的 SSH 连接容易断开，建议用 <code>screen</code> 或 <code>nohup</code> 让 <code>rsync</code> 在后台运行：</p>
+<h2 id="方法-1：使用-screen（推荐）"><a href="#方法-1：使用-screen（推荐）" class="headerlink" title="方法 1：使用 screen（推荐）"></a>方法 1：使用 <code>screen</code>（推荐）</h2><pre><code class="bash">screen -S rsync_copy
+rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<p>📌 SSH 断开后，<code>screen -r rsync_copy</code> 可恢复进程。</p>
+<h2 id="方法-2：使用-nohup（简单）"><a href="#方法-2：使用-nohup（简单）" class="headerlink" title="方法 2：使用 nohup（简单）"></a>方法 2：使用 <code>nohup</code>（简单）</h2><pre><code class="bash">nohup rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/ &gt; rsync.log 2&gt;&amp;1 &amp;</code></pre>
+<p>📌 SSH 断开后任务仍在运行，可查看 <code>rsync.log</code> 进度：</p>
+<pre><code class="bash">tail -f rsync.log</code></pre>
+<h1 id="🚀-总结"><a href="#🚀-总结" class="headerlink" title="🚀 总结"></a>🚀 总结</h1><ul>
+<li>直接重新运行 <code>rsync</code>，会自动跳过已完成的文件：</li>
+</ul>
+<pre><code class="bash">rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li>对于大文件，使用 <code>--partial --append-verify</code> 防止重新复制：</li>
+</ul>
+<pre><code class="bash">rsync -avh --info=progress2 --partial --append-verify /mnt/images/ /mnt2/backup/</code></pre>
+<ul>
+<li>使用 <code>screen</code> 或 <code>nohup</code>，防止 SSH 断连导致中断：</li>
+</ul>
+<pre><code class="bash">screen -S rsync_copy
+rsync -avh --info=progress2 /mnt/images/ /mnt2/backup/</code></pre>
+<p>SSH 断开后，输入</p>
+<pre><code class="bash">screen -r rsync_copy</code></pre>
+<p>恢复任务。</p>
+<p>这样，即使 <code>rsync</code> 复制任务被中断，你也可以无缝续传，确保数据完整性！🚀</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#推荐方法：使用-rsync-进行稳定复制"><span class="toc-number">1.</span> <span class="toc-text">推荐方法：使用 rsync 进行稳定复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参数解释"><span class="toc-number">1.1.</span> <span class="toc-text">参数解释</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">1.2.</span> <span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提高复制速度（适用于海量小文件）"><span class="toc-number">2.</span> <span class="toc-text">提高复制速度（适用于海量小文件）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-1：使用-rsync-info-progress2（实时进度-断点续传）"><span class="toc-number">2.1.</span> <span class="toc-text">方法 1：使用 rsync --info&#x3D;progress2（实时进度 + 断点续传）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-2：使用-rsync-bwlimit-限制带宽（防止服务器负载过高）"><span class="toc-number">2.2.</span> <span class="toc-text">方法 2：使用 rsync --bwlimit 限制带宽（防止服务器负载过高）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-3：使用-rsync-remove-source-files（删除已复制的文件，适用于迁移）"><span class="toc-number">2.3.</span> <span class="toc-text">方法 3：使用 rsync --remove-source-files（删除已复制的文件，适用于迁移）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他方法"><span class="toc-number">3.</span> <span class="toc-text">其他方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-cp（不推荐）"><span class="toc-number">3.1.</span> <span class="toc-text">使用 cp（不推荐）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用rsync-avh-–info-progress2命令中断后，该如何接着上次继续？"><span class="toc-number">5.</span> <span class="toc-text">使用rsync -avh –info&#x3D;progress2命令中断后，该如何接着上次继续？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#💡-继续上次的-rsync-复制"><span class="toc-number">6.</span> <span class="toc-text">💡 继续上次的 rsync 复制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#🛠-进阶优化（适用于大文件）"><span class="toc-number">7.</span> <span class="toc-text">🛠 进阶优化（适用于大文件）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#🎯-让-rsync-在后台运行（防止-SSH-断连）"><span class="toc-number">8.</span> <span class="toc-text">🎯 让 rsync 在后台运行（防止 SSH 断连）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-1：使用-screen（推荐）"><span class="toc-number">8.1.</span> <span class="toc-text">方法 1：使用 screen（推荐）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法-2：使用-nohup（简单）"><span class="toc-number">8.2.</span> <span class="toc-text">方法 2：使用 nohup（简单）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#🚀-总结"><span class="toc-number">9.</span> <span class="toc-text">🚀 总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

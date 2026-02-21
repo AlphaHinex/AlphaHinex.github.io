@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JupyterLab 实战 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Jupyter, JupyterLab, miniconda, Kernels"> 
+    <meta name="description" content="Project Jupyter (/ˈdʒuːpɪtər/) 是一个旨在开发跨多种编程语言的交互式计算的开源软件、开放标准和服务的项目。
+Project Jupyter 已经开发和支持了交互式计算产,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">JupyterLab 实战</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/jupyter-lab-in-action/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Python"><b>「
+                    </b>PYTHON<b> 」</b></a>
+                
+                一月 14, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/01/14/jupyter-lab-in-action/" title="JupyterLab 实战" class="">JupyterLab 实战</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Jupyter/" rel="tag">Jupyter</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>Project <a href="https://jupyter.org/" target="_blank" rel="noopener">Jupyter</a> (/ˈdʒuːpɪtər/) 是一个旨在开发跨多种编程语言的交互式计算的开源软件、开放标准和服务的项目。</p>
+<p>Project Jupyter 已经开发和支持了交互式计算产品 Jupyter Notebook 和 JupyterLab。</p>
+<p>Jupyter Notebook 是经典的 Notebook 交互界面，JupyterLab 是下一代的 Notebook 交互界面。</p>
+<p><img src="/contents/jupyter-lab-in-action/lab.png" alt="preview"></p>
+<p>本文主要介绍 JupyterLab 环境搭建，包括远程密码访问及添加 Kernel 以支持其他语言。</p>
+<h2 id="演示环境准备"><a href="#演示环境准备" class="headerlink" title="演示环境准备"></a>演示环境准备</h2><h3 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h3><p>本文以在 docker 容器中搭建 JupyterLab 为例进行说明：</p>
+<pre><code class="bash"># 拉取 python 镜像
+$ docker pull python
+# 启动容器并映射 8099 端口作为访问 JupyterLab 的端口
+$ docker run -d --name pycontainer -p 8099:8099 python tail -f /dev/null
+# 进入容器
+$ docker exec -ti pycontainer bash</code></pre>
+<h3 id="miniconda"><a href="#miniconda" class="headerlink" title="miniconda"></a>miniconda</h3><p>虚拟环境的管理以使用 <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" rel="noopener">Miniconda</a> 为例，在上面准备好的容器中，安装并初始化，使用 <a href="https://docs.conda.io/projects/miniconda/en/latest/#quick-command-line-install" target="_blank" rel="noopener">Quick command line install</a> 中提供的 Linux 环境安装语句：</p>
+<pre><code class="bash">$ mkdir -p ~/miniconda3
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+$ bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+$ rm -rf ~/miniconda3/miniconda.sh</code></pre>
+<p>因为本文准备的容器中只有 bash shell，使用如下命令进行初始化：</p>
+<pre><code class="bash">$ ~/miniconda3/bin/conda init bash</code></pre>
+<p>初始化后需要重新进入一次终端使配置生效，可退出容器之后再次进入。</p>
+<p>上面 wget 的地址如果下载较慢，可改为使用清华大学开源镜像站中的地址 <a href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-latest-Linux-x86_64.sh</a> ，并为<br><a href="https://blog.csdn.net/anglemanyi/article/details/112647242" target="_blank" rel="noopener">Anaconda配置国内镜像源</a>：</p>
+<pre><code class="bash"># 添加 channel
+$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+$ conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+# 查看 channel
+$ conda config --show channels
+# 设置搜索时显示 channel 地址
+$ conda config --set show_channel_urls yes
+# 删除指定源
+# conda config --remove channels 源名称或链接
+conda config --remove channels defaults</code></pre>
+<p>为 JupyterLab 创建一个新的虚拟环境 <code>lab_env</code>：</p>
+<pre><code class="bash"># 新虚拟环境中 Python 版本使用 3.12
+$ conda create -n lab_env python=3.12
+# 激活虚拟环境
+$ conda activate lab_env</code></pre>
+<p>至此，本文用来演示的搭建 JupyterLab 的基础环境已经准备好。</p>
+<p>不再需要这个演示的虚拟环境时，可以通过下面方式移除：</p>
+<pre><code class="bash">$ conda deactivate
+$ conda env remove --name lab_env</code></pre>
+<h2 id="安装-JupyterLab"><a href="#安装-JupyterLab" class="headerlink" title="安装 JupyterLab"></a>安装 JupyterLab</h2><p>可按 <a href="https://jupyter.org/install#jupyterlab" target="_blank" rel="noopener">官方文档</a> 使用 <code>pip</code> 进行安装：</p>
+<pre><code class="bash">$ pip install jupyterlab
+# pip install jupyterlab -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/</code></pre>
+<p>也可以直接使用 <code>conda</code> 安装：</p>
+<pre><code class="bash">$ conda install jupyterlab
+# 安装后查看版本
+$ jupyter --version
+Selected Jupyter core packages...
+IPython          : 8.20.0
+ipykernel        : 6.28.0
+ipywidgets       : not installed
+jupyter_client   : 8.6.0
+jupyter_core     : 5.7.1
+jupyter_server   : 2.12.4
+jupyterlab       : 4.0.10
+nbclient         : 0.8.0
+nbconvert        : 7.14.1
+nbformat         : 5.9.2
+notebook         : not installed
+qtconsole        : not installed
+traitlets        : 5.14.1</code></pre>
+<p>此时就可以启动 JupyterLab 了：</p>
+<pre><code class="bash">$ jupyter lab</code></pre>
+<p>但因为我们是在容器中启动的服务，默认配置是不能直接访问的，需要调整配置以允许远程访问。</p>
+<h2 id="密码登录及远程访问"><a href="#密码登录及远程访问" class="headerlink" title="密码登录及远程访问"></a>密码登录及远程访问</h2><p>JupyterLab 可以通过启动参数及配置文件对默认配置进行调整。</p>
+<p>先来看下配置文件的方式：</p>
+<pre><code class="bash"># 生成配置文件
+$ jupyter server --generate-config
+Writing default config to: /root/.jupyter/jupyter_server_config.py</code></pre>
+<p>生成的 <code>jupyter_server_config.py</code> 配置文件内容较多，可以根据需要对配置进行调整，允许远程访问和密码登录（及其他几个参数）的配置可参考下面内容：</p>
+<pre><code class="python"># Configuration file for jupyter-server.
+
+c = get_config()  #noqa
+
+## Allow requests where the Host header doesn&#39;t point to a local server
+#
+#         By default, requests get a 403 forbidden response if the &#39;Host&#39; header
+#         shows that the browser thinks it&#39;s on a non-local domain.
+#         Setting this option to True disables this check.
+#
+#         This protects against &#39;DNS rebinding&#39; attacks, where a remote web server
+#         serves you a page and then changes its DNS to send later requests to a
+#         local IP, bypassing same-origin checks.
+#
+#         Local IP addresses (such as 127.0.0.1 and ::1) are allowed as local,
+#         along with hostnames configured in local_hostnames.
+#  Default: False
+c.ServerApp.allow_remote_access = True
+
+## Whether to allow the user to run the server as root.
+#  Default: False
+c.ServerApp.allow_root = True
+
+## The IP address the Jupyter server will listen on.
+#  Default: &#39;localhost&#39;
+c.ServerApp.ip = &#39;*&#39;
+
+## DEPRECATED in 2.0. Use PasswordIdentityProvider.hashed_password
+#  Default: &#39;&#39;
+# c.ServerApp.password = &#39;&#39;
+c.PasswordIdentityProvider.hashed_password=&#39;argon2:$argon2id$v=19$m=10240,t=10,p=8$77oaPHievVOfjuE0GHjaSA$eBTBF0mfA5qSOJq4ou3fBYeDE70x72xnaF1SYo2D034&#39;
+
+## The port the server will listen on (env: JUPYTER_PORT).
+#  Default: 0
+c.ServerApp.port = 8099
+
+## The directory to use for notebooks and kernels.
+#  Default: &#39;&#39;
+c.ServerApp.root_dir = &#39;/root&#39;</code></pre>
+<p>其中密码的 hash 值可以通过如下方式获取：</p>
+<pre><code class="bash">$ python
+Python 3.12.1 | packaged by conda-forge | (main, Dec 23 2023, 08:03:24) [GCC 12.3.0] on linux
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from jupyter_server.auth import passwd
+&gt;&gt;&gt; passwd(&#39;hinex&#39;)
+&#39;argon2:$argon2id$v=19$m=10240,t=10,p=8$77oaPHievVOfjuE0GHjaSA$eBTBF0mfA5qSOJq4ou3fBYeDE70x72xnaF1SYo2D034&#39;</code></pre>
+<p>或：</p>
+<pre><code class="bash">$ jupyter server password
+Enter password:
+Verify password:
+[JupyterPasswordApp] Wrote hashed password to /root/.jupyter/jupyter_server_config.json
+$ cat /root/.jupyter/jupyter_server_config.json
+{
+  &quot;IdentityProvider&quot;: {
+    &quot;hashed_password&quot;: &quot;argon2:$argon2id$v=19$m=10240,t=10,p=8$7wNypI7oYGfIR5fmStC8AQ$SraH34Dd2Oj4o2cnfI7MMEP/0CEnm7N7GgdfU6b6l1s&quot;
+  }
+}</code></pre>
+<p>将宿主机中准备好的配置文件拷贝至容器中（因为容器内没有文本编辑器）：</p>
+<pre><code class="bash">docker cp ~/Desktop/jupyter_server_config.py pycontainer:/root/.jupyter/</code></pre>
+<p>之后再次启动 JupyterLab 即可通过宿主机的 <code>8099</code> 端口访问到界面了：</p>
+<pre><code class="bash">$ jupyter lab</code></pre>
+<p><img src="/contents/jupyter-lab-in-action/cover.png" alt="hello world"></p>
+<h3 id="多个配置"><a href="#多个配置" class="headerlink" title="多个配置"></a>多个配置</h3><p>因为默认的配置文件是放在用户的 <code>~/.jupyter</code> 路径下，在一个环境中想启动多个不同配置的 JupyterLab 服务的时候，就需要通过 <code>--config</code> 参数指定配置文件路径，或通过启动参数传入配置：</p>
+<pre><code class="bash">$ jupyter lab --no-browser --ServerApp.port=8090 --ServerApp.root_dir=/root --PasswordIdentityProvider.hashed_password=&#39;argon2:$argon2id$v=19$m=10240,t=10,p=8$7wNypI7oYGfIR5fmStC8AQ$SraH34Dd2Oj4o2cnfI7MMEP/0CEnm7N7GgdfU6b6l1s&#39; --ServerApp.allow_root=True --ServerApp.ip=&#39;0.0.0.0&#39;</code></pre>
+<p>或：</p>
+<pre><code class="bash">$ jupyter lab --config=/root/jupyter_server_config.py</code></pre>
+<h2 id="Kernels"><a href="#Kernels" class="headerlink" title="Kernels"></a>Kernels</h2><p>Jupyter 官网中提到：</p>
+<blockquote>
+<p>Jupyter supports over 40 programming languages, including Python, R, Julia, and Scala.</p>
+</blockquote>
+<p>这需要 <a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels" target="_blank" rel="noopener">Jupyter kernels</a> 的支持来实现。</p>
+<p>安装的 <code>jupyterlab</code> 依赖中，包括了第一个 Kernel —— <a href="https://pypi.python.org/pypi/ipykernel" target="_blank" rel="noopener">ipykernel</a>，所以我们可以直接使用 Python 代码进行交互式计算：</p>
+<p><img src="/contents/jupyter-lab-in-action/cover.png" alt="ipykernel"></p>
+<p>下面命令可以查看当前环境中存在的 kernel 列表：</p>
+<pre><code class="bash">$ jupyter kernelspec list
+Available kernels:
+  python3    /root/miniconda3/envs/lab_env/share/jupyter/kernels/python3</code></pre>
+<p>目前只有默认安装的 kernel，接下来我们安装一个新的 kernel。</p>
+<h3 id="Bash-Kernel"><a href="#Bash-Kernel" class="headerlink" title="Bash Kernel"></a>Bash Kernel</h3><p><a href="https://github.com/takluyver/bash_kernel" target="_blank" rel="noopener">bash_kernel</a></p>
+<pre><code class="bash">pip install bash_kernel</code></pre>
+<p>或：</p>
+<pre><code class="bash">conda install bash_kernel</code></pre>
+<p>此时，我们的 kernel 列表中出现了新的 kernel：</p>
+<pre><code class="bash">$ jupyter kernelspec list
+Available kernels:
+  bash       /root/miniconda3/envs/lab_env/share/jupyter/kernels/bash
+  python3    /root/miniconda3/envs/lab_env/share/jupyter/kernels/python3</code></pre>
+<p>重启 JupyterLab，在界面中调整 kernel 为 Bash，就可以在 notebook 中执行 bash 命令了：</p>
+<p><img src="/contents/jupyter-lab-in-action/bash_kernel.png" alt="bash"></p>
+<h3 id="调整-kernel"><a href="#调整-kernel" class="headerlink" title="调整 kernel"></a>调整 kernel</h3><ul>
+<li>修改 kernel 在界面中的显示名</li>
+</ul>
+<ol>
+<li>使用 <code>jupyter kernelspec list</code> 查找 kernel 安装路径</li>
+<li>编辑其中的 <code>kernel.json</code> 文件，修改 <code>display_name</code> 属性中的显示名</li>
+</ol>
+<ul>
+<li>移除 kernel</li>
+</ul>
+<pre><code class="bash">$ jupyter kernelspec remove bash</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://blog.csdn.net/qq_27370437/article/details/117845115" target="_blank" rel="noopener">Jupyter Lab 密码登录、远程访问</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/27339792" target="_blank" rel="noopener">给jupyter设置密码以能远程访问的方法</a></li>
+<li><a href="https://discourse.jupyter.org/t/passwordidentityprovider-hashed-password-not-working-or-ignored-on-aws-ecs/22514" target="_blank" rel="noopener">PasswordIdentityProvider.hashed_password not working or ignored on AWS ECS</a></li>
+<li><a href="https://queirozf.com/entries/jupyter-kernels-how-to-add-change-remove" target="_blank" rel="noopener">Jupyter Notebook Kernels: How to Add, Change, Remove</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#演示环境准备"><span class="toc-number">1.</span> <span class="toc-text">演示环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#容器"><span class="toc-number">1.1.</span> <span class="toc-text">容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#miniconda"><span class="toc-number">1.2.</span> <span class="toc-text">miniconda</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-JupyterLab"><span class="toc-number">2.</span> <span class="toc-text">安装 JupyterLab</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#密码登录及远程访问"><span class="toc-number">3.</span> <span class="toc-text">密码登录及远程访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多个配置"><span class="toc-number">3.1.</span> <span class="toc-text">多个配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kernels"><span class="toc-number">4.</span> <span class="toc-text">Kernels</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Bash-Kernel"><span class="toc-number">4.1.</span> <span class="toc-text">Bash Kernel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调整-kernel"><span class="toc-number">4.2.</span> <span class="toc-text">调整 kernel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

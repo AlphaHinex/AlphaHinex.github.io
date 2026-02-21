@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 Java 8 Stream 优雅的找出重复数据 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,stream, java, 重复, 重复数据, 重复元素"> 
+    <meta name="description" content="原文地址：https://wyiyi.github.io/amber/2021/11/30/stream/
+最近经常遇到问题：要获取到集合中某一属性值重复的数据，除了for 循环，还有更简单得处理方,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 Java 8 Stream 优雅的找出重复数据</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/use-stream-to-find-duplicated-elements.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                十二月 05, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/12/05/use-stream-to-find-duplicated-elements/" title="使用 Java 8 Stream 优雅的找出重复数据" class="">使用 Java 8 Stream 优雅的找出重复数据</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Stream/" rel="tag">Stream</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/11/30/stream/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/11/30/stream/</a></p>
+<p>最近经常遇到问题：要获取到集合中某一属性值重复的数据，除了for 循环，还有更简单得处理方式？</p>
+<p>先来引入 Stream 流的概念。</p>
+<h2 id="Stream-阐述"><a href="#Stream-阐述" class="headerlink" title="Stream 阐述"></a>Stream 阐述</h2><p><code>Stream API(java.util.stream.*)</code> 是 Java 8 中新增重要特性。<br>Stream 将要处理的元素集合看作一种流，由于<code>java.util.stream.Stream</code> 是一个 <code>Interface</code> ，在其中提供了函数方法，<br>使流在管道中进行一系列处理（如过滤，映射，聚合等）后生成的结果集合，类似于在数据库执行 SQL 语句。<br>这个过程通常不会对数据源造成影响。</p>
+<pre><code> List&lt;String&gt; myList = Arrays.asList(&quot;a1&quot;, &quot;a2&quot;, &quot;b1&quot;, &quot;c2&quot;, &quot;c1&quot;);
+   myList.stream()
+     .filter(s -&gt; s.startsWith(&quot;c&quot;))
+     .map(String::toUpperCase)
+     .sorted()
+     .forEach(System.out::println);    // C1 C2</code></pre><p>在以上示例中, 创建 Stream 流，filter，map 和 sorted 是中间操作，而 forEach 是一个终端操作。Stream操作链称为操作管道。</p>
+<h2 id="Stream-用法"><a href="#Stream-用法" class="headerlink" title="Stream 用法"></a>Stream 用法</h2><p> 可以从各种数据源中创建 Stream 流，其中以 Collection 集合最为常见。<br> 如 List 和 Set 均支持 stream() 方法来创建顺序流 stream() 或者是并行流 parallelStream()。</p>
+<h3 id="一、常用创建-Stream-流方法"><a href="#一、常用创建-Stream-流方法" class="headerlink" title="一、常用创建 Stream 流方法"></a>一、常用创建 Stream 流方法</h3><p>1.使用 Collection 下的 stream() 和 parallelStream() 方法来创建 Stream</p>
+<pre><code> List&lt;String&gt; list = new ArrayList&lt;&gt;();
+ Stream&lt;String&gt; stream = list.stream(); //获取一个顺序流
+ Stream&lt;String&gt; parallelStream = list.parallelStream(); //获取一个并行流</code></pre><p>2.Arrays 提供了创建流的静态方法 stream()，将数组转成流</p>
+<pre><code> Integer[] nums = new Integer[10];
+ Stream&lt;Integer&gt; stream = Arrays.stream(nums);</code></pre><p>3.使用 Stream 中的静态方法：of()、iterate()、generate()</p>
+<pre><code> Stream&lt;Integer&gt; stream = Stream.of(1,2,3,4,5,6);
+
+ Stream&lt;Integer&gt; stream2 = Stream.iterate(0, (x) -&gt; x + 2).limit(6);
+ stream2.forEach(System.out::println); // 0 2 4 6 8 10
+ Stream&lt;Double&gt; stream3 = Stream.generate(Math::random).limit(2);
+ stream3.forEach(System.out::println);</code></pre><p>4.使用 Pattern.splitAsStream() 方法，将字符串分隔成流</p>
+<pre><code> Pattern pattern = Pattern.compile(&quot;,&quot;);
+ Stream&lt;String&gt; stringStream = pattern.splitAsStream(&quot;a,b,c,d&quot;);
+ stringStream.forEach(System.out::println);</code></pre><p>5.一些类也提供了创建流的方法:</p>
+<pre><code> IntStream.range(start, stop);
+ BufferedReader.lines();
+ Random.ints();</code></pre><h3 id="二、中间操作-Stream-流"><a href="#二、中间操作-Stream-流" class="headerlink" title="二、中间操作 Stream 流"></a>二、中间操作 Stream 流</h3><p>1.filter：用于通过设置的条件过滤出元素，其中<code>java.util.Objects</code>提供了空元素的过滤</p>
+<p>2.映射 map 方法用于映射每个元素到对应的结果</p>
+<p>3.排序 sorted：使用 <code>java.util.Comparator</code>或者 <code>reversed</code> 更方便的对流进行升降排序</p>
+<p>4.distinct：通过流中元素的 hashCode() 和 equals() 去除重复元素</p>
+<p>5.skip(n)：跳过n元素，配合limit(n)可实现分页</p>
+<p>6.limit(n)：用于获取指定数量的流…</p>
+<h3 id="三、终端操作-Stream-流"><a href="#三、终端操作-Stream-流" class="headerlink" title="三、终端操作 Stream 流"></a>三、终端操作 Stream 流</h3><p>1.forEach()  迭代流中的每个元素，<code>java.util.function.Consumer</code>接受参数没有返回值</p>
+<pre><code> Stream.of(1,2,3,4,5).forEach(System.out::println);</code></pre><p>2.collect() 可用于返回列表或字符串，<code>java.util.Collectors</code> 类中有求和、计算均值、取最值、字符串连接等多种收集方法。</p>
+<pre><code> List&lt;String&gt; strings = Arrays.asList(&quot;abc&quot;, &quot;&quot;, &quot;bc&quot;, &quot;efg&quot;, &quot;abcd&quot;, &quot;&quot;, &quot;jkl&quot;);
+ List&lt;String&gt; count = strings.stream().filter(string -&gt; string.isEmpty()).collect(Collectors.toList());
+ System.out.println(count.size()); // 2    </code></pre><p>3.reduce 用于对stream中元素进行聚合求值，操作函数 accumulator 接受两个参数x,y返回r</p>
+<p>4.anyMatch()、allMatch()、noneMatch() 接收参数Predicate，返回boolean。</p>
+<p>5.findFirst()、findAny()、count()、max()、min() …</p>
+<h2 id="使用-Stream-流解决集合中数据重复问题"><a href="#使用-Stream-流解决集合中数据重复问题" class="headerlink" title="使用 Stream 流解决集合中数据重复问题"></a>使用 Stream 流解决集合中数据重复问题</h2><p>我们以 Employee 为实体，对比 获取重复code值的 写法：</p>
+<p>Employee 实体：</p>
+<pre><code>public class Employee extends Model&lt;Employee&gt; {
+    @ApiModelProperty(value = &quot;ID&quot;)
+    @TableField(&quot;ID&quot;)
+    private Long id;
+    @ApiModelProperty(value = &quot;编码&quot;)
+    @TableId(&quot;CODE&quot;)
+    private String code;
+    @ApiModelProperty(value = &quot;姓名&quot;)
+    @TableField(&quot;NAME&quot;)
+    private String name;
+    @ApiModelProperty(value = &quot;年龄&quot;)
+    @TableField(&quot;AGE&quot;)
+    private Integer age;
+    ...  
+}    </code></pre><p>for 写法：</p>
+<pre><code> List&lt;String&gt; duplicate_code = new ArrayList&lt;&gt;();
+ List&lt;Employee&gt; employeeList = fromDB();
+ if (employeeList.size() &gt; 0) {
+     for (int i = 0; i &lt; employeeList.size(); i++) {
+         Employee employee = employeeList.get(i);
+         for (Employee entity : employeeList) {
+             String code = entity.getCode();
+             if (StringUtils.isBlank(code) &amp;&amp; StringUtils.isBlank(employee.getCode()) &amp;&amp; code.equals(employee.getCode())) {
+                duplicate_code.add(code);
+             }
+         }
+     }
+ }</code></pre><p> Stream 写法：</p>
+<pre><code> List&lt;String&gt; duplicate_code = new ArrayList&lt;&gt;();
+ List&lt;Employee&gt; employeeList = fromDB();
+ Map&lt;Object, Long&gt; map = employeeList.stream().collect(Collectors.groupingBy(employee -&gt; employee.getCode(), Collectors.counting()));
+ Stream&lt;Object&gt; stringStream = map.entrySet().stream().filter(entry -&gt; entry.getValue() &gt; 1).map(entry -&gt; entry.getKey());
+ stringStream.forEach(str -&gt; {
+    duplicate_code.add(String.valueOf(str));
+ });</code></pre><p>由此可见，使用Java 8 的 Stream 流方式获取到集合中某一属性值重复数据的问题更方便、简洁！</p>
+<p><strong>了解更多有关 Java8 Stream 流的相关信息，请参考 <a href="https://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">Stream Javadoc 阅读官方文档</a>。</strong></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream-阐述"><span class="toc-number">1.</span> <span class="toc-text">Stream 阐述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream-用法"><span class="toc-number">2.</span> <span class="toc-text">Stream 用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、常用创建-Stream-流方法"><span class="toc-number">2.1.</span> <span class="toc-text">一、常用创建 Stream 流方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、中间操作-Stream-流"><span class="toc-number">2.2.</span> <span class="toc-text">二、中间操作 Stream 流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、终端操作-Stream-流"><span class="toc-number">2.3.</span> <span class="toc-text">三、终端操作 Stream 流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Stream-流解决集合中数据重复问题"><span class="toc-number">3.</span> <span class="toc-text">使用 Stream 流解决集合中数据重复问题</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

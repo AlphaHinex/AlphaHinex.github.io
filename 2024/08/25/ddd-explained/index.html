@@ -1,0 +1,870 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《解构领域驱动设计》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,DDD, 领域驱动设计, 限界上下文, 聚合, 实体, 值对象, 领域服务, 领域事件, 工厂, 资源库, 问题空间, 解空间"> 
+    <meta name="description" content="
+豆瓣评分 7.3
+第一篇 开篇第1章 软件复杂度剖析第2章 领域驱动设计概览第3章 领域驱动设计统一过程第二篇 全局分析第4章 问题空间探索
+
+
+
+商业模式画布由9个板块构成。
+
+客户细分(cus,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《解构领域驱动设计》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/ddd-explained/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                八月 25, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/08/25/ddd-explained/" title="《解构领域驱动设计》书摘" class="">《解构领域驱动设计》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    17k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    15 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DDD/" rel="tag">DDD</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/ddd-explained/cover.jpg" alt="cover"></p>
+<p><a href="https://book.douban.com/subject/35553520/" target="_blank" rel="noopener">豆瓣评分 7.3</a></p>
+<h1 id="第一篇-开篇"><a href="#第一篇-开篇" class="headerlink" title="第一篇 开篇"></a>第一篇 开篇</h1><h2 id="第1章-软件复杂度剖析"><a href="#第1章-软件复杂度剖析" class="headerlink" title="第1章 软件复杂度剖析"></a>第1章 软件复杂度剖析</h2><h2 id="第2章-领域驱动设计概览"><a href="#第2章-领域驱动设计概览" class="headerlink" title="第2章 领域驱动设计概览"></a>第2章 领域驱动设计概览</h2><h2 id="第3章-领域驱动设计统一过程"><a href="#第3章-领域驱动设计统一过程" class="headerlink" title="第3章 领域驱动设计统一过程"></a>第3章 领域驱动设计统一过程</h2><h1 id="第二篇-全局分析"><a href="#第二篇-全局分析" class="headerlink" title="第二篇 全局分析"></a>第二篇 全局分析</h1><h2 id="第4章-问题空间探索"><a href="#第4章-问题空间探索" class="headerlink" title="第4章 问题空间探索"></a>第4章 问题空间探索</h2><blockquote>
+<p><img src="/contents/ddd-explained/4.7.png" alt="图4-7 商业模式画布"></p>
+</blockquote>
+<blockquote>
+<p>商业模式画布由9个板块构成。</p>
+<ul>
+<li>客户细分(customer segments)：企业所服务的一个或多个客户分类群体，可以是企业组织、最终用户等。</li>
+<li>价值主张(value propositions)：通过价值主张来解决客户难题和满足客户需求，为客户提供有价值的服务。</li>
+<li>渠道通路(channels)：通过沟通、分销和销售渠道向客户传递价值主张，即企业将销售的商品或服务交付给客户的方式。</li>
+<li>客户关系(customer relationships)：在每一个客户细分市场建立和维护企业与客户之间的关系。</li>
+<li>收益来源(revenue streams)：通过成功提供给客户的价值主张获得营业收入，是企业的盈利模式。</li>
+<li>核心资源(key resources)：企业最重要的资产，也是保证企业保持竞争力的关键，这些资源包括人力和物力。</li>
+<li>关键业务(key activities)：通过执行一些关键业务活动，运转企业的商业模式。</li>
+<li>重要合作(key partnership)：需要从企业外部获得资源，就需要寻求合作伙伴。</li>
+<li>成本结构(cost structure)：该商业模式要获得成功所引发的成本构成。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>在询问问题时，选择板块的顺序是有讲究的：顺序代表了思考的方向、认知的递进，或者准确地说就是一种心流，是一种层层递进的因与果的驱动力，如图4-8所示。<br><img src="/contents/ddd-explained/4.8.png" alt="图4-8 商业模式画布的驱动方向"></p>
+</blockquote>
+<blockquote>
+<p>针对目标系统而言，首先需要确定目标系统要帮助的各类型细分的客户，以更好地明确它的价值主张。然而，有了意向客户，也有了为客户提供的价值，又该如何将价值传递给客户呢？这就驱动出目标系统的渠道通路。渠道通路的形式取决于目标系统如何与客户互动，因而需定义出客户关系。理清楚了客户关系，就可以思考目标系统能够创造哪些收益，确定收益来源。至此，目标系统的方向与轮廓已大致确定，接下来需要考虑如何落地的问题。这时需要识别企业的可用资源，并与实现该目标系统需要的资源相比对，以确定核心资源。这些核心资源是为目标系统的关键业务服务的。要推进关键业务，只靠一家公司或一个团队独木难支，需要得到合作伙伴的帮助。最后，需要确定要实现该目标系统需要的成本，如此才能确定采用该商业模式的目标系统是否有利润可期。</p>
+</blockquote>
+<h2 id="第5章-价值需求分析"><a href="#第5章-价值需求分析" class="headerlink" title="第5章 价值需求分析"></a>第5章 价值需求分析</h2><h2 id="第6章-业务需求分析"><a href="#第6章-业务需求分析" class="headerlink" title="第6章 业务需求分析"></a>第6章 业务需求分析</h2><blockquote>
+<p>经过领域驱动设计十多年的发展，社区就子领域达成了如下共识：</p>
+<ul>
+<li>子领域属于问题空间的范畴；</li>
+<li>子领域用于分辨问题空间的核心问题和次要问题。</li>
+</ul>
+</blockquote>
+<h1 id="第三篇-架构映射"><a href="#第三篇-架构映射" class="headerlink" title="第三篇 架构映射"></a>第三篇 架构映射</h1><blockquote>
+<p>架构映射对应解空间的战略设计层次。</p>
+</blockquote>
+<blockquote>
+<p>本阶段，映射成为获得架构的主要设计手段。价值需求中利益相关者、系统愿景和系统范围可映射为系统上下文，业务服务通过对业务相关性的归类与归纳可映射为限界上下文，系统上下文与限界上下文共同构成了系统架构的重要层次，前者勾勒出解空间的控制边界，后者勾勒出领域模型的知识边界，组成了一个稳定而又具有演进能力的领域驱动架构。</p>
+</blockquote>
+<blockquote>
+<p>限界上下文是架构映射阶段的基本架构单元，封装了领域知识的领域对象在知识语境的界定下，扮演不同的角色，执行不同的活动，对外公开相对完整的业务能力，此为限界上下文的定义。</p>
+</blockquote>
+<h2 id="第7章-同构系统"><a href="#第7章-同构系统" class="headerlink" title="第7章 同构系统"></a>第7章 同构系统</h2><blockquote>
+<p>对于同一个目标系统，问题空间代表了真实世界的真实系统，解空间是一面镜子，利用求解过程照射的光，将这一真实的系统映成理念世界的虚拟系统。虚拟系统是通过对真实世界的概念进行抽象与提炼获得的：如果求解的光足够明亮，解空间这面镜子足够光滑而平整，映出的虚拟系统就足够逼真。除了系统的本质不同，真实系统和虚拟系统的结构应保持一致，形成两个“同构”的系统。侯世达认为所谓同构系统，就是“两个复杂结构可以互相映射，并且每一个结构的每一部分在另一个结构中都有一个相应的部分”，这说明，同构系统的组成部分可以形成一一对应的映射关系，这正是架构映射的存在前提。</p>
+</blockquote>
+<blockquote>
+<p>IEEE 1471对架构的定义为：“架构是以组件、组件之间的关系、组件与环境之间的关系为内容的某一系统的基本组织结构，以及指导上述内容设计与演化的原则。”</p>
+</blockquote>
+<blockquote>
+<p>RUP 4+1视图模型的提出者Philippe Kruchten对架构的定义为：“软件架构包含了关于以下内容的重要决策：软件系统的组织；选择组成系统的结构元素和它们之间的接口，以及当这些元素相互协作时所体现的行为；如何组合这些元素，使它们逐渐合成为更大的子系统；用于指导这个系统组织的架构风格：这些元素以及它们的接口、协作和组合。”</p>
+</blockquote>
+<blockquote>
+<p>卡内基·梅隆大学软件工程研究院的Len Bass等人则将架构定义为：“系统的软件架构是对系统进行推演获得的一组结构，每个结构均由软件元素、这些元素的关系以及它们的属性组成。”</p>
+</blockquote>
+<blockquote>
+<p>概括而言，一个设计良好的架构应具有如下基本设计要素：</p>
+<ul>
+<li>功能分解的软件元素；</li>
+<li>软件元素之间的关系；</li>
+<li>软件元素与外部环境之间的关系；</li>
+<li>指导架构设计与演化的原则。</li>
+</ul>
+</blockquote>
+<h2 id="第8章-系统上下文"><a href="#第8章-系统上下文" class="headerlink" title="第8章 系统上下文"></a>第8章 系统上下文</h2><h2 id="第9章-限界上下文"><a href="#第9章-限界上下文" class="headerlink" title="第9章 限界上下文"></a>第9章 限界上下文</h2><blockquote>
+<p>模块：先从技术维度进行横向切分，再从领域维度针对领域层进行纵向切分。业务模块仅包含业务逻辑，需要其他层模块的支持才能提供完整的业务能力。这样的架构没有将业务架构、应用架构、数据架构绑定起来，一旦业务发生变化，就会影响到横向层次的各个模块。</p>
+</blockquote>
+<blockquote>
+<p>限界上下文：先从领域维度进行纵向切分，再从技术维度对限界上下文进行横向切分，因此限界上下文是一个对外暴露业务能力的架构整体。无论是业务架构、应用架构，还是数据架构，都在一个边界中，一旦业务发生变化，只会影响到与该业务相关的限界上下文。</p>
+</blockquote>
+<blockquote>
+<p>正交性要求：“如果两个或更多事物中的一个发生变化，不会影响其他事物，这些事物就是正交的。”﻿﻿变化的影响主要体现在变化的传递性，即一个事物的变化会传递到另一个事物引起它的变化，但这个变化影响并不包含彼此正交的点。例如，限界上下文之间存在调用关系，当被调用的限界上下文公开的接口发生变化，自然会影响调用方。这一影响是合理的，也是软件设计很难避免的依赖。故而限界上下文存在正交性，指的是各自边界封装的业务知识不存在变化的传递性。</p>
+</blockquote>
+<blockquote>
+<p>领域模型违背了正交性，意味着各自定义的领域模型对象代表的领域概念出现了重复。</p>
+</blockquote>
+<blockquote>
+<p>判断领域模型的重复性，必须将限界上下文作为修饰，将二者组合起来共同评判。</p>
+</blockquote>
+<h2 id="第10章-上下文映射"><a href="#第10章-上下文映射" class="headerlink" title="第10章 上下文映射"></a>第10章 上下文映射</h2><blockquote>
+<p>随着变化不断发生，难免会在协作过程中产生边界的裂隙，导致限界上下文之间产生无人管控的灰色地带。当灰色地带逐渐陷入混沌时，就需要引入上下文映射(context map)让其恢复有序。</p>
+</blockquote>
+<blockquote>
+<p>上下文映射图将提供服务的限界上下文称为“上游”上下文，与之对应，消费（调用）服务的限界上下文自然称为“下游”上下文。</p>
+</blockquote>
+<blockquote>
+<p>Eric Evans定义的上下文映射模式包括客户方/供应方、共享内核、遵奉者、分离方式、防腐层、开放主机服务与发布语言。</p>
+</blockquote>
+<blockquote>
+<p>随着领域驱动设计社区的发展，又诞生了合作关系模式与大泥球模式。</p>
+</blockquote>
+<blockquote>
+<p>防腐层和开放主机服务都是访问领域模型时建立的一层包装，前者针对发起调用的下游，后者针对响应请求的上游，以避免上下游之间的通信集成将各自的领域模型引入进来，造成彼此之间的强耦合。因此，防腐层和开放主机服务操作的对象都不应该是各自的领域模型，这正是引入发布语言的原因。</p>
+</blockquote>
+<blockquote>
+<p>任何软件设计决策都要考量成本与收益，只有收益高于成本，决策才是合理的。</p>
+</blockquote>
+<blockquote>
+<p>既然双方都需要Money值对象，要遵循分离方式模式，就可以通过在两个限界上下文中重复定义Money值对象来完成解耦。不要害怕这样的重复，在领域驱动设计中，我们遵循的原则应该是“只有在一个限界上下文中才能消除重复”</p>
+</blockquote>
+<blockquote>
+<p>设计总是如此，没有绝对好的解决方案，只能依据具体的业务场景权衡利弊得失，以求得到相对好（而不是最好）的方案。这是软件设计让人感觉棘手的原因，却也是它的魅力所在。</p>
+</blockquote>
+<blockquote>
+<p>只有当一个领域行为成为另一个领域行为“内嵌”的执行步骤，二者操作的领域逻辑分属不同的限界上下文，才会产生真正的协作，形成除“分离方式”之外的上下文映射模式。</p>
+</blockquote>
+<h2 id="第11章-服务契约设计"><a href="#第11章-服务契约设计" class="headerlink" title="第11章 服务契约设计"></a>第11章 服务契约设计</h2><blockquote>
+<p>Eric Evans定义了领域驱动设计的分层架构，在领域层和用户界面层之间引入了应用层：“应用层要尽量简单，不包含业务规则或者知识，而只为下一层（指领域层）中的领域对象协调任务，分配工作，使它们互相协作。”</p>
+</blockquote>
+<blockquote>
+<p>应用层定义的内容主要为应用服务(application service)，它是外观(facade)模式的体现，即“为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用”</p>
+</blockquote>
+<blockquote>
+<p>应用服务设计的第一条准则：不包含领域逻辑的业务服务应被定义为应用服务。</p>
+</blockquote>
+<blockquote>
+<p>应用服务设计的第二条准则：与横切关注点协作的服务应被定义为应用服务。</p>
+</blockquote>
+<h2 id="第12章-领域驱动架构"><a href="#第12章-领域驱动架构" class="headerlink" title="第12章 领域驱动架构"></a>第12章 领域驱动架构</h2><blockquote>
+<p>依赖倒置原则(dependency inversion principle，DIP)提出了对自顶向下依赖的挑战，要求高层模块不应该依赖于低层模块，二者都应该依赖于抽象。</p>
+</blockquote>
+<blockquote>
+<p>因此，依赖倒置原则隐含的本质是，我们要依赖不变或稳定的元素（类、模块或层），也就是该原则的第二句话：抽象不应该依赖于细节，细节应该依赖于抽象。</p>
+</blockquote>
+<blockquote>
+<p>倘若高层依赖于低层的抽象，就必然面对一个问题：如何将具体的实现传递给高层的类？在高层通过接口隔离了对具体实现的依赖，意味着这个具体依赖被转移到了外部，究竟使用哪一种具体实现，应由外部的调用者决定，只有在运行调用者代码时，才将外面的依赖传递给高层的类。Martin Fowler形象地将这种机制称为依赖注入(dependency injection)。</p>
+</blockquote>
+<blockquote>
+<p>面向接口设计带来了低层实现对高层抽象的依赖，观察者模式带来了低层主体对高层观察者的依赖。它们都体现了分层架构中低层对高层的依赖，颠覆了固有思维形成的自顶向下的依赖方向。</p>
+</blockquote>
+<blockquote>
+<p>Eric Evans指出：“一个严峻的现实是我们不可能对所有设计部分进行同等的精化，而是必须分出优先级。”</p>
+</blockquote>
+<h1 id="第四篇-领域建模"><a href="#第四篇-领域建模" class="headerlink" title="第四篇 领域建模"></a>第四篇 领域建模</h1><h2 id="第13章-模型驱动设计"><a href="#第13章-模型驱动设计" class="headerlink" title="第13章 模型驱动设计"></a>第13章 模型驱动设计</h2><h2 id="第14章-领域分析建模"><a href="#第14章-领域分析建模" class="headerlink" title="第14章 领域分析建模"></a>第14章 领域分析建模</h2><h2 id="第15章-领域模型设计要素"><a href="#第15章-领域模型设计要素" class="headerlink" title="第15章 领域模型设计要素"></a>第15章 领域模型设计要素</h2><blockquote>
+<p>设计元模型规定：只能由实体、值对象、领域服务和领域事件表示模型，如此即可避免将领域逻辑泄露到领域层外的其他地方</p>
+</blockquote>
+<blockquote>
+<p>聚合用于封装实体和值对象，并维持自己边界内所有对象的完整性。要访问聚合，只能通过聚合根的资源库，这就隐式地划定了边界和入口，有效控制了聚合内所有类型的领域对象。若聚合的创建逻辑较为复杂或存在可变性，可引入工厂来创建聚合内的领域对象。若牵涉到实体的状态变更，领域元模型建议通过领域事件来推动。</p>
+</blockquote>
+<blockquote>
+<p>领域驱动设计将这些行为分配给了专门的资源库对象，实体无须承担“增删改查”的职责。实体拥有的变更状态的领域行为，修改的只是对象的内存状态，与持久化无关。</p>
+</blockquote>
+<blockquote>
+<p>一个领域概念到底该用值对象还是实体类型，第一个判断依据是看业务的参与者对它的相等判断是依据值还是依据身份标识。——前者是值对象，后者是实体。</p>
+</blockquote>
+<blockquote>
+<p>第二个判断依据是确定对象的属性值是否会发生变化，如果变化了，究竟是产生一个完全不同的对象，还是维持相同的身份标识。——前者是值对象，后者是实体。</p>
+</blockquote>
+<blockquote>
+<p>最后一个判断依据是生命周期的管理。值对象没有身份标识，意味着无须管理其生命周期。从对象的角度看，它可以随时被创建或被销毁，甚至也可以被随意克隆用到不同的业务场景。实体则不同，在创建之后，系统就需要负责跟踪它状态的变化情况，直到它被删除。有的对象虽然通过值进行相等性判断，但在具体业务场景中，又可能面对生命周期管理的需求。这时，就需要将该对象定义为实体。</p>
+</blockquote>
+<blockquote>
+<p>值对象的名称容易让人误会它只该拥有值，不应拥有领域行为。实际上，只要采用了对象建模范式，无论实体对象还是值对象，都需要遵循面向对象设计的基本原则，如信息专家模式，将操作自身数据的行为分配给它。Eric Evans之所以将其命名为值对象，是为了强调对它的领域概念身份的确认，即关注重点在于值。</p>
+</blockquote>
+<blockquote>
+<p>值对象拥有的往往是“自给自足的领域行为”。这些领域行为能够让值对象的表现能力变得更加丰富，更加智能。它们通常为值对象提供如下能力：</p>
+<ul>
+<li>自我验证；</li>
+<li>自我组合；</li>
+<li>自我运算。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>自我验证的领域行为仅验证外部传入的设置值。倘若验证功能还需求助外部资源，例如查询数据库以检查name是否已经存在，这样的验证逻辑就不再是“自给自足”的，不能交由值对象承担。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/15.9.png" alt="图15-9 对象网"></p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/15.10.png" alt="图15-10 对象社区组成的对象图"></p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/15.11.png" alt="图15-11 简化的对象模型"></p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/15.12.png" alt="图15-12 由主对象构成的对象模型"></p>
+</blockquote>
+<blockquote>
+<p>Eric Evans将这种类层次的边界称为聚合，边界内的主对象称为聚合根。</p>
+</blockquote>
+<blockquote>
+<p>Eric Evans阐释了何谓聚合(aggregate)模式：“将实体和值对象划分为聚合并围绕着聚合定义边界。选择一个实体作为每个聚合的根，并允许外部对象仅能持有聚合根的引用。作为一个整体来定义聚合的属性和不变量，并将执行职责赋予聚合根或指定的框架机制。”这一定义说明了聚合的基本特征。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>聚合是包含了实体和值对象的一个边界。</li>
+<li>聚合内包含的实体和值对象形成一棵树，只有实体才能作为这棵树的根。这个根称为聚合根(aggregate root)，这个实体称为根实体(root entity)。</li>
+<li>外部对象只允许持有聚合根的引用，以起到边界的控制作用。</li>
+<li>聚合作为一个完整的领域概念整体，其内部会维护这个领域概念的完整性，体现业务上的不变量约束。</li>
+<li>由聚合根统一对外提供履行该领域概念职责的行为方法，实现内部各个对象之间的行为协作。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>在进行领域设计建模时，我们往往以根实体的名称指代整个聚合，如一个聚合的根实体为订单，则称其为订单聚合。但这并不意味着存在一个订单聚合对象。聚合是边界，不是对象。订单根实体本质上仍然属于实体类型。</p>
+</blockquote>
+<blockquote>
+<p>我们必须厘清面向对象的聚合（object oriented聚合，OO聚合）与领域驱动设计的聚合（DDD聚合）之间的区别。</p>
+</blockquote>
+<blockquote>
+<p>也不能将OO合成与DDD聚合混为一谈。</p>
+</blockquote>
+<blockquote>
+<p>OO聚合与OO合成代表了类与类之间的组合关系，体现了整体包含了部分的意义。DDD聚合是边界，它的边界内可以只有一个实体对象，也可以包含一些具有关联关系、泛化关系和依赖关系的实体与值对象。</p>
+</blockquote>
+<blockquote>
+<p>对比完整性与独立性，我认为：当聚合边界存在模糊之处时，小聚合显然要优于大聚合。换言之，独立性对聚合边界的影响要高于完整性。</p>
+</blockquote>
+<blockquote>
+<p>论及聚合的协作，无非就是判断彼此之间的引用采用什么形式。形式分为两种：</p>
+<ul>
+<li>聚合根的对象引用；</li>
+<li>聚合根身份标识的引用。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>只要存在依赖关系的聚合位于同一个限界上下文，就应该允许一个聚合的根实体直接引用另一个聚合的根实体，以形成良好的行为协作。</p>
+</blockquote>
+<blockquote>
+<p>一个聚合作为另一个聚合方法的参数，就会形成职责的委派。</p>
+</blockquote>
+<blockquote>
+<p>一个聚合创建另外一个聚合，就会形成实例化(instantiate)的依赖关系。这实际是工厂模式的运用，牵涉到对聚合生命周期的管理。</p>
+</blockquote>
+<blockquote>
+<p>领域模型对象的主力军是实体与值对象。这些实体与值对象又被聚合统一管理起来，形成一个个具有一致生命周期的“命运共同体”自治单元。管理领域模型对象的生命周期，实则就是管理聚合的生命周期。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/15.20.png" alt="图15-20 聚合的生命周期"></p>
+</blockquote>
+<blockquote>
+<p>在Java语言中，可以为每个聚合建立一个包(package)，除聚合根之外，聚合内的其他实体和值对象的构造函数皆定义为默认访问修饰符。一个聚合一个包，位于包外的其他类就无法访问这些对象的构造函数。</p>
+</blockquote>
+<blockquote>
+<p>当我们针对领域行为建模时，需要优先考虑使用值对象和实体来封装领域行为，只有确定无法寻觅到合适的对象来承担时，才将该行为建模为领域服务的方法。领域服务是领域设计建模的最后选择。</p>
+</blockquote>
+<blockquote>
+<p>回想UML中的状态图以及工作流的状态机(state machine)，再来思考业务世界的本质，我们能否提出如下问题：任何业务逻辑是否都可以转换成状态的迁移？</p>
+</blockquote>
+<blockquote>
+<p>作为已经发生的事实，事件的命名应采用动词的过去时态，如订单完成的事件命名为OrderCompleted。这一命名方式也是领域事件推荐的命名风格，我们无须再为其增加Event后缀。</p>
+</blockquote>
+<h2 id="第16章-领域设计建模"><a href="#第16章-领域设计建模" class="headerlink" title="第16章 领域设计建模"></a>第16章 领域设计建模</h2><blockquote>
+<p>实体、值对象、领域事件、聚合、工厂、领域服务与资源库都属于领域驱动战术设计元模型的一部分，是解决真实世界业务问题的设计元语。实体、值对象与领域事件共同构成了描述真实世界业务问题的基本要素；聚合从设计角度为实体与值对象圈定了概念边界，并引入了工厂和资源库设计模式，用于管理聚合的生命周期；领域服务作为聚合的补充，专注于领域行为的表达，负责协调聚合之间以及聚合与端口之间的协作。</p>
+</blockquote>
+<blockquote>
+<p>ZenUML工具﻿能够自动将脚本转换为序列图，还允许设置各种角色构造型的颜色，如此即可方便地以可视化图形展现角色构造型的协作序列，图16-29就是转换上述脚本获得的序列图。<br><img src="/contents/ddd-explained/16.29.png" alt="图16-29 ZenUML工具生成的序列图"></p>
+</blockquote>
+<h2 id="第17章-领域实现建模"><a href="#第17章-领域实现建模" class="headerlink" title="第17章 领域实现建模"></a>第17章 领域实现建模</h2><blockquote>
+<p>软件设计与开发的过程是不可分割的，那种企图打造软件工程流水线的代码工厂运作模式，已被证明难以奏效。</p>
+</blockquote>
+<h1 id="第五篇-融合"><a href="#第五篇-融合" class="headerlink" title="第五篇 融合"></a>第五篇 融合</h1><h2 id="第18章-领域驱动设计的战略考量"><a href="#第18章-领域驱动设计的战略考量" class="headerlink" title="第18章 领域驱动设计的战略考量"></a>第18章 领域驱动设计的战略考量</h2><blockquote>
+<p>Feign接口除了不强制规定方法名，接口方法的输入参数与返回值必须与上游远程服务的接口方法保持一致。一旦上游远程服务的接口定义发生了变更，就会影响到下游客户端，这实际上削弱了南向网关引入端口的价值。</p>
+</blockquote>
+<blockquote>
+<p>ServiceComb Pack属于微服务平台Apache ServiceComb的一部分，为分布式柔性事务提供了整体解决方案，能够同时支持Saga与TCC模式。</p>
+</blockquote>
+<blockquote>
+<p>ServiceComb Pack通过gRPC与Kyro序列化来实现微服务之间的分布式通信。它包含了两个组件：Alpha与Omega。Alpha作为Saga协调者，负责管理和协调事务。Omega是内嵌到每个参与服务的引擎，可以拦截调用请求并向Alpha上报事务事件。</p>
+</blockquote>
+<h2 id="第19章-领域驱动设计的战术考量"><a href="#第19章-领域驱动设计的战术考量" class="headerlink" title="第19章 领域驱动设计的战术考量"></a>第19章 领域驱动设计的战术考量</h2><blockquote>
+<p>可以认为，如果一个模块定义的对象皆为POJO，那么除了依赖JDK，它不会依赖任何框架或平台。</p>
+</blockquote>
+<blockquote>
+<p>一个POJO如果遵循了Java Bean的设计规范，可以成为一个Java Bean，但并不意味着POJO一定是Java Bean。反过来，一个Java Bean如果没有依赖任何框架，也可以认为是一个POJO，但Enterprise Java Bean一定不是一个POJO。</p>
+</blockquote>
+<blockquote>
+<p>POJO可以封装业务逻辑，Java Bean的规范也没有限制它不能封装业务逻辑。</p>
+</blockquote>
+<blockquote>
+<p>面向对象设计的关键原则，即“数据与行为应该封装在一起”。</p>
+</blockquote>
+<blockquote>
+<p>与贫血领域模型相对的是富领域模型(rich domain model)，也就是封装了领域逻辑的领域模型。</p>
+</blockquote>
+<blockquote>
+<p>有了Martin Fowler对贫血模型的创造，所谓的“血”就用来指代领域逻辑，故而有人在贫血模型的基础上衍生出各种与“血”有关的各种模型，如失血模型、充血模型和胀血模型。这些模型非但没有进一步将领域模型的正确定义阐述清楚，反而引入太多的概念造成领域模型的混乱不清。</p>
+</blockquote>
+<blockquote>
+<p>有的观点认为混入了持久化能力的领域模型属于充血模型，这更进一步模糊了×血模型的边界。实际上，Martin Fowler将这种具有持久化能力的领域对象称为活动记录(active record)，属于数据源架构模式(data source architectural pattern)。采用这种设计模式并非不可，但在领域驱动设计中，却需要努力避免：如果每个实体都混入了持久化能力，聚合的边界就失去了保护作用，资源库也就没有存在的价值了。</p>
+</blockquote>
+<blockquote>
+<p>为避免太多定义造成领域模型定义的混乱，我建议回归Martin Fowler对领域模型定义的本质，仅分为两种模型：贫血领域模型与富领域模型，后者需要遵循合理的职责分配，避免一个领域模型对象承担的职责过多。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>领域模型对象包含实体、值对象、领域服务和领域事件，有时候也可以单指组成聚合的实体与值对象。</li>
+<li>领域模型必须是富领域模型。</li>
+<li>远程服务与应用服务接口的输入参数和返回值为遵循DTO模式的消息契约模型，若客户端为前端UI，则消息契约模型又称为视图模型。</li>
+<li>领域模型对象中的实体与值对象同时作为持久化对象。</li>
+<li>只有资源库对象，没有数据访问对象。资源库对象以聚合为单位进行领域模型对象的持久化，事件存储对象则负责完成领域事件的持久化。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>由于单元测试和集成测试的反馈速度不同，且后者还要依赖于真实的数据库环境，因此建议在项目工程中分离单元测试和集成测试，例如在Java项目中使用Maven的failsafe插件。该插件规定了集成测试的命名规范，如规定集成测试类以*IT结尾，只有执行mvn integration-test命令才会执行这些集成测试。</p>
+</blockquote>
+<h2 id="第20章-领域驱动设计体系"><a href="#第20章-领域驱动设计体系" class="headerlink" title="第20章 领域驱动设计体系"></a>第20章 领域驱动设计体系</h2><blockquote>
+<p>领域驱动设计一直强调的核心思想，就是对边界的界定与控制。</p>
+</blockquote>
+<blockquote>
+<p>问题空间通过核心子领域、通用子领域和支撑子领域进行分解，以更加清晰地呈现问题空间，同时降低问题空间的复杂度。子领域确定的边界是领域驱动设计问题空间的第二重边界</p>
+</blockquote>
+<blockquote>
+<p>领域驱动设计问题空间的两重边界属于分析边界。</p>
+</blockquote>
+<blockquote>
+<p>架构映射阶段，利用组织级映射获得的系统上下文成了领域驱动设计解空间的第一重边界。通过系统上下文明确哪些属于目标系统，哪些属于伴生系统，即可清晰地表达当前系统与外部环境之间的关系、确定解空间的规模大小。</p>
+</blockquote>
+<blockquote>
+<p>通过业务级映射获得的限界上下文是领域驱动设计解空间的第二重边界，可以有效地降低系统规模。</p>
+</blockquote>
+<blockquote>
+<p>在限界上下文内部，网关层与领域层的隔离成了领域驱动设计解空间的第三重边界。</p>
+</blockquote>
+<blockquote>
+<p>领域模型引入了聚合这一最小的设计单元。它从完整性与一致性对领域模型进行了有效的隔离，成了领域驱动设计解空间的第四重边界。</p>
+</blockquote>
+<blockquote>
+<p>领域驱动设计解空间的四重边界属于设计边界。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/20.1.png" alt="图20-1 问题空间的分析边界与解空间的设计边界"></p>
+</blockquote>
+<blockquote>
+<p>“领域驱动设计是一种纪律，”</p>
+</blockquote>
+<blockquote>
+<p>“领域驱动设计本身没有多难，知道了方法的话，认真建模一次还是好搞的，但是持续地保持这个领域模型的更新和有效，并且坚持在工作中用统一语言来讨论问题是很难的。纪律才是关键。”</p>
+</blockquote>
+<blockquote>
+<p>结合领域驱动设计的知识体系和统一过程，我总结了领域驱动设计的“三大纪律八项注意”，可作为团队的纪律规范。</p>
+<ul>
+<li>三大纪律：</li>
+</ul>
+<ol>
+<li>领域专家与开发团队在一起工作；</li>
+<li>领域模型必须遵循统一语言；</li>
+<li>时刻坚守两重分析边界与四重设计边界。</li>
+</ol>
+<ul>
+<li>八项注意：</li>
+</ul>
+<ol>
+<li>问题空间与解空间不要混为一谈；</li>
+<li>一个限界上下文不能由多个特性团队开发；</li>
+<li>跨进程协作通过远程服务，进程内协作通过应用服务；</li>
+<li>保证领域分析模型、领域设计模型与领域实现模型的一致；</li>
+<li>不要将领域模型暴露在网关层之外，共享内核除外；</li>
+<li>先有领域模型，后有数据模型，保证二者的一致；</li>
+<li>聚合的关联关系只能通过聚合根ID引用；</li>
+<li>聚合不能依赖访问外部资源的南向网关。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><img src="/contents/ddd-explained/20.50.png" alt="图20-50 EAS的代码模型"></p>
+</blockquote>
+<blockquote>
+<p>考虑到集成测试需要准备测试环境，且它的执行效率也要低于单元测试，故而需要将单元测试和集成测试分为两个不同的构建阶段。</p>
+</blockquote>
+<h1 id="附录A-领域建模范式"><a href="#附录A-领域建模范式" class="headerlink" title="附录A 领域建模范式"></a>附录A 领域建模范式</h1><blockquote>
+<p>他明确地给出了一个简洁的范式定义：“按既定的用法，范式就是一种公认的模型或模式。”</p>
+</blockquote>
+<blockquote>
+<p>倘若将范式运用在软件领域的建模过程中，就可以认为建模范式是建立模型的一种模式，是针对业务需求提出的问题进行建模时需要遵循的规则。</p>
+</blockquote>
+<blockquote>
+<p>米特法则(Law of Demeter)</p>
+</blockquote>
+<blockquote>
+<p>要求任何一个对象或者方法，只能调用下列对象：</p>
+<ul>
+<li>该对象本身；</li>
+<li>作为参数传进来的对象；</li>
+<li>在方法内创建的对象。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Jeff Bay总结了优秀软件设计的9条规则，其中一条规则为“不使用任何getter/setter/property”。</p>
+</blockquote>
+<blockquote>
+<p>Jeff Bay认为：“如果可以从对象之外随便询问实例变量的值，那么行为与数据就不可能被封装到一处。在严格的封装边界背后，真正的动机是迫使程序员在完成编码之后，一定有为这段代码的行为找到一个适合的位置，确保它在对象模型中的唯一性。”</p>
+</blockquote>
+<blockquote>
+<p>命令而非询问(tell, don’t ask)原则。这个原则要求一个对象应该命令其他对象做什么，而不是去查询其他对象的状态来决定做什么。</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第一篇-开篇"><span class="toc-number">1.</span> <span class="toc-text">第一篇 开篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-软件复杂度剖析"><span class="toc-number">1.1.</span> <span class="toc-text">第1章 软件复杂度剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-领域驱动设计概览"><span class="toc-number">1.2.</span> <span class="toc-text">第2章 领域驱动设计概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-领域驱动设计统一过程"><span class="toc-number">1.3.</span> <span class="toc-text">第3章 领域驱动设计统一过程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二篇-全局分析"><span class="toc-number">2.</span> <span class="toc-text">第二篇 全局分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-问题空间探索"><span class="toc-number">2.1.</span> <span class="toc-text">第4章 问题空间探索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-价值需求分析"><span class="toc-number">2.2.</span> <span class="toc-text">第5章 价值需求分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-业务需求分析"><span class="toc-number">2.3.</span> <span class="toc-text">第6章 业务需求分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第三篇-架构映射"><span class="toc-number">3.</span> <span class="toc-text">第三篇 架构映射</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-同构系统"><span class="toc-number">3.1.</span> <span class="toc-text">第7章 同构系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第8章-系统上下文"><span class="toc-number">3.2.</span> <span class="toc-text">第8章 系统上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第9章-限界上下文"><span class="toc-number">3.3.</span> <span class="toc-text">第9章 限界上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第10章-上下文映射"><span class="toc-number">3.4.</span> <span class="toc-text">第10章 上下文映射</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第11章-服务契约设计"><span class="toc-number">3.5.</span> <span class="toc-text">第11章 服务契约设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第12章-领域驱动架构"><span class="toc-number">3.6.</span> <span class="toc-text">第12章 领域驱动架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第四篇-领域建模"><span class="toc-number">4.</span> <span class="toc-text">第四篇 领域建模</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第13章-模型驱动设计"><span class="toc-number">4.1.</span> <span class="toc-text">第13章 模型驱动设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第14章-领域分析建模"><span class="toc-number">4.2.</span> <span class="toc-text">第14章 领域分析建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第15章-领域模型设计要素"><span class="toc-number">4.3.</span> <span class="toc-text">第15章 领域模型设计要素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第16章-领域设计建模"><span class="toc-number">4.4.</span> <span class="toc-text">第16章 领域设计建模</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第17章-领域实现建模"><span class="toc-number">4.5.</span> <span class="toc-text">第17章 领域实现建模</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第五篇-融合"><span class="toc-number">5.</span> <span class="toc-text">第五篇 融合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第18章-领域驱动设计的战略考量"><span class="toc-number">5.1.</span> <span class="toc-text">第18章 领域驱动设计的战略考量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第19章-领域驱动设计的战术考量"><span class="toc-number">5.2.</span> <span class="toc-text">第19章 领域驱动设计的战术考量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第20章-领域驱动设计体系"><span class="toc-number">5.3.</span> <span class="toc-text">第20章 领域驱动设计体系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A-领域建模范式"><span class="toc-number">6.</span> <span class="toc-text">附录A 领域建模范式</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

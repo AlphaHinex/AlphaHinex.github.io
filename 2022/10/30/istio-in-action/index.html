@@ -1,0 +1,903 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Istio in Action》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kubernetes, Istio, Serivce Mesh, Envoy"> 
+    <meta name="description" content="Chapter 1. Introducing Istio Service Mesh1.4 Pushing these concerns to the infrastructure1.4.3 Meet,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Istio in Action》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/istio-in-action/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                十月 30, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/10/30/istio-in-action/" title="《Istio in Action》书摘" class="">《Istio in Action》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    38k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    34 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Istio/" rel="tag">Istio</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Chapter-1-Introducing-Istio-Service-Mesh"><a href="#Chapter-1-Introducing-Istio-Service-Mesh" class="headerlink" title="Chapter 1. Introducing Istio Service Mesh"></a>Chapter 1. Introducing Istio Service Mesh</h1><h2 id="1-4-Pushing-these-concerns-to-the-infrastructure"><a href="#1-4-Pushing-these-concerns-to-the-infrastructure" class="headerlink" title="1.4 Pushing these concerns to the infrastructure"></a>1.4 Pushing these concerns to the infrastructure</h2><h3 id="1-4-3-Meet-Envoy-proxy"><a href="#1-4-3-Meet-Envoy-proxy" class="headerlink" title="1.4.3 Meet Envoy proxy"></a>1.4.3 Meet Envoy proxy</h3><ul>
+<li>Envoy gives us networking capabilities like retries, timeouts, circuit breaking, client-side load balancing, service discovery, security, and metrics-collection without any explicit language or framework dependencies.</li>
+<li>The power of Envoy is not limited to these application-level resilience aspects. Envoy also captures many application-networking metrics like requests per second, number of failures, circuit-breaking events, and more.</li>
+<li>This proxy+application combination forms the foundation of a communication bus known as a service mesh.</li>
+</ul>
+<h2 id="1-5-What’s-a-service-mesh"><a href="#1-5-What’s-a-service-mesh" class="headerlink" title="1.5 What’s a service mesh?"></a>1.5 What’s a service mesh?</h2><ul>
+<li>A <code>service mesh</code> is a distributed application infrastructure that is responsible for handling network traffic on behalf of the application in a transparent, out of process manner.</li>
+<li>Service mesh architecture with co-located application-level proxies (data plane) and management components (control plane)<br><img src="/contents/istio-in-action/figure-1.14.png" alt=""></li>
+</ul>
+<h2 id="1-6-Introducing-Istio-service-mesh"><a href="#1-6-Introducing-Istio-service-mesh" class="headerlink" title="1.6 Introducing Istio service mesh"></a>1.6 Introducing Istio service mesh</h2><ul>
+<li>Istio’s data plane uses Envoy proxy by default out of the box and helps you configure your applications to have an instance of the service proxy (Envoy) deployed alongside it. Istio’s control plane is made up of a few components that provide APIs for end users/operators, configuration APIs for the proxies, security settings, policy declarations, and more. </li>
+<li>Istio is an implementation of a service mesh with a data plane based on Envoy and a control plane<br><img src="/contents/istio-in-action/figure-1.15.png" alt=""></li>
+</ul>
+<ol>
+<li>Traffic comes into the cluster (ie, a client issues a POST “/checkout” request to our shopping cart service)</li>
+<li>Traffic goes to the shopping-cart service but goes to the Istio service proxy (Envoy). Note, this traffic (and all inter-service communication in the mesh) is secured with mutual TLS by default. The certificates for establishing mTLS are provided by (7).</li>
+<li>Istio determines (by looking at the request headers) that this request was initiated by a customer in the North America region, and for those customers, we want to route some of those requests to v1.1 of the Tax service which has a fix for certain tax calculations; Istio routes the traffic to the v1.1 Tax service</li>
+<li>Istio Pilot is used to configure the istio proxies which handle routing, security, and resilience</li>
+<li>Request metrics are periodically sent back to the Istio Mixer which stores them to back end adapters (to be discussed later)</li>
+<li>Distributed tracing spans (like Jaeger or Zipkin) are sent back to an tracing store which can be used to later track the path and latency of a request through the system</li>
+<li>Istio Auth which manages certificates (expiry, rotation, etc) for each of the istio proxies so mTLS can be enabled transparently</li>
+</ol>
+<h1 id="Chapter-2-First-steps-with-Istio"><a href="#Chapter-2-First-steps-with-Istio" class="headerlink" title="Chapter 2. First steps with Istio"></a>Chapter 2. First steps with Istio</h1><h2 id="2-2-Getting-to-know-the-Istio-control-plane"><a href="#2-2-Getting-to-know-the-Istio-control-plane" class="headerlink" title="2.2 Getting to know the Istio control plane"></a>2.2 Getting to know the Istio control plane</h2><h3 id="2-2-1-Istiod"><a href="#2-2-1-Istiod" class="headerlink" title="2.2.1 Istiod"></a>2.2.1 Istiod</h3><ul>
+<li>Istio’s control plane responsibilities are implemented in the istiod component.</li>
+<li>Envoy’s “discovery APIs” … like those for service discovery (Listener Discovery Service - LDS), endpoints (Endpoint Discovery Service - EDS), or routing rules (Route Discovery Service - RDS) are known as the <code>xDS</code> APIs.</li>
+<li>SPIFFE (Secure Production Identity Framework For Everyone - spiffe.io) which gives the ability to provide strong mutual authentication (mTLS) without the applications having to be aware of certificates, public/private keys, etc.</li>
+</ul>
+<h2 id="2-3-Deploy-your-first-application-in-the-service-mesh"><a href="#2-3-Deploy-your-first-application-in-the-service-mesh" class="headerlink" title="2.3 Deploy your first application in the service mesh"></a>2.3 Deploy your first application in the service mesh</h2><pre><code class="bash">$ istioctl kube-inject -f services/catalog/kubernetes/catalog.yaml</code></pre>
+<ul>
+<li>The <code>istioctl kube-inject</code> command takes a Kubernetes resource file and enriches it with the sidecar deployment of the Istio service proxy.</li>
+<li>When we ran <code>kube-inject</code>, we add another container named ‘istio-proxy’ to the Pod declaration, though we’ve not actually deployed anything yet. We can take the yaml file created by the <code>kube-inject</code> command and deploy that directly. </li>
+</ul>
+<pre><code class="bash">$ istioctl kube-inject -f services/catalog/kubernetes/catalog.yaml \ 
+| kubectl apply -f -
+
+serviceaccount/catalog created 
+service/catalog created 
+deployment.extensions/catalog created</code></pre>
+<ul>
+<li>All the user has to do is label their namespace with <code>istio-injection=enabled</code> and when they deploy their application, Istio’s sidecar will automatically be injected.</li>
+</ul>
+<h1 id="Chapter-3-Istio’s-data-plane-Envoy-Proxy"><a href="#Chapter-3-Istio’s-data-plane-Envoy-Proxy" class="headerlink" title="Chapter 3. Istio’s data plane: Envoy Proxy"></a>Chapter 3. Istio’s data plane: Envoy Proxy</h1><h2 id="3-4-How-Envoy-fits-with-Istio"><a href="#3-4-How-Envoy-fits-with-Istio" class="headerlink" title="3.4 How Envoy fits with Istio"></a>3.4 How Envoy fits with Istio</h2><ul>
+<li>Envoy forms the data plane of a service mesh. The supporting components, which Istio provides, creates the control plane.</li>
+<li>Istio implements these XDS APIs in Istio Pilot.</li>
+<li>Istio abstracts away service registry and provides an implementation of Envoy’s xDS API<br><img src="/contents/istio-in-action/figure-3.5.png" alt=""></li>
+<li>Envoy can terminate and originate TLS traffic to services in our mesh. To do this, you need supporting infrastructure to create, sign and rotate certificates. Istio provides this with the Istio Citadel component.</li>
+<li>Istio Citadel delivers application-specific certificates which can be used to establish mutual TLS to secure the traffic between services<br><img src="/contents/istio-in-action/figure-3.7.png" alt=""></li>
+</ul>
+<h1 id="Chapter-4-Istio-Gateway-getting-traffic-into-your-cluster"><a href="#Chapter-4-Istio-Gateway-getting-traffic-into-your-cluster" class="headerlink" title="Chapter 4. Istio Gateway: getting traffic into your cluster"></a>Chapter 4. Istio Gateway: getting traffic into your cluster</h1><h2 id="4-1-Traffic-ingress-concepts"><a href="#4-1-Traffic-ingress-concepts" class="headerlink" title="4.1 Traffic ingress concepts"></a>4.1 Traffic ingress concepts</h2><h3 id="4-1-2-Virtual-Hosting-multiple-services-from-a-single-access-point"><a href="#4-1-2-Virtual-Hosting-multiple-services-from-a-single-access-point" class="headerlink" title="4.1.2 Virtual Hosting: multiple services from a single access point"></a>4.1.2 Virtual Hosting: multiple services from a single access point</h3><ul>
+<li>We can also represent multiple different services using a single virtual IP.</li>
+<li>If the reverse proxy was smart enough, it could use the Host HTTP header to further delineate which requests should go to which group of services.</li>
+<li>Virtual hosting lets us map multiple services to a single Virtual IP<br><img src="/contents/istio-in-action/figure-4.4.png" alt=""></li>
+<li>Hosting multiple different services at a single entry point is known as <code>virtual hosting</code>. We need some way to decide to which virtual-host group a particular request should be routed. With HTTP/1.1, we can use the Host header, with HTTP/2 we can use the <code>:authority</code> header, and with TCP connections we can rely on Server Name Indication (SNI) with TLS.</li>
+</ul>
+<h2 id="4-2-Istio-Gateway"><a href="#4-2-Istio-Gateway" class="headerlink" title="4.2 Istio Gateway"></a>4.2 Istio Gateway</h2><h3 id="4-2-2-Gateway-routing-with-Virtual-Services"><a href="#4-2-2-Gateway-routing-with-Virtual-Services" class="headerlink" title="4.2.2 Gateway routing with Virtual Services"></a>4.2.2 Gateway routing with Virtual Services</h3><ul>
+<li>In Istio, a <code>VirtualService</code> resource defines how a client talks to a specific service through its fully qualified domain name, which versions of a service are available, and other routing properties (like retries and request timeouts).</li>
+</ul>
+<h3 id="4-2-4-Istio-Gateway-vs-Kubernetes-Ingress"><a href="#4-2-4-Istio-Gateway-vs-Kubernetes-Ingress" class="headerlink" title="4.2.4 Istio Gateway vs Kubernetes Ingress"></a>4.2.4 Istio Gateway vs Kubernetes Ingress</h3><ul>
+<li>Istio Gateway handles the L4 and L5 concerns while <code>VirtualService</code> handles the L7 concerns.</li>
+</ul>
+<h2 id="4-3-Securing-Gateway-traffic"><a href="#4-3-Securing-Gateway-traffic" class="headerlink" title="4.3 Securing Gateway traffic"></a>4.3 Securing Gateway traffic</h2><h3 id="4-3-1-HTTP-traffic-with-TLS"><a href="#4-3-1-HTTP-traffic-with-TLS" class="headerlink" title="4.3.1 HTTP traffic with TLS"></a>4.3.1 HTTP traffic with TLS</h3><ul>
+<li>Basic model of how TLS is established between a client and server<br><img src="/contents/istio-in-action/figure-4.8.png" alt=""></li>
+<li>We can use a <code>curl</code> parameter called <code>--resolve</code> that lets us call the service as though it was at <code>apiserver.istioinaction.io</code> but then tell curl to use localhost:</li>
+</ul>
+<pre><code class="bash">$ curl -H &quot;Host: apiserver.istioinaction.io&quot; \ 
+https://apiserver.istioinaction.io:443/api/catalog \ 
+--cacert certs/2_intermediate/certs/ca-chain.cert.pem \ 
+--resolve apiserver.istioinaction.io:443:127.0.0.1</code></pre>
+<h3 id="4-3-3-HTTP-traffic-with-mutual-TLS"><a href="#4-3-3-HTTP-traffic-with-mutual-TLS" class="headerlink" title="4.3.3 HTTP traffic with mutual TLS"></a>4.3.3 HTTP traffic with mutual TLS</h3><ul>
+<li>When the client and server each verify the other’s certificates and use these to encrypt traffic, we call this mutual TLS (mTLS).</li>
+</ul>
+<h1 id="Chapter-5-Traffic-control-fine-grained-traffic-routing"><a href="#Chapter-5-Traffic-control-fine-grained-traffic-routing" class="headerlink" title="Chapter 5. Traffic control: fine-grained traffic routing"></a>Chapter 5. Traffic control: fine-grained traffic routing</h1><h2 id="5-3-Traffic-shifting"><a href="#5-3-Traffic-shifting" class="headerlink" title="5.3 Traffic shifting"></a>5.3 Traffic shifting</h2><ul>
+<li>Let’s route 10% of the traffic to the v2 of catalog service:<pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3 
+kind: VirtualService
+metadata:
+name: catalog
+spec:
+hosts:
+- catalog
+gateways:
+  - mesh 
+http:
+- route:
+  - destination:
+      host: catalog
+      subset: version-v1 
+    weight: 90
+  - destination: 
+      host: catalog
+      subset: version-v2 
+    weight: 10</code></pre>
+<blockquote>
+<p>most traffic to v1, some traffic to v2</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="5-4-Lowering-risk-even-further-Traffic-mirroring"><a href="#5-4-Lowering-risk-even-further-Traffic-mirroring" class="headerlink" title="5.4 Lowering risk even further: Traffic mirroring"></a>5.4 Lowering risk even further: Traffic mirroring</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3 
+kind: VirtualService
+metadata:
+  name: catalog
+spec:
+  hosts:
+  - catalog 
+  gateways:
+    - mesh 
+  http:
+  - route:
+    - destination:
+        host: catalog
+        subset: version-v1
+      weight: 100
+    mirror:
+      host: catalog 
+      subset: version-v2</code></pre>
+<ul>
+<li>This mirrored request cannot affect the real request because the Istio proxy that does the mirroring will ignore any responses (success/failure) from the mirrored cluster.</li>
+<li>… when the mirrored traffic makes it to <code>catalog</code> v2 service, the <code>Host</code> header has been modified to indicate it is mirrored/shadowed traffic. Instead of <code>Host: 10.12.1.178:8080</code> for the Host header, we see <code>Host: 10.12.1.178-shadow:8080</code>. A service that receives a request with the <code>-shadow</code> postfix can identify that request as a mirrored request and take that into consideration when processing it (for example, that the response will be discarded, so either roll back a transaction or don’t make any calls that are resource intensive).</li>
+</ul>
+<h2 id="5-5-Routing-to-services-outside-your-cluster-by-using-Istio’s-service-discovery"><a href="#5-5-Routing-to-services-outside-your-cluster-by-using-Istio’s-service-discovery" class="headerlink" title="5.5 Routing to services outside your cluster by using Istio’s service discovery"></a>5.5 Routing to services outside your cluster by using Istio’s service discovery</h2><ul>
+<li>The Istio <code>ServiceEntry</code> encapsulates registry metadata that we can use to insert an entry into Istio’s service registry.</li>
+</ul>
+<h1 id="Chapter-6-Resilience-solving-application-networking-challenges"><a href="#Chapter-6-Resilience-solving-application-networking-challenges" class="headerlink" title="Chapter 6. Resilience: solving application-networking challenges"></a>Chapter 6. Resilience: solving application-networking challenges</h1><h2 id="6-2-Client-side-load-balancing"><a href="#6-2-Client-side-load-balancing" class="headerlink" title="6.2 Client-side load balancing"></a>6.2 Client-side load balancing</h2><ul>
+<li>Service operators and developers can configure what load-balancing algorithm a client uses by defining a <code>DestinationRule</code>.</li>
+</ul>
+<h3 id="6-2-1-Getting-started-with-client-side-load-balancing"><a href="#6-2-1-Getting-started-with-client-side-load-balancing" class="headerlink" title="6.2.1 Getting started with client-side load balancing"></a>6.2.1 Getting started with client-side load balancing</h3><ul>
+<li>A DestinationRule specifies policies for clients in the mesh calling the specific destination.<pre><code class="yaml">apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+name: simple-backend-dr
+spec:
+host: simple-backend.istioinaction.svc.cluster.local
+trafficPolicy:
+  loadBalancer:
+    simple: ROUND_ROBIN</code></pre>
+</li>
+</ul>
+<h3 id="6-2-4-Understanding-the-different-load-balancing-algorithms"><a href="#6-2-4-Understanding-the-different-load-balancing-algorithms" class="headerlink" title="6.2.4 Understanding the different load balancing algorithms"></a>6.2.4 Understanding the different load balancing algorithms</h3><ul>
+<li>Envoy least request load balancing: Even though the Istio configuration refers to the least-request load balancing as <code>LEAST_CONN</code>, Envoy is in fact tracking request depths for endpoints, not connections. The load balancer will pick two random endpoints and check which has the fewest active requests. The load balancer will pick the one with the fewest active requests and do the same thing for successive load-balancing tries. This is known as the “power of two choices” and has been shown to be a good tradeoff (vs a full scan) when implementing a load balancer like this and achieving good results. See the Envoy documentation for more on this load balancer.</li>
+</ul>
+<h2 id="6-3-Locality-aware-load-balancing"><a href="#6-3-Locality-aware-load-balancing" class="headerlink" title="6.3 Locality aware load balancing"></a>6.3 Locality aware load balancing</h2><h3 id="6-3-1-Hands-on-with-locality-load-balancing"><a href="#6-3-1-Hands-on-with-locality-load-balancing" class="headerlink" title="6.3.1 Hands on with locality load balancing"></a>6.3.1 Hands on with locality load balancing</h3><ul>
+<li>When deploying in Kubernetes, region and zone information can be added to labels on the Kubernetes nodes. For example labels <code>failure-domain.beta.kubernetes.io/region</code> and <code>failure-domain.beta.kubernetes.io/zone</code> allow to specify region and zone respectively. Often these labels are automatically added by cloud providers like Google Cloud or AWS. Istio will pick up these node labels and enrich the Envoy load-balancing endpoints with this locality information.</li>
+<li>Kubernetes failure domain labels: In previous versions of Kubernetes’ API, <code>failure-domain.beta.kubernetes.io/region</code> and <code>failure-domain.beta.kubernetes.io/zone</code> where the labels used to identify region and zone. In GA versions of the Kubernetes API, those labels have been replaced with <code>topology.kubernetes.io/region</code> and <code>topology.kubernetes.io/zone</code>. Just be aware, cloud vendors still use the older <code>failure-domain</code> labels. Istio looks for both.</li>
+<li>Istio gives an approach to explicitly set the locality of our workloads. We can label our pods with <code>istio-locality</code> and give it an explicit region/zone.</li>
+<li>Istio’s locality-aware load balancing is enabled by default. If you wish to disable it, you can configure the <code>meshConfig.localityLbSetting.enabled</code> setting to be false.</li>
+<li>Without health checking, Istio does not know which endpoints in the load balancing pool are unhealthy and what heuristics to use to spill over into the next locality.</li>
+</ul>
+<h3 id="6-3-2-More-control-over-locality-load-balancing"><a href="#6-3-2-More-control-over-locality-load-balancing" class="headerlink" title="6.3.2 More control over locality load balancing"></a>6.3.2 More control over locality load balancing</h3><pre><code class="yaml">apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: simple-backend-dr
+spec:
+  host: simple-backend.istioinaction.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      localityLbSetting:
+        distribute:
+        - from: us-west1/us-west1-a/*
+          to:
+            &quot;us-west1/us-west1-a/*&quot;: 70
+            &quot;us-west1/us-west1-b/*&quot;: 30
+    connectionPool:
+      http:
+        http2MaxRequests: 10
+        maxRequestsPerConnection: 10
+    outlierDetection:
+      consecutive5xxErrors: 1
+      interval: 5s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 100</code></pre>
+<blockquote>
+<ul>
+<li><code>loadBalancer</code>: Add load balancer config</li>
+<li><code>from</code>: Set origin zone</li>
+<li><code>to</code>: Set two dest zones</li>
+</ul>
+</blockquote>
+<h2 id="6-4-Transparent-timeouts-and-retries"><a href="#6-4-Transparent-timeouts-and-retries" class="headerlink" title="6.4 Transparent timeouts and retries"></a>6.4 Transparent timeouts and retries</h2><h3 id="6-4-2-Retries"><a href="#6-4-2-Retries" class="headerlink" title="6.4.2 Retries"></a>6.4.2 Retries</h3><ul>
+<li>By default, Istio will try a call and if it fails, will try 2 more times. This default retry will only apply to certain situations. These default situations are typically safe to retry a request:</li>
+</ul>
+<ol>
+<li>connect-failure</li>
+<li>refused-stream</li>
+<li>unavailable (grpc status code 14)</li>
+<li>cancelled (grpc status code 1)</li>
+<li>retriable-status-codes (default to HTTP 503 in istio)</li>
+</ol>
+<ul>
+<li>Each retry will have its own <code>perTryTimeout</code>. One thing to note about this setting is that the <code>perTryTimeout</code> value multiplied by the attempts must be lower than the overall request timeout (described in previous section). For example, an overall timeout of 1s and retry policy of three attempts with per retry timeout of 500ms won’t work. The overall request timeout will kick in before all of the retries get a chance.</li>
+<li>Between retries, Istio will “backoff” the retry with a base of 25ms. This means for each successive retry, it will backoff (wait) until (25ms x attempt #) so to stagger the retries. At the moment this retry base is fixed, but as we will see in the next section we can make changes to parts of the Envoy API that are not exposed by Istio.</li>
+<li>Request flow on retries when requests fail<br><img src="/contents/istio-in-action/figure-6.13.png" alt=""></li>
+<li>Thundering herd effect when retries compound each other<br><img src="/contents/istio-in-action/figure-6.14.png" alt=""></li>
+</ul>
+<h3 id="6-4-3-Advanced-retries"><a href="#6-4-3-Advanced-retries" class="headerlink" title="6.4.3 Advanced retries"></a>6.4.3 Advanced retries</h3><ul>
+<li>EnvoyFilter API: Just note that the EnvoyFilter API is a “break glass” solution. Istio’s API in general is an abstraction over the underlying dataplane. The underlying Envoy API may change at any time between releases of Istio so be sure to validate any EnvoyFilter you put into production. Do not assume any backward compatibility here.</li>
+<li>When a request reaches its threshold and timesout, we can optionally configure Envoy under the covers to perform what’s called “request hedging”. With request hedging, if a request timesout, Envoy can send another request to a different host to “race” the original, timed-out request. In this the case if the “raced” request returns successfully, it’s response is sent to the original downstream caller. If the original request actually returns, but before the raced request returns, it will be returned to the downstream caller.</li>
+</ul>
+<h2 id="6-5-Circuit-breaking-with-Istio"><a href="#6-5-Circuit-breaking-with-Istio" class="headerlink" title="6.5 Circuit breaking with Istio"></a>6.5 Circuit breaking with Istio</h2><ul>
+<li>In Istio we will use the <code>connectionPool</code> settings in a DestinationRule to limit the number of connections and requests that may be piling up when calling a service. If too many requests pile up, we can short-circuit them (fail fast) and return to the client.</li>
+</ul>
+<h3 id="6-5-1-Guarding-against-slow-services-with-connection-pool-control"><a href="#6-5-1-Guarding-against-slow-services-with-connection-pool-control" class="headerlink" title="6.5.1 Guarding against slow services with connection pool control"></a>6.5.1 Guarding against slow services with connection pool control</h3><ul>
+<li>When a request fails for tripping a circuit breaking threshold, Istio’s service proxy will add a <code>X-Envoy-Overloaded</code> header.</li>
+</ul>
+<h1 id="Chapter-7-Observability-with-Istio-understanding-the-behavior-of-your-services"><a href="#Chapter-7-Observability-with-Istio-understanding-the-behavior-of-your-services" class="headerlink" title="Chapter 7. Observability with Istio: understanding the behavior of your services"></a>Chapter 7. Observability with Istio: understanding the behavior of your services</h1><ul>
+<li>Mean Time To Recovery (MTTR), an important measure in high-performing teams and their impact on the business.</li>
+</ul>
+<h2 id="7-1-What-is-observability"><a href="#7-1-What-is-observability" class="headerlink" title="7.1 What is observability?"></a>7.1 What is observability?</h2><h3 id="7-1-1-Observability-vs-Monitoring"><a href="#7-1-1-Observability-vs-Monitoring" class="headerlink" title="7.1.1 Observability vs Monitoring"></a>7.1.1 Observability vs Monitoring</h3><ul>
+<li>Monitoring is a subset of observability. With monitoring we are specifically collecting and aggregating metrics to watch for known undesirable states and then alert on them. Observability on the other hand supposes up front that our systems are highly unpredictable and we cannot know all of the possible failure modes up front. We need to collect much more data, even high-cardinality data like userIDs, requestIDs, source IPs, etc where the entire set could be exponentially large, and use tools to quickly explore and ask questions about the data.</li>
+</ul>
+<h2 id="7-2-Collecting-metrics-from-Istio-data-plane"><a href="#7-2-Collecting-metrics-from-Istio-data-plane" class="headerlink" title="7.2 Collecting metrics from Istio data plane"></a>7.2 Collecting metrics from Istio data plane</h2><ul>
+<li>StatsD is a metric collection system open-sourced by Etsy to format, collect, and distribute statistics like counters, guages, and timers to backend monitoring, alerting, or visualization tools.</li>
+</ul>
+<h3 id="7-2-2-Pulling-Istio-Metrics-into-Prometheus"><a href="#7-2-2-Pulling-Istio-Metrics-into-Prometheus" class="headerlink" title="7.2.2 Pulling Istio Metrics into Prometheus"></a>7.2.2 Pulling Istio Metrics into Prometheus</h3><ul>
+<li>Prometheus is slighly different from other telemetry or metrics collection systems in that it “pulls” metrics from its targets rather than listens for the targets to send their metrics to it.</li>
+<li>… Prometheus queries the Kubernetes API for Pods and other information related to what’s running in Kubernetes. Therefore, we should configure the correct RBAC permissions so that Prometheus will have the correct permissions to query the Kubernetes API.</li>
+</ul>
+<h2 id="7-4-Distributed-tracing-with-OpenTracing"><a href="#7-4-Distributed-tracing-with-OpenTracing" class="headerlink" title="7.4 Distributed tracing with OpenTracing"></a>7.4 Distributed tracing with OpenTracing</h2><h3 id="7-4-1-How-does-it-work"><a href="#7-4-1-How-does-it-work" class="headerlink" title="7.4.1 How does it work"></a>7.4.1 How does it work</h3><ul>
+<li>With distributed tracing, we can collect Spans for each network hop and capture them in an overall Trace and use them to debug issues within our call graph<br><img src="/contents/istio-in-action/figure-7.4.png" alt=""></li>
+<li>Istio appends HTTP headers, commonly known as the Zipkin tracing headers, to the request that can be used to correlate subsequent Span objects to the overall <code>Trace</code>.</li>
+<li>The following Zipkin tracing headers are used by Istio and the distributed-tracing functionality:</li>
+</ul>
+<ol>
+<li>x-request-id</li>
+<li>x-b3-traceid</li>
+<li>x-b3-spanid</li>
+<li>x-b3-parentspanid</li>
+<li>x-b3-sampled</li>
+<li>x-b3-flags</li>
+<li>x-ot-span-context</li>
+</ol>
+<h3 id="7-4-4-Limiting-tracing-apeture"><a href="#7-4-4-Limiting-tracing-apeture" class="headerlink" title="7.4.4 Limiting tracing apeture"></a>7.4.4 Limiting tracing apeture</h3><ul>
+<li>Another approach to limit the aperture of distributed tracing is to turn it on for only specific requests. If we change the <code>PILOT_TRACE_SAMPLING</code> back down to the default of 1.0 we shouldn’t see traces for every request we send to our sample apps.</li>
+<li>If we would like Istio to record a trace for a specific request, we can add the <code>x-envoy-force-trace</code> header to the request.</li>
+</ul>
+<h2 id="7-5-Visualization-with-Kiali"><a href="#7-5-Visualization-with-Kiali" class="headerlink" title="7.5 Visualization with Kiali"></a>7.5 Visualization with Kiali</h2><ul>
+<li>Understanding Kiali workload vs application:</li>
+</ul>
+<ol>
+<li>A workload is a running binary that can be deployed as a set of identical-running replicas. For example, in Kubernetes this would be the Pods part of a Deployment. If we had a “service A” deployment with 3 replicas, this would be a workload.</li>
+<li>An application is a grouping of workloads and associated constructs like services and configuration. In Kubernetes this would be a “service A” along with a “service B” and maybe a “database”. These would each be their own workload, but they would together make up a Kiali application.</li>
+</ol>
+<h1 id="Chapter-8-Istio-Security-Effortlessly-secure"><a href="#Chapter-8-Istio-Security-Effortlessly-secure" class="headerlink" title="Chapter 8. Istio Security: Effortlessly secure"></a>Chapter 8. Istio Security: Effortlessly secure</h1><h2 id="8-1-Application-Security-refresher"><a href="#8-1-Application-Security-refresher" class="headerlink" title="8.1 Application Security refresher"></a>8.1 Application Security refresher</h2><h3 id="8-1-4-Comparison-of-security-in-Monoliths-and-Microservices"><a href="#8-1-4-Comparison-of-security-in-Monoliths-and-Microservices" class="headerlink" title="8.1.4 Comparison of security in Monoliths and Microservices"></a>8.1.4 Comparison of security in Monoliths and Microservices</h3><ul>
+<li>To resolve the challenges of providing Identity in high dynamic and heterogeneous environments Istio uses the SPIFFE specification.</li>
+</ul>
+<h2 id="8-2-SPIFFE-Secure-Production-Identity-Framework-for-Everyone"><a href="#8-2-SPIFFE-Secure-Production-Identity-Framework-for-Everyone" class="headerlink" title="8.2 SPIFFE - Secure Production Identity Framework for Everyone"></a>8.2 SPIFFE - Secure Production Identity Framework for Everyone</h2><ul>
+<li>SPIFFE is a set of open source-standards for providing identity to workloads in highly dynamic and heterogeneous environments.</li>
+</ul>
+<h3 id="8-2-1-SPIFFE-ID-Workload-Identity"><a href="#8-2-1-SPIFFE-ID-Workload-Identity" class="headerlink" title="8.2.1 SPIFFE ID - Workload Identity"></a>8.2.1 SPIFFE ID - Workload Identity</h3><ul>
+<li>SPIFFE Identity is an RFC 3986 compliant URI composed in the following format <code>spiffe://trust-domain/path</code>.</li>
+</ul>
+<h3 id="8-2-4-SPIFFE-Verifiable-Identity-Document"><a href="#8-2-4-SPIFFE-Verifiable-Identity-Document" class="headerlink" title="8.2.4 SPIFFE Verifiable Identity Document"></a>8.2.4 SPIFFE Verifiable Identity Document</h3><ul>
+<li>By implementing the SPIFFE specification, Istio automatically ensures that all workloads have their identity provisioned and receive certificates as proof of their identity. Those certificates are used for mutual authentication and to encrypt all service-to-service communication. Hence this feature is called Auto mTLS.</li>
+</ul>
+<h3 id="8-2-5-How-Istio-implements-SPIFFE"><a href="#8-2-5-How-Istio-implements-SPIFFE" class="headerlink" title="8.2.5 How Istio implements SPIFFE"></a>8.2.5 How Istio implements SPIFFE</h3><ul>
+<li>Mapping of Istio components to the Spiffe specification<br><img src="/contents/istio-in-action/figure-8.6.png" alt=""></li>
+<li>Mapping the SPIFFE components to Istio’s implementation</li>
+</ul>
+<ol>
+<li>The Workload Endpoint is implemented by the Pilot-Agent that performs identity bootstrapping</li>
+<li>The Workload API is implemented by Istio CA that issues certificates</li>
+<li>The Workload for whom the identity is issued in Istio is the service proxy</li>
+</ol>
+<h3 id="8-2-6-Step-by-step-bootstrapping-of-Workload-Identity"><a href="#8-2-6-Step-by-step-bootstrapping-of-Workload-Identity" class="headerlink" title="8.2.6 Step by step bootstrapping of Workload Identity"></a>8.2.6 Step by step bootstrapping of Workload Identity</h3><ul>
+<li>Issuing a SVID in Kubernetes with Istio<br><img src="/contents/istio-in-action/figure-8.7.png" alt=""></li>
+<li>Elaboration of the points seen in Figure 8.7:</li>
+</ul>
+<ol>
+<li>Service account token is assigned to the Istio Proxy container</li>
+<li>The token and a Certificate Signing Request are sent to Istiod</li>
+<li>Istiod validates the token using the Kubernetes Token Review API</li>
+<li>On success, it signs the certificate and provides it as a response</li>
+<li>The Pilot Agent uses the Secrets Discovery Service of Envoy to configure it to use the certificate containing the identity.</li>
+</ol>
+<h2 id="8-6-What-is-a-request-identity-anyway"><a href="#8-6-What-is-a-request-identity-anyway" class="headerlink" title="8.6 What is a request identity anyway?"></a>8.6 What is a request identity anyway?</h2><h3 id="8-6-3-Overview-of-the-flow-of-one-request"><a href="#8-6-3-Overview-of-the-flow-of-one-request" class="headerlink" title="8.6.3 Overview of the flow of one request"></a>8.6.3 Overview of the flow of one request</h3><ul>
+<li>Collection of validated data in Filter Metadata<br><img src="/contents/istio-in-action/figure-8.14.png" alt=""></li>
+</ul>
+<hr>
+<h1 id="本书中涉及的-Istio-中定义的资源"><a href="#本书中涉及的-Istio-中定义的资源" class="headerlink" title="本书中涉及的 Istio 中定义的资源"></a>本书中涉及的 Istio 中定义的资源</h1><h2 id="VirtualService"><a href="#VirtualService" class="headerlink" title="VirtualService"></a>VirtualService</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: catalog-service
+spec:
+  hosts:
+  - catalog.prod.svc.cluster.local
+  http:
+  - match:
+    - headers:
+        x-dark-lauch:
+          exact: &quot;v2&quot;
+    route:
+    - destination:
+        host: catalog.prod.svc.cluster.local
+        subset: v2
+  - route:
+    - destination:
+        host: catalog.prod.svc.cluster.local
+        subset: v1</code></pre>
+<h2 id="DestinationRule"><a href="#DestinationRule" class="headerlink" title="DestinationRule"></a>DestinationRule</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: catalog
+spec:
+  host: catalog
+  subsets:
+  - name: version-v1
+    labels:
+      version: v1
+  - name: version-v2
+    labels:
+      version: v2</code></pre>
+<h2 id="Gateway"><a href="#Gateway" class="headerlink" title="Gateway"></a>Gateway</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: coolstore-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - &quot;apiserver.istioinaction.io&quot;</code></pre>
+<h2 id="ServiceEntry"><a href="#ServiceEntry" class="headerlink" title="ServiceEntry"></a>ServiceEntry</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3
+kind: ServiceEntry
+metadata:
+  name: jsonplaceholder
+spec:
+  hosts:
+  - jsonplaceholder.typicode.com
+  ports:
+  - number: 80
+    name: http
+    protocol: HTTP
+  resolution: DNS
+  location: MESH_EXTERNAL</code></pre>
+<h2 id="EnvoyFilter"><a href="#EnvoyFilter" class="headerlink" title="EnvoyFilter"></a>EnvoyFilter</h2><pre><code class="yaml">apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: simple-backend-retry-status-codes
+  namespace: istioinaction
+spec:
+  workloadSelector:
+    labels:
+      app: simple-web
+  configPatches:
+  - applyTo: HTTP_ROUTE
+    match:
+      context: SIDECAR_OUTBOUND
+      routeConfiguration:
+        vhost:
+          name: &quot;simple-backend.istioinaction.svc.cluster.local:80&quot;
+    patch:
+      operation: MERGE
+      value:
+        route:
+          retry_policy:
+            retry_back_off:
+              base_interval: 50ms
+          retriable_status_codes:
+          - 402
+          - 403</code></pre>
+<h2 id="metric"><a href="#metric" class="headerlink" title="metric"></a>metric</h2><pre><code class="yaml">apiVersion: &quot;config.istio.io/v1alpha2&quot;
+kind: metric
+metadata:
+  name: apigatewayrequestcount
+  namespace: istio-system
+spec:
+  value: &quot;1&quot;
+  dimensions:
+    source: source.workload.name | &quot;unknown&quot;
+    destination: destination.workload.name | &quot;unknown&quot;
+    destination_ip: destination.ip
+  monitored_resource_type: &#39;&quot;UNSPECIFIED&quot;&#39;</code></pre>
+<h2 id="prometheus"><a href="#prometheus" class="headerlink" title="prometheus"></a>prometheus</h2><pre><code class="yaml">apiVersion: &quot;config.istio.io/v1alpha2&quot;
+kind: prometheus
+metadata:
+  name: apigatewayrequestcounthandler
+  namespace: istio-system
+spec:
+  metrics:
+    - name: apigateway_request_count
+      instance_name: apigatewayrequestcount.metric.istio-system
+      kind: COUNTER
+      label_names:
+        - source
+        - destination
+        - destination_ip</code></pre>
+<h2 id="PeerAuthentication"><a href="#PeerAuthentication" class="headerlink" title="PeerAuthentication"></a>PeerAuthentication</h2><pre><code class="yaml">apiVersion: &quot;security.istio.io/v1beta1&quot;
+kind: &quot;PeerAuthentication&quot;
+metadata:
+  name: &quot;default&quot;
+  namespace: &quot;istio-system&quot;
+spec:
+  mtls:
+    mode: STRICT</code></pre>
+<h2 id="AuthorizationPolicy"><a href="#AuthorizationPolicy" class="headerlink" title="AuthorizationPolicy"></a>AuthorizationPolicy</h2><pre><code class="yaml">apiVersion: &quot;security.istio.io/v1beta1&quot;
+kind: &quot;AuthorizationPolicy&quot;
+metadata:
+  name: &quot;allow-catalog-requests-in-api-gw&quot;
+  namespace: istioinaction
+spec:
+  selector:
+    matchLabels:
+      app: apigateway
+  rules:
+  - to:
+    - operation:
+        paths: [&quot;/api/catalog*&quot;]
+  action: ALLOW</code></pre>
+<h2 id="RequestAuthentication"><a href="#RequestAuthentication" class="headerlink" title="RequestAuthentication"></a>RequestAuthentication</h2><pre><code class="yaml">apiVersion: &quot;security.istio.io/v1beta1&quot;
+kind: &quot;RequestAuthentication&quot;
+metadata:
+  name: &quot;jwt-token-request-authn&quot;
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+  jwtRules:
+  - issuer: &quot;auth@istioinaction.io&quot;
+    jwks: |
+     { &quot;keys&quot;: [{&quot;e&quot;:&quot;AQAB&quot;,&quot;kid&quot;:&quot;##REDACTED##&quot;,&quot;kty&quot;:&quot;RSA&quot;,&quot;n&quot;:&quot;##REDACTED##&quot;}]}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-1-Introducing-Istio-Service-Mesh"><span class="toc-number">1.</span> <span class="toc-text">Chapter 1. Introducing Istio Service Mesh</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Pushing-these-concerns-to-the-infrastructure"><span class="toc-number">1.1.</span> <span class="toc-text">1.4 Pushing these concerns to the infrastructure</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-3-Meet-Envoy-proxy"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.4.3 Meet Envoy proxy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-What’s-a-service-mesh"><span class="toc-number">1.2.</span> <span class="toc-text">1.5 What’s a service mesh?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-Introducing-Istio-service-mesh"><span class="toc-number">1.3.</span> <span class="toc-text">1.6 Introducing Istio service mesh</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-2-First-steps-with-Istio"><span class="toc-number">2.</span> <span class="toc-text">Chapter 2. First steps with Istio</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Getting-to-know-the-Istio-control-plane"><span class="toc-number">2.1.</span> <span class="toc-text">2.2 Getting to know the Istio control plane</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-Istiod"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.2.1 Istiod</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Deploy-your-first-application-in-the-service-mesh"><span class="toc-number">2.2.</span> <span class="toc-text">2.3 Deploy your first application in the service mesh</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-3-Istio’s-data-plane-Envoy-Proxy"><span class="toc-number">3.</span> <span class="toc-text">Chapter 3. Istio’s data plane: Envoy Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-How-Envoy-fits-with-Istio"><span class="toc-number">3.1.</span> <span class="toc-text">3.4 How Envoy fits with Istio</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4-Istio-Gateway-getting-traffic-into-your-cluster"><span class="toc-number">4.</span> <span class="toc-text">Chapter 4. Istio Gateway: getting traffic into your cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-Traffic-ingress-concepts"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 Traffic ingress concepts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-Virtual-Hosting-multiple-services-from-a-single-access-point"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.2 Virtual Hosting: multiple services from a single access point</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-Istio-Gateway"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Istio Gateway</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-Gateway-routing-with-Virtual-Services"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.2 Gateway routing with Virtual Services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-Istio-Gateway-vs-Kubernetes-Ingress"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.4 Istio Gateway vs Kubernetes Ingress</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-Securing-Gateway-traffic"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 Securing Gateway traffic</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-1-HTTP-traffic-with-TLS"><span class="toc-number">4.3.1.</span> <span class="toc-text">4.3.1 HTTP traffic with TLS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-3-HTTP-traffic-with-mutual-TLS"><span class="toc-number">4.3.2.</span> <span class="toc-text">4.3.3 HTTP traffic with mutual TLS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-5-Traffic-control-fine-grained-traffic-routing"><span class="toc-number">5.</span> <span class="toc-text">Chapter 5. Traffic control: fine-grained traffic routing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Traffic-shifting"><span class="toc-number">5.1.</span> <span class="toc-text">5.3 Traffic shifting</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-Lowering-risk-even-further-Traffic-mirroring"><span class="toc-number">5.2.</span> <span class="toc-text">5.4 Lowering risk even further: Traffic mirroring</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-Routing-to-services-outside-your-cluster-by-using-Istio’s-service-discovery"><span class="toc-number">5.3.</span> <span class="toc-text">5.5 Routing to services outside your cluster by using Istio’s service discovery</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-Resilience-solving-application-networking-challenges"><span class="toc-number">6.</span> <span class="toc-text">Chapter 6. Resilience: solving application-networking challenges</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-Client-side-load-balancing"><span class="toc-number">6.1.</span> <span class="toc-text">6.2 Client-side load balancing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-Getting-started-with-client-side-load-balancing"><span class="toc-number">6.1.1.</span> <span class="toc-text">6.2.1 Getting started with client-side load balancing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-4-Understanding-the-different-load-balancing-algorithms"><span class="toc-number">6.1.2.</span> <span class="toc-text">6.2.4 Understanding the different load balancing algorithms</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-Locality-aware-load-balancing"><span class="toc-number">6.2.</span> <span class="toc-text">6.3 Locality aware load balancing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-1-Hands-on-with-locality-load-balancing"><span class="toc-number">6.2.1.</span> <span class="toc-text">6.3.1 Hands on with locality load balancing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-2-More-control-over-locality-load-balancing"><span class="toc-number">6.2.2.</span> <span class="toc-text">6.3.2 More control over locality load balancing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-Transparent-timeouts-and-retries"><span class="toc-number">6.3.</span> <span class="toc-text">6.4 Transparent timeouts and retries</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-2-Retries"><span class="toc-number">6.3.1.</span> <span class="toc-text">6.4.2 Retries</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-3-Advanced-retries"><span class="toc-number">6.3.2.</span> <span class="toc-text">6.4.3 Advanced retries</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-Circuit-breaking-with-Istio"><span class="toc-number">6.4.</span> <span class="toc-text">6.5 Circuit breaking with Istio</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-1-Guarding-against-slow-services-with-connection-pool-control"><span class="toc-number">6.4.1.</span> <span class="toc-text">6.5.1 Guarding against slow services with connection pool control</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-7-Observability-with-Istio-understanding-the-behavior-of-your-services"><span class="toc-number">7.</span> <span class="toc-text">Chapter 7. Observability with Istio: understanding the behavior of your services</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-What-is-observability"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 What is observability?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-Observability-vs-Monitoring"><span class="toc-number">7.1.1.</span> <span class="toc-text">7.1.1 Observability vs Monitoring</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-Collecting-metrics-from-Istio-data-plane"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 Collecting metrics from Istio data plane</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-Pulling-Istio-Metrics-into-Prometheus"><span class="toc-number">7.2.1.</span> <span class="toc-text">7.2.2 Pulling Istio Metrics into Prometheus</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-Distributed-tracing-with-OpenTracing"><span class="toc-number">7.3.</span> <span class="toc-text">7.4 Distributed tracing with OpenTracing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-How-does-it-work"><span class="toc-number">7.3.1.</span> <span class="toc-text">7.4.1 How does it work</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-4-Limiting-tracing-apeture"><span class="toc-number">7.3.2.</span> <span class="toc-text">7.4.4 Limiting tracing apeture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-Visualization-with-Kiali"><span class="toc-number">7.4.</span> <span class="toc-text">7.5 Visualization with Kiali</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-8-Istio-Security-Effortlessly-secure"><span class="toc-number">8.</span> <span class="toc-text">Chapter 8. Istio Security: Effortlessly secure</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-Application-Security-refresher"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 Application Security refresher</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-4-Comparison-of-security-in-Monoliths-and-Microservices"><span class="toc-number">8.1.1.</span> <span class="toc-text">8.1.4 Comparison of security in Monoliths and Microservices</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-SPIFFE-Secure-Production-Identity-Framework-for-Everyone"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 SPIFFE - Secure Production Identity Framework for Everyone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-1-SPIFFE-ID-Workload-Identity"><span class="toc-number">8.2.1.</span> <span class="toc-text">8.2.1 SPIFFE ID - Workload Identity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-4-SPIFFE-Verifiable-Identity-Document"><span class="toc-number">8.2.2.</span> <span class="toc-text">8.2.4 SPIFFE Verifiable Identity Document</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-5-How-Istio-implements-SPIFFE"><span class="toc-number">8.2.3.</span> <span class="toc-text">8.2.5 How Istio implements SPIFFE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-6-Step-by-step-bootstrapping-of-Workload-Identity"><span class="toc-number">8.2.4.</span> <span class="toc-text">8.2.6 Step by step bootstrapping of Workload Identity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6-What-is-a-request-identity-anyway"><span class="toc-number">8.3.</span> <span class="toc-text">8.6 What is a request identity anyway?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-3-Overview-of-the-flow-of-one-request"><span class="toc-number">8.3.1.</span> <span class="toc-text">8.6.3 Overview of the flow of one request</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本书中涉及的-Istio-中定义的资源"><span class="toc-number">9.</span> <span class="toc-text">本书中涉及的 Istio 中定义的资源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VirtualService"><span class="toc-number">9.1.</span> <span class="toc-text">VirtualService</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DestinationRule"><span class="toc-number">9.2.</span> <span class="toc-text">DestinationRule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gateway"><span class="toc-number">9.3.</span> <span class="toc-text">Gateway</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServiceEntry"><span class="toc-number">9.4.</span> <span class="toc-text">ServiceEntry</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnvoyFilter"><span class="toc-number">9.5.</span> <span class="toc-text">EnvoyFilter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#metric"><span class="toc-number">9.6.</span> <span class="toc-text">metric</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#prometheus"><span class="toc-number">9.7.</span> <span class="toc-text">prometheus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PeerAuthentication"><span class="toc-number">9.8.</span> <span class="toc-text">PeerAuthentication</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AuthorizationPolicy"><span class="toc-number">9.9.</span> <span class="toc-text">AuthorizationPolicy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RequestAuthentication"><span class="toc-number">9.10.</span> <span class="toc-text">RequestAuthentication</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

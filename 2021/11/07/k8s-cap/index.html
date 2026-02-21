@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】Linux CAP介绍与k8s下配置使用 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Linux, CAP, capabilities"> 
+    <meta name="description" content="原文地址：https://www.jianshu.com/p/a7f6c4f420fa
+Linux CAP介绍与k8s下配置使用
+关于capability
+
+发音
+美[keɪpəˈbɪləti] 英,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】Linux CAP介绍与k8s下配置使用</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/k8s-cap.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                十一月 07, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/11/07/k8s-cap/" title="【转】Linux CAP介绍与k8s下配置使用" class="">【转】Linux CAP介绍与k8s下配置使用</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    13k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://www.jianshu.com/p/a7f6c4f420fa" target="_blank" rel="noopener">https://www.jianshu.com/p/a7f6c4f420fa</a></p>
+<h1 id="Linux-CAP介绍与k8s下配置使用"><a href="#Linux-CAP介绍与k8s下配置使用" class="headerlink" title="Linux CAP介绍与k8s下配置使用"></a>Linux CAP介绍与k8s下配置使用</h1><blockquote>
+<p>关于capability</p>
+</blockquote>
+<p>发音</p>
+<pre><code>美[keɪpəˈbɪləti] 英[keɪpə&#39;bɪləti]</code></pre><p>译为<code>能力</code>或<code>功能</code>，一般缩写<code>CAP</code>，以下我们简称<code>Capabilities</code>为<code>CAP</code></p>
+<h2 id="CAP历史回溯"><a href="#CAP历史回溯" class="headerlink" title="CAP历史回溯"></a>CAP历史回溯</h2><p>从内核<code>2.2</code>开始，<code>Linux</code>将传统上与超级用户<code>root</code>关联的特权划分为不同的单元，称为<code>CAP</code>。</p>
+<p><code>CAP</code>作为线程(<code>Linux</code>并不真正区分进程和线程)的属性存在，每个单元可以独立启用和禁用。<br>如此一来，权限检查的过程就变成了：<br>在执行特权操作时，如果进程的有效身份不是<code>root</code>，就去检查是否具有该特权操作所对应的<code>CAP</code>，并以此决定是否可以进行该特权操作。</p>
+<p>比如要向进程发送信号(<code>kill()</code>)，就得具有<code>CAP_KILL</code>；如果设置系统时间，就得具有<code>CAP_SYS_TIME</code>。</p>
+<p>在<code>CAP</code>出现之前，系统进程分为两种：</p>
+<ul>
+<li>特权进程</li>
+<li>非特权进程</li>
+</ul>
+<p>特权进程可以做所有的事情: 进行管理级别的内核调用；而非特权进程被限制为标准用户的子集调用</p>
+<p>某些可执行文件需要由标准用户运行，但也需要进行有特权的内核调用，它们需要设置<code>suid</code>位，从而有效地授予它们特权访问权限。(典型的例子是<code>ping</code>，它被授予进行<code>ICMP</code>调用的完全特权访问权。)</p>
+<p>这些可执行文件是黑客关注的主要目标——如果他们可以利用其中的漏洞，他们就可以在系统上升级他们的特权级别。<br>由此内核开发人员提出了一个更微妙的解决方案:<code>CAP</code>。</p>
+<p>意图很简单: 将所有可能的特权内核调用划分为相关功能组，赋予进程所需要的功能子集。<br>因此，内核调用被划分为几十个不同的类别，在很大程度上是成功的。</p>
+<p>回到<code>ping</code>的例子，<code>CAP</code>的出现使得它仅被赋予一个<code>CAP_NET_RAW</code>功能，就能实现所需功能，这大大降低了安全风险。</p>
+<p><strong>注意：</strong> 比较老的操作系统上，会通过为<code>ping</code>添加<code>SUID</code>权限的方式，实现普通用户可使用。<br>这存在很大的安全隐患，笔者所用操作系统（<code>CentOS7</code>）上<code>ping</code>指令已通过<code>CAP</code>方式实现</p>
+<pre><code class="bash">$ ls -l /usr/bin/ping
+-rwxr-xr-x. 1 root root 66176 8月   4 2017 /usr/bin/ping
+$ getcap /usr/bin/ping
+/usr/bin/ping = cap_net_admin,cap_net_raw+p</code></pre>
+<h2 id="设置容器的CAP"><a href="#设置容器的CAP" class="headerlink" title="设置容器的CAP"></a>设置容器的CAP</h2><p><a href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-capabilities-for-a-container" target="_blank" rel="noopener">Set capabilities for a Container</a></p>
+<p>基于<a href="https://man7.org/linux/man-pages/man7/capabilities.7.html" target="_blank" rel="noopener">Linux capabilities</a> ，您可以授予某个进程某些特权，而不授予<code>root</code>用户的所有特权。</p>
+<p>要为容器添加或删除<code>Linux</code>功能，请在容器清单的<code>securityContext</code>部分中包含<code>capability</code>字段。</p>
+<blockquote>
+<p>首先，看看未设置<code>capability</code>字段时会发生什么。下面是不添加或删除任何<code>CAP</code>的配置文件:</p>
+</blockquote>
+<pre><code class="yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo-3
+spec:
+  containers:
+  - name: sec-ctx-3
+    image: centos:7
+    command: [&quot;tail&quot;,&quot;-f&quot;, &quot;/dev/null&quot;]</code></pre>
+<ol>
+<li>创建<code>Pod</code></li>
+</ol>
+<pre><code class="bash">$ kubectl apply -f https://k8s.io/examples/pods/security/security-context-3.yaml</code></pre>
+<ol start="2">
+<li>查看<code>Pod</code>运行状态</li>
+</ol>
+<pre><code class="bash">$ kubectl get pod security-context-demo-3</code></pre>
+<ol start="3">
+<li>在运行的容器中获取一个<code>shell</code>:</li>
+</ol>
+<pre><code class="bash">kubectl exec -it security-context-demo-3 -- sh</code></pre>
+<ol start="4">
+<li>在<code>shell</code>中，列出正在运行的进程:</li>
+</ol>
+<pre><code class="bash">$ ps aux</code></pre>
+<p>输出显示了容器的进程<code>id</code> (<code>pid</code>):</p>
+<pre><code class="bash">USER  PID %CPU %MEM    VSZ   RSS TTY   STAT START   TIME COMMAND
+root    1  0.0  0.0   4336   796 ?     Ss   18:17   0:00 /bin/sh -c node server.js
+root    5  0.1  0.5 772124 22700 ?     Sl   18:17   0:00 node server.js</code></pre>
+<ol start="5">
+<li>在<code>shell</code>中，查看进程<code>1</code>的状态:</li>
+</ol>
+<pre><code class="bash">$ cd /proc/1
+$ cat status</code></pre>
+<p>输出显示了进程的能力位图:</p>
+<pre><code>...
+CapPrm:    00000000a80425fb
+CapEff:    00000000a80425fb
+...</code></pre><p>解码</p>
+<pre><code class="bash">$ capsh --decode=00000000a80425fb
+0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap</code></pre>
+<ol start="6">
+<li>记下能力位图，然后退出<code>shell</code>:</li>
+</ol>
+<pre><code class="bash">$ exit</code></pre>
+<p>接下来，运行一个与前一个容器相同的容器，只是它有额外的功能集。</p>
+<ol start="7">
+<li>运行一个配置增加了<code>CAP_NET_ADMIN</code>和<code>CAP_SYS_TIME</code>功能的<code>Pod</code>:</li>
+</ol>
+<pre><code class="bash">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: v1
+kind: Pod
+metadata:
+  name: security-context-demo-4
+spec:
+  containers:
+  - name: sec-ctx-4
+    image: centos:7
+    command: [&quot;tail&quot;,&quot;-f&quot;, &quot;/dev/null&quot;]
+    securityContext:
+      capabilities:
+        add: [&quot;NET_ADMIN&quot;, &quot;SYS_TIME&quot;]
+EOF</code></pre>
+<ol start="8">
+<li>在运行的容器中获取一个<code>shell</code>:</li>
+</ol>
+<pre><code class="bash">kubectl exec -it security-context-demo-4 -- sh</code></pre>
+<ol start="9">
+<li>在<code>shell</code>中，查看进程<code>1</code>的状态:</li>
+</ol>
+<pre><code class="bash">$ cd /proc/1
+$ cat status</code></pre>
+<p>进程的能力位图:</p>
+<pre><code>...
+CapPrm:    00000000aa0435fb
+CapEff:    00000000aa0435fb
+...</code></pre><p>进程的能力位图值解码</p>
+<pre><code class="bash">$ capsh --decode=00000000aa0435fb
+0x00000000aa0435fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_admin,cap_net_raw,cap_sys_chroot,cap_sys_time,cap_mknod,cap_audit_write,cap_setfcap</code></pre>
+<ol start="10">
+<li>对比两个进程的能力位图（解码后）</li>
+</ol>
+<pre><code># 未配置CAP
+0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap
+# 配置CAP_NET_ADMIN和CAP_SYS_TIME
+0x00000000aa0435fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_admin,cap_net_raw,cap_sys_chroot,cap_sys_time,cap_mknod,cap_audit_write,cap_setfcap</code></pre><p>有关常<code>capability</code>数的定义，请参阅<a href="https://github.com/torvalds/linux/blob/master/include/uapi/linux/capability.h" target="_blank" rel="noopener">capability.h</a> 。</p>
+<p><strong>注意:</strong> <code>Linux capability</code>常量的形式是<code>CAP_XXX</code>。<br>但是，当您在容器清单中列出功能时，必须忽略常量的<code>CAP_</code>部分。<br>例如，要添加<code>CAP_SYS_TIME</code>，请在功能列表中包含<code>SYS_TIME</code>。</p>
+<h3 id="关于进程状态值"><a href="#关于进程状态值" class="headerlink" title="关于进程状态值"></a>关于进程状态值</h3><p>这里我们介绍进程状态中与<code>Capabilities</code>相关的几个值:</p>
+<ul>
+<li><code>CapInh</code>: 当前进程子进程可继承的能力</li>
+<li><code>CapPrm</code>: 当前进程可使用的能力（可以包含<code>CapEff</code>中没有的能力，<code>CapEff</code>是<code>CapPrm</code>的一个子集，进程放弃没有必要的能力有利于提高安全性）</li>
+<li><code>CapEff</code>: 当前进程已使用/开启的能力</li>
+</ul>
+<blockquote>
+<p>1.非容器特权进程<code>CAP</code>缺省值解析（共计35个）</p>
+</blockquote>
+<pre><code class="bash">$ capsh --decode=000001ffffffffff
+0x000001ffffffffff=cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_linux_immutable,cap_net_bind_service,cap_net_broadcast,cap_net_admin,cap_net_raw,cap_ipc_lock,cap_ipc_owner,cap_sys_module,cap_sys_rawio,cap_sys_chroot,cap_sys_ptrace,cap_sys_pacct,cap_sys_admin,cap_sys_boot,cap_sys_nice,cap_sys_resource,cap_sys_time,cap_sys_tty_config,cap_mknod,cap_lease,cap_audit_write,cap_audit_control,cap_setfcap,cap_mac_override,cap_mac_admin,cap_syslog,35,36,37,38,39,40</code></pre>
+<ol>
+<li><code>cap_chown</code>: 允许修改文件所有者权限</li>
+<li><code>cap_dac_override</code>: 忽略文件的<code>DAC</code>访问权限</li>
+<li><code>cap_dac_read_search</code>: 忽略文件读及目录检索的<code>DAC</code>访问权限</li>
+<li><code>cap_fowner</code>: 忽略文件属主<code>ID</code>必须与进程用户<code>ID</code>一致的权限</li>
+<li><code>cap_fsetid</code>: 确保在文件被修改后不修改<code>setuid/setgid</code>位</li>
+<li><code>cap_kill</code>: 允许对不属于自己的进程发送信号的权限</li>
+<li><code>cap_setgid</code>: 允许修改进程的<code>GID</code>权限</li>
+<li><code>cap_setuid</code>: 允许修改进程的<code>UID</code>权限</li>
+<li><code>cap_setpcap</code>: 允许对子进程进行<code>CAP</code>授权</li>
+<li><code>cap_linux_immutable</code>: 允许修改文件的<code>IMMUTABLE</code>与<code>APPEND</code>属性权限</li>
+<li><code>cap_net_bind_service</code>: 允许绑定小于<code>1024</code>端口的权限</li>
+<li><code>cap_net_broadcast</code>: 允许网络广播及多播访问的权限</li>
+<li><code>cap_net_admin</code>: 允许执行网络管理任务的权限</li>
+<li><code>cap_net_raw</code>: 允许使用原始套接字的权限</li>
+<li><code>cap_ipc_lock</code>: 允许锁定共享内存片段的权限</li>
+<li><code>cap_ipc_owner</code>: 忽略<code>IPC</code>所有权检查的权限</li>
+<li><code>cap_sys_module</code>: 允许插入和删除内核模块的权限</li>
+<li><code>cap_sys_rawio</code>: 允许直接访问<code>/devport</code>,<code>/dev/mem</code>,<code>/dev/kmem</code>及原始块设备的权限</li>
+<li><code>cap_sys_chroot</code>: 允许使用<code>chroot()</code>系统调用的权限</li>
+<li><code>cap_sys_ptrace</code>: 允许追踪任何进程的权限</li>
+<li><code>cap_sys_pacct</code>: 允许执行进程的<code>BSD</code>式审计的权限</li>
+<li><code>cap_sys_admin</code>: 允许执行系统管理任务(如加载或卸载文件系统、设置磁盘配额等)的权限</li>
+<li><code>cap_sys_boot</code>: 允许重启系统的权限</li>
+<li><code>cap_sys_nice</code>: 允许提升优先级及设置其他进程优先级的权限</li>
+<li><code>cap_sys_resource</code>: 忽略资源限制的权限</li>
+<li><code>cap_sys_time</code>: 允许改变系统时钟的权限</li>
+<li><code>cap_sys_tty_config</code>: 允许配置<code>TTY</code>设备的权限</li>
+<li><code>cap_mknod</code>: 允许使用<code>mknod()</code>系统调用的权限</li>
+<li><code>cap_lease</code>: 允许修改文件锁的<code>FL_LEASE</code>标志的权限</li>
+<li><code>cap_audit_write</code>: 允许将记录写入内核审计日志的权限</li>
+<li><code>cap_audit_control</code>: 启用和禁用内核审计、改变审计过滤规则、检索审计状态和过滤规则的权限</li>
+<li><code>cap_setfcap</code>: 允许为可执行文件设置<code>CAP</code>的权限</li>
+<li><code>cap_mac_override</code>: 可覆盖<code>Mandatory Access Control</code>(<code>MAC</code>)的权限</li>
+<li><code>cap_mac_admin</code>: 允许<code>MAC</code>配置或状态改变的权限</li>
+<li><code>cap_syslog</code>: 允许使用<code>syslog()</code>系统调用的权限</li>
+</ol>
+<blockquote>
+<p>2.容器特权进程默认<code>CAP</code>缺省值解析（共计14个）</p>
+</blockquote>
+<p>借用上述例子中未配置<code>CAP</code>的进程能力位图</p>
+<pre><code>0x00000000a80425fb=cap_chown,cap_dac_override,cap_fowner,cap_fsetid,cap_kill,cap_setgid,cap_setuid,cap_setpcap,cap_net_bind_service,cap_net_raw,cap_sys_chroot,cap_mknod,cap_audit_write,cap_setfcap</code></pre><ol>
+<li><code>cap_chown</code>: 允许修改文件所有者权限</li>
+<li><code>cap_dac_override</code>: 忽略文件的<code>DAC</code>访问权限</li>
+<li><code>cap_fowner</code>: 忽略文件属主<code>ID</code>必须与进程用户<code>ID</code>一致的权限</li>
+<li><code>cap_fsetid</code>: 允许设置文件<code>setuid</code>位的权限</li>
+<li><code>cap_kill</code>: 允许对不属于自己的进程发送信号的权限</li>
+<li><code>cap_setgid</code>: 允许修改进程的<code>GID</code>权限</li>
+<li><code>cap_setuid</code>: 允许修改进程的<code>UID</code>权限</li>
+<li><code>cap_setpcap</code>: 允许对子进程进行<code>CAP</code>授权</li>
+<li><code>cap_net_bind_service</code>: 允许绑定小于<code>1024</code>端口的权限</li>
+<li><code>cap_net_raw</code>: 允许使用原始套接字的权限</li>
+<li><code>cap_sys_chroot</code>: 允许使用<code>chroot()</code>系统调用的权限</li>
+<li><code>cap_mknod</code>: 允许使用<code>mknod()</code>系统调用的权限</li>
+<li><code>cap_audit_write</code>: 允许将记录写入内核审计日志的权限</li>
+<li><code>cap_setfcap</code>: 允许为可执行文件设置<code>CAP</code>的权限</li>
+</ol>
+<p>对比发现，容器运行时内的<code>root</code>用户并非拥有全部权限，仅仅是默认拥有<code>14</code>条权限，其他权限如果使用需要额外开启。</p>
+<blockquote>
+<p>3.查看容器非特权进程默认<code>CAP</code>缺省值（0个）</p>
+</blockquote>
+<pre><code class="bash">$ id
+uid=1000 gid=0(root) groups=0(root)
+$ cat /proc/1/status|grep CapEff
+CapEff: 0000000000000000</code></pre>
+<blockquote>
+<p>思考一个问题: 当运行时为非特权用户，<code>CAP</code>配置是否生效？</p>
+</blockquote>
+<ol>
+<li><code>Deployment</code>配置如下（镜像以非特权<code>USER</code>运行）</li>
+</ol>
+<pre><code class="yaml">kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: eureka-app
+  namespace: champ
+  labels:
+    app: eureka-app
+    app.kubernetes.io/instance: eureka-app
+  annotations:
+    configmap.reloader.stakater.com/reload: eureka-app-cm
+    deployment.kubernetes.io/revision: &#39;25&#39;
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eureka-app
+  template:
+    metadata:
+      labels:
+        app: eureka-app
+      annotations:
+        kubesphere.io/containerSecrets: &#39;&#39;
+    spec:
+      containers:
+        - name: eureka-app
+          image: &#39;xxx.xxx.xxx/xxx/xxx:xxx&#39;
+          ports:
+            - name: http-8080
+              containerPort: 8080
+              protocol: TCP
+            - name: http-5005
+              containerPort: 5005
+              protocol: TCP
+          securityContext:
+            capabilities:
+              add:
+                - SYS_TIME
+...</code></pre>
+<ol start="2">
+<li>查看进程状态</li>
+</ol>
+<pre><code class="bash">$ cat /proc/1/status
+CapPrm: 0000000000000000
+CapEff: 0000000000000000</code></pre>
+<p>显然当镜像指定<code>USER</code>为非特权用户运行时，<code>CAP</code>配置并不生效</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
+<li>当镜像指定<code>USER</code>为非特权用户运行时，<code>CAP</code>配置并不生效</li>
+<li>容器内特权进程默认拥有<code>14</code>条<code>CAP</code>权限配置，相对非容器特权进程要少的多</li>
+<li><code>Linux CAP</code>旨在将特权细粒度划分</li>
+</ol>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.cnblogs.com/sparkdev/p/11417781.html" target="_blank" rel="noopener">Linux Capabilities 简介</a><br><a href="https://blog.container-solutions.com/linux-capabilities-why-they-exist-and-how-they-work" target="_blank" rel="noopener">Linux Capabilities: Why They Exist and How They Work</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux-CAP介绍与k8s下配置使用"><span class="toc-number">1.</span> <span class="toc-text">Linux CAP介绍与k8s下配置使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CAP历史回溯"><span class="toc-number">1.1.</span> <span class="toc-text">CAP历史回溯</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置容器的CAP"><span class="toc-number">1.2.</span> <span class="toc-text">设置容器的CAP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于进程状态值"><span class="toc-number">1.2.1.</span> <span class="toc-text">关于进程状态值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结论"><span class="toc-number">1.2.2.</span> <span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文献"><span class="toc-number">1.3.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

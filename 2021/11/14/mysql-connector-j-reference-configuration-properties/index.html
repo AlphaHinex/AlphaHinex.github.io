@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>是时候升级 MySQL Connector/J 到 8.0 了 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Connector/J, MySQL, jdbcUrl, JDBC, properties"> 
+    <meta name="description" content="使用 JDBC 连接 MySQL 时，你是否也对 JDBC URL 连接串中的参数感到很神秘？
+例如：
+jdbc:mysql://localhost:3306/hinex?useSSL=false&amp;,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">是时候升级 MySQL Connector/J 到 8.0 了</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/mysql-connector-j-reference-configuration-properties/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Database"><b>「
+                    </b>DATABASE<b> 」</b></a>
+                
+                十一月 14, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/11/14/mysql-connector-j-reference-configuration-properties/" title="是时候升级 MySQL Connector&#x2F;J 到 8.0 了" class="">是时候升级 MySQL Connector&#x2F;J 到 8.0 了</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.4k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>使用 JDBC 连接 MySQL 时，你是否也对 JDBC URL 连接串中的参数感到很神秘？</p>
+<p>例如：</p>
+<pre><code class="text">jdbc:mysql://localhost:3306/hinex?useSSL=false&amp;serverTimezone=UTC</code></pre>
+<p>连接串的通用格式为：</p>
+<pre><code class="text">protocol//[hosts][/database][?properties]</code></pre>
+<p>那么可用的 <code>properties</code> 都有哪些？默认值和可用的值都有什么，又都是什么含义呢？</p>
+<p>这就要从 <code>Connector/J</code> 说起了。</p>
+<h2 id="Connector-J"><a href="#Connector-J" class="headerlink" title="Connector/J"></a>Connector/J</h2><p><a href="https://dev.mysql.com/doc/index-connectors.html" target="_blank" rel="noopener">Connector/J</a> 是 Java 连接 MySQL 的连接器，或称驱动。<br>与 MySQL 现在有两个活跃版本（<code>5.7.x</code> 和 <code>8.0.x</code>）一样，<code>Connector/J</code> 目前也有两个主要版本：<code>5.1</code> 和 <code>8.0</code>。<br>但并不是只能用 <code>5.1</code> 版本的驱动连 <code>5.7.x</code> 版本的 MySQL，或 <code>8.0</code> 版本的驱动连接 <code>8.0.x</code> 版本的 MySQL，让我们先来看一下两个版本驱动的 <a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-versions.html" target="_blank" rel="noopener">对比</a>：</p>
+<p><img src="/contents/mysql-connector-j-reference-configuration-properties/versions.png" alt="versions"></p>
+<p>可以看到，官方强烈推荐使用或升级到 <code>8.0</code> 的版本，并且 <code>5.1</code> 系列版本已到达生命周期的尾声，一年多没有更新过了（最新版本 <code>5.1.49</code> 是 <a href="https://github.com/mysql/mysql-connector-j/releases/tag/5.1.49" target="_blank" rel="noopener">2020年4月</a> 发布的）。</p>
+<h2 id="What’s-New-in-Connector-J-8-0"><a href="#What’s-New-in-Connector-J-8-0" class="headerlink" title="What’s New in Connector/J 8.0"></a><a href="https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-whats-new.html" target="_blank" rel="noopener">What’s New in Connector/J 8.0</a></h2><p>几个主要的改进：</p>
+<ol>
+<li>需要 Java 8 或以上版本</li>
+<li>支持 JDBC 4.2 规范</li>
+<li>连接串中的 properties 有新增、更名及移除</li>
+<li>主要代码进行了重构及修整，以提供更好的性能</li>
+<li>包结构发生了整体调整（<code>com.mysql.cj.jdbc</code>）</li>
+<li>异常更新，以匹配 JDBC 标准</li>
+</ol>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h2><p>下面选择部分实用的属性进行说明。</p>
+<h3 id="普通属性"><a href="#普通属性" class="headerlink" title="普通属性"></a>普通属性</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">connectionAttributes</td>
+<td align="left">-</td>
+<td align="left">5.1.25</td>
+<td align="left">用户定义的 <code>key:value</code> 对，可多个，逗号间隔，保存在 <code>P_S.SESSION_CONNECT_ATTRS</code> 里</td>
+</tr>
+<tr>
+<td align="left">createDatabaseIfNotExist</td>
+<td align="left">false</td>
+<td align="left">3.1.9</td>
+<td align="left">连接串中的数据库不存在时，报错（<code>false</code>）还是自动创建（<code>true</code>）</td>
+</tr>
+</tbody></table>
+<h3 id="用户自定义拦截器"><a href="#用户自定义拦截器" class="headerlink" title="用户自定义拦截器"></a>用户自定义拦截器</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">connectionLifecycleInterceptors</td>
+<td align="left">-</td>
+<td align="left">5.1.4</td>
+<td align="left">可监控或相应连接创建、销毁、提交、回滚等操作</td>
+</tr>
+<tr>
+<td align="left">queryInterceptors</td>
+<td align="left">-</td>
+<td align="left">8.0.7</td>
+<td align="left">提供查询执行前后的拦截能力</td>
+</tr>
+<tr>
+<td align="left">exceptionInterceptors</td>
+<td align="left">-</td>
+<td align="left">5.1.8</td>
+<td align="left">拦截异常并提供注入用户行为的能力</td>
+</tr>
+</tbody></table>
+<h3 id="网络调整"><a href="#网络调整" class="headerlink" title="网络调整"></a>网络调整</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">connectTimeout/socketTimeout</td>
+<td align="left">0</td>
+<td align="left">3.0.1</td>
+<td align="left">客户端连接超时时间</td>
+</tr>
+<tr>
+<td align="left">useCompression</td>
+<td align="left">false</td>
+<td align="left">3.0.17</td>
+<td align="left">与服务端通信时是否启用压缩</td>
+</tr>
+</tbody></table>
+<h3 id="Statement-相关"><a href="#Statement-相关" class="headerlink" title="Statement 相关"></a>Statement 相关</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">allowMultiQueries</td>
+<td align="left">false</td>
+<td align="left">3.1.1</td>
+<td align="left">是否启用在一个 statement 里执行多个查询；可能会返回多个 <code>ResultSet</code>；不会影响批量 statemnt</td>
+</tr>
+<tr>
+<td align="left">defaultFetchSize</td>
+<td align="left">0</td>
+<td align="left">3.1.9</td>
+<td align="left">驱动会使用这个默认值在所有新创建的 <code>Statement</code> 时调用 <code>setFetchSize(n)</code></td>
+</tr>
+</tbody></table>
+<h3 id="Result-Set-相关"><a href="#Result-Set-相关" class="headerlink" title="Result Set 相关"></a>Result Set 相关</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">maxRows</td>
+<td align="left">-1</td>
+<td align="left">all versions</td>
+<td align="left">执行 statements 返回的最大行数</td>
+</tr>
+<tr>
+<td align="left">padCharsWithSpace</td>
+<td align="left">false</td>
+<td align="left">5.0.6</td>
+<td align="left">是否为 <code>CHAR</code> 类型的列填充空格至其定义的长度</td>
+</tr>
+</tbody></table>
+<h3 id="日期时间处理"><a href="#日期时间处理" class="headerlink" title="日期时间处理"></a>日期时间处理</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">connectionTimeZone</td>
+<td align="left">-</td>
+<td align="left">3.0.2</td>
+<td align="left">指明服务端在处理日期时间转换时所使用的时区，即 8.0 之前版本的 <code>serverTimeZone</code> 参数，后者目前也可使用，但后续会被弃用</td>
+</tr>
+<tr>
+<td align="left">zeroDateTimeBehavior</td>
+<td align="left">EXCEPTION</td>
+<td align="left">3.1.4</td>
+<td align="left">定义当 MySQL 返回全是 0 的日期时间值时的行为：<code>EXCEPTION</code>、<code>ROUND</code> 或 <code>CONVERT_TO_NULL</code></td>
+</tr>
+</tbody></table>
+<h3 id="性能调整"><a href="#性能调整" class="headerlink" title="性能调整"></a>性能调整</h3><table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Default Value</th>
+<th align="left">Since</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">rewriteBatchedStatements</td>
+<td align="left">false</td>
+<td align="left">3.1.13</td>
+<td align="left">是否重写批量插入或使用批量查询来减少发送的语句数量</td>
+</tr>
+<tr>
+<td align="left">useCursorFetch</td>
+<td align="left">false</td>
+<td align="left">5.0.0</td>
+<td align="left">与 <code>Statement.setFetchSize()</code> 一同，告诉服务端使用游标方式进行数据的读取</td>
+</tr>
+</tbody></table>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>完整的 Properties 参考文档可见：</p>
+<ul>
+<li><a href="https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html" target="_blank" rel="noopener">8.0</a></li>
+<li><a href="https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-reference-configuration-properties.html" target="_blank" rel="noopener">5.1</a></li>
+</ul>
+<p><strong>强烈建议修改每个参数的默认值之前，仔细阅读官方文档中对此参数的描述！</strong></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.slideshare.net/FilipeSilva170/mysql-connectorj-feature-review-and-how-to-upgrade-from-connectorj-51" target="_blank" rel="noopener">https://www.slideshare.net/FilipeSilva170/mysql-connectorj-feature-review-and-how-to-upgrade-from-connectorj-51</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Connector-J"><span class="toc-number">1.</span> <span class="toc-text">Connector&#x2F;J</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What’s-New-in-Connector-J-8-0"><span class="toc-number">2.</span> <span class="toc-text">What’s New in Connector&#x2F;J 8.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Properties"><span class="toc-number">3.</span> <span class="toc-text">Properties</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#普通属性"><span class="toc-number">3.1.</span> <span class="toc-text">普通属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户自定义拦截器"><span class="toc-number">3.2.</span> <span class="toc-text">用户自定义拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网络调整"><span class="toc-number">3.3.</span> <span class="toc-text">网络调整</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Statement-相关"><span class="toc-number">3.4.</span> <span class="toc-text">Statement 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Result-Set-相关"><span class="toc-number">3.5.</span> <span class="toc-text">Result Set 相关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日期时间处理"><span class="toc-number">3.6.</span> <span class="toc-text">日期时间处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#性能调整"><span class="toc-number">3.7.</span> <span class="toc-text">性能调整</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

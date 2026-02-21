@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Override same class - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Servlet, Class Loader, Web Application Class Loader, Tomcat"> 
+    <meta name="description" content="实际 Java Web 项目中经常会遇到这样的场景：希望对依赖的某个三方库中的行为进行覆盖式的定制（修改三方库中的某些行为），但并不希望发布定制的版本至私服。
+通常在使用 WAR 包发布应用时，可将,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Override same class</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/tomcat-class-loader.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Servlet"><b>「
+                    </b>SERVLET<b> 」</b></a>
+                
+                十二月 27, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/12/27/override-same-class/" title="Override same class" class="">Override same class</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>实际 Java Web 项目中经常会遇到这样的场景：希望对依赖的某个三方库中的行为进行覆盖式的定制（修改三方库中的某些行为），但并不希望发布定制的版本至私服。</p>
+<p>通常在使用 WAR 包发布应用时，可将定制的类编译成 class 文件，放入 <code>WEB-INF/classes</code> 路径中，即可覆盖放置在 <code>WEB-INF/lib</code> 路径下的三方库中同名类，达到定制的目的。</p>
+<p>那么为什么可以这样？</p>
+<p>在两个相同的 class 必须都存在于 JAR 包中时，又怎么实现这种需求呢？</p>
+<h2 id="为什么可以这样？"><a href="#为什么可以这样？" class="headerlink" title="为什么可以这样？"></a>为什么可以这样？</h2><h3 id="Servlet-规范"><a href="#Servlet-规范" class="headerlink" title="Servlet 规范"></a>Servlet 规范</h3><p>在 <a href="https://download.oracle.com/otndocs/jcp/servlet-2.4-fr-spec-oth-JSpec/" target="_blank" rel="noopener">Java(TM) Servlet Specification 2.4 Final Release</a> 中 SRV.9.5 Directory Structure 有如下要求：</p>
+<blockquote>
+<p>The Web application class loader must load classes from the WEB-INF/ classes<br>directory first, and then from library JARs in the WEB-INF/lib directory. Also, any<br>requests from the client to access the resources in WEB-INF/ directory must be<br>returned with a SC_NOT_FOUND(404) response.</p>
+</blockquote>
+<p>规定了 Web 应用的 Class Loader 必须先从 <code>WEB-INF/classes</code> 目录加载类文件，之后才能从 <code>WEB-INF/lib</code> 路径加载 JAR 文件。</p>
+<h3 id="Web-Application-Class-Loader"><a href="#Web-Application-Class-Loader" class="headerlink" title="Web Application Class Loader"></a>Web Application Class Loader</h3><p>在 SRV.9.7.2 Web Application Class Loader 中有如下建议：</p>
+<blockquote>
+<p>It is recommended also that the application class loader be implemented so<br>that classes and resources packaged within the WAR are loaded in preference to<br>classes and resources residing in container-wide library JARs.</p>
+</blockquote>
+<p>建议 WAR 包中的 class 优先于 JAR 包中的 class 进行加载。</p>
+<h3 id="Tomcat-Class-Loader"><a href="#Tomcat-Class-Loader" class="headerlink" title="Tomcat Class Loader"></a>Tomcat Class Loader</h3><p><a href="http://tomcat.apache.org/tomcat-8.0-doc/class-loader-howto.html" target="_blank" rel="noopener">Apache Tomcat 8 Class Loader HOW-TO</a> 中，描述了 Tomcat 初始化时创建的 Class Loader：</p>
+<pre><code class="text">    Bootstrap
+        |
+     System
+        |
+     Common
+     /     \
+Webapp1   Webapp2 ...</code></pre>
+<blockquote>
+<p>Therefore, from the perspective of a web application, class or resource loading looks in the following repositories, in this order:</p>
+<ul>
+<li>Bootstrap classes of your JVM</li>
+<li>/WEB-INF/classes of your web application</li>
+<li>/WEB-INF/lib/*.jar of your web application</li>
+<li>System class loader classes (described above)</li>
+<li>Common class loader classes (described above)</li>
+</ul>
+<p>If the web application class loader is configured with <code>&lt;Loader delegate=&quot;true&quot;/&gt;</code> then the order becomes:</p>
+<ul>
+<li>Bootstrap classes of your JVM</li>
+<li>System class loader classes (described above)</li>
+<li>Common class loader classes (described above)</li>
+<li>/WEB-INF/classes of your web application</li>
+<li>/WEB-INF/lib/*.jar of your web application</li>
+</ul>
+</blockquote>
+<p>Servlet 规范中的要求及推荐，以及 Tomcat 的具体实现，保证了 <code>/WEB-INF/classes</code> 优先于 <code>WEB-INF/lib</code> 进行加载，那么为什么优先加载就能实现覆盖呢？</p>
+<h3 id="Class-Loader"><a href="#Class-Loader" class="headerlink" title="Class Loader"></a>Class Loader</h3><p>这就要提到 JVM 的类加载机制了。详细内容可查阅 <a href="class-loader">The Class Loader and Class File Verifier</a> 等资料，简单概括如下。</p>
+<p>JVM 中的 Class Loader 可以分为两类：</p>
+<ol>
+<li>根 Class Loader，使用 C 或者其他编写 JVM 的语言编写，内置在 JVM 中，作为 JVM 的一部分，负责加载受信的类。这类 Class Loader 有且只有一个。</li>
+<li>JVM 上的应用可以自由的继承 <code>java.lang.ClassLoader</code> 抽象类，构造定制的 Class Loader，负责从各种不同的源加载类。这类 Class Loader 不是 JVM 的一部分，使用 JAVA 编写。这类 Class Loader 可以没有或者有很多。</li>
+</ol>
+<p>类不是在初始化阶段全部加载好的，而是在需要使用的时候才去加载的。</p>
+<p>一个 Class Loader 在加载一个类的时候，同时负责加载这个类所依赖的其他类。每个 Class Loader 负责从指定的来源加载类，但并不能限定每个类只引用同一来源的类。</p>
+<p>比如自定义的类 A 需要使用 <code>java.lang.String</code> 类。类 A 由自定义的 AClassLoader 负责加载，则 AClassLoader 也负责加载 String 类。在加载 String 类时，AClassLoader 可以自行进行加载，但这是没有必要的，因为根 Class Loader 知道如何加载受信包下的类。</p>
+<p>在 java.lang.ClassLoader 抽象类中，默认的加载类（loadClass）的方式为：如果已加载的类中没有这个类，则递归调用 parent Class Loader 的 loadClass 方法进行加载，只有当所有的父加载器都无法完成此类的加载时，才在当前 Class Loader 中尝试加载。</p>
+<p>以上即为所谓的类加载器委派模型（Class Loader Delegation Model），即每个（第二类 Class Loader）类加载器接到加载类的任务时，都先将加载任务委派给父加载器。</p>
+<p><a href="https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/ClassLoader.java#L563" target="_blank" rel="noopener">ClassLoader.loadClass</a> openjdk 中的代码实现如下：</p>
+<pre><code class="JAVA">protected Class&lt;?&gt; loadClass(String name, boolean resolve)
+    throws ClassNotFoundException
+{
+    synchronized (getClassLoadingLock(name)) {
+        // First, check if the class has already been loaded
+        Class&lt;?&gt; c = findLoadedClass(name);
+        if (c == null) {
+            long t0 = System.nanoTime();
+            try {
+                if (parent != null) {
+                    c = parent.loadClass(name, false);
+                } else {
+                    c = findBootstrapClassOrNull(name);
+                }
+            } catch (ClassNotFoundException e) {
+                // ClassNotFoundException thrown if class not found
+                // from the non-null parent class loader
+            }
+
+            if (c == null) {
+                // If still not found, then invoke findClass in order
+                // to find the class.
+                long t1 = System.nanoTime();
+                c = findClass(name);
+
+                // this is the defining class loader; record the stats
+                PerfCounter.getParentDelegationTime().addTime(t1 - t0);
+                PerfCounter.getFindClassTime().addElapsedTimeFrom(t1);
+                PerfCounter.getFindClasses().increment();
+            }
+        }
+        if (resolve) {
+            resolveClass(c);
+        }
+        return c;
+    }
+}</code></pre>
+<p>规范要求类加载器先从 <code>WEB-INF/classes</code> 中加载 class，所以当一个在 <code>WEB-INF/classes</code> 路径下的类被加载了之后，就不会再从 <code>WEB-INF/lib</code> 的 JAR 包中加载相同的类了。</p>
+<h2 id="两个相同的-class-都存在于-JAR-包中时怎么办？"><a href="#两个相同的-class-都存在于-JAR-包中时怎么办？" class="headerlink" title="两个相同的 class 都存在于 JAR 包中时怎么办？"></a>两个相同的 class 都存在于 JAR 包中时怎么办？</h2><p>那么假如 <code>WEB-INF/lib</code> 路径下不同的两个 JAR 包中包含两个相同的类（包名、类名完全相同）时，类加载器会选择加载哪个呢？</p>
+<p>Servlet 规范中，对此并没有明确的要求，所以这种情况下的类加载顺序，可能会在不同的场景（比如操作系统）下有不同的行为。</p>
+<h3 id="How-Tomcat-load-jarfiles-in-WEB-INF-lib？"><a href="#How-Tomcat-load-jarfiles-in-WEB-INF-lib？" class="headerlink" title="How Tomcat load jarfiles in WEB-INF/lib？"></a>How Tomcat load jarfiles in WEB-INF/lib？</h3><p>Tomcat 中是按什么顺序加载 <code>WEB-INF/lib</code> 路径下的 JAR 包的呢？</p>
+<p>从 <a href="https://stackoverflow.com/questions/5474765/order-of-loading-jar-files-from-lib-directory" target="_blank" rel="noopener">Order of loading jar files from lib directory</a> 的问答中可以看到，在 Tomcat 8.x 之前，是按照字母序顺序进行加载的。但从 8.x 开始，Tomcat 不再人为的增加这种排序，而是把这个顺序交给了具体的操作系统的实现。</p>
+<p>从 <a href="https://bz.apache.org/bugzilla/show_bug.cgi?id=57129" target="_blank" rel="noopener">Regression. Load WEB-INF/lib jarfiles in alphabetical order</a> 邮件列表的讨论中，可以看到，关于这个问题的争论，从 2014 年开始，一直持续到了 2020 年 9 月份，并且仍然没有一个结论，所以 Tomcat 8.x 之后的版本，依然不能认为 JAR 包名字字母序排序在前的 JAR 一定会被优先加载。</p>
+<p>PS. 感兴趣的童鞋可以围观一下上面的邮件列表，里面的讨论不乏言辞激烈的针锋相对，但依旧没有使决策者因为妥协而改变，而是必须要有充足的理由才能做出决定。虽然按序加载 JAR 包会带来一定的好处，但个人也是倾向于不要依赖这种顺序。</p>
+<h3 id="Work-around"><a href="#Work-around" class="headerlink" title="Work around"></a>Work around</h3><p>那么有没有其他的变通方法来解决这种情况下的这个特定的问题呢？有，从 JAR 包里去掉一个重复的类，保证只有想要加载的类存在于所有 JAR 包中。</p>
+<p>如果这两个有相同类的 JAR 包都没有源码，只能通过 Maven 依赖到项目中的时候怎么办呢？</p>
+<p>可以借助持续集成工具，在构建最终的发布包时，通过脚本等方式，对 JAR 包进行拆包、去重及重新打包，以达到目标。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么可以这样？"><span class="toc-number">1.</span> <span class="toc-text">为什么可以这样？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet-规范"><span class="toc-number">1.1.</span> <span class="toc-text">Servlet 规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-Application-Class-Loader"><span class="toc-number">1.2.</span> <span class="toc-text">Web Application Class Loader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Tomcat-Class-Loader"><span class="toc-number">1.3.</span> <span class="toc-text">Tomcat Class Loader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Class-Loader"><span class="toc-number">1.4.</span> <span class="toc-text">Class Loader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#两个相同的-class-都存在于-JAR-包中时怎么办？"><span class="toc-number">2.</span> <span class="toc-text">两个相同的 class 都存在于 JAR 包中时怎么办？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#How-Tomcat-load-jarfiles-in-WEB-INF-lib？"><span class="toc-number">2.1.</span> <span class="toc-text">How Tomcat load jarfiles in WEB-INF&#x2F;lib？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Work-around"><span class="toc-number">2.2.</span> <span class="toc-text">Work around</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

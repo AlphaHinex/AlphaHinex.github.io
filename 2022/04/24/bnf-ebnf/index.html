@@ -1,0 +1,631 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>如何描述一种语言？ - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,BNF, EBNF, compiler, parser"> 
+    <meta name="description" content="如何描述一种语言当我们需要定义一种语言的规范或语法时，需要将这种语言通过一种形式描述出来，用普通的文字来描述，会非常的繁琐，那么有什么工具来帮助我们描述这种语言的规范呢？
+BNFBNF 就是一种描述,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">如何描述一种语言？</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/bnf-ebnf/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                四月 24, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/04/24/bnf-ebnf/" title="如何描述一种语言？" class="">如何描述一种语言？</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Compiler/" rel="tag">Compiler</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Parser/" rel="tag">Parser</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="如何描述一种语言"><a href="#如何描述一种语言" class="headerlink" title="如何描述一种语言"></a>如何描述一种语言</h1><p>当我们需要定义一种语言的规范或语法时，需要将这种语言通过一种形式描述出来，用普通的文字来描述，会非常的繁琐，那么有什么工具来帮助我们描述这种语言的规范呢？</p>
+<h2 id="BNF"><a href="#BNF" class="headerlink" title="BNF"></a>BNF</h2><p>BNF 就是一种描述语法的规范，是 Backus–Naur form 或 Backus normal form 的缩写，其形式非常简单：</p>
+<pre><code class="bnf"> &lt;symbol&gt; ::= __expression__</code></pre>
+<p>在这里：</p>
+<ul>
+<li><code>&lt;symbol&gt;</code> 代表一个非终止符，通过 <code>&lt;</code> 和 <code>&gt;</code> 来定义，如 <code>&lt;主语&gt;</code>、<code>&lt;rule&gt;</code>；</li>
+<li><code>__expression__</code> 由一个或多个符号组成，符号可以是一个终止符，也可以是一个非终止符；</li>
+<li><code>::=</code> 代表一个非终止符的规则，左边的符号必须通过右边的表达式来替代，如 <code>&lt;rule1&gt;::=__exp1__ &lt;rule2&gt;</code>，<code>&lt;rule2&gt;::=__exp2__</code>，则 <code>&lt;rule1&gt;</code> 可以表示为 <code>__exp1__ __exp2__</code>；</li>
+<li>多个符号可以通过 <code>|</code> 间隔，表示一个非终止符的可能值，如 <code>&lt;rule&gt;::=__exp1__ | __exp2__</code>；</li>
+<li>从未出现在左边的符号代表终止符，意为可以终止替代操作；</li>
+<li>字面量可通过 <code>&quot;</code> 或 <code>&#39;</code> 来定义。</li>
+</ul>
+<p>所以 BNF 自身语法中所使用到的符号，只有 <code>&lt;</code>、<code>&gt;</code>、<code>|</code>、<code>::=</code>、<code>&quot;</code>、<code>&#39;</code>，简单，但却可以描述复杂的语法规则。</p>
+<p>关于 BNF 更详细的描述，可以参考 <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form" target="_blank" rel="noopener">wikipedia</a>，或其他相关资料。</p>
+<h2 id="EBNF"><a href="#EBNF" class="headerlink" title="EBNF"></a>EBNF</h2><p>BNF 还有很多变种形式，EBNF 就是其中之一。</p>
+<p>EBNF 是 Extended Backus–Naur form 的缩写，对 BNF 的符号和语法进行了简化和扩充。</p>
+<p>较为混乱的是，EBNF 也有很多变种形式，国际标准化组织（International Organization for Standardization，简称 ISO）于 1996 年通过了一个 EBNF 的标准 <a href="http://standards.iso.org/ittf/PubliclyAvailableStandards/s026153_ISO_IEC_14977_1996(E).zip" target="_blank" rel="noopener">ISO/IEC 14977</a>，该标准中定义的 EBNF（下称 ISO EBNF）中可使用的符号如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Usage</th>
+<th align="left">Notation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">definition</td>
+<td align="left">=</td>
+</tr>
+<tr>
+<td align="left">concatenation</td>
+<td align="left">,</td>
+</tr>
+<tr>
+<td align="left">termination</td>
+<td align="left">;</td>
+</tr>
+<tr>
+<td align="left">alternation</td>
+<td align="left">|</td>
+</tr>
+<tr>
+<td align="left">optional</td>
+<td align="left">[ … ]</td>
+</tr>
+<tr>
+<td align="left">repetition</td>
+<td align="left">{ … }</td>
+</tr>
+<tr>
+<td align="left">grouping</td>
+<td align="left">( … )</td>
+</tr>
+<tr>
+<td align="left">terminal string</td>
+<td align="left">“ … “</td>
+</tr>
+<tr>
+<td align="left">terminal string</td>
+<td align="left">‘ … ‘</td>
+</tr>
+<tr>
+<td align="left">comment</td>
+<td align="left">(* … *)</td>
+</tr>
+<tr>
+<td align="left">special sequence</td>
+<td align="left">? … ?</td>
+</tr>
+<tr>
+<td align="left">exception</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<p>使用 ISO EBNF 描述整数的规则如下：</p>
+<pre><code class="ebnf">digit excluding zero = &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot; ;
+digit                = &quot;0&quot; | digit excluding zero ;
+natural number = digit excluding zero, { digit } ;
+integer = &quot;0&quot; | [ &quot;-&quot; ], natural number ;</code></pre>
+<p>遗憾的是，ISO EBNF 的出现，并没有统一 ENBF 的使用，即便在 ISO 自己的其他标准中，也并没有全部使用 ISO EBNF。</p>
+<p>用 EBNF 定义的语法，同样也可以通过 BNF 来描述，只不过使用 BNF 描述时会繁琐一些，例如重复就不太容易通过 BNF 来描述，需要借助中间规则来实现。</p>
+<p>关于 EBNF 更详细的描述，可以参考 <a href="https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form" target="_blank" rel="noopener">wikipedia</a>，或其他相关资料。</p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>让我们来看一些使用 BNF 或 EBNF 定义的语言实例。</p>
+<h2 id="BNF-1"><a href="#BNF-1" class="headerlink" title="BNF"></a>BNF</h2><p>BNF 自己的语法，可以使用 BNF 来描述：</p>
+<pre><code class="bnf"> &lt;syntax&gt;         ::= &lt;rule&gt; | &lt;rule&gt; &lt;syntax&gt;
+ &lt;rule&gt;           ::= &lt;opt-whitespace&gt; &quot;&lt;&quot; &lt;rule-name&gt; &quot;&gt;&quot; &lt;opt-whitespace&gt; &quot;::=&quot; &lt;opt-whitespace&gt; &lt;expression&gt; &lt;line-end&gt;
+ &lt;opt-whitespace&gt; ::= &quot; &quot; &lt;opt-whitespace&gt; | &quot;&quot;
+ &lt;expression&gt;     ::= &lt;list&gt; | &lt;list&gt; &lt;opt-whitespace&gt; &quot;|&quot; &lt;opt-whitespace&gt; &lt;expression&gt;
+ &lt;line-end&gt;       ::= &lt;opt-whitespace&gt; &lt;EOL&gt; | &lt;line-end&gt; &lt;line-end&gt;
+ &lt;list&gt;           ::= &lt;term&gt; | &lt;term&gt; &lt;opt-whitespace&gt; &lt;list&gt;
+ &lt;term&gt;           ::= &lt;literal&gt; | &quot;&lt;&quot; &lt;rule-name&gt; &quot;&gt;&quot;
+ &lt;literal&gt;        ::= &#39;&quot;&#39; &lt;text1&gt; &#39;&quot;&#39; | &quot;&#39;&quot; &lt;text2&gt; &quot;&#39;&quot;
+ &lt;text1&gt;          ::= &quot;&quot; | &lt;character1&gt; &lt;text1&gt;
+ &lt;text2&gt;          ::= &#39;&#39; | &lt;character2&gt; &lt;text2&gt;
+ &lt;character&gt;      ::= &lt;letter&gt; | &lt;digit&gt; | &lt;symbol&gt;
+ &lt;letter&gt;         ::= &quot;A&quot; | &quot;B&quot; | &quot;C&quot; | &quot;D&quot; | &quot;E&quot; | &quot;F&quot; | &quot;G&quot; | &quot;H&quot; | &quot;I&quot; | &quot;J&quot; | &quot;K&quot; | &quot;L&quot; | &quot;M&quot; | &quot;N&quot; | &quot;O&quot; | &quot;P&quot; | &quot;Q&quot; | &quot;R&quot; | &quot;S&quot; | &quot;T&quot; | &quot;U&quot; | &quot;V&quot; | &quot;W&quot; | &quot;X&quot; | &quot;Y&quot; | &quot;Z&quot; | &quot;a&quot; | &quot;b&quot; | &quot;c&quot; | &quot;d&quot; | &quot;e&quot; | &quot;f&quot; | &quot;g&quot; | &quot;h&quot; | &quot;i&quot; | &quot;j&quot; | &quot;k&quot; | &quot;l&quot; | &quot;m&quot; | &quot;n&quot; | &quot;o&quot; | &quot;p&quot; | &quot;q&quot; | &quot;r&quot; | &quot;s&quot; | &quot;t&quot; | &quot;u&quot; | &quot;v&quot; | &quot;w&quot; | &quot;x&quot; | &quot;y&quot; | &quot;z&quot;
+ &lt;digit&gt;          ::= &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot;
+ &lt;symbol&gt;         ::=  &quot;|&quot; | &quot; &quot; | &quot;!&quot; | &quot;#&quot; | &quot;$&quot; | &quot;%&quot; | &quot;&amp;&quot; | &quot;(&quot; | &quot;)&quot; | &quot;*&quot; | &quot;+&quot; | &quot;,&quot; | &quot;-&quot; | &quot;.&quot; | &quot;/&quot; | &quot;:&quot; | &quot;;&quot; | &quot;&gt;&quot; | &quot;=&quot; | &quot;&lt;&quot; | &quot;?&quot; | &quot;@&quot; | &quot;[&quot; | &quot;\&quot; | &quot;]&quot; | &quot;^&quot; | &quot;_&quot; | &quot;`&quot; | &quot;{&quot; | &quot;}&quot; | &quot;~&quot;
+ &lt;character1&gt;     ::= &lt;character&gt; | &quot;&#39;&quot;
+ &lt;character2&gt;     ::= &lt;character&gt; | &#39;&quot;&#39;
+ &lt;rule-name&gt;      ::= &lt;letter&gt; | &lt;rule-name&gt; &lt;rule-char&gt;
+ &lt;rule-char&gt;      ::= &lt;letter&gt; | &lt;digit&gt; | &quot;-&quot;</code></pre>
+<p>BNF 的语法也可以用图来表示：</p>
+<p><img src="/contents/bnf-ebnf/Bnf-syntax-diagram.png" alt="BNF syntax diagram"></p>
+<h2 id="ISO-EBNF"><a href="#ISO-EBNF" class="headerlink" title="ISO EBNF"></a>ISO EBNF</h2><p>使用 ISO EBNF 来描述自己：</p>
+<pre><code class="ebnf">letter = &quot;A&quot; | &quot;B&quot; | &quot;C&quot; | &quot;D&quot; | &quot;E&quot; | &quot;F&quot; | &quot;G&quot;
+       | &quot;H&quot; | &quot;I&quot; | &quot;J&quot; | &quot;K&quot; | &quot;L&quot; | &quot;M&quot; | &quot;N&quot;
+       | &quot;O&quot; | &quot;P&quot; | &quot;Q&quot; | &quot;R&quot; | &quot;S&quot; | &quot;T&quot; | &quot;U&quot;
+       | &quot;V&quot; | &quot;W&quot; | &quot;X&quot; | &quot;Y&quot; | &quot;Z&quot; | &quot;a&quot; | &quot;b&quot;
+       | &quot;c&quot; | &quot;d&quot; | &quot;e&quot; | &quot;f&quot; | &quot;g&quot; | &quot;h&quot; | &quot;i&quot;
+       | &quot;j&quot; | &quot;k&quot; | &quot;l&quot; | &quot;m&quot; | &quot;n&quot; | &quot;o&quot; | &quot;p&quot;
+       | &quot;q&quot; | &quot;r&quot; | &quot;s&quot; | &quot;t&quot; | &quot;u&quot; | &quot;v&quot; | &quot;w&quot;
+       | &quot;x&quot; | &quot;y&quot; | &quot;z&quot; ;
+digit = &quot;0&quot; | &quot;1&quot; | &quot;2&quot; | &quot;3&quot; | &quot;4&quot; | &quot;5&quot; | &quot;6&quot; | &quot;7&quot; | &quot;8&quot; | &quot;9&quot; ;
+symbol = &quot;[&quot; | &quot;]&quot; | &quot;{&quot; | &quot;}&quot; | &quot;(&quot; | &quot;)&quot; | &quot;&lt;&quot; | &quot;&gt;&quot;
+       | &quot;&#39;&quot; | &#39;&quot;&#39; | &quot;=&quot; | &quot;|&quot; | &quot;.&quot; | &quot;,&quot; | &quot;;&quot; ;
+character = letter | digit | symbol | &quot;_&quot; ;
+
+identifier = letter , { letter | digit | &quot;_&quot; } ;
+terminal = &quot;&#39;&quot; , character , { character } , &quot;&#39;&quot; 
+         | &#39;&quot;&#39; , character , { character } , &#39;&quot;&#39; ;
+
+lhs = identifier ;
+rhs = identifier
+     | terminal
+     | &quot;[&quot; , rhs , &quot;]&quot;
+     | &quot;{&quot; , rhs , &quot;}&quot;
+     | &quot;(&quot; , rhs , &quot;)&quot;
+     | rhs , &quot;|&quot; , rhs
+     | rhs , &quot;,&quot; , rhs ;
+
+rule = lhs , &quot;=&quot; , rhs , &quot;;&quot; ;
+grammar = { rule } ;</code></pre>
+<p>ISO EBNF 语法图：</p>
+<p><img src="/contents/bnf-ebnf/Ebnf-syntax-diagram.png" alt="ISO EBNF syntax diagram"></p>
+<h2 id="MySQL-SQL-Statement"><a href="#MySQL-SQL-Statement" class="headerlink" title="MySQL SQL Statement"></a>MySQL SQL Statement</h2><p>在 MySQL 的官方文档中，是通过 EBNF 来对 <a href="https://dev.mysql.com/doc/refman/8.0/en/sql-statements.html" target="_blank" rel="noopener">SQL 语句</a> 进行描述的，比如 <a href="https://dev.mysql.com/doc/refman/8.0/en/create-database.html" target="_blank" rel="noopener">创建数据库</a> 语句的语法：</p>
+<pre><code class="ebnf">CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name
+    [create_option] ...
+
+create_option: [DEFAULT] {
+    CHARACTER SET [=] charset_name
+  | COLLATE [=] collation_name
+  | ENCRYPTION [=] {&#39;Y&#39; | &#39;N&#39;}
+}</code></pre>
+<p>更多语法实例可以查阅 <a href="https://dev.mysql.com/doc/refman/8.0/en/sql-statements.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h2 id="H2-Grammar"><a href="#H2-Grammar" class="headerlink" title="H2 Grammar"></a>H2 Grammar</h2><p>H2 Database 的 <a href="https://h2database.com/html/main.html" target="_blank" rel="noopener">文档</a> 中，包括 SQL 语句的 BNF 和铁轨图（railroad diagram）两个版本，比如 <a href="https://h2database.com/html/commands.html#create_schema" target="_blank" rel="noopener">创建 SCHEMA</a>：</p>
+<pre><code class="ebnf">CREATE SCHEMA [ IF NOT EXISTS ]
+{ name [ AUTHORIZATION ownerName ] | [ AUTHORIZATION ownerName ] }
+[ WITH tableEngineParamName [,...] ]</code></pre>
+<p><img src="/contents/bnf-ebnf/h2-railroad.png" alt="railroad diagram"></p>
+<p>更多语法实例可以查阅 <a href="https://h2database.com/html/commands.html" target="_blank" rel="noopener">官方文档</a>。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何描述一种语言"><span class="toc-number">1.</span> <span class="toc-text">如何描述一种语言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BNF"><span class="toc-number">1.1.</span> <span class="toc-text">BNF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EBNF"><span class="toc-number">1.2.</span> <span class="toc-text">EBNF</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">2.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BNF-1"><span class="toc-number">2.1.</span> <span class="toc-text">BNF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ISO-EBNF"><span class="toc-number">2.2.</span> <span class="toc-text">ISO EBNF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-SQL-Statement"><span class="toc-number">2.3.</span> <span class="toc-text">MySQL SQL Statement</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#H2-Grammar"><span class="toc-number">2.4.</span> <span class="toc-text">H2 Grammar</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

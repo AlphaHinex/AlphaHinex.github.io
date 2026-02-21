@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>黑客松云原生赛道初赛程序设计分享 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Java, Go, Golang, hackathon, 黑客松, JNA, GOMAXPROCS"> 
+    <meta name="description" content="题目2Core / 4GB 的总资源限制内，在容器中运行一个基于文本日志文件的统计分析程序，统计发表评论最多的前10位用户，并按顺序返回用户名、该用户的评论次数、该用户不重复的评论数量以及最近发表评,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">黑客松云原生赛道初赛程序设计分享</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/hackathon/arch.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                十月 15, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/10/15/hackathon/" title="黑客松云原生赛道初赛程序设计分享" class="">黑客松云原生赛道初赛程序设计分享</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>2Core / 4GB 的总资源限制内，在容器中运行一个基于文本日志文件的统计分析程序，统计<strong>发表评论最多的前10位用户</strong>，并按顺序返回<strong>用户名</strong>、该用户的<strong>评论次数</strong>、该用户<strong>不重复的评论数量</strong>以及<strong>最近发表评论的时间</strong>。</p>
+<ol>
+<li>按照<strong>评论次数由多到少</strong>进行排序</li>
+<li>当用户评论次数相同时，将<strong>内容不重复的评论数量较多</strong>的用户排在前面</li>
+<li>当“用户评论次数”与“不重复的评论次数”均相同时，以“最近发表评论的时间”排序，内容较新的用户排在前面</li>
+</ol>
+<p>正式比赛的数据量级为1000万（可能会有零头，但不低于1000万，不超过1001万），数据文件体积（总和）大约在5GB左右（不低于4.5GB，不超过5.5G），切割为2~3个，最多不超过3个。</p>
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><h2 id="1-用什么语言实现"><a href="#1-用什么语言实现" class="headerlink" title="1. 用什么语言实现"></a>1. 用什么语言实现</h2><p>通常情况下，我们认为 I/O 操作是最昂贵的操作，所以我们先选择了几种语言，实现了一个简单的读取 2.5G 文件（4999500 条评论日志）到内存的功能，对比了一下读文件的时间。</p>
+<p><img src="/contents/hackathon/langs.png" alt=""></p>
+<blockquote>
+<p>没找到 Golang 一次性读取所有行到内存的方法，测试可能不完全公平，但也能说明一定的问题。</p>
+</blockquote>
+<p>选择 Go 作为处理逻辑程序的其他理由：</p>
+<ul>
+<li>语法简单、并发模型、运行时优化、低内存占用，<a href="https://github.com/java-native-access/jna" target="_blank" rel="noopener">JNA</a> 调用动态链接库，充分发挥 Go 的处理性能。</li>
+<li>搭配 channel，实现 <a href="https://www.cnblogs.com/lz0925/p/16455531.html" target="_blank" rel="noopener">CSP 模型</a>。将并发单元间的数据耦合拆解开来，各司其职，这对所有纠结于内存共享、锁粒度的开发人员都是一个可期盼的解脱。</li>
+</ul>
+<p><strong>另外为了获得使用 CNAP BP 的额外加分，我们选择 <a href="https://www.zhihu.com/question/460490887" target="_blank" rel="noopener">通过 Java 调用 GO</a> 的方式双管齐下。</strong></p>
+<h3 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h3><p>测试环境：Macbook Pro 2019 16寸 Intel Core i9-9880H @ 2.3 GHz 、32G内存、1T固态硬盘</p>
+<p>测试代码：</p>
+<p>Java: <strong>14.7s</strong></p>
+<pre><code class="java">import com.google.common.io.Files;
+Files.readLines(new File(&quot;hackathon_demo4.log&quot;), Charsets.UTF_8);</code></pre>
+<p>Python: <strong>3.83s</strong></p>
+<pre><code class="python"># !/usr/bin/python
+# coding=utf-8
+import datetime
+import time
+
+def readFiles(fileName):
+    count = 0
+    with open(fileName, &#39;r&#39;) as f:
+        for line in f.readlines():
+            count +=1
+    print count
+    endtime  = time.time()
+    print endtime-starttime
+    return
+
+readFiles(&quot;hackathon_demo4.log&quot;)</code></pre>
+<p>Go: <strong>1.79s</strong></p>
+<pre><code class="go">package main
+
+import (
+   &quot;bufio&quot;
+   &quot;fmt&quot;
+   &quot;io&quot;
+   &quot;time&quot;
+   &quot;os&quot;
+)
+
+func main() {
+   now := time.Now()
+   file, _ := os.Open(&quot;hackathon_demo4.log&quot;)
+   buf := bufio.NewReader(file)
+   count:=0
+   for {
+      //遇到\n结束读取
+      _, errR := buf.ReadString(&#39;\n&#39;)
+      if errR == io.EOF {
+         _ = file.Close()
+         break
+      }
+      count++
+   }
+   fmt.Println(count)
+   fmt.Println(time.Since(now))
+}</code></pre>
+<h2 id="2-在限定的资源内，如何高效读取文件"><a href="#2-在限定的资源内，如何高效读取文件" class="headerlink" title="2. 在限定的资源内，如何高效读取文件"></a>2. 在限定的资源内，如何高效读取文件</h2><ul>
+<li><strong>单个节点读文件</strong> vs <del>多个节点读文件</del></li>
+<li><del>顺序读取多个文件</del> vs <strong>并行读取多个文件</strong></li>
+<li><strong>一个协程读一个文件</strong> vs <del>多个协程分块读取一个文件</del></li>
+<li><strong>缓冲读文件</strong> vs <del><a href="https://zhuanlan.zhihu.com/p/434494718" target="_blank" rel="noopener">内存映射文件</a></del></li>
+<li>在比赛环境实测最优缓冲区大小（<strong>16mb</strong>）</li>
+</ul>
+<h2 id="3-如何去重"><a href="#3-如何去重" class="headerlink" title="3. 如何去重"></a>3. 如何去重</h2><p><img src="/contents/hackathon/reduce.png" alt=""></p>
+<h3 id="串行-vs-并行"><a href="#串行-vs-并行" class="headerlink" title="串行 vs 并行"></a>串行 vs 并行</h3><p>我们希望用户评论数据能够每个文件单独计算，再将多个文件的计算结果合并，得到最终结果。</p>
+<ul>
+<li><a href="https://baike.baidu.com/item/bloom%20filter/6630926" target="_blank" rel="noopener">布隆过滤器</a></li>
+<li><a href="https://baike.baidu.com/item/Hash/390310" target="_blank" rel="noopener">Hash</a></li>
+</ul>
+<h3 id="Hash-算法选择：碰撞率-计算速度"><a href="#Hash-算法选择：碰撞率-计算速度" class="headerlink" title="Hash 算法选择：碰撞率 + 计算速度"></a>Hash 算法选择：碰撞率 + 计算速度</h3><p><img src="/contents/hackathon/hash.png" alt=""></p>
+<p>xxHash是一种极快的Hash算法，以RAM速度限制进行处理。代码具有高度的可移植性，并在所有平台上生成相同的哈希（小端/大端）。</p>
+<p>选择64位xxHash算法的Go实现（XXH64）</p>
+<p><a href="https://github.com/cespare/xxhash" target="_blank" rel="noopener">https://github.com/cespare/xxhash</a></p>
+<h4 id="更多信息"><a href="#更多信息" class="headerlink" title="更多信息"></a>更多信息</h4><p>SMHasher测试套件评估了哈希函数的质量（冲突、分散和随机性）。还提供了其他测试，可以更全面地评估64位哈希的速度和碰撞特性。</p>
+<p><a href="https://github.com/Cyan4973/xxHash/blob/dev/README.md" target="_blank" rel="noopener">https://github.com/Cyan4973/xxHash/blob/dev/README.md</a></p>
+<p>下面是一些比较Sum64的纯Go和汇编实现的快速基准测试，这些数字是在使用Intel i7-8700K CPU的Ubuntu 18.04上使用Go 1.17下的以下命令生成的：</p>
+<pre><code class="bash">$ go test -tags purego -benchtime 10s -bench &#39;Sum64$&#39;
+$ go test -benchtime 10s -bench &#39;Sum64$&#39;</code></pre>
+<table>
+<thead>
+<tr>
+<th align="right">input size</th>
+<th align="right">purego</th>
+<th align="right">asm</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">4 B</td>
+<td align="right">1052.65 MB/s</td>
+<td align="right">1278.48 MB/s</td>
+</tr>
+<tr>
+<td align="right">100 B</td>
+<td align="right">6816.82 MB/s</td>
+<td align="right">7881.09 MB/s</td>
+</tr>
+<tr>
+<td align="right">4 KB</td>
+<td align="right">11924.07 MB/s</td>
+<td align="right">17323.63 MB/s</td>
+</tr>
+<tr>
+<td align="right">10 MB</td>
+<td align="right">11205.21 MB/s</td>
+<td align="right">15484.85 MB/s</td>
+</tr>
+</tbody></table>
+<p><img src="/contents/hackathon/xxhash.png" alt=""></p>
+<h3 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h3><ul>
+<li><a href="https://baike.baidu.com/item/HashMap/1167707" target="_blank" rel="noopener">HashMap</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1006113" target="_blank" rel="noopener">BitMap</a></li>
+<li><a href="http://www.roaringbitmap.org/" target="_blank" rel="noopener">RoaringBitMap</a></li>
+</ul>
+<h3 id="最终选择"><a href="#最终选择" class="headerlink" title="最终选择"></a>最终选择</h3><p>结合实际的测试效果，最终选择的方案是：</p>
+<p><strong>通过 xxHash 计算评论特征值，并将结果存储到 HashMap 里</strong></p>
+<h2 id="4-如何利用云原生特性"><a href="#4-如何利用云原生特性" class="headerlink" title="4. 如何利用云原生特性"></a>4. 如何利用云原生特性</h2><p><img src="/contents/hackathon/cn.png" alt=""></p>
+<p>但 2Core / 4GB 的总资源限制，基本打破了我们所有的幻想。。。</p>
+<h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><p><img src="/contents/hackathon/arch.png" alt=""></p>
+<h1 id="实测数据"><a href="#实测数据" class="headerlink" title="实测数据"></a>实测数据</h1><p>本地环境<strong>单</strong>消费者：  <strong>8s</strong> (8,147,371,410ns)</p>
+<p>本地环境<strong>双</strong>消费者：  <strong>7s</strong> (7,404,084,150ns)</p>
+<p>本地环境<strong>四</strong>消费者：  <strong>6s</strong> (6,538,006,176ns)</p>
+<blockquote>
+<p>2.8GHz 四核 Intel Core i7 / 16G DDR3，MacBook Pro，Mid 2015</p>
+</blockquote>
+<p>比赛环境<strong>单</strong>消费者：<strong>22s</strong> (22,061,293,165ns)</p>
+<p>比赛环境<strong>双</strong>消费者： <strong>31s</strong> (31,530,420,151ns)</p>
+<p>比赛环境<strong>四</strong>消费者：<strong>46s</strong> (46,479,297,021ns)</p>
+<blockquote>
+<p>2Core / 4GB K8s Container, NFS</p>
+</blockquote>
+<h1 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h1><pre><code class="go">func hackathon(requestId string, teamId int) string {
+    hashMap := make(map[string]Content)
+
+    ch := make(chan []string, 1000)
+
+    paths := strings.Split(filePaths, &quot;,&quot;)
+    go read(paths, ch)
+
+    for content := range ch {
+        commentHash := XXHash(content[2])
+        // 判断用户是否存在
+        if _, ok := hashMap[content[1]]; ok {
+            user := hashMap[content[1]]
+            commentMap := user.Comment
+            date := user.CommentResult.CommentDate
+            nonRepeatedCount := user.CommentResult.CommentNonRepeatedCount
+            date = dateExists(date, user.CommentResult.CommentDate, content[0])
+            // 判断评论是否存在
+            if _, exist := commentMap[commentHash]; !exist {
+                commentMap[commentHash] = struct{}{}
+                nonRepeatedCount += 1
+            }
+
+            // 存在的话，评论次数+1
+            hashMap[content[1]] = Content{
+                Comment: commentMap,
+                CommentResult: CommentResult{
+                    CommentDate:             date,
+                    CommentUser:             content[1],
+                    CommentCount:            user.CommentResult.CommentCount + 1,
+                    CommentNonRepeatedCount: nonRepeatedCount,
+                },
+            }
+        } else {
+            commentMap := make(map[uint64]struct{})
+            commentMap[commentHash] = struct{}{}
+            hashMap[content[1]] = Content{
+                Comment: commentMap,
+                CommentResult: CommentResult{
+                    CommentDate:             content[0],
+                    CommentUser:             content[1],
+                    CommentCount:            1,
+                    CommentNonRepeatedCount: 1,
+                },
+            }
+        }
+    }
+
+    results := getResults(hashMap)
+    sort.Sort(results)
+    top10 := getTop10(results)
+
+    re := Re{
+        RequestId: requestId,
+        TeamId:    teamId,
+        Answer:    top10,
+    }
+
+    b, _ := json.Marshal(re)
+    return string(b)
+}</code></pre>
+<pre><code class="go">func read(filesPath []string, ch chan []string) {
+    var wg sync.WaitGroup
+    wg.Add(len(filesPath))
+    for _, v := range filesPath {
+        go func(filePath string) {
+            f, _ := os.Open(filePath)
+
+            //建立缓冲区，把文件内容放到缓冲区中
+            buf := bufio.NewReaderSize(f, 16*1024*1024)
+
+            for {
+                //遇到\n结束读取
+                b, errR := buf.ReadString(&#39;\n&#39;)
+                if errR == io.EOF {
+                    _ = f.Close()
+                    wg.Done()
+                    break
+                }
+                if strings.Index(b, &quot;com.neusoft.oscoe.sample.data.Generator&quot;) == -1 {
+                    continue
+                }
+                slice := strings.Split(b, &quot;com.neusoft.oscoe.sample.data.Generator - &quot;)
+                ch &lt;- strings.SplitN(slice[1], &quot;,&quot;, 3)
+            }
+        }(v)
+    }
+
+    wg.Wait()
+    close(ch)
+}</code></pre>
+<h1 id="One-more-thing…"><a href="#One-more-thing…" class="headerlink" title="One more thing…"></a>One more thing…</h1><p>不修改一行代码，仅为容器添加环境变量 <code>GOMAXPROCS</code>，并将其值设置为限制的 Core 数量：</p>
+<pre><code class="yaml">  env:
+    - name: GOMAXPROCS
+      value: &#39;2&#39;</code></pre>
+<h2 id="Round-1"><a href="#Round-1" class="headerlink" title="Round 1"></a>Round 1</h2><p><strong>22.574s =&gt; 13.489s</strong></p>
+<p><img src="/contents/hackathon/13.jpeg" alt=""></p>
+<h2 id="Round-2"><a href="#Round-2" class="headerlink" title="Round 2"></a>Round 2</h2><p><strong>双</strong>消费者：<strong>12s</strong> (12,263,480,867ns)</p>
+<p><strong>四</strong>消费者：  <strong>9s</strong> (  9,679,350,378ns)</p>
+<p><img src="/contents/hackathon/9.png" alt=""></p>
+<h2 id="Round-3"><a href="#Round-3" class="headerlink" title="Round 3"></a>Round 3</h2><p>之前实测表现不佳的其他方案，都有进一步缩短耗时的可能，感兴趣可以继续进行探索。</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><a href="https://zhuanlan.zhihu.com/p/100165648" target="_blank" rel="noopener">GOMAXPROCS 在容器中引起调度性能损耗</a></p>
+<ul>
+<li>golang 初始化 processor 数量是依赖 /proc/cpuinfo 信息的，容器内的 cpuinfo 是跟宿主机一致的，这样导致容器只能用到 2 个 cpu core，但 golang 初始化了跟物理 cpu core 相同数量的 processor。</li>
+<li><strong>当 processor 数量比容器实际使用的核心数量大后，上下文切换（cs）明显多起来，另外等待调度的线程也多了，runtime find runnable 时产生的损耗和线程引起的上下文切换造成的损耗，对程序性能影响巨大。</strong></li>
+<li>官方给出的答案是，这是当前版本的 Go 编译器还不能很智能地去发现和利用容器中多核的优势。虽然我们确实创建了多个 goroutine，并且从运行状态看这些 goroutine 也都在并行运行，但实际上所有这些 goroutine 都运行在同一个 CPU 核心上，在一个 goroutine 得到时间片执行的时候，其他 goroutine 都会处于等待状态。从这一点可以看出，虽然 goroutine 简化了我们写并行代码的过程，但实际上整体运行效率并不真正高于单线程程序。</li>
+<li><strong>虽然Go语言在容器中还不能很好的自动识别容器中多核心的数量，我们可以通过设置环境变量 GOMAXPROCS 的值来控制使用多少个 CPU 核心，达到多核心的性能发挥。</strong></li>
+</ul>
+<h1 id="其他分享内容"><a href="#其他分享内容" class="headerlink" title="其他分享内容"></a>其他分享内容</h1><h2 id="Jenkins-pipeline-stash-Stash-some-files-to-be-used-later-in-the-build"><a href="#Jenkins-pipeline-stash-Stash-some-files-to-be-used-later-in-the-build" class="headerlink" title="Jenkins pipeline stash: Stash some files to be used later in the build"></a><a href="https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#stash-stash-some-files-to-be-used-later-in-the-build" target="_blank" rel="noopener">Jenkins pipeline stash: Stash some files to be used later in the build</a></h2><pre><code class="text">pipeline{
+    stages {
+
+        stage(&#39;go build&#39;) {
+            agent { label &#39;go&#39; }
+            steps {
+                ...
+                stash( name: &quot;libhandle&quot;, includes: &quot;gotarget/*.*&quot;)
+            }
+        }
+
+        stage(&#39;maven build &amp; docker build &amp; push&#39;) {
+            agent { label &#39;maven&#39; }
+            steps {
+                container (&#39;maven-jdk11&#39;) {
+                    script {
+                        unstash &quot;libhandle&quot;
+                    }
+                    ...
+                }
+            }
+        }
+    }
+}</code></pre>
+<h2 id="Go-pprof"><a href="#Go-pprof" class="headerlink" title="Go pprof"></a><a href="https://github.com/eddycjy/blog/blob/master/content/posts/go/tools/2018-09-15-go-tool-pprof.md" target="_blank" rel="noopener">Go pprof</a></h2><p>为待测代码编写 <code>Benchmark*</code>  测试方法后，即可进行性能测试。</p>
+<pre><code class="go">package main
+
+import &quot;testing&quot;
+
+func BenchmarkReceived(b *testing.B) {
+    for i := 0; i &lt; b.N; i++ {
+        Received(&quot;123&quot;,  6, &quot;/Users/alphahinex/Desktop/hackathon/test1,/Users/alphahinex/Desktop/hackathon/test2,/Users/alphahinex/Desktop/hackathon/test3&quot;)
+    }
+}
+
+func TestReceived(t *testing.T) {
+    Received(&quot;123&quot;,  6, &quot;/Users/alphahinex/Desktop/hackathon/test1,/Users/alphahinex/Desktop/hackathon/test2,/Users/alphahinex/Desktop/hackathon/test3&quot;)
+}</code></pre>
+<p>可通过 <code>go test</code> 输出执行性能测试，并输出对应类别二进制文件（如 <code>cpu.prof</code>、<code>mem.prof</code>），之后通过 <code>pprof</code> 工具可视化查看。</p>
+<pre><code class="bash">$ go test -bench=. -cpuprofile=cpu.prof \
+-memprofile=mem.prof -blockprofile block.out \
+-mutexprofile mutex.out -trace trace.out
+# http://graphviz.org/download/
+$ brew install graphviz
+$ go tool pprof -http=:8080 cpu.prof</code></pre>
+<p><img src="/contents/hackathon/cpuprof.png" alt=""></p>
+<h2 id="代码仓库"><a href="#代码仓库" class="headerlink" title="代码仓库"></a>代码仓库</h2><p><a href="http://osscoe.neusoft.com:8000/hackathon/cloudnative/team6" target="_blank" rel="noopener">http://osscoe.neusoft.com:8000/hackathon/cloudnative/team6</a></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-number">1.</span> <span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解题思路"><span class="toc-number">2.</span> <span class="toc-text">解题思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-用什么语言实现"><span class="toc-number">2.1.</span> <span class="toc-text">1. 用什么语言实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试用例"><span class="toc-number">2.1.1.</span> <span class="toc-text">测试用例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-在限定的资源内，如何高效读取文件"><span class="toc-number">2.2.</span> <span class="toc-text">2. 在限定的资源内，如何高效读取文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-如何去重"><span class="toc-number">2.3.</span> <span class="toc-text">3. 如何去重</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#串行-vs-并行"><span class="toc-number">2.3.1.</span> <span class="toc-text">串行 vs 并行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash-算法选择：碰撞率-计算速度"><span class="toc-number">2.3.2.</span> <span class="toc-text">Hash 算法选择：碰撞率 + 计算速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#存储结构"><span class="toc-number">2.3.3.</span> <span class="toc-text">存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最终选择"><span class="toc-number">2.3.4.</span> <span class="toc-text">最终选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-如何利用云原生特性"><span class="toc-number">2.4.</span> <span class="toc-text">4. 如何利用云原生特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#架构"><span class="toc-number">3.</span> <span class="toc-text">架构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实测数据"><span class="toc-number">4.</span> <span class="toc-text">实测数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#核心代码"><span class="toc-number">5.</span> <span class="toc-text">核心代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#One-more-thing…"><span class="toc-number">6.</span> <span class="toc-text">One more thing…</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-1"><span class="toc-number">6.1.</span> <span class="toc-text">Round 1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-2"><span class="toc-number">6.2.</span> <span class="toc-text">Round 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Round-3"><span class="toc-number">6.3.</span> <span class="toc-text">Round 3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原因"><span class="toc-number">6.4.</span> <span class="toc-text">原因</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#其他分享内容"><span class="toc-number">7.</span> <span class="toc-text">其他分享内容</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Jenkins-pipeline-stash-Stash-some-files-to-be-used-later-in-the-build"><span class="toc-number">7.1.</span> <span class="toc-text">Jenkins pipeline stash: Stash some files to be used later in the build</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Go-pprof"><span class="toc-number">7.2.</span> <span class="toc-text">Go pprof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码仓库"><span class="toc-number">7.3.</span> <span class="toc-text">代码仓库</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】自定义SpringBoot默认MVC配置？好几个坑，这篇文章必须珍藏 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Spring, Spring Boot, MVC, WebMvcConfigurer, WebMvcConfigurationSupport, EnableWebMvc, DelegatingWebMvcConfiguration, WebMvcAutoConfiguration"> 
+    <meta name="description" content="
+作者：程序新视界
+链接：https://juejin.cn/post/6917874946005958664
+来源：稀土掘金
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】自定义SpringBoot默认MVC配置？好几个坑，这篇文章必须珍藏</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/spring-boot-mvc-configuration.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Spring"><b>「
+                    </b>SPRING<b> 」</b></a>
+                
+                十一月 23, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/11/23/spring-boot-mvc-configuration/" title="【转】自定义SpringBoot默认MVC配置？好几个坑，这篇文章必须珍藏" class="">【转】自定义SpringBoot默认MVC配置？好几个坑，这篇文章必须珍藏</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MVC/" rel="tag">MVC</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>作者：程序新视界</li>
+<li>链接：<a href="https://juejin.cn/post/6917874946005958664" target="_blank" rel="noopener">https://juejin.cn/post/6917874946005958664</a></li>
+<li>来源：稀土掘金</li>
+<li>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</li>
+</ul>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前些天，在项目实践过程中出现了一个奇怪的状况，Spring Boot 的参数绑定失效了。而起因只是因为同事把参数上的 @RequestParam 注解去掉了。我们都知道，如果参数名称和 Controller 的方法名相同时，根本不需要 @RequestParam 注解的，Spring Boot 会自动帮我们完成参数的绑定。但为什么自动绑定机制失效了呢？本篇文章会为大家揭开谜底，在此过程中也会全面讲解如何在 Spring Boot 项目中自定义配置 WebMvc，以及这其中的很多坑。</p>
+<h1 id="SpringBoot-自定义-WebMvc"><a href="#SpringBoot-自定义-WebMvc" class="headerlink" title="SpringBoot 自定义 WebMvc"></a>SpringBoot 自定义 WebMvc</h1><p>Spring Boot 为 Spring MVC 提供了默认的配置主要包括视图解析器、静态资源处理、类型转化器与格式化器、HTTP 消息转换器、静态主页支持等，可谓简单易用。但实践中，难免需要进行个性化的配置，因此自定义 Web MVC 配置在所难免。Spring Boot 先后提供了 WebMvcConfigurerAdapter、WebMvcConfigurationSupport、WebMvcConfigurer、@EnableWebMvc 等形式来实现 Web MVC 的自定义配置。下面我们来逐一学习。</p>
+<h2 id="被废弃的-WebMvcConfigurerAdapter"><a href="#被废弃的-WebMvcConfigurerAdapter" class="headerlink" title="被废弃的 WebMvcConfigurerAdapter"></a>被废弃的 WebMvcConfigurerAdapter</h2><p>在 Spring Boot1.0 + 中，可以使用 WebMvcConfigurerAdapter 来扩展 Spring MVC 的功能。WebMvcConfigurerAdapter 是 WebMvcConfigurer 的一个抽象实现类，该抽象类中所有的方法实现都为空，子类需要哪些功能就实现哪些功能。</p>
+<p>到了 Spring 5.0 之后，也就是在 Spring Boot2.0 版本中，JDK 基于 Java8 来实现了，而在 Java8 中可以将接口的方法定义为 default。接口中被定义为 default 的方法子类可以不进行实现。而接口 WebMvcConfigurer 便运用了 Java8 的特性，因此 WebMvcConfigurerAdapter 存在的意义没有了。</p>
+<p>于是，在 Spring Boot2.0 版本中，WebMvcConfigurerAdapter 这个类被弃用了。</p>
+<pre><code class="java">@Deprecated
+public abstract class WebMvcConfigurerAdapter implements WebMvcConfigurer {</code></pre>
+<p>查看 WebMvcConfigurerAdapter 的实现，你会发现它就是把接口的所有方法实现为一个空的方法而已，Java8 的 default 特性完全覆盖掉此功能。如果你是基于 Spring Boot 2.x 进行开发，通过 extends（继承）WebMvcConfigurerAdapter 来实现功能，那么可以直接替换为 implements（实现）WebMvcConfigurer 的形式了。关于具体实现，我们后面会讲到。</p>
+<h1 id="会覆盖的-WebMvcConfigurationSupport"><a href="#会覆盖的-WebMvcConfigurationSupport" class="headerlink" title="会覆盖的 WebMvcConfigurationSupport"></a>会覆盖的 WebMvcConfigurationSupport</h1><p>WebMvcConfigurerAdapter 被废弃了，那么我们还可以通过继承 WebMvcConfigurationSupport 来实现 Spring MVC 的拓展。</p>
+<pre><code class="java">public class WebMvcConfigurationSupport implements ApplicationContextAware, ServletContextAware {...}</code></pre>
+<p>这个类很特殊，实现了 ApplicationContextAware 和 ServletContextAware 接口， 提供了一些默认实现，同时提供了很多 @Bean 方法，但是并没有提供 @Configureation 注解，因此这些 @Bean 并不会生效，所以我们需要继承这个类，并在提供的类上提供 @Configureation 注解才能生效。</p>
+<p>WebMvcConfigurationSupport 中不仅定义了 Bean，还提供了大量 add、config 开头的方法。对照 WebMvcConfigurer 的方法定义，会发现几乎 WebMvcConfigurer 有的在 WebMvcConfigurationSupport 中都有。需要注意的是，某些方法在 WebMvcConfigurationSupport 中也并未实现具体功能。</p>
+<p>比如常见的 addInterceptors 和 addViewControllers：</p>
+<pre><code class="java">/**
+* Override this method to add Spring MVC interceptors for
+* pre- and post-processing of controller invocation.
+* @see InterceptorRegistry
+ */
+protected void addInterceptors(InterceptorRegistry registry) {
+}
+
+/**
+ * Override this method to add view controllers.
+ * @see ViewControllerRegistry
+*/
+protected void addViewControllers(ViewControllerRegistry registry) {
+}</code></pre>
+<p>继承 WebMvcConfigurationSupport 之后，可以使用方法来添加自定义的拦截器、视图解析器等功能，示例如下：</p>
+<pre><code class="java">@Configuration
+public class WebMvcConfig extends WebMvcConfigurationSupport {
+    @Override
+    protected void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController(&quot;/&quot;).setViewName(&quot;login&quot;);
+        registry.addViewController(&quot;/login.html&quot;).setViewName(&quot;login&quot;);
+    }
+}</code></pre>
+<p>此时，你以为万事大吉，可以开心的写业务逻辑了？其实此时问题刚刚开始。当通过继承 WebMvcConfigurationSupport 的形式来实现 MVC 配置时，会对 Spring Boot 默认的 MVC 配置进行顶替。一旦进行顶替，Spring Boot 默认提供的那些约定优于配置的功能可能就会失效，比如静态资源访问不到、返回数据不成功，当然还有开篇提到的参数绑定失效的问题。</p>
+<p>那么，为什么继承 WebMvcConfigurationSupport 会顶替到 Spring Boot 默认的 MVC 配置呢？先来看一下 Spring Boot 中对 WEB MVC 相关组件自动装配的实现：</p>
+<pre><code class="java">@Configuration(proxyBeanMethods = false)
+@ConditionalOnWebApplication(type = Type.SERVLET)
+@ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
+@ConditionalOnMissingBean({WebMvcConfigurationSupport.class})
+@AutoConfigureOrder(-2147483638)
+@AutoConfigureAfter({DispatcherServletAutoConfiguration.class, TaskExecutionAutoConfiguration.class, ValidationAutoConfiguration.class})
+public class WebMvcAutoConfiguration {...}</code></pre>
+<p>Spring Boot 通过 WebMvcAutoConfiguration 配置类来对 MVC 的默认参数（约定）进行设置，但 WebMvcAutoConfiguration 生效是有限制条件的。@ConditionalOnMissingBean({WebMvcConfigurationSupport.class}) 指定了，当 Spring 容器中不存在类型为 WebMvcConfigurationSupport 的 bean 的时候，才会进行默认配置。一定自定义了 WebMvcConfigurationSupport，那么将导致 WebMvcAutoConfiguration 无法实例化，进而内部初始化配置将全部无法实例化。</p>
+<p>这种情况下，相关的配置都需要自己去实现了，除非对代码有极好的把控能力，或者大量特殊化定制，才会考虑此种形式。否则，一些列的约定便不复存在，可能会出现一些莫名其妙的问题。</p>
+<h1 id="终极杀手锏-WebMvcConfigurer"><a href="#终极杀手锏-WebMvcConfigurer" class="headerlink" title="终极杀手锏 WebMvcConfigurer"></a>终极杀手锏 WebMvcConfigurer</h1><p>讲了上述两种不可行或有坑的方式之后，按照剧情的发展，当然该出现最终的解决方案了，那就是实现 WebMvcConfigurer 接口。</p>
+<p>但在学习了 WebMvcConfigurationSupport 的方式之后，你是否心有余悸，会不会也出现覆盖的情况？很显然，WebMVC 自动配置类中并没有 WebMvcConfigurer 的 Bean 是否存在的限制条件。因此，并不会因为实现了该接口而导致默认配置失效。不仅如此，Spring Boot 还支持存在多个 WebMvcConfigurer 的实现类。</p>
+<p>上面已经提到，Spring Boot2.x 是基于 Java8 的，Java8 有个重大的改变就是接口中可以有 default 方法，而 default 方法是不需要强制实现的。上述的 WebMvcConfigurerAdapter 类就是实现了 WebMvcConfigurer，所以我们不需要继承 WebMvcConfigurerAdapter 类，可以直接实现 WebMvcConfigurer 接口，用法与继承适配类是一样的。如：</p>
+<pre><code class="java">@Configuration
+public class MyMVCConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController(&quot;/user&quot;).setViewName(&quot;success&quot;);
+    }
+}</code></pre>
+<p>如果还不确定，你可以实践一下，会发现实现 WebMvcConfigurer 接口的方式，Spring Boot 的自动配置并不会失效。通常，也是建议大家通过这种形式来实现 Web MVC 的自定义的。</p>
+<p>下面在深入分析一下为什么通过实现 WebMvcConfigurer 接口的方式能保持保持自定义和默认配置同时生效。回到前面的自动配置类 WebMvcAutoConfiguration，在该类内部会初始化一个内部类 EnableWebMvcConfiguration：</p>
+<pre><code class="java">@Configuration
+public static class EnableWebMvcConfiguration extends DelegatingWebMvcConfiguration {...}</code></pre>
+<p>该内部类继承了 DelegatingWebMvcConfiguration 类，DelegatingWebMvcConfiguration 是对 Spring MVC 进行配置的一个代理类，它结合缺省配置和用户配置来定义 Spring MVC 运行时最终使用的配置。DelegatingWebMvcConfiguration 继承自 WebMvcConfigurationSupport，而 WebMvcConfigurationSupport 为 Spring MVC 提供缺省配置。</p>
+<pre><code class="java">@Configuration
+public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
+   @Autowired(required = false)
+   public void setConfigurers(List&lt;WebMvcConfigurer&gt; configurers) {
+      if (!CollectionUtils.isEmpty(configurers)) {
+         this.configurers.addWebMvcConfigurers(configurers);
+      }
+   }
+   //...
+}</code></pre>
+<p>DelegatingWebMvcConfiguration 本身使用了注解 @Configuration，所以它是一个配置类，会被作为一个单例 bean 注册到容器和被容器注入相应的依赖。WebMvcConfigurer 注入到 DelegatingWebMvcConfiguration 是通过 setConfigurers(List configurers) 方法来实现的。该方法使用了注解 @Autowired(required = false)，会收集所有的 WebMvcConfigurer 实现类中的配置组合起来，组成一个超级配置。因此，只要我们实现了 WebMvcConfigurer 接口的类都会通过 setConfigurers 方法被注入，多个 WebMvcConfigurer 实例会以 List 形式存储。</p>
+<p>所以，直接实现 WebMvcConfigurer 接口的形式不会覆盖掉原有的默认配置，还可以新增客户自定义的配置。那么，使用实现 WebMvcConfigurer 接口的形式就 OK 了吗？如果你在网上找一些示例代码，还会有一些坑等着你，请继续往下看。</p>
+<h1 id="EnableWebMvc-使用场景"><a href="#EnableWebMvc-使用场景" class="headerlink" title="@EnableWebMvc 使用场景"></a>@EnableWebMvc 使用场景</h1><p>在很多代码示例中，你还会看到它不仅实现了 WebMvcConfigurer 接口，还在实现类上使用了 @EnableWebMvc 注解，此时你需要注意了。@EnableWebMvc 注解会引起新一轮的默认 WebMVC 配置失效。</p>
+<p>早期官方版本中有类似如下说明：如果想保持 Spring Boot 默认提供的 WebMVC 特性，然后新增额外的功能，只需要继承 WebMvcConfigurerAdapter 或实现 WebMvcConfigurer 接口，然后在实现类上通过 @Configuration 注解进行实例化即可，不需要使用 @EnableWebMvc。如果你想完全控制 Spring MVC，你可以在实现类上再添加上 @EnableWebMvc 注解。</p>
+<p>也就是说 @EnableWebMvc 注解并不是必须配置，只有在要完全覆盖默认配置的情况下才会使用。而且该注解的源码注释中也明确指明，整个项目中只能有一个类使用 @EnableWebMvc 注解，而不像 WebMvcConfigurer 接口的实现类可以有多个。</p>
+<p>所以，一旦代码中使用了 @EnableWebMvc 注解，就意味着 Spring MVC 的自动配置会失效，所有的东西都需要我们自动配置。使用示例如下：</p>
+<pre><code class="java">@Configuration
+@EnableWebMvc
+public class WebDispatcherServletConfigure implements WebMvcConfigurer {
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver resourceViewResolver = new InternalResourceViewResolver();
+        resourceViewResolver.setViewClass(JstlView.class);
+        resourceViewResolver.setPrefix(&quot;/WEB-INF/jsp/&quot;);
+        resourceViewResolver.setSuffix(&quot;.jsp&quot;);
+        return resourceViewResolver;
+    }
+}</code></pre>
+<p>那么，为什么使用 @EnableWebMvc 注解会导致默认生效呢？我们来看一下它的源码：</p>
+<pre><code class="java">@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Documented
+@Import(DelegatingWebMvcConfiguration.class)
+public @interface EnableWebMvc {
+}</code></pre>
+<p>在注解 EnableWebMvc 上通过 @Import 导入了 DelegatingWebMvcConfiguration 类。这个类是不是似曾相识？对的，就是上面我们讲到的继承了 WebMvcConfigurationSupport 的类。也就是说，一旦使用 @EnableWebMvc 注解，便会导入一个 WebMvcConfigurationSupport，进而产生了一个 Bean。此时，又回到前面的结论，WebMvcAutoConfiguration 发现已经存在这么一个 Bean，变不会进行实例化操作了。</p>
+<p>汇总一下就是 WebMvcConfigurationSupport 有三种实现形式：第一，用户自定义 WebMvcConfigurationSupport 的实现类，此时会导致 WebMvcAutoConfiguration 不会实例化；第二，使用 @EnableWebMvc 注解，等于扩展了 WebMvcConfigurationSupport，但没有重写任何方法，此时同样会导致 WebMvcAutoConfiguration 不会实例化；第三，采用默认配置，WebMvcAutoConfiguration 来实例化对应的 WebMvcConfigurationSupport 的实现类。</p>
+<p>因此，通常我们采用实现 WebMvcConfigurer 接口，然后让 Spring Boot 采用默认的配置。</p>
+<h1 id="WebMvc-常见配置"><a href="#WebMvc-常见配置" class="headerlink" title="WebMvc 常见配置"></a>WebMvc 常见配置</h1><p>上面了解了各类配置形式的区别以及其中的坑，选择好适合的 WebMVC 配置形式之后，再来看看通常可以有哪些配置，主要围绕接口的实现类。</p>
+<h2 id="静态资源配置"><a href="#静态资源配置" class="headerlink" title="静态资源配置"></a>静态资源配置</h2><p>重写 addResourceHandlers 来配置路径访问等，Spring Boot 中默认使用 ResourceHttpRequestHandler 来映射类路径下的 / static、/public、/resources 和 / METAINF/resources 目录或者 ServletContext 的根目录中的静态文件直接映射为 /****。</p>
+<pre><code class="java">@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {    
+    //静态资源路径 css,js,img等
+    registry.addResourceHandler(&quot;/statics/**&quot;).addResourceLocations(&quot;classpath:/statics/&quot;);
+    //视图
+    registry.addResourceHandler(&quot;/templates/**&quot;).addResourceLocations(&quot;classpath:/templates/&quot;);
+    //mapper.xml
+    registry.addResourceHandler(&quot;/mapper/**&quot;).addResourceLocations(&quot;classpath:/mapper/&quot;);
+    super.addResourceHandlers(registry);        
+}</code></pre>
+<h2 id="拦截器配置"><a href="#拦截器配置" class="headerlink" title="拦截器配置"></a>拦截器配置</h2><p>重写 addInterceptors() 方法来配置拦截器（实现了 HandlerInterceptor 接口）等。这里实现的 addInterceptors 方法对应的是 xml 文件中 &lt; mvc:interceptors&gt; 配置。</p>
+<pre><code class="java">@Autowired
+private MyInteceptor myInteceptor;
+
+@Override
+public void addInterceptors(InterceptorRegistry registry) {    
+    //注册自定义拦截器，添加拦截路径和排除拦截路径
+    registry.addInterceptor(myInteceptor) //添加拦截器
+               .addPathPatterns(&quot;/**&quot;) //添加拦截路径
+               .excludePathPatterns(//排除拦截路径
+                       &quot;/statics/**/*.*&quot;,
+                       );
+    super.addInterceptors(registry);        
+}</code></pre>
+<h2 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h2><p>重写 addCorsMappings 方法实现配置 cors 跨域限制等。</p>
+<pre><code class="java">@Override
+public void addCorsMappings(CorsRegistry registry) {        
+    registry.addMapping(&quot;/**&quot;)//配置允许跨域的路径
+        .allowedOrigins(&quot;*&quot;)//配置允许访问的跨域资源的请求域名
+        .allowedMethods(&quot;PUT,POST,GET,DELETE,OPTIONS&quot;)//配置允许访问该跨域资源服务器的请求方法，如：POST、GET、PUT、DELETE等
+        .allowedHeaders(&quot;*&quot;); //配置允许请求header的访问，如 ：X-TOKEN
+    super.addCorsMappings(registry);
+}</code></pre>
+<h2 id="视图控制器配置"><a href="#视图控制器配置" class="headerlink" title="视图控制器配置"></a>视图控制器配置</h2><p>重写 addViewControllers 方法配置 view 视图映射等。</p>
+<pre><code class="java">@Override
+public void addViewControllers(ViewControllerRegistry registry) {    
+    registry.addViewController(&quot;/&quot;).setViewName(&quot;/home&quot;);//默认视图跳转
+    registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+    super.addViewControllers(registry);        
+}</code></pre>
+<h2 id="消息转换器配置"><a href="#消息转换器配置" class="headerlink" title="消息转换器配置"></a>消息转换器配置</h2><p>重写 configureMessageConverters 方法来对消息进行转换。MessageConverter 用于对 http 请求的返回结果进行转换，以 fastjon、编码格式 application/json;charset=UTF-8 进行转换。</p>
+<pre><code class="java">@Override
+public void configureMessageConverters(List&lt;HttpMessageConverter&lt;?&gt;&gt; converters) {
+    StringHttpMessageConverter converter  = new StringHttpMessageConverter(Charset.forName(&quot;UTF-8&quot;));
+    converters.add(converter);  
+}</code></pre>
+<h2 id="数据格式化器配置"><a href="#数据格式化器配置" class="headerlink" title="数据格式化器配置"></a>数据格式化器配置</h2><p>重写 addFormatters 方法来添加数据格式化器，比如将字符串转换为日期类型，可通过 DateFormatter 类来实现自动转换。</p>
+<p>formatters 和 converters 用于对日期格式进行转换，默认已注册了 Number 和 Date 类型的 formatters，支持 @NumberFormat 和 @DateTimeFormat 注解，需要自定义 formatters 和 converters 可以实现 addFormatters 方法。</p>
+<pre><code class="java">@Override
+public void addFormatters(FormatterRegistry registry) {
+    super.addFormatters(registry);
+    registry.addFormatter(new DateFormatter(&quot;yyyy-MM-dd&quot;));
+}</code></pre>
+<h2 id="视图解析器配置"><a href="#视图解析器配置" class="headerlink" title="视图解析器配置"></a>视图解析器配置</h2><p>重写 configureViewResolvers() 方法来配置视图解析器，主要是配置视图的前后缀。</p>
+<pre><code class="java">@Override
+public void configureViewResolvers(ViewResolverRegistry registry) {
+    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    viewResolver.setPrefix(&quot;&quot;);
+    viewResolver.setSuffix(&quot;.html&quot;);
+    viewResolver.setCache(false);
+    viewResolver.setContentType(&quot;text/html;charset=UTF-8&quot;);
+    viewResolver.setOrder(0);        
+    registry.viewResolver(viewResolver);
+   super.configureViewResolvers(registry);
+}</code></pre>
+<p>也提供了采用简化版本，比如：</p>
+<pre><code class="java">@Override
+public void configureViewResolvers(ViewResolverRegistry registry) {
+    registry.jsp(&quot;/&quot;, &quot;.jsp&quot;);
+}</code></pre>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>通过本篇文章的学习，想必大家对 Spring Boot 默认的配置，如何自定义配置，以及具体方法的实现都有了一个详细的了解。最关键的是通过不同的表现形式，不断追踪到底层实现，最终达到从底层原理到上层应用融会贯通的效果。所以，在实践的过程中我们不要忽略掉任何一个小的异常或 bug，深入追加一下就打开一片新的天地。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SpringBoot-自定义-WebMvc"><span class="toc-number">2.</span> <span class="toc-text">SpringBoot 自定义 WebMvc</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#被废弃的-WebMvcConfigurerAdapter"><span class="toc-number">2.1.</span> <span class="toc-text">被废弃的 WebMvcConfigurerAdapter</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会覆盖的-WebMvcConfigurationSupport"><span class="toc-number">3.</span> <span class="toc-text">会覆盖的 WebMvcConfigurationSupport</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#终极杀手锏-WebMvcConfigurer"><span class="toc-number">4.</span> <span class="toc-text">终极杀手锏 WebMvcConfigurer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#EnableWebMvc-使用场景"><span class="toc-number">5.</span> <span class="toc-text">@EnableWebMvc 使用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WebMvc-常见配置"><span class="toc-number">6.</span> <span class="toc-text">WebMvc 常见配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#静态资源配置"><span class="toc-number">6.1.</span> <span class="toc-text">静态资源配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拦截器配置"><span class="toc-number">6.2.</span> <span class="toc-text">拦截器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨域配置"><span class="toc-number">6.3.</span> <span class="toc-text">跨域配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视图控制器配置"><span class="toc-number">6.4.</span> <span class="toc-text">视图控制器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息转换器配置"><span class="toc-number">6.5.</span> <span class="toc-text">消息转换器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据格式化器配置"><span class="toc-number">6.6.</span> <span class="toc-text">数据格式化器配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视图解析器配置"><span class="toc-number">6.7.</span> <span class="toc-text">视图解析器配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小结"><span class="toc-number">7.</span> <span class="toc-text">小结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

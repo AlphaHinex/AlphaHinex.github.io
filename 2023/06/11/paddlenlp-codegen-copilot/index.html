@@ -1,0 +1,671 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,PaddlePaddle, PaddleNLP, NVIDIA, Salesforce CodeGen, GPU, offline, GitHub Copilot"> 
+    <meta name="description" content="代码生成：写代码的AI助理 中给出了用 PaddleNLP 结合 CodeGen 实现代码 AI 助理的例子。
+文档内容比较简略，实操下来可能会遇到不少问题。本文以离线环境部署为前提，给出一个实际案,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/paddlenlp-codegen-copilot/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                六月 11, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/06/11/paddlenlp-codegen-copilot/" title="用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot" class="">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PaddleNLP/" rel="tag">PaddleNLP</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://github.com/PaddlePaddle/PaddleNLP/tree/develop/examples/code_generation/codegen" target="_blank" rel="noopener">代码生成：写代码的AI助理</a> 中给出了用 PaddleNLP 结合 CodeGen 实现代码 AI 助理的例子。</p>
+<p>文档内容比较简略，实操下来可能会遇到不少问题。本文以离线环境部署为前提，给出一个实际案例。</p>
+<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><p>先上最终效果：</p>
+<p><video autoplay loop muted src="/contents/paddlenlp-codegen-copilot/demo.mov" controls style width=100%></video></p>
+<h1 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h1><p>为避免各种组件版本的兼容性问题，本文使用 Docker 方式部署，并需装好显卡驱动等。可按下述方式检查所需组件状态。</p>
+<h2 id="显卡驱动"><a href="#显卡驱动" class="headerlink" title="显卡驱动"></a>显卡驱动</h2><pre><code class="bash">$ nvidia-smi
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.43.04    Driver Version: 515.43.04    CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla P40           Off  | 00000000:3B:00.0 Off |                    0 |
+| N/A   24C    P0    49W / 250W |      0MiB / 23040MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+|   1  Tesla P40           Off  | 00000000:D8:00.0 Off |                    0 |
+| N/A   26C    P0    48W / 250W |      0MiB / 23040MiB |      1%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+</code></pre>
+<h2 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h2><pre><code class="bash">$ docker version
+Client: Docker Engine - Community
+ Version:           23.0.4
+ API version:       1.42
+ Go version:        go1.19.8
+ Git commit:        f480fb1
+ Built:             Fri Apr 14 10:36:38 2023
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          23.0.4
+  API version:      1.42 (minimum version 1.12)
+  Go version:       go1.19.8
+  Git commit:       cbce331
+  Built:            Fri Apr 14 10:34:14 2023
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.6.20
+  GitCommit:        2806fc1057397dbaeefbea0e4e17bddfbd388f38
+ runc:
+  Version:          1.1.5
+  GitCommit:        v1.1.5-0-gf19387a
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0</code></pre>
+<h2 id="Nvidia-container-toolkit"><a href="#Nvidia-container-toolkit" class="headerlink" title="Nvidia container toolkit"></a>Nvidia container toolkit</h2><p>要在容器环境中使用 GPU，还需安装 <a href="https://github.com/NVIDIA/nvidia-docker" target="_blank" rel="noopener">NVIDIA Container Toolkit</a>，<br>NVIDIA Container Toolkit <a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#platform-requirements" target="_blank" rel="noopener">需要满足如下安装前置条件</a>：</p>
+<ol>
+<li>GNU/Linux x86_64 内核版本 &gt; 3.10</li>
+<li>Docker &gt;= 19.03（虽然文档中说最小支持 1.12 版本，但还是推荐使用 19.03 以上）</li>
+<li>NVIDIA GPU <a href="https://www.nvidia.com/en-us/technologies/" target="_blank" rel="noopener">架构</a> &gt;= Kepler (或 <a href="https://developer.nvidia.com/cuda-gpus#compute" target="_blank" rel="noopener">算力</a> 3.0 以上)</li>
+<li>NVIDIA Linux 驱动 &gt;= 418.81.07</li>
+</ol>
+<h3 id="离线安装"><a href="#离线安装" class="headerlink" title="离线安装"></a>离线安装</h3><p>满足安装前置条件后，可参照 <a href="https://blog.csdn.net/NekoTom/article/details/127508810" target="_blank" rel="noopener">Docker离线安装Nvidia-container-toolkit实现容器内GPU调用</a> 或如下内容执行离线安装。</p>
+<h4 id="1-下载离线文件并安装"><a href="#1-下载离线文件并安装" class="headerlink" title="1. 下载离线文件并安装"></a>1. 下载离线文件并安装</h4><p><a href="https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/arch-overview.html#components-and-packages" target="_blank" rel="noopener">Components and Packages</a> 中说明了 NVIDIA Container Toolkit 的主要包：</p>
+<ul>
+<li><code>nvidia-container-toolkit</code></li>
+<li><code>nvidia-cotnainer-toolkit-base</code></li>
+<li><code>libnvidia-container-tools</code></li>
+<li><code>libnvidia-container1</code></li>
+</ul>
+<p>以及依赖关系：</p>
+<pre><code class="text">├─ nvidia-container-toolkit (version)
+│    ├─ libnvidia-container-tools (&gt;= version)
+│    └─ nvidia-container-toolkit-base (version)
+│
+├─ libnvidia-container-tools (version)
+│    └─ libnvidia-container1 (&gt;= version)
+└─ libnvidia-container1 (version)</code></pre>
+<p>在 <a href="https://github.com/NVIDIA/libnvidia-container/tree/gh-pages/" target="_blank" rel="noopener">https://github.com/NVIDIA/libnvidia-container/tree/gh-pages/</a> 下载对应安装文件后（注意目标系统版本），按依赖关系倒序安装，如：</p>
+<pre><code class="bash">rpm -i libnvidia-container1-1.13.0-1.x86_64.rpm
+rpm -i libnvidia-container-tools-1.13.0-1.x86_64.rpm
+rpm -i nvidia-container-toolkit-base-1.13.0-1.x86_64.rpm
+rpm -i nvidia-container-toolkit-1.13.0-1.x86_64.rpm</code></pre>
+<p>安装成功后可检查安装情况：</p>
+<pre><code class="bash">$ nvidia-ctk -h
+NAME:
+   NVIDIA Container Toolkit CLI - Tools to configure the NVIDIA Container Toolkit
+
+USAGE:
+   nvidia-ctk [global options] command [command options] [arguments...]
+
+VERSION:
+   1.13.0
+commit: b7079454b5b8fed1390ce78ca5a3343748f62657
+
+COMMANDS:
+   hook     A collection of hooks that may be injected into an OCI spec
+   runtime  A collection of runtime-related utilities for the NVIDIA Container Toolkit
+   info     Provide information about the system
+   cdi      Provide tools for interacting with Container Device Interface specifications
+   system   A collection of system-related utilities for the NVIDIA Container Toolkit
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --debug, -d    Enable debug-level logging (default: false) [$NVIDIA_CTK_DEBUG]
+   --help, -h     show help (default: false)
+   --version, -v  print the version (default: false)</code></pre>
+<h4 id="2-配置-NVIDIA-Container-Runtime"><a href="#2-配置-NVIDIA-Container-Runtime" class="headerlink" title="2. 配置 NVIDIA Container Runtime"></a>2. 配置 NVIDIA Container Runtime</h4><pre><code class="bash">$ nvidia-ctk runtime configure --runtime=docker
+INFO[0000] Loading docker config from /etc/docker/daemon.json
+INFO[0000] Successfully loaded config
+INFO[0000] Wrote updated config to /etc/docker/daemon.json
+INFO[0000] It is recommended that the docker daemon be restarted.</code></pre>
+<p>上述操作执行成功后会在 <code>/etc/docker/daemon.json</code> 中增加如下内容：</p>
+<pre><code class="json">&quot;runtimes&quot;: {
+    &quot;nvidia&quot;: {
+        &quot;args&quot;: [],
+        &quot;path&quot;: &quot;nvidia-container-runtime&quot;
+    }
+},</code></pre>
+<p>之后重启 docker 服务以使配置生效：</p>
+<pre><code class="bash">systemctl restart docker</code></pre>
+<p>重启服务后执行如下命令查看效果：</p>
+<pre><code class="bash">$ sudo docker info | grep Runtimes
+ Runtimes: io.containerd.runc.v2 nvidia runc</code></pre>
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="PaddleNLP-镜像"><a href="#PaddleNLP-镜像" class="headerlink" title="PaddleNLP 镜像"></a>PaddleNLP 镜像</h2><p>PaddleNLP 的镜像可从 <a href="https://hub.docker.com/r/paddlecloud/paddlenlp" target="_blank" rel="noopener">https://hub.docker.com/r/paddlecloud/paddlenlp</a> 查看，根据 CUDA 及 cuDNN 版本，选择对应的 tag 拉取镜像。</p>
+<p>CUDA 版本可在 <code>nvidia-smi</code> 中查看，cuDNN 版本可在头文件中查看：</p>
+<pre><code class="bash">$ cat /usr/local/cuda/include/cudnn_version.h |grep CUDNN_MAJOR -A 2
+#define CUDNN_MAJOR 8
+#define CUDNN_MINOR 4
+#define CUDNN_PATCHLEVEL 1
+--
+#define CUDNN_VERSION (CUDNN_MAJOR * 1000 + CUDNN_MINOR * 100 + CUDNN_PATCHLEVEL)
+
+#endif /* CUDNN_VERSION_H */</code></pre>
+<p>镜像 tag 有 <code>cuda10.2-cudnn7</code> 和 <code>cuda11.2-cudnn8</code> 两类，根据大版本号选择即可，如：</p>
+<pre><code class="bash">docker pull paddlecloud/paddlenlp:develop-gpu-cuda11.2-cudnn8-e72fb9</code></pre>
+<h2 id="下载-CodeGen-的模型"><a href="#下载-CodeGen-的模型" class="headerlink" title="下载 CodeGen 的模型"></a>下载 CodeGen 的模型</h2><p><a href="https://github.com/salesforce/CodeGen" target="_blank" rel="noopener">Salesforce CodeGen</a> 是一组开放的、支持多回合交谈式 AI 编程的大语言模型，包含多种尺寸和数据集，模型命名方式为：</p>
+<p><code>codegen-{model-size}-{data}</code></p>
+<p><code>model-size</code> 有四个选项：<code>350M</code>、<code>2B</code>、<code>6B</code>,<code>16B</code>，代表每个模型的参数数量；<code>data</code> 有三个选项：<code>nl</code>、<code>multi</code>、<code>mono</code>。</p>
+<ul>
+<li><code>nl</code> 模型基于 <a href="https://github.com/EleutherAI/the-pile" target="_blank" rel="noopener">The Pile</a> —— 一个 825.18 GB 的英文语料库初始化和训练而来</li>
+<li><code>multi</code> 模型基于 <code>nl</code> 模型初始化，再使用由多种编程语言组成的代码语料库训练</li>
+<li><code>mono</code> 模型基于 <code>multi</code> 模型初始化，再使用 Python 代码语料库训练</li>
+</ul>
+<p>关于各数据集的详细信息，可见 <a href="https://arxiv.org/pdf/2203.13474.pdf" target="_blank" rel="noopener">CodeGen: An Open Large Language Model for Code with Multi-Turn Program Synthesis</a> 。</p>
+<p>PaddleNLP 使用的是 <code>.pdparams</code> 自有格式的模型，通过 PaddleNLP 下载的模型相关文件会存放在 <code>~/.paddlenlp</code> 路径下，如：</p>
+<pre><code class="bash">$ tree
+.
+├── datasets
+├── models
+│   ├── Salesforce
+│   │   └── codegen-16B-multi
+│   │       ├── added_tokens.json
+│   │       ├── config.json
+│   │       ├── merges.txt
+│   │       ├── model_config.json
+│   │       ├── model_state.pdparams
+│   │       ├── special_tokens_map.json
+│   │       ├── tokenizer_config.json
+│   │       └── vocab.json
+│   └── embeddings
+└── packages</code></pre>
+<p>除 <code>config.json</code> 外，均可直接通过下方链接进行下载（注意修改 URL 中的模型参数大小）：</p>
+<ul>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/added_tokens.json" target="_blank" rel="noopener">added_tokens.json</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/merges.txt" target="_blank" rel="noopener">merges.txt</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/model_config.json" target="_blank" rel="noopener">model_config.json</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/model_state.pdparams" target="_blank" rel="noopener">model_state.pdparams</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/special_tokens_map.json" target="_blank" rel="noopener">special_tokens_map.json</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/tokenizer_config.json" target="_blank" rel="noopener">tokenizer_config.json</a></li>
+<li><a href="https://bj.bcebos.com/paddlenlp/models/community/Salesforce/codegen-16B-multi/vocab.json" target="_blank" rel="noopener">vocab.json</a></li>
+</ul>
+<p><code>config.json</code> 会根据 <code>model_config.json</code> 自动生成，无需提前下载。</p>
+<h2 id="启动-CodeGen-Server"><a href="#启动-CodeGen-Server" class="headerlink" title="启动 CodeGen Server"></a>启动 CodeGen Server</h2><p>在将模型文件和 docker 镜像传输至离线环境后，可以开始准备启动辅助生成代码的服务端了。</p>
+<p>可在保存模型文件的路径执行如下命令，会将模型文件挂载至容器的 <code>/mnt</code> 路径下：</p>
+<pre><code class="bash">$ docker run --name dev --runtime=nvidia -v $PWD:/mnt -p 8978:8978 -it paddlecloud/paddlenlp:develop-gpu-cuda11.2-cudnn8-e72fb9 /bin/bash</code></pre>
+<p>假设模型文件挂载路径为：<code>/mnt/paddlenlp/Salesforce/codegen-16B-multi</code></p>
+<p>如果使用的是 <code>paddlecloud/paddlenlp:develop-gpu-cuda11.2-cudnn8-e72fb9</code> 版本的镜像，进入容器后，需先更新 paddlepaddle（注意 cuda 版本需匹配，不低于容器内 cuda 版本应该就可以），以免遇到 <a href="https://github.com/PaddlePaddle/PaddleNLP/issues/5495#issuecomment-1517138237" target="_blank" rel="noopener">这个问题</a>：</p>
+<pre><code class="bash">pip install /mnt/paddlenlp/paddlepaddle_gpu-2.4.2.post117-cp37-cp37m-linux_x86_64.whl</code></pre>
+<p>之后需要安装依赖：</p>
+<pre><code class="bash">pip install -r examples/code_generation/codegen/requirements.txt</code></pre>
+<p>如有内网源，可使用内网源，或提前准备好 <code>requirements.txt</code> 中依赖的离线安装文件。</p>
+<p>修改为使用提前下载好的模型地址后，即可启动服务：</p>
+<pre><code class="bash">$ cp examples/code_generation/codegen/*.py .
+$ sed -i &#39;s#Salesforce/codegen-350M-mono#/mnt/paddlenlp/Salesforce/codegen-16B-multi#g&#39; codegen_server.py
+$ python codegen_server.py</code></pre>
+<p>服务成功启动后，可在 8978 端口访问，如 <a href="http://localhost:8978" target="_blank" rel="noopener">http://localhost:8978</a> 。</p>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="Fauxpilot-VSCode-Plugin"><a href="#Fauxpilot-VSCode-Plugin" class="headerlink" title="Fauxpilot VSCode Plugin"></a>Fauxpilot VSCode Plugin</h2><p>Visual Studio Code 中可通过 <a href="https://github.com/Venthe/vscode-fauxpilot" target="_blank" rel="noopener">vscode-fauxpilot</a> 插件，使用代码辅助编写功能。在 VSCode 插件市场搜索 <code>Fauxpilot</code> 或在 <a href="https://github.com/Venthe/vscode-fauxpilot/releases" target="_blank" rel="noopener">releases</a> 页面下载 <code>.vsix</code> 格式的插件离线安装包，安装后在插件的配置页面，设置 <code>Fauxpilot: Server</code> 地址为之前启动的服务端地址，如 <code>http://localhost:8978/v1/engines</code>，重启 VSCode 后即可体验类似 GitHub Copilot 的离线环境 AI 辅助代码编写了。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#效果展示"><span class="toc-number">1.</span> <span class="toc-text">效果展示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prerequisite"><span class="toc-number">2.</span> <span class="toc-text">Prerequisite</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#显卡驱动"><span class="toc-number">2.1.</span> <span class="toc-text">显卡驱动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker"><span class="toc-number">2.2.</span> <span class="toc-text">Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nvidia-container-toolkit"><span class="toc-number">2.3.</span> <span class="toc-text">Nvidia container toolkit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#离线安装"><span class="toc-number">2.3.1.</span> <span class="toc-text">离线安装</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#服务端"><span class="toc-number">3.</span> <span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#PaddleNLP-镜像"><span class="toc-number">3.1.</span> <span class="toc-text">PaddleNLP 镜像</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载-CodeGen-的模型"><span class="toc-number">3.2.</span> <span class="toc-text">下载 CodeGen 的模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动-CodeGen-Server"><span class="toc-number">3.3.</span> <span class="toc-text">启动 CodeGen Server</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#客户端"><span class="toc-number">4.</span> <span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Fauxpilot-VSCode-Plugin"><span class="toc-number">4.1.</span> <span class="toc-text">Fauxpilot VSCode Plugin</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

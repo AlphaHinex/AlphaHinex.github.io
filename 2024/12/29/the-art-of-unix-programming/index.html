@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《UNIX编程艺术》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Unix, 哲学, 原则, GNU, IETF, RFC"> 
+    <meta name="description" content="豆瓣评分 8.9
+Part I第 1 章 哲学1.6 Unix哲学基础
+Unix哲学
+
+模块原则：使用简洁的接口拼合简单的部件。
+清晰原则：清晰胜于机巧。
+组合原则：设计时考虑拼接组合。
+分离原则：,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《UNIX编程艺术》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/the-art-of-unix-programming/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                十二月 29, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/12/29/the-art-of-unix-programming/" title="《UNIX编程艺术》书摘" class="">《UNIX编程艺术》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    20k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    18 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://book.douban.com/subject/11609943/" target="_blank" rel="noopener">豆瓣评分 8.9</a></p>
+<h1 id="Part-I"><a href="#Part-I" class="headerlink" title="Part I"></a>Part I</h1><h2 id="第-1-章-哲学"><a href="#第-1-章-哲学" class="headerlink" title="第 1 章 哲学"></a>第 1 章 哲学</h2><h3 id="1-6-Unix哲学基础"><a href="#1-6-Unix哲学基础" class="headerlink" title="1.6 Unix哲学基础"></a>1.6 Unix哲学基础</h3><blockquote>
+<p>Unix哲学</p>
+<ol>
+<li>模块原则：使用简洁的接口拼合简单的部件。</li>
+<li>清晰原则：清晰胜于机巧。</li>
+<li>组合原则：设计时考虑拼接组合。</li>
+<li>分离原则：策略同机制分离，接口同引擎分离。</li>
+<li>简洁原则：设计要简洁，复杂度能低则低。</li>
+<li>吝啬原则：除非确无它法，不要编写庞大的程序。</li>
+<li>透明性原则：设计要可见，以便审查和调试。</li>
+<li>健壮原则：健壮源于透明与简洁。</li>
+<li>表示原则：把知识叠入数据以求逻辑质朴而健壮。</li>
+<li>通俗原则：接口设计避免标新立异。</li>
+<li>缄默原则：如果一个程序没什么好说的，就沉默。</li>
+<li>补救原则：出现异常时，马上退出并给出足够错误信息。</li>
+<li>经济原则：宁花机器一分，不花程序员一秒。</li>
+<li>生成原则：避免手工hack，尽量编写程序去生成程序。</li>
+<li>优化原则：雕琢前先要有原型，跑之前先学会走。</li>
+<li>多样原则：决不相信所谓“不二法门”的断言。</li>
+<li>扩展原则：设计着眼未来，未来总比预想来得快。</li>
+</ol>
+</blockquote>
+<h2 id="第-3-章-对比：Unix哲学同其他哲学的比较"><a href="#第-3-章-对比：Unix哲学同其他哲学的比较" class="headerlink" title="第 3 章 对比：Unix哲学同其他哲学的比较"></a>第 3 章 对比：Unix哲学同其他哲学的比较</h2><h3 id="3-1-操作系统的风格元素"><a href="#3-1-操作系统的风格元素" class="headerlink" title="3.1 操作系统的风格元素"></a>3.1 操作系统的风格元素</h3><h4 id="3-1-1-什么是操作系统的统一性理念"><a href="#3-1-1-什么是操作系统的统一性理念" class="headerlink" title="3.1.1 什么是操作系统的统一性理念"></a>3.1.1 什么是操作系统的统一性理念</h4><blockquote>
+<p>其中最重要的一点应当是“一切皆文件”模型及在此基础上建立的管道概念</p>
+</blockquote>
+<h4 id="3-1-2-多任务能力"><a href="#3-1-2-多任务能力" class="headerlink" title="3.1.2 多任务能力"></a>3.1.2 多任务能力</h4><blockquote>
+<p>各种操作系统最基本的不同之处之一就是操作系统支持多进程并发的能力。</p>
+</blockquote>
+<blockquote>
+<p>最低端的操作系统（如DOS或CP/M），基本上就是一个顺序的程序加载器，根本不具备多任务能力。这种操作系统在通用计算机上已经毫无竞争力。</p>
+</blockquote>
+<blockquote>
+<p>再往上一个层次，操作系统可具有协作式多任务（cooperative multitasking）能力。这种系统能够支持多个进程，但是一个进程运行前必须等待前一个进程主动放弃占用处理器（这样一来，简单的编程错误就很容易将机器挂起）。这种操作系统风格是对一种硬件的暂时性适应，这种硬件虽然功能强大到支持并行操作，但要么缺乏周期性时钟中断，要么缺乏内存管理单元，或者两者都缺。这种系统也过时了，不再具有竞争力了。</p>
+</blockquote>
+<blockquote>
+<p>Unix系统拥有抢先式多任务（preemptive multitasking）能力。在Unix中，时间片由调度程序来分配，这个调度程序定期中断或抢断正在运行的进程而把控制权交给下一个进程。几乎所有的现代操作系统都支持抢占式调度。</p>
+</blockquote>
+<h4 id="3-1-4-内部边界"><a href="#3-1-4-内部边界" class="headerlink" title="3.1.4 内部边界"></a>3.1.4 内部边界</h4><blockquote>
+<p>系统程序通常都有自己的“伪用户（pseudo-user）帐号”，以访问专门的系统文件，而不需要无限制的（或者说超级用户的）访问权限。</p>
+</blockquote>
+<h3 id="3-2-操作系统的比较"><a href="#3-2-操作系统的比较" class="headerlink" title="3.2 操作系统的比较"></a>3.2 操作系统的比较</h3><h4 id="3-2-1-VMS"><a href="#3-2-1-VMS" class="headerlink" title="3.2.1 VMS"></a>3.2.1 VMS</h4><p><img src="/contents/the-art-of-unix-programming/3.1.png" alt="图3.1 分时系统历史示意图"></p>
+<h4 id="3-2-4-Windows-NT"><a href="#3-2-4-Windows-NT" class="headerlink" title="3.2.4 Windows NT"></a>3.2.4 Windows NT</h4><blockquote>
+<p>Cygwin是一个在实用工具和API两个层次上实现Unix的兼容层，而且只有极少的特性损失。Cygwin允许C程序既可以使用Unix API又可以使用原生API</p>
+</blockquote>
+<h1 id="Part-II"><a href="#Part-II" class="headerlink" title="Part II"></a>Part II</h1><h2 id="第-4-章-模块性：保持清晰，保持简洁"><a href="#第-4-章-模块性：保持清晰，保持简洁" class="headerlink" title="第 4 章 模块性：保持清晰，保持简洁"></a>第 4 章 模块性：保持清晰，保持简洁</h2><blockquote>
+<p>There are two ways of constructing a software design.One is to make it so simple that there are obviously no deficiencies;the other is to make it so complicated that there are no obvious deficiencies.The first method is far more difficult.</p>
+</blockquote>
+<blockquote>
+<p>软件设计有两种方式：一种是设计得极为简洁，没有看得到的缺陷；另一种是设计得极为复杂，有缺陷也看不出来。第一种方式的难度要大得多。</p>
+</blockquote>
+<h3 id="4-2-紧凑性和正交性"><a href="#4-2-紧凑性和正交性" class="headerlink" title="4.2 紧凑性和正交性"></a>4.2 紧凑性和正交性</h3><h4 id="4-2-1-紧凑性"><a href="#4-2-1-紧凑性" class="headerlink" title="4.2.1 紧凑性"></a>4.2.1 紧凑性</h4><blockquote>
+<p>《魔数七，加二或减二：人类信息处理能力的局限性》（The Magical Number Seven，Plus or Minus Two：Some Limits on Our Capacity for Processing Information[Miller]）是认知心理学的基础性文章之一</p>
+</blockquote>
+<blockquote>
+<p>这篇文章表明，人类短期记忆能够容纳的不连续信息数就是七，加二或减二。</p>
+</blockquote>
+<blockquote>
+<p>然而，不紧凑的设计也未必注定会灭亡或很糟糕。有些问题域简直是太复杂了，一个紧凑的设计不可能有如此跨度。有时，为了其它优势，如纯性能和适应范围等，也有必要牺牲紧凑性。</p>
+</blockquote>
+<blockquote>
+<p>把紧凑性作为优点来强调，并不是要求大家把紧凑性看作一个绝对要求，而是要像Unix程序员那样：合理对待紧凑性，设计中尽量考虑，决不随意抛弃。</p>
+</blockquote>
+<h4 id="4-2-2-正交性"><a href="#4-2-2-正交性" class="headerlink" title="4.2.2 正交性"></a>4.2.2 正交性</h4><blockquote>
+<p>正交性是有助于使复杂设计也能紧凑的最重要特性之一。在纯粹的正交设计中，任何操作均无副作用；每一个动作（无论是API调用、宏调用还是语言运算）只改变一件事，不会影响其它。无论你控制的是什么系统，改变每个属性的方法有且只有一个。</p>
+</blockquote>
+<h4 id="4-2-3-SPOT原则"><a href="#4-2-3-SPOT原则" class="headerlink" title="4.2.3 SPOT原则"></a>4.2.3 SPOT原则</h4><blockquote>
+<p>不要重复自身（Don’t Repeat Yourself＂）”，意思是说：任何一个知识点在系统内都应当有一个唯一、明确、权威的表述。在本书中，我们更愿意根据Brian Kernighan的建议，把这个原则称为“真理的单点性（Single Point of Truth）”或者SPOT原则。</p>
+</blockquote>
+<h3 id="4-3-软件是多层的"><a href="#4-3-软件是多层的" class="headerlink" title="4.3 软件是多层的"></a>4.3 软件是多层的</h3><h4 id="4-3-2-胶合层"><a href="#4-3-2-胶合层" class="headerlink" title="4.3.2 胶合层"></a>4.3.2 胶合层</h4><blockquote>
+<p>当自顶向下和自底向上发生冲突时，其结果往往是一团糟。顶层的应用逻辑和底层的域原语集必须用胶合逻辑层来进行阻抗匹配（impedance match）。</p>
+</blockquote>
+<h4 id="4-3-3-实例分析：被视为薄胶合层的C语言"><a href="#4-3-3-实例分析：被视为薄胶合层的C语言" class="headerlink" title="4.3.3 实例分析：被视为薄胶合层的C语言"></a>4.3.3 实例分析：被视为薄胶合层的C语言</h4><blockquote>
+<p>C语言本身就是一个体现薄粘合层有效性的良好例子。</p>
+</blockquote>
+<h2 id="第-5-章-文本化：好协议产生好实践"><a href="#第-5-章-文本化：好协议产生好实践" class="headerlink" title="第 5 章 文本化：好协议产生好实践"></a>第 5 章 文本化：好协议产生好实践</h2><blockquote>
+<p>序列化（保存）操作有时也称为列集（marshaling），其反向操作（载入）称为散集（unmarshaling）。</p>
+</blockquote>
+<h3 id="5-2-数据文件元格式"><a href="#5-2-数据文件元格式" class="headerlink" title="5.2 数据文件元格式"></a>5.2 数据文件元格式</h3><h4 id="5-2-1-DSV-风格"><a href="#5-2-1-DSV-风格" class="headerlink" title="5.2.1 DSV 风格"></a>5.2.1 DSV 风格</h4><blockquote>
+<p>DSV代表“Delimiter-Separated Values（分隔符分隔值）”。</p>
+</blockquote>
+<blockquote>
+<p>Unix中，对字段值可能包含空格的DSV格式，冒号是默认的分隔符。</p>
+</blockquote>
+<blockquote>
+<p>事实上，Microsoft版CSV是一个如何设计文本文件格式的典型反面例子。问题首先出现在字段正好含有分隔字符（在这种情况下是逗号）的情况中。Unix的方法是简单的用反斜杠转义分隔符，用双反斜杠表示反斜杠字面值。在解析文件时，这种设计只要检查一种特殊情况（转义符），发现转义符时只要一个操作（解析跟在转义符后的字符）。后者不仅方便了分隔符的处理，而且还能自由处理转义符和新行符。CSV则相反，如果字段值中存在分隔符，就将整个字段值包括在双引号内。如果字段值包含双引号，整个字段值也得包括在双引号内，字段中的单个双引号需要重复两遍才能表明自己并不结束整个字段。</p>
+</blockquote>
+<h3 id="5-4-应用协议元格式"><a href="#5-4-应用协议元格式" class="headerlink" title="5.4 应用协议元格式"></a>5.4 应用协议元格式</h3><blockquote>
+<p>就像数据文件元格式是为了简化存储的序列化操作而发展出来一样，应用协议元格式是为了简化网络间事务处理的序列化操作而发展出来的。但在这种情况中采取的折衷略有不同：因为网络带宽要比存储昂贵得多，所以需更加重视事务处理的经济性。尽管如此，文本格式的透明性和互用性优势仍然十分显著，所以大多数设计者还是抵制住了牺牲可读性来优化性能的诱惑。</p>
+</blockquote>
+<h2 id="第-6-章-透明性：来点儿光"><a href="#第-6-章-透明性：来点儿光" class="headerlink" title="第 6 章 透明性：来点儿光"></a>第 6 章 透明性：来点儿光</h2><h3 id="6-3-为可维护性而设计"><a href="#6-3-为可维护性而设计" class="headerlink" title="6.3 为可维护性而设计"></a>6.3 为可维护性而设计</h3><blockquote>
+<p>在Unix下，此类验证程序的老祖宗是lint——一个从C编译器独立出来的C代码校验器。尽管GCC已经吸收了其功能，但是老一辈的 Unix 人仍然倾向于把运行验证器的进程称之为“linting”，这个名字也在一些公用程序中保留了下来，如xmllint。</p>
+</blockquote>
+<h2 id="第-7-章-多道程序设计：分离进程为独立的功能"><a href="#第-7-章-多道程序设计：分离进程为独立的功能" class="headerlink" title="第 7 章 多道程序设计：分离进程为独立的功能"></a>第 7 章 多道程序设计：分离进程为独立的功能</h2><blockquote>
+<p>Unix 最具特点的程序模块化技法就是将大型程序分解成多个协作进程。这在 Unix世界中通常叫做“多处理”，但在本书中我们将恢复使用老的术语“多道程序设计”，以避免和多处理器的硬件实现相混淆。</p>
+</blockquote>
+<blockquote>
+<p>无论在协作进程还是在同一进程的协作子过程层面上，Unix设计风格都运用“做单件事并做好”的方法，强调用定义良好的进程间通信或共享文件来连通小型进程。因此，Unix操作系统提倡把程序分解成更简单的子进程，并专注考虑这些子进程间的接口。</p>
+</blockquote>
+<h3 id="7-2-Unix-IPC-方法的分类"><a href="#7-2-Unix-IPC-方法的分类" class="headerlink" title="7.2 Unix IPC 方法的分类"></a>7.2 Unix IPC 方法的分类</h3><h4 id="7-2-2-管道、重定向和过滤器"><a href="#7-2-2-管道、重定向和过滤器" class="headerlink" title="7.2.2 管道、重定向和过滤器"></a>7.2.2 管道、重定向和过滤器</h4><blockquote>
+<p>管道线中所有阶段的程序是并发运行的，注意到这一点很重要。</p>
+</blockquote>
+<blockquote>
+<p>管道的主要缺点是单向性。管道线的成员除了终止外（在这种情况下，前一阶段的程序会在下一个写操作时得到 SIGPIPE 信号）不可能回传控制信息。</p>
+</blockquote>
+<blockquote>
+<p>目前为止，我们已经讨论了shell创建的匿名管道。还有一种变种，叫做“命名管道”，是一种特殊的文件。如果两个程序打开这个文件，一个读取，另一个写入，则命名管道扮演两者间的配接器。命名管道已经成了老古董；在使用中，大部分已经被我们下面将要讨论的命名套接字取代了</p>
+</blockquote>
+<blockquote>
+<p>Unix还有另外一个程序 more（1），它按屏幕大小显示标准输入，每次满屏显示后等待用户按键显示下一满屏。</p>
+</blockquote>
+<blockquote>
+<p>这样，如果用户键入“ps|more”，把ps（1）的输出管道连接至more（1）的输入，则每次按键后可以继续显示一整屏的进程列表。</p>
+</blockquote>
+<blockquote>
+<p>如此组合程序的能力极为有用。但此处真正的成果并不是这个漂亮的组合，而是由于管道和more（1）两者的存在，其它程序可以变得更简单一些。管道意味着ls（1）（以及其它写标准输出的程序）之类的程序无需开发自己的分页程序——我们得以从一个到处都是内置分页程序（自然，每个分页程序都有不同的观感）的世界中解救出来。这就避免了代码的臃肿，降低了全局复杂度。</p>
+</blockquote>
+<blockquote>
+<p>现代Unix中，more（1）基本上已被less（1）取代。less（1）对显示的文件增加了向后滚屏的能力，不再只能向前滚屏。</p>
+</blockquote>
+<blockquote>
+<p>管线是一个了不起的工具，但不是万能的。</p>
+</blockquote>
+<h4 id="7-2-3-包装器"><a href="#7-2-3-包装器" class="headerlink" title="7.2.3 包装器"></a>7.2.3 包装器</h4><blockquote>
+<p>和 shellout 程序相对的是包装器（wrapper）。</p>
+</blockquote>
+<h4 id="7-2-5-从进程"><a href="#7-2-5-从进程" class="headerlink" title="7.2.5 从进程"></a>7.2.5 从进程</h4><blockquote>
+<p>两者间通信协议的确无足轻重的一个常见情况是进度显示程序。scp（1）安全拷贝命令把 ssh（1）作为从进程调用，从 ssh 的标准输出中截取足够的信息，然后把报告重新组织成为ASCII动画形式的进度条。</p>
+</blockquote>
+<h4 id="7-2-6-对等进程间通信"><a href="#7-2-6-对等进程间通信" class="headerlink" title="7.2.6 对等进程间通信"></a>7.2.6 对等进程间通信</h4><blockquote>
+<p>要让同一台机器上的两个进程相互通信，最简单最原始的方法是一个进程向另一个发送信号。</p>
+</blockquote>
+<blockquote>
+<p>Unix的信号是一种软中断形式：每个信号都对接收进程产生默认作用（通常是杀掉它）。进程可以声明信号处理程序，让信号处理程序覆盖信号的默认行为；处理程序是一个与接受信号异步执行的函数。</p>
+</blockquote>
+<blockquote>
+<p>这是一个普遍原则——人们总想挪用你写的任何工具，所以必须把它们设计成要么根本无法挪用要么总是可以干净地挪用。这是你仅有的选择。当然，除非被忽略——这是一个非常可靠的保持清白的方法，但并非最初看起来的那样满意。<br>—Ken Arnold</p>
+</blockquote>
+<blockquote>
+<p>随信号 IPC 经常使用的一种技法是所谓 pidfile。需要信号的程序会向已知位置写入一个包含进程 ID（PID）的小文件（通常放在/var/run 或调用用户的主目录下）。其它程序可以读取这个文件来获得PID。如果守护程序只允许一个实例运行，则pidfile也可作为隐含的文件锁使用。</p>
+</blockquote>
+<blockquote>
+<p>SIGTERM（“终止”）常常扮演温和的关闭信号（区别于SIGKILL，立即杀死进程，而且本身不能被阻塞或另外处理）。SIGTERM的行为通常包括清除临时文件和强制把最新更新刷回数据库以及其它一些类似行为。</p>
+</blockquote>
+<blockquote>
+<p>套接字作为一种封装网络数据访问的方法从Unix的BSD一脉中发展而来。通过套接字通信的两个程序通常都存在双向字节流（存在其它套接字模式和传输方法，但是重要性不大）。</p>
+</blockquote>
+<blockquote>
+<p>字节流既是按序的（也就是说，即使按单个字节发送也按照发送顺序来接收）又是可靠的（套接字用户得到保证，底层的网络将进行错误检测和重发以确保交付）。套接字描述符一旦获得，行为基本上和文件描述符一样。</p>
+</blockquote>
+<h3 id="7-3-要避免的问题和方法"><a href="#7-3-要避免的问题和方法" class="headerlink" title="7.3 要避免的问题和方法"></a>7.3 要避免的问题和方法</h3><h4 id="7-3-2-远程过程调用"><a href="#7-3-2-远程过程调用" class="headerlink" title="7.3.2 远程过程调用"></a>7.3.2 远程过程调用</h4><blockquote>
+<p>Unix 传统强烈赞成使用透明、可显的接口。这就是 Unix 文化不断坚持文本协议IPC的动力。经常有人固执认为，相对二进制RPC而言，文本协议的解析开销是个性能问题——但是 RPC 接口往往产生更糟糕的延迟问题，原因是：（a）无法准确预估出一个指定调用会涉及多少数据的列集和散集，（b）RPC模型往往鼓励程序员把网络交易视为无成本行为。即使在某个事务处理接口上只额外增加一个来回，往往也会增加足够多的网络延迟，完全抵消了解析或列集的开销。</p>
+</blockquote>
+<blockquote>
+<p>即使文本流没有RPC效率高，但性能损失也是微小和线性的，最好通过硬件升级，而不是耗费开发时间或增加结构复杂度来解决这个问题。使用文本流可能造成的任何性能损失，都可以得到补偿，即有能力设计更简单的系统，更易于监控、建模和理解。</p>
+</blockquote>
+<blockquote>
+<p>今天，通过XML-RPC和SOAP等协议，RPC和Unix对文本流的坚持开始以一种有趣的方式融合到一起。这些协议，由于是文本化而且透明的，比它们所取代的丑陋、重量级的二进制序列格式更合乎 Unix 程序员的心意。尽管它们不能解决 Andrew S.Tanenbaum 和Robbert van Renesse所提出的更普遍的问题，但它们在某些方面综合了文本流和RPC方法的优点。</p>
+</blockquote>
+<h4 id="7-3-3-线程——恐吓或威胁"><a href="#7-3-3-线程——恐吓或威胁" class="headerlink" title="7.3.3 线程——恐吓或威胁"></a>7.3.3 线程——恐吓或威胁</h4><blockquote>
+<p>从定义上看，尽管进程的子线程通常具有独立的局部变量栈，它们却共享同一全局内存。</p>
+</blockquote>
+<blockquote>
+<p>线程成为滋生 bug 温床源于它们太容易知道过多彼此的内部状态。</p>
+</blockquote>
+<h3 id="7-4-在设计层次上的进程划分"><a href="#7-4-在设计层次上的进程划分" class="headerlink" title="7.4 在设计层次上的进程划分"></a>7.4 在设计层次上的进程划分</h3><blockquote>
+<p>线程有着根本性不同。线程支持的并非不同程序之间的通讯，而是单个程序的一个实例内的某种分时形式。线程并不是把大程序分解成行为简单的小程序的方法，实际上是一种性能调整（performance hack）问题。</p>
+</blockquote>
+<blockquote>
+<p>真实世界里的编程其实就是管理复杂度的问题。</p>
+</blockquote>
+<blockquote>
+<p>less（1）的手册页解释说，这个名字遵循了“Less is more”（少即是多）。</p>
+</blockquote>
+<h2 id="第-8-章-微型语言：寻找歌唱的乐符"><a href="#第-8-章-微型语言：寻找歌唱的乐符" class="headerlink" title="第 8 章 微型语言：寻找歌唱的乐符"></a>第 8 章 微型语言：寻找歌唱的乐符</h2><blockquote>
+<p>对软件错误模式进行的大量研究得出的一个最一致的结论是，程序员每百行代码出错率和所使用的编程语言在很大程度上无关。</p>
+</blockquote>
+<h3 id="8-2-应用微型语言"><a href="#8-2-应用微型语言" class="headerlink" title="8.2 应用微型语言"></a>8.2 应用微型语言</h3><h4 id="8-2-8-案例分析：awk"><a href="#8-2-8-案例分析：awk" class="headerlink" title="8.2.8 案例分析：awk"></a>8.2.8 案例分析：awk</h4><blockquote>
+<p>成本的下降已经改变了微型语言设计中的权衡。通过限制设计能力来提高设计紧凑性可能仍然是个好主意，但通过限制设计能力来节约设备资源则不然。随着时间的推移，设备资源变得越来越廉价，但程序员头脑中的空间只会越来越昂贵。现代微型语言，要么就非常通用而不紧凑，要么就非常不通用而紧凑；不通用也不紧凑的语言则完全没有竞争力。</p>
+</blockquote>
+<h4 id="8-2-10-案例分析：bc和dc"><a href="#8-2-10-案例分析：bc和dc" class="headerlink" title="8.2.10 案例分析：bc和dc"></a>8.2.10 案例分析：bc和dc</h4><blockquote>
+<p>例 8.6 就是一个非常著名的例子，这是一个用Perl实现的Rivest-Shamir-Adelman（RSA）公共密钥算法，广泛发布在签名档和T恤上，以示对美国1995年的限制密码学出口的抗议；它交给dc来完成要求的无限精度算法。</p>
+</blockquote>
+<h2 id="第-9-章-生成：提升规格说明的层次"><a href="#第-9-章-生成：提升规格说明的层次" class="headerlink" title="第 9 章 生成：提升规格说明的层次"></a>第 9 章 生成：提升规格说明的层次</h2><h3 id="9-1-数据驱动编程"><a href="#9-1-数据驱动编程" class="headerlink" title="9.1 数据驱动编程"></a>9.1 数据驱动编程</h3><h4 id="9-1-3-实例分析：fetchmailconf中的元类改动"><a href="#9-1-3-实例分析：fetchmailconf中的元类改动" class="headerlink" title="9.1.3 实例分析：fetchmailconf中的元类改动"></a>9.1.3 实例分析：fetchmailconf中的元类改动</h4><blockquote>
+<p>重用、简化、归纳、正交：这就是在运转的Unix之禅。</p>
+</blockquote>
+<h3 id="9-2-专用代码的生成"><a href="#9-2-专用代码的生成" class="headerlink" title="9.2 专用代码的生成"></a>9.2 专用代码的生成</h3><h4 id="9-2-2-实例分析：为列表生成HTML代码"><a href="#9-2-2-实例分析：为列表生成HTML代码" class="headerlink" title="9.2.2 实例分析：为列表生成HTML代码"></a>9.2.2 实例分析：为列表生成HTML代码</h4><blockquote>
+<p>建设性的懒惰是大师级程序员的基本美德之一。</p>
+</blockquote>
+<h2 id="第-10-章-配置：迈出正确的第一步"><a href="#第-10-章-配置：迈出正确的第一步" class="headerlink" title="第 10 章 配置：迈出正确的第一步"></a>第 10 章 配置：迈出正确的第一步</h2><h3 id="10-2-配置在哪里"><a href="#10-2-配置在哪里" class="headerlink" title="10.2 配置在哪里"></a>10.2 配置在哪里</h3><blockquote>
+<p>传统上，一个Unix程序可以在启动环境的五个地方寻找控制信息：</p>
+<ul>
+<li>/etc下的运行控制文件（或者系统中其它固有位置）。</li>
+<li>由系统设置的环境变量。</li>
+<li>用户主目录中的运行控制文件（或“点文件”）。（如果不熟悉，请参考第 3章对这个重要概念的讨论。）</li>
+<li>由用户设置的环境变量。</li>
+<li>启动程序的命令行所传递的开关和参数。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>查询通常按以上所列的顺序进行。这样，后面（较局部）的设置会覆盖前面（较全局）的设置。前面找到的设置可以帮助程序计算出配置数据的后续检索位置。</p>
+</blockquote>
+<h3 id="10-3-运行控制文件"><a href="#10-3-运行控制文件" class="headerlink" title="10.3 运行控制文件"></a>10.3 运行控制文件</h3><blockquote>
+<p>文件或者目录约定俗成的命名方式是：运行控制文件信息的位置和与读取该信息的可执行文件的基本文件名一致。某些系统程序中仍然通行较老的约定：使用可执行文件名后加“rc”后缀代表“运行控制”。</p>
+</blockquote>
+<h3 id="10-6-如何挑选方法"><a href="#10-6-如何挑选方法" class="headerlink" title="10.6 如何挑选方法"></a>10.6 如何挑选方法</h3><blockquote>
+<p>特别是，环境变量设置通常覆盖点文件设置，但又可能被命令行选项所覆盖。良好的实践是提供如同 make（1）中的-e 命令行选项，从而可以覆盖掉环境变量的设置或运行控制文件中的声明；这样，无论运行控制文件看起来怎样，环境变量如何设置，程序都可用脚本控制，从而让行为符合预期。</p>
+</blockquote>
+<h2 id="第-11-章-接口：Unix环境下的用户接口设计模式"><a href="#第-11-章-接口：Unix环境下的用户接口设计模式" class="headerlink" title="第 11 章 接口：Unix环境下的用户接口设计模式"></a>第 11 章 接口：Unix环境下的用户接口设计模式</h2><h3 id="11-1-最小立异原则的应用"><a href="#11-1-最小立异原则的应用" class="headerlink" title="11.1 最小立异原则的应用"></a>11.1 最小立异原则的应用</h3><blockquote>
+<p>最小立异原则：“少来标新立异”，是所有接口设计中的通用原则，且并非仅局限于软件设计。这</p>
+</blockquote>
+<blockquote>
+<p>接口设计的标新立异，往往把注意力牵到了接口本身，却忽视了其所属的任务。</p>
+</blockquote>
+<h3 id="11-6-Unix接口设计模式"><a href="#11-6-Unix接口设计模式" class="headerlink" title="11.6 Unix接口设计模式"></a>11.6 Unix接口设计模式</h3><h4 id="11-6-1-过滤器模式"><a href="#11-6-1-过滤器模式" class="headerlink" title="11.6.1 过滤器模式"></a>11.6.1 过滤器模式</h4><blockquote>
+<p>当定义过滤器时，最好在心中牢记一些附带的原则</p>
+</blockquote>
+<blockquote>
+<ol>
+<li>牢记 Postel 原则：宽进严出。</li>
+<li>在过滤时，不需要的信息也决不丢弃。</li>
+<li>在过滤时，绝不增加无用数据。</li>
+</ol>
+</blockquote>
+<h3 id="11-9-沉默是金"><a href="#11-9-沉默是金" class="headerlink" title="11.9 沉默是金"></a>11.9 沉默是金</h3><blockquote>
+<p>用户屏幕的纵向空间是宝贵的。程序每产生一行垃圾，用户可见的信息就少了一行。</p>
+</blockquote>
+<blockquote>
+<p>接口设计作为整体应该遵从最小立异原则，但是信息内容应该符合最大惊奇原则——仅仅对偏离通常期望的情况详加说明。</p>
+</blockquote>
+<blockquote>
+<p>这个原则对于确认提示有着更强的力量。不断询问的答案几乎都为“是”的请求确认会造成用户根本不假思索就点击“是”，这个习惯会带来非常不幸的结果。程序应该只在有足够理由怀疑答案可能是“不不不！”的时候请求确认。</p>
+</blockquote>
+<h2 id="第-12-章-优化"><a href="#第-12-章-优化" class="headerlink" title="第 12 章 优化"></a>第 12 章 优化</h2><blockquote>
+<p>Premature optimization is the root of all evil.</p>
+<p>过早优化乃万恶之源。</p>
+<p>—C.A.R.Hoare</p>
+</blockquote>
+<blockquote>
+<p>这将是很短的一章，因为关于性能优化，Unix的经验告诉我们最主要的就是如何知道何时不去优化。其次，最有效的优化往往是优化之外的其它事情，如：清晰干净的设计。</p>
+</blockquote>
+<h2 id="第-13-章-复杂度：尽可能简单，但别简单过了头"><a href="#第-13-章-复杂度：尽可能简单，但别简单过了头" class="headerlink" title="第 13 章 复杂度：尽可能简单，但别简单过了头"></a>第 13 章 复杂度：尽可能简单，但别简单过了头</h2><h3 id="13-1-谈谈复杂度"><a href="#13-1-谈谈复杂度" class="headerlink" title="13.1 谈谈复杂度"></a>13.1 谈谈复杂度</h3><h4 id="13-1-4-映射复杂度"><a href="#13-1-4-映射复杂度" class="headerlink" title="13.1.4 映射复杂度"></a>13.1.4 映射复杂度</h4><blockquote>
+<p>偶然复杂度常常缘于接口设计并非正交——即没有仔细地分解接口操作以使得每个操作只完成一件事情。</p>
+</blockquote>
+<h1 id="Part-III"><a href="#Part-III" class="headerlink" title="Part III"></a>Part III</h1><h2 id="第-15-章-工具：开发的战术"><a href="#第-15-章-工具：开发的战术" class="headerlink" title="第 15 章 工具：开发的战术"></a>第 15 章 工具：开发的战术</h2><h3 id="15-6-运行期调试"><a href="#15-6-运行期调试" class="headerlink" title="15.6 运行期调试"></a>15.6 运行期调试</h3><blockquote>
+<p>牢记Unix哲学。将时间花费在设计质量上，而不是低层次的细节上，尽可能地自动化一切——包括运行期调试的细节工作。</p>
+</blockquote>
+<h2 id="第-16-章-重用：论不要重新发明轮子"><a href="#第-16-章-重用：论不要重新发明轮子" class="headerlink" title="第 16 章 重用：论不要重新发明轮子"></a>第 16 章 重用：论不要重新发明轮子</h2><blockquote>
+<p>不愿做不必要的工作是程序员的一大美德。</p>
+</blockquote>
+<blockquote>
+<p>系统级的重用是Unix程序员区别于其他程序员的最重要行为特征；Unix的经验是，养成良好的习惯，尝试通过最少的新发明，组合现有组件以形成原型，而非匆忙地编写独立的、只能使用一次的代码。</p>
+</blockquote>
+<h1 id="Part-IV"><a href="#Part-IV" class="headerlink" title="Part IV"></a>Part IV</h1><h2 id="第-17-章-可移植性：软件可移植性与遵循标准"><a href="#第-17-章-可移植性：软件可移植性与遵循标准" class="headerlink" title="第 17 章 可移植性：软件可移植性与遵循标准"></a>第 17 章 可移植性：软件可移植性与遵循标准</h2><h3 id="17-3-IETF和RFC标准化过程"><a href="#17-3-IETF和RFC标准化过程" class="headerlink" title="17.3 IETF和RFC标准化过程"></a>17.3 IETF和RFC标准化过程</h3><blockquote>
+<p>互联网工程任务组（Internet Engineering Task Force，IETF）</p>
+</blockquote>
+<blockquote>
+<p>在IETF传统中，标准必须来自于一个可用原型实现的经验——但是一旦成为标准，同标准不一致的代码就被认定是不合规范的，必须无情地抛弃。</p>
+</blockquote>
+<blockquote>
+<p>IETF的哲学已经被概括为著名的“我们反对国王、总统和投票。我们信任大致的共识和可运行代码”。</p>
+</blockquote>
+<blockquote>
+<p>所有的IETF标准都要经过RFC（请求评注）的阶段。</p>
+</blockquote>
+<blockquote>
+<p>当草案标准经过了实现的广泛测试并且达到了普遍接受的程度，就可以成为一个互联网标准（Internet Standard）。互联网标准保留自身的RFC编号，也可以申请一个STD序列号。在本书写作时，虽然有3000多个RFC，但仅仅只有60个STD。</p>
+</blockquote>
+<h3 id="17-7-可移植性、开放标准以及开放源码"><a href="#17-7-可移植性、开放标准以及开放源码" class="headerlink" title="17.7 可移植性、开放标准以及开放源码"></a>17.7 可移植性、开放标准以及开放源码</h3><blockquote>
+<p>暗含的意思就是，成为标准的最好办法就是发布一个高质量的开源实现。</p>
+<p>—Henry Spencer</p>
+</blockquote>
+<h2 id="第-18-章-文档：向网络世界阐释代码"><a href="#第-18-章-文档：向网络世界阐释代码" class="headerlink" title="第 18 章 文档：向网络世界阐释代码"></a>第 18 章 文档：向网络世界阐释代码</h2><blockquote>
+<p>I’ve never met a human being who would want to read 17,000 pages of documentation,<br>and if there was,I’d kill him to get him out of the gene pool.</p>
+<p>我从没见过一个愿意阅读17000页文档的人，如果有，我会杀了他，这样人的基因必须抹去。</p>
+<p>—Joseph Costello</p>
+</blockquote>
+<h2 id="第-19-章-开放源码：在Unix新社区中编程"><a href="#第-19-章-开放源码：在Unix新社区中编程" class="headerlink" title="第 19 章 开放源码：在Unix新社区中编程"></a>第 19 章 开放源码：在Unix新社区中编程</h2><h3 id="19-2-与开源开发者协同工作的最佳实践"><a href="#19-2-与开源开发者协同工作的最佳实践" class="headerlink" title="19.2 与开源开发者协同工作的最佳实践"></a>19.2 与开源开发者协同工作的最佳实践</h3><h4 id="19-2-1-良好的修补实践"><a href="#19-2-1-良好的修补实践" class="headerlink" title="19.2.1 良好的修补实践"></a>19.2.1 良好的修补实践</h4><h5 id="19-2-1-5-使用-c或-u格式而不是缺省的（-e）格式"><a href="#19-2-1-5-使用-c或-u格式而不是缺省的（-e）格式" class="headerlink" title="19.2.1.5 使用-c或-u格式而不是缺省的（-e）格式"></a>19.2.1.5 使用-c或-u格式而不是缺省的（-e）格式</h5><blockquote>
+<p>diff（1）默认的（-e）格式非常脆弱。它不包含任何上下文，因此在得到用来修改的拷贝之后，如果基准代码中插入或者删除了任何一行，patch工具无法得到正确结果。</p>
+</blockquote>
+<h4 id="19-2-2-良好的项目、档案文件命名实践"><a href="#19-2-2-良好的项目、档案文件命名实践" class="headerlink" title="19.2.2 良好的项目、档案文件命名实践"></a>19.2.2 良好的项目、档案文件命名实践</h4><blockquote>
+<p>如果档案文件都是类似GNU风格的名称，主干前缀全小写且只包含字母和数字，后接连字号，后再接版本号、扩展和其它后缀，对大家都有帮助。</p>
+</blockquote>
+<blockquote>
+<p>如果必须区分源码和二进制档案，或是区分不同的二进制码，或是表达某种文件名的编译选项，请紧接在版本号之后加上文件扩展名。也就是，像这样做：</p>
+<p>foobar-1.2.3.src.tar.gz</p>
+<p>源码。</p>
+</blockquote>
+<blockquote>
+<p>请不要使用像“foobar-i386-1.2.3.tar.gz”之类的名字，因为程序难以从名字主干中识别出类型的插入词（如“-i386”）。</p>
+</blockquote>
+<h4 id="19-2-4-良好的发行制作实践"><a href="#19-2-4-良好的发行制作实践" class="headerlink" title="19.2.4 良好的发行制作实践"></a>19.2.4 良好的发行制作实践</h4><blockquote>
+<p>注意整体上的习惯，文件名一律大写表明是关于软件包的供人阅读的元信息，而不是关于编译构件的。</p>
+</blockquote>
+<h2 id="第-20-章-未来：危机与机遇"><a href="#第-20-章-未来：危机与机遇" class="headerlink" title="第 20 章 未来：危机与机遇"></a>第 20 章 未来：危机与机遇</h2><h3 id="20-3-Unix设计中的问题"><a href="#20-3-Unix设计中的问题" class="headerlink" title="20.3 Unix设计中的问题"></a>20.3 Unix设计中的问题</h3><h4 id="20-3-1-Unix文件就是一大袋字节"><a href="#20-3-1-Unix文件就是一大袋字节" class="headerlink" title="20.3.1 Unix文件就是一大袋字节"></a>20.3.1 Unix文件就是一大袋字节</h4><blockquote>
+<p>Macintosh系列操作系统的发烧友往往对此咆哮不已。他们提倡一种模型，其中，单一文件名可以既有数据“分支”又有资源“分支”。数据分支对应于Unix的字节流，而资源分支则是名/值对的集合。而 Unix 支持者更喜欢文件数据自描述的方式，这样，同种类的元数据都有效地存放在该文件中。</p>
+</blockquote>
+<h1 id="附录A-缩写词表"><a href="#附录A-缩写词表" class="headerlink" title="附录A 缩写词表"></a>附录A 缩写词表</h1><blockquote>
+<p>GNU</p>
+<p>GNU’s Not Unix （GNU不是Unix）！自由软件基金的项目，原意是开发一个Unix的克隆版本，但完全自由的软件；GNU是其递归的缩写名。这个项目并没有取得完全成功，但是产生了许多现代Unix开发的基本工具，包括Emacs和GNU编译器集（GNU Compiler Collection，GCC）。</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-I"><span class="toc-number">1.</span> <span class="toc-text">Part I</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-1-章-哲学"><span class="toc-number">1.1.</span> <span class="toc-text">第 1 章 哲学</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-Unix哲学基础"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.6 Unix哲学基础</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-3-章-对比：Unix哲学同其他哲学的比较"><span class="toc-number">1.2.</span> <span class="toc-text">第 3 章 对比：Unix哲学同其他哲学的比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-操作系统的风格元素"><span class="toc-number">1.2.1.</span> <span class="toc-text">3.1 操作系统的风格元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-操作系统的比较"><span class="toc-number">1.2.2.</span> <span class="toc-text">3.2 操作系统的比较</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-II"><span class="toc-number">2.</span> <span class="toc-text">Part II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-4-章-模块性：保持清晰，保持简洁"><span class="toc-number">2.1.</span> <span class="toc-text">第 4 章 模块性：保持清晰，保持简洁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-紧凑性和正交性"><span class="toc-number">2.1.1.</span> <span class="toc-text">4.2 紧凑性和正交性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-软件是多层的"><span class="toc-number">2.1.2.</span> <span class="toc-text">4.3 软件是多层的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5-章-文本化：好协议产生好实践"><span class="toc-number">2.2.</span> <span class="toc-text">第 5 章 文本化：好协议产生好实践</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-数据文件元格式"><span class="toc-number">2.2.1.</span> <span class="toc-text">5.2 数据文件元格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-应用协议元格式"><span class="toc-number">2.2.2.</span> <span class="toc-text">5.4 应用协议元格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-章-透明性：来点儿光"><span class="toc-number">2.3.</span> <span class="toc-text">第 6 章 透明性：来点儿光</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-为可维护性而设计"><span class="toc-number">2.3.1.</span> <span class="toc-text">6.3 为可维护性而设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-7-章-多道程序设计：分离进程为独立的功能"><span class="toc-number">2.4.</span> <span class="toc-text">第 7 章 多道程序设计：分离进程为独立的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-Unix-IPC-方法的分类"><span class="toc-number">2.4.1.</span> <span class="toc-text">7.2 Unix IPC 方法的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-要避免的问题和方法"><span class="toc-number">2.4.2.</span> <span class="toc-text">7.3 要避免的问题和方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-在设计层次上的进程划分"><span class="toc-number">2.4.3.</span> <span class="toc-text">7.4 在设计层次上的进程划分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-8-章-微型语言：寻找歌唱的乐符"><span class="toc-number">2.5.</span> <span class="toc-text">第 8 章 微型语言：寻找歌唱的乐符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-应用微型语言"><span class="toc-number">2.5.1.</span> <span class="toc-text">8.2 应用微型语言</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-9-章-生成：提升规格说明的层次"><span class="toc-number">2.6.</span> <span class="toc-text">第 9 章 生成：提升规格说明的层次</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-数据驱动编程"><span class="toc-number">2.6.1.</span> <span class="toc-text">9.1 数据驱动编程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-专用代码的生成"><span class="toc-number">2.6.2.</span> <span class="toc-text">9.2 专用代码的生成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-10-章-配置：迈出正确的第一步"><span class="toc-number">2.7.</span> <span class="toc-text">第 10 章 配置：迈出正确的第一步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-配置在哪里"><span class="toc-number">2.7.1.</span> <span class="toc-text">10.2 配置在哪里</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-运行控制文件"><span class="toc-number">2.7.2.</span> <span class="toc-text">10.3 运行控制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-6-如何挑选方法"><span class="toc-number">2.7.3.</span> <span class="toc-text">10.6 如何挑选方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-11-章-接口：Unix环境下的用户接口设计模式"><span class="toc-number">2.8.</span> <span class="toc-text">第 11 章 接口：Unix环境下的用户接口设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-1-最小立异原则的应用"><span class="toc-number">2.8.1.</span> <span class="toc-text">11.1 最小立异原则的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-6-Unix接口设计模式"><span class="toc-number">2.8.2.</span> <span class="toc-text">11.6 Unix接口设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-9-沉默是金"><span class="toc-number">2.8.3.</span> <span class="toc-text">11.9 沉默是金</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-12-章-优化"><span class="toc-number">2.9.</span> <span class="toc-text">第 12 章 优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-13-章-复杂度：尽可能简单，但别简单过了头"><span class="toc-number">2.10.</span> <span class="toc-text">第 13 章 复杂度：尽可能简单，但别简单过了头</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-1-谈谈复杂度"><span class="toc-number">2.10.1.</span> <span class="toc-text">13.1 谈谈复杂度</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-III"><span class="toc-number">3.</span> <span class="toc-text">Part III</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-15-章-工具：开发的战术"><span class="toc-number">3.1.</span> <span class="toc-text">第 15 章 工具：开发的战术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#15-6-运行期调试"><span class="toc-number">3.1.1.</span> <span class="toc-text">15.6 运行期调试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-16-章-重用：论不要重新发明轮子"><span class="toc-number">3.2.</span> <span class="toc-text">第 16 章 重用：论不要重新发明轮子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-IV"><span class="toc-number">4.</span> <span class="toc-text">Part IV</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第-17-章-可移植性：软件可移植性与遵循标准"><span class="toc-number">4.1.</span> <span class="toc-text">第 17 章 可移植性：软件可移植性与遵循标准</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#17-3-IETF和RFC标准化过程"><span class="toc-number">4.1.1.</span> <span class="toc-text">17.3 IETF和RFC标准化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#17-7-可移植性、开放标准以及开放源码"><span class="toc-number">4.1.2.</span> <span class="toc-text">17.7 可移植性、开放标准以及开放源码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-18-章-文档：向网络世界阐释代码"><span class="toc-number">4.2.</span> <span class="toc-text">第 18 章 文档：向网络世界阐释代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-19-章-开放源码：在Unix新社区中编程"><span class="toc-number">4.3.</span> <span class="toc-text">第 19 章 开放源码：在Unix新社区中编程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#19-2-与开源开发者协同工作的最佳实践"><span class="toc-number">4.3.1.</span> <span class="toc-text">19.2 与开源开发者协同工作的最佳实践</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-20-章-未来：危机与机遇"><span class="toc-number">4.4.</span> <span class="toc-text">第 20 章 未来：危机与机遇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#20-3-Unix设计中的问题"><span class="toc-number">4.4.1.</span> <span class="toc-text">20.3 Unix设计中的问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A-缩写词表"><span class="toc-number">5.</span> <span class="toc-text">附录A 缩写词表</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

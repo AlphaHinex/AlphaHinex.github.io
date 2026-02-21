@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dify 知识库迁移 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Dify, Knowledge Base, migration, postgre, pg, PostgreSQL, SQL, weaviate, vector, Vector DB"> 
+    <meta name="description" content="Dify 知识库迁移迁移 Dify 中单个知识库的参考方案，不同 Dify 版本表结构可能略有差异。
+从源数据库中获取知识库及租户 ID# 待迁移的知识库 id
+dataset_id = &amp;#39;,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Dify 知识库迁移</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/dify-knowledge-base-migration.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                七月 20, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/07/20/dify-knowledge-base-migration/" title="Dify 知识库迁移" class="">Dify 知识库迁移</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.2k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Dify/" rel="tag">Dify</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Dify-知识库迁移"><a href="#Dify-知识库迁移" class="headerlink" title="Dify 知识库迁移"></a>Dify 知识库迁移</h1><p>迁移 Dify 中单个知识库的参考方案，不同 Dify 版本表结构可能略有差异。</p>
+<h2 id="从源数据库中获取知识库及租户-ID"><a href="#从源数据库中获取知识库及租户-ID" class="headerlink" title="从源数据库中获取知识库及租户 ID"></a>从源数据库中获取知识库及租户 ID</h2><pre><code class="python"># 待迁移的知识库 id
+dataset_id = &#39;xxxxxx&#39;
+
+# 源数据库租户
+# select tenant_id, created_by, embedding_model_provider, embedding_model from datasets where id=&#39;{dataset_id}&#39;;
+source_tenant_id = &#39;xxxxxx&#39;</code></pre>
+<h2 id="源数据库需导出的数据"><a href="#源数据库需导出的数据" class="headerlink" title="源数据库需导出的数据"></a>源数据库需导出的数据</h2><p>通过 sql 生成 insert 语句，在目标数据库中执行。</p>
+<pre><code class="python">source_data_sql = f&#39;&#39;&#39;
+-- 知识库
+select * from datasets where id=&#39;{dataset_id}&#39;;
+-- select tenant_id, created_by, embedding_model_provider, embedding_model from datasets where id=&#39;{dataset_id}&#39;;
+
+select * from dataset_permissions where id=&#39;{dataset_id}&#39;;
+
+select * from external_knowledge_bindings where id=&#39;{dataset_id}&#39;;
+
+select * from external_knowledge_apis where id=(select external_knowledge_api_id from external_knowledge_bindings where dataset_id=&#39;{dataset_id}&#39;);
+
+select * from dataset_collection_bindings where id=(select collection_binding_id from datasets where id=&#39;{dataset_id}&#39;);
+
+-- 文档
+select * from documents where dataset_id=&#39;{dataset_id}&#39;;
+
+select * from dataset_process_rules where dataset_id=&#39;{dataset_id}&#39;;
+
+-- 文件路径带租户信息
+select * from upload_files where id::text=(select data_source_info::json-&gt;&gt;&#39;upload_file_id&#39; from documents where dataset_id=&#39;{dataset_id}&#39;);
+
+-- 文档分段
+select * from document_segments where dataset_id=&#39;{dataset_id}&#39;;
+
+select * from embeddings where hash in (select index_node_hash from document_segments where dataset_id=&#39;{dataset_id}&#39;);
+
+select * from dataset_keyword_tables where dataset_id=&#39;{dataset_id}&#39;;
+
+select * from child_chunks where dataset_id=&#39;{dataset_id}&#39;;
+
+-- select * from dataset_auto_disable_logs where dataset_id=&#39;{dataset_id}&#39;;
+-- select * from dataset_queries where dataset_id=&#39;{dataset_id}&#39;;
+-- select * form dataset_retriever_resources where dataset_id=&#39;{dataset_id}&#39;;
+-- select * from dataset_metadatas where dataset_id=&#39;{dataset_id}&#39;;
+-- select * form dataset_metadata_bindings where dataset_id=&#39;{dataset_id}&#39;;
+&#39;&#39;&#39;
+print(source_data_sql)</code></pre>
+<h2 id="导入后根据目标库中租户、嵌入模型等更新数据"><a href="#导入后根据目标库中租户、嵌入模型等更新数据" class="headerlink" title="导入后根据目标库中租户、嵌入模型等更新数据"></a>导入后根据目标库中租户、嵌入模型等更新数据</h2><pre><code class="python"># 目标数据库租户
+# select tenant_id, created_by, embedding_model_provider, embedding_model from datasets;
+target_tenant_id = &#39;xxxxxx&#39;
+
+# 目标数据库创建人
+target_created_by = &#39;xxxxxx&#39;
+
+# 目标数据库嵌入模型
+target_embedding_model_provider = &#39;xxxxxx&#39;
+target_embedding_model_name = &#39;xxxxxx&#39;</code></pre>
+<pre><code class="python">target_update_sql = f&#39;&#39;&#39;
+update datasets set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39;, embedding_model=&#39;{target_embedding_model_name}&#39;, embedding_model_provider=&#39;{target_embedding_model_provider}&#39; where id=&#39;{dataset_id}&#39;;
+
+update dataset_permissions set tenant_id=&#39;{target_tenant_id}&#39; where id=&#39;{dataset_id}&#39;;
+
+update external_knowledge_bindings set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39; where id=&#39;{dataset_id}&#39;;
+
+update external_knowledge_apis set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39;, updated_by=&#39;{target_created_by}&#39; where id=(select external_knowledge_api_id from external_knowledge_bindings where dataset_id=&#39;{dataset_id}&#39;);
+
+update dataset_collection_bindings set model_name=&#39;{target_embedding_model_name}&#39;, provider_name=&#39;{target_embedding_model_provider}&#39; where id=(select collection_binding_id from datasets where id=&#39;{dataset_id}&#39;);
+
+update documents set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+
+update dataset_process_rules set created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+
+update upload_files set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39;, key=REPLACE(key, &#39;{source_tenant_id}&#39;, &#39;{target_tenant_id}&#39;) where id::text=(select data_source_info::json-&gt;&gt;&#39;upload_file_id&#39; from documents where dataset_id=&#39;{dataset_id}&#39;);
+
+update document_segments set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+
+update embeddings set model_name=&#39;{target_embedding_model_name}&#39;, provider_name=&#39;{target_embedding_model_provider}&#39; where hash in (select index_node_hash from document_segments where dataset_id=&#39;{dataset_id}&#39;);
+
+update child_chunks set tenant_id=&#39;{target_tenant_id}&#39;, created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+
+-- update dataset_auto_disable_logs set tenant_id=&#39;{target_tenant_id}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+-- update dataset_queries set created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+-- update dataset_retriever_resources set created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+-- update dataset_metadatas set tenant_id=&#39;{target_tenant_id}&#39;,  created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+-- update dataset_metadata_bindings set tenant_id=&#39;{target_tenant_id}&#39;,  created_by=&#39;{target_created_by}&#39; where dataset_id=&#39;{dataset_id}&#39;;
+&#39;&#39;&#39;
+print(target_update_sql)</code></pre>
+<h2 id="文档迁移"><a href="#文档迁移" class="headerlink" title="文档迁移"></a>文档迁移</h2><p>将上传到知识库中的源文件，从源环境的文件系统迁移至目标环境的文件系统。源文件和目标文件路径可从下面 SQL 中获得。</p>
+<p>源文件也可通过 Dify 知识库接口获取：</p>
+<pre><code class="bash">curl --request GET \
+  --url http://host:port/v1/datasets/{dataset_id}/documents/{document_id}/upload-file \
+  --header &#39;authorization: Bearer {dataset-api-key}&#39;</code></pre>
+<pre><code class="python">file_sql = f&#39;&#39;&#39;
+-- 分别在源环境和目标环境库中执行，获得源文件路径和目标文件路径
+select &#39;/app/api/storage/&#39; || key from upload_files where id::text=(select data_source_info::json-&gt;&gt;&#39;upload_file_id&#39; from documents where dataset_id=&#39;{dataset_id}&#39;);
+&#39;&#39;&#39;
+print(file_sql)</code></pre>
+<h2 id="更新向量库"><a href="#更新向量库" class="headerlink" title="更新向量库"></a>更新向量库</h2><p>因 Dify 可使用不同类型的向量库，且向量库迁移方式不同，可在完成数据迁移后，在 Dify 知识库界面中，将新迁移的知识库中文档进行禁用后再启用操作，使 Dify 自动完成向量库的同步更新（分段和嵌入向量均存储在数据库中）。等待所有文档及分段的状态恢复可用后，可通过召回测试验证迁移效果。</p>
+<h2 id="附：PostgreSQL-命令行操作"><a href="#附：PostgreSQL-命令行操作" class="headerlink" title="附：PostgreSQL 命令行操作"></a>附：PostgreSQL 命令行操作</h2><ul>
+<li>连接到 PostgreSQL 数据库：<code>psql -U &lt;user&gt; -d &lt;database&gt; -h &lt;host&gt; -p &lt;port&gt;</code></li>
+<li>列出所有数据库：<code>\l</code></li>
+<li>连接到指定数据库：<code>\c 数据库名</code></li>
+<li>列出当前库中所有表：<code>\d</code></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Dify-知识库迁移"><span class="toc-number">1.</span> <span class="toc-text">Dify 知识库迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#从源数据库中获取知识库及租户-ID"><span class="toc-number">1.1.</span> <span class="toc-text">从源数据库中获取知识库及租户 ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源数据库需导出的数据"><span class="toc-number">1.2.</span> <span class="toc-text">源数据库需导出的数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#导入后根据目标库中租户、嵌入模型等更新数据"><span class="toc-number">1.3.</span> <span class="toc-text">导入后根据目标库中租户、嵌入模型等更新数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文档迁移"><span class="toc-number">1.4.</span> <span class="toc-text">文档迁移</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#更新向量库"><span class="toc-number">1.5.</span> <span class="toc-text">更新向量库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附：PostgreSQL-命令行操作"><span class="toc-number">1.6.</span> <span class="toc-text">附：PostgreSQL 命令行操作</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

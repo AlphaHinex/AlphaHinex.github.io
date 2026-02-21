@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K8s Ingress、Ingress Controller 和 Ingress Class - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,K8s, Cloud Native, Ingress, Nginx, Ingress Controller, Ingress Class"> 
+    <meta name="description" content="将 k8s 集群中服务暴露给集群外访问，最简单的方式莫过于使用 NodePort，好比在 docker 环境下为容器的服务端口绑定宿主机的端口，定义 NodePort 类型的 Service 后，即,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">K8s Ingress、Ingress Controller 和 Ingress Class</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/ingress-ingress-controller-ingress-class.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Cloud Native"><b>「
+                    </b>CLOUD NATIVE<b> 」</b></a>
+                
+                七月 11, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/07/11/ingress-ingress-controller-ingress-class/" title="K8s Ingress、Ingress Controller 和 Ingress Class" class="">K8s Ingress、Ingress Controller 和 Ingress Class</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.3k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>将 k8s 集群中服务暴露给集群外访问，最简单的方式莫过于使用 NodePort，好比在 docker 环境下为容器的服务端口绑定宿主机的端口，定义 NodePort 类型的 Service 后，即可通过集群中任意节点的 IP 加 nodePort 指定的端口访问到 k8s 集群中的服务。</p>
+<p>但随着服务的增多，使用 NodePort 访问的问题也会逐渐显现出来：可用作 NodePort 的端口是一个有限的范围、不容易记忆、不好管理……</p>
+<p>有没有更优雅的方式访问集群内的服务呢？</p>
+<p>可以在集群内部署一个 Nginx 服务，NodePort 暴露 Nginx 的端口，再由 Nginx 代理访问集群内的服务。emm，没错，这种方式的确更好。在 k8s 中也有这样的一个资源，能够起到与这个 Nginx 类似的作用，即 <code>Ingress</code>。</p>
+<h2 id="Ingress"><a href="#Ingress" class="headerlink" title="Ingress"></a>Ingress</h2><p><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/" target="_blank" rel="noopener">Ingress</a> 在 k8s 集群中的作用，是定义外部对集群内服务的访问路由，例如：</p>
+<pre><code class="yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        backend:
+          service:
+            name: test
+            port:
+              number: 80</code></pre>
+<p>上面这个 Ingress 资源的定义，配置了一个路径为 <code>/testpath</code> 的路由，所有 <code>/testpath/**</code> 的入站请求，会被 Ingress 转发至名为 <code>test</code> 的服务的 80 端口的 <code>/</code> 路径下。</p>
+<p>可以将 Ingress 狭义的理解为，Nginx 中的配置文件，如：<code>nginx.conf</code>。</p>
+<h2 id="Ingress-Controller"><a href="#Ingress-Controller" class="headerlink" title="Ingress Controller"></a>Ingress Controller</h2><p>很显然，只有 Nginx 的配置文件，是起不到转发请求的作用的，必须还要有 Nginx 程序。</p>
+<p>同样，仅创建 Ingress 资源本身是没有任何作用的，还需要部署 <a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/" target="_blank" rel="noopener">Ingress Controller</a>。Ingress Controller 的作用就相当于是 Nginx 服务，实际上，k8s 官方支持和维护的三个 Ingress Controller 里，就有基于 nginx 实现的 <a href="https://github.com/kubernetes/ingress-nginx/" target="_blank" rel="noopener">ingress-nginx</a>，另外两个是 <a href="https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme" target="_blank" rel="noopener">AWS</a> 和 <a href="https://git.k8s.io/ingress-gce/README.md" target="_blank" rel="noopener">GCE</a>。</p>
+<p>除此之外，还有很多<a href="https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/#additional-controllers" target="_blank" rel="noopener">三方实现</a>，例如：</p>
+<ul>
+<li>F5 BIG-IP 的 <a href="https://clouddocs.f5.com/containers/latest/userguide/kubernetes/" target="_blank" rel="noopener">Container Ingress Services for Kubernetes</a> 让你能够使用 Ingress 来配置 F5 BIG-IP 虚拟服务器</li>
+<li><a href="https://gloo.solo.io/" target="_blank" rel="noopener">Gloo</a> 是一个开源的、基于 Envoy 的 Ingress 控制器，能够提供 API 网关功能</li>
+<li><a href="https://haproxy-ingress.github.io/" target="_blank" rel="noopener">HAProxy Ingress</a> 针对 HAProxy 的 Ingress 控制器</li>
+<li><a href="https://istio.io/latest/docs/tasks/traffic-management/ingress/kubernetes-ingress/" target="_blank" rel="noopener">Istio Ingress</a> 是一个基于 Istio 的 Ingress 控制器</li>
+<li><a href="https://www.nginx.com/products/nginx-ingress-controller/" target="_blank" rel="noopener">NGINX Ingress Controller for Kubernetes</a> 能够与 NGINX Web 服务器（作为代理）一起使用</li>
+<li><a href="https://doc.traefik.io/traefik/providers/kubernetes-ingress/" target="_blank" rel="noopener">Traefik Kubernetes Ingress provider</a> 是一个用于 Traefik 代理的 Ingress 控制器</li>
+</ul>
+<p>既然有这么多类型的实现，我们就有可能会有需要部署多个 Ingress Controller 的场景。当集群中部署了多个 Ingress Controller 的时候，如何知道 Ingress 中的规则应该使用哪个 Controller 呢？这时就需要用到 Ingress Class 了。</p>
+<h2 id="Ingress-Class"><a href="#Ingress-Class" class="headerlink" title="Ingress Class"></a>Ingress Class</h2><p>不同类型的 Ingress Controller 对应的 Ingress 配置通常也是不同的，当集群中存在多于一个的 Ingress Controller 时，就需要为 Ingress 指定对应的 Controller 是哪个。</p>
+<h3 id="kubernetes-io-ingress-class"><a href="#kubernetes-io-ingress-class" class="headerlink" title="kubernetes.io/ingress.class"></a><code>kubernetes.io/ingress.class</code></h3><p>在 Kubernetes 1.18 之前，通常是在 Ingress 资源上通过 <code>kubernetes.io/ingress.class</code> 注解来指定使用的 Ingress Controller。虽然这个注解从未被正式定义过，但确是被各个 Ingress Controller 所广泛支持的。</p>
+<p>这个注解的值，一般是具体 Ingress Controller 所提供的默认值，如 <code>nginx</code>、<code>gce</code>、<code>traefik</code>、<code>kong</code> 等，可使用约定关键字，或查阅对应文档获得此默认值，如 Kong 的 Kubernetes Ingress Controller 文档中 <a href="https://docs.konghq.com/kubernetes-ingress-controller/1.3.x/concepts/ingress-classes/#configuring-the-controller-ingress-class" target="_blank" rel="noopener">Configuring the controller ingress class</a> 部分。</p>
+<p>在创建 Ingress Controller 部署对象时，我们也可以通过 <code>--ingress-class</code> 来指定此 Ingress Controller 具体 Deployment 的对应 class，如：</p>
+<pre><code class="yaml">spec:
+  template:
+     spec:
+       containers:
+         - name: nginx-ingress-internal-controller
+           args:
+             - /nginx-ingress-controller
+             - &#39;--ingress-class=nginx-internal&#39;
+             - &#39;--configmap=ingress/nginx-ingress-internal-controller&#39;</code></pre>
+<p>Ingress 中指定使用的 Ingress Controller 时，可参考如下方式：</p>
+<pre><code class="yaml">apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-issue2349
+  annotations:
+    kubernetes.io/ingress.class: nginx-internal
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: echoheaders
+          servicePort: 80
+        path: /jsonRPC
+</code></pre>
+<h3 id="IngressClass"><a href="#IngressClass" class="headerlink" title="IngressClass"></a>IngressClass</h3><p>Kubernetes 1.18 起，正式提供了一个 <a href="https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class" target="_blank" rel="noopener">IngressClass</a> 资源，作用与 <code>kubernetes.io/ingress.class</code> 注解类似，例如：</p>
+<pre><code class="yaml">apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: nginx-ingress-internal-controller
+  parameters:
+    apiGroup: k8s.example.com
+    kind: IngressParameters
+    name: external-lb</code></pre>
+<p>其中重要的属性是 <code>metadata.name</code> 和 <code>spec.controller</code>，前者是这个 IngressClass 的名称，需要设定在 Ingress 中，后者是 Ingress Controller 的名称。</p>
+<p>Ingress 中的 <code>spec.ingressClassName</code> 属性，可以用来指定对应的 IngressClass，并进而由 IngressClass 关联到对应的 Ingress Controller，如：</p>
+<pre><code class="yaml">apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: spring-k8s
+spec:
+  ingressClassName: external-lb
+  defaultBackend:
+    service:
+      name: spring-k8s
+      port:
+        number: 80</code></pre>
+<p>注意，<code>spec.ingressClassName</code> 与 <code>metadata.annotations.kubernetes.io/ingress.class</code> 的作用并不完全相同，因为 <code>ingressClassName</code> 字段引用的是 IngressClass 资源的名称，IngressClass 资源中，除了指定了 Ingress Controller 的名称之外，还可能会通过 <code>spec.parameters</code> 属性定义一些额外的配置。</p>
+<h3 id="默认-Ingress-Class"><a href="#默认-Ingress-Class" class="headerlink" title="默认 Ingress Class"></a>默认 Ingress Class</h3><p>在集群中，我们可以设定一个默认的 Ingress Class，以便处理所有没有指定 Ingress Class 的 Ingress 资源。</p>
+<p>在 <code>IngressClass</code> 资源上，我们可以通过将 <code>ingressclass.kubernetes.io/is-default-class</code> 注解的值设定为 <code>true</code>，来使没有设置 <code>ingressClassName</code> 的 Ingress 使用此默认的 <code>IngressClass</code>。</p>
+<blockquote>
+<p>注意：当存在多个默认 Ingress Class 时，新的 Ingress 如果没有指定 <code>ingressClassName</code> 则不会被允许创建。解决这个问题只需确保集群中最多只能有一个 IngressClass 被标记为默认。</p>
+</blockquote>
+<h2 id="多个-Ingress-Controller"><a href="#多个-Ingress-Controller" class="headerlink" title="多个 Ingress Controller"></a>多个 Ingress Controller</h2><p>除了可能会有多个不同类型的 Ingress Controller 之外，还可能存在多个相同类型的 Ingress Controller，比如部署了两个 NGINX Ingress Controller，一个负责处理外网访问，一个负责处理内网访问。</p>
+<p>此时也可以通过上面的方式，为每个 Controller 设定唯一的一个 class。</p>
+<p>当多个 controller 的 class 不唯一，或者 controller 和 Ingress 都没有指定 class 又没有默认的 class 时，会导致所有符合条件的 Ingress Controller 竞争满足 Ingress 配置，可能会导致不可预测的结果。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md" target="_blank" rel="noopener">Rewrite</a></li>
+<li><a href="https://kubernetes.github.io/ingress-nginx/user-guide/multiple-ingress/" target="_blank" rel="noopener">Multiple Ingress controllers</a></li>
+<li><a href="https://github.com/kubernetes/ingress-nginx/issues/2349" target="_blank" rel="noopener">Ingress not working when kubernetes.io/ingress.class used</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1579931" target="_blank" rel="noopener">kubernetes中常用的Ingress Controller</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ingress"><span class="toc-number">1.</span> <span class="toc-text">Ingress</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ingress-Controller"><span class="toc-number">2.</span> <span class="toc-text">Ingress Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ingress-Class"><span class="toc-number">3.</span> <span class="toc-text">Ingress Class</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kubernetes-io-ingress-class"><span class="toc-number">3.1.</span> <span class="toc-text">kubernetes.io&#x2F;ingress.class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IngressClass"><span class="toc-number">3.2.</span> <span class="toc-text">IngressClass</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认-Ingress-Class"><span class="toc-number">3.3.</span> <span class="toc-text">默认 Ingress Class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多个-Ingress-Controller"><span class="toc-number">4.</span> <span class="toc-text">多个 Ingress Controller</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

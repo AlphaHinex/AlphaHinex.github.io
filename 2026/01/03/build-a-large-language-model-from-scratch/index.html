@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《从零构建大模型》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,LLM, Large Language Model, GPT, Transformer, 自注意力机制, BPE, 词元嵌入, PyTorch"> 
+    <meta name="description" content="豆瓣评分 9.3
+关于本书
+本书中的所有代码示例均可在Manning出版社的官方网站(https://www.manning.com/books/build-a-large-language-mod,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《从零构建大模型》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/build-a-large-language-model-from-scratch/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                一月 03, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/01/03/build-a-large-language-model-from-scratch/" title="《从零构建大模型》书摘" class="">《从零构建大模型》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    26k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    23 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://book.douban.com/subject/37305124/" target="_blank" rel="noopener">豆瓣评分 9.3</a></p>
+<h1 id="关于本书"><a href="#关于本书" class="headerlink" title="关于本书"></a>关于本书</h1><blockquote>
+<p>本书中的所有代码示例均可在Manning出版社的官方网站(<a href="https://www.manning.com/books/build-a-large-language-model-from-scratch)和GitHub(https://github.com/rasbt/LLMs-from-scratch)上找到" target="_blank" rel="noopener">https://www.manning.com/books/build-a-large-language-model-from-scratch)和GitHub(https://github.com/rasbt/LLMs-from-scratch)上找到</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://magazine.sebastianraschka.com" target="_blank" rel="noopener">https://magazine.sebastianraschka.com</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://sebastianraschka.com" target="_blank" rel="noopener">https://sebastianraschka.com</a></p>
+</blockquote>
+<h1 id="第2章-处理文本数据"><a href="#第2章-处理文本数据" class="headerlink" title="第2章 处理文本数据"></a>第2章 处理文本数据</h1><h2 id="2-4-引入特殊上下文词元"><a href="#2-4-引入特殊上下文词元" class="headerlink" title="2.4 引入特殊上下文词元"></a>2.4 引入特殊上下文词元</h2><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/2-10.jpeg" alt="图2-10　在处理多个独立的文本源时，我们在这些文本之间插入&lt;|endoftext|&gt;词元。这些&lt;|endoftext|&gt;词元作为标记，可以指示出特定文本片段的开始或结束，从而有助于大语言模型更有效地处理和理解文本"></p>
+</blockquote>
+<blockquote>
+<p>• [PAD]（填充）：当使用批次大小(batch size)大于1的批量数据训练大语言模型时，数据中的文本长度可能不同。为了使所有文本具有相同的长度，较短的文本会通过添加[PAD]词元进行扩展或“填充”，以匹配批量数据中的最长文本的长度。</p>
+</blockquote>
+<h2 id="2-5-BPE"><a href="#2-5-BPE" class="headerlink" title="2.5 BPE"></a>2.5 BPE</h2><blockquote>
+<p>由于BPE的实现相对复杂，因此我们将使用现有的Python开源库tiktoken，它基于Rust的源代码非常高效地实现了BPE算法。</p>
+</blockquote>
+<blockquote>
+<p>BPE算法的原理是将不在预定义词汇表中的单词分解为更小的子词单元甚至单个字符，从而能够处理词汇表之外的单词。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/2-11.jpeg" alt="图2-11　BPE分词器会将未知单词分解为子词和单个字符。如此一来，BPE分词器便可以解析任何单词，而无须使用特殊词元（如&lt;|unk|&gt;）来替换未知单词"></p>
+</blockquote>
+<h2 id="2-7-创建词元嵌入"><a href="#2-7-创建词元嵌入" class="headerlink" title="2.7 创建词元嵌入"></a>2.7 创建词元嵌入</h2><blockquote>
+<p>嵌入层实质上执行的是一种查找操作，它根据词元ID从嵌入层的权重矩阵中检索出相应的行。</p>
+</blockquote>
+<blockquote>
+<p>注意　如果你熟悉独热编码(one-hot encoding)，那么本质上可以将嵌入层方法视为一种更有效的实现独热编码的方法。它先进行独热编码，然后在全连接层中进行矩阵乘法，这在本书的补充代码中有所说明。由于嵌入层只是独热编码和矩阵乘法方法的一种更高效的实现，因此它可以被视为一个能够通过反向传播进行优化的神经网络层。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/2-16.jpeg" alt="图2-16　嵌入层执行查找操作，即从它的权重矩阵中检索与特定词元ID对应的嵌入向量。"></p>
+</blockquote>
+<h2 id="2-8-编码单词位置信息"><a href="#2-8-编码单词位置信息" class="headerlink" title="2.8 编码单词位置信息"></a>2.8 编码单词位置信息</h2><blockquote>
+<p>大语言模型存在一个小缺陷——它们的自注意力机制（参见第3章）无法感知词元在序列中的位置或顺序。嵌入层的工作机制是，无论词元ID在输入序列中的位置如何，相同的词元ID始终被映射到相同的向量表示</p>
+</blockquote>
+<blockquote>
+<p>原则上，带有确定性且与位置无关的词元ID嵌入能够提升其可再现性。然而，由于大语言模型的自注意力机制本质上与位置无关，因此向模型中注入额外的位置信息是有帮助的。<br>为了实现这一点，可以采用两种位置信息嵌入策略：绝对位置嵌入和相对位置嵌入。</p>
+</blockquote>
+<blockquote>
+<p>绝对位置嵌入(absolute positional embedding)直接与序列中的特定位置相关联。对于输入序列的每个位置，该方法都会向对应词元的嵌入向量中添加一个独特的位置嵌入，以明确指示其在序列中的确切位置。</p>
+</blockquote>
+<blockquote>
+<p>相对位置嵌入(relative positional embedding)关注的是词元之间的相对位置或距离，而非它们的绝对位置。这意味着模型学习的是词元之间的“距离”关系，而不是它们在序列中的“具体位置”。这种方法使得模型能够更好地适应不同长度（包括在训练过程中从未见过的长度）的序列。</p>
+</blockquote>
+<blockquote>
+<p>以上两种位置嵌入都旨在提升大语言模型对词元顺序及其相互关系的理解能力，从而实现更准确、更具上下文感知力的预测。选择使用哪种嵌入策略，通常取决于具体的应用场景和数据特性。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/2-19.jpeg" alt="图2-19　在输入处理流水线中，输入文本首先被分割为独立的词元。随后，这些词元通过词汇表转换为词元ID。这些词元ID继而被转换为嵌入向量，并添加与之大小相同的位置嵌入，最终形成用于大语言模型核心层的输入嵌入"></p>
+</blockquote>
+<h1 id="第3章-编码注意力机制"><a href="#第3章-编码注意力机制" class="headerlink" title="第3章 编码注意力机制"></a>第3章 编码注意力机制</h1><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/3-2.jpeg" alt="图3-2　本章将要实现的不同注意力机制。我们将从一个简化版本的自注意力机制开始，然后逐步加入可训练的权重。因果注意力机制在自注意力的基础上增加了额外掩码，使得大语言模型可以一次生成一个单词。最后，多头注意力将注意力机制划分成多个头，从而使模型能够并行捕获输入数据的各种特征"></p>
+</blockquote>
+<h2 id="3-1-长序列建模中的问题"><a href="#3-1-长序列建模中的问题" class="headerlink" title="3.1 长序列建模中的问题"></a>3.1 长序列建模中的问题</h2><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/3-4.jpeg" alt="图3-4　在Transformer模型出现之前，编码器-解码器结构的RNN是机器翻译的常见选择。编码器将源语言的一串词元序列作为输入，并通过隐藏状态（一个中间神经网络层）编码整个输入序列的压缩表示。然后，解码器利用其当前的隐藏状态开始逐个词元进行翻译"></p>
+</blockquote>
+<blockquote>
+<p>编码器-解码器RNN的一个主要限制是，在解码阶段，RNN无法直接访问编码器中的早期隐藏状态。因此，它只能依赖当前的隐藏状态，这个状态包含了所有相关信息。这可能导致上下文丢失，特别是在复杂句子中，依赖关系可能跨越较长的距离。</p>
+</blockquote>
+<h2 id="3-2-使用注意力机制捕捉数据依赖关系"><a href="#3-2-使用注意力机制捕捉数据依赖关系" class="headerlink" title="3.2 使用注意力机制捕捉数据依赖关系"></a>3.2 使用注意力机制捕捉数据依赖关系</h2><blockquote>
+<p>自注意力是Transformer模型中的一种机制，它通过允许一个序列中的每个位置与同一序列中的其他所有位置进行交互并权衡其重要性，来计算出更高效的输入表示。</p>
+</blockquote>
+<h2 id="3-3-通过自注意力机制关注输入的不同部分"><a href="#3-3-通过自注意力机制关注输入的不同部分" class="headerlink" title="3.3 通过自注意力机制关注输入的不同部分"></a>3.3 通过自注意力机制关注输入的不同部分</h2><blockquote>
+<p>在自注意力机制中，“自”指的是该机制通过关联单个输入序列中的不同位置来计算注意力权重的能力。它可以评估并学习输入本身各个部分之间的关系和依赖，比如句子中的单词或图像中的像素。</p>
+</blockquote>
+<blockquote>
+<p>这与传统的注意力机制形成对比。传统的注意力机制关注的是两个不同序列元素之间的关系，比如在序列到序列模型中，注意力可能在输入序列和输出序列之间</p>
+</blockquote>
+<blockquote>
+<p>点积不仅被视为一种将两个向量转化为标量值的数学工具，而且也是度量相似度的一种方式，因为它可以量化两个向量之间的对齐程度：点积越大，向量之间的对齐程度或相似度就越高。</p>
+</blockquote>
+<blockquote>
+<p>在自注意机制中，点积决定了序列中每个元素对其他元素的关注程度：点积越大，两个元素之间的相似度和注意力分数就越高。</p>
+</blockquote>
+<blockquote>
+<p>归一化的主要目的是获得总和为1的注意力权重。这种归一化是一个惯例，有助于解释结果，并能维持大语言模型的训练稳定性。</p>
+</blockquote>
+<blockquote>
+<p>在实际应用中，使用softmax函数进行归一化更为常见，而且是一种更可取的做法。这种方法更好地处理了极值，并在训练期间提供了更有利的梯度特性。</p>
+</blockquote>
+<blockquote>
+<p>softmax函数可以保证注意力权重总是正值，这使得输出可以被解释为概率或相对重要性，其中权重越高表示重要程度越高。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/3-10.jpeg" alt="图3-10　在计算并归一化注意力分数以获取查询￼的注意力权重之后，最后一步是计算上下文向量￼。该上下文向量是所有输入向量￼到￼按注意力权重加权的组合"></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/3-12.jpeg" alt="图3-12　在第(1)步中，我们添加一个额外的for循环来计算所有输入对的点积"></p>
+</blockquote>
+<blockquote>
+<p>在计算前面的注意力分数张量时，我们使用了Python中的for循环。然而，for循环通常较慢，因此可以使用矩阵乘法来得到相同的结果：</p>
+<pre><code class="python">attn_scores = inputs @ inputs.T
+print(attn_scores)</code></pre>
+</blockquote>
+<blockquote>
+<p>在使用PyTorch时，像torch.softmax这样的函数中的dim参数用于指定输入张量的计算维度。将dim设置为-1表示让softmax函数在attn_scores张量的最后一个维度上进行归一化。如果attn_scores是一个二维张量（比如形状为［行, 列］），那么它将对列进行归一化，使得每行的值（在列维度上的总和）为1。</p>
+</blockquote>
+<h2 id="3-4-实现带可训练权重的自注意力机制"><a href="#3-4-实现带可训练权重的自注意力机制" class="headerlink" title="3.4 实现带可训练权重的自注意力机制"></a>3.4 实现带可训练权重的自注意力机制</h2><blockquote>
+<p>自注意机制</p>
+</blockquote>
+<blockquote>
+<p>也被称为缩放点积注意力(scaled dot-product attention)。</p>
+</blockquote>
+<blockquote>
+<p>权重参数是定义网络连接的基本学习系数，而注意力权重是动态且特定于上下文的值。</p>
+</blockquote>
+<blockquote>
+<p>通过将注意力分数除以键向量的嵌入维度的平方根来进行缩放（取平方根在数学上等同于以0.5为指数进行幂运算）。</p>
+</blockquote>
+<blockquote>
+<p>通过嵌入维度的平方根进行缩放解释了为什么这种自注意力机制也被称为缩放点积注意力机制。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/3-17.jpeg" alt="图3-17　在自注意力计算的最后一步，通过注意力权重将所有值向量进行加权求和，从而计算上下文向量"></p>
+</blockquote>
+<h2 id="3-5-利用因果注意力隐藏未来词汇"><a href="#3-5-利用因果注意力隐藏未来词汇" class="headerlink" title="3.5 利用因果注意力隐藏未来词汇"></a>3.5 利用因果注意力隐藏未来词汇</h2><blockquote>
+<p>因果注意力（也称为掩码注意力）是一种特殊的自注意力形式。它限制模型在处理任何给定词元时，只能基于序列中的先前和当前输入来计算注意力分数，而标准的自注意力机制可以一次性访问整个输入序列。</p>
+</blockquote>
+<blockquote>
+<p>在Transformer架构中，一些包括GPT在内的模型通常会在两个特定时间点使用注意力机制中的dropout：一是计算注意力权重之后，二是将这些权重应用于值向量之后。</p>
+</blockquote>
+<blockquote>
+<p>在对注意力权重矩阵应用50%的dropout率时，矩阵中有一半的元素会随机被置为0。为了补偿减少的活跃元素，矩阵中剩余元素的值会按1/0.5=2的比例进行放大。这种放大对于维持注意力权重的整体平衡非常重要，可以确保在训练和推理过程中，注意力机制的平均影响保持一致。</p>
+</blockquote>
+<h2 id="3-6-将单头注意力扩展到多头注意力"><a href="#3-6-将单头注意力扩展到多头注意力" class="headerlink" title="3.6 将单头注意力扩展到多头注意力"></a>3.6 将单头注意力扩展到多头注意力</h2><blockquote>
+<p>“多头”这一术语指的是将注意力机制分成多个“头”，每个“头”独立工作。在这种情况下，单个因果注意力模块可以被看作单头注意力，因为它只有一组注意力权重按顺序处理输入。</p>
+</blockquote>
+<blockquote>
+<p>多头注意力的主要思想是多次（并行）运行注意力机制，每次使用学到的不同的线性投影——这些投影是通过将输入数据（比如注意力机制中的查询向量、键向量和值向量）乘以权重矩阵得到的。</p>
+</blockquote>
+<h1 id="第4章-从头实现GPT模型进行文本生成"><a href="#第4章-从头实现GPT模型进行文本生成" class="headerlink" title="第4章 从头实现GPT模型进行文本生成"></a>第4章 从头实现GPT模型进行文本生成</h1><h2 id="4-2-使用层归一化进行归一化激活"><a href="#4-2-使用层归一化进行归一化激活" class="headerlink" title="4.2 使用层归一化进行归一化激活"></a>4.2 使用层归一化进行归一化激活</h2><blockquote>
+<p>层归一化的主要思想是调整神经网络层的激活（输出），使其均值为0且方差（单位方差）为1。这种调整有助于加速权重的有效收敛，并确保训练过程的一致性和可靠性。</p>
+</blockquote>
+<blockquote>
+<p>非线性激活函数ReLU（修正线性单元），ReLU是神经网络中的一种标准激活函数。如果你不熟悉ReLU，可以这样来理解：它只是简单地将负输入值设为0，从而确保层的输出值都是正值</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/4-6.jpeg" alt="图4-6　dim参数在计算张量均值时的示意图。例如，我们有一个维度为[rows, columns]的二维张量（矩阵），使用dim=0将在行方向（垂直，如下图所示）执行操作，结果是对每列的数据进行汇总；使用dim=1或dim=-1将在列方向（水平，如上图所示）执行操作，结果是对每行的数据进行汇总"></p>
+</blockquote>
+<blockquote>
+<p>对之前得到的层输出进行层归一化操作。具体方法是减去均值，并将结果除以方差的平方根（也就是标准差）</p>
+</blockquote>
+<blockquote>
+<p>这个层归一化的具体实现作用在输入张量x的最后一个维度上，该维度对应于嵌入维度(emb_dim)。变量eps是一个小常数(epsilon)，在归一化过程中会被加到方差上以防止除零错误。scale和shift是两个可训练的参数（与输入维度相同），如果在训练过程中发现调整它们可以改善模型的训练任务表现，那么大语言模型会自动进行调整。这使得模型能够学习适合其数据处理的最佳缩放和偏移。</p>
+</blockquote>
+<blockquote>
+<p>与在批次维度上进行归一化的批归一化不同，层归一化是在特征维度上进行归一化。</p>
+</blockquote>
+<blockquote>
+<p>由于层归一化是对每个输入独立进行归一化，不受批次大小的限制，因此在这些场景中它提供了更多的灵活性和稳定性。这在分布式训练或在资源受限的环境中部署模型时尤为重要。</p>
+</blockquote>
+<h2 id="4-3-实现具有GELU激活函数的前馈神经网络"><a href="#4-3-实现具有GELU激活函数的前馈神经网络" class="headerlink" title="4.3 实现具有GELU激活函数的前馈神经网络"></a>4.3 实现具有GELU激活函数的前馈神经网络</h2><blockquote>
+<p>在大语言模型中，除了传统的ReLU，还有其他几种激活函数，其中两个值得注意的例子是GELU(Gaussian Error Linear Unit)和SwiGLU(Swish-gated Linear Unit)。</p>
+</blockquote>
+<blockquote>
+<p>GELU和SwiGLU是更为复杂且平滑的激活函数，分别结合了高斯分布和sigmoid门控线性单元。与较为简单的ReLU激活函数相比，它们能够提升深度学习模型的性能。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/4-8.jpeg" alt="图4-8　使用Matplotlib绘制的GELU和ReLU输出图。￼轴表示函数输入值，￼轴表示函数输出值"></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/4-9.jpeg" alt="图4-9　前馈神经网络层之间连接的总体概览。该神经网络能够处理不同的批次大小和输入词元数量。然而，每个词元的嵌入维度在初始化权重时是确定并且固定的"></p>
+</blockquote>
+<h2 id="4-4-添加快捷连接"><a href="#4-4-添加快捷连接" class="headerlink" title="4.4 添加快捷连接"></a>4.4 添加快捷连接</h2><blockquote>
+<p>快捷连接（也称为“跳跃连接”或“残差连接”）</p>
+</blockquote>
+<blockquote>
+<p>快捷连接最初用于计算机视觉中的深度网络（特别是残差网络），目的是缓解梯度消失问题。梯度消失问题指的是在训练过程中，梯度在反向传播时逐渐变小，导致早期网络层难以有效训练。</p>
+</blockquote>
+<blockquote>
+<p>快捷连接通过跳过一个或多个层，为梯度在网络中的流动提供了一条可替代且更短的路径。这是通过将一层的输出添加到后续层的输出中实现的。这也是为什么这种连接被称为跳跃连接。在反向传播训练中，它们在维持梯度流动方面扮演着至关重要的角色。</p>
+</blockquote>
+<h2 id="4-5-连接Transformer块中的注意力层和线性层"><a href="#4-5-连接Transformer块中的注意力层和线性层" class="headerlink" title="4.5 连接Transformer块中的注意力层和线性层"></a>4.5 连接Transformer块中的注意力层和线性层</h2><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/4-13.jpeg" alt="图4-13　Transformer块示意图。输入的词元被嵌入到768维的向量中。每一行对应一个词元的向量表示。Transformer块的输出是与输入具有相同维度的向量，这些向量可以传递到大语言模型的后续层中"></p>
+</blockquote>
+<h2 id="4-6-实现GPT模型"><a href="#4-6-实现GPT模型" class="headerlink" title="4.6 实现GPT模型"></a>4.6 实现GPT模型</h2><blockquote>
+<p>原始GPT-2架构中使用了一个叫作权重共享(weight tying)的概念。也就是说，原始GPT-2架构是将词元嵌入层作为输出层重复使用的。</p>
+</blockquote>
+<h1 id="第5章-在无标签数据上进行预训练"><a href="#第5章-在无标签数据上进行预训练" class="headerlink" title="第5章 在无标签数据上进行预训练"></a>第5章 在无标签数据上进行预训练</h1><h2 id="5-1-评估文本生成模型"><a href="#5-1-评估文本生成模型" class="headerlink" title="5.1 评估文本生成模型"></a>5.1 评估文本生成模型</h2><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/5-7.jpeg" alt="图5-7　计算损失涉及的几个步骤。我们已经完成了第❶～❸步，计算了与目标张量对应的词元的概率，这些概率在第❹～❻步中将通过取对数并求平均值进行转换"></p>
+</blockquote>
+<blockquote>
+<p>在深度学习中，通常的做法不是将平均对数概率升至0，而是将负平均对数概率降至0。负平均对数概率就是平均对数概率乘以-1</p>
+</blockquote>
+<blockquote>
+<p>在深度学习中，将-10.7940这个负值转换为10.7940的术语称为交叉熵损失。</p>
+</blockquote>
+<blockquote>
+<p>在机器学习和深度学习中，交叉熵损失是一种常用的度量方式，用于衡量两个概率分布之间的差异——通常是标签（在这里是数据集中的词元）的真实分布和模型生成的预测分布（例如，由大语言模型生成的词元概率）之间的差异。</p>
+</blockquote>
+<blockquote>
+<p>在实践中，“交叉熵”和“负平均对数概率”这两个术语是相关的，且经常可以互换使用。</p>
+</blockquote>
+<blockquote>
+<p>先前，我们应用softmax函数，选择了与目标ID对应的概率分数，并计算了负对数概率的平均值。PyTorch的cross_entropy函数将为我们处理所有这些步骤</p>
+</blockquote>
+<blockquote>
+<p>困惑度通常与交叉熵损失一起用来评估模型在诸如语言建模等任务中的性能。它可以提供一种更易解释的方式来理解模型在预测序列中的下一个词元时的不确定性。</p>
+</blockquote>
+<blockquote>
+<p>困惑度可以衡量模型预测的概率分布与数据集中实际词汇分布的匹配程度。与损失类似，较低的困惑度表明模型的预测更接近实际分布。</p>
+</blockquote>
+<blockquote>
+<p>困惑度可以通过perplexity = torch.exp(loss)计算得出</p>
+</blockquote>
+<blockquote>
+<p>困惑度通常被认为比原始损失值更易于解释，因为它表示模型在每一步中对于有效词汇量的不确定性。</p>
+</blockquote>
+<h2 id="5-3-控制随机性的解码策略"><a href="#5-3-控制随机性的解码策略" class="headerlink" title="5.3 控制随机性的解码策略"></a>5.3 控制随机性的解码策略</h2><blockquote>
+<p>为了实现一个概率采样过程，现在可以用PyTorch中的multinomial函数替换argmax</p>
+</blockquote>
+<blockquote>
+<p>通过一个称为温度缩放的概念，可以进一步控制分布和选择过程。温度缩放指的是将logits除以一个大于0的数</p>
+</blockquote>
+<blockquote>
+<p>通过与概率采样和温度缩放相结合，Top-k采样可以改善文本生成结果。在￼采样中，可以将采样的词元限制在前￼个最可能的词元上，并通过掩码概率分数的方式来排除其他词元</p>
+</blockquote>
+<blockquote>
+<p>￼方法用负无穷值(-inf)替换所有未选择的logits，因此在计算softmax值时，非前￼词元的概率分数为0，剩余的概率总和为1。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/5-15.jpeg" alt="图5-15　使用￼采样，其中￼，我们专注于与最高logits值相关的3个词元，并在应用softmax函数之前用负无穷(-inf)掩码所有其他词元。这会产生一个对所有非前￼个词元分配概率值0的概率分布（为了减少视觉混乱，该图中的数值截断为小数点后两位。“softmax”行中的值加起来应为1.0）"></p>
+</blockquote>
+<h2 id="5-4-使用PyTorch加载和保存模型权重"><a href="#5-4-使用PyTorch加载和保存模型权重" class="headerlink" title="5.4 使用PyTorch加载和保存模型权重"></a>5.4 使用PyTorch加载和保存模型权重</h2><blockquote>
+<p>可以使用torch.save保存模型和优化器的state_dict内容：</p>
+<pre><code class="python">torch.save({
+    &quot;model_state_dict&quot;: model.state_dict(),
+    &quot;optimizer_state_dict&quot;: optimizer.state_dict(),
+    },
+    &quot;model_and_optimizer.pth&quot;
+)</code></pre>
+</blockquote>
+<blockquote>
+<p>然后，可以先使用torch.load加载保存的数据，再使用load_state_dict方法来恢复模型和优化器的状态。</p>
+<pre><code class="python">checkpoint = torch.load(&quot;model_and_optimizer.pth&quot;, map_location=device)
+model = GPTModel(GPT_CONFIG_124M)
+model.load_state_dict(checkpoint[&quot;model_state_dict&quot;])
+optimizer = torch.optim.AdamW(model.parameters(), lr=5e-4, weight_decay=0.1)
+optimizer.load_state_dict(checkpoint[&quot;optimizer_state_dict&quot;])
+model.train();</code></pre>
+</blockquote>
+<h2 id="5-6-小结"><a href="#5-6-小结" class="headerlink" title="5.6 小结"></a>5.6 小结</h2><blockquote>
+<p>• 默认情况下，下一个词元是通过将模型输出转换为概率分数，并从词汇表中选择与最高概率分数对应的词元来生成的，这被称为“贪婪解码”。</p>
+</blockquote>
+<blockquote>
+<p>• 通过使用概率采样和温度缩放，可以干预生成文本的多样性和连贯性。</p>
+</blockquote>
+<h1 id="第6章-针对分类的微调"><a href="#第6章-针对分类的微调" class="headerlink" title="第6章 针对分类的微调"></a>第6章 针对分类的微调</h1><h2 id="6-3-创建数据加载器"><a href="#6-3-创建数据加载器" class="headerlink" title="6.3 创建数据加载器"></a>6.3 创建数据加载器</h2><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/6-6.jpeg" alt="图6-6　输入文本准备过程。首先，每条输入文本消息被转换为一系列词元ID。然后，为了确保序列长度一致，较短的序列使用填充词元（在本示例中，词元ID为50256）进行填充，以匹配最长序列的长度"></p>
+</blockquote>
+<h2 id="6-5-添加分类头"><a href="#6-5-添加分类头" class="headerlink" title="6.5 添加分类头"></a>6.5 添加分类头</h2><blockquote>
+<p>在基于神经网络的语言模型中，较低层通常捕捉基本的语言结构和语义，适用于广泛的任务和数据集，最后几层（靠近输出的层）更侧重于捕捉细微的语言模式和特定任务的特征。因此，只微调最后几层通常就足以将模型适应到新任务。同时，仅微调少量层在计算上也更加高效。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/6-12.jpeg" alt="图6-12　因果注意力机制，其中输入词元之间的注意力分数以矩阵格式显示。空单元格表示由于因果注意力掩码而被掩码的位置，可以防止当前词元关注未来的词元。单元格中的值表示注意力分数，最后一个词元“time”是唯一一个计算前面所有词元注意力分数的词元"></p>
+</blockquote>
+<blockquote>
+<p>根据图6-12中的因果注意力掩码设置，序列中的最后一个词元累积了最多的信息，因为它是唯一一个可以访问之前所有数据的词元。因此，在垃圾消息分类任务中，我们在微调过程中会关注这个最后的词元。</p>
+</blockquote>
+<h1 id="第7章-通过微调遵循人类指令"><a href="#第7章-通过微调遵循人类指令" class="headerlink" title="第7章 通过微调遵循人类指令"></a>第7章 通过微调遵循人类指令</h1><h2 id="7-3-将数据组织成训练批次"><a href="#7-3-将数据组织成训练批次" class="headerlink" title="7.3 将数据组织成训练批次"></a>7.3 将数据组织成训练批次</h2><blockquote>
+<p>值得注意的是，我们在目标列表中保留了一个结束符词元，ID为50256，如图7-12所示。保留此词元有助于大语言模型学会何时根据指令生成结束符词元，一般我们将其作为生成的回复已经完成的指示符。<br>￼<br><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/7-12.jpeg" alt="图7-12　实现批处理过程的第(2.4)步说明了准备训练数据时目标批次的词元替换过程。在这一过程中，我们将每个目标序列中除第一个结束符（填充）词元外的所有结束符（填充）词元替换为占位符值-100，同时保留第一个结束符（填充）词元"></p>
+</blockquote>
+<blockquote>
+<p>在PyTorch中，交叉熵函数的默认设置为cross_entropy(…, ignore_index=-100)。这意味着它会忽略标记为-100的目标。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/7-13.jpeg" alt="图7-13　训练期间，格式化输入文本被词元化并送入大语言模型中（左）；大语言模型准备的目标文本，我们可以选择掩码指令部分，即将相应的词元替换为损失的ignore_index值-100（右）"></p>
+</blockquote>
+<h2 id="7-5-加载预训练的大语言模型"><a href="#7-5-加载预训练的大语言模型" class="headerlink" title="7.5 加载预训练的大语言模型"></a>7.5 加载预训练的大语言模型</h2><blockquote>
+<p>较小的模型在学习高质量的指令遵循任务时，缺乏执行该任务所需的复杂模式和细微行为的能力。</p>
+</blockquote>
+<h1 id="附录A-PyTorch简介"><a href="#附录A-PyTorch简介" class="headerlink" title="附录A PyTorch简介"></a>附录A PyTorch简介</h1><blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-1.jpeg" alt="图A-1　PyTorch的三大核心组件包括作为计算基础构建块的张量库、用于模型优化的自动微分引擎以及深度学习工具函数，这使得实现和训练深度神经网络模型更加容易"></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-2.jpeg" alt="图A-2　深度学习是机器学习的一个子类别，专注于实现深度神经网络。机器学习是人工智能的一个子类别，涉及从数据中学习的算法。人工智能是一个更广泛的概念，指的是机器能够执行通常需要人类智能水平的任务"></p>
+</blockquote>
+<blockquote>
+<p>要在PyTorch中使用Apple Silicon芯片，首先需要按常规安装PyTorch。然后，可以在Python中运行一个简单的代码片段，以检查你的Mac是否支持使用Apple Silicon芯片加速PyTorch：<br><code>print(torch.backends.mps.is_available())</code></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-6.jpeg" alt="图A-6　不同秩的张量。这里零维对应于秩0，一维对应于秩1，二维对应于秩2。一个由3个元素组成的三维向量仍然是秩为1的张量"></p>
+</blockquote>
+<blockquote>
+<p>PyTorch中常用的矩阵相乘方法是.matmul方法：<br><code>print(tensor2d.matmul(tensor2d.T))</code></p>
+</blockquote>
+<blockquote>
+<p>也可以使用@运算符，它能够更简洁地实现相同的功能：<br><code>print(tensor2d @ tensor2d.T)</code></p>
+</blockquote>
+<blockquote>
+<p>计算图是一种有向图，主要用于表达和可视化数学表达式。在深度学习的背景下，计算图列出了计算神经网络输出所需的计算顺序——我们需要用它来计算反向传播所需的梯度，这是神经网络的主要训练算法。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-7.jpeg" alt="图A-7　逻辑回归的前向传播作为一个计算图。输入特征￼与模型权重￼相乘，并在加上偏置后通过激活函数￼传递。损失是通过比较模型输出￼与给定标签￼来计算的"></p>
+</blockquote>
+<blockquote>
+<p>实际上，PyTorch在后台构建了这样一个计算图，我们可以利用它来计算损失函数相对于模型参数（这里是￼和￼）的梯度，从而训练模型。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-8.jpeg" alt="图A-8　在计算图中计算损失梯度的最常见方法是从右向左应用链式法则，这也称为“反向模型自动求导”或“反向传播”。我们从输出层（或损失本身）开始，向后通过网络一直到输入层。这么做是为了计算损失相对于网络中每个参数（权重和偏置）的梯度，从而为训练过程中如何更新这些参数提供信息"></p>
+</blockquote>
+<blockquote>
+<p>偏导数，它测量的是一个函数相对于其中一个变量变化的速率。</p>
+</blockquote>
+<blockquote>
+<p>梯度是一个向量，包含了一个多变量函数（输入变量超过一个的函数）的所有偏导数。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-3.jpeg" alt="代码清单A-3 通过autograd计算梯度"><br>￼<br>PyTorch提供了更高级的工具来自动化这个过程。例如，我们可以对损失函数调用.backward方法，随后PyTorch将计算计算图中所有叶节点的梯度，这些梯度将通过张量的.grad属性进行存储：</p>
+<pre><code class="python">loss.backward()
+print(w1.grad)
+print(b.grad)</code></pre>
+</blockquote>
+<blockquote>
+<p>Addmm代表的是矩阵乘法(mm)后接加法(Add)的组合运算。</p>
+</blockquote>
+<blockquote>
+<p>如果只想使用网络进行预测而不进行训练或反向传播（比如在训练之后使用它进行预测），那么为反向传播构建这个计算图可能会浪费资源，因为它会执行不必要的计算并消耗额外的内存。因此，当使用模型进行推理（比如做出预测）而不是训练时，最好的做法是使用torch.no_grad()上下文管理器。这会告诉PyTorch无须跟踪梯度，从而可以显著节省内存和计算资源：</p>
+<pre><code class="python">with torch.no_grad():
+    out = model(X)
+print(out)</code></pre>
+</blockquote>
+<blockquote>
+<p>在PyTorch中，通常的做法是让模型返回最后一层的输出(logits)，而不将这些输出传递给非线性激活函数。这是因为PyTorch常用的损失函数会将softmax（或二分类时的sigmoid）操作与负对数似然损失结合在一个类中。这样做是为了提高数值计算的效率和稳定性。因此，如果想为预测结果计算类别成员概率，那么就需要显式调用softmax函数：</p>
+<pre><code class="python">with torch.no_grad():
+    out = torch.softmax(model(X), dim=1)
+print(out)</code></pre>
+<p>这将打印以下内容：</p>
+<p><code>tensor([[0.3113, 0.3934, 0.2952]]))</code></p>
+<p>现在这些值可以解释为类别成员的概率，并且它们的总和大约为1。对于这个随机输入，这些值大致相等，这是未经过训练的随机初始化模型的预期结果。</p>
+</blockquote>
+<blockquote>
+<p>注意　PyTorch要求类别标签从标签0开始，并且最大的类别标签值不得超过输出节点数减1（因为Python的索引从0开始）。因此，如果我们有类别标签0、1、2、3和4，那么神经网络的输出层应包含5个节点。</p>
+</blockquote>
+<blockquote>
+<p>在实践中，如果一个训练轮次的最后一个批次显著小于其他批次，那么可能会影响训练过程中的收敛。为此，可以设置drop_last=True，这将在每轮中丢弃最后一个批次</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-11.jpeg" alt="图A-11　在没有多个工作进程的情况下加载数据（设置num_workers=0）会导致数据加载瓶颈，模型会在下一个批次加载完成前处于空闲状态（左）。如果启用多个工作进程，那么数据加载器可以在后台排队下一个批次的数据（右）"></p>
+</blockquote>
+<blockquote>
+<p>model.train()和model.eval() … 用于将模型置于训练模式或评估模式。</p>
+</blockquote>
+<blockquote>
+<p>注意　为了避免不必要的梯度累积，确保在每次更新中调用optimizer.zero_grad()来将梯度重置为0，这很重要。否则，梯度会逐渐累积起来，这往往是我们不愿意见到的。</p>
+</blockquote>
+<blockquote>
+<p>如果一个PyTorch张量存放在某个设备上，那么其操作也会在同一个设备上执行。</p>
+</blockquote>
+<blockquote>
+<p>可以使用.to()方法。这个方法与我们用来更改张量数据类型的方法（参见A.2.2节）相同，它能够将这些张量转移到GPU上并在那里执行加法操作：</p>
+<pre><code class="python">tensor_1 = tensor_1.to(&quot;cuda&quot;)
+tensor_2 = tensor_2.to(&quot;cuda&quot;)
+print(tensor_1 + tensor_2)</code></pre>
+</blockquote>
+<blockquote>
+<p>如果你的机器有多个GPU，那么可以指定要将张量转移到哪个GPU上。这可以通过在传输命令中指定设备ID来实现，比如使用.to(“cuda:0”)、.to(“cuda:1”)等命令。</p>
+</blockquote>
+<blockquote>
+<p>这被认为是分享PyTorch代码时的最佳实践：<br><code>device = torch.device(&quot;cuda&quot; if torch.cuda.is_available() else &quot;cpu&quot;)</code></p>
+</blockquote>
+<blockquote>
+<pre><code class="python">device = torch.device(
+    &quot;mps&quot; if torch.backends.mps.is_available() else &quot;cpu&quot;
+)</code></pre>
+</blockquote>
+<blockquote>
+<p>在Jupyter Notebook中使用%timeit命令来比较运行时间。例如，对于矩阵a和b，在新的笔记本单元中运行命令%timeit a @ b。</p>
+</blockquote>
+<blockquote>
+<p>PyTorch的分布式数据并行(DistributedDataParallel, DDP)策略。DDP通过将输入数据分割到可用设备上并同时处理这些数据子集来实现并行化。</p>
+</blockquote>
+<blockquote>
+<p>PyTorch会在每个GPU上启动一个独立的进程，每个进程都会接收并保存一份模型副本，这些副本在训练过程中会进行同步。假设有两个GPU，我们想要用它们来训练一个神经网络，如图A-12所示。<br>￼<br><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-12.jpeg" alt="图A-12　在DDP中，模型和数据的传输涉及两个关键步骤。首先，在每个GPU上创建模型的副本。然后，将输入数据划分为独特的小批次，分别传递给每个模型副本"></p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/A-13.jpeg" alt="图A-13　在DDP中，前向传播和反向传播在每个GPU上独立执行，各自处理其对应的数据子集。一旦前向传播和反向传播完成，每个GPU上各个模型副本的梯度会在所有GPU之间同步。这可以确保每个模型副本具有相同的更新权重"></p>
+</blockquote>
+<blockquote>
+<p>DDP在交互式Python环境（如Jupyter Notebook）中无法正常运行，因为这些环境处理多进程的方式与独立的Python脚本不同。</p>
+</blockquote>
+<h1 id="附录B-参考文献和延伸阅读"><a href="#附录B-参考文献和延伸阅读" class="headerlink" title="附录B 参考文献和延伸阅读"></a>附录B 参考文献和延伸阅读</h1><blockquote>
+<p>FlashAttention是一种高效的自注意力机制实现，通过优化内存访问模式来加速计算过程。FlashAttention在数学上与标准自注意力机制相同，但优化了计算过程以提高效率</p>
+</blockquote>
+<blockquote>
+<p>高斯误差线性单元(GELU)激活函数结合了经典的ReLU激活函数与正态分布的累积分布函数的特性，能够有效建模层输出，在深度学习模型中实现随机正则化和非线性</p>
+</blockquote>
+<blockquote>
+<p>下面这篇内容丰富的博客文章指出，当上下文大小小于32 000个词元时，大语言模型中大部分计算是在前馈层而非注意力层中进行的：</p>
+<ul>
+<li>“In the Long (Context) Run”（由Harm de Vries发布）。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>以下论文的结果支持这样的观点：大语言模型主要在预训练期间获取事实知识，而微调主要提高其利用这些知识的效率。此外，本研究探讨了使用新事实信息微调大语言模型对其使用已有知识能力的影响，揭示出模型学习新事实的速度较慢，并且在微调过程中引入新知识会增加模型生成错误信息的倾向</p>
+</blockquote>
+<h1 id="附录C-练习的解决方案"><a href="#附录C-练习的解决方案" class="headerlink" title="附录C 练习的解决方案"></a>附录C 练习的解决方案</h1><blockquote>
+<p>复用4.6节的代码，可以计算出当前模型的参数量和显存需求。</p>
+</blockquote>
+<blockquote>
+<p>当需要对大语言模型输出的多样性和随机性进行调整时，一般要设置￼采样和温度缩放系数。</p>
+</blockquote>
+<h1 id="附录D-为训练循环添加更多细节和优化功能"><a href="#附录D-为训练循环添加更多细节和优化功能" class="headerlink" title="附录D 为训练循环添加更多细节和优化功能"></a>附录D 为训练循环添加更多细节和优化功能</h1><blockquote>
+<p>学习率预热可以帮助稳定复杂模型（如大语言模型）的训练过程。这个过程可以逐步将学习率从一个非常低的初始值(initial_lr)提升到用户设定的最大值(peak_lr)。在训练开始时使用较小的权重更新，有助于降低模型在训练过程中遭遇大幅度、不稳定更新的风险。</p>
+</blockquote>
+<blockquote>
+<p>还有一种广泛应用于复杂深度神经网络和大语言模型训练的技术是余弦衰减。这种方法在训练过程中可以调节学习率，使其在预热阶段后呈现余弦曲线的变化。</p>
+</blockquote>
+<blockquote>
+<p>在其流行的变体中，余弦衰减可以将学习率降低到接近零，模拟半个余弦周期的轨迹。学习率的逐渐降低旨在减缓模型更新权重的速度。这一点特别重要，因为它有助于降低训练过程中超过损失最小值的风险，从而确保后期训练的稳定性。</p>
+</blockquote>
+<blockquote>
+<p>梯度裁剪也是增强大语言模型训练稳定性的一种重要技术。该方法涉及设定一个阈值，超过该阈值的梯度会被缩放到预定的最大值。这种做法可以确保在反向传播过程中，对模型参数的更新保持在一个可控的范围内。</p>
+</blockquote>
+<h1 id="附录E-使用LoRA进行参数高效微调"><a href="#附录E-使用LoRA进行参数高效微调" class="headerlink" title="附录E 使用LoRA进行参数高效微调"></a>附录E 使用LoRA进行参数高效微调</h1><blockquote>
+<p>LoRA是一种通过仅调整模型权重参数的一小部分，使预训练模型更好地适应特定且通常较小的数据集的技术。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/build-a-large-language-model-from-scratch/E-1.jpeg" alt="图E-1　权重更新方法对比：全景微调与LoRA。全景微调涉及直接用￼更新预训练的权重矩阵￼（左）。而LoRA使用两个较小的矩阵￼和￼来近似￼，其中矩阵乘积￼被加到￼上，￼表示内部维度，它是一个可调的超参数（右）"></p>
+</blockquote>
+<blockquote>
+<p>除了可以减少训练期间需要更新的权重数量，将LoRA权重矩阵与原始模型权重分开的能力使LoRA在实践中更加有用。实际上，这一特性允许预训练的模型权重保持不变，并且在使用模型时可以动态地应用LoRA矩阵。</p>
+</blockquote>
+<blockquote>
+<p>保持LoRA的权重分离在实践中非常有用，因为它使得模型定制变得更加灵活，无须存储多个完整版本的大语言模型。这降低了存储需求并提高了可扩展性，因为在为每个特定客户或应用程序进行定制时，只需调整和保存较小的LoRA矩阵即可。</p>
+</blockquote>
+<blockquote>
+<p>推理时间扩展</p>
+<p>提升大语言模型推理能力的一种方法是推理时间扩展(inference-time scaling)。这个术语在不同背景下可能有不同的含义，但在这里，它指的是增加推理时的计算资源来提高模型输出的质量。</p>
+</blockquote>
+<blockquote>
+<p>另一种推理时间扩展方法是使用投票和搜索算法。一个简单的例子是多数投票法，即让大语言模型生成多个答案，然后我们通过多数投票来选出最有可能的正确答案。</p>
+</blockquote>
+<blockquote>
+<p>构建和改进推理模型的3种关键方法。</p>
+<ul>
+<li>推理时间扩展：一种在不修改或重新训练基础模型的情况下提升推理能力的技术。</li>
+<li>纯强化学习：DeepSeek-R1-Zero展示了推理可以作为学习行为从无监督微调中涌现。</li>
+<li>监督微调+强化学习：这是DeepSeek-R1推理模型的开发方法。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>DeepSeek的蒸馏方法是通过使用DeepSeek-V3和DeepSeek-R1的中间检查点生成的监督微调数据集，来对较小的大语言模型（如参数量为80亿或700亿的Llama模型以及参数量为5亿～320亿的Qwen 2.5模型）进行指令微调。值得注意的是，这个蒸馏过程中使用的监督微调数据集与训练DeepSeek-R1时使用的数据集完全相同。</p>
+</blockquote>
+<blockquote>
+<p>构建和优化推理模型的4种策略。</p>
+<ul>
+<li>推理时间扩展。无须额外训练，但会增加推理成本，随着用户数量或查询量的增加，大规模部署成本会变得更加昂贵。尽管如此，对提升已经很强大的模型的性能来说，它仍然是一种非常直观的方法。</li>
+<li>纯强化学习。从研究的角度来看，纯强化学习非常有趣，因为它提供了将推理视为一种涌现行为的深刻见解。然而，在实际的模型开发中，强化学习+监督微调是首选方法，因为它能构建更强大的推理模型。</li>
+<li>强化学习+监督微调。正如前文所述，强化学习+监督微调是构建高性能推理模型的关键方法。</li>
+<li>蒸馏。蒸馏是一种非常棒的方法，特别适用于创建更小、更高效的模型。然而，蒸馏的局限性在于，它并不能推动创新或生产下一代推理模型。例如，蒸馏总是依赖现有的、更强大的模型来生成监督微调数据。</li>
+</ul>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于本书"><span class="toc-number">1.</span> <span class="toc-text">关于本书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第2章-处理文本数据"><span class="toc-number">2.</span> <span class="toc-text">第2章 处理文本数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-引入特殊上下文词元"><span class="toc-number">2.1.</span> <span class="toc-text">2.4 引入特殊上下文词元</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-BPE"><span class="toc-number">2.2.</span> <span class="toc-text">2.5 BPE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-创建词元嵌入"><span class="toc-number">2.3.</span> <span class="toc-text">2.7 创建词元嵌入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-编码单词位置信息"><span class="toc-number">2.4.</span> <span class="toc-text">2.8 编码单词位置信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第3章-编码注意力机制"><span class="toc-number">3.</span> <span class="toc-text">第3章 编码注意力机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-长序列建模中的问题"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 长序列建模中的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-使用注意力机制捕捉数据依赖关系"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 使用注意力机制捕捉数据依赖关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-通过自注意力机制关注输入的不同部分"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 通过自注意力机制关注输入的不同部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-实现带可训练权重的自注意力机制"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 实现带可训练权重的自注意力机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-利用因果注意力隐藏未来词汇"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 利用因果注意力隐藏未来词汇</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6-将单头注意力扩展到多头注意力"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 将单头注意力扩展到多头注意力</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第4章-从头实现GPT模型进行文本生成"><span class="toc-number">4.</span> <span class="toc-text">第4章 从头实现GPT模型进行文本生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-使用层归一化进行归一化激活"><span class="toc-number">4.1.</span> <span class="toc-text">4.2 使用层归一化进行归一化激活</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-实现具有GELU激活函数的前馈神经网络"><span class="toc-number">4.2.</span> <span class="toc-text">4.3 实现具有GELU激活函数的前馈神经网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-添加快捷连接"><span class="toc-number">4.3.</span> <span class="toc-text">4.4 添加快捷连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-连接Transformer块中的注意力层和线性层"><span class="toc-number">4.4.</span> <span class="toc-text">4.5 连接Transformer块中的注意力层和线性层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-实现GPT模型"><span class="toc-number">4.5.</span> <span class="toc-text">4.6 实现GPT模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第5章-在无标签数据上进行预训练"><span class="toc-number">5.</span> <span class="toc-text">第5章 在无标签数据上进行预训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-评估文本生成模型"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 评估文本生成模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-控制随机性的解码策略"><span class="toc-number">5.2.</span> <span class="toc-text">5.3 控制随机性的解码策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-使用PyTorch加载和保存模型权重"><span class="toc-number">5.3.</span> <span class="toc-text">5.4 使用PyTorch加载和保存模型权重</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-小结"><span class="toc-number">5.4.</span> <span class="toc-text">5.6 小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第6章-针对分类的微调"><span class="toc-number">6.</span> <span class="toc-text">第6章 针对分类的微调</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-创建数据加载器"><span class="toc-number">6.1.</span> <span class="toc-text">6.3 创建数据加载器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5-添加分类头"><span class="toc-number">6.2.</span> <span class="toc-text">6.5 添加分类头</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第7章-通过微调遵循人类指令"><span class="toc-number">7.</span> <span class="toc-text">第7章 通过微调遵循人类指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-将数据组织成训练批次"><span class="toc-number">7.1.</span> <span class="toc-text">7.3 将数据组织成训练批次</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-加载预训练的大语言模型"><span class="toc-number">7.2.</span> <span class="toc-text">7.5 加载预训练的大语言模型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A-PyTorch简介"><span class="toc-number">8.</span> <span class="toc-text">附录A PyTorch简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录B-参考文献和延伸阅读"><span class="toc-number">9.</span> <span class="toc-text">附录B 参考文献和延伸阅读</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录C-练习的解决方案"><span class="toc-number">10.</span> <span class="toc-text">附录C 练习的解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录D-为训练循环添加更多细节和优化功能"><span class="toc-number">11.</span> <span class="toc-text">附录D 为训练循环添加更多细节和优化功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录E-使用LoRA进行参数高效微调"><span class="toc-number">12.</span> <span class="toc-text">附录E 使用LoRA进行参数高效微调</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

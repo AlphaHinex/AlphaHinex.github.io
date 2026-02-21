@@ -1,0 +1,1074 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《实现领域驱动设计》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Core, Generic, Supporting, DDD, OHS, CQRS, ES"> 
+    <meta name="description" content="
+豆瓣评分 8.4
+如何使用本书
+一种能够支撑限界上下文的架构是六边形（Hexagonal）架构，它可以辅助其他架构风格，比如面向服务（Service-Oriented）架构、REST和事件驱动（E,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《实现领域驱动设计》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/implementing-domain-driven-design/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                六月 09, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/06/09/implementing-domain-driven-design/" title="《实现领域驱动设计》书摘" class="">《实现领域驱动设计》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    28k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    26 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DDD/" rel="tag">DDD</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/implementing-domain-driven-design/cover.png" alt="cover"></p>
+<p><a href="https://book.douban.com/subject/25844633/" target="_blank" rel="noopener">豆瓣评分 8.4</a></p>
+<h1 id="如何使用本书"><a href="#如何使用本书" class="headerlink" title="如何使用本书"></a>如何使用本书</h1><blockquote>
+<p>一种能够支撑限界上下文的架构是六边形（Hexagonal）架构，它可以辅助其他架构风格，比如面向服务（Service-Oriented）架构、REST和事件驱动（Event-Driven）等。六边形架构如图G.3所示<br><img src="/contents/implementing-domain-driven-design/G.3.jpeg" alt="图G.3　六边形架构风格，领域模型位于软件的中心"></p>
+</blockquote>
+<blockquote>
+<p>在领域模型中，有些业务操作并不能自然地放在实体或值对象上，此时我们可以使用无状态的领域服务（Domain Service，7），如图G.5所示。<br><img src="/contents/implementing-domain-driven-design/G.5.jpeg" alt="图G.5　领域服务执行特定于领域的操作，其中可能涉及到多个领域对象"></p>
+</blockquote>
+<h1 id="第1章-DDD入门"><a href="#第1章-DDD入门" class="headerlink" title="第1章 DDD入门"></a>第1章 DDD入门</h1><h2 id="我能DDD吗？"><a href="#我能DDD吗？" class="headerlink" title="我能DDD吗？"></a>我能DDD吗？</h2><blockquote>
+<p>就个人来讲，我时刻都在准备着学习，但是我并不喜欢被人教。</p>
+</blockquote>
+<h2 id="为什么我们需要DDD"><a href="#为什么我们需要DDD" class="headerlink" title="为什么我们需要DDD"></a>为什么我们需要DDD</h2><blockquote>
+<p>“准确传达业务规则”的意思是说，此时的软件就像如果领域专家是编码人员时所开发出来的一样。</p>
+</blockquote>
+<blockquote>
+<p>DDD同时提供了战略设计和战术设计两种方式。战略设计帮助我们理解哪些投入是最重要的；哪些既有软件资产是可以重新拿来使用的；哪些人应该被加到团队中？战术设计则帮助我们创建DDD模型中各个部件。</p>
+</blockquote>
+<blockquote>
+<p>在使用DDD时，我们应该采用最简单的方式对复杂领域进行建模，而不是使问题变得更加复杂。</p>
+</blockquote>
+<blockquote>
+<p>贫血领域对象是不好的，因为你花了很大的成本来开发领域对象，但是从中却获益甚少。比如，由于存在对象-关系阻抗失配（Object-Relational Impedance），开发者需要将很多时间花在对象和数据存储之间的映射上。这样的代价太大，而收益太小。我得说，你所说的领域对象根本就不是领域对象，而只是将关系型数据库中的模型映射到了对象上而已。这样的领域对象更像是活动记录（Active Record）[Fowler，P of EAA]，此时你可以对架构做个简化，然后使用事务脚本（Transaction Script）[Fowler，P of EAA]进行开发。</p>
+</blockquote>
+<blockquote>
+<p>你可能会查看很多客户代码，然后比较代码历史，找出saveCustomer（）的来龙去脉。你会发现，没有人能够解释这个方法为什么会成为现在这个样子，也没有人知道究竟有多少客户代码在正确地使用saveCustomer（）方法。要自己去搞明白这里面的缘由，你得花上几个小时甚至几天的时间。</p>
+</blockquote>
+<blockquote>
+<p>这个时候，领域专家是帮不上忙的，因为他们看不懂代码。即便领域专家能够看懂代码，他可能也会被这段代码搞得一头雾水。</p>
+</blockquote>
+<blockquote>
+<p>上面的saveCustomer（）至少存在三大问题：</p>
+<ol>
+<li>saveCustomer（）业务意图不明确。</li>
+<li>方法的实现本身增加了潜在的复杂性。</li>
+<li>Customer领域对象根本就不是对象，而只一个数据持有器（data holder）。<br>我们将这种情况称为“由贫血症导致的失忆症。”在实际项目中，这种症状发生得太多了。</li>
+</ol>
+</blockquote>
+<h2 id="如何DDD"><a href="#如何DDD" class="headerlink" title="如何DDD"></a>如何DDD</h2><blockquote>
+<p>通用语言。通用语言和限界上下文（Bounded Context，2）同时构成了DDD的两大支柱，并且它们是相辅相成的。</p>
+</blockquote>
+<blockquote>
+<p>就现在来说，可以将限界上下文看成是整个应用程序之内的一个概念性边界。这个边界之内的每种领域术语、词组或句子——也即通用语言，都有确定的上下文含义。在边界之外，这些术语可能表示不同的意思。</p>
+</blockquote>
+<h2 id="使用DDD的业务价值"><a href="#使用DDD的业务价值" class="headerlink" title="使用DDD的业务价值"></a>使用DDD的业务价值</h2><blockquote>
+<p>效率提高了，培训减少了——这就是业务价值。</p>
+</blockquote>
+<h2 id="实施DDD所面临的挑战"><a href="#实施DDD所面临的挑战" class="headerlink" title="实施DDD所面临的挑战"></a>实施DDD所面临的挑战</h2><blockquote>
+<p>使用DDD最大的挑战之一便是：我们需要花费大量的时间和精力来思考业务领域，研究概念和术语，并且和领域专家交流，以发现、捕捉和改进通用语言。</p>
+</blockquote>
+<h1 id="第2章-领域、子域和界限上下文"><a href="#第2章-领域、子域和界限上下文" class="headerlink" title="第2章 领域、子域和界限上下文"></a>第2章 领域、子域和界限上下文</h1><h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><blockquote>
+<p><img src="/contents/implementing-domain-driven-design/2.1.jpeg" alt="图2.1　一个含有子域和限界上下文的领域"><br>一个限界上下文并不一定只包含在一个子域中，但这是可能的。在图2.1中，只有库存限界上下文包含在了一个子域中。显然，这表明这个电子商务系统在开发的时候并没有正确地采用DDD。</p>
+</blockquote>
+<blockquote>
+<p>库存系统看起来的确符合“一个子域对应一个限界上下文”的标准。</p>
+</blockquote>
+<blockquote>
+<p>有些术语在这些子域中是存在冲突的。比如，“顾客”这个术语可能有多种含义。在浏览产品目录的时候，“顾客”表示一种意思；而在下单的时候，“顾客”又表示另一种意思。原因在于：当浏览产品目录时，“顾客”被放在了先前购买情况、忠诚度、可买产品、折扣和物流方式这样的上下文中。而在下单时，“顾客”的上下文包括名字、产品寄送地址、订单总价和一些付款术语。单单从这个例子我们便可以看出，在这个电子商务系统中，“顾客”并没有一个清晰的含义。我们甚至还可以找到很多像“顾客”这样拥有多重含义的术语。在一个好的限界上下文中，每一个术语应该仅表示一种领域概念。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/2.2.jpeg" alt="图2.2　一个抽象的业务领域，其中包含了子域和限界上下文"></p>
+</blockquote>
+<blockquote>
+<p>子域和限界上下文有相交的地方吗？如果有，这并不是什么坏事，因为这正是企业级软件的本来面目。</p>
+</blockquote>
+<h2 id="战略设计为什么重要"><a href="#战略设计为什么重要" class="headerlink" title="战略设计为什么重要"></a>战略设计为什么重要</h2><blockquote>
+<p><img src="/contents/implementing-domain-driven-design/2.3.jpeg" alt="图2.3　团队不了解基本的战略设计，这导致在协作模型中产生了不相匹配的概念。虚线之内表示问题所在。"></p>
+</blockquote>
+<h2 id="现实世界中领域和子域"><a href="#现实世界中领域和子域" class="headerlink" title="现实世界中领域和子域"></a>现实世界中领域和子域</h2><blockquote>
+<p>领域中还同时存在问题空间（problem space）和解决方案空间（solution space）。在问题空间中，我们思考的是业务所面临的挑战，而在解决方案空间中，我们思考如何实现软件以解决这些业务挑战。</p>
+</blockquote>
+<blockquote>
+<p>问题空间是领域的一部分，对问题空间的开发将产生一个新的核心域。对问题空间的评估应该同时考虑已有子域和额外所需子域。因此，问题空间是核心域和其他子域的组合。问题空间中的子域通常随着项目的不同而不同，他们各自关注于当前的业务问题，这使得子域对于问题空间的评估非常有用。</p>
+</blockquote>
+<blockquote>
+<p>解决方案空间包括一个或多个限界上下文，即一组特定的软件模型。这是因为限界上下文即是一个特定的解决方案，它通过软件的方式来实现解决方案。</p>
+</blockquote>
+<blockquote>
+<p>通常，我们希望将子域一对一地对应到限界上下文。这种做法显式地将领域模型分离到不同的业务板块中，并将问题空间和解决方案空间融合在一起。在实践中，这种做法并不总是可能的，但通过新的努力，我们是可以做到这一点的。</p>
+</blockquote>
+<blockquote>
+<p>我们可以在概念上使用两个或者多个子域来分解限界上下文，或者将多个限界上下文包含在同一个子域中。</p>
+</blockquote>
+<blockquote>
+<p>图2.4表示一个ERP系统的领域，也是图2.2中所示模板的一个实例。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/2.4.jpeg" alt="图2.4　与购买和库存相关的核心域以及其他子域。该图只显示了特定于问题空间的子域，并不是整个领域。"></p>
+</blockquote>
+<blockquote>
+<p>问题空间由战略核心域及其支撑子域组成。</p>
+</blockquote>
+<blockquote>
+<p>在一个典型的不健康的企业系统里，你通常会面临如图2.1和图2.4所示的情形。在设计欠佳的软件里，子域和限界上下文之间很难存在一对一的映射关系。这种劣质软件的大量存在已经成为事实，并且是你所不能改变的事实。你只能盼着在项目中通过合适的手段实施DDD，但最终你都需要和那些“不健康”的领域进行集成。</p>
+</blockquote>
+<h2 id="理解限界上下文"><a href="#理解限界上下文" class="headerlink" title="理解限界上下文"></a>理解限界上下文</h2><blockquote>
+<p>在很多情况下，在不同模型中存在名字相同或相近的对象，但是它们的意思却不同。当模型被一个显式的边界所包围时，其中每个概念的含义便是确定的了。因此，限界上下文主要是一个语义上的边界，我们应该通过这一点来衡量对一个限界上下文的使用正确与否。</p>
+</blockquote>
+<blockquote>
+<p>限界上下文并不只局限于容纳模型，它通常标定了一个系统、一个应用程序或者一种业务服务[3]。</p>
+</blockquote>
+<blockquote>
+<p>限界上下文主要用来封装通用语言和领域对象，但同时它也包含了那些为领域模型提供交互手段和辅助功能的内容。需要注意的是，对于架构中的每个组件，我们都应该将其放在适当的地方。</p>
+</blockquote>
+<blockquote>
+<p>如果存在用户界面和应用服务，请确保它们是位于上下文边界之内的</p>
+</blockquote>
+<blockquote>
+<p>如果你的数据库Schema，或者其他持久化存储方案，是根据模型来设计的，那么请确保它们也是位于上下文边界之内的</p>
+</blockquote>
+<blockquote>
+<p>一个团队，一个限界上下文</p>
+</blockquote>
+<blockquote>
+<p>如果你将多个团队分配给同一个限界上下文，那么每个团队都会使用各自的通用语言，这显然是不好的。</p>
+</blockquote>
+<blockquote>
+<p>两个团队可能会合作设计一个共享内核，而共享内核并不是一个典型的限界上下文。</p>
+</blockquote>
+<blockquote>
+<p>这种建模方法并不常见，并且我们应该尽量避免这种情况。</p>
+</blockquote>
+<h2 id="示例上下文"><a href="#示例上下文" class="headerlink" title="示例上下文"></a>示例上下文</h2><blockquote>
+<p>使用隔离内核的时机是当你有一个非常重要的限界上下文，但是其中模型的关键部分却被大量的起辅助作用的功能所掩盖了。</p>
+</blockquote>
+<h1 id="第3章-上下文映射图"><a href="#第3章-上下文映射图" class="headerlink" title="第3章 上下文映射图"></a>第3章 上下文映射图</h1><h2 id="上下文映射图为什么重要"><a href="#上下文映射图为什么重要" class="headerlink" title="上下文映射图为什么重要"></a>上下文映射图为什么重要</h2><blockquote>
+<p>在开始采用DDD时，首先你应该为你当前的项目绘制一个上下文映射图，其中应该包含你项目中当前的限界上下文和它们之间的集成关系。</p>
+</blockquote>
+<blockquote>
+<p>上下文映射图主要帮助我们从解决方案空间的角度看待问题。</p>
+</blockquote>
+<blockquote>
+<p>遵奉者（Conformist）</p>
+</blockquote>
+<blockquote>
+<p>尽早绘制上下文映射图，这样可以迫使你仔细思考你的项目和你所依赖项目之间的关系。</p>
+</blockquote>
+<blockquote>
+<p>在DDD中，存在多种组织模式和集成模式，其中，有一种模式存在于任意两个限界上下文之间。以下的定义在很大程度上来自于[Evans，Ref]。</p>
+<ul>
+<li>合作关系（Partnership）</li>
+<li>共享内核（Shared Kernel）</li>
+<li>客户方-供应方开发（Customer-Supplier Development）</li>
+<li>遵奉者（Conformist）</li>
+<li>防腐层（Anticorruption Layer）</li>
+<li>开放主机服务（Open Host Service）</li>
+<li>发布语言（Published Language）</li>
+<li>另谋他路（SeparateWay）</li>
+<li>大泥球（Big Ball of Mud）</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>在下游上下文中，我们可以为每个防腐层定义相应的领域服务（Domain Service，7）。</p>
+</blockquote>
+<blockquote>
+<p>客户端的领域服务将访问远程的开放主机服务，远程服务器以发布语言的形式返回，下游的防腐层将返回内容翻译成本地上下文的领域对象。</p>
+</blockquote>
+<blockquote>
+<p>如果系统所依赖的状态已经存在于本地，那么我们将获得更大的自治性。有人可能认为这只是对所有的依赖对象进行缓存，但这不是DDD的做法。DDD的做法是：在本地创建一些由外部模型翻译而成的领域对象，这些对象保留着本地模型所需的最小状态集。为了初始化这些对象，我们只需要有限的RPC调用或REST请求。然而，要与远程模型保持同步，最好的方式是在远程系统中采用面向消息的通知（notification）机制。消息通知可以通过服务总线进行发布，也可以采用消息队列或者REST。</p>
+</blockquote>
+<h2 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h2><blockquote>
+<p>独立的翻译层能够起到防腐的重要，一旦上游发生变化，不会直接影响到下游上下文。</p>
+</blockquote>
+<h1 id="第4章-架构"><a href="#第4章-架构" class="headerlink" title="第4章 架构"></a>第4章 架构</h1><blockquote>
+<p>建筑应该反映时代特征与地理特征，同时追求永恒。</p>
+</blockquote>
+<blockquote>
+<p>DDD的一大好处便是它并不需要使用特定的架构。由于核心域（2）位于限界上下文（2）中，我们可以在整个系统中使用多种风格的架构[1]。有些架构包围着领域模型，能够全局性地影响系统，而有些架构则满足了某些特定的需求。我们的目标是选择适合于自己的架构和架构模式。</p>
+</blockquote>
+<h2 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h2><blockquote>
+<p>将一个复杂的系统分为不同的层，每层都应该具有良好的内聚性，并且只依赖于比其自身更低的层。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/4.1.png" alt="图4.1　DDD所使用的传统分层架构"></p>
+</blockquote>
+<blockquote>
+<p>分层架构也分为几种：在严格分层架构（Strict Layers Architecture）中，某层只能与直接位于其下方的层发生耦合；而松散分层架构（Relaxed Layers Architecture）则允许任意上方层与任意下方层发生耦合。</p>
+</blockquote>
+<blockquote>
+<p>由于用户界面层和应用服务通常需要与基础设施打交道，许多系统都是基于松散分层架构的。</p>
+</blockquote>
+<blockquote>
+<p>事实上，较低层也是可以和较高层发生耦合的，但这只局限于采用观察者（Observer）模式或者调停者（Mediator）模式[Gamma et al.]的情况。</p>
+</blockquote>
+<blockquote>
+<p>较低层是绝对不能直接访问较高层的。例如，在使用调停者模式时，较高层可能实现了较低层定义的接口，然后将实现对象作为参数传递到较低层。当较低层调用该实现时，它并不知道实现出自何处。</p>
+</blockquote>
+<blockquote>
+<p>应用服务（Application Services，14）位于应用层中。应用服务和领域服务（Domain Services，7）是不同的，因此领域逻辑也不应该出现在应用服务中。</p>
+</blockquote>
+<blockquote>
+<p>应用服务的通常用途是：接收来自用户界面的输入参数，再通过资源库（12）获取到聚合实例，然后执行相应的命令操作，比如：</p>
+</blockquote>
+<blockquote>
+<p>如果应用服务比上述功能复杂许多，这通常意味着领域逻辑已经渗透到应用服务中了，此时的领域模型将变成贫血模型。因此，最佳实践是将应用层做成很薄的一层。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/4.2.png" alt="图4.2　对于领域层中定义的接口，其实现可以放在应用层中。"></p>
+</blockquote>
+<blockquote>
+<p>在传统的分层架构中，基础设施层位于底层，持久化和消息机制便位于该层中。这里的消息包含了消息中间件所发的消息、基本的电子邮件（SMTP）或者文本消息（SMS）。可以将基础设施层中所有的组件和框架看作是应用程序的低层服务，较高层与该层发生耦合以重用技术上的基础设施。即便如此，我们依然应该避免核心的领域模型对象与基础设施层发生直接耦合。</p>
+</blockquote>
+<blockquote>
+<p>有一种方法可以改进分层架构——依赖倒置原则（Dependency Inversion Principle，DIP），它通过改变不同层之间的依赖关系达到改进目的。依赖倒置原则由Robert C. Martin提出[Martin，DIP]，正式的定义为：</p>
+<p>高层模块不应该依赖于低层模块，两者都应该依赖于抽象。</p>
+<p>抽象不应该依赖于细节，细节应该依赖于抽象。</p>
+</blockquote>
+<blockquote>
+<p>根据该定义，低层服务（比如基础设施层）应该依赖于高层组件（比如用户界面层、应用层和领域层）所提供的接口。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/4.3.png" alt="图4.3　在使用依赖倒置原则时的一种分层方式。我们将基础设施层放在所有层的最上方，这样它可以实现所有其他层中定义的接口。"></p>
+</blockquote>
+<blockquote>
+<p>对于图4.3中的架构，我们可以在领域层中定义资源库接口，然后在基础设施层中实现该接口：</p>
+</blockquote>
+<blockquote>
+<p>有趣的是，当我们在分层架构中采用依赖倒置原则时，我们可能会发现，事实上已经不存在分层的概念了。无论是高层还是低层，它们都只依赖于抽象，好像把整个分层架构给推平了一样。</p>
+</blockquote>
+<h2 id="六边形架构（端口与适配器）"><a href="#六边形架构（端口与适配器）" class="headerlink" title="六边形架构（端口与适配器）"></a>六边形架构（端口与适配器）</h2><blockquote>
+<p>六边形架构提倡用一种新的视角来看待整个系统，如图4.4所示。该架构中存在两个区域，分别是“外部区域”和“内部区域”。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/4.4.png" alt="图4.4　六边形架构也称为端口与适配器。对于每种外界类型，都有一个适配器与之相对应。外界通过应用层API与内部进行交互。"></p>
+</blockquote>
+<blockquote>
+<p>通常来说，我们都不用自己实现端口。我们可以将端口想成是HTTP，而将适配器想成是Java的Servlet或JAX-RS的REST请求处理类。或者，我们可以为NServiceBus或RabbitMQ创建消息监听器，在这种情况下，端口是消息机制，而适配器则是消息监听器，因为消息监听器将负责从消息中提取数据，并将数据转化为应用层API（领域模型的客户）所需的参数。</p>
+</blockquote>
+<h2 id="面向服务架构"><a href="#面向服务架构" class="headerlink" title="面向服务架构"></a>面向服务架构</h2><blockquote>
+<p>Thomas Erl[Erl]所定义的一些SOA原则。服务除了拥有互操作性外，还具有以下8种设计原则，如表4.1所示。<br><img src="/contents/implementing-domain-driven-design/t4.1.png" alt="表4.1　服务设计原则"></p>
+</blockquote>
+<h2 id="REST"><a href="#REST" class="headerlink" title="REST"></a>REST</h2><blockquote>
+<p>架构风格之于架构就像设计模式之于设计一样。它将不同架构实现所共有的东西抽象出来，使得我们在谈及到架构时不至于陷入技术细节中。</p>
+</blockquote>
+<h2 id="命令和查询职责分离——CQRS"><a href="#命令和查询职责分离——CQRS" class="headerlink" title="命令和查询职责分离——CQRS"></a>命令和查询职责分离——CQRS</h2><blockquote>
+<p>任何时候我们引入DTO和DTO组装器（DTO Assembler）[Fowler，P of EAA]，系统的复杂性都会随之增加。</p>
+</blockquote>
+<blockquote>
+<p>查询模型是一种非规范化数据模型，它并不反映领域行为，只是用于数据显示（也有可能是生成数据报告）。</p>
+</blockquote>
+<blockquote>
+<p>命令模型上每个方法在执行完成时都将发布领域事件（8）。</p>
+</blockquote>
+<blockquote>
+<p>有时，对命令的执行并不会发布领域事件。比如，如果命令是通过“至少一次”的消息进行提交的，而同时应用程序又支持幂等操作，那么重新发出的消息将被忽略掉。</p>
+</blockquote>
+<h2 id="事件驱动架构"><a href="#事件驱动架构" class="headerlink" title="事件驱动架构"></a>事件驱动架构</h2><blockquote>
+<p>基于消息的系统通常呈现出一种管道和过滤器风格。</p>
+</blockquote>
+<blockquote>
+<p>一种事件驱动的、分布式的并行处理模式——长时处理过程（Long-Running Process）。一个长时处理过程有时也称为Saga，但是这个名字可能与另一个已有的模式存在冲突。</p>
+</blockquote>
+<blockquote>
+<p>被动超时检查的一个缺点是，如果由于某些原因导致执行器始终接收不到完成领域事件，那么即便处理过程已经超时，执行器还是会认为处理过程正处于活跃状态。如果还有更大的并发过程依赖于该过程处理，那么这将是不可接受的。</p>
+</blockquote>
+<blockquote>
+<p>主动超时检查的一个缺点是，它需要更多的系统资源，这可能加重系统的运行负担。同时，定时器和完成事件之间的竞态条件有可能会造成系统失败。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/4.11.png" alt="图4.11　从高层次看事件源，由聚合发布的事件被保存到事件存储中，同时这些事件被用于跟踪模型的状态变化。资源库从事件存储中读取事件，并将这些事件应用于对聚合状态的重建。"></p>
+</blockquote>
+<blockquote>
+<p>随着时间的增长，发生在聚合实例上的事件将越来越多，那么，重放这些成百上千的事件是否会对模型的处理造成影响呢？对于那些业务操作繁忙的模型来说，这种影响至少是存在的。<br>为了避免这种瓶颈，我们可以通过聚合状态“快照”的方式来进行优化。</p>
+</blockquote>
+<blockquote>
+<p>事实上，为事件源所设计的资源库只需要一个接受聚合唯一标识为参数的查询方法。因此，我们需要另外一种方法来支持查询，通常将CQRS和事件源一同使用[11]。</p>
+</blockquote>
+<h1 id="第5章-实体"><a href="#第5章-实体" class="headerlink" title="第5章 实体"></a>第5章 实体</h1><h2 id="唯一标识"><a href="#唯一标识" class="headerlink" title="唯一标识"></a>唯一标识</h2><blockquote>
+<p>对于刚才向集合中添加对象的例子来说，我更倾向于及早地生成实体标识这种做法。因为实体的equals（）和hashCode（）方法最好是基于对象的唯一标识，而不是其他属性。</p>
+</blockquote>
+<h2 id="发现实体及其本质特征"><a href="#发现实体及其本质特征" class="headerlink" title="发现实体及其本质特征"></a>发现实体及其本质特征</h2><blockquote>
+<p>在通用语言的术语中，名词用于给概念命名，形容词用于描述这些概念，而动词则表示可以完成的操作。</p>
+</blockquote>
+<blockquote>
+<p>Martin Fowler曾说：“自封装性要求无论以哪种方式访问数据，即使从对象内部访问数据，都必须通过getter和setter方法”</p>
+</blockquote>
+<blockquote>
+<p>这种方式有诸多优点。首先它为对象的实例变量和类变量提供了一层抽象。其次，我们可以方便地在对象中访问其所引用对象的属性。重要的是，自封装性使验证变得非常简单。</p>
+</blockquote>
+<blockquote>
+<p>在MySQL中，最大的行宽为65，535字节，请注意，这里是行宽，而不是列宽。如果我们将其中一个列定义为最大宽度为65，535的VARCHAR类型，那么其他的列便没有存放空间了。</p>
+</blockquote>
+<blockquote>
+<p>根据数据库中所定义VARCHAR列的数量，我们需要对每一列的宽度进行限制。在这种情况下，我们可能需要将某些列定义为TEXT类型，因为TEXT列和BLOB列存储在不同的块中。</p>
+</blockquote>
+<blockquote>
+<p>由于验证逻辑需要访问实体的所有状态，有人可能会直接将验证逻辑嵌入到实体对象中。这里我们需要注意了，更多的时候验证逻辑比领域对象本身变化还快，而将验证逻辑嵌入在领域对象中也使领域对象承担了太多的职责。</p>
+</blockquote>
+<h1 id="第6章-值对象"><a href="#第6章-值对象" class="headerlink" title="第6章 值对象"></a>第6章 值对象</h1><blockquote>
+<p>付出的是价格，获得的是价值。—— Warren Buffett</p>
+</blockquote>
+<blockquote>
+<p>我们应该尽量使用值对象来建模而不是实体对象，你可能对此非常惊讶。即便一个领域概念必须建模成实体，在设计时也应该更偏向于将其作为值对象容器，而不是子实体容器。这并不是源自于无端的偏好，而是因为我们可以非常容易地对值对象进行创建、测试、使用、优化和维护。</p>
+</blockquote>
+<blockquote>
+<p>全然面向实体的思维方法不仅没有必要，而且还浪费开发时间。</p>
+</blockquote>
+<blockquote>
+<p>当你只关心某个对象的属性时，该对象便可作为一个值对象。为其添加有意义的属性，并赋予它相应的行为。我们需要将值对象看成不变对象，不要给它任何身份标识，还应该尽量避免像实体对象一样的复杂性。</p>
+</blockquote>
+<h2 id="值对象的特征"><a href="#值对象的特征" class="headerlink" title="值对象的特征"></a>值对象的特征</h2><blockquote>
+<p>当你决定一个领域概念是否是一个值对象时，你需要考虑它是否拥有以下特征：</p>
+<ul>
+<li>它度量或者描述了领域中的一件东西。</li>
+<li>它可以作为不变量。</li>
+<li>它将不同的相关的属性组合成一个概念整体（Conceptual Whole）。</li>
+<li>当度量和描述改变时，可以用另一个值对象予以替换。</li>
+<li>它可以和其他值对象进行相等性比较。</li>
+<li>它不会对协作对象造成副作用</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>当你的模型中的确存在一个值对象时，不管你是否意识到，它都不应该成为你领域中的一件东西，而只是用于度量或描述领域中某件东西的一个概念。</p>
+</blockquote>
+<blockquote>
+<p>一个值对象在创建之后便不能改变了。</p>
+</blockquote>
+<blockquote>
+<p>根据需要，有时我们可以在值对象中维持对实体对象的引用。在这种情况下我们需要谨慎行事。当实体对象的状态发生改变时，引用它的值对象也将发生改变，由此违背了值对象的不变性。因此，在值对象中引用实体时，我们的出发点应该是不变性、表达性和方便性。否则，如果实体对象有可能违背值对象的不变性，那么我们便没有理由在值对象中引用实体对象。</p>
+</blockquote>
+<blockquote>
+<p>如果你认为一个值对象必须通过行为方法进行改变，那么你得问问自己这是否有必要。在这种情况下可以用其他值对象来替换吗？使用值对象替换可以简化设计。</p>
+</blockquote>
+<blockquote>
+<p>有时将一个对象设计成不变对象是没有意义的，此时往往意味着该对象应该建模成一个实体对象</p>
+</blockquote>
+<blockquote>
+<p>函数式编程语言通常都强制性地保留了这种特性。事实上，纯函数式语言只允许有无副作用行为存在，并且要求所有的闭包只能接受和产生不变的值对象。</p>
+</blockquote>
+<blockquote>
+<p>如果一个值对象方法将一个实体对象作为参数时，最好的方式是，让实体对象使用该方法的返回结果来修改其自身的状态。</p>
+</blockquote>
+<blockquote>
+<p>我们应该尽量地使值对象只依赖于它自己的属性，并且只理解它自身的状态。虽然在有些情况下这并不可行，但这是我们的目标。</p>
+</blockquote>
+<h2 id="测试值对象"><a href="#测试值对象" class="headerlink" title="测试值对象"></a>测试值对象</h2><blockquote>
+<p>在创建测试时，我们应该保证领域专家能够读懂这些测试，即测试应该具有领域含义。</p>
+</blockquote>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><blockquote>
+<p>只有主构造函数才能使用自委派性来设置属性值，除此之外，其他方法都不能使用setter方法。由于值对象中的所有setter方法都是私有的，消费方是没有机会直接调用这些setter方法的。这是保持值对象不变性的两个重要因素。</p>
+</blockquote>
+<blockquote>
+<p>第二个构造函数用于将一个值对象复制到另一个新的值对象，即复制构造函数。该构造函数采用浅复制（Shallow Copy）的方式，因为它也是将构造过程委派给主构造函数的，先从原对象中取出各个属性值，再将这些属性值作为参数传给主构造函数。当然，我们也可以采用深复制（Deep Copy）或者克隆（clone）的方式，即为每个所引用的属性都创建一份其自身的备份。然而，这种方式既复杂，也没有必要。当需要深度复制时，我们才考虑添加该功能。但是对于不变的值对象来说，在不同的实例间共享属性是不会出现什么问题的。</p>
+</blockquote>
+<blockquote>
+<p>复制构造函数对于单元测试来说是非常重要的。在测试值对象时，我们希望验证它的不变性。就像前面所展示的一样，在单元测试开始时，创建一个值对象实例，并通过复制构造函数创建该实例的一份备份，同时验证这两个实例的相等性。接下来，测试值对象的无副作用行为方法。如果所有的验证都通过了，最后我们需要验证这两个实例依然是相等的。</p>
+</blockquote>
+<blockquote>
+<p>这里我们可以看到自封装/自委派的一大好处。一个对象的setter和getter方法并不见得只局限于设置对象的属性值，还可以进行断言[Evans]操作，这对于通常的软件开发和DDD模型来说都是很重要的。</p>
+</blockquote>
+<h2 id="持久化值对象"><a href="#持久化值对象" class="headerlink" title="持久化值对象"></a>持久化值对象</h2><blockquote>
+<p>多数时候，在持久化值对象时（比如使用ORM和关系型数据库），我们都是通过一种非范式的方式完成的，即所有的属性和实体对象都保存在相同的数据库表中。这样可以优化对值对象的保存和读取，并且可以防止持久化逻辑泄漏到模型中。</p>
+</blockquote>
+<blockquote>
+<p>但是，有时值对象需要以实体的身份进行持久化。换句话说，某个值对象实例会单独占据一张表中的某条记录，而该表也是专门为这个值对象类型而设计的，它甚至拥有自己的主键列。比如，当聚合中维持了一个值对象的集合时，便会发生这种情况。在这种情况下，一个值对象被当成了数据库实体而被持久化。</p>
+</blockquote>
+<blockquote>
+<p>在可能的情况下，尽量根据领域模型来设计数据模型，而不是根据数据模型来设计领域模型。</p>
+</blockquote>
+<h1 id="第7章-领域服务"><a href="#第7章-领域服务" class="headerlink" title="第7章 领域服务"></a>第7章 领域服务</h1><blockquote>
+<p>领域中的服务表示一个无状态的操作，它用于实现特定于某个领域的任务。当某个操作不适合放在聚合（10）和值对象（6）上时，最好的方式便是使用领域服务了。</p>
+</blockquote>
+<blockquote>
+<p>有时我们倾向于使用聚合根上的静态方法来实现这些这些操作，但是在DDD中，这是一种坏味道。</p>
+</blockquote>
+<blockquote>
+<p>一个基本的原则是，我们应该尽量避免在聚合中使用资源库</p>
+</blockquote>
+<h2 id="什么是领域服务（首先，什么不是领域服务）"><a href="#什么是领域服务（首先，什么不是领域服务）" class="headerlink" title="什么是领域服务（首先，什么不是领域服务）"></a>什么是领域服务（首先，什么不是领域服务）</h2><blockquote>
+<p>应用服务是领域模型很自然的客户方，进而也是领域服务的客户方。</p>
+</blockquote>
+<blockquote>
+<p>虽然领域服务中有“服务”这个词，但它并不意味着需要远程的、重量级的事务操作</p>
+</blockquote>
+<blockquote>
+<p>有时，它不见得是一件东西……当领域中的某个操作过程或转换过程不是实体或值对象的职责时，此时我们便应该将该操作放在一个单独的接口中，即领域服务。请确保该领域服务和通用语言是一致的；并且保证它是无状态的。</p>
+</blockquote>
+<h2 id="请确定你是否需要一个领域服务"><a href="#请确定你是否需要一个领域服务" class="headerlink" title="请确定你是否需要一个领域服务"></a>请确定你是否需要一个领域服务</h2><blockquote>
+<p>过度地使用领域服务将导致贫血领域模型[Fowler，Anemic]，即所有的业务逻辑都位于领域服务中，而不是实体和值对象中。</p>
+</blockquote>
+<h2 id="建模领域服务"><a href="#建模领域服务" class="headerlink" title="建模领域服务"></a>建模领域服务</h2><blockquote>
+<p>我们真的有必要为其创建一个独立接口并将其与实现类分离在不同的层和模块中吗？这是没有必要的。我们只需要创建一个实现类即可，其名字与领域服务的名字相同。</p>
+</blockquote>
+<blockquote>
+<p>对于非技术性的领域服务来说，去除独立接口是不会破坏可测试性的，因为这些领域服务所依赖的所有接口都可以注入进来，或者通过服务工厂（Service Factory）进行创建。</p>
+</blockquote>
+<blockquote>
+<p>有时，领域服务总是和领域密切相关，并且不会有技术性的实现，或者不会有多个实现，此时采用独立接口便只是一个风格上的问题。</p>
+</blockquote>
+<h1 id="第8章-领域事件"><a href="#第8章-领域事件" class="headerlink" title="第8章 领域事件"></a>第8章 领域事件</h1><h2 id="向远程限界上下文发布领域事件"><a href="#向远程限界上下文发布领域事件" class="headerlink" title="向远程限界上下文发布领域事件"></a>向远程限界上下文发布领域事件</h2><blockquote>
+<p>在领域模型的持久化存储中，创建一个特殊的存储区域（比如一张数据库表），该区域用于存储领域事件。这便是一个事件存储（Event Store）</p>
+</blockquote>
+<blockquote>
+<p>此时的事件存储区域不再由消息机制所拥有和控制，而是你的限界上下文。同时，你需要创建一个消息外发组件将事件存储中的所有消息通过消息机制发送出去。这种方式的优点在于：模型修改和事件提交可以同时位于单个本地事务中。另一个额外的优点是，我们可以发布基于REST的事件通知。</p>
+</blockquote>
+<blockquote>
+<p>这种方式的缺点是，我们可能需要定制开发一个消息转发组件来发送消息，同时客户方需要对消息进行消重处理</p>
+</blockquote>
+<blockquote>
+<p>这里的自治服务表示一个设计良好的业务服务，我们可以将其看成一个系统或者应用程序。</p>
+</blockquote>
+<h2 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h2><blockquote>
+<p>需要强调的是，事件通知是一个应用程序级别上的关注点，而不是领域的关注点，即便这些事件通知是源自于领域模型的也是如此。</p>
+</blockquote>
+<h1 id="第9章-模块"><a href="#第9章-模块" class="headerlink" title="第9章 模块"></a>第9章 模块</h1><h2 id="通过模块完成设计"><a href="#通过模块完成设计" class="headerlink" title="通过模块完成设计"></a>通过模块完成设计</h2><blockquote>
+<p><img src="/contents/implementing-domain-driven-design/t9.1.png" alt="表9.1　设计模块的简单原则"></p>
+</blockquote>
+<h2 id="先考虑模块，再是限界上下文"><a href="#先考虑模块，再是限界上下文" class="headerlink" title="先考虑模块，再是限界上下文"></a>先考虑模块，再是限界上下文</h2><blockquote>
+<p>使用模块的目的在于组织那些内聚在一起的领域对象，对于那些内聚性不强或者没有内聚性的领域对象来说，我们应该将它们划分在不同的模块中。</p>
+</blockquote>
+<h1 id="第10章-聚合"><a href="#第10章-聚合" class="headerlink" title="第10章 聚合"></a>第10章 聚合</h1><h2 id="原则：在一致性边界之内建模真正的不变条件"><a href="#原则：在一致性边界之内建模真正的不变条件" class="headerlink" title="原则：在一致性边界之内建模真正的不变条件"></a>原则：在一致性边界之内建模真正的不变条件</h2><blockquote>
+<p>在一个事务中只修改一个聚合实例，这听起来可能过于严格。但是，这却是设计聚合的重要经验原则，也是我们为什么要使用聚合的原因。</p>
+</blockquote>
+<h2 id="原则：设计小聚合"><a href="#原则：设计小聚合" class="headerlink" title="原则：设计小聚合"></a>原则：设计小聚合</h2><h3 id="不要相信每一个用例"><a href="#不要相信每一个用例" class="headerlink" title="不要相信每一个用例"></a>不要相信每一个用例</h3><h2 id="原则：通过唯一标识引用其他聚合"><a href="#原则：通过唯一标识引用其他聚合" class="headerlink" title="原则：通过唯一标识引用其他聚合"></a>原则：通过唯一标识引用其他聚合</h2><blockquote>
+<p>通过应用服务来处理依赖关系可以避免在聚合中使用资源库或领域服务。然而，如果要处理特定于领域的复杂依赖关系，在聚合的命令方法中使用领域服务却是最好的方法。这里再次重申一遍，不管使用哪种方式在一个聚合中引用另外的聚合，我们都不能在同一个事务中修改多个聚合实例。</p>
+</blockquote>
+<blockquote>
+<p>聚合的概念 … 一个拥有事务一致性的组合单元。</p>
+</blockquote>
+<h2 id="原则：在边界之外使用最终一致性"><a href="#原则：在边界之外使用最终一致性" class="headerlink" title="原则：在边界之外使用最终一致性"></a>原则：在边界之外使用最终一致性</h2><blockquote>
+<p>对于一个用例，问问是否应该由执行该用例的用户来保证数据的一致性。如果是，请使用事务一致性，当然此时依然需要遵循其他聚合原则。如果需要其他用户或者系统来保证数据一致性，请使用最终一致性。以上原则不仅有助于我们做出决定，还能帮助我们更深入地了解自己的领域。它向我们展示了真正的系统不变条件：那些必须使用事务一致性的不变条件。通过领域来理解问题比纯粹的技术学习更有价值。</p>
+</blockquote>
+<h2 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h2><blockquote>
+<p>迪米特法则：强调了“最小知识”原则。</p>
+</blockquote>
+<blockquote>
+<p>对迪米特法则做一个简单的总结：任何对象的任何方法只能调用以下对象中的方法：（1）该对象自身，（2）所传入的参数对象，（3）它所创建的对象，（4）自身所包含的其他对象，并且对那些对象有直接访问权。</p>
+</blockquote>
+<blockquote>
+<p>告诉而非询问原则：一个对象不应该被告知如何执行操作。</p>
+</blockquote>
+<blockquote>
+<p>客户端对象不应该首先询问服务对象，然后根据询问结果调用服务对象中的方法，而是应该通过调用服务对象的公共接口的方式来“告诉”服务对象所要执行的操作。</p>
+</blockquote>
+<blockquote>
+<p>我们需要在迪米特法则和“告诉而非询问”原则之间进行权衡。前者的限制性更强，它只允许客户端通过聚合根进行访问。另一方面，“告诉而非询问”原则则允许客户端访问聚合根的内部，但是它也要求对聚合状态的修改应该属于聚合本身，而不是客户端。因此，在多数情况下，“告诉而非询问”原则将更加适用。</p>
+</blockquote>
+<blockquote>
+<p>在多数情况下，使用双向关联都是不被鼓励的。</p>
+</blockquote>
+<blockquote>
+<p>通常来说，向聚合中注入资源库或者领域服务是有害的。</p>
+</blockquote>
+<blockquote>
+<p>在其他多数情况下，依赖注入都是很适合的。比如，我们可以向应用服务中注入资源库和领域服务。</p>
+</blockquote>
+<h1 id="第12章-资源库"><a href="#第12章-资源库" class="headerlink" title="第12章 资源库"></a>第12章 资源库</h1><blockquote>
+<p>通常来说，聚合类型和资源库之间存在着一对一的关系。然而有时，当两个或多个聚合位于同一个对象层级中时，它们可以共享同一个资源库。</p>
+</blockquote>
+<blockquote>
+<p>在我看来，存在两种类型的资源库设计，即面向集合（collection-oriented）的设计和面向持久化（persistence-oriented）的设计。</p>
+</blockquote>
+<h2 id="面向集合资源库"><a href="#面向集合资源库" class="headerlink" title="面向集合资源库"></a>面向集合资源库</h2><blockquote>
+<p>一个资源库应该模拟一个Set集合。无论采用什么类型的持久化机制，我们都不应该允许多次添加同一个聚合实例。另外，当从资源库中获取到一个对象并对其进行修改时，我们并不需要“重新保存”该对象到资源库中。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/implementing-domain-driven-design/illustration.png" alt="插图"></p>
+</blockquote>
+<blockquote>
+<p>当然，这也是有底线的，即一个面向集合的资源库应该真正地模拟一个集合，而不应该让持久化机制通过公有接口泄漏到客户端中。因此，我们的目标应该是设计并实现一个类似于HashSet的面向集合资源库，但是采用的不再是内存的java.util.Hashset，而是真正的持久化数据存储。</p>
+</blockquote>
+<blockquote>
+<p>此时的持久化机制必须能够隐式地跟踪发生在每个持久化对象上的改变。有多种方法都可以达到这样的目的，包括：</p>
+<ol>
+<li>隐式读时复制（Implicit Copy-on-Read）[Keith &amp; Stafford]：在从数据存储中读取一个对象时，持久化机制隐式地对该对象进行复制，在提交时，再将该复制对象与客户端中的对象进行比较。详细过程如下：当客户端请求持久化机制从数据存储中读取一个对象时，该持久化机制一方面将获取到的对象返回给客户端，一方面立即创建一份该对象的备份（除去延迟加载部分，这些部分可以在之后实际加载时再进行复制）。当客户端提交事务时，持久化机制把该复制对象与客户端中的对象进行比较。所有的对象修改都将更新到数据存储中。</li>
+<li>隐式写时复制Implicit Copy-on-Write）[Keith &amp; Stafford]：持久化机制通过委派来管理所有被加载的持久化对象。在加载每个对象时，持久化机制都会为其创建一个微小的委派并将其交给客户端。客户端并不知道自己调用的是委派对象中的行为方法，委派对象会调用真实对象中的行为方法。当委派对象首次接收到方法调用时，它将创建一份对真实对象的备份。委派对象将跟踪发生在真实对象上的改变，并将其标记为“肮脏的”（dirty）。当事务提交时，该事务检查所有的“肮脏”对象并将对它们的修改更新到数据存储中。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>记住，DDD专家是不会首先考虑使用聚合来管理持久化的。</p>
+</blockquote>
+<h2 id="面向持久化资源库"><a href="#面向持久化资源库" class="headerlink" title="面向持久化资源库"></a>面向持久化资源库</h2><blockquote>
+<p>如果持久化机制不支持对对象变化的跟踪，无论是显式的还是隐式的，那么采用面向集合资源库便不再适用了。此时，我们可以考虑使用面向持久化资源库，这是一种基于保存操作的资源库。</p>
+</blockquote>
+<blockquote>
+<p>每次新建聚合或修改聚合之后，我们都需要调用资源库中的save（）方法或者与之类似的方法。</p>
+</blockquote>
+<blockquote>
+<p>面向持久化资源库精要</p>
+<p>在向数据存储中添加新建对象或修改既有对象时，我们都必须显式地调用put（）方法，该方法将以新的值来替换先前关联在某个键上的原值。这种类型的数据存储可以极大地简化对聚合的读写。正因如此，这种数据存储也称为聚合存储（Aggregate Store）或面向聚合数据库（Aggregate-Oriented Database）。</p>
+</blockquote>
+<h2 id="管理事务"><a href="#管理事务" class="headerlink" title="管理事务"></a>管理事务</h2><blockquote>
+<p>对事务的管理绝对不应该放在领域模型和领域层中[6]。通常来说，与领域模型相关的操作都非常细粒度的，以致于无法用于管理事务，另外，领域模型也不应该意识到事务的存在。</p>
+</blockquote>
+<blockquote>
+<p>通常来说，我们将事务放在应用层（14）中[7]。</p>
+</blockquote>
+<blockquote>
+<p>然后为每个主要的用例创建一个门面[Gamma et al.]，门面中的业务方法通常都是粗粒度的</p>
+</blockquote>
+<blockquote>
+<p>当用户界面层（14）调用门面中的一个业务方法时，该方法都将开始一个事务。同时，该业务方法将作为领域模型的客户端而存在。在所有的操作完成之后，门面中的业务方法将提交事务。在这个过程中，如果发生错误/异常，那么业务方法将对事务进行回滚。</p>
+</blockquote>
+<h2 id="类型层级"><a href="#类型层级" class="headerlink" title="类型层级"></a>类型层级</h2><blockquote>
+<p>在聚合子类较少的情况下，为它们使用单独的资源库可能是最好的方式。但是，随着聚合子类数目的增加，而同时它们又具有完全的可互换性时，使用一个共享的资源库便更合适了。</p>
+</blockquote>
+<h1 id="第13章-集成限界上下文"><a href="#第13章-集成限界上下文" class="headerlink" title="第13章 集成限界上下文"></a>第13章 集成限界上下文</h1><h2 id="集成基础知识"><a href="#集成基础知识" class="headerlink" title="集成基础知识"></a>集成基础知识</h2><blockquote>
+<p>分布式计算原则：</p>
+<ul>
+<li>网络是不可靠的。</li>
+<li>总会存在时间延迟，有时甚至非常严重。</li>
+<li>带宽是有限的。</li>
+<li>不要假设网络是安全的。</li>
+<li>网络拓扑结构将发生变化。</li>
+<li>知识和政策在多个管理员之间传播。</li>
+<li>网络传输是有成本的。</li>
+<li>网络是异构的。</li>
+</ul>
+</blockquote>
+<h2 id="通过REST资源集成限界上下文"><a href="#通过REST资源集成限界上下文" class="headerlink" title="通过REST资源集成限界上下文"></a>通过REST资源集成限界上下文</h2><blockquote>
+<p>当一个限界上下文以URI的方式提供了大量的REST资源时，我们便可称其为</p>
+<p>开放主机服务（3）：</p>
+<p>为系统所提供的服务定义一套协议。开放该协议以使其他需要集成的系统能够使用。在有新的集成需求时，对协议进行改进和扩展。[Evans]</p>
+</blockquote>
+<blockquote>
+<p>在有新的集成需求时，对协议进行改进和扩展。</p>
+</blockquote>
+<blockquote>
+<p>作为技术实现的一部分，在防腐层中通常会有一个特定的适配器[Gamma et al.]和翻译器。</p>
+</blockquote>
+<h2 id="通过消息集成限界上下文"><a href="#通过消息集成限界上下文" class="headerlink" title="通过消息集成限界上下文"></a>通过消息集成限界上下文</h2><blockquote>
+<p>在使用消息进行集成时，任何一个系统都可以获得更高层次的自治性。只要消息基础设施工作正常，即使其中一个交互系统不可用，消息依然可以得到发送和投递。</p>
+</blockquote>
+<blockquote>
+<p>在DDD中，增强系统自治性的一种方式便是使用领域事件。</p>
+</blockquote>
+<blockquote>
+<p>对于消息监听器来说，在消息机制不可用时，它将接收不到新的事件通知。当消息系统重新可用时，你的监听器会被自动地重新激活吗，也或许你需要重新进行订阅？如果此时的消息消费方不能自动恢复，那么你需要确保重新注册该消费方。否则，你将发现你的限界上下文不再接收所依赖限界上下文发出的通知，这是你需要避免的。</p>
+</blockquote>
+<h1 id="第14章-应用程序"><a href="#第14章-应用程序" class="headerlink" title="第14章 应用程序"></a>第14章 应用程序</h1><h2 id="用户界面"><a href="#用户界面" class="headerlink" title="用户界面"></a>用户界面</h2><blockquote>
+<p>用户界面通常都需要渲染多个聚合（10）实例中的属性，尽管用户最终只会修改其中一个聚合实例</p>
+</blockquote>
+<blockquote>
+<p>一种渲染多个聚合实例的方法便是使用数据传输对象（Data Tranfer Object，DTO）</p>
+</blockquote>
+<blockquote>
+<p>要解决客户端和领域模型之间的耦合问题，我们可以使用调停者模式[Gamma et al.]，即双分派（Double-Dispatch）和回调（Callback）。此时，聚合将通过调停者接口来发布内部状态。客户端将实现调停者接口，然后把实现对象的引用作为参数传给聚合。之后，聚合双分派给调停者以发布自身状态，在这个过程中，聚合并没有向外暴露自身的内部结构。这里的诀窍在于，不要将调停者接口与任何显示规范绑定在一起，而是关注于对所感兴趣的聚合状态的渲染</p>
+</blockquote>
+<blockquote>
+<p>在没有必要使用DTO时，我们可以使用另一种改进方法。该方法将多个聚合实例中需要显示的数据汇集到一个领域负载对象（Domain Payload Object，DPO）中</p>
+</blockquote>
+<blockquote>
+<p>DPO中包含了对整个聚合实例的引用，而不是单独的属性。</p>
+</blockquote>
+<blockquote>
+<p>我们所创建的展现模型不应该与领域模型中的聚合状态存在一一对应的关系。否则，你的客户端便需要像聚合本身一样了解你的领域模型。此时，客户端需要紧跟领域模型中行为和状态的变化，你也随之失去了抽象所带来的好处。</p>
+</blockquote>
+<h2 id="应用服务"><a href="#应用服务" class="headerlink" title="应用服务"></a>应用服务</h2><blockquote>
+<p>我们应该将所有的业务领域逻辑放在领域模型中，不管是聚合、值对象或者领域服务；而将应用服务做成很薄的一层，并且只使用它们来协调对模型的任务操作。</p>
+</blockquote>
+<blockquote>
+<p>让我们考虑另一种完全不同的方式：使应用服务返回void类型而不向客户端返回数据。这将如何工作呢？事实上，这正是六边形架构（4）所提倡的，此时我们可以使用端口和适配器的风格。对于本例，我们可以使用单个标准输出端口，然后为不同种类的客户端创建不同的适配器。</p>
+</blockquote>
+<blockquote>
+<p>这并不是一种增加架构复杂性的雕虫小技，而是与其他任何端口和适配器架构——无论是软件系统，还是硬件设备——具有相同的长处。每一个组件只需要知道读进输入、调用自身行为，最后将输出写到端口中。</p>
+</blockquote>
+<blockquote>
+<p>粗略看来，将输出写到端口中与聚合中的纯命令方法相似。聚合的这些命令方法也没有返回值，但是它却会发布领域事件（8）。因此，对于聚合来说，事件发布器便是输出端口。另外，如果我们使用调停者的双分派来处理对聚合状态的查询，那么这也与端口和适配器相似。</p>
+</blockquote>
+<blockquote>
+<p>使用端口和适配器的一个不足之处在于，我们很难命名应用服务中的查询方法。</p>
+</blockquote>
+<blockquote>
+<p>查找并不隐含需要返回结果的意思。</p>
+</blockquote>
+<blockquote>
+<p>任何一种架构都同时存在正面的和负面的影响。</p>
+</blockquote>
+<h2 id="基础设施"><a href="#基础设施" class="headerlink" title="基础设施"></a>基础设施</h2><blockquote>
+<p>资源库的实现被放在了基础设施层中，因为它们负责处理数据存储，而这些不属于模型的职责。</p>
+</blockquote>
+<h2 id="本章小结-1"><a href="#本章小结-1" class="headerlink" title="本章小结"></a>本章小结</h2><blockquote>
+<p>有人喜欢使用请求-应答层面的“Open Session In View”（OSIV）来管理事务。我认为这种方式是有害的，当然选择权在你自己手上。</p>
+</blockquote>
+<h1 id="附录A-聚合与事件源：A-ES"><a href="#附录A-聚合与事件源：A-ES" class="headerlink" title="附录A 聚合与事件源：A+ES"></a>附录A 聚合与事件源：A+ES</h1><blockquote>
+<p>让我们将这种使用事件源来维护聚合状态的方式称为A+ES（Aggregate + Event Sourcing）。</p>
+</blockquote>
+<blockquote>
+<p>为A+ES设计事件需要我们对业务领域有很深的了解。对于任何一个DDD项目，通常只有那些复杂的模型才配得上这样的付出，此时你的公司将从中获得竞争优势。</p>
+</blockquote>
+<h2 id="应用服务内部"><a href="#应用服务内部" class="headerlink" title="应用服务内部"></a>应用服务内部</h2><blockquote>
+<p><img src="/contents/implementing-domain-driven-design/A.2.png" alt="图A.2　应用服务控制对聚合的访问和使用。"></p>
+</blockquote>
+<h2 id="专注的聚合"><a href="#专注的聚合" class="headerlink" title="专注的聚合"></a>专注的聚合</h2><blockquote>
+<p>在使用读模型投射时，我们使用一组简单的领域事件订阅方来生成和更新读模型。当事件订阅方接收到新的事件时，它们将计算一些查询结果，然后将这些结果保存到读模型中以供之后使用。</p>
+</blockquote>
+<h2 id="增强事件"><a href="#增强事件" class="headerlink" title="增强事件"></a>增强事件</h2><blockquote>
+<p>领域事件的一个经验法则是这样的：领域事件中所包含的信息应该满足80%的消费方，虽然对于很多消费方来说，这些信息是多余的。</p>
+</blockquote>
+<h2 id="协议生成"><a href="#协议生成" class="headerlink" title="协议生成"></a>协议生成</h2><blockquote>
+<p>任何更强调核心域而不是技术实现的方式都可以增加业务价值，并且使我们获得更大的竞争优势。</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何使用本书"><span class="toc-number">1.</span> <span class="toc-text">如何使用本书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第1章-DDD入门"><span class="toc-number">2.</span> <span class="toc-text">第1章 DDD入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#我能DDD吗？"><span class="toc-number">2.1.</span> <span class="toc-text">我能DDD吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么我们需要DDD"><span class="toc-number">2.2.</span> <span class="toc-text">为什么我们需要DDD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何DDD"><span class="toc-number">2.3.</span> <span class="toc-text">如何DDD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用DDD的业务价值"><span class="toc-number">2.4.</span> <span class="toc-text">使用DDD的业务价值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实施DDD所面临的挑战"><span class="toc-number">2.5.</span> <span class="toc-text">实施DDD所面临的挑战</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第2章-领域、子域和界限上下文"><span class="toc-number">3.</span> <span class="toc-text">第2章 领域、子域和界限上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#总览"><span class="toc-number">3.1.</span> <span class="toc-text">总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#战略设计为什么重要"><span class="toc-number">3.2.</span> <span class="toc-text">战略设计为什么重要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#现实世界中领域和子域"><span class="toc-number">3.3.</span> <span class="toc-text">现实世界中领域和子域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#理解限界上下文"><span class="toc-number">3.4.</span> <span class="toc-text">理解限界上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例上下文"><span class="toc-number">3.5.</span> <span class="toc-text">示例上下文</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第3章-上下文映射图"><span class="toc-number">4.</span> <span class="toc-text">第3章 上下文映射图</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#上下文映射图为什么重要"><span class="toc-number">4.1.</span> <span class="toc-text">上下文映射图为什么重要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本章小结"><span class="toc-number">4.2.</span> <span class="toc-text">本章小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第4章-架构"><span class="toc-number">5.</span> <span class="toc-text">第4章 架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#分层"><span class="toc-number">5.1.</span> <span class="toc-text">分层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六边形架构（端口与适配器）"><span class="toc-number">5.2.</span> <span class="toc-text">六边形架构（端口与适配器）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面向服务架构"><span class="toc-number">5.3.</span> <span class="toc-text">面向服务架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#REST"><span class="toc-number">5.4.</span> <span class="toc-text">REST</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令和查询职责分离——CQRS"><span class="toc-number">5.5.</span> <span class="toc-text">命令和查询职责分离——CQRS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件驱动架构"><span class="toc-number">5.6.</span> <span class="toc-text">事件驱动架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第5章-实体"><span class="toc-number">6.</span> <span class="toc-text">第5章 实体</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#唯一标识"><span class="toc-number">6.1.</span> <span class="toc-text">唯一标识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#发现实体及其本质特征"><span class="toc-number">6.2.</span> <span class="toc-text">发现实体及其本质特征</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第6章-值对象"><span class="toc-number">7.</span> <span class="toc-text">第6章 值对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#值对象的特征"><span class="toc-number">7.1.</span> <span class="toc-text">值对象的特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试值对象"><span class="toc-number">7.2.</span> <span class="toc-text">测试值对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现"><span class="toc-number">7.3.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#持久化值对象"><span class="toc-number">7.4.</span> <span class="toc-text">持久化值对象</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第7章-领域服务"><span class="toc-number">8.</span> <span class="toc-text">第7章 领域服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是领域服务（首先，什么不是领域服务）"><span class="toc-number">8.1.</span> <span class="toc-text">什么是领域服务（首先，什么不是领域服务）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请确定你是否需要一个领域服务"><span class="toc-number">8.2.</span> <span class="toc-text">请确定你是否需要一个领域服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建模领域服务"><span class="toc-number">8.3.</span> <span class="toc-text">建模领域服务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第8章-领域事件"><span class="toc-number">9.</span> <span class="toc-text">第8章 领域事件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#向远程限界上下文发布领域事件"><span class="toc-number">9.1.</span> <span class="toc-text">向远程限界上下文发布领域事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现-1"><span class="toc-number">9.2.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第9章-模块"><span class="toc-number">10.</span> <span class="toc-text">第9章 模块</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过模块完成设计"><span class="toc-number">10.1.</span> <span class="toc-text">通过模块完成设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#先考虑模块，再是限界上下文"><span class="toc-number">10.2.</span> <span class="toc-text">先考虑模块，再是限界上下文</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第10章-聚合"><span class="toc-number">11.</span> <span class="toc-text">第10章 聚合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#原则：在一致性边界之内建模真正的不变条件"><span class="toc-number">11.1.</span> <span class="toc-text">原则：在一致性边界之内建模真正的不变条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原则：设计小聚合"><span class="toc-number">11.2.</span> <span class="toc-text">原则：设计小聚合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#不要相信每一个用例"><span class="toc-number">11.2.1.</span> <span class="toc-text">不要相信每一个用例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原则：通过唯一标识引用其他聚合"><span class="toc-number">11.3.</span> <span class="toc-text">原则：通过唯一标识引用其他聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#原则：在边界之外使用最终一致性"><span class="toc-number">11.4.</span> <span class="toc-text">原则：在边界之外使用最终一致性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实现-2"><span class="toc-number">11.5.</span> <span class="toc-text">实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第12章-资源库"><span class="toc-number">12.</span> <span class="toc-text">第12章 资源库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#面向集合资源库"><span class="toc-number">12.1.</span> <span class="toc-text">面向集合资源库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#面向持久化资源库"><span class="toc-number">12.2.</span> <span class="toc-text">面向持久化资源库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#管理事务"><span class="toc-number">12.3.</span> <span class="toc-text">管理事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类型层级"><span class="toc-number">12.4.</span> <span class="toc-text">类型层级</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第13章-集成限界上下文"><span class="toc-number">13.</span> <span class="toc-text">第13章 集成限界上下文</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集成基础知识"><span class="toc-number">13.1.</span> <span class="toc-text">集成基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过REST资源集成限界上下文"><span class="toc-number">13.2.</span> <span class="toc-text">通过REST资源集成限界上下文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过消息集成限界上下文"><span class="toc-number">13.3.</span> <span class="toc-text">通过消息集成限界上下文</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第14章-应用程序"><span class="toc-number">14.</span> <span class="toc-text">第14章 应用程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户界面"><span class="toc-number">14.1.</span> <span class="toc-text">用户界面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用服务"><span class="toc-number">14.2.</span> <span class="toc-text">应用服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础设施"><span class="toc-number">14.3.</span> <span class="toc-text">基础设施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#本章小结-1"><span class="toc-number">14.4.</span> <span class="toc-text">本章小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A-聚合与事件源：A-ES"><span class="toc-number">15.</span> <span class="toc-text">附录A 聚合与事件源：A+ES</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#应用服务内部"><span class="toc-number">15.1.</span> <span class="toc-text">应用服务内部</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#专注的聚合"><span class="toc-number">15.2.</span> <span class="toc-text">专注的聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#增强事件"><span class="toc-number">15.3.</span> <span class="toc-text">增强事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#协议生成"><span class="toc-number">15.4.</span> <span class="toc-text">协议生成</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

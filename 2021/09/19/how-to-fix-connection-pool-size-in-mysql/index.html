@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>连接池如何固定住 MySQL 的连接数 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,fixed size, connection pool, HikariCP, druid, MySQL, wait_timeout, KeepAlive"> 
+    <meta name="description" content="连接池为什么要用连接池相比于 SQL 执行的时间（不考虑慢 SQL），创建数据库连接的操作可谓相当昂贵，频繁的打开和关闭数据库连接，会导致系统性能非常低下。连接池可以缓存已经创建的连接，在需要连接时,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">连接池如何固定住 MySQL 的连接数</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/how-to-fix-connection-pool-size-in-mysql/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Database"><b>「
+                    </b>DATABASE<b> 」</b></a>
+                
+                九月 19, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/09/19/how-to-fix-connection-pool-size-in-mysql/" title="连接池如何固定住 MySQL 的连接数" class="">连接池如何固定住 MySQL 的连接数</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Connection-Pools/" rel="tag">Connection Pools</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Database/" rel="tag">Database</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="连接池"><a href="#连接池" class="headerlink" title="连接池"></a>连接池</h1><h2 id="为什么要用连接池"><a href="#为什么要用连接池" class="headerlink" title="为什么要用连接池"></a>为什么要用连接池</h2><p>相比于 SQL 执行的时间（不考虑慢 SQL），创建数据库连接的操作可谓相当昂贵，频繁的打开和关闭数据库连接，会导致系统性能非常低下。连接池可以缓存已经创建的连接，在需要连接时，从连接池中获取一个空闲连接，在使用过后将连接归还连接池。</p>
+<p>关于连接池的大小应该如何设置，可以参考 <a href="https://alphahinex.github.io/2021/09/12/about-connection-pool-sizing/">关于数据库连接池，你可能做错了</a>。</p>
+<h2 id="使用连接池时期望的行为"><a href="#使用连接池时期望的行为" class="headerlink" title="使用连接池时期望的行为"></a>使用连接池时期望的行为</h2><ul>
+<li><strong>配置固定数目连接池后，数据库中连接数目能保持不变</strong></li>
+<li><strong>数据库重启后，连接池能帮助应用自动重新创建好连接</strong></li>
+</ul>
+<h1 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h1><h2 id="wait-timeout"><a href="#wait-timeout" class="headerlink" title="wait_timeout"></a>wait_timeout</h2><p>MySQL 的 <a href="https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_wait_timeout" target="_blank" rel="noopener">wait_timeout</a> 变量用来控制 MySQL 主动关闭空闲连接的时间，单位秒，默认 8 小时。</p>
+<p>为了实验方便，将此值改为 35 秒，可通过启动参数或配置文件进行指定，或使用此 <a href="https://github.com/AlphaHinex/connection-pool-with-mysql/blob/master/mysql/docker-compose.yml" target="_blank" rel="noopener">docker-compose.yml</a> 文件启动 MySQL。</p>
+<pre><code class="bash">$ docker-compose up -d mysql</code></pre>
+<p>此时创建的数据库连接，在空闲超过 35 秒时会被 MySQL 主动关闭：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/wait-timeout.png" alt="wait_timeout"></p>
+<h1 id="在这种情况下，当前主流的-Java-连接池如何保证连接池数量固定"><a href="#在这种情况下，当前主流的-Java-连接池如何保证连接池数量固定" class="headerlink" title="在这种情况下，当前主流的 Java 连接池如何保证连接池数量固定"></a>在这种情况下，当前主流的 Java 连接池如何保证连接池数量固定</h1><h2 id="HikariCP"><a href="#HikariCP" class="headerlink" title="HikariCP"></a>HikariCP</h2><p>使用 HikariCP 的默认配置，如在 <a href="https://github.com/AlphaHinex/connection-pool-with-mysql/tree/master/pools/hikari" target="_blank" rel="noopener">HikariCP Demo</a> 中执行 <code>./gradlew bootRun</code>，观察连接数变化情况：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/hikari-default.png" alt="HikariCP default configuration"></p>
+<p>可以看到，虽然 HikariCP <a href="https://github.com/brettwooldridge/HikariCP#frequently-used" target="_blank" rel="noopener">默认的配置</a> 是 <code>minimumIdle</code> = <code>maximumPoolSize</code> = <code>10</code>，但在超过 <code>wait_timeout</code> 设置的时间后，数据库连接被关闭了，并且连接池没有再将 <code>minimumIdle</code> 数目的连接建立起来。</p>
+<p>这时数据库如果发生了重启，连接池也同样不会主动建立连接。</p>
+<blockquote>
+<p>在 MySQL Connector/J 中，有一个 <a href="https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-high-availability-and-clustering.html" target="_blank" rel="noopener">autoReconnect</a> 属性，可以加到 jdbc 连接串上，但这个属性并不会改变上述的情况，并且官方也并不建议启用这个属性。</p>
+</blockquote>
+<p><strong>结论1：HikariCP 在默认配置下，两个期望行为均不能保证。</strong></p>
+<p>HikariCP 提供了一个 <code>keepaliveTime</code> 参数，来主动尝试保持连接可用：</p>
+<blockquote>
+<p>⏳keepaliveTime</p>
+<p>This property controls how frequently HikariCP will attempt to keep a connection alive, in order to prevent it from being timed out by the database or network infrastructure. This value must be less than the maxLifetime value. A “keepalive” will only occur on an idle connection. When the time arrives for a “keepalive” against a given connection, that connection will be removed from the pool, “pinged”, and then returned to the pool. The ‘ping’ is one of either: invocation of the JDBC4 isValid() method, or execution of the connectionTestQuery. Typically, the duration out-of-the-pool should be measured in single digit milliseconds or even sub-millisecond, and therefore should have little or no noticible performance impact. The minimum allowed value is 30000ms (30 seconds), but a value in the range of minutes is most desirable. Default: 0 (disabled)</p>
+</blockquote>
+<p>让我们加上这个参数：</p>
+<pre><code class="diff">$ diff src/main/resources/application.properties src/main/resources/application-keepalive.properties
+4c4,6
+&lt; spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+\ No newline at end of file
+---
+&gt; spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+&gt;
+&gt; spring.datasource.hikari.keepalive-time=30000
+\ No newline at end of file</code></pre>
+<p>启动应用：</p>
+<pre><code class="bash">$ ./gradlew bootRun -Pprofile=keepalive</code></pre>
+<p>再观察一下效果：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/hikari-keepalive.png" alt="HikariCP keepalive"></p>
+<p>MySQL 重启之后：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/hikari-after-restart.png" alt="HikariCP after restart"></p>
+<p><strong>结论2：HikariCP 在启用 <code>keepaliveTime</code> 配置后，两个期望行为均能完美保证。</strong></p>
+<blockquote>
+<p>注意：根据 HikariCP 文档描述，<code>keepaliveTime</code> 默认不启用，允许设置的最小值是 30 秒，但建议设置到分钟级别，另外还需综合考虑数据库超时、重启或网络问题导致的连接中断，也不宜设置到小时级别。</p>
+</blockquote>
+<h2 id="Druid"><a href="#Druid" class="headerlink" title="Druid"></a>Druid</h2><p>类似的，我们可以通过 <a href="https://github.com/AlphaHinex/connection-pool-with-mysql/tree/master/pools/druid" target="_blank" rel="noopener">Druid Demo</a> 来观察 Druid 连接池的行为。</p>
+<p>先以默认配置启动应用：</p>
+<pre><code class="bash">$ ./gradlew bootRun</code></pre>
+<p>在默认配置中，同样使用了固定尺寸（<code>initial-size</code> = <code>max-active</code> = <code>min-idle</code> = <code>10</code>）的连接池：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/druid-default.png" alt="Druid default configuration"></p>
+<p>重启 MySQL 同样不会主动创建连接。</p>
+<p><strong>结论1：Druid 在默认配置下，两个期望行为均不能保证。</strong></p>
+<p>在 Druid 的 <a href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">DruidDataSource配置属性列表</a> 中，我们同样找到了 <code>keepAlive</code> 属性，默认也是未开启的：</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置</th>
+<th align="left">缺省值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">keepAlive</td>
+<td align="left">false（1.0.28）</td>
+<td align="left">连接池中的minIdle数量以内的连接，空闲时间超过minEvictableIdleTimeMillis，则会执行keepAlive操作。</td>
+</tr>
+</tbody></table>
+<p>然而按照文档中描述的与 <code>keepAlive</code> 属性相关的值进行设置：</p>
+<pre><code class="properties">spring.datasource.druid.min-idle=10
+spring.datasource.druid.keep-alive=true
+spring.datasource.druid.min-evictableIdle-time-millis=30000</code></pre>
+<p>依然无法保持数据库中固定的连接数。</p>
+<p>在 Druid 的最新发布版 <a href="https://github.com/alibaba/druid/releases/tag/1.2.6" target="_blank" rel="noopener">1.2.6</a> 中，提到：</p>
+<blockquote>
+<p>修复连接池在MySQL服务器主动连接断开时keepAlive机制失效的问题 #4227</p>
+</blockquote>
+<p>不过按照上述配置依然无效。</p>
+<p>经过反复测试，keepalive 机制的生效，除将 <code>keepAlive</code> 设置为 <code>true</code> 外，还需添加一个文档中并未描述的隐藏属性 <code>keepAliveBetweenTimeMillis</code>（最小值为 <code>30000</code>）。另外为了匹配 <code>wait_timeout</code>，将 <code>timeBetweenEvictionRunsMillis</code> 的值从默认一分钟调小：</p>
+<pre><code class="properties">spring.datasource.druid.keep-alive=true
+spring.datasource.druid.keep-alive-between-time-millis=30000
+spring.datasource.druid.time-between-eviction-runs-millis=15000</code></pre>
+<p>观察此配置下连接数情况：</p>
+<pre><code class="bash">$ ./gradlew bootRun -Pprofile=keepalive</code></pre>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/druid-keepalive.png" alt="Druid keepalive"></p>
+<p>相比 HikariCP，keepAlive 相关属性的定义略显混乱，理解和配置起来难度也更大。</p>
+<p>虽然能维持住连接了，但对比 HikariCP 的直线，Druid 的连接数显得有些波动。当遇到 MySQL 重启时，波动更为明显：</p>
+<p><img src="/contents/how-to-fix-connection-pool-size-in-mysql/druid-after-restart.png" alt="Druid after restart"></p>
+<p><strong>结论2：Druid 在启用 keepAlive 相关配置后，能够主动维持连接数，但在遇到 MySQL 重启等中断情况时，连接数的保持不是很稳定，需要根据实际环境的配置进行具体调整，才能达到理想的状态。</strong></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#连接池"><span class="toc-number">1.</span> <span class="toc-text">连接池</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要用连接池"><span class="toc-number">1.1.</span> <span class="toc-text">为什么要用连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用连接池时期望的行为"><span class="toc-number">1.2.</span> <span class="toc-text">使用连接池时期望的行为</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL"><span class="toc-number">2.</span> <span class="toc-text">MySQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-timeout"><span class="toc-number">2.1.</span> <span class="toc-text">wait_timeout</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在这种情况下，当前主流的-Java-连接池如何保证连接池数量固定"><span class="toc-number">3.</span> <span class="toc-text">在这种情况下，当前主流的 Java 连接池如何保证连接池数量固定</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HikariCP"><span class="toc-number">3.1.</span> <span class="toc-text">HikariCP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Druid"><span class="toc-number">3.2.</span> <span class="toc-text">Druid</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

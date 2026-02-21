@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 Sentinel 进行 Dubbo 服务治理 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Sentinel, Dubbo, Governance, 服务治理, 熔断, 限流"> 
+    <meta name="description" content="服务治理服务治理是一个比较宏观的概念，包括的内容也比较多，就像 《当我们在说微服务治理的时候究竟在说什么》 里所说，可以用治理城市交通的方式，来类比服务的治理，例如：
+
+前方道路拥堵时，即使绿灯，交,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 Sentinel 进行 Dubbo 服务治理</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/use-sentinel-to-govern-dubbo-services/cover.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Cloud"><b>「
+                    </b>CLOUD<b> 」</b></a>
+                
+                十月 03, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/10/03/use-sentinel-to-govern-dubbo-services/" title="使用 Sentinel 进行 Dubbo 服务治理" class="">使用 Sentinel 进行 Dubbo 服务治理</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Governance/" rel="tag">Governance</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Microservices/" rel="tag">Microservices</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="服务治理"><a href="#服务治理" class="headerlink" title="服务治理"></a>服务治理</h1><p>服务治理是一个比较宏观的概念，包括的内容也比较多，就像 <a href="https://www.jianshu.com/p/dd818114ab4b" target="_blank" rel="noopener">《当我们在说微服务治理的时候究竟在说什么》</a> 里所说，可以用治理城市交通的方式，来类比服务的治理，例如：</p>
+<ul>
+<li>前方道路拥堵时，即使绿灯，交警也会让原地等待，直至缓解后才能通行，即为 <strong>熔断</strong></li>
+<li>路面出现裂缝，临时铺盖铁板，即为 <strong>降级</strong></li>
+<li>道路施工或查酒驾，车道变少，即为 <strong>限流</strong></li>
+<li>人行道、非机动车道、机动车道等，均为 <strong>路由</strong></li>
+<li>限号、限行，即为 <strong>访问限制</strong></li>
+<li>导航躲避拥堵路段，即为 <strong>负载均衡</strong></li>
+</ul>
+<p>采用各种治理手段的目的，都是为了能够在相同的基础设施条件下，尽可能的多的支撑各种流量场景，提升系统整体的容错性、健壮性和可用性。</p>
+<h1 id="Dubbo-服务如何进行服务治理"><a href="#Dubbo-服务如何进行服务治理" class="headerlink" title="Dubbo 服务如何进行服务治理"></a>Dubbo 服务如何进行服务治理</h1><p><a href="https://dubbo.apache.org/zh/" target="_blank" rel="noopener">Dubbo</a> 默认便提供了 <a href="http://alibaba.github.io/dubbo-doc-static/Fault+Tolerance-zh.htm" target="_blank" rel="noopener">集群容错</a>、<a href="http://alibaba.github.io/dubbo-doc-static/Load+Balance-zh.htm" target="_blank" rel="noopener">负载均衡</a>、<a href="http://alibaba.github.io/dubbo-doc-static/Router+Rule-zh.htm" target="_blank" rel="noopener">路由规则</a>、<a href="http://alibaba.github.io/dubbo-doc-static/Service+Degradation-zh.htm" target="_blank" rel="noopener">服务降级</a> 等基本的服务治理手段，结合新版本（0.3.0）的 <a href="https://github.com/apache/dubbo-admin" target="_blank" rel="noopener">Dubbo Admin</a>，可以方便的进行访问限制、路由规则、负载均衡策略等动态调整。</p>
+<p>此外，Dubbo 还提供了 <a href="http://alibaba.github.io/dubbo-doc-static/Stub+Proxy-zh.htm" target="_blank" rel="noopener">本地存根</a> 和 <a href="http://alibaba.github.io/dubbo-doc-static/Mock+Proxy-zh.htm" target="_blank" rel="noopener">本地伪装</a> 的方式进行侵入式（需要修改 xml 文件及增加代码）的服务降级。</p>
+<p>然而对于熔断和限流，则需要借助其他工具来实现，如 Sentinel。</p>
+<h1 id="Sentinel-对-Dubbo-服务进行的治理"><a href="#Sentinel-对-Dubbo-服务进行的治理" class="headerlink" title="Sentinel 对 Dubbo 服务进行的治理"></a>Sentinel 对 Dubbo 服务进行的治理</h1><h2 id="Sentinel"><a href="#Sentinel" class="headerlink" title="Sentinel"></a>Sentinel</h2><p><img src="/contents/use-sentinel-to-govern-dubbo-services/sentinel.png" alt="Sentinel"></p>
+<p><code>Sentinel</code> 意为<code>哨兵</code>，<a href="https://github.com/alibaba/Sentinel" target="_blank" rel="noopener">Sentinel</a> 也旨在成为微服务的哨兵。</p>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/sentinel-features-overview-en.png" alt="features"></p>
+<p>从上面特性列表可以看出，Sentinel 分为四个主要部分：</p>
+<ol>
+<li>绿色区域为 Sentinel 的核心，囊括了其服务治理的主要手段</li>
+<li>蓝色区域为针对不同开源框架/库的适配，方便接入 Sentinel 进行治理</li>
+<li>黄色区域为 Sentinel 的 GUI，可通过浏览器进行监控和配置</li>
+<li>紫色区域为可对接的配置中心，保存 Sentinel 相关规则配置</li>
+</ol>
+<p>本文主要涉及必备的 Sentinel Core、Dubbo 服务的适配器 Sentinel Apache Dubbo Adapter，和 Sentinel Dashboard。</p>
+<h3 id="Sentinel-Apache-Dubbo-Adapter"><a href="#Sentinel-Apache-Dubbo-Adapter" class="headerlink" title="Sentinel Apache Dubbo Adapter"></a>Sentinel Apache Dubbo Adapter</h3><p><a href="https://github.com/apache/dubbo-sentinel-support" target="_blank" rel="noopener">Sentinel Apache Dubbo Adapter</a> 的作用，是使 Dubbo 的服务接口和方法（包括调用端和服务端）成为 Sentinel 中的资源，在配置了规则后就可以自动享受到 Sentinel 的防护能力。</p>
+<p>引入此适配器的方式分为 <strong>侵入式</strong> 和 <strong>非侵入式</strong>。</p>
+<p>侵入式 —— 可参照 <a href="https://github.com/apache/dubbo-sentinel-support" target="_blank" rel="noopener">dubbo-sentinel-support</a> 仓库中的说明，直接引入依赖（Sentinel Core 会被一同引入）：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba.csp&lt;/groupId&gt;
+    &lt;artifactId&gt;sentinel-apache-dubbo-adapter&lt;/artifactId&gt;
+    &lt;version&gt;x.y.z&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>非侵入式 —— <a href="https://help.aliyun.com/document_detail/102506.html" target="_blank" rel="noopener">通过 Java Agent 接入</a>：</p>
+<ol>
+<li><p>获得 <a href="https://ahasoss-cn-hangzhou.oss-cn-hangzhou.aliyuncs.com/agent/prod/latest/ahas-java-agent.jar" target="_blank" rel="noopener">最新版本 Java Agent</a>，可参考 <a href="https://help.aliyun.com/document_detail/160563.htm" target="_blank" rel="noopener">Java Agent 版本说明</a> 及 <a href="https://help.aliyun.com/document_detail/128800.htm" target="_blank" rel="noopener">支持组件列表</a></p>
+</li>
+<li><p>添加 JVM 启动参数，如：</p>
+<pre><code class="bash"> //将&lt;AppName&gt;替换为自定义的应用名称，/opt/aliyunahas/agent/ahas-java-agent.jar是ahas-java-agent.jar的下载路径，请替换为实际路径。
+ -Dproject.name=&lt;AppName&gt;
+ -Dahas.namespace=default
+ -javaagent:/opt/aliyunahas/agent/ahas-java-agent.jar</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>非常遗憾，此种方式仅在阿里云环境使用 <a href="https://help.aliyun.com/document_detail/90320.html" target="_blank" rel="noopener">应用高可用服务AHAS</a> 时有效。不过别急，下面会给出一个替代方案。</p>
+</blockquote>
+<p>同样，具体治理规则的定义也有侵入式和非侵入式两种方式：</p>
+<ul>
+<li>侵入式：可参考 <a href="https://github.com/alibaba/Sentinel/wiki/How-to-Use#configure-rules" target="_blank" rel="noopener">Configure Rules</a></li>
+<li>非侵入式：需使用 Sentinel Dashboard</li>
+</ul>
+<h3 id="Sentinel-Dashboard"><a href="#Sentinel-Dashboard" class="headerlink" title="Sentinel Dashboard"></a>Sentinel Dashboard</h3><p><a href="https://github.com/alibaba/Sentinel/wiki/%E6%8E%A7%E5%88%B6%E5%8F%B0" target="_blank" rel="noopener">Sentinel Dashboard</a> 是一个轻量级的开源控制台，提供机器发现以及健康情况管理、监控（单机和集群），规则管理和推送的功能。</p>
+<p>从 <a href="https://github.com/alibaba/Sentinel/releases" target="_blank" rel="noopener">官方发布页面</a> 或通过 <a href="https://github.com/alibaba/Sentinel/tree/master/sentinel-dashboard" target="_blank" rel="noopener">源码</a> 构建获得可执行 jar 包，<code>java -jar sentinel-dashboard.jar</code> 启动后，通过 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 访问 Dashboard 界面，默认用户及密码均为 <code>sentinel</code>，可在 <code>application.properties</code> 配置文件中进行修改。</p>
+<p>要在 Dashboard 中进行规则的动态配置，还需要在 Dubbo 服务中进行接入，接入方式可参照 <a href="https://github.com/alibaba/Sentinel/tree/master/sentinel-demo/sentinel-demo-dubbo#sentinel-dashboard" target="_blank" rel="noopener">Dubbo 服务接入 Dashboard 文档</a>。</p>
+<h1 id="实战演示"><a href="#实战演示" class="headerlink" title="实战演示"></a>实战演示</h1><p>接下来以一个实际的场景展示一下 Sentinel 对 Dubbo 服务的治理。</p>
+<p>假设有两个 Dubbo 服务：服务消费者 <code>dub-consumer</code> 和服务提供者 <code>dub-provider</code>，使用 Sentinel 当前最新版本 1.8.2 进行治理，Sentinel Dashboard 进行监控及规则配置。</p>
+<h2 id="Sentinel-Dashboard-1"><a href="#Sentinel-Dashboard-1" class="headerlink" title="Sentinel Dashboard"></a>Sentinel Dashboard</h2><p>下载 <a href="https://github.com/alibaba/Sentinel/releases/download/1.8.2/sentinel-dashboard-1.8.2.jar" target="_blank" rel="noopener">Sentinel Dashboard v1.8.2</a>，并运行：</p>
+<pre><code class="bash">$ java -jar sentinel-dashboard-1.8.2.jar --server.servlet.context-path=/demo/dashboard --auth.username=alpha --auth.password=hinex</code></pre>
+<p>服务已启动在 <a href="http://localhost:8080/demo/dashboard" target="_blank" rel="noopener">http://localhost:8080/demo/dashboard</a> ，可通过 <code>alpha</code> / <code>hinex</code> 登录。</p>
+<h2 id="服务提供者非侵入式接入"><a href="#服务提供者非侵入式接入" class="headerlink" title="服务提供者非侵入式接入"></a>服务提供者非侵入式接入</h2><p>上文提到的非侵入式 Java Agent 仅在阿里云环境有效，在开源环境时，无法将服务数据上报到 Sentinel Dashboard。可参照 <a href="https://alphahinex.github.io/2021/03/14/spring-boot-launcher/">如何给 Spring Boot 外挂 classpath？</a> 中内容，采取外挂 Sentinel 相关依赖的方式，变相实现非侵入式接入，具体步骤如下：</p>
+<h3 id="第一步：准备好-Sentinel-相关依赖"><a href="#第一步：准备好-Sentinel-相关依赖" class="headerlink" title="第一步：准备好 Sentinel 相关依赖"></a>第一步：准备好 Sentinel 相关依赖</h3><p>治理 Dubbo 服务，所需依赖如下：</p>
+<pre><code class="text">sentinel-transport-simple-http-1.8.2.jar
+sentinel-apache-dubbo-adapter-1.8.2.jar
+sentinel-core-1.8.2.jar
+sentinel-datasource-extension-1.8.2.jar
+sentinel-transport-common-1.8.2.jar</code></pre>
+<blockquote>
+<p>注意，为尽可能减少问题，尽量保证 Sentinel 相关依赖版本需与 Dashboard 版本一致。</p>
+</blockquote>
+<p>可将所有依赖放置在一个路径下（如 <code>./sentinel-1.8.2</code>），方便下面进行外挂。</p>
+<h3 id="第二步：修改启动命令"><a href="#第二步：修改启动命令" class="headerlink" title="第二步：修改启动命令"></a>第二步：修改启动命令</h3><p>按照 <a href="https://alphahinex.github.io/2021/03/14/spring-boot-launcher/">如何给 Spring Boot 外挂 classpath？</a> 调整启动命令。在本例中，有几个特殊的地方：</p>
+<ol>
+<li>需要指定 Sentinel 相关参数：<code>-Djava.net.preferIPv4Stack=true -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=dub-provider</code>，启动项配置说明可见 <a href="https://github.com/alibaba/Sentinel/wiki/%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E9%A1%B9" target="_blank" rel="noopener">这里</a></li>
+<li>因为 Dashboard 使用了 context path，还需要额外增加一个 <a href="https://github.com/alibaba/Sentinel/blob/1.8.2/sentinel-transport/sentinel-transport-common/src/main/java/com/alibaba/csp/sentinel/transport/config/TransportConfig.java#L39" target="_blank" rel="noopener">参数</a>：<code>-Dcsp.sentinel.heartbeat.api.path=/demo/dashboard/registry/machine</code>，其中 <code>/registry/machine</code> 为固定值，<code>/demo/dashboard</code> 为 Dashboard 配置的 context path</li>
+<li>如果同时使用了外挂的配置文件，可通过 <code>-Dloader.path</code> 参数指定多个路径（如一个 jar 包的路径，一个配置文件所在路径），通过逗号间隔</li>
+</ol>
+<p>本例中各文件路径结构为：</p>
+<pre><code class="text">├── dashboard
+│   ├── sentinel-dashboard-1.8.2.jar
+│   └── start.sh
+├── dub-provider
+│   ├── config
+│   │   └── application.yml
+│   ├── dub-provider.jar
+│   └── run.sh
+└── sentinel-1.8.2
+    ├── sentinel-apache-dubbo-adapter-1.8.2.jar
+    ├── sentinel-core-1.8.2.jar
+    ├── sentinel-datasource-extension-1.8.2.jar
+    ├── sentinel-transport-common-1.8.2.jar
+    └── sentinel-transport-simple-http-1.8.2.jar</code></pre>
+<p>完整的启动命令为：</p>
+<pre><code class="run.sh">java -Djava.net.preferIPv4Stack=true -Dcsp.sentinel.dashboard.server=localhost:8080 -Dcsp.sentinel.heartbeat.api.path=/demo/dashboard/registry/machine -Dproject.name=dub-provider -cp dub-provider.jar -Dloader.path=../sentinel-1.8.2,./config org.springframework.boot.loader.PropertiesLauncher</code></pre>
+<h2 id="服务消费者侵入式接入"><a href="#服务消费者侵入式接入" class="headerlink" title="服务消费者侵入式接入"></a>服务消费者侵入式接入</h2><p>将上面非侵入式方案外挂的 jar 包，打包进服务消费者应用里，即可实现侵入式接入。当然，Sentinel 相关的 <a href="https://github.com/alibaba/Sentinel/wiki/%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE%E9%A1%B9" target="_blank" rel="noopener">启动配置项</a> 还是要传的，要么是通过启动参数传，要么是通过配置文件设定。</p>
+<p>在演示环境中，因为服务提供者和消费者都在一台机器上，所以需要额外指定一下 <code>csp.sentinel.api.port</code> 参数，避免两个服务冲突。</p>
+<p>消费者路径下的文件包括：</p>
+<pre><code class="text">├── application.yml
+├── dub-consumer-sentinel.jar
+└── start.sh</code></pre>
+<p>完整的启动命令为：</p>
+<pre><code class="start.sh">java -Djava.net.preferIPv4Stack=true -Dcsp.sentinel.api.port=8482 -Dcsp.sentinel.heartbeat.api.path=/demo/dashboard/registry/machine -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=dub-consumer -jar dub-consumer-sentinel.jar </code></pre>
+<h2 id="效果验证"><a href="#效果验证" class="headerlink" title="效果验证"></a>效果验证</h2><p>Dubbo 服务均接入 Sentinel Dashboard 后，即可通过 Dashboard 进行服务治理。</p>
+<p>注意，默认情况下，需要真正产生 Dubbo 调用后（并且稍有延后），才会在 Dashboard 上观测到数据，如：</p>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/dashboard.png" alt="dashboard"></p>
+<blockquote>
+<p>如果控制台没有显示我的应用或者没有监控展示，可参考 <a href="https://github.com/alibaba/Sentinel/wiki/FAQ#q-sentinel-%E6%8E%A7%E5%88%B6%E5%8F%B0%E6%B2%A1%E6%9C%89%E6%98%BE%E7%A4%BA%E6%88%91%E7%9A%84%E5%BA%94%E7%94%A8%E6%88%96%E8%80%85%E6%B2%A1%E6%9C%89%E7%9B%91%E6%8E%A7%E5%B1%95%E7%A4%BA%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5" target="_blank" rel="noopener">此 FAQ</a> 进行排查。</p>
+</blockquote>
+<p>可以通过 <a href="https://github.com/apache/dubbo-admin" target="_blank" rel="noopener">Dubbo Admin</a> 进行 Dubbo 服务的调用：</p>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/dubbo-admin.png" alt="Dubbo Admin"></p>
+<p>为了产生连续的调用，将服务消费者的接口暴露为 HTTP 服务，通过 <a href="http://httpd.apache.org/docs/2.4/programs/ab.html" target="_blank" rel="noopener">Apache Bench</a>（<code>ab</code>） 进行调用，如：</p>
+<pre><code class="bash">$ ab -t 1200 -c 100 &#39;http://127.0.0.1:8080/dub/consumer/web/resources&#39;</code></pre>
+<blockquote>
+<p>注意：使用 <code>ab</code> 调用本地服务时，不能使用 <code>localhost</code>，<a href="https://www.bram.us/2020/02/20/fixing-ab-apachebench-error-apr_socket_connect-invalid-argument-22/" target="_blank" rel="noopener">需使用 <code>127.0.0.1</code></a>，否则会遇到 <code>apr_socket_connect(): Invalid argument (22)</code> 报错</p>
+</blockquote>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/origin.png" alt="origin"></p>
+<p>产生了流量，我们就可以开始治理了。</p>
+<p>比如设定一个流控规则，限定 QPS 为 50：</p>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/rule.png" alt="rule"></p>
+<p>看看添加规则后的 QPS 曲线吧：</p>
+<p><img src="/contents/use-sentinel-to-govern-dubbo-services/after.png" alt="after"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#服务治理"><span class="toc-number">1.</span> <span class="toc-text">服务治理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dubbo-服务如何进行服务治理"><span class="toc-number">2.</span> <span class="toc-text">Dubbo 服务如何进行服务治理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Sentinel-对-Dubbo-服务进行的治理"><span class="toc-number">3.</span> <span class="toc-text">Sentinel 对 Dubbo 服务进行的治理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sentinel"><span class="toc-number">3.1.</span> <span class="toc-text">Sentinel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-Apache-Dubbo-Adapter"><span class="toc-number">3.1.1.</span> <span class="toc-text">Sentinel Apache Dubbo Adapter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Sentinel-Dashboard"><span class="toc-number">3.1.2.</span> <span class="toc-text">Sentinel Dashboard</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实战演示"><span class="toc-number">4.</span> <span class="toc-text">实战演示</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Sentinel-Dashboard-1"><span class="toc-number">4.1.</span> <span class="toc-text">Sentinel Dashboard</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务提供者非侵入式接入"><span class="toc-number">4.2.</span> <span class="toc-text">服务提供者非侵入式接入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一步：准备好-Sentinel-相关依赖"><span class="toc-number">4.2.1.</span> <span class="toc-text">第一步：准备好 Sentinel 相关依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二步：修改启动命令"><span class="toc-number">4.2.2.</span> <span class="toc-text">第二步：修改启动命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#服务消费者侵入式接入"><span class="toc-number">4.3.</span> <span class="toc-text">服务消费者侵入式接入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#效果验证"><span class="toc-number">4.4.</span> <span class="toc-text">效果验证</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

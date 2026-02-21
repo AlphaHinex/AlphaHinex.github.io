@@ -1,0 +1,1031 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>基于 MyBatis 拦截器机制实现一个敏感数据处理组件 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MyBatis, interceptor, plugin, signature, Executor, ResultSetHandler"> 
+    <meta name="description" content="引言MyBatis 作为一个流行的持久层框架，提供了拦截器 Interceptor 机制，允许开发者在 SQL 执行过程中插入自定义逻辑。本文将深入探讨 MyBatis 拦截器的用法和使用场景，并以,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">基于 MyBatis 拦截器机制实现一个敏感数据处理组件</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/mybatis-interceptor.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                二月 03, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/02/03/mybatis-interceptor/" title="基于 MyBatis 拦截器机制实现一个敏感数据处理组件" class="">基于 MyBatis 拦截器机制实现一个敏感数据处理组件</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    22k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    20 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p><code>MyBatis</code> 作为一个流行的持久层框架，提供了拦截器 <code>Interceptor</code> 机制，允许开发者在 <code>SQL</code> 执行过程中插入自定义逻辑。本文将深入探讨 <code>MyBatis</code> 拦截器的用法和使用场景，并以处理敏感数据场景为例实现了一个自定义拦截器。</p>
+<h1 id="Interceptor-介绍"><a href="#Interceptor-介绍" class="headerlink" title="Interceptor 介绍"></a>Interceptor 介绍</h1><p><a href="https://mybatis.org/mybatis-3/zh_CN/configuration.html#%E6%8F%92%E4%BB%B6%EF%BC%88plugins%EF%BC%89" target="_blank" rel="noopener">MyBatis 官网中 Interceptor 的介绍：</a></p>
+<blockquote>
+<p>MyBatis 允许你在映射语句执行过程中的某一点进行拦截调用。默认情况下，MyBatis 允许使用插件来拦截的方法调用包括：</p>
+<ul>
+<li>Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)</li>
+<li>ParameterHandler (getParameterObject, setParameters)</li>
+<li>ResultSetHandler (handleResultSets, handleOutputParameters)</li>
+<li>StatementHandler (prepare, parameterize, batch, update, query)</li>
+</ul>
+<p>通过 MyBatis 提供的强大机制，使用插件是非常简单的，只需实现 Interceptor 接口，并指定想要拦截的方法签名即可。</p>
+</blockquote>
+<h2 id="Signature-介绍"><a href="#Signature-介绍" class="headerlink" title="Signature 介绍"></a>Signature 介绍</h2><p>在 <a href="https://book.douban.com/subject/27074809/" target="_blank" rel="noopener">《MyBatis从入门到精通》</a> 一书中，关于拦截器签名 <code>@Signature</code> 注解中可以使用的接口和方法相关描述如下：</p>
+<ol>
+<li><p><strong>Executor</strong>：</p>
+<ul>
+<li>update: 当执行 INSERT、UPDATE、DELETE 操作时调用。</li>
+<li>query: 在 SELECT 查询方法执行时调用。</li>
+<li>flushStatements: 在通过 SqlSession 方法调用 flushStatements 方法或执行的接口方法中带有 @Flush 注解时才被调用。</li>
+<li>commit: 在通过 SqlSession 方法调用 commit 方法时被调用。</li>
+<li>rollback: 在通过 SqlSession 方法调用 rollback 方法时被调用。                                                                                 </li>
+<li>getTransaction: 在通过 SqlSession 方法获取数据库连接时被调用。</li>
+<li>close: 在延迟加载获取新的 Executor 后才会被执行。</li>
+<li>isClosed: 在延迟加载执行查询方法前被执行。</li>
+</ul>
+</li>
+<li><p><strong>ParameterHandler</strong>：</p>
+<ul>
+<li>getParameterObject: 在执行存储过程处理出参的时候被调用。</li>
+<li>setParameters: 在所有数据库方法设置 SQL 参数时被调用。</li>
+</ul>
+</li>
+<li><p><strong>ResultSetHandler</strong>：</p>
+<ul>
+<li>handleResultSets: 处理查询结果集。</li>
+<li>handleOutputParameters: 使用存储过程处理出参时被调用。</li>
+</ul>
+</li>
+<li><p><strong>StatementHandler</strong>：</p>
+<ul>
+<li>prepare: 在数据库执行前被调用，优先于当前接口中其他方法而被执行。</li>
+<li>parameterize: 在 prepare 方法后执行，用于处理参数信息。</li>
+<li>batch: 在全局设置配置 defaultExecutorType=”BATCH” 时执行数据操作才会调用。</li>
+<li>update: 用于执行更新类型的 SQL 语句。</li>
+<li>query: 用于获取查询返回的结果集。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Interceptor-接口"><a href="#Interceptor-接口" class="headerlink" title="Interceptor 接口"></a>Interceptor 接口</h2><p>通过实现 <code>Interceptor</code> 接口并指定想要拦截的方法签名，可以轻松地实现对 SQL 执行过程的拦截。<br><code>Interceptor</code> 接口包含以下方法：（Mybatis-3.5.1 版本）</p>
+<pre><code class="java">public interface Interceptor {
+
+    Object intercept(Invocation invocation) throws Throwable;
+
+    Object plugin(Object target);
+
+    void setProperties(Properties properties);
+
+}</code></pre>
+<ul>
+<li><code>intercept(Invocation invocation)</code>: 这个方法用于拦截目标方法并执行自定义逻辑。获取目标方法的参数、方法等信息，并进行处理。</li>
+<li><code>plugin(Object target)</code>: 这个方法用于生成一个代理对象。需要判断目标对象是否需要被拦截，如果需要则返回一个代理对象，否则返回 null。</li>
+<li><code>setProperties(Properties properties)</code>: 这个方法用于设置属性。获取配置文件中的属性，并进行相应的设置。</li>
+</ul>
+<p>在 <code>MyBatis</code> 的配置文件中注册自定义 <code>Interceptor</code> 后，框架会在执行相应的操作时自动调用自定义逻辑。</p>
+<h2 id="Simple-Example"><a href="#Simple-Example" class="headerlink" title="Simple Example"></a>Simple Example</h2><ol>
+<li>创建 <code>ExamplePlugin</code> 类实现 <code>org.apache.ibatis.plugin.Interceptor</code> 接口：</li>
+</ol>
+<pre><code class="java">// ExamplePlugin.java
+@Intercepts({
+   @Signature(type= Executor.class,
+              method = &quot;update&quot;,
+              args = {MappedStatement.class,Object.class}),
+   @Signature(type = ResultSetHandler.class, 
+              method = &quot;handleResultSets&quot;, 
+              args = {Statement.class})
+})
+public class ExamplePlugin implements Interceptor {
+
+  private Properties properties = new Properties();
+
+  @Override
+  public Object intercept(Invocation invocation) throws Throwable {
+    // implement pre processing if need
+    Object returnObject = invocation.proceed();
+    // implement post processing if need
+    return returnObject;
+  }
+
+  @Override
+  public void setProperties(Properties properties) {
+    this.properties = properties;
+  }
+
+}</code></pre>
+<p><strong>Tips</strong>：在 <a href="https://github.com/mybatis/mybatis-3/blob/mybatis-3.5.2/src/main/java/org/apache/ibatis/plugin/Interceptor.java" target="_blank" rel="noopener">Mybatis-3.5.2 版本后 Interceptor</a> 接口中定义的方法已给出了默认实现，如无特殊需求，只需实现 <code>intercept</code> 方法，这是 <code>Java 8</code> 默认方法特性的一种应用，旨在简化接口的实现。</p>
+<pre><code class="java">public interface Interceptor {
+
+  Object intercept(Invocation invocation) throws Throwable;
+
+  default Object plugin(Object target) {
+    return Plugin.wrap(target, this);
+  }
+
+  default void setProperties(Properties properties) {
+    // NOP
+  }
+
+}</code></pre>
+<ol start="2">
+<li>在 <code>MyBatis</code> 的配置文件中注册 <code>ExamplePlugin</code>：</li>
+</ol>
+<pre><code>&lt;!-- mybatis-config.xml --&gt;
+&lt;plugins&gt;
+  &lt;plugin interceptor=&quot;org.mybatis.example.ExamplePlugin&quot;&gt;
+    &lt;property name=&quot;someProperty&quot; value=&quot;100&quot;/&gt;
+  &lt;/plugin&gt;
+&lt;/plugins&gt;</code></pre><h1 id="敏感数据处理组件"><a href="#敏感数据处理组件" class="headerlink" title="敏感数据处理组件"></a>敏感数据处理组件</h1><h2 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h2><p>在持久化的数据涉及敏感内容时，假设有如下三种场景：</p>
+<ol>
+<li>为避免拖库造成的数据泄露风险，敏感数据希望以密文形式存储在数据库中，通过系统读取时可以读取到明文；</li>
+<li>密码类数据在存储前希望进行不可逆的加密处理，读取时也是使用密文进行对比，无需恢复出明文内容；</li>
+<li>展示如手机号等数据时，希望对部分内容进行遮挡，使数据仅保留核对用途。</li>
+</ol>
+<h2 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h2><p>上面假设的三种场景可以分为数据的 <code>读取</code> 和 <code>写入</code> 两类操作：</p>
+<ul>
+<li>场景 1 需要在数据写入时加密，读取数据时解密；</li>
+<li>场景 2 在数据写入时加密，读取时无需处理；</li>
+<li>场景 3 在数据读取时进行遮挡，写入时无需处理。</li>
+</ul>
+<p><code>MyBatis</code> 的拦截器签名中，可以选择 <code>Executor</code> 的 <code>update</code> 方法拦截 <code>写入</code> 动作，<code>ResultSetHandler</code> 的 <code>handleResultSets</code> 方法拦截 <code>读取</code> 动作。</p>
+<p>为满足不同类型的敏感数据处理需求，设计一个 <code>DataSensitiveHandler</code> 接口，接口中包含两个方法：</p>
+<ul>
+<li><code>encrypt</code>：实现写入数据前要执行的操作</li>
+<li><code>decrypt</code>：实现读取数据后（返回数据前）要执行的操作</li>
+</ul>
+<p>可以注册不同的 <code>DataSensitiveHandler</code> 实现类，并为实体中的属性（表中字段）配置使用哪个实现进行敏感数据的处理。</p>
+<p>为了尽可能少地修改原有代码，以统一的配置方式实现属性（字段）和处理类的映射。</p>
+<p>具体配置形式参考日志级别配置方式（如：<code>logging.level.com.example.demo.mapper=debug</code>），<br>以 <code>固定前缀</code>.<code>实体package.实体名.属性名</code> = <code>具体处理类唯一标识</code> 进行设置。</p>
+<h2 id="参考实现"><a href="#参考实现" class="headerlink" title="参考实现"></a>参考实现</h2><h3 id="自定义敏感数据处理拦截器-DataSensitiveInterceptor"><a href="#自定义敏感数据处理拦截器-DataSensitiveInterceptor" class="headerlink" title="自定义敏感数据处理拦截器 DataSensitiveInterceptor"></a>自定义敏感数据处理拦截器 <code>DataSensitiveInterceptor</code></h3><p>在 <code>intercept</code> 方法中根据配置找到需要处理的属性的处理类（<code>dataSensitiveHandler-</code> 为前缀的 <code>Bean</code>），并根据拦截的写入和读取操作调用对应处理方法，以实现敏感数据处理的要求（如中间部分用*代替、显示密文处理后的结果等）。</p>
+<pre><code class="java">@Slf4j
+@Intercepts({
+        @Signature(type = Executor.class, method = &quot;update&quot;, args = {MappedStatement.class, Object.class}),
+        @Signature(type = ResultSetHandler.class, method = &quot;handleResultSets&quot;, args = {Statement.class})
+})
+@Component
+public class DataSensitiveInterceptor implements Interceptor {
+
+   private final Map&lt;String, String&gt; configs;
+
+   /**
+    * 获取配置文件中需要加密的属性
+    *
+    * @param config DataSensitiveConfig
+    */
+   public DataSensitiveInterceptor(DataSensitiveConfig config) {
+      this.configs = config.getSensitive();
+   }
+
+   /**
+    * 通过拦截器处理
+    *
+    * @param invocation invocation
+    * @return Object
+    * @throws Throwable 异常
+    */
+   @Override
+   public Object intercept(Invocation invocation) throws Throwable {
+      if (invocation.getTarget() instanceof Executor) {
+         Object object = invocation.getArgs()[1];
+         if (object instanceof Map) {
+            Map&lt;String, Object&gt; map = (Map&lt;String, Object&gt;) object;
+            for (Map.Entry&lt;String, Object&gt; entry : map.entrySet()) {
+               if (!entry.getKey().startsWith(&quot;param&quot;)) {
+                  handleEncrypt(entry.getValue());
+               }
+               continue;
+            }
+         } else {
+            handleEncrypt(object);
+         }
+         return invocation.proceed();
+      } else if (invocation.getTarget() instanceof ResultSetHandler) {
+         ResultSetHandler resultSetHandler = (ResultSetHandler) invocation.getTarget();
+         Statement statement = (Statement) invocation.getArgs()[0];
+         List&lt;Object&gt; resultList = resultSetHandler.handleResultSets(statement);
+         resultList.forEach(this::handleDecrypt);
+         return resultList;
+      }
+      return invocation.proceed();
+   }
+
+   private void handleEncrypt(Object object) {
+      handleObject(object, true);
+   }
+
+   private void handleDecrypt(Object object) {
+      handleObject(object, false);
+   }
+
+   private void handleObject(Object object, boolean encrypt) {
+      for (Map.Entry&lt;String, String&gt; config : configs.entrySet()) {
+         int lastPoint = config.getKey().lastIndexOf(&#39;.&#39;);
+         String className = config.getKey().substring(0, lastPoint);
+         if (object.getClass().getName().equals(className)) {
+            String property = config.getKey().substring(lastPoint + 1);
+            String handlerName = config.getValue();
+            DataSensitiveHandler handler = SpringContextHolder.getBean(&quot;dataSensitiveHandler-&quot; + handlerName);
+            BeanWrapper wrapper = new BeanWrapperImpl(object);
+            wrapper.setPropertyValue(property,
+                    wrapper.getPropertyValue(property) == null ? null :
+                            encrypt ? handler.encrypt(String.valueOf(wrapper.getPropertyValue(property))) :
+                                    handler.decrypt(String.valueOf(wrapper.getPropertyValue(property)))
+            );
+         }
+      }
+   }
+}</code></pre>
+<h3 id="配置类-DataSensitiveConfig"><a href="#配置类-DataSensitiveConfig" class="headerlink" title="配置类 DataSensitiveConfig"></a>配置类 <code>DataSensitiveConfig</code></h3><p>配置参数以前缀 <code>com.amber.common.sensitive</code> 开头，以 Map 形式存储相关参数配置，其中：</p>
+<ul>
+<li><code>key</code> 设置为 MyBatis Mapper 实体类全名及要处理敏感数据的属性，如 <code>UserDO</code> 的 <code>phone</code> 属性设置为：<code>com.amber.common.sensitive.mock.entity.UserDO.phone</code></li>
+<li><code>value</code> 设置为敏感数据处理类 <code>bean name</code> 的后缀，查找 bean 时加上 <code>dataSensitiveHandler-</code> 前缀组成完整 <code>bean name</code></li>
+</ul>
+<pre><code class="java">@Component
+@ConfigurationProperties(&quot;com.amber.common&quot;)
+public class DataSensitiveConfig {
+
+    private Map&lt;String, String&gt; sensitive = new HashMap&lt;&gt;();
+
+    public Map&lt;String, String&gt; getSensitive() {
+        return sensitive;
+    }
+}</code></pre>
+<h3 id="敏感数据处理接口-DataSensitiveHandler"><a href="#敏感数据处理接口-DataSensitiveHandler" class="headerlink" title="敏感数据处理接口 DataSensitiveHandler"></a>敏感数据处理接口 <code>DataSensitiveHandler</code></h3><pre><code class="java">public interface DataSensitiveHandler {
+
+   /**
+    * 在写入数据时对数据做的处理
+    * 默认为不进行任何操作
+    *
+    * @param str 将要写入的数据
+    * @return 实际写入的数据
+    */
+   default String encrypt(String str) {
+      return str;
+   }
+
+   /**
+    * 在读取数据时对数据做的处理
+    * 默认为不进行任何操作
+    *
+    * @param str 实际读到的数据
+    * @return 返回给调用者的数据
+    */
+   default String decrypt(String str) {
+      return str;
+   }
+
+}</code></pre>
+<h3 id="内置敏感数据处理实现"><a href="#内置敏感数据处理实现" class="headerlink" title="内置敏感数据处理实现"></a>内置敏感数据处理实现</h3><p>为每类场景提供一个内置敏感数据处理实现：</p>
+<ul>
+<li><code>abb</code>：对字符串中间部分使用 <code>*</code> 遮挡，仅在读取数据时执行操作</li>
+<li><code>md5</code>：对字符串进行 md5 摘要，仅在写入数据时执行操作</li>
+<li><code>sm4hex</code>：使用国密 SM4 算法进行对称加解密，以 16 进制表示加密结果，在写入及读取时均执行</li>
+</ul>
+<pre><code class="java">/**
+ * 敏感数据处理器：使用 * 遮挡明文中间部分，保留前后内容。
+ * &lt;p&gt;
+ * 仅在读取明文数据并返回时，进行遮挡处理；
+ * 存入明文数据时，不对存入内容进行变更。
+ * &lt;p&gt;
+ * 遮挡方式为：&lt;p&gt;
+ * 1. 明文长度为 1 时，不遮挡&lt;p&gt;
+ * 2. 明文长度为 2 时，遮挡第二位&lt;p&gt;
+ * 3. 明文长度大于 2 时，将明文分成三部分，遮挡中间部分；不能整除时，尽可能使遮挡部分较多&lt;p&gt;
+ * 遮挡后内容长度与明文保持一致。
+ * 如：&lt;p&gt;
+ * 明文                   | 遮挡后&lt;p&gt;
+ * &#39;a&#39;                   | &#39;a&#39;&lt;p&gt;
+ * &#39;ab&#39;                  | &#39;a*&#39;&lt;p&gt;
+ * &#39;abc&#39;                 | &#39;a*c&#39;&lt;p&gt;
+ * &#39;abcd&#39;                | &#39;a**d&#39;&lt;p&gt;
+ * &#39;13012345678&#39;         | &#39;130*****678&#39;&lt;p&gt;
+ * &#39;123456789012345678&#39;  | &#39;123456******345678&#39;&lt;p&gt;
+ * &#39;这是一段测试文字&#39;       | &#39;这是****文字&#39;&lt;p&gt;
+ * 注册 bean 使用 ”dataSensitiveHandler-“ 固定前缀，abb 为后缀，意为 abbreviation
+ */
+@Component(&quot;dataSensitiveHandler-abb&quot;)
+public class DataSensitiveAbbHandler implements DataSensitiveHandler {
+
+   private static final char MASK = &#39;*&#39;;
+
+   /**
+    * 实现解密方法，对字符串中间部分使用 `*` 遮挡
+    *
+    * @param str str
+    * @return String
+    */
+   @Override
+   public String decrypt(String str) {
+      if (StringUtils.isBlank(str)) {
+         return str;
+      }
+      int len = str.length();
+      switch (len) {
+         case 1:
+            return str;
+         case 2:
+            return str.substring(0, 1) + MASK;
+         default:
+            int oriLen = len / 3;
+            int maskLen = len - oriLen * 2;
+            return str.substring(0, oriLen) +
+                    StringUtils.repeat(MASK, maskLen) +
+                    str.substring(oriLen + maskLen);
+      }
+   }
+}</code></pre>
+<pre><code class="java">/**
+ * 自定义处理器注册 bean，”dataSensitiveHandler-“ 为固定前缀
+ * 自定义后缀：对字符串进行 md5 摘要，仅在写入数据时执行操作
+ */
+@Component(&quot;dataSensitiveHandler-md5&quot;)
+public class DataSensitiveMd5Handler implements DataSensitiveHandler {
+
+    @Override
+    public String encrypt(String str) {
+        return DigestUtils.md5Hex(str);
+    }
+}</code></pre>
+<pre><code class="java">/**
+ * 自定义处理器注册 bean，”dataSensitiveHandler-“ 为固定前缀
+ * 自定义后缀：sm4 使用国密 SM4 算法进行对称加解密，在写入及读取时均执行
+ * 条件注册 Bean
+ */
+@ConditionalOnClass(name = {&quot;org.bouncycastle.crypto.Digest&quot;, &quot;org.bouncycastle.asn1.gm.GMNamedCurves&quot;})
+@Component(&quot;dataSensitiveHandler-sm4hex&quot;)
+public class DataSensitiveSm4HexHandler implements DataSensitiveHandler {
+
+   private static final SymmetricCrypto SM4 = SmUtil.sm4();
+
+   /**
+    * 使用国密 SM4 算法进行加密
+    *
+    * @param str 明文
+    * @return 密文 16 进制表示
+    */
+   @Override
+   public String encrypt(String str) {
+      return SM4.encryptHex(str);
+   }
+
+   /**
+    * 使用国密 SM4 算法进行解密
+    *
+    * @param str 密文
+    * @return 明文
+    */
+   @Override
+   public String decrypt(String str) {
+      return SM4.decryptStr(str, CharsetUtil.CHARSET_UTF_8);
+   }
+}</code></pre>
+<p>需要其他类型的处理类时，注册一个实现了 <code>DataSensitiveHandler</code> 的 bean 即可。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>支持 <code>yml</code> 和 <code>properties</code> 文件格式：</p>
+<pre><code class="yml">com:
+  amber:
+    common:
+      sensitive:
+        com.amber.common.sensitive.mock.entity.UserDO.phone: abb
+        com.amber.common.sensitive.mock.entity.UserDO.idCard: sm4hex</code></pre>
+<pre><code class="properties">com.amber.common.sensitive.com.amber.common.sensitive.mock.entity.UserDO.password=md5</code></pre>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li>加密和解密：确保敏感数据在写入数据库时被正确加密，并在从数据库读取时被正确解密。</li>
+<li>配置解析：验证配置文件中的敏感字段是否正确地被解析并应用到拦截器中。</li>
+<li>不同处理器的应用：测试不同的敏感数据处理器（如 abb、md5、sm4）是否按照预期工作。</li>
+<li>非敏感字段的不处理：确保非敏感字段在拦截器中不被错误地处理。</li>
+</ul>
+<pre><code class="groovy">@Sql
+@Transactional
+class DataSensitiveTest extends BaseApplicationTests {
+
+   @Autowired
+   UserDAO userDAO
+
+   @Autowired
+   RoleDAO roleDAO
+
+   @Autowired
+   UserService userService
+
+   @Autowired
+   RoleService roleService
+
+   @Autowired
+   UserRoleService userRoleService
+
+   @Autowired
+   UserHistoryService userHistoryService
+
+   @Autowired
+   JdbcTemplate jdbcTemplate
+
+   def static final MD5_LEN = 32
+   def name = &#39;user name&#39;
+   def phone = &#39;12345678901&#39;
+   def idCard = &#39;234098uzxcv&#39;
+   def pwd = &#39;123456&#39;
+
+   @Test
+   void cruTest() {
+      def user = testCreate()
+      def retrievedUser = testRetrieve(user.getId())
+      testUpdate(retrievedUser)
+   }
+
+   def testCreate() {
+      assert jdbcTemplate.queryForObject(&#39;select count(*) from userinfo&#39;, Integer) == 0
+
+      UserDO user = new UserDO()
+      user.setName(name)
+      user.setPhone(phone)
+      user.setIdCard(idCard)
+      user.setPassword(pwd)
+
+      assert userDAO.insert(user) == 1
+      assert user.getId() &gt; &#39;&#39;
+      // abb handler
+      assert user.getPhone() == phone
+      // md5 handler
+      assert user.getPassword().length() == MD5_LEN
+      // sm4hex handler
+      assert user.getIdCard() != idCard &amp;&amp; user.getIdCard().length() == getSm4HexLen(idCard)
+
+      assert jdbcTemplate.queryForObject(&#39;select count(*) from userinfo&#39;, Integer) == 1
+      assert jdbcTemplate.queryForObject(&#39;select phone from userinfo&#39;, String) == phone
+      assert jdbcTemplate.queryForObject(&#39;select password from userinfo&#39;, String).length() == MD5_LEN
+      assert jdbcTemplate.queryForObject(&#39;select id_card from userinfo&#39;, String) != &#39;234098uzxcv&#39;
+      assert jdbcTemplate.queryForObject(&#39;select id_card from userinfo&#39;, String).length() == getSm4HexLen(idCard)
+
+      return user
+   }
+
+   static int getSm4HexLen(String str) {
+      // SM4算法的块大小为16字节
+      int blockSize = 16
+      str &gt; &#39;&#39; ?
+              ((int) (str.getBytes(StandardCharsets.UTF_8).length / blockSize) + 1) * blockSize * 2 :
+              0
+   }
+
+   def testRetrieve(String userId) {
+      UserDO retrievedUser = userDAO.selectById(userId)
+      assert retrievedUser.getPhone() != phone
+      assert retrievedUser.getPhone() == &#39;123*****901&#39;
+      assert retrievedUser.getIdCard() == idCard
+      return retrievedUser
+   }
+
+   def testUpdate(UserDO userToUpdate) {
+      def newPhone = &#39;01234567890&#39;
+      def newIdCard = &#39;12345678901234567&#39;
+
+      userToUpdate.setPhone(newPhone)
+      userToUpdate.setIdCard(newIdCard)
+      userDAO.updateById(userToUpdate)
+
+      assert userToUpdate.getPhone() == newPhone
+      assert userToUpdate.getIdCard() != newIdCard
+      assert userToUpdate.getIdCard().length() == getSm4HexLen(newIdCard)
+
+      assert jdbcTemplate.queryForObject(&#39;select phone from userinfo&#39;, String) == newPhone
+      assert jdbcTemplate.queryForObject(&#39;select id_card from userinfo&#39;, String) != newIdCard
+
+      def retrievedUser = userDAO.selectById(userToUpdate.getId())
+      assert retrievedUser.getPhone() == &#39;012*****890&#39;
+      assert retrievedUser.getIdCard() == newIdCard
+   }
+
+   @Test
+   void batchTest() {
+      testBatchInsert()
+      List&lt;UserDO&gt; retrievedUsers = testBatchRetrieve()
+      testBatchUpdate(retrievedUsers)
+   }
+
+   def testBatchInsert() {
+      assert jdbcTemplate.queryForObject(&#39;select count(*) from userinfo&#39;, Integer) == 0
+
+      List&lt;UserDO&gt; users = new ArrayList&lt;&gt;()
+      3.times {
+         UserDO user = new UserDO()
+         user.setName(&quot;${name}${it+1}&quot;)
+         user.setPhone(&quot;${phone}${it+1}&quot;)
+         user.setPassword(&quot;${pwd}${it+1}&quot;)
+         user.setIdCard(&quot;${idCard}${it+1}&quot;)
+         users.add(user)
+      }
+      userService.saveBatch(users)
+
+      assert jdbcTemplate.queryForObject(&#39;select count(*) from userinfo&#39;, Integer) == 3
+      // sm4hex handler
+      assert users.get(0).getIdCard() != idCard
+      assert users.get(0).getIdCard().length() == getSm4HexLen(idCard)
+      // abb handler
+      assert jdbcTemplate.queryForList(&#39;select phone from userinfo&#39;, String) == [&quot;${phone}1&quot;, &quot;${phone}2&quot;, &quot;${phone}3&quot;]
+      assert users.get(0).getPhone() == &quot;${phone}1&quot;
+      // sm4hex handler
+      def queriedIdCard = jdbcTemplate.queryForObject(&quot;select id_card from userinfo where user_name=&#39;${name}2&#39;&quot;, String)
+      assert queriedIdCard != &quot;${idCard}2&quot;
+      assert queriedIdCard.length() == getSm4HexLen(&quot;${idCard}2&quot;)
+   }
+
+   def testBatchRetrieve() {
+      List&lt;UserDO&gt; retrievedUsers = userService.list()
+      assert retrievedUsers.size() == 3
+      assert retrievedUsers[0].getPhone() == &#39;1234****9011&#39;
+      assert retrievedUsers[1].getPhone() == &#39;1234****9012&#39;
+      assert retrievedUsers[2].getPhone() == &#39;1234****9013&#39;
+      assert retrievedUsers[0].getIdCard() == &quot;${idCard}1&quot;
+      assert retrievedUsers[1].getIdCard() == &quot;${idCard}2&quot;
+      assert retrievedUsers[2].getIdCard() == &quot;${idCard}3&quot;
+      return retrievedUsers
+   }
+
+   def testBatchUpdate(List&lt;UserDO&gt; retrievedUsers) {
+      List&lt;UserDO&gt; usersToUpdate = new ArrayList&lt;UserDO&gt;()
+      for (UserDO user : retrievedUsers) {
+         user.setPhone(phone.reverse())
+         user.setIdCard(idCard.reverse())
+         usersToUpdate.add(user)
+      }
+      userService.updateBatchById(usersToUpdate)
+
+      assert jdbcTemplate.queryForObject(&quot;select count(*) from userinfo where phone = &#39;${phone.reverse()}&#39;&quot;, Integer) == 3
+      assert jdbcTemplate.queryForObject(&quot;select id_card from userinfo where user_name=&#39;${name}3&#39;&quot;, String).length() == getSm4HexLen(&quot;${idCard.reverse()}&quot;)
+
+      QueryWrapper&lt;UserDO&gt; wrapper = new QueryWrapper()
+      wrapper.eq(&#39;phone&#39;, phone.reverse())
+      retrievedUsers = userService.list(wrapper)
+      assert retrievedUsers.size() == 3
+      assert retrievedUsers[0].getPhone() == &#39;109*****321&#39;
+      assert retrievedUsers[1].getIdCard() == idCard.reverse()
+   }
+
+   // ...
+}</code></pre>
+<p>完整实例可见<a href="https://github.com/wyiyi/bronze" target="_blank" rel="noopener">仓库</a></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li>通过 MyBatis 新增或保存实体时，传入的实体在方法调用后，配置为敏感数据的属性会变成应用了敏感处理器 <code>encrypt</code> 方法之后的值</li>
+<li>通过 MyBatis 查询实体时，检索出的实体对象中，配置了敏感数据的属性会变成应用了敏感处理器 <code>decrypt</code> 方法之后的值</li>
+<li>不通过 MyBatis 操作的数据，不会应用敏感数据处理器处理数据</li>
+<li><strong>存入数据库中的数据在执行了敏感处理后将丧失按照处理前的数据进行查询的能力，只能按照处理后的数据进行查询</strong></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Interceptor-介绍"><span class="toc-number">2.</span> <span class="toc-text">Interceptor 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Signature-介绍"><span class="toc-number">2.1.</span> <span class="toc-text">Signature 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Interceptor-接口"><span class="toc-number">2.2.</span> <span class="toc-text">Interceptor 接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Simple-Example"><span class="toc-number">2.3.</span> <span class="toc-text">Simple Example</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#敏感数据处理组件"><span class="toc-number">3.</span> <span class="toc-text">敏感数据处理组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景描述"><span class="toc-number">3.1.</span> <span class="toc-text">场景描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设计思路"><span class="toc-number">3.2.</span> <span class="toc-text">设计思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考实现"><span class="toc-number">3.3.</span> <span class="toc-text">参考实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义敏感数据处理拦截器-DataSensitiveInterceptor"><span class="toc-number">3.3.1.</span> <span class="toc-text">自定义敏感数据处理拦截器 DataSensitiveInterceptor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置类-DataSensitiveConfig"><span class="toc-number">3.3.2.</span> <span class="toc-text">配置类 DataSensitiveConfig</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#敏感数据处理接口-DataSensitiveHandler"><span class="toc-number">3.3.3.</span> <span class="toc-text">敏感数据处理接口 DataSensitiveHandler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内置敏感数据处理实现"><span class="toc-number">3.3.4.</span> <span class="toc-text">内置敏感数据处理实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置"><span class="toc-number">3.3.5.</span> <span class="toc-text">配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单元测试"><span class="toc-number">3.4.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-number">3.5.</span> <span class="toc-text">注意事项</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

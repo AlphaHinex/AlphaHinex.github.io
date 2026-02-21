@@ -1,0 +1,603 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】深入了解 Apache Kafka 存储内部 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kafka, storage, patition, segment, index, log, message, record, roll, retention"> 
+    <meta name="description" content="英文原文：Deep dive into Apache Kafka storage internals: segments, rolling and retention
+作者：Paolo Patier,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】深入了解 Apache Kafka 存储内部</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-index.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Kafka"><b>「
+                    </b>KAFKA<b> 」</b></a>
+                
+                六月 12, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/06/12/deep-dive-into-apache-kafka-storage-internals/" title="【译】深入了解 Apache Kafka 存储内部" class="">【译】深入了解 Apache Kafka 存储内部</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>英文原文：<a href="https://strimzi.io/blog/2021/12/17/kafka-segment-retention/" target="_blank" rel="noopener">Deep dive into Apache Kafka storage internals: segments, rolling and retention</a></p>
+<p>作者：<a href="https://twitter.com/ppatierno" target="_blank" rel="noopener">Paolo Patierno</a></p>
+<p>Apache Kafka 采用类似提交日志的方式处理消息的存储。消息一个接一个的追加在每个日志的末尾，每个日志也会被分成段。分段有助于删除较旧的消息记录及提高性能等。所以，日志是一个由段（文件）组成的消息记录的逻辑序列，每个段内存储的是一部分消息。消息代理（Broker）的配置允许您调整与日志相关的参数。您可以使用这些配置来控制段的滚动、记录的保留策略等。</p>
+<blockquote>
+<p>译注：Kafka 中使用主题（topic）对消息进行分类隔离。每个 topic 下可以设置分区（partition），每个 partition 内消息是有序的，一个 topic 的不同 partition 之间，不能保证消息顺序。生产者会将消息指派给 topic 内的某一个 partition，可以基于轮询策略，也可以根据消息中的关键字进行划分，将相同关键字的消息发送给同一个 partition，以保证消息的有序性。一个主题的逻辑结构如下<a href="https://kafka.apache.org/24/documentation.html#intro_topics" target="_blank" rel="noopener">图</a>，图中分区内的每个标序号的小方格，即为上文中提到的 <strong>段</strong>。<br><img src="/contents/deep-dive-into-apache-kafka-storage-internals/topic.png" alt="topic"></p>
+</blockquote>
+<p>并非每个人都知道这些参数对消息代理的行为有何影响。例如，他们会决定消息记录被保存多久以便使消费者能够消费这些消息。在这篇文章中，我们将深入探讨在日志清理策略设置为删除（<code>delete</code>）时，日志分段和记录保留策略会如何影响消息代理的性能。当您了解有关其工作原理的更多信息后，您可能会想要调整您的日志配置。</p>
+<blockquote>
+<p>当使用压缩（<code>compact</code>）策略而不是删除（<code>delete</code>）策略时，日志保留的处理方式会有所不同。使用键来标识消息，Kafka 压缩时会保留特定消息键的最新消息（偏移量最高的）。具有相同键的早期消息将被丢弃。您可以在 Strimzi 的文档 <a href="https://strimzi.io/docs/operators/latest/using.html#removing_log_data_with_cleanup_policies" target="_blank" rel="noopener">removing log data with cleanup policies</a> 中了解有关压缩的更多信息。</p>
+</blockquote>
+<h1 id="磁盘上的主题分区结构"><a href="#磁盘上的主题分区结构" class="headerlink" title="磁盘上的主题分区结构"></a>磁盘上的主题分区结构</h1><p>Apache Kafka 中，主题（topic）会被分割成多个分区，消息记录追加至每个分区的末尾。每个分区可以定义为一个工作单元，而不是存储单元，因为客户端使用它来交换记录。分区进一步拆分为段，这些段是磁盘上的实际文件。拆分为多个段确实有助于提高性能。当磁盘上的记录需要被删除或消费者开始从特定偏移量消费消息时，未分段的大文件会更慢且更容易出错。</p>
+<p>在消息代理节点的磁盘中，可以看到每个主题的分区，都是一个包含相应段文件和其他文件的目录。以 Strimzi Canary 组件及其生产者和消费者为例，下面是目录结构的示例。</p>
+<pre><code class="text">├── __strimzi_canary-0
+│   ├── 00000000000000000000.index
+│   ├── 00000000000000000000.log
+│   ├── 00000000000000000000.timeindex
+│   ├── 00000000000000000109.index
+│   ├── 00000000000000000109.log
+│   ├── 00000000000000000109.snapshot
+│   ├── 00000000000000000109.timeindex</code></pre>
+<blockquote>
+<p>译注：Kafka 使用文件系统进行消息的存储及缓存，相关内容可查阅官方文档 <a href="https://kafka.apache.org/documentation/#persistence" target="_blank" rel="noopener">4.2 Persistence</a>。文件存储路径为：<a href="https://kafka.apache.org/documentation/#brokerconfigs" target="_blank" rel="noopener">log.dirs</a> + <code>/&lt;topic&gt;-&lt;partition_idx&gt;</code></p>
+</blockquote>
+<p>该示例显示了 Strimzi Canary 组件使用的 <code>__strimzi_canary</code> 主题的 分区0 的目录结构。该目录包含以下文件：</p>
+<ul>
+<li><code>.log</code> 文件是实际的段文件，包含特定偏移量以内的消息记录。文件名表示日志中记录的消息的起始偏移量。</li>
+<li><code>.index</code> 文件是索引文件，将消息记录的逻辑偏移量（实际上是记录的 id）映射到 <code>.log</code> 文件中记录的字节偏移量。它用于访问日志中指定偏移量的记录，而无需扫描整个 <code>.log</code> 文件。</li>
+<li><code>.timeindex</code> 文件是用于按日志中的时间戳访问记录的另一个索引文件。</li>
+<li><code>.snapshot</code> 文件中包含生产者状态的快照，记录了用于避免消息记录重复的序列 ID。当集群选举出一个新的 Leader 节点后，首选的 Leader 节点恢复并要再次成为 Leader 节点时，就会使用它。</li>
+</ul>
+<p>继续使用上面的例子，这是之前那个主题分区目录更详细的视图。</p>
+<pre><code class="text">drwxrwxr-x.  2 ppatiern ppatiern      200 Nov 14 16:33 .
+drwxrwxr-x. 55 ppatiern ppatiern     1220 Nov 14 16:33 ..
+-rw-rw-r--.  1 ppatiern ppatiern       24 Nov 14 16:33 00000000000000000000.index
+-rw-rw-r--.  1 ppatiern ppatiern    16314 Nov 14 16:33 00000000000000000000.log
+-rw-rw-r--.  1 ppatiern ppatiern       48 Nov 14 16:33 00000000000000000000.timeindex
+-rw-rw-r--.  1 ppatiern ppatiern 10485760 Nov 14 16:33 00000000000000000109.index
+-rw-rw-r--.  1 ppatiern ppatiern      450 Nov 14 16:33 00000000000000000109.log
+-rw-rw-r--.  1 ppatiern ppatiern       10 Nov 14 16:33 00000000000000000109.snapshot
+-rw-rw-r--.  1 ppatiern ppatiern 10485756 Nov 14 16:33 00000000000000000109.timeindex
+-rw-rw-r--.  1 ppatiern ppatiern        8 Nov 14 16:24 leader-epoch-checkpoint</code></pre>
+<p>从上面的输出内容中，可以看到第一个日志段文件 <code>00000000000000000000.log</code> 中包含偏移量从 0 到 108 的消息记录。第二段 <code>00000000000000000109.log</code> 文件包含从偏移量 109 开始的消息，这个段被称为 <strong><em>活动段（active segment）</em></strong>。</p>
+<p>活动段是唯一一个允许进行读写操作的文件。它是用来追加接收到的新消息记录的段。一个分区只有一个活动段。非活动段是只读的，由消费者访问用来读取较旧的消息记录。当活动段写满后，它会被滚动（<code>rolled</code>），这意味着文件将被关闭并以只读模式重新打开。一个新的段文件将会被创建并以读写模式打开，成为新的活动段。</p>
+<p>从示例中，您可以看到旧段在达到 16314 字节时被关闭。这是因为 Canary 的主题配置了 <code>segment.bytes=16384</code> 参数，指定了段的最大尺寸。我们将在稍后讨论此配置。150 byes 是 Canary 组件发送的每条消息的大小。因此，每个段将包含 109 条记录。109 * 150 字节 = 16350 字节，接近段的最大容量。</p>
+<p><img src="/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-segments.png" alt="segments"></p>
+<p>还可以通过使用 Apache Kafka 发行版提供的 <code>DumpLogSegments</code> 工具从日志段中转储记录。运行以下命令将显示指定段日志中的记录。</p>
+<pre><code class="bash">./bin/kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.log 
+Dumping /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.log
+Starting offset: 0
+baseOffset: 0 lastOffset: 0 count: 1 baseSequence: 0 lastSequence: 0 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 0 CreateTime: 1639132508991 size: 148 magic: 2 compresscodec: NONE crc: 2142666254 isvalid: true
+| offset: 0 CreateTime: 1639132508991 keysize: -1 valuesize: 78 sequence: 0 headerKeys: [] payload: {&quot;producerId&quot;:&quot;strimzi-canary-client&quot;,&quot;messageId&quot;:1,&quot;timestamp&quot;:1639132508991}
+baseOffset: 1 lastOffset: 1 count: 1 baseSequence: 0 lastSequence: 0 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 148 CreateTime: 1639132514555 size: 148 magic: 2 compresscodec: NONE crc: 1895373344 isvalid: true
+| offset: 1 CreateTime: 1639132514555 keysize: -1 valuesize: 78 sequence: 0 headerKeys: [] payload: {&quot;producerId&quot;:&quot;strimzi-canary-client&quot;,&quot;messageId&quot;:4,&quot;timestamp&quot;:1639132514555}
+baseOffset: 2 lastOffset: 2 count: 1 baseSequence: 0 lastSequence: 0 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 296 CreateTime: 1639132519561 size: 148 magic: 2 compresscodec: NONE crc: 1097825866 isvalid: true
+..
+..
+..
+..
+| offset: 107 CreateTime: 1639133044553 keysize: -1 valuesize: 80 sequence: 0 headerKeys: [] payload: {&quot;producerId&quot;:&quot;strimzi-canary-client&quot;,&quot;messageId&quot;:322,&quot;timestamp&quot;:1639133044553}
+baseOffset: 108 lastOffset: 108 count: 1 baseSequence: 0 lastSequence: 0 producerId: -1 producerEpoch: -1 partitionLeaderEpoch: 0 isTransactional: false isControl: false position: 16164 CreateTime: 1639133049552 size: 150 magic: 2 compresscodec: NONE crc: 1749984078 isvalid: true
+| offset: 108 CreateTime: 1639133049552 keysize: -1 valuesize: 80 sequence: 0 headerKeys: [] payload: {&quot;producerId&quot;:&quot;strimzi-canary-client&quot;,&quot;messageId&quot;:325,&quot;timestamp&quot;:1639133049552}</code></pre>
+<p>从该示例中，您可以看到从偏移量 0 到 108 的记录都存储在 <code>00000000000000000000.log</code> 段文件中。</p>
+<h1 id="分区中的索引是如何工作的？"><a href="#分区中的索引是如何工作的？" class="headerlink" title="分区中的索引是如何工作的？"></a>分区中的索引是如何工作的？</h1><p>如前所述，<code>.index</code> 文件包含一个索引，该索引将逻辑偏移量映射到 <code>.log</code> 文件中记录的字节偏移量。您可能希望此映射可用于每条记录，但它不是以这种方式工作的。让我们考虑 Canary 组件发送的记录，其大小约为 150 字节。在下图中，您可以看到，对于日志文件中存储的 85 条记录，相应的索引只有 3 个条目。</p>
+<p><img src="/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-index.png" alt="index"></p>
+<p>偏移量为 28 的记录位于日志文件中字节偏移量 4169 处，偏移量为 56 的记录位于字节偏移量 8364 处，依此类推。通过使用 <code>DumpLogSegments</code> 工具，可以转储 <code>.index</code> 文件内容。</p>
+<pre><code class="bash">bin/kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.index
+Dumping /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.index
+offset: 28 position: 4169
+offset: 56 position: 8364
+offset: 84 position: 12564</code></pre>
+<p>这些条目是如何添加进索引文件中的，是由 <code>log.index.interval.bytes</code> 参数定义的，该参数默认值为 4096 字节。这意味着，日志文件中每添加 4096 个字节的记录，就会在相应的索引文件中添加一个条目。每个条目的大小为 8 个字节，4 个字节用于存储偏移量，4 个字节存储日志段中的字节位置。在此示例中，每新增 28 条消息记录就会添加一个新的索引条目，因为 28 * 150 = 4200。</p>
+<p>如果一个消费者想要从指定的偏移量开始读取消息，则按如下方式搜索记录：</p>
+<ul>
+<li>根据 <code>.index</code> 文件的文件名查找索引文件，该文件遵循与相应的 <code>.log</code> 文件相同的模式。从文件名可以获得该索引文件中索引的消息记录的起始偏移量。</li>
+<li>在 <code>.index</code> 文件中搜索与请求的偏移量最接近的条目。</li>
+<li>使用条目对应的字节偏移量访问 <code>.log</code> 文件，并搜索消费者需要的起始偏移量。</li>
+</ul>
+<p>可以调整 <code>log.index.interval.bytes</code> 参数，使得索引文件条目增多以便更快地搜索记录，反之亦然。如果将 <code>log.index.interval.bytes</code> 设置为小于默认的 4096 字节，则索引中将有更多的条目以进行更细粒度的搜索。但是，更多的条目也会导致索引文件的大小快速增长。如果将参数设置为高于默认的 4096 字节，则索引中的条目将减少，这将减慢搜索速度。这也意味着索引文件的大小会以更慢的速度增加。</p>
+<p>Apache Kafka 还允许您根据时间戳开始使用记录。这是 <code>.timeindex</code> 进入画面的时候。<code>.timeindex</code> 文件中的每个条目都定义一个时间戳和偏移量对，该偏移量指向相应的 <code>.index</code> 文件对应条目。</p>
+<p>在下图中，您可以看到从 <code>1638100314372</code> 时间戳开始的消息，起始的偏移量是 28，<code>1638100454372</code> 时间戳的消息，起始的偏移量为 56，依此类推。</p>
+<p><img src="/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-timeindex.png" alt="timeindex"></p>
+<p>时间戳索引文件中每个条目的大小为 12 个字节，时间戳为 8 个字节，偏移量为 4 个字节。它准确地反映了 Strimzi Canary 组件如何生成记录，因为它每 5 秒发送一条记录。140 秒（28 x 5）内将发送 28 条记录，这正是时间戳之间的间隔：1638100454372 - 1638100314372 = 140000 毫秒。通过使用 <code>DumpLogSegments</code> 工具，可以转储 <code>.timeindex</code> 文件内容。</p>
+<pre><code class="bash">bin/kafka-run-class.sh kafka.tools.DumpLogSegments --deep-iteration --print-data-log --files /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.timeindex 
+Dumping /tmp/kafka-logs-0/__strimzi_canary-0/00000000000000000000.timeindex
+timestamp: 1638100314372 offset: 28
+timestamp: 1638100454372 offset: 56
+timestamp: 1638100594371 offset: 84</code></pre>
+<h1 id="我们来谈谈滚动段（rolling-segments）"><a href="#我们来谈谈滚动段（rolling-segments）" class="headerlink" title="我们来谈谈滚动段（rolling segments）"></a>我们来谈谈滚动段（rolling segments）</h1><p>当满足某些特定条件时，将滚动出一个新的段文件。一个条件是当段文件大小达到设定的最大值时，由配置参数 <code>log.segment.bytes</code> 指定（默认为 1 GiB）。另一个条件是基于参数 <code>log.roll.ms</code> 或 <code>log.roll.hours</code>（默认为 7 天）。在这种条件下，当段中第一条记录的生产者时间戳（或者如果没有时间戳，则以段文件创建时间）达到或超过配置的时间间隔时，将滚动段。满足第一个条件时将触发滚动新的段文件。值得注意的是，作为一个不太常见的情况，记录中的生产者时间戳可能不是有序的，因此由于重试或生产者的特定业务逻辑，可能段中的第一条记录并不是最早产生的那条记录。</p>
+<p>另一个有用的参数是 <code>log.roll.jitter.ms</code>，它在滚动段时设置最大抖动间隔。抖动间隔时间用于避免多个段同时产生滚动时导致的磁盘高争抢。每个段会随机生成一个最大值之内的抖动间隔。</p>
+<p>上述条件，按段文件大小或时间，是众所周知的，但不是每个人都知道还有第三个条件。</p>
+<p>当段文件对应的索引（或时间索引）文件写满时，也会触发段文件滚动。索引和时间索引文件使用相同的最大值，由 <code>log.index.size.max.bytes</code> 参数定义，默认值为 10 MB。让我们考虑默认日志段的最大大小，即 1 GiB。我们知道，由于 <code>log.index.interval.bytes</code> 在默认情况下为 4096 字节，因此每 4096 字节的记录就会在索引中添加一个条目。这意味着对于 1 GiB 的段文件大小，1 GiB / 4096 字节 = 262144 个条目可以被添加到索引文件中。这相当于索引文件中的 2 MB（262144 * 8 个字节）。默认索引大小 10 MB 足以处理 5 GiB 的段大小。减小索引大小或增加段大小将导致在索引文件写满时滚动新段，而不是在达到段文件设定的最大值时。因此，在不增加索引大小的情况下设置大于 5 GiB 的段大小是无用的，因为当索引已满时，消息代理将滚动新段。</p>
+<p>将段大小增加到 5 GiB 以上时，您应该同时增加索引文件大小。同样，如果您决定减小索引文件大小，则可能也需要按比例减小段大小。</p>
+<p>时间索引文件可能也需要引起注意。因为时间索引（timeindex）文件中的每个条目都比索引中的条目大 1.5 倍（12 个字节比 8 个字节），因此它可能更早地被写满并导致滚动新段。</p>
+<p>为了演示索引和时间索引文件大小对滚动新日志段有何影响，让我们考虑一个使用 <code>log.index.interval.bytes=150</code> 和 <code>log.index.size.max.bytes=300</code> 参数的集群，利用 Strimzi Canary 生产和消费消息，使用通常的配置 <code>retention.ms=600000;segment.bytes=16384</code>。由于 Strimzi Canary 产生消息的大小约 150 个字节，因此我们预计每两条消息记录会在索引文件中写入一个条目。索引最大值为 300 字节，故索引文件中将有大约 300 / 8 = 37 个条目，时间索引文件中大约有 300 / 12 = 25 个条目。</p>
+<p>通过运行 Strimzi Canary 一段时间，我们得到以下输出：</p>
+<pre><code class="text">-rw-rw-r--.  1 ppatiern ppatiern  192 Dec 10 16:23 00000000000000000000.index
+-rw-rw-r--.  1 ppatiern ppatiern 7314 Dec 10 16:23 00000000000000000000.log
+-rw-rw-r--.  1 ppatiern ppatiern  288 Dec 10 16:23 00000000000000000000.timeindex
+-rw-rw-r--.  1 ppatiern ppatiern  296 Dec 10 16:23 00000000000000000049.index
+-rw-rw-r--.  1 ppatiern ppatiern 4500 Dec 10 16:26 00000000000000000049.log
+-rw-rw-r--.  1 ppatiern ppatiern   10 Dec 10 16:23 00000000000000000049.snapshot
+-rw-rw-r--.  1 ppatiern ppatiern  300 Dec 10 16:23 00000000000000000049.timeindex</code></pre>
+<p>从该示例中可以看出，当活动段仅为 7314 byes 时，就滚动了一个新段，并未达到配置的 16384 字节。同时，索引文件的大小为 192 字节，因此实际上有 192 / 8 = 24 个条目，并不是预期的 37 个。原因是因为时间索引文件首先达到了 300 字节的限制。它是 288 字节，包含 288 / 12 = 24 个条目 —— 与索引文件中的条目数相同。</p>
+<p>您可以在消息代理级别设置这些参数，但也可以在主题级别覆盖它们。</p>
+<h1 id="我的记录会保留多长时间？比您预期的要长！"><a href="#我的记录会保留多长时间？比您预期的要长！" class="headerlink" title="我的记录会保留多长时间？比您预期的要长！"></a>我的记录会保留多长时间？比您预期的要长！</h1><p>管理记录时，一个重要的方面是它们在被删除之前保留多长时间。这是可以根据大小和保留时间进行配置的。您可以使用 <code>log.retention.bytes</code> 参数指定要保留的最大字节数。如果要设置保留期，可以使用 <code>log.retention.ms</code>、<code>log.retention.minutes</code> 或 <code>log.retention.hours</code>（默认为 7 天）参数。与控制何时滚动段的参数一样，第一个条件被满足即会触发从磁盘中删除较旧的记录。</p>
+<blockquote>
+<p>这些参数也可以在消息代理级别设置，并在主题级别被覆盖。</p>
+</blockquote>
+<p>假设您使用 <code>TOPIC_CONFIG</code> 环境变量配置 <code>retention.ms=600000;segment.bytes=16384</code>，指定 Strimzi 的 canary 主题的保留时间为 600000 毫秒（10 分钟），段大小为 16384 字节。</p>
+<p>使用此配置，期望是每当当前活动段的大小达到 16384 字节时，就会滚动一个新段。可能并不总是这样。如果下一条记录由于超出最大段大小而无法存储在活动段中，则会提前滚动新段。Canary 记录的大小约为 150 字节，预期每个段在关闭之前可以存储大约 16384 / 150 = 109 条记录。假设将 Canary 配置为每 5 秒生成一条记录，则在 109 * 5 = 545 秒内填满一个段。换句话说，每 9 分钟会滚动一个新段。</p>
+<p>关于记录保留，预期记录在删除之前保留 10 分钟。但这其实并不那么简单。追加记录后，我们可能仍能读取记录的最短和最长时间是多少？</p>
+<p>段，及其中包含的记录，只有在关闭时才能被删除。这意味着，如果生产者产生记录非常缓慢，在 10 分钟内并未达到 16384 字节的最大大小，则不会删除较旧的记录。记录保留期因此会高于其本意。</p>
+<p>即使活动段能够被快速填充，保留时间也会从段关闭前追加的最后一条记录开始计算。最新的记录将按我们希望的 10 分钟被保留，但段中的第一条记录会保留更长时间。当然，这取决于段的填充速度以及第一条记录和最后一条记录之间的时间间隔。</p>
+<p>在我们的 Canary 示例中，段需要 9 分钟才能被写满并关闭。当最后一条记录到达时，该段中的第一条记录已经保留 9 分钟了。在等待最后一条记录到达后被保留 10 分钟时，第一条记录“应该”在 19 分钟后被删除。</p>
+<p>无论如何，即使我们认为在最后一条记录到达保留时间后，它可能仍然存在！原因与在消息代理上定期运行的 Apache Kafka 线程有关，这个线程负责清理记录并检查哪些已关闭的段可以被删除。您可以使用 <code>log.retention.check.interval.ms</code> 参数配置此线程的运行周期（默认为 5 分钟）。根据追加最后一条记录和关闭段的时间，定期删除的检查可能会进一步导致超过预计保留的 10 分钟时间。已关闭的段可能会在下次检查时才被删除，这将导致最多近 5 分钟的延迟。</p>
+<p>在我们的示例中，段中的第一条记录可能会被保留长达近 24 分钟！</p>
+<p>假设在某个时刻，清理线程开始运行，并验证了一个已关闭的段可以被删除。它会为相应的文件添加 <code>.delete</code> 扩展名，但实际上并不会从文件系统中删除该段文件。消息代理上的 <code>log.segment.delete.delay.ms</code> 参数用来指定当文件被标记为“delete”时，文件会延迟多久再真正从文件系统中被删除（缺省时间为 1 分钟）。</p>
+<p><img src="/contents/deep-dive-into-apache-kafka-storage-internals/2021-12-17-total-retention-time.png" alt="total-retention-time"></p>
+<p>再次回到 Canary 的例子，并假设延迟删除，我们段中的第一条记录在 25 分钟后仍然存在！它比预期的 10 分钟长得多，不是吗？</p>
+<p>如您所见，很明显，保留机制与最初的预期并不完全匹配。实际上，记录的寿命可能远长于我们设定的 10 分钟，具体取决于消息代理的配置和内部机制。使用 <code>log.retention.ms</code> 设置的保留时长通常只代表一种下限。Kafka 保证不会删除任何存活期小于指定期限的记录，但任何较旧的记录都可能在将来的任意时刻被删除，这取决于具体的设置。</p>
+<p>值得一提的还有它对消费者方面的影响。消费者可以从已关闭的段中获取记录，但不会从标记为删除的段中获取记录，即使它们仅是被标记为“已删除”实际上并未从文件系统中删除。即使消费者从头开始读取分区，也是如此。更长的保留期不会对消费者产生直接的影响，但会对磁盘使用量产生更大的影响。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><p>了解消息代理如何在磁盘上存储分区和相应的记录非常重要。配置参数可能会对数据的保留时间产生惊人的巨大影响。了解这些参数以及如何调整它们，可以让您在如何处理数据上有更强的控制力。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#磁盘上的主题分区结构"><span class="toc-number">1.</span> <span class="toc-text">磁盘上的主题分区结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分区中的索引是如何工作的？"><span class="toc-number">2.</span> <span class="toc-text">分区中的索引是如何工作的？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我们来谈谈滚动段（rolling-segments）"><span class="toc-number">3.</span> <span class="toc-text">我们来谈谈滚动段（rolling segments）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我的记录会保留多长时间？比您预期的要长！"><span class="toc-number">4.</span> <span class="toc-text">我的记录会保留多长时间？比您预期的要长！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结论"><span class="toc-number">5.</span> <span class="toc-text">结论</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DICOM 数据字典 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,DICOM, Data Dictionary, Data Elements, Tag, VR, VM, Modality, pydicom, matplotlib"> 
+    <meta name="description" content="DICOMDICOM（Digital Imaging and Communications in Medicine，医学数字成像和通信）是一种用于存储和传输医学影像数据的国际标准。
+版本自从 198,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">DICOM 数据字典</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/dicom-data-dictionary/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Python"><b>「
+                    </b>PYTHON<b> 」</b></a>
+                
+                十二月 14, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/12/14/dicom-data-dictionary/" title="DICOM 数据字典" class="">DICOM 数据字典</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    34k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    31 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DICOM/" rel="tag">DICOM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="DICOM"><a href="#DICOM" class="headerlink" title="DICOM"></a>DICOM</h1><p><a href="https://www.dicomstandard.org/about" target="_blank" rel="noopener">DICOM</a>（Digital Imaging and Communications in Medicine，医学数字成像和通信）是一种用于存储和传输医学影像数据的国际标准。</p>
+<h2 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h2><p>自从 1985 年首次发布以来，DICOM 标准已经经历了多次修订和扩展，以适应不断发展的医学影像技术和需求。当前最新版本为 <a href="https://dicom.nema.org/medical/dicom/2025e/" target="_blank" rel="noopener">2025e</a>，历史版本可见 <a href="https://www.dicomstandard.org/disclaimer/standard/prior" target="_blank" rel="noopener">历史版本</a> 和 <a href="https://dicom.nema.org/medical/dicom/" target="_blank" rel="noopener">各版本多种文件格式归档</a>。</p>
+<h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><p>DICOM 数据字典定义了 DICOM 文件中使用的各种数据元素及其属性。以下是一些常见的数据元素及其含义：</p>
+<table>
+<thead>
+<tr>
+<th>标签 (Tag)</th>
+<th>名称 (Name)</th>
+<th>VR (Value Representation)</th>
+<th>VM (Value Multiplicity)</th>
+<th>说明 (Description)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(0010,0010)</td>
+<td>Patient’s Name</td>
+<td>PN</td>
+<td>1</td>
+<td>患者姓名</td>
+</tr>
+<tr>
+<td>(0010,0020)</td>
+<td>Patient ID</td>
+<td>LO</td>
+<td>1</td>
+<td>患者标识</td>
+</tr>
+<tr>
+<td>(0008,0060)</td>
+<td>Modality</td>
+<td>CS</td>
+<td>1</td>
+<td><a href="https://dicom.nema.org/medical/dicom/current/output/html/part16.html#sect_CID_33" target="_blank" rel="noopener">检查模态</a>（如 CT、MR、US 等）</td>
+</tr>
+<tr>
+<td>(0028,0010)</td>
+<td>Rows</td>
+<td>US</td>
+<td>1</td>
+<td>图像的行数</td>
+</tr>
+<tr>
+<td>(0028,0011)</td>
+<td>Columns</td>
+<td>US</td>
+<td>1</td>
+<td>图像的列数</td>
+</tr>
+<tr>
+<td>(0028,0030)</td>
+<td>Pixel Spacing</td>
+<td>DS</td>
+<td>2</td>
+<td>像素间距（行间距和列间距，单位为毫米）</td>
+</tr>
+<tr>
+<td>(0028,1050)</td>
+<td>Window Center</td>
+<td>DS</td>
+<td>1-n</td>
+<td>窗口中心值</td>
+</tr>
+<tr>
+<td>(0028,1051)</td>
+<td>Window Width</td>
+<td>DS</td>
+<td>1-n</td>
+<td>窗口宽度值</td>
+</tr>
+<tr>
+<td>(0028,0008)</td>
+<td>Number of Frames</td>
+<td>IS</td>
+<td>1</td>
+<td>图像的帧数（对于多帧图像）</td>
+</tr>
+</tbody></table>
+<p>以上仅为部分常见的数据元素，DICOM 数据字典包含了数千个数据元素，涵盖了医学影像的各个方面。完整的数据字典可以在 DICOM 标准的第 6 部分 <a href="https://dicom.nema.org/medical/dicom/current/output/html/part06.html" target="_blank" rel="noopener">DICOM PS3.6 2025e - Data Dictionary</a> 中找到。</p>
+<p>标准中将数据元素分成了四类：</p>
+<ol>
+<li><a href="https://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_6" target="_blank" rel="noopener">DICOM Data Elements</a></li>
+<li><a href="https://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_7" target="_blank" rel="noopener">DICOM File Meta Elements</a></li>
+<li><a href="https://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_8" target="_blank" rel="noopener">DICOM Directory Structuring Elements</a></li>
+<li><a href="https://dicom.nema.org/medical/dicom/current/output/html/part06.html#chapter_9" target="_blank" rel="noopener">DICOM Dynamic RTP Payload Elements</a></li>
+</ol>
+<p>每类均以表格形式列出，如：</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Name</th>
+<th>Keyword</th>
+<th>VR</th>
+<th>VM</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>(0008,0001)</td>
+<td>Length to End</td>
+<td>Length​To​End</td>
+<td>UL</td>
+<td>1</td>
+<td>RET</td>
+</tr>
+<tr>
+<td>(0008,0005)</td>
+<td>Specific Character Set</td>
+<td>Specific​Character​Set</td>
+<td>CS</td>
+<td>1-n</td>
+<td></td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>其中：</p>
+<ul>
+<li>Tag：数据元素的标签，相当于唯一 ID，由两个十六进制数字组成，分别表示组号和元素号，标准数据元素的组号为偶数，私有数据元素组号为奇数。</li>
+<li>Name：数据元素的名称，描述了该元素的含义。</li>
+<li>Keyword：数据元素的关键字，通常是名称的简写形式。</li>
+<li>VR (Value Representation)：数据元素的值表示，定义了该元素的数据类型，如：UL（Unsigned Long）、CS（Code String）、PN（Person Name）等，完整的 VR 值列表可见 <a href="https://dicom.nema.org/medical/dicom/current/output/html/part05.html#table_6.2-1" target="_blank" rel="noopener">Table 6.2-1. DICOM Value Representations</a>。</li>
+<li>VM (Value Multiplicity)：数据元素的值多重性，表示该元素可以包含多少个值（如单值、多值等）。</li>
+</ul>
+<h1 id="pydicom"><a href="#pydicom" class="headerlink" title="pydicom"></a>pydicom</h1><p><a href="https://github.com/pydicom/pydicom" target="_blank" rel="noopener">pydicom</a> 是一个用于处理 DICOM 文件的 Python 库。它允许用户读取、修改和创建 DICOM 文件，支持大部分 DICOM 标准的数据元素和功能。</p>
+<p>pydicom 使用内置的数据字典来解释 DICOM 文件中的数据元素。该数据字典包含了 DICOM 标准中定义的（除 Dynamic RTP Payload Elements 外）所有数据元素及其属性，可在 <a href="https://github.com/pydicom/pydicom/blob/v3.0.1/src/pydicom/_dicom_dict.py" target="_blank" rel="noopener">_dicom_dict.py</a> 文件中对照标准查看。</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>下面的代码演示了如何使用 pydicom 读取 DICOM 文件中的元素及图像。</p>
+<pre><code class="bash"># 安装依赖
+$ pip install pydicom matplotlib
+$ pip list|grep -E &#39;pydicom|matplotlib&#39;
+matplotlib                 3.10.7
+pydicom                    3.0.1
+# 下载公开测试 DICOM 文件，如在 https://gitcode.com/open-source-toolkit/5f5718/blob/main/dicom%E6%96%87%E4%BB%B6.zip 获取的下载链接
+$ wget https://raw-cdn.gitcode.com/open-source-toolkit/5f5718/blobs/45a5e793685ff145a3658c8dd9b1d728cefb6391/dicom%E6%96%87%E4%BB%B6.zip
+$ unzip -j dicom文件.zip
+$ ls *.dcm
+1.2.840.113564.192168156.2012101911104793780.1003000225002.dcm GH177_D_CLUNIE_CT1_IVRLE_BigEndian_ELE_undefinded_length.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.624.dcm               GH177_D_CLUNIE_CT1_IVRLE_BigEndian_undefined_length.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.646.dcm               GH178.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.658.dcm               GH179A.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.667.dcm               GH179B.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.675.dcm               GH184.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.684.dcm               GH195.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.693.dcm               GH220.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.709.dcm               GH223.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.718.dcm               GH227.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.750.dcm               GH340.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.787.dcm               GH342.dcm
+1.2.840.113619.2.25.4.2420019.1350725419.796.dcm               GH355.dcm
+1.dcm                                                          GH364.dcm
+10200904.dcm                                                   GH487.dcm
+2.dcm                                                          GH538-jpeg1.dcm
+3.dcm                                                          GH538-jpeg14sv1.dcm
+4.dcm                                                          GH610.dcm
+5.dcm                                                          GH626.dcm
+6.dcm                                                          IM-0001-0001-0001.dcm
+7.dcm                                                          TestPattern_Palette.dcm
+8.dcm                                                          TestPattern_Palette_16.dcm
+CR-ModalitySequenceLUT.dcm                                     TestPattern_RGB.dcm
+D_CLUNIE_CT1_RLE_FRAGS.dcm                                     genFile.dcm
+ETIAM_video_002.dcm                                            test2.dcm
+GH064.dcm                                                      test_720.dcm
+GH133.dcm</code></pre>
+<pre><code class="python">import matplotlib.pyplot as plt
+import pydicom
+
+file_name = &#39;./1.2.840.113619.2.25.4.2420019.1350725419.684.dcm&#39;
+
+ds = pydicom.dcmread(file_name)
+print(f&quot;{len(ds.file_meta.keys())} + {len(ds.keys())} Tags：&quot;)
+
+for key in ds.file_meta.keys():
+    print(f&quot;{key}: {ds.file_meta.get(key)}&quot;)
+
+for key in ds.keys():
+    print(f&quot;{key}: {ds.get(key)}&quot;)
+
+print(&#39;\n---\n&#39;)
+
+print(f&quot;SOP类..........: {ds.SOPClassUID} ({ds.SOPClassUID.name})&quot;)
+print(f&quot;患者姓名........: {ds.PatientName.family_comma_given()}&quot;)
+print(f&quot;检查模态........: {ds.Modality}&quot;)
+print(f&quot;图像尺寸........: {ds.get(0x00280010).value} x {ds[0x0028, 0x0011].value}&quot;)
+print(f&quot;像素数组维度.....: {ds.pixel_array.ndim}&quot;)
+print(f&quot;像素数组形状.....: {ds.pixel_array.shape}&quot;)
+print(f&quot;图像帧数........: {ds.NumberOfFrames}&quot;)
+print(f&quot;协议名称........: {ds.get(&#39;ProtocolName&#39;, &#39;(缺失)&#39;)}&quot;)
+print(f&quot;检查部位........: {ds.get(&#39;BodyPartExamined&#39;, &#39;(缺失)&#39;)}&quot;)
+print(f&quot;切片位置........: {ds.get(&#39;SliceLocation&#39;, &#39;(缺失)&#39;)}&quot;)
+
+if ds.pixel_array.ndim == 2:
+    plt.imsave(&#39;./test.jpg&#39;, ds.pixel_array, cmap=&#39;gray&#39;)
+else:
+    for i in range(ds.pixel_array.shape[0]):
+        png_file = f&#39;./test/test_{i:03d}.jpg&#39;
+        plt.imsave(png_file, ds.pixel_array[i, :, :], cmap=&#39;gray&#39;)</code></pre>
+<pre><code class="bash">$ python pydicom_test.py
+8 + 304 Tags：
+(0002,0000): (0002,0000) File Meta Information Group Length  UL: 196
+(0002,0001): (0002,0001) File Meta Information Version       OB: b&#39;\x00\x01&#39;
+(0002,0002): (0002,0002) Media Storage SOP Class UID         UI: MR Image Storage
+(0002,0003): (0002,0003) Media Storage SOP Instance UID      UI: 1.2.840.113619.2.25.4.2420019.1350725419.684
+(0002,0010): (0002,0010) Transfer Syntax UID                 UI: Implicit VR Little Endian
+(0002,0012): (0002,0012) Implementation Class UID            UI: 1.2.826.0.1.3680043.1.1.4.3.82.2
+(0002,0013): (0002,0013) Implementation Version Name         SH: &#39;DCMOBJ4.3.82.2&#39;
+(0002,0016): (0002,0016) Source Application Entity Title     AE: &#39;&#39;
+(0008,0005): (0008,0005) Specific Character Set              CS: &#39;ISO_IR 100&#39;
+(0008,0008): (0008,0008) Image Type                          CS: [&#39;ORIGINAL&#39;, &#39;PRIMARY&#39;, &#39;OTHER&#39;]
+(0008,0016): (0008,0016) SOP Class UID                       UI: MR Image Storage
+(0008,0018): (0008,0018) SOP Instance UID                    UI: 1.2.840.113619.2.25.4.2420019.1350725419.684
+(0008,0020): (0008,0020) Study Date                          DA: &#39;20121020&#39;
+(0008,0021): (0008,0021) Series Date                         DA: &#39;20121020&#39;
+(0008,0022): (0008,0022) Acquisition Date                    DA: &#39;20121020&#39;
+(0008,0023): (0008,0023) Content Date                        DA: &#39;20121020&#39;
+(0008,0030): (0008,0030) Study Time                          TM: &#39;095222&#39;
+(0008,0031): (0008,0031) Series Time                         TM: &#39;100609&#39;
+(0008,0032): (0008,0032) Acquisition Time                    TM: &#39;100609&#39;
+(0008,0033): (0008,0033) Content Time                        TM: &#39;100609&#39;
+(0008,0050): (0008,0050) Accession Number                    SH: &#39;270355&#39;
+(0008,0060): (0008,0060) Modality                            CS: &#39;MR&#39;
+(0008,0070): (0008,0070) Manufacturer                        LO: &#39;GE MEDICAL SYSTEMS&#39;
+(0008,0080): (0008,0080) Institution Name                    LO: &#39;ALYOUSSEF RC SUEZ&#39;
+(0008,0090): (0008,0090) Referring Physician&#39;s Name          PN: &#39;&#39;
+(0008,1010): (0008,1010) Station Name                        SH: &#39;gehcgehc&#39;
+(0008,1030): (0008,1030) Study Description                   LO: &#39;e+1 L-SPINE&#39;
+(0008,103E): (0008,103E) Series Description                  LO: &#39;Ax T2 FSE&#39;
+(0008,1060): (0008,1060) Name of Physician(s) Reading Study  PN: &#39;&#39;
+(0008,1070): (0008,1070) Operators&#39; Name                     PN: &#39;S&#39;
+(0008,1090): (0008,1090) Manufacturer&#39;s Model Name           LO: &#39;SIGNA Profile EXCITE&#39;
+(0009,0010): (0009,0010) Private Creator                     LO: &#39;GEMS_IDEN_01&#39;
+(0009,1002): (0009,1002) [Suite id]                          SH: &#39;gehc&#39;
+(0009,1004): (0009,1004) [Product id]                        SH: &#39;SIGNA&#39;
+(0009,1027): (0009,1027) [Image actual date]                 SL: 1350727569
+(0009,1030): (0009,1030) [Service id]                        SH: &#39;gehc&#39;
+(0009,1031): (0009,1031) [Mobile location number]            SH: &#39;9999&#39;
+(0009,10E3): (0009,10E3) [Equipment UID]                     UI: 1.2.840.113619.1.217.5.6945.224376
+(0009,10E7): (0009,10E7) [Exam Record checksum]              UL: 541419025
+(0009,10E9): (0009,10E9) [Actual series data time stamp]     SL: 1350727569
+(0010,0010): (0010,0010) Patient&#39;s Name                      PN: &#39;ABD.ALLAH MOHAMMED ABD.ABLLAH&#39;
+(0010,0020): (0010,0020) Patient ID                          LO: &#39;138629&#39;
+(0010,0030): (0010,0030) Patient&#39;s Birth Date                DA: &#39;19880101&#39;
+(0010,0040): (0010,0040) Patient&#39;s Sex                       CS: &#39;M&#39;
+(0010,1010): (0010,1010) Patient&#39;s Age                       AS: &#39;024Y&#39;
+(0010,1030): (0010,1030) Patient&#39;s Weight                    DS: &#39;90&#39;
+(0010,21B0): (0010,21B0) Additional Patient History          LT: &#39;&#39;
+(0018,0020): (0018,0020) Scanning Sequence                   CS: &#39;SE&#39;
+(0018,0021): (0018,0021) Sequence Variant                    CS: [&#39;SK&#39;, &#39;OSP&#39;]
+(0018,0022): (0018,0022) Scan Options                        CS: [&#39;FAST_GEMS&#39;, &#39;NPW&#39;, &#39;VB_GEMS&#39;, &#39;EDR_GEMS&#39;, &#39;FILTERED_GEMS&#39;]
+(0018,0023): (0018,0023) MR Acquisition Type                 CS: &#39;2D&#39;
+(0018,0025): (0018,0025) Angio Flag                          CS: &#39;N&#39;
+(0018,0050): (0018,0050) Slice Thickness                     DS: &#39;6&#39;
+(0018,0080): (0018,0080) Repetition Time                     DS: &#39;3000&#39;
+(0018,0081): (0018,0081) Echo Time                           DS: &#39;99.24&#39;
+(0018,0082): (0018,0082) Inversion Time                      DS: &#39;0&#39;
+(0018,0083): (0018,0083) Number of Averages                  DS: &#39;4&#39;
+(0018,0084): (0018,0084) Imaging Frequency                   DS: &#39;8.532733&#39;
+(0018,0085): (0018,0085) Imaged Nucleus                      SH: &#39;1H&#39;
+(0018,0086): (0018,0086) Echo Number(s)                      IS: &#39;1&#39;
+(0018,0087): (0018,0087) Magnetic Field Strength             DS: &#39;0.2&#39;
+(0018,0088): (0018,0088) Spacing Between Slices              DS: &#39;7&#39;
+(0018,0091): (0018,0091) Echo Train Length                   IS: &#39;12&#39;
+(0018,0093): (0018,0093) Percent Sampling                    DS: &#39;100&#39;
+(0018,0094): (0018,0094) Percent Phase Field of View         DS: &#39;75&#39;
+(0018,0095): (0018,0095) Pixel Bandwidth                     DS: &#39;150.234&#39;
+(0018,1000): (0018,1000) Device Serial Number                LO: &#39;000000EG1736MR01&#39;
+(0018,1020): (0018,1020) Software Versions                   LO: [&#39;14&#39;, &#39;LX&#39;, &#39;MR Software release:PROFILEHD.0_M4_0736.a&#39;]
+(0018,1030): (0018,1030) Protocol Name                       LO: &#39;L.Spine Routine*/4&#39;
+(0018,1088): (0018,1088) Heart Rate                          IS: &#39;60&#39;
+(0018,1090): (0018,1090) Cardiac Number of Images            IS: &#39;0&#39;
+(0018,1094): (0018,1094) Trigger Window                      IS: &#39;0&#39;
+(0018,1100): (0018,1100) Reconstruction Diameter             DS: &#39;260&#39;
+(0018,1250): (0018,1250) Receive Coil Name                   SH: &#39;CTL PA-L&#39;
+(0018,1310): (0018,1310) Acquisition Matrix                  US: [224, 0, 0, 128]
+(0018,1312): (0018,1312) In-plane Phase Encoding Direction   CS: &#39;COL&#39;
+(0018,1314): (0018,1314) Flip Angle                          DS: &#39;90&#39;
+(0018,1315): (0018,1315) Variable Flip Angle Flag            CS: &#39;N&#39;
+(0018,1316): (0018,1316) SAR                                 DS: &#39;0.1446&#39;
+(0018,5100): (0018,5100) Patient Position                    CS: &#39;HFS&#39;
+(0019,0010): (0019,0010) Private Creator                     LO: &#39;GEMS_ACQU_01&#39;
+(0019,100F): (0019,100F) [Horiz. Frame of ref.]              DS: &#39;723.900024&#39;
+(0019,1011): (0019,1011) [Series contrast]                   SS: 0
+(0019,1012): (0019,1012) [Last pseq]                         SS: 56
+(0019,1017): (0019,1017) [Series plane]                      SS: 16
+(0019,1018): (0019,1018) [First scan ras]                    LO: &#39;S&#39;
+(0019,1019): (0019,1019) [First scan location]               DS: &#39;107.456&#39;
+(0019,101A): (0019,101A) [Last scan ras]                     LO: &#39;I&#39;
+(0019,101B): (0019,101B) [Last scan loc]                     DS: &#39;-47.7672&#39;
+(0019,101E): (0019,101E) [Display field of view]             DS: &#39;195.000000&#39;
+(0019,105A): (0019,105A) [Acquisition Duration]              FL: 198400000.0
+(0019,107D): (0019,107D) [Second echo]                       DS: &#39;0&#39;
+(0019,107E): (0019,107E) [Number of echoes]                  SS: 1
+(0019,107F): (0019,107F) [Table delta]                       DS: &#39;0.000000&#39;
+(0019,1081): (0019,1081) [Contiguous]                        SS: 1
+(0019,1084): (0019,1084) [Peak SAR]                          DS: &#39;0.289394&#39;
+(0019,1087): (0019,1087) [Cardiac repetition time]           DS: &#39;0.000000&#39;
+(0019,1088): (0019,1088) [Images per cardiac cycle]          SS: 0
+(0019,108A): (0019,108A) [Actual receive gain analog]        SS: 13
+(0019,108B): (0019,108B) [Actual receive gain digital]       SS: 27
+(0019,108D): (0019,108D) [Delay after trigger]               DS: &#39;0&#39;
+(0019,108F): (0019,108F) [Swappf]                            SS: 0
+(0019,1090): (0019,1090) [Pause Interval]                    SS: 0
+(0019,1091): (0019,1091) [Pause Time]                        DS: &#39;0.000000&#39;
+(0019,1092): (0019,1092) [Slice offset on freq axis]         SL: 0
+(0019,1093): (0019,1093) [Auto Prescan Center Frequency]     DS: &#39;85327330&#39;
+(0019,1094): (0019,1094) [Auto Prescan Transmit Gain]        SS: 132
+(0019,1095): (0019,1095) [Auto Prescan Analog receiver gain] SS: 13
+(0019,1096): (0019,1096) [Auto Prescan Digital receiver gain SS: 27
+(0019,1097): (0019,1097) [Bitmap defining CVs]               SL: 4177
+(0019,109B): (0019,109B) [Pulse Sequence Mode]               SS: 1
+(0019,109C): (0019,109C) [Pulse Sequence Name]               LO: &#39;fse-xl&#39;
+(0019,109D): (0019,109D) [Pulse Sequence Date]               DT: &#39;20070905123237&#39;
+(0019,109E): (0019,109E) [Internal Pulse Sequence Name]      LO: &#39;FSE-XL&#39;
+(0019,109F): (0019,109F) [Transmitting Coil Type]            SS: 3
+(0019,10A0): (0019,10A0) [Surface Coil Type]                 SS: 0
+(0019,10A1): (0019,10A1) [Extremity Coil flag]               SS: 0
+(0019,10A2): (0019,10A2) [Raw data run number]               SL: 1546
+(0019,10A3): (0019,10A3) [Calibrated Field strength]         UL: 0
+(0019,10A4): (0019,10A4) [SAT fat/water/bone]                SS: 0
+(0019,10A7): (0019,10A7) [User data 0]                       DS: &#39;1.000000&#39;
+(0019,10A8): (0019,10A8) [User data 1]                       DS: &#39;0.000000&#39;
+(0019,10A9): (0019,10A9) [User data 2]                       DS: &#39;0.000000&#39;
+(0019,10AA): (0019,10AA) [User data 3]                       DS: &#39;1.000000&#39;
+(0019,10AB): (0019,10AB) [User data 4]                       DS: &#39;0.000000&#39;
+(0019,10AC): (0019,10AC) [User data 5]                       DS: &#39;0.000000&#39;
+(0019,10AD): (0019,10AD) [User data 6]                       DS: &#39;0.000000&#39;
+(0019,10AE): (0019,10AE) [User data 7]                       DS: &#39;0.000000&#39;
+(0019,10AF): (0019,10AF) [User data 8]                       DS: &#39;0.000000&#39;
+(0019,10B0): (0019,10B0) [User data 9]                       DS: &#39;0.000000&#39;
+(0019,10B1): (0019,10B1) [User data 10]                      DS: &#39;0.000000&#39;
+(0019,10B2): (0019,10B2) [User data 11]                      DS: &#39;0.000000&#39;
+(0019,10B3): (0019,10B3) [User data 12]                      DS: &#39;0.000000&#39;
+(0019,10B4): (0019,10B4) [User data 13]                      DS: &#39;0.000000&#39;
+(0019,10B5): (0019,10B5) [User data 14]                      DS: &#39;0.000000&#39;
+(0019,10B6): (0019,10B6) [User data 15]                      DS: &#39;0.000000&#39;
+(0019,10B7): (0019,10B7) [User data 16]                      DS: &#39;0.000000&#39;
+(0019,10B8): (0019,10B8) [User data 17]                      DS: &#39;0.000000&#39;
+(0019,10B9): (0019,10B9) [User data 18]                      DS: &#39;0.000000&#39;
+(0019,10BA): (0019,10BA) [User data 19]                      DS: &#39;0.000000&#39;
+(0019,10BB): (0019,10BB) [User data 20]                      DS: &#39;0.000000&#39;
+(0019,10BC): (0019,10BC) [User data 21]                      DS: &#39;0.000000&#39;
+(0019,10BD): (0019,10BD) [User data 22]                      DS: &#39;0.000000&#39;
+(0019,10BE): (0019,10BE) [Projection angle]                  DS: &#39;0.000000&#39;
+(0019,10C0): (0019,10C0) [Saturation planes]                 SS: 0
+(0019,10C2): (0019,10C2) [SAT location R]                    SS: 9990
+(0019,10C3): (0019,10C3) [SAT location L]                    SS: 9990
+(0019,10C4): (0019,10C4) [SAT location A]                    SS: 9990
+(0019,10C5): (0019,10C5) [SAT location P]                    SS: 9990
+(0019,10C6): (0019,10C6) [SAT location H]                    SS: 9990
+(0019,10C7): (0019,10C7) [SAT location F]                    SS: 9990
+(0019,10C8): (0019,10C8) [SAT thickness R/L]                 SS: 0
+(0019,10C9): (0019,10C9) [SAT thickness A/P]                 SS: 0
+(0019,10CA): (0019,10CA) [SAT thickness H/F]                 SS: 0
+(0019,10CB): (0019,10CB) [Phase Contrast flow axis]          SS: 0
+(0019,10CC): (0019,10CC) [Velocity encoding]                 SS: 0
+(0019,10CD): (0019,10CD) [Thickness disclaimer]              SS: 0
+(0019,10CE): (0019,10CE) [Prescan type]                      SS: 2
+(0019,10CF): (0019,10CF) [Prescan status]                    SS: 0
+(0019,10D2): (0019,10D2) [Projection Algorithm]              SS: 0
+(0019,10D3): (0019,10D3) [Projection Algorithm Name]         SH: &#39;&#39;
+(0019,10D5): (0019,10D5) [Fractional echo]                   SS: 2
+(0019,10D7): (0019,10D7) [Cardiac phase number]              SS: 0
+(0019,10D8): (0019,10D8) [Variable echoflag]                 SS: 0
+(0019,10D9): (0019,10D9) [Concatenated SAT {# DTI Diffusion  DS: &#39;0.000000&#39;
+(0019,10DF): (0019,10DF) [User data 23 {# DTI Diffusion Dir. DS: &#39;0.000000&#39;
+(0019,10E0): (0019,10E0) [User data 24 {# DTI Diffusion Dir. DS: &#39;0.000000&#39;
+(0019,10E2): (0019,10E2) [Velocity Encode Scale]             DS: &#39;0.000000&#39;
+(0019,10F2): (0019,10F2) [Fast phases]                       SS: 0
+(0019,10F9): (0019,10F9) [Transmit gain]                     DS: &#39;132&#39;
+(0020,000D): (0020,000D) Study Instance UID                  UI: 1.2.840.113619.2.25.4.2420019.1350725418.739
+(0020,000E): (0020,000E) Series Instance UID                 UI: 1.2.840.113619.2.25.4.2420019.1350725419.584
+(0020,0010): (0020,0010) Study ID                            SH: &#39;12693&#39;
+(0020,0011): (0020,0011) Series Number                       IS: &#39;4&#39;
+(0020,0012): (0020,0012) Acquisition Number                  IS: &#39;1&#39;
+(0020,0013): (0020,0013) Instance Number                     IS: &#39;11&#39;
+(0020,0032): (0020,0032) Image Position (Patient)            DS: [-122.569, -74.361, -30.5999]
+(0020,0037): (0020,0037) Image Orientation (Patient)         DS: [0.999656, 0.0136111, -0.0224004, -0.00833165, 0.975172, 0.221293]
+(0020,0052): (0020,0052) Frame of Reference UID              UI: 1.2.840.113619.2.217.6945.224376.6992.1350719275.409
+(0020,0060): (0020,0060) Laterality                          CS: &#39;&#39;
+(0020,1002): (0020,1002) Images in Acquisition               IS: &#39;16&#39;
+(0020,1040): (0020,1040) Position Reference Indicator        LO: &#39;&#39;
+(0020,1041): (0020,1041) Slice Location                      DS: &#39;-4.845304012&#39;
+(0020,9056): (0020,9056) Stack ID                            SH: &#39;4&#39;
+(0021,0010): (0021,0010) Private Creator                     LO: &#39;GEMS_RELA_01&#39;
+(0021,1035): (0021,1035) [Series from which prescribed]      SS: 2
+(0021,1036): (0021,1036) [Image from which prescribed]       SS: 5
+(0021,1037): (0021,1037) [Screen Format]                     SS: 16
+(0021,104F): (0021,104F) [Locations in acquisition]          SS: 16
+(0021,1050): (0021,1050) [Graphically prescribed]            SS: 0
+(0021,1051): (0021,1051) [Rotation from source x rot]        DS: &#39;0.000000&#39;
+(0021,1052): (0021,1052) [Rotation from source y rot]        DS: &#39;0.000000&#39;
+(0021,1053): (0021,1053) [Rotation from source z rot]        DS: &#39;0.000000&#39;
+(0021,1056): (0021,1056) [Num 3D slabs]                      SL: 0
+(0021,1057): (0021,1057) [Locs per 3D slab]                  SL: 0
+(0021,1058): (0021,1058) [Overlaps]                          SL: 0
+(0021,1059): (0021,1059) [Image Filtering 0.5/0.2T]          SL: 0
+(0021,105A): (0021,105A) [Diffusion direction]               SL: 0
+(0021,105B): (0021,105B) [Tagging Flip Angle]                DS: &#39;0.000000&#39;
+(0021,105C): (0021,105C) [Tagging Orientation]               DS: &#39;0.000000&#39;
+(0021,105D): (0021,105D) [Tag Spacing]                       DS: &#39;0.000000&#39;
+(0021,105E): (0021,105E) [RTIA_timer]                        DS: &#39;0.000000&#39;
+(0021,105F): (0021,105F) [Fps]                               DS: &#39;0.000000&#39;
+(0021,1081): (0021,1081) [Auto window/level alpha]           DS: &#39;0&#39;
+(0021,1082): (0021,1082) [Auto window/level beta]            DS: &#39;0&#39;
+(0021,1083): (0021,1083) [Auto window/level window]          DS: &#39;0&#39;
+(0021,1084): (0021,1084) [Auto window/level level]           DS: &#39;0&#39;
+(0023,0010): (0023,0010) Private Creator                     LO: &#39;GEMS_STDY_01&#39;
+(0023,1070): (0023,1070) [Start time(secs) in first axial]   FD: 0.0
+(0023,1074): (0023,1074) [No. of updates to header]          SL: 0
+(0023,107D): (0023,107D) [Indicates study has complete info  SS: 0
+(0025,0010): (0025,0010) Private Creator                     LO: &#39;GEMS_SERS_01&#39;
+(0025,1006): (0025,1006) [Last pulse sequence used]          SS: 56
+(0025,1007): (0025,1007) [Images in Series]                  SL: 16
+(0025,1010): (0025,1010) [Landmark Counter]                  SL: 0
+(0025,1011): (0025,1011) [Number of Acquisitions]            SS: 1
+(0025,1014): (0025,1014) [Indicates no. of updates to header SL: 0
+(0025,1017): (0025,1017) [Series Complete Flag]              SL: 0
+(0025,1018): (0025,1018) [Number of images archived]         SL: 0
+(0025,1019): (0025,1019) [Last image number used]            SL: 16
+(0025,101A): (0025,101A) [Primary Receiver Suite and Host]   SH: &#39;gehcgehc&#39;
+(0025,101B): (0025,101B) [Protocol Data Block (compressed)]  OB: Array of 1054 elements
+(0027,0010): (0027,0010) Private Creator                     LO: &#39;GEMS_IMAG_01&#39;
+(0027,1006): (0027,1006) [Image archive flag]                SL: 0
+(0027,1010): (0027,1010) [Scout Type]                        SS: 0
+(0027,1030): (0027,1030) [Foreign Image Revision]            SH: &#39;&#39;
+(0027,1031): (0027,1031) [Imaging Mode]                      SS: 1
+(0027,1032): (0027,1032) [Pulse Sequence]                    SS: 56
+(0027,1033): (0027,1033) [Imaging Options]                   SL: 1073745024
+(0027,1035): (0027,1035) [Plane Type]                        SS: 16
+(0027,1040): (0027,1040) [RAS letter of image location]      SH: &#39;I&#39;
+(0027,1041): (0027,1041) [Image location]                    FL: -4.845304012298584
+(0027,1060): (0027,1060) [Image dimension - X]               FL: 224.0
+(0027,1061): (0027,1061) [Image dimension - Y]               FL: 128.0
+(0027,1062): (0027,1062) [Number of Excitations]             FL: 8.0
+(0028,0002): (0028,0002) Samples per Pixel                   US: 1
+(0028,0004): (0028,0004) Photometric Interpretation          CS: &#39;MONOCHROME2&#39;
+(0028,0008): (0028,0008) Number of Frames                    IS: &#39;1&#39;
+(0028,0010): (0028,0010) Rows                                US: 256
+(0028,0011): (0028,0011) Columns                             US: 256
+(0028,0030): (0028,0030) Pixel Spacing                       DS: [1.0156, 1.0156]
+(0028,0100): (0028,0100) Bits Allocated                      US: 16
+(0028,0101): (0028,0101) Bits Stored                         US: 16
+(0028,0102): (0028,0102) High Bit                            US: 15
+(0028,0103): (0028,0103) Pixel Representation                US: 1
+(0028,0106): (0028,0106) Smallest Image Pixel Value          SS: 0
+(0028,0107): (0028,0107) Largest Image Pixel Value           SS: 158
+(0028,1050): (0028,1050) Window Center                       DS: &#39;79&#39;
+(0028,1051): (0028,1051) Window Width                        DS: &#39;158&#39;
+(0028,1052): (0028,1052) Rescale Intercept                   DS: &#39;0&#39;
+(0028,1053): (0028,1053) Rescale Slope                       DS: &#39;1&#39;
+(0029,0010): (0029,0010) Private Creator                     LO: &#39;GEMS_IMPS_01&#39;
+(0029,1015): (0029,1015) [Lower range of Pixels1]            SL: 0
+(0029,1016): (0029,1016) [Upper range of Pixels1]            SL: 0
+(0029,1017): (0029,1017) [Lower range of Pixels2]            SL: 0
+(0029,1018): (0029,1018) [Upper range of Pixels2]            SL: 0
+(0029,1026): (0029,1026) [Version of the hdr struct]         SS: 2
+(0029,1034): (0029,1034) [Advantage comp. Overflow]          SL: 16384
+(0029,1035): (0029,1035) [Advantage comp. Underflow]         SL: 0
+(0040,0253): (0040,0253) Performed Procedure Step ID         SH: &#39;&#39;
+(0040,0254): (0040,0254) Performed Procedure Step Descriptio LO: &#39;&#39;
+(0043,0010): (0043,0010) Private Creator                     LO: &#39;GEMS_PARM_01&#39;
+(0043,1001): (0043,1001) [Bitmap of prescan options]         SS: 6
+(0043,1002): (0043,1002) [Gradient offset in X]              SS: 4
+(0043,1003): (0043,1003) [Gradient offset in Y]              SS: -6
+(0043,1004): (0043,1004) [Gradient offset in Z]              SS: 114
+(0043,1006): (0043,1006) [Number of EPI shots]               SS: 0
+(0043,1007): (0043,1007) [Views per segment]                 SS: 0
+(0043,1008): (0043,1008) [Respiratory rate, bpm]             SS: 0
+(0043,1009): (0043,1009) [Respiratory trigger point]         SS: 0
+(0043,100A): (0043,100A) [Type of receiver used]             SS: 1
+(0043,100B): (0043,100B) [DB/dt Peak rate of change of gradi DS: &#39;0.000000&#39;
+(0043,100C): (0043,100C) [dB/dt Limits in units of percent]  DS: &#39;80.000000&#39;
+(0043,100D): (0043,100D) [PSD estimated limit]               DS: &#39;0.000000&#39;
+(0043,100E): (0043,100E) [PSD estimated limit in tesla per s DS: &#39;0.000000&#39;
+(0043,1010): (0043,1010) [Window value]                      US: 0
+(0043,101C): (0043,101C) [GE image integrity]                SS: 0
+(0043,101D): (0043,101D) [Level value]                       SS: 0
+(0043,1028): (0043,1028) [Unique image iden]                 OB: Array of 80 elements
+(0043,1029): (0043,1029) [Histogram tables]                  OB: Array of 2068 elements
+(0043,102A): (0043,102A) [User defined data]                 OB: Array of 3600 elements
+(0043,102C): (0043,102C) [Effective echo spacing]            SS: 0
+(0043,102D): (0043,102D) [Filter Mode (String slop field 1 i SH: &#39;06&#39;
+(0043,102E): (0043,102E) [String slop field 2]               SH: &#39;&#39;
+(0043,102F): (0043,102F) [Image Type (real, imaginary, phase SS: 0
+(0043,1030): (0043,1030) [Vas collapse flag]                 SS: 0
+(0043,1032): (0043,1032) [Vas flags]                         SS: 2
+(0043,1033): (0043,1033) [Neg_scanspacing]                   FL: 0.0
+(0043,1034): (0043,1034) [Offset Frequency]                  IS: &#39;0&#39;
+(0043,1035): (0043,1035) [User_usage_tag]                    UL: 0
+(0043,1036): (0043,1036) [User_fill_map_MSW]                 UL: 0
+(0043,1037): (0043,1037) [User_fill_map_LSW]                 UL: 0
+(0043,1038): (0043,1038) [User data 25...User data 48 {User4 FL: Array of 24 elements
+(0043,1039): (0043,1039) [Slop_int_6... slop_int_9]          IS: [0, 2, 0, 0]
+(0043,1060): (0043,1060) [Slop_int_10...slop_int_17]         IS: [0, 0, 0, 0, 0, 0, 0, 0]
+(0043,1061): (0043,1061) [Scanner Study Entity UID]          UI: 1.2.840.113619.2.217.6945.224376.6992.1350719275.410
+(0043,1062): (0043,1062) [Scanner Study ID]                  SH: &#39;12693&#39;
+(0043,106F): (0043,106F) [Scanner Table Entry (single gradie DS: [2, 0, 0, 0]
+(0043,107D): (0043,107D) [Recon mode flag word]              US: 0
+(0043,1080): (0043,1080) [Coil ID Data]                      LO: [&#39;116&#39;, &#39;0000000000000000&#39;]
+(0043,1081): (0043,1081) [GE Coil Name]                      LO: &#39;GE_CTL PA-L&#39;
+(0043,1082): (0043,1082) [System Configuration Information]  LO: [&#39;SRMode=34&#39;, &#39;GCoilType=105&#39;, &#39;gradientAmp=8295&#39;, &#39;lineFreq=50&#39;, &#39;RFampType=103&#39;]
+(0043,1083): (0043,1083) [Asset R Factors]                   DS: [1, 1]
+(0043,1084): (0043,1084) [Additional Asset Data]             LO: [&#39;10000&#39;, &#39;0&#39;, &#39;-1&#39;, &#39;0&#39;, &#39;&#39;]
+(0043,1089): (0043,1089) [Governing Body, dB/dt, and SAR def LO: [&#39;IEC&#39;, &#39;IEC_NORMAL&#39;, &#39;IEC_NORMAL&#39;]
+(0043,108A): (0043,108A) [Private In-Plane Phase Encoding Di CS: &#39;COL&#39;
+(0043,1090): (0043,1090) [SAR Definition]                    LO: [&#39;WHOLE_BODY_6_MIN&#39;, &#39;LOCAL_PEAK_6_MIN&#39;, &#39;PARTIAL_BODY_6MIN&#39;]
+(0043,1095): (0043,1095) [Prescan Reuse String]              LO: &#39;&#39;
+(0043,1096): (0043,1096) [Content Qualification]             CS: &#39;PRODUCT&#39;
+(0043,1097): (0043,1097) [Image Filtering Parameters]        LO: [&#39;&#39;, &#39;&#39;, &#39;0&#39;, &#39;0&#39;, &#39;0&#39;, &#39;100&#39;, &#39;0&#39;, &#39;0&#39;, &#39;rev=1;a=75;b=2;c=32;d=8;e=3;f=2;g=1;h=0&#39;]
+(0043,109A): (0043,109A) [Rx Stack Identification]           IS: &#39;5&#39;
+(7FE0,0010): (7FE0,0010) Pixel Data                          OW: Array of 131072 elements
+
+---
+
+SOP类..........: 1.2.840.10008.5.1.4.1.1.4 (MR Image Storage)
+患者姓名........: ABD.ALLAH MOHAMMED ABD.ABLLAH,
+检查模态........: MR
+图像尺寸........: 256 x 256
+像素数组维度.....: 2
+像素数组形状.....: (256, 256)
+图像帧数........: 1
+协议名称........: L.Spine Routine*/4
+检查部位........: (缺失)
+切片位置........: -4.845304012</code></pre>
+<p><img src="https://alphahinex.github.io/contents/dicom-data-dictionary/test.jpg" alt="test.jpg"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#DICOM"><span class="toc-number">1.</span> <span class="toc-text">DICOM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#版本"><span class="toc-number">1.1.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据字典"><span class="toc-number">1.2.</span> <span class="toc-text">数据字典</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pydicom"><span class="toc-number">2.</span> <span class="toc-text">pydicom</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#示例代码"><span class="toc-number">2.1.</span> <span class="toc-text">示例代码</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

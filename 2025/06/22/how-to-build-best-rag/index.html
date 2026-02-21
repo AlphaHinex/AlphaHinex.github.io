@@ -1,0 +1,842 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ilya Rice: How I Won the Enterprise RAG Challenge - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,RAG, Retrieval-Augmented Generation, LLM, Large Language Model, PDF parsing, vector database, FAISS, OpenAI, GPT-4o-mini, Docling, text-embedding-3-large, reranking, LLM reranking, CoT, Chain of Thought, structured output, prompt engineering"> 
+    <meta name="description" content="https://abdullin.com/ilya/how-to-build-best-rag/
+From Zero to SoTA in a Single Competition
+In this ,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Ilya Rice: How I Won the Enterprise RAG Challenge</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/how-to-build-best-rag/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                六月 22, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/06/22/how-to-build-best-rag/" title="Ilya Rice: How I Won the Enterprise RAG Challenge" class="">Ilya Rice: How I Won the Enterprise RAG Challenge</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    53k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    48 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/RAG/" rel="tag">RAG</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://abdullin.com/ilya/how-to-build-best-rag/" target="_blank" rel="noopener">https://abdullin.com/ilya/how-to-build-best-rag/</a></p>
+<h1 id="From-Zero-to-SoTA-in-a-Single-Competition"><a href="#From-Zero-to-SoTA-in-a-Single-Competition" class="headerlink" title="From Zero to SoTA in a Single Competition"></a>From Zero to SoTA in a Single Competition</h1><blockquote>
+<p>In this guest blog post <a href="https://www.linkedin.com/in/ilya-rice/" target="_blank" rel="noopener">Ilya Rice</a> describes the approach that helped him build the best RAG and win in the <a href="https://abdullin.com/erc/" target="_blank" rel="noopener">Enterprise RAG Challenge</a>. He took first place in both prize categories and on SotA leaderboard. <a href="https://github.com/IlyaRice/RAG-Challenge-2/tree/main" target="_blank" rel="noopener">Source code</a>.</p>
+<p>Also posted at <a href="https://www.timetoact-group.at/en/techblog/techblog/how-i-won-the-enterprise-rag-challenge" target="_blank" rel="noopener">TimeToAct Austria</a> and on <a href="https://habr.com/ru/articles/893356/" target="_blank" rel="noopener">Habr</a> (RU).</p>
+</blockquote>
+<h2 id="What-is-the-RAG-Challenge-about"><a href="#What-is-the-RAG-Challenge-about" class="headerlink" title="What is the RAG Challenge about?"></a>What is the RAG Challenge about?</h2><p>The task was to create a question-answering system based on annual company reports. Briefly, the process on the competition day was as follows:</p>
+<ol>
+<li>You’re given 100 annual reports from randomly selected companies and 2.5 hours to parse them and build a database. The reports are PDFs, each up to 1000 pages long.</li>
+<li>Then, 100 random questions are generated (based on predefined templates), which your system must answer as quickly as possible.</li>
+</ol>
+<p>All questions must have definitive answers, such as:</p>
+<ul>
+<li>Yes/No;</li>
+<li>Company name (or multiple company names in some cases);</li>
+<li>Titles of leadership positions, launched products;</li>
+<li>Numeric metrics: revenue, store count, etc.</li>
+</ul>
+<p>Each answer must include references to pages containing evidence of the response, ensuring the system genuinely derived the answer rather than hallucinating.</p>
+<h2 id="Winning-system-architecture"><a href="#Winning-system-architecture" class="headerlink" title="Winning system architecture:"></a>Winning system architecture:</h2><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/architecture.png" alt="Apart from basic steps, the winning solution incorporates two routers and LLM reranking."></p>
+<p>You can check out the questions and answers produced by my best-performing system <a href="https://github.com/IlyaRice/RAG-Challenge-2/blob/main/data/erc2_set/answers_1st_place_o3-mini.json" target="_blank" rel="noopener">here</a>.</p>
+<p>Now, I’ll delve into every step involved in building the system, the bumps and bruises I experienced along the way, and the best practices discovered during this process.</p>
+<h1 id="Quick-Guide-to-RAG"><a href="#Quick-Guide-to-RAG" class="headerlink" title="Quick Guide to RAG"></a>Quick Guide to RAG</h1><p>RAG (Retrieval-Augmented Generation) is a method that extends the capabilities of Large Language Models (LLMs) by integrating them with a knowledge base of any size.</p>
+<h2 id="Development-pathway-of-a-basic-RAG-system-includes-the-following-stages"><a href="#Development-pathway-of-a-basic-RAG-system-includes-the-following-stages" class="headerlink" title="Development pathway of a basic RAG system includes the following stages:"></a>Development pathway of a basic RAG system includes the following stages:</h2><ol>
+<li><strong>Parsing</strong>: Preparing data for the knowledge base by collecting documents, converting them to text format, and cleaning out irrelevant noise.</li>
+<li><strong>Ingestion</strong>: Creating and populating the knowledge base.</li>
+<li><strong>Retrieval</strong>: Building a tool that finds and returns relevant data based on user queries, typically employing semantic search within a vector database.</li>
+<li><strong>Answering</strong>: Enriching the user’s prompt with retrieved data, sending it to the LLM, and returning the final answer.</li>
+</ol>
+<h1 id="1-Parsing"><a href="#1-Parsing" class="headerlink" title="1. Parsing"></a>1. Parsing</h1><p>To start populating any database, PDF documents must first be converted to plain text. PDF parsing is an extremely non-trivial task filled with countless subtle difficulties:</p>
+<ul>
+<li>preserving table structures;</li>
+<li>retaining critical formatting elements (e.g., headings and bullet lists);</li>
+<li>recognizing multi-column text;</li>
+<li>handling charts, images, formulas, headers/footers, and so on.</li>
+</ul>
+<h2 id="Interesting-PDF-parsing-issues-I-encountered-but-didn’t-have-time-to-solve"><a href="#Interesting-PDF-parsing-issues-I-encountered-but-didn’t-have-time-to-solve" class="headerlink" title="Interesting PDF parsing issues I encountered (but didn’t have time to solve):"></a>Interesting PDF parsing issues I encountered (but didn’t have time to solve):</h2><ul>
+<li>Large tables are sometimes rotated by 90 degrees, causing parsers to produce garbled and unreadable text.<br><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/rotated_table.png" alt="Example1"></li>
+<li><strong>Charts</strong> composed partially of images and partially of text layers.</li>
+<li>Some documents had font encoding issues: visually, the text looks fine, but attempting to copy or parse it results in a nonsensical set of characters.<br><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/font_encoding_issue.png" alt="Example2"><blockquote>
+<p>Fun fact: I investigated this issue separately and discovered that the text could be decoded—it was a Caesar cipher with varying ASCII shifts per word. This raised numerous questions for me. If someone intentionally encrypted copying of a publicly available company report—why? If the font broke during conversion—why precisely this way?</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Choosing-a-Parser"><a href="#Choosing-a-Parser" class="headerlink" title="Choosing a Parser"></a>Choosing a Parser</h2><p>I experimented with about two dozen PDF parsers:</p>
+<ul>
+<li>niche parsers;</li>
+<li>reputable ones;</li>
+<li>cutting-edge ML-trained parsers;</li>
+<li>proprietary parsers with API access.</li>
+</ul>
+<p>I can confidently state that currently, <strong>no parser can handle all nuances and fully return PDF content as text without losing part of the important information along the way</strong>.</p>
+<p>The best-performing parser for the RAG Challenge turned out to be the relatively known <a href="https://github.com/DS4SD/docling" target="_blank" rel="noopener">Docling</a>. Interestingly, one of the competition organizers—IBM—is behind its development.</p>
+<h3 id="Parser-Customization"><a href="#Parser-Customization" class="headerlink" title="Parser Customization"></a>Parser Customization</h3><p>Despite its excellent results, Docling lacked some essential capabilities. These features existed partially but in separate configurations that couldn’t be combined into one.</p>
+<p>Therefore, I rolled up my sleeves, thoroughly examined the library’s source code, and rewrote several methods to fit my needs, obtaining a JSON containing all necessary metadata after parsing. Using this JSON, I constructed a Markdown document with corrected formatting and near-perfect conversion of table structures from PDF to not just MD, but also HTML format, which proved important later on.</p>
+<p>This library is quite fast but still not enough to parse 15 thousand pages within 2.5 hours on a personal laptop. To solve this, I leveraged GPU acceleration for parsing and rented a virtual machine with a 4090 GPU for 70 cents an hour for the competition.</p>
+<p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/runpod.png" alt="Runpod turned out to be extremely convenient for short-term GPU rentals"></p>
+<p>Parsing all 100 documents took about 40 minutes, which, based on reports and comments from other participants, is an <strong>extremely</strong> high parsing speed.</p>
+<hr>
+<p>At this stage, we have reports parsed into JSON format.</p>
+<p>Can we now populate the database?</p>
+<p>Not yet. First, we must clean the text from noise and preprocess the tables.</p>
+<h2 id="Text-Cleaning-and-Table-Preparation"><a href="#Text-Cleaning-and-Table-Preparation" class="headerlink" title="Text Cleaning and Table Preparation"></a>Text Cleaning and Table Preparation</h2><p>Sometimes parts of the text get parsed incorrectly from PDFs and contain specific syntax, reducing readability and meaningfulness. I addressed this using a batch of dozen regular expressions.</p>
+<p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/poorly_parsed_text.png" alt="Example of poorly parsed text"></p>
+<p>Documents with the aforementioned Caesar cipher were also detected via regex patterns. I tried to decode them, but even after restoration, they contained many artifacts. Therefore, I simply ran these documents entirely through OCR.</p>
+<h3 id="Table-Serialization"><a href="#Table-Serialization" class="headerlink" title="Table Serialization"></a>Table Serialization</h3><p>In large tables, the metric name (horizontal header) is often positioned too far from vertical headers, weakening semantic coherence.</p>
+<p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/table_serialization.png" alt="There are 1,500 irrelevant tokens separating vertical and horizontal headers"></p>
+<p>This significantly reduces the chunk’s relevance in vector search (let alone situations where the table doesn’t fit entirely into one chunk). Additionally, LLMs struggle to match metric names with headers in large tables, possibly returning a wrong value.</p>
+<p>Serialization of tables became the solution. Research on this topic is sparse, so I had to navigate this independently. You can google Row-wise Serialization, Attribute-Value Pairing, or read <a href="https://arxiv.org/pdf/2402.17944" target="_blank" rel="noopener">this research paper</a>.</p>
+<p>The essence of serialization is transforming a large table into a set of small, contextually independent strings.</p>
+<p>After extensive experiments with prompts and Structured Output schemas, I found a solution that enabled even GPT-4o-mini to serialize huge tables almost losslessly. Initially, I fed tables to the LLM in Markdown format, but then switched to HTML format (this is where it proved useful!). Language models understand it much better, plus it allows describing tables with merged cells, subheadings, and other structural complexities.</p>
+<p>To answer a question like, “What was the company’s shareholder’s equity in 2021?” it’s sufficient to feed the LLM a single sentence rather than a large structure with lots of “noise.”</p>
+<p>During serialization, the whole table is converted into a set of such independent blocks:</p>
+<ul>
+<li><code>subject_core_entity</code>: Shareholders’ equity</li>
+<li><code>information_block</code>: Shareholders’ equity for the years from 2012/3 to 2022/3 are as follows: ¥637,422 million (2012/3), ¥535,422 million (2013/3), ¥679,160 million (2014/3), ¥782,556 million (2015/3), ¥540,951 million (2016/3), ¥571,983 million (2017/3), ¥511,242 million (2018/3), ¥525,064 million (2019/3), ¥513,335 million (2020/3), ¥577,782 million (2021/3), and ¥1,274,570 million (2022/3).</li>
+</ul>
+<p>After obtaining a serialized version of the table, I placed it beneath the original table as a kind of textual annotation for each element.</p>
+<p>You can view the serialization prompt and logic in the project’s repository: <a href="https://github.com/IlyaRice/RAG-Challenge-2/blob/3ed9a2a7453420ed96cfc48939ea42d47a5f7b1c/src/tables_serialization.py#L313-L345" target="_blank" rel="noopener">tables_serialization.py</a></p>
+<p>*Despite serialization’s fantastic potential, the winning solution ultimately didn’t use it. I’ll explain why at the end of the article.</p>
+<h1 id="2-Ingestion"><a href="#2-Ingestion" class="headerlink" title="2. Ingestion"></a>2. Ingestion</h1><p>Reports have been converted from PDF to clean Markdown text. Now let’s create databases from them.</p>
+<h2 id="Agreeing-on-terminology"><a href="#Agreeing-on-terminology" class="headerlink" title="Agreeing on terminology"></a>Agreeing on terminology</h2><p>In the realm of search systems (Google Search, full-text-search, Elastic Search, vector search, etc.), a <strong>document</strong> is a single indexed element returned by the system as a query result. A document could be a sentence, paragraph, page, website, image—doesn’t matter. But personally, this definition always confuses me due to the more common, everyday meaning: a <strong>document</strong> as a report, contract, or certificate.</p>
+<p>Therefore, from here on, I’ll use <strong>document</strong> in its everyday meaning.</p>
+<p>The element stored in the database, I’ll call a <strong>chunk</strong>, since we store simply sliced pieces of text.</p>
+<h2 id="Chunking"><a href="#Chunking" class="headerlink" title="Chunking"></a>Chunking</h2><p>According to the competition rules, we had to specify the pages containing relevant information. Enterprise systems use the same approach: references allow verifying that the model’s answer isn’t hallucinated.</p>
+<p>This not only makes the system more transparent to users but also simplifies debugging during development.</p>
+<p>The simplest option is to use a whole page of a document as a chunk since pages rarely exceed a couple thousand tokens (although table serialization could expand a page up to five thousand).</p>
+<p>But let’s think again about the semantic coherence between the query and a chunk of document text. Usually, an informational piece sufficient for an answer is no larger than ten sentences.</p>
+<p>Thus, logically, a target statement within a small paragraph will yield a higher similarity score than the same statement diluted within a whole page of weakly relevant text.</p>
+<p>I split the text on each page into chunks of 300 tokens (approximately 15 sentences).</p>
+<p>To slice the text, I used a recursive splitter with a custom MD dictionary. To avoid losing information cut between two chunks, I added a small text overlap (50 tokens).</p>
+<p>If you’re worried that overlap won’t fully eliminate risks from poor slicing, you can Google “Semantic splitter.” This is especially important if you plan to insert only found chunks in the context.</p>
+<p>However, the precision of slicing had almost no effect on my retrieval system.</p>
+<p>Each chunk stores its ID and the parent page number in its metadata.</p>
+<h2 id="Vectorization"><a href="#Vectorization" class="headerlink" title="Vectorization"></a>Vectorization</h2><p>Our collection of chunks is prepared; now let’s create the vector database—or rather, databases. 100 databases, where 1 database = 1 document.</p>
+<p>Because why mix information from all companies into one heap and later try to separate one company’s revenue from another’s? Target information for an answer is always strictly within a single document.</p>
+<p>We only need to determine which database to query for a given question (more on that later).</p>
+<p>To create, store, and search the vector databases, I used <a href="https://github.com/facebookresearch/faiss" target="_blank" rel="noopener">FAISS</a>.</p>
+<h3 id="A-bit-about-vector-database-formats"><a href="#A-bit-about-vector-database-formats" class="headerlink" title="A bit about vector database formats"></a>A bit about vector database formats</h3><p>Databases were created with the <code>IndexFlatIP</code> method.</p>
+<p>The advantage of Flat indices is that all vectors are stored “as-is,” without compression or quantization. Searches use brute-force, giving higher precision. The downside is such searches are significantly more compute- and memory-intensive.</p>
+<p>If your database has at least a hundred thousand elements, consider IVFFlat or HNSW. These formats are much faster (though require a bit more resources when creating the database). But increased speed comes at the cost of accuracy due to approximate nearest neighbor (ANN) search.</p>
+<p>Separating chunks of all documents into different indexes allowed me to use Flat databases.</p>
+<p>IP (inner product) is used to calculate the relevance score through cosine similarity. Aside from IP, there’s also L2—which calculates relevance score via Euclidean distance. IP typically gives better relevance scoring.</p>
+<p>To embed chunks and queries into vector representation, I used <a href="https://platform.openai.com/docs/models/text-embedding-3-large" target="_blank" rel="noopener">text-embedding-3-large</a>.</p>
+<h1 id="3-Retrieval"><a href="#3-Retrieval" class="headerlink" title="3. Retrieval"></a>3. Retrieval</h1><p>After creating our databases, it’s time to move on to the “R” (Retrieval) part of our RAG system.</p>
+<p>A Retriever is a general search system that takes a query as input and returns relevant text containing the information necessary for an answer.</p>
+<p>In the basic implementation, it is simply a query to a vector database, extracting the top_n results.</p>
+<p>This is an especially critical part of the RAG system: if the LLM does not receive the necessary information in the context of a query, it cannot provide a correct answer—no matter how well you fine-tune your parsing or answer prompts.</p>
+<p><em>Junk in → Junk out.</em></p>
+<p>The quality of a retriever can be improved in many ways. Here are methods I explored during the competition:</p>
+<h2 id="Hybrid-search-vDB-BM25"><a href="#Hybrid-search-vDB-BM25" class="headerlink" title="Hybrid search: vDB + BM25"></a>Hybrid search: vDB + BM25</h2><p>Hybrid search combines semantic vector-based search with traditional keyword-based text search (BestMatch25). It theoretically improves retrieval accuracy by not only considering the meaning of the text but also precise keyword matches. Typically, results from both methods are merged and reranked by a combined score.</p>
+<p>I didn’t particularly like this approach: in its minimal implementation, it often reduced the retrieval quality instead of improving it.</p>
+<p>Generally, hybrid search is a good technique and can be refined further by modifying input queries. At its simplest, LLMs can rephrase questions to remove noise and increase keyword density.</p>
+<p>If you’ve had positive experiences with hybrid search, especially regarding potential issues and solutions, please share in the comments.</p>
+<p>In any case, I had more promising alternatives in mind and decided not to explore this direction further.</p>
+<h2 id="Cross-encoder-reranking"><a href="#Cross-encoder-reranking" class="headerlink" title="Cross-encoder reranking"></a>Cross-encoder reranking</h2><p>Reranking the results of vector search using Cross-encoder models seemed promising. In short, Cross-encoders give a more precise similarity score but are slower.</p>
+<p>Cross-encoders lie between embedding models (bi-encoders) and LLMs. Unlike comparing texts via their vector representations (which inherently lose some information), cross-encoders directly assess semantic similarity between two texts, giving more accurate scores.</p>
+<p>However, pairwise comparisons of the query with every database element take too long.</p>
+<p>Thus, cross-encoder reranking is suitable only for a small set of chunks already filtered by vector search.</p>
+<p>At the last minute, I abandoned this method due to the scarcity of cross-encoder reranking models available via APIs. Neither OpenAI nor other large providers offered them, and I didn’t want the hassle of managing another API balance.</p>
+<p>But if you’re interested in trying cross-encoder reranking, I recommend <a href="https://jina.ai/reranker/" target="_blank" rel="noopener">Jina Reranker</a>. It performs well on benchmarks, and Jina offers a generous number of requests upon registration.</p>
+<p>Ultimately, I opted for an even more attractive alternative: LLM reranking!</p>
+<h2 id="LLM-reranking"><a href="#LLM-reranking" class="headerlink" title="LLM reranking"></a>LLM reranking</h2><p>Simple enough: pass text and a question to the LLM and ask, “Is this text helpful for answering the question? How helpful? Rate its relevance from 0 to 1.”</p>
+<p>Until recently, this approach wasn’t viable due to the high cost of powerful LLM models. But now we have fast, cheap, and smart enough LLMs available.</p>
+<p>Like Cross-encoder reranking, we apply this after initial filtering via vector search.</p>
+<p>I developed a detailed prompt describing general guidelines and explicit relevance criteria in increments of 0.1:</p>
+<ul>
+<li>0 = Completely Irrelevant: The block has no connection or relation to the query.</li>
+<li>0.1 = Virtually Irrelevant: Only a very slight or vague connection to the query.</li>
+<li>0.2 = Very Slightly Relevant: Contains an extremely minimal or tangential connection.</li>
+<li>…</li>
+</ul>
+<p>The LLM query is formatted as Structured output with two fields: <code>reasoning</code> (allowing the model to explain its judgment) and <code>relevance_score</code>, allowing extraction directly from the JSON without additional parsing.</p>
+<p>I further optimized the process by sending three pages at once in one request, prompting the LLM to return three scores simultaneously. This increased speed, reduced cost, and slightly improved scoring consistency, as adjacent blocks of text grounded the model’s assessments.</p>
+<p>The corrected relevance score was calculated using a weighted average:</p>
+<p><code>vector_weight = 0.3, llm_weight = 0.7</code></p>
+<p>In theory, you could bypass vector search and pass every page through the LLM directly. Some participants did just that, successfully. However, I believe a cheaper, faster filter using embeddings is still necessary. For a 1000-page document (and some documents were this large), answering just one question would cost roughly 25 cents—too expensive.</p>
+<p>And, after all, we’re competing in a RAG challenge, aren’t we?</p>
+<p>Reranking via GPT-4o-mini cost me less than one cent per question! This approach delivered excellent quality, speed, and cost balance—exactly why I chose it.</p>
+<p>Check out the reranking prompt <a href="https://github.com/IlyaRice/RAG-Challenge-2/blob/3ed9a2a7453420ed96cfc48939ea42d47a5f7b1c/src/prompts.py#L431-L459" target="_blank" rel="noopener">here</a>.</p>
+<h2 id="Parent-Page-Retrieval"><a href="#Parent-Page-Retrieval" class="headerlink" title="Parent Page Retrieval"></a>Parent Page Retrieval</h2><p>Remember how I talked about splitting text into smaller chunks? Well, there’s a small but important caveat here.</p>
+<p>Yes, the core information needed to answer is usually concentrated in a small chunk — which is exactly why breaking the text into smaller pieces improves retrieval quality.</p>
+<p>But the rest of the text on that page may still contain secondary — yet still important — details.</p>
+<p>Because of this, after finding the top_n relevant chunks, I only use them as pointers to the full page, which then goes into the context. That’s precisely why I recorded the page number in each chunk’s metadata.</p>
+<h2 id="Assembled-Retriever"><a href="#Assembled-Retriever" class="headerlink" title="Assembled Retriever"></a>Assembled Retriever</h2><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/retriever.png" alt="Retriever system"></p>
+<p>Let’s recap the final retriever steps:</p>
+<ol>
+<li>Vectorize the query.</li>
+<li>Find the top 30 relevant chunks based on the query vector.</li>
+<li>Extract pages via chunk metadata (remember to deduplicate!).</li>
+<li>Pass pages through the LLM reranker.</li>
+<li>Adjust relevance scores for pages.</li>
+<li>Return top 10 pages, prepend each page with its number, and merge them into a single string.</li>
+</ol>
+<p>Our retriever is now ready!</p>
+<h1 id="4-Augmentation"><a href="#4-Augmentation" class="headerlink" title="4. Augmentation"></a>4. Augmentation</h1><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/prompt_structure.png" alt="Prompt structure"></p>
+<p>Our vector database is set up, and the retriever is ready. With the “R” (Retrieval) part of RAG behind us, we now approach the “A” (Augmentation) part, which is pretty straightforward, consisting mainly of f-strings and concatenations.</p>
+<p>One interesting detail is how I structured prompt storage. After trying different approaches across multiple projects, I eventually settled on the following approach:</p>
+<p>I store prompts in a dedicated <code>prompts.py</code> file, typically splitting prompts into logical blocks:</p>
+<ul>
+<li>Core system instruction;</li>
+<li>Pydantic schema defining the response format expected from the LLM;</li>
+<li>Example question-answer pairs for creating one-shot/few-shot prompts;</li>
+<li>Template for inserting the context and the query.<br>A small function combines these blocks into the final prompt configuration as needed. This method allows flexible testing of different prompt configurations (e.g., comparing the effectiveness of different examples for one-shot prompts).</li>
+</ul>
+<p>Some instructions may repeat across multiple prompts. Previously, changing such instructions meant synchronizing updates across all prompts using them, easily leading to mistakes. The modular approach solved this issue. Now, I place recurring instructions into a shared block and reuse it across several prompts.</p>
+<p>Additionally, modular blocks simplify handling when prompts become overly long.</p>
+<p>All prompts can be viewed in the project repository: <a href="https://github.com/IlyaRice/RAG-Challenge-2/blob/main/src/prompts.py" target="_blank" rel="noopener">prompts.py</a></p>
+<h1 id="5-Generation"><a href="#5-Generation" class="headerlink" title="5. Generation"></a>5. Generation</h1><p>The third part “G” in RAG is the most labor-intensive. Achieving high quality here requires skillful implementation of several fundamental techniques.</p>
+<h2 id="Routing-queries-to-the-database"><a href="#Routing-queries-to-the-database" class="headerlink" title="Routing queries to the database"></a>Routing queries to the database</h2><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/db_routing.png" alt="DB Routing"></p>
+<p>This is one of the simplest yet most useful parts of a RAG system.</p>
+<p>Recall that each report has its own separate vector database. The question generator was designed so that the company’s name always explicitly appears in the question.</p>
+<p>We also have a list of all company names (provided along with the PDF reports at the start of the competition). Thus, extracting the company’s name from a query doesn’t even require an LLM: we simply iterate over the list, extract the name via <code>re.search()</code> from the question, and match it to the appropriate database.</p>
+<p>In real-world scenarios, routing queries to databases is more complex than in our controlled, sterile conditions. Most likely, you’ll have additional preliminary tasks: tagging databases or using an LLM to extract entities from the question to match them to a database.</p>
+<p>But conceptually, the approach remains unchanged.</p>
+<p>To summarize:</p>
+<p>Found the name → matched to DB → search only in this DB. The search space shrinks 100-fold.</p>
+<h2 id="Routing-queries-to-prompts"><a href="#Routing-queries-to-prompts" class="headerlink" title="Routing queries to prompts"></a>Routing queries to prompts</h2><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/prompt_routing.png" alt="Prompt Routing"></p>
+<p>One requirement of the competition was the answer format. Each answer must be concise and strictly conform to the data type as if storing it directly into the company’s database.</p>
+<p>Alongside each question, the expected type is given explicitly—<code>int/float</code>, <code>bool</code>, <code>str</code>, or <code>list[str]</code>.</p>
+<p>Each type involves 3–6 nuances to consider when responding.</p>
+<p>For example, if a question asks for a metric value, the answer must be solely numeric, without comments, currency signs, etc. For monetary metrics, the currency in the report must match the currency in the question, and numbers must be normalized—reports often write something like “$1352 (in thousands)” and the system must reply with “1352000”.</p>
+<p>How to ensure the LLM considers all these nuances simultaneously without making errors? Simply put: you can’t. The more rules you give the LLM, the higher the chance it’ll ignore them. Even eight rules are dangerously many for current LLMs. A model’s cognitive capacity is limited, and additional rules distract it from the main task—answering the posed question.</p>
+<p>This logically leads to the conclusion that we should minimize the number of rules per query. One approach is to break a single query into a sequence of simpler ones.</p>
+<p>In our case, though, we can achieve an even simpler solution—since the expected response type is explicitly provided, we only supply the relevant instruction set to the prompt, depending on the answer type.</p>
+<p>I wrote four prompt variations and chose the correct one with a simple <code>if else</code>.</p>
+<h2 id="Routing-compound-queries"><a href="#Routing-compound-queries" class="headerlink" title="Routing compound queries"></a>Routing compound queries</h2><p><img src="https://alphahinex.github.io/contents/how-to-build-best-rag/multiquery_routing.png" alt="Multiquery Routing"></p>
+<p>The competition included questions comparing metrics from multiple companies. Such questions didn’t fit the paradigm of other simpler queries, as they required additional steps to answer.</p>
+<p>Example question:</p>
+<p><code>Who has higher revenue, Apple or Microsoft?</code></p>
+<p>Let’s think: how would a human approach this task?</p>
+<p>First, they’d find each company’s revenue separately, then compare them.</p>
+<p>We embed the same behavior into our system.</p>
+<p>We pass the initial comparison question to the LLM and ask it to create simpler sub-questions that extract metrics for each company individually.</p>
+<p>In our example, the simpler sub-questions would be:</p>
+<p><code>What is Apple&#39;s revenue?</code> and <code>What is Microsoft&#39;s revenue?</code><br>Now we can process these simpler queries through the standard pipeline for each company separately.</p>
+<p>After gathering answers for each company, we pass them into the context to answer the original question.</p>
+<p>This pattern applies to any complex queries. The key is recognizing them and identifying the necessary sub-steps.</p>
+<h2 id="Chain-of-Thoughts"><a href="#Chain-of-Thoughts" class="headerlink" title="Chain of Thoughts"></a>Chain of Thoughts</h2><p>CoT significantly improves answer quality by making the model “think aloud” before providing the final response. Rather than giving an immediate answer, the LLM generates a sequence of intermediate reasoning steps leading to the solution.</p>
+<p>Just like humans, LLMs handle complex problems better when breaking them down into smaller, simpler ones. CoT helps the model avoid missing crucial details, methodically process information, and reach correct conclusions. It’s especially useful when context includes “traps” that might lead the model astray.</p>
+<p>You’ve undoubtedly heard the iconic phrase, <code>Think step by step</code>. This was one of the earliest attempts to enhance answer quality through prompting. It practically gave rise to fancy “prompt engineering.” However, for serious tasks, such generic instructions aren’t sufficient.</p>
+<p>LLMs can sometimes “fake” reasoning—for instance, giving an immediate answer and then retroactively justifying it or hallucinating non-existent facts. This issue is particularly common among weaker models like GPT-4o-mini or Llama 8b.</p>
+<p>To ensure CoT is beneficial, you must clearly guide the model on how to reason. Explain reasoning steps, objectives, and provide examples.</p>
+<p>Structuring reasoning steps explicitly according to the prompt instructions can significantly enhance rule-following.</p>
+<p>In RAG, when reports lack the exact requested metric, the context may include similar but non-identical information. Models might attempt to twist the provided data to fit the requested metric. Because models are trained to be helpful, they are biased toward providing some answer rather than admitting ignorance.</p>
+<p>Trying to counteract this bias by just asking the model to be skeptical does work — but not consistently and not in all cases. Instead, prompting the model explicitly to analyze information from different angles or perspectives helps much more.</p>
+<p>I specifically instructed the model to focus on assessing the compatibility of metrics between questions and context. This significantly reduced hallucinations.</p>
+<h3 id="Example-reasoning-with-ambiguous-context"><a href="#Example-reasoning-with-ambiguous-context" class="headerlink" title="Example reasoning with ambiguous context:"></a>Example reasoning with ambiguous context:</h3><p><strong>Question:</strong></p>
+<blockquote>
+<p>What is the Research and development equipment, at cost, for Ritter Pharmaceuticals, Inc.?</p>
+</blockquote>
+<p><strong>Model’s reasoning steps:</strong></p>
+<ol>
+<li>The question asks for ‘Research and development equipment, at cost’ for Ritter Pharmaceuticals, Inc. This indicates a specific value from the balance sheet, representing the original purchase price of equipment specifically used for R&amp;D, without any accumulated depreciation.</li>
+<li>The context (page 35) shows ‘Property and equipment, net’ at $12,500. This is a net value (after depreciation), and it’s a broader category, encompassing all property and equipment, not just R&amp;D equipment.</li>
+<li>The context (page 37) also mentions ‘Accumulated Depreciation’ of $110,000 for ‘Machinery and Equipment’. This represents the total depreciation, not the original cost, and, importantly, it doesn’t specify that this equipment is exclusively for R&amp;D.</li>
+<li>Neither of these metrics exactly matches the requested metric. ‘Property and equipment, net’ is too broad and represents the depreciated value. ‘Accumulated Depreciation’ only shows depreciation, not cost, and lacks R&amp;D specificity.</li>
+<li>Since the context doesn’t provide the original cost of only R&amp;D equipment, and we cannot make assumptions, perform calculations, or combine information, the answer is ‘N/A’.</li>
+</ol>
+<h2 id="Structured-outputs"><a href="#Structured-outputs" class="headerlink" title="Structured outputs"></a>Structured outputs</h2><p>Structured Output (SO) is a way of forcing the model to respond in a strictly defined format. It’s usually passed as a separate parameter to the API, such as a Pydantic or JSON schema.</p>
+<p>This guarantees that the model always returns valid JSON strictly adhering to the provided schema.</p>
+<p>Field descriptions can also be included in the response schema. These don’t affect structure but are treated by the LLM as part of the prompt.</p>
+<p>For example, here’s a Pydantic schema for LLM reranking:</p>
+<pre><code class="python">class RetrievalRankingSingleBlock(BaseModel):
+    &quot;&quot;&quot;Rank retrieved text block relevance to a query.&quot;&quot;&quot;
+
+    reasoning: str = Field(
+        description=(
+            &quot;Analysis of the block, identifying key information and how it &quot;
+            &quot;relates to the query&quot;
+        )
+    )
+    relevance_score: float = Field(
+        description=(
+            &quot;Relevance score from 0 to 1, where 0 is Completely Irrelevant &quot;
+            &quot;and 1 is Perfectly Relevant&quot;
+        )
+    )</code></pre>
+<p>With this schema, the LLM always returns a JSON with two fields—the first a string, the second a number.</p>
+<h2 id="CoT-SO"><a href="#CoT-SO" class="headerlink" title="CoT SO"></a>CoT SO</h2><p>The methods described above are ideally combined with each other.</p>
+<p>During generation, the model has a dedicated field specifically for reasoning and a separate field for the final answer. This allows us to extract the answer without needing to parse it from lengthy reasoning steps.</p>
+<p>Chain of Thought can be implemented within Structured Outputs in several ways. For example, you could use multiple JSON fields, each guiding the model to intermediate conclusions whose combination leads it to the correct final answer.</p>
+<p>However, because the logic required for answering competition questions couldn’t be described by a single predefined set of step-by-step instructions, I employed a more general approach, providing the model with a single reasoning field and defining the reasoning sequence directly within the prompt.</p>
+<p>In my main schema for answering competition questions, there were just four fields:</p>
+<ul>
+<li><strong>step_by_step_analysis</strong> — preliminary reasoning (the Chain of Thought itself).</li>
+<li><strong>reasoning_summary</strong> — a condensed summary of the previous field (for easier tracking of the model’s logic).</li>
+<li><strong>relevant_pages</strong> — report page numbers referenced by the answer.</li>
+<li><strong>final_answer</strong> — a concise answer formatted as required by the competition.</li>
+</ul>
+<p>The first three fields were reused across all four prompts tailored for different answer types. The fourth field varied each time, specifying the answer type and describing particular nuances the model had to consider.</p>
+<p>For example, ensuring that the final_answer field would always be a number or “N/A” was done like this:</p>
+<p><code>final_answer: Union[float, int, Literal[&#39;N/A&#39;]]</code></p>
+<h2 id="SO-Reparser"><a href="#SO-Reparser" class="headerlink" title="SO Reparser"></a>SO Reparser</h2><p>Not all LLMs support Structured Outputs, which guarantee full adherence to schemas.</p>
+<p>If a model doesn’t have a dedicated Structured Output feature, you can still present the output schema directly within the prompt. Models are usually smart enough to return valid JSON in most cases. However, a portion of answers will inevitably deviate from the schema, breaking the code. Smaller models, in particular, fail to conform about half the time.</p>
+<p>To address this, I wrote a fallback method that validates the model’s response against the schema using <code>schema.model_validate(answer)</code>. If validation fails, the method sends the response back to the LLM, prompting it to conform to the schema.</p>
+<p>This method brought schema compliance back up to 100%, even for the 8b model.</p>
+<p>Here’s the <a href="https://github.com/IlyaRice/RAG-Challenge-2/blob/main/src/prompts.py#L406-L426" target="_blank" rel="noopener">prompt itself</a>.</p>
+<h2 id="One-shot-Prompts"><a href="#One-shot-Prompts" class="headerlink" title="One-shot Prompts"></a>One-shot Prompts</h2><p>This is another common and fairly obvious approach: adding an example answer pair to the prompt improves response quality and consistency.</p>
+<p>I added a “question → answer” pair to each prompt, writing the answer in the JSON format defined by Structured Outputs.</p>
+<p>The example serves multiple purposes simultaneously:</p>
+<ul>
+<li>Demonstrates an exemplary step-by-step reasoning process.</li>
+<li>Further clarifies correct behavior in challenging cases (helping recalibrate the model’s biases).</li>
+<li>Illustrates the JSON structure that the model’s answer should follow (particularly useful for models lacking native SO support).</li>
+</ul>
+<p>I paid significant attention to crafting these example answers. The quality of examples in the prompt can either boost or diminish response quality, so each example must be perfectly consistent with the directives and nearly flawless overall. If an example answer contradicts instructions, the model becomes confused, which can negatively affect performance.</p>
+<p>I meticulously refined the step-by-step reasoning field in the examples, manually adjusting the reasoning structure and wording of each phrase.</p>
+<h2 id="Instruction-Refinement"><a href="#Instruction-Refinement" class="headerlink" title="Instruction Refinement"></a>Instruction Refinement</h2><p>This part is comparable in labor-intensity to the entire data preparation stage due to endless iterative debugging, proofreading of answers, and manual analysis of the model’s reasoning process.</p>
+<h3 id="Analyzing-Questions"><a href="#Analyzing-Questions" class="headerlink" title="Analyzing Questions"></a>Analyzing Questions</h3><p>Before writing prompts, I thoroughly studied both the response requirements and the question generator.</p>
+<p>The key to a good system with an LLM under the hood is understanding customer needs. Typically, this involves deep immersion into a professional domain and meticulous examination of questions. I’m convinced it’s impossible to create a truly high-quality QA system for businesses unless you clearly understand the questions themselves and how to find answers (I’d be glad if someone could convince me otherwise).</p>
+<p>This understanding is also required to clarify all implicit meanings arising from user questions.</p>
+<p>Let’s consider the example question <strong>Who is the CEO of ACME inc?</strong></p>
+<p>In an ideal world, a report would always explicitly provide the answer, leaving no room for misinterpretation:</p>
+<p><code>CEO responsibilities are held by John Doe</code></p>
+<p>A RAG system would locate this sentence in the report, add it to the query context, and the user would receive an unambiguous answer: <code>John Doe</code></p>
+<p>However, we live in the real world, where tens of thousands of companies express information in unlimited variations, with numerous additional nuances.</p>
+<p>This raises the question: what exactly can fall under the term “CEO”?</p>
+<ul>
+<li>How literally should the system interpret the client’s question?</li>
+<li>Does the client want to know the name of the person holding a similar managerial role, or strictly that specific job title?</li>
+<li>Is stepping slightly away from a literal interpretation acceptable? How far is too far?</li>
+</ul>
+<p>Potentially, the following positions could be included:</p>
+<ul>
+<li><strong>Chief Executive Officer</strong> — obviously, just the abbreviation spelled out.</li>
+<li><strong>Managing Director (MD), President, Executive Director</strong> — slightly less obvious. Different countries use different titles for this role (MD in the UK and Europe, President in America and Japan, Executive Director in the UK, Asian countries, and non-profits).</li>
+<li><strong>Chief Operating Officer, Principal Executive Officer, General Manager, Administrative Officer, Representative Director</strong> — even less obvious. Depending on the country and company structure, there may not be a direct CEO equivalent; these roles, although closest to CEO, have varying levels of overlap in responsibilities and authority—from 90% down to 50%.</li>
+</ul>
+<p>I’m unsure if there’s an existing term for this, but personally, I refer to this as the “interpretation freedom threshold” issue.</p>
+<p>When responses are free-form, the interpretation freedom threshold is resolved relatively easily. In ambiguous cases, LLM tries to encompass all implicit meanings from the user’s query, adding several clarifications.</p>
+<p>Here’s a <a href="https://chatgpt.com/share/67dfd4b5-89c8-8010-9953-0f48ee0e4479" target="_blank" rel="noopener">real example</a> of a ChatGPT response:</p>
+<blockquote>
+<p>Based on the provided context, <strong>Ethan Caldwell</strong> is the <strong>Managing Director</strong>, which is the closest equivalent to a CEO in this company. However, he has been <strong>formally suspended from active executive duties</strong> due to an ongoing regulatory investigation. While he <strong>retains the title</strong>, he is <strong>not currently involved in company operations</strong>, and leadership has been temporarily transferred to the <strong>senior management team under board supervision</strong>.</p>
+</blockquote>
+<p>However, if the system architecture requires concise answers, as in the RAG Challenge, the model behaves unpredictably in these situations, relying on its internal “intuition”.</p>
+<p>Thus, the interpretation freedom threshold must be defined and calibrated in advance. But since it’s not possible to define and quantify this threshold explicitly, all major edge cases must be identified, general query interpretation rules formulated, and ambiguities clarified with the customer.</p>
+<p>Beyond interpretation issues, general dilemmas may also occur.</p>
+<p>For example: <code>Did ACME inc announce any changes to its dividend policy?</code></p>
+<p>Should the system interpret the absence of information in the report as an indication that no changes have been announced?</p>
+<p>Rinat (the competition organizer) can confirm—I bombarded him with dozens of similar questions and dilemmas during competition preparation :)</p>
+<h2 id="Prompt-Creation"><a href="#Prompt-Creation" class="headerlink" title="Prompt Creation"></a>Prompt Creation</h2><p>One week before the competition started, the question generator’s code was made publicly available. I immediately generated a hundred questions and created a validation set from them.</p>
+<p>Answering questions manually is quite tedious, but it helped me in two key areas:</p>
+<ol>
+<li>The validation set objectively measures the system’s quality as I make improvements. By running the system on this set, I monitored how many questions it answered correctly and where it most commonly made mistakes. This feedback loop aids iterative improvements of prompts and other pipeline components.</li>
+<li>Manually analyzing questions highlighted non-obvious details and ambiguities in questions and reports. This allowed me to clarify response requirements with Rinat and unambiguously reflect these rules in the prompts.</li>
+</ol>
+<p>I incorporated all these clarifications into prompts as directive sets.</p>
+<h3 id="Directive-examples"><a href="#Directive-examples" class="headerlink" title="Directive examples:"></a>Directive examples:</h3><p><strong>Answer type = Number</strong></p>
+<blockquote>
+<p>Return ‘N/A’ if metric provided is in a different currency than mentioned in the question. Return ‘N/A’ if metric is not directly stated in context EVEN IF it could be calculated from other metrics in the context. Pay special attention to any mentions in the context about whether metrics are reported in units, thousands, or millions, to adjust the number in final answer with no changes, three zeroes or six zeroes accordingly. Pay attention if the value is wrapped in parentheses; it means the value is negative.</p>
+</blockquote>
+<p><strong>Answer type = Names</strong></p>
+<blockquote>
+<p>If the question asks about positions (e.g., changes in positions), return <strong>ONLY</strong> position titles, <strong>WITHOUT</strong> names or any additional information. Appointments to new leadership positions also should be counted as changes in positions. If several changes related to a position with the same title are mentioned, return the title of such position only once. Position title always should be in singular form.</p>
+<p>If the question asks about newly launched products, return <strong>ONLY</strong> the product names exactly as they are in the context. Candidates for new products or products in the testing phase are not counted as newly launched products.</p>
+</blockquote>
+<p>The model easily followed certain directives, resisted others due to skewed biases, and struggled with some, causing errors.</p>
+<p>For example, the model repeatedly stumbled when tracking measurement units (thousands, millions), forgetting to append necessary zeroes to the final answer. So, I supplemented the directive with a brief example:</p>
+<blockquote>
+<p>Example for numbers in thousands:</p>
+<p>Value from context: 4970,5 (in thousands $)</p>
+<p>Final answer: 4970500</p>
+</blockquote>
+<p>Eventually, I developed prompts for each question format and several auxiliary prompts:</p>
+<ul>
+<li>Final prompt for Number-type questions</li>
+<li>Final prompt for Name-type questions</li>
+<li>Final prompt for Names-type questions</li>
+<li>Final prompt for Boolean-type questions</li>
+<li>Final prompt for Comparative-type questions (to compare answers from multiple companies via multi-query routing)</li>
+<li>Paraphrasing prompt for Comparative-type questions (to initially find metrics in reports)</li>
+<li>LLM reranking prompt</li>
+<li>SO Reparser prompt</li>
+</ul>
+<p>Meticulous refinement of instructions combined with one-shot and SO CoT resulted in significant benefits. The final prompts entirely recalibrated unwanted biases in the system and greatly improved attentiveness to nuances, even for weaker models.</p>
+<h2 id="System-Speed"><a href="#System-Speed" class="headerlink" title="System Speed"></a>System Speed</h2><p>Initially, the RAG Challenge rules were stricter, requiring the system to answer all 100 questions within 10 minutes to be eligible for a monetary prize. I took this requirement seriously and aimed to fully leverage OpenAI’s Tokens Per Minute rate limits.</p>
+<p>Even at Tier 2, the limits are generous—2 million tokens/minute for GPT-4o-mini and 450k tokens/minute for GPT-4o. I estimated the token consumption per question and processed questions in batches of 25. The system completed all 100 questions in just 2 minutes.</p>
+<p><em>In the end, the time limit for submitting solutions was significantly extended — the other participants simply couldn’t make it in time :)</em></p>
+<h2 id="System-Quality"><a href="#System-Quality" class="headerlink" title="System Quality"></a>System Quality</h2><p>Having a validation set helped improve more than just prompts—it benefited the entire system.</p>
+<p>I made all key features configurable, allowing me to measure their real-world impact and fine-tune hyperparameters. Here are some example config fields:</p>
+<pre><code class="python">class RunConfig:
+    use_serialized_tables: bool = False
+    parent_document_retrieval: bool = False
+    use_vector_dbs: bool = True
+    use_bm25_db: bool = False
+    llm_reranking: bool = False
+    llm_reranking_sample_size: int = 30
+    top_n_retrieval: int = 10
+    api_provider: str = &quot;openai&quot;
+    answering_model: str = &quot;gpt-4o-mini-2024-07-18&quot;</code></pre>
+<p>While testing configurations, I was surprised to find that table serialization—which I’d placed great hopes on—not only failed to improve the system but slightly decreased its effectiveness. Apparently, Docling parses tables from PDFs well enough, the retriever finds them effectively, and the LLM understands their structure sufficiently without extra assistance. And adding more text to the page merely reduces the signal-to-noise ratio.</p>
+<p>I also prepared multiple configurations for the competition to quickly run various systems in all categories.</p>
+<p>The final system performed excellently with both open-source and proprietary models: Llama 3.3 70b was only a couple of points behind OpenAI’s o3-mini. Even the small Llama 8b outperformed 80% of the participants in the overall ranking.</p>
+<h1 id="6-Conclusion"><a href="#6-Conclusion" class="headerlink" title="6. Conclusion"></a>6. Conclusion</h1><p>Ultimately, winning the RAG Challenge wasn’t about finding a single magical solution, but rather applying a systematic approach, thoughtfully combining and fine-tuning various methods, and deeply immersing myself in the task details. The key success factors were high-quality parsing, efficient retrieval, intelligent routing, and—most notably—LLM reranking and carefully crafted prompts, which enabled achieving excellent results even with compact models.</p>
+<p>The main takeaway from this competition is simple: <strong>the magic of RAG lies in the details</strong>. The better you understand the task, the more precisely you can fine-tune each pipeline component, and the greater benefits you get even from the simplest techniques.</p>
+<p>I’ve shared all the system code as <a href="https://github.com/IlyaRice/RAG-Challenge-2/tree/main" target="_blank" rel="noopener">open-source</a>. It includes instructions on deploying the system yourself and running any stage of the pipeline.</p>
+<blockquote>
+<p>Ilya is always open to interesting ideas, projects, and collaborations. Feel free to reach out to him via <a href="https://abdullin.com/ilya/how-to-build-best-rag/t.me/IlyaRice" target="_blank" rel="noopener">Telegram</a> or <a href="https://www.linkedin.com/in/ilya-rice/" target="_blank" rel="noopener">LinkedIn</a></p>
+</blockquote>
+<p>Published: March 25, 2025.</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#From-Zero-to-SoTA-in-a-Single-Competition"><span class="toc-number">1.</span> <span class="toc-text">From Zero to SoTA in a Single Competition</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-the-RAG-Challenge-about"><span class="toc-number">1.1.</span> <span class="toc-text">What is the RAG Challenge about?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Winning-system-architecture"><span class="toc-number">1.2.</span> <span class="toc-text">Winning system architecture:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Quick-Guide-to-RAG"><span class="toc-number">2.</span> <span class="toc-text">Quick Guide to RAG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Development-pathway-of-a-basic-RAG-system-includes-the-following-stages"><span class="toc-number">2.1.</span> <span class="toc-text">Development pathway of a basic RAG system includes the following stages:</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Parsing"><span class="toc-number">3.</span> <span class="toc-text">1. Parsing</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Interesting-PDF-parsing-issues-I-encountered-but-didn’t-have-time-to-solve"><span class="toc-number">3.1.</span> <span class="toc-text">Interesting PDF parsing issues I encountered (but didn’t have time to solve):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Choosing-a-Parser"><span class="toc-number">3.2.</span> <span class="toc-text">Choosing a Parser</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Parser-Customization"><span class="toc-number">3.2.1.</span> <span class="toc-text">Parser Customization</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Text-Cleaning-and-Table-Preparation"><span class="toc-number">3.3.</span> <span class="toc-text">Text Cleaning and Table Preparation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Table-Serialization"><span class="toc-number">3.3.1.</span> <span class="toc-text">Table Serialization</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Ingestion"><span class="toc-number">4.</span> <span class="toc-text">2. Ingestion</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Agreeing-on-terminology"><span class="toc-number">4.1.</span> <span class="toc-text">Agreeing on terminology</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chunking"><span class="toc-number">4.2.</span> <span class="toc-text">Chunking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vectorization"><span class="toc-number">4.3.</span> <span class="toc-text">Vectorization</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#A-bit-about-vector-database-formats"><span class="toc-number">4.3.1.</span> <span class="toc-text">A bit about vector database formats</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Retrieval"><span class="toc-number">5.</span> <span class="toc-text">3. Retrieval</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hybrid-search-vDB-BM25"><span class="toc-number">5.1.</span> <span class="toc-text">Hybrid search: vDB + BM25</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Cross-encoder-reranking"><span class="toc-number">5.2.</span> <span class="toc-text">Cross-encoder reranking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-reranking"><span class="toc-number">5.3.</span> <span class="toc-text">LLM reranking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Parent-Page-Retrieval"><span class="toc-number">5.4.</span> <span class="toc-text">Parent Page Retrieval</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Assembled-Retriever"><span class="toc-number">5.5.</span> <span class="toc-text">Assembled Retriever</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-Augmentation"><span class="toc-number">6.</span> <span class="toc-text">4. Augmentation</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-Generation"><span class="toc-number">7.</span> <span class="toc-text">5. Generation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Routing-queries-to-the-database"><span class="toc-number">7.1.</span> <span class="toc-text">Routing queries to the database</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Routing-queries-to-prompts"><span class="toc-number">7.2.</span> <span class="toc-text">Routing queries to prompts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Routing-compound-queries"><span class="toc-number">7.3.</span> <span class="toc-text">Routing compound queries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chain-of-Thoughts"><span class="toc-number">7.4.</span> <span class="toc-text">Chain of Thoughts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Example-reasoning-with-ambiguous-context"><span class="toc-number">7.4.1.</span> <span class="toc-text">Example reasoning with ambiguous context:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Structured-outputs"><span class="toc-number">7.5.</span> <span class="toc-text">Structured outputs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CoT-SO"><span class="toc-number">7.6.</span> <span class="toc-text">CoT SO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SO-Reparser"><span class="toc-number">7.7.</span> <span class="toc-text">SO Reparser</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#One-shot-Prompts"><span class="toc-number">7.8.</span> <span class="toc-text">One-shot Prompts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Instruction-Refinement"><span class="toc-number">7.9.</span> <span class="toc-text">Instruction Refinement</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Analyzing-Questions"><span class="toc-number">7.9.1.</span> <span class="toc-text">Analyzing Questions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prompt-Creation"><span class="toc-number">7.10.</span> <span class="toc-text">Prompt Creation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Directive-examples"><span class="toc-number">7.10.1.</span> <span class="toc-text">Directive examples:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#System-Speed"><span class="toc-number">7.11.</span> <span class="toc-text">System Speed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#System-Quality"><span class="toc-number">7.12.</span> <span class="toc-text">System Quality</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-Conclusion"><span class="toc-number">8.</span> <span class="toc-text">6. Conclusion</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

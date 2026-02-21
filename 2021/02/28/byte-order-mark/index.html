@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】都是 “编码格式” 惹得祸 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,BOM, UTF8 with BOM, byte order mark"> 
+    <meta name="description" content="原文地址：https://wyiyi.github.io/amber/2021/01/13/unicode/
+遇到的问题：在单元测试中执行sql文件，sql的内容是正确的，但是执行报错。扎心。
+重现,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】都是 “编码格式” 惹得祸</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/bom.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                二月 28, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/02/28/byte-order-mark/" title="【转】都是 “编码格式” 惹得祸" class="">【转】都是 “编码格式” 惹得祸</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/01/13/unicode/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/01/13/unicode/</a></p>
+<p>遇到的问题：在单元测试中执行sql文件，sql的内容是正确的，但是执行报错。扎心。</p>
+<p>重现该场景，关键代码如下：完整实例可见<a href="https://github.com/wyiyi/bronze" target="_blank" rel="noopener">仓库</a> </p>
+<pre><code class="java">@SpringBootTest
+class DemoTest {
+
+    @BeforeEach
+    @Sql(&quot;/com/amber/demo/init.sql&quot;)
+    // 建表语句： drop table if exists USER; create table USER(ID int(11) NOT NULL AUTO_INCREMENT, NAME VARCHAR, SEX  VARCHAR,ADDR VARCHAR);
+    void test(){
+       assert true;
+    }
+
+    @Test
+    @Sql(&quot;/com/amber/demo/insert.sql&quot;)
+    // insert语句：INSERT INTO USER(ID, NAME, SEX, ADDR) VALUES (1, &#39;liming&#39;, &#39;men&#39;, &#39;jinzhou&#39;)
+    void insert(){
+        assert true;
+    }
+
+    @Ignore
+    @Sql(&quot;/com/amber/demo/utf8bom.sql&quot;)
+    // insert语句：INSERT INTO USER(ID, NAME, SEX, ADDR) VALUES (2, &#39;anc&#39;, &#39;man&#39;, &#39;shanghai&#39;)，保存为 UTF-8 with BOM 的编码格式，失败
+    void testBom(){
+        Exception exception = assertThrows(RuntimeException.class, () -&gt; {
+            Integer.parseInt(&quot;1a&quot;);
+        });
+
+        String expectedMessage = &quot;Failed to execute SQL script statement&quot;;
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+    }
+}</code></pre>
+<p>在执行<code>testBom()</code>的过程中报错如下：</p>
+<pre><code class="text">org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #1 of class path resource [com/amber/demo/utf8bom.sql]: 锘縄NSERT INTO USER(ID, NAME, SEX, ADDR) VALUES (2, &#39;anc&#39;, &#39;man&#39;, &#39;shanghai&#39;); nested exception is org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement &quot;锘縄NSERT[*] INTO USER(ID, NAME, SEX, ADDR) VALUES (2, &#39;anc&#39;, &#39;man&#39;, &#39;shanghai&#39;)&quot;;</code></pre>
+<p>根据日志发现多了一些乱码的字符，将sql的文件以十六进制打开后，发现在开头处有多余的字符 <code>EF BB BF</code>（文件编码格式显示为 <code>UTF-8 with BOM</code>），将文件重新保存成UTF-8的编码格式，执行成功。</p>
+<p>原来是 BOM 在作祟。 </p>
+<h3 id="什么是-BOM"><a href="#什么是-BOM" class="headerlink" title="什么是 BOM"></a>什么是 BOM</h3><p><code>BOM(Byte-Order Mark)</code>即字节顺序标记，出现在文本文件头部， Unicode编码标准中用于标识文件是采用哪种格式的编码，但它对于文件的读者来说是不可见字符。</p>
+<p>摘自<a href="https://en.wikipedia.org/wiki/Byte_order_mark" target="_blank" rel="noopener">Wikipedia</a>： </p>
+<blockquote>
+<p>The byte order mark (BOM) is a particular usage of the special Unicode character, U+FEFF BYTE ORDER MARK, whose appearance as a magic number at the start of a text stream can signal several things to a program reading the text:[1]</p>
+<ul>
+<li>The byte order, or endianness, of the text stream in the cases of 16-bit and 32-bit encodings;</li>
+<li>The fact that the text stream’s encoding is Unicode, to a high level of confidence;</li>
+<li>Which Unicode character encoding is used.<br>BOM use is optional. Its presence interferes with the use of UTF-8 by software that does not expect non-ASCII bytes at the start of a file but that could otherwise handle the text stream.</li>
+</ul>
+</blockquote>
+<p>摘自<a href="http://www.unicode.org/faq/utf_bom.html#bom1" target="_blank" rel="noopener">Unicode</a>： </p>
+<blockquote>
+<p>A: A byte order mark (BOM) consists of the character code U+FEFF at the beginning of a data stream, where it can be used as a signature defining the byte order and encoding form, primarily of unmarked plaintext files. Under some higher level protocols, use of a BOM may be mandatory (or prohibited) in the Unicode data stream defined in that protocol. [AF]</p>
+</blockquote>
+<h3 id="为什么会存在-BOM"><a href="#为什么会存在-BOM" class="headerlink" title="为什么会存在 BOM"></a>为什么会存在 BOM</h3><ul>
+<li>UTF-16、UTF-32是以2个字节和4个字节为单位进行处理的， 即1次读取2个字节或4个字节， 这样一来， 在存储和网络传输时就要考虑1个单位内2个字节或4个字节之间顺序的问题。</li>
+<li>UTF-8编码是以1个字节为单位进行处理的，不会受CPU大小端的影响。UTF-8 不需要 BOM 来表明字节顺序， 但可以用 BOM 来表明编码方式。 字符 “Zero Width No-Break Space” 的 UTF-8 编码是 EF BB BF。<br>所以如果接收者收到以 EF BB BF 开头的字节流， 就知道这是 UTF-8编码了。 Windows 就是使用 BOM 来标记文本文件的编码方式的。 </li>
+</ul>
+<h3 id="UTF-8-BOM-长什么样"><a href="#UTF-8-BOM-长什么样" class="headerlink" title="UTF-8 BOM 长什么样"></a>UTF-8 BOM 长什么样</h3><ul>
+<li>无论 Unicode 文本如何转换， BOM都可以用作签名： UTF-8， UTF-16， 或UTF-32等。包含BOM的字节将是由该转换格式转换为Unicode字符 <code>U + FEFF</code> 的任何字节。<br>在下列表格中， 表示BOM 的 Unicode 以及它的十六进制。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">编码</th>
+<th align="left">表示（十六进制）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">UTF-8</td>
+<td align="left">EF BB BF</td>
+</tr>
+<tr>
+<td align="left">UTF-16 (BE)</td>
+<td align="left">FE FF</td>
+</tr>
+<tr>
+<td align="left">UTF-16 (LE)</td>
+<td align="left">FF FE</td>
+</tr>
+<tr>
+<td align="left">UTF-32 (BE)</td>
+<td align="left">00 00 FE FF</td>
+</tr>
+<tr>
+<td align="left">UTF-32 (LE)</td>
+<td align="left">FF FE 00 00</td>
+</tr>
+<tr>
+<td align="left">UTF-7</td>
+<td align="left">2B 2F 76</td>
+</tr>
+<tr>
+<td align="left">UTF-1</td>
+<td align="left">F7 64 4C</td>
+</tr>
+<tr>
+<td align="left">UTF-EBCDIC</td>
+<td align="left">DD 73 66 73</td>
+</tr>
+<tr>
+<td align="left">SCSU</td>
+<td align="left">0E FE FF</td>
+</tr>
+<tr>
+<td align="left">…</td>
+<td align="left">…</td>
+</tr>
+</tbody></table>
+<h3 id="怎么查看-BOM"><a href="#怎么查看-BOM" class="headerlink" title="怎么查看 BOM"></a>怎么查看 BOM</h3><ol>
+<li>BOM 头在记事本中是看不到的，可以使用以下工具查看，文本中字符内容均为 abc ：</li>
+</ol>
+<ul>
+<li>使用十六进制编辑工具进行查看</li>
+<li>亦可使用Total Commander 文件管理工具， 查看文件， 选择options， 即可查看各种Unicode格式<ul>
+<li>以 UTF-8 BOM <a href="https://github.com/wyiyi/amber/blob/master/contents/unicode/bom.txt" target="_blank" rel="noopener">bom.txt</a> 的文件为例，通过Total Commander 的 options， 则可以看到字符头：<br><code>EF BB BF 61 62 63 ...</code>。</li>
+<li>以 UTF-16 或者 UTF-32 big-endian <a href="https://github.com/wyiyi/amber/blob/master/contents/unicode/16be.txt" target="_blank" rel="noopener">16be.txt</a> 的文件为例，看到的字符头显示为：<br><code>FE FF 00 61 00 62 00 63 ...</code>。</li>
+<li>以 UTF-16 或者 UTF-32 little-endian <a href="https://github.com/wyiyi/amber/blob/master/contents/unicode/16le.txt" target="_blank" rel="noopener">16le.txt</a> 的文件为例，看到的字符头显示为：<br><code>FF FE 61 00 62 00 63 00 ...</code>。</li>
+</ul>
+</li>
+</ul>
+<p>2.在linux 中查看 BOM</p>
+<ul>
+<li>找到对应的文件位置</li>
+<li>查找当前包含 BOM 头的文件： <pre><code class="bash">$ grep -r $&#39;^\xEF\xBB\xBF&#39;
+bom.txt：abc</code></pre>
+</li>
+<li>查看文件相关信息</li>
+</ul>
+<pre><code class="bash">$ ll bom.txt
+-rw-rw-r-- 1 xxx xxx 6 Dec 18 16:22 bom.txt
+$ file bom.txt
+bom.txt: UTF-8 Unicode text, with no line terminators
+$ file 16be.txt
+16be.txt: Big-endian UTF-16 Unicode text, with no line terminators
+...</code></pre>
+<ul>
+<li>使用 <code>vi</code> 打开查看文件内容</li>
+<li>查看<code>bom.txt</code>文件的十六进制<code>:%!xxd</code>显示内容：<br><code>0000000: efbb bf61 6263 0a   ... abc.</code><br>其中包含<code>EF BB BF</code> 即为 BOM 标记</li>
+</ul>
+<h3 id="如何添加或去掉-BOM"><a href="#如何添加或去掉-BOM" class="headerlink" title="如何添加或去掉 BOM"></a>如何添加或去掉 BOM</h3><p>1.Windows BOM 操作： </p>
+<ul>
+<li>增加 BOM 编码格式：<br>新建一个文件，输入 <code>abc</code> 保存时选择使用 UTF-8、UTF-8 with BOM、UTF-16 LE 或者 UTF-16 BE 等格式（以 VS Code 为例）</li>
+<li>去掉 BOM 编码格式：<br>可通过程序控制过滤掉BOM：存在 BOM 字符相关则去掉</li>
+</ul>
+<p>2.linux BOM  命令操作：</p>
+<ul>
+<li>utf8.txt 加上 BOM 的编码格式</li>
+</ul>
+<pre><code class="bash">$ file utf8.txt
+utf8.txt: ASCII text, with no line terminators
+# 用 vi 打开文件 
+# 设置 bom 格式，执行命令 :set bomb
+# 保存并退出 vi :wq!
+$ file utf8.txt
+utf8.txt: UTF-8 Unicode (with BOM) text</code></pre>
+<ul>
+<li>bom.txt 去掉 BOM 的编码格式</li>
+</ul>
+<pre><code class="bash">$ file bom.txt
+bom.txt: UTF-8 Unicode (with BOM) text, with no line terminators
+# 用 vi 打开文件
+# 设置无 bom 格式， 执行命令 :set nobomb
+# 保存并退出 vi，执行命令 :wq!
+$ file bom.txt
+bom.txt: ASCII text</code></pre>
+<ul>
+<li>bom.txt 的 UTF-8 with BOM 编码格式修改为 UTF-16 Little-endian 或者 UTF-16 Big-endian 的编码格式</li>
+</ul>
+<pre><code class="bash">$ file bom.txt
+bom.txt: UTF-8 Unicode (with BOM) text, with no line terminators
+# 用 vi 打开文件 
+# 设置 UTF-16 Little-endian 格式，执行命令 :set fileencoding=utf-16le
+# 保存并退出 vi :wq!
+$ file bom.txt
+bom.txt: Little-endian UTF-16 Unicode text, with no line terminators
+
+# 设置 UTF-16 Big-endian 格式，执行命令① :set fileencoding=utf-16 或者② :set fileencoding=utf-16be
+# 保存并退出 vi :wq!
+$ file bom.txt
+bom.txt: Big-endian UTF-16 Unicode text
+...</code></pre>
+<h3 id="Linux-和-Windows-关于-BOM-的区别"><a href="#Linux-和-Windows-关于-BOM-的区别" class="headerlink" title="Linux 和 Windows 关于 BOM 的区别"></a>Linux 和 Windows 关于 BOM 的区别</h3><ul>
+<li>Linux 默认的编码格式为 <a href="https://unix.stackexchange.com/questions/112216/which-terminal-encodings-are-default-on-linux-and-which-are-most-common#:~:text=The%20default%20encoding%20for%20new%20Debian%20GNU%2FLinux%20installations,and%20many%20other%29%20are%20utf-8%20capable%20by%20default." target="_blank" rel="noopener">UTF-8</a>。<br>Linux 保存文件的编码格式为UTF-8，如：<a href="https://github.com/wyiyi/amber/blob/master/contents/unicode/abc.txt" target="_blank" rel="noopener">abc.txt</a> 查看编码格式：<br><code>abc.txt: UTF-8 Unicode text</code></li>
+<li>Windows 默认的编码格式为 <a href="https://stackoverflow.com/questions/16602900/why-is-my-java-charset-defaultcharset-gbk-and-not-unicode" target="_blank" rel="noopener">GBK</a>。<br>Windows 自带的记事本等软件， 在保存一个以UTF-8编码的文件时， 会在文件开始的地方插入三个不可见的字符（0xEF 0xBB 0xBF， 即BOM）。 如： <a href="https://github.com/wyiyi/amber/blob/master/contents/unicode/utf8.txt" target="_blank" rel="noopener">utf8.txt</a></li>
+</ul>
+<h3 id="BOM-不是明智的选择"><a href="#BOM-不是明智的选择" class="headerlink" title="BOM  不是明智的选择"></a>BOM  不是明智的选择</h3><p>UTF-8 BOM  是文本流（0xEF、0xBB、0xBF） 开始时的字节序列，允许读取器更可靠地猜测文件在 UTF-8 中编码。</p>
+<p>虽然BOM字符起到了标记文件编码的作用但它并不属于文件的内容部分， 所以会产生一些问题：</p>
+<ol>
+<li>BOM 用来表示编码的字节序，但是由于字节序对 UTF-8 无效，因此不需要 BOM。</li>
+<li>BOM 不仅在 JSON 中非法且破坏了JSON 解析器。</li>
+<li>BOM 会阻断一些脚本： Shell scripts， Perl scripts， Python scripts， Ruby scripts， Node.js。</li>
+<li>BOM 对 PHP 很不友好： PHP 不能识别 BOM 头，且不会忽略BOM， 所以在读取、包含或者引用这些文件时，会把BOM作为该文件开头正文的一部分。 根据嵌入式语言的特点， 这串字符将被直接执行（显示）出来。 由于页面的 <code>top padding</code> 为0， 导致无法让整个网页紧贴浏览器顶部。</li>
+</ol>
+<h4 id="2-6-Encoding-Schemes"><a href="#2-6-Encoding-Schemes" class="headerlink" title="2.6 Encoding Schemes"></a>2.6 Encoding Schemes</h4><blockquote>
+<p>… Use of a BOM  is neither required nor recommended for UTF-8, but may be encountered in contexts where UTF-8 data is converted from other encoding forms that use a BOM  or where the BOM  is used as a UTF-8 signature.</p>
+<p>See the “Byte Order Mark” subsection in Section 16.8, Specials, for more information.</p>
+</blockquote>
+<p>根据 <a href="http://www.unicode.org/versions/Unicode5.0.0/ch02.pdf" target="_blank" rel="noopener">Unicode标准</a> 不建议使用 UTF-8 文件的 BOM，所以在将文件保存为 UTF-8 的编码格式时，一定要注意一般不使用 UTF-8 with BOM 的编码格式。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是-BOM"><span class="toc-number">1.</span> <span class="toc-text">什么是 BOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么会存在-BOM"><span class="toc-number">2.</span> <span class="toc-text">为什么会存在 BOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#UTF-8-BOM-长什么样"><span class="toc-number">3.</span> <span class="toc-text">UTF-8 BOM 长什么样</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#怎么查看-BOM"><span class="toc-number">4.</span> <span class="toc-text">怎么查看 BOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何添加或去掉-BOM"><span class="toc-number">5.</span> <span class="toc-text">如何添加或去掉 BOM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-和-Windows-关于-BOM-的区别"><span class="toc-number">6.</span> <span class="toc-text">Linux 和 Windows 关于 BOM 的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BOM-不是明智的选择"><span class="toc-number">7.</span> <span class="toc-text">BOM  不是明智的选择</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

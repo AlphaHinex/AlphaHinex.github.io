@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《程序员的README》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,软件的熵, 技术债, 行为准则, 代码评审, RCA, 向上管理"> 
+    <meta name="description" content="
+豆瓣评分 8.7
+
+无论你处于职业生涯的哪个阶段，这本书都非常实用。请保持开放的心态，好学深思，渴望提高，不惧破旧习，不惧提问题。
+
+
+本书第1～2章讲解当你在公司开启你的职业生涯时会发生什么；
+,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《程序员的README》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/the-missing-readme/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                三月 03, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/03/03/the-missing-readme/" title="《程序员的README》书摘" class="">《程序员的README》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="/contents/the-missing-readme/cover.jpg" alt="cover"></p>
+<p><a href="https://book.douban.com/subject/36457109/" target="_blank" rel="noopener">豆瓣评分 8.7</a></p>
+<blockquote>
+<p>无论你处于职业生涯的哪个阶段，这本书都非常实用。请保持开放的心态，好学深思，渴望提高，不惧破旧习，不惧提问题。</p>
+</blockquote>
+<blockquote>
+<p>本书第1～2章讲解当你在公司开启你的职业生涯时会发生什么；</p>
+<p>第3～11章会扩展你的工作技能，教你如何使用现有代码库、解决和防止技术债、编写生产级软件、管理依赖关系、有效地测试、评审代码、交付软件、处理On-Call时的事故和构建可演进的架构等；</p>
+<p>剩余章节涵盖管理能力和职业阶梯的提升等相关内容，例如敏捷计划、与管理者合作以及成长为资深工程师的必经之路。</p>
+<p>本书中非常重要的一部分内容是教你如何应对糟糕的管理，以及如何调整自己的节奏。</p>
+</blockquote>
+<h1 id="1-1-你的目的地"><a href="#1-1-你的目的地" class="headerlink" title="1.1 你的目的地"></a>1.1 你的目的地</h1><blockquote>
+<p>核心领域中所需要的能力：</p>
+<ul>
+<li>技术知识</li>
+<li>执行力</li>
+<li>沟通能力</li>
+<li>领导力</li>
+</ul>
+</blockquote>
+<h1 id="2-1-学习如何学习"><a href="#2-1-学习如何学习" class="headerlink" title="2.1 学习如何学习"></a>2.1 学习如何学习</h1><blockquote>
+<ul>
+<li>前置学习</li>
+<li>在实践中学习</li>
+<li>运行实例代码</li>
+<li>阅读</li>
+<li>观看讲座</li>
+<li>适度地参加会议和聚会</li>
+<li>跟班学习并同有经验的工程师结对</li>
+<li>用副业项目实践</li>
+</ul>
+</blockquote>
+<h1 id="2-2-提出问题"><a href="#2-2-提出问题" class="headerlink" title="2.2 提出问题"></a>2.2 提出问题</h1><blockquote>
+<p>在“万事都求人”和“独行侠”之间取得平衡</p>
+</blockquote>
+<h1 id="3-1-软件的熵"><a href="#3-1-软件的熵" class="headerlink" title="3.1 软件的熵"></a>3.1 软件的熵</h1><blockquote>
+<p>走向无序的趋势被称为软件的熵。</p>
+</blockquote>
+<h1 id="3-2-技术债"><a href="#3-2-技术债" class="headerlink" title="3.2 技术债"></a>3.2 技术债</h1><blockquote>
+<p>技术债(technical debt)是造成软件的熵的一个主要原因。<br>技术债是为了修复现有的代码不足而欠下的未来工作。</p>
+</blockquote>
+<p><img src="/contents/the-missing-readme/readme-jishuzhai.png" alt="技术债矩阵"></p>
+<blockquote>
+<p>解决技术债：</p>
+<p>1.按事实陈述情况；</p>
+<p>2.描述技术债的风险和成本；</p>
+<p>3.提出解决方案；</p>
+<p>4.讨论备选方案（不采取行动也是备选方案）；</p>
+<p>5.权衡利弊。</p>
+</blockquote>
+<h1 id="3-5-行为准则"><a href="#3-5-行为准则" class="headerlink" title="3.5 行为准则"></a>3.5 行为准则</h1><p><img src="/contents/the-missing-readme/readme-3.5.png" alt="conduct3.5"></p>
+<h1 id="第7章-代码评审"><a href="#第7章-代码评审" class="headerlink" title="第7章 代码评审"></a>第7章 代码评审</h1><blockquote>
+<p>高质量的代码评审文化有助于所有具有不同经验水平的工程师的成长，并促进他们对代码库的共同理解。<br>糟糕的代码评审文化会抑制创新，减慢开发速度，并且导致滋生怨恨情绪。</p>
+</blockquote>
+<h1 id="7-2-当你的代码被评审时"><a href="#7-2-当你的代码被评审时" class="headerlink" title="7.2 当你的代码被评审时"></a>7.2 当你的代码被评审时</h1><blockquote>
+<ul>
+<li>准备工作</li>
+<li>用评审草案降低风险</li>
+<li>提交评审请勿触发测试</li>
+<li>预排大体量的代码修改</li>
+<li>不要太在意</li>
+<li>保持同理心，但不要容忍粗鲁</li>
+<li>保持主动</li>
+</ul>
+</blockquote>
+<h1 id="7-3-评审别人的代码时"><a href="#7-3-评审别人的代码时" class="headerlink" title="7.3 评审别人的代码时"></a>7.3 评审别人的代码时</h1><blockquote>
+<ul>
+<li>分流评审请求</li>
+<li>给评审预留时间</li>
+<li>理解修改的意图</li>
+<li>提供全面的反馈</li>
+<li>要承认优点</li>
+<li>区分问题、建议和挑剔</li>
+<li>不要只做橡皮图章</li>
+<li>不要只局限于使用网页版的评审工具</li>
+<li>不要忘记评审测试代码</li>
+<li>推动决断</li>
+</ul>
+</blockquote>
+<h1 id="9-2-On-Call技能包"><a href="#9-2-On-Call技能包" class="headerlink" title="9.2 On-Call技能包"></a>9.2 On-Call技能包</h1><blockquote>
+<p>一般来说，人们希望On-Call工程师能做出快速反应，但不一定需要快速解决问题。</p>
+</blockquote>
+<h1 id="9-3-事故处理"><a href="#9-3-事故处理" class="headerlink" title="9.3 事故处理"></a>9.3 事故处理</h1><blockquote>
+<p>任何回顾总结文档的关键部分是根本原因分析(root-cause analysis，RCA)。<br>根本原因分析是利用5个“Why”进行的。这种技巧非常简单：不断地追问为什么。<br>以一个问题为例，问它为什么会发生。<br>当你得到一个答案时，再问一次为什么；一直问为什么，直到你找到根本原因。<br>“5W”只是口口相传的经验——大多数问题要经过5次反复才能找到根本原因。</p>
+</blockquote>
+<h1 id="10-5-协作设计"><a href="#10-5-协作设计" class="headerlink" title="10.5 协作设计"></a>10.5 协作设计</h1><blockquote>
+<p>提出问题和给予建议一样重要，问题会帮助你成长。就像在课堂上一样，你可能不是唯一对某项设计决定感到疑惑的人，所以你的问题也会帮助其他人成长。</p>
+</blockquote>
+<h1 id="10-6-行为准则"><a href="#10-6-行为准则" class="headerlink" title="10.6 行为准则"></a>10.6 行为准则</h1><p><img src="/contents/the-missing-readme/readme-10.6.png" alt="conduct10.6"></p>
+<h1 id="12-3-Scrum框架"><a href="#12-3-Scrum框架" class="headerlink" title="12.3 Scrum框架"></a>12.3 Scrum框架</h1><blockquote>
+<p>团队的工作能力是以故事点来衡量的，这是一个约定好的尺度单位（以小时、天或“复杂性”来度量）。</p>
+</blockquote>
+<h1 id="12-7-路线图"><a href="#12-7-路线图" class="headerlink" title="12.7 路线图"></a>12.7 路线图</h1><blockquote>
+<p>“在准备战斗时，我总是发现计划是无用的，但计划是不可缺少的。”</p>
+</blockquote>
+<h1 id="13-与管理者合作"><a href="#13-与管理者合作" class="headerlink" title="13 与管理者合作"></a>13 与管理者合作</h1><blockquote>
+<p>与你的管理者构建工作关系将有助于你发展你的职业生涯、减少压力，甚至交付可靠的软件。</p>
+</blockquote>
+<h1 id="13-2-沟通、目标与成长"><a href="#13-2-沟通、目标与成长" class="headerlink" title="13.2 沟通、目标与成长"></a>13.2 沟通、目标与成长</h1><blockquote>
+<p>一对一面谈(1∶1)和进展、计划与问题(progress-plans-problems，PPP)报告用于沟通和更新项目状态，而目标和关键结果(OKR)以及绩效评估则管理目标和成长。</p>
+<p>你要在一对一面谈中设置议程，一对一面谈不是用来更新工作状态的。</p>
+</blockquote>
+<blockquote>
+<p>PPP是一种常用的更新工作状态的格式。更新工作状态并不是为了计算你的时间，它是为了帮助你的管理者发现问题，找到你需要背景信息的领域，以及提供将你与正确的人联系起来的机会。</p>
+<p>顾名思义，PPP中的每个P（进展、计划与问题）都有自己的小节。每个小节应该有3到5个要点，每个要点应该很简短，只有1到3个句子。</p>
+</blockquote>
+<h1 id="13-3-向上管理"><a href="#13-3-向上管理" class="headerlink" title="13.3 向上管理"></a>13.3 向上管理</h1><blockquote>
+<ul>
+<li>接受反馈</li>
+<li>给予反馈</li>
+<li>讨论你的目标</li>
+<li>事情不顺时要采取行动</li>
+</ul>
+</blockquote>
+<h1 id="14-2-职业生涯建议"><a href="#14-2-职业生涯建议" class="headerlink" title="14.2 职业生涯建议"></a>14.2 职业生涯建议</h1><blockquote>
+<ul>
+<li>T型人才<blockquote>
+<p>“T型”工程师在大多数领域内都能有效地工作，并且至少是某一个领域的专家。</p>
+<p>请从构建你的基本盘开始。构建基本盘会让你接触到不同的子领域，这样你就能找到自己的激情所在。</p>
+</blockquote>
+</li>
+<li>参加工程师训练营</li>
+<li>主导你自己的晋升<blockquote>
+<p>一旦你了解了评估标准和晋升流程，就进行自我评估，并获得他人的反馈。</p>
+<p>如果你收到了不认同的反馈，试着理解这些反馈来自哪里。其他人可能对你的工作有不完整的视角，或者你工作的价值可能不被认可。</p>
+</blockquote>
+</li>
+<li>换工作需谨慎</li>
+<li>自我调节</li>
+</ul>
+</blockquote>
+<h1 id="14-3-结尾寄语"><a href="#14-3-结尾寄语" class="headerlink" title="14.3 结尾寄语"></a>14.3 结尾寄语</h1><blockquote>
+<p>软件工程师是一个伟大的职业，充满了迷人的挑战。<br>你可以为任何行业做出贡献，从科学到农业、健康、娱乐，甚至是太空探索。<br>你的工作可以改善数十亿人的生活。与你喜欢的人一起工作并解决你所热衷的问题，你就可以完成伟大的事情。<br>我们为你加油，祝你好运！~~</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-1-你的目的地"><span class="toc-number">1.</span> <span class="toc-text">1.1 你的目的地</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-1-学习如何学习"><span class="toc-number">2.</span> <span class="toc-text">2.1 学习如何学习</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-2-提出问题"><span class="toc-number">3.</span> <span class="toc-text">2.2 提出问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-1-软件的熵"><span class="toc-number">4.</span> <span class="toc-text">3.1 软件的熵</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-2-技术债"><span class="toc-number">5.</span> <span class="toc-text">3.2 技术债</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-5-行为准则"><span class="toc-number">6.</span> <span class="toc-text">3.5 行为准则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第7章-代码评审"><span class="toc-number">7.</span> <span class="toc-text">第7章 代码评审</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-2-当你的代码被评审时"><span class="toc-number">8.</span> <span class="toc-text">7.2 当你的代码被评审时</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-3-评审别人的代码时"><span class="toc-number">9.</span> <span class="toc-text">7.3 评审别人的代码时</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-2-On-Call技能包"><span class="toc-number">10.</span> <span class="toc-text">9.2 On-Call技能包</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-3-事故处理"><span class="toc-number">11.</span> <span class="toc-text">9.3 事故处理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-5-协作设计"><span class="toc-number">12.</span> <span class="toc-text">10.5 协作设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-6-行为准则"><span class="toc-number">13.</span> <span class="toc-text">10.6 行为准则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-3-Scrum框架"><span class="toc-number">14.</span> <span class="toc-text">12.3 Scrum框架</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#12-7-路线图"><span class="toc-number">15.</span> <span class="toc-text">12.7 路线图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-与管理者合作"><span class="toc-number">16.</span> <span class="toc-text">13 与管理者合作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-2-沟通、目标与成长"><span class="toc-number">17.</span> <span class="toc-text">13.2 沟通、目标与成长</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#13-3-向上管理"><span class="toc-number">18.</span> <span class="toc-text">13.3 向上管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-2-职业生涯建议"><span class="toc-number">19.</span> <span class="toc-text">14.2 职业生涯建议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#14-3-结尾寄语"><span class="toc-number">20.</span> <span class="toc-text">14.3 结尾寄语</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

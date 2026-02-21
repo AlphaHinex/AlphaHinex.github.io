@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>一步一步将 d3.js Calendar View 转变成 GitHub Contributions - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    <meta name="description" content="GitHub Contributions 日历热图表述力强，容易上瘾，并且引发了多种玩法：涂满或涂成名字、万圣节颜色……，让我们使用 d3.js 提供的 Calendar View 示例，一步一步将,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">一步一步将 d3.js Calendar View 转变成 GitHub Contributions</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/calendar-view/all.gif);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/JavaScript"><b>「
+                    </b>JAVASCRIPT<b> 」</b></a>
+                
+                十一月 26, 2015
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2015/11/26/transform-d3-calendar-view-to-github-contributions-step-by-step/" title="一步一步将 d3.js Calendar View 转变成 GitHub Contributions" class="">一步一步将 d3.js Calendar View 转变成 GitHub Contributions</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Calendar/" rel="tag">Calendar</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Contributions/" rel="tag">Contributions</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/D3/" rel="tag">D3</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>GitHub Contributions 日历热图表述力强，容易上瘾，并且引发了多种玩法：涂满或涂成名字、万圣节颜色……，让我们使用 d3.js 提供的 Calendar View 示例，一步一步将其修改成 GitHub 的样式，Let’s go！</p>
+<p><img src="/contents/calendar-view/all.gif" alt="All"></p>
+<p>先将 <a href="http://d3js.org/" target="_blank" rel="noopener">d3.js</a> 提供的 <a href="http://bl.ocks.org/mbostock/4063318" target="_blank" rel="noopener">Calendar View</a> 做一个 <a href="/contents/calendar-view/snapshot.zip">快照</a>，以免示例代码更新对本文中的修改造成影响。</p>
+<p>修改前的文件为：</p>
+<ul>
+<li><a href="/contents/calendar-view/before.html">before.html</a></li>
+<li><a href="/contents/calendar-view/dji.csv">dji.csv</a></li>
+</ul>
+<p>修改后文件为：</p>
+<ul>
+<li><a href="/contents/calendar-view/after.html">after.html</a></li>
+</ul>
+<p>最终效果见上面动态图。</p>
+<h2 id="只留一年"><a href="#只留一年" class="headerlink" title="只留一年"></a>只留一年</h2><p>暂时先只保留 <code>2008</code> 年的日历</p>
+<p><img src="/contents/calendar-view/2.png" alt="One year"></p>
+<pre><code class="diff">@@ -47,7 +47,7 @@ var color = d3.scale.quantize()
+     .range(d3.range(11).map(function(d) { return &quot;q&quot; + d + &quot;-11&quot;; }));
+
+ var svg = d3.select(&quot;body&quot;).selectAll(&quot;svg&quot;)
+-    .data(d3.range(1990, 2011))
++    .data(d3.range(2008,2009))
+   .enter().append(&quot;svg&quot;)
+     .attr(&quot;width&quot;, width)
+     .attr(&quot;height&quot;, height)</code></pre>
+<h2 id="修改样式"><a href="#修改样式" class="headerlink" title="修改样式"></a>修改样式</h2><p>按照 <code>GitHub Contributions</code> 对样式进行调整，包括去掉月份边框，调整单元格大小、间距及颜色</p>
+<p><img src="/contents/calendar-view/3.png" alt="Change styles"></p>
+<pre><code class="diff">@@ -8,27 +8,20 @@ body {
+ }
+
+ .day {
+-  fill: #fff;
+-  stroke: #ccc;
++  width: 11px;
++  height: 11px;
++  fill: rgb(238, 238, 238);
+ }
+
+-.month {
+-  fill: none;
+-  stroke: #000;
+-  stroke-width: 2px;
++.day:hover {
++  stroke: #555;
++  stroke-width: 1px;
+ }
+
+-.RdYlGn .q0-11{fill:rgb(165,0,38)}
+-.RdYlGn .q1-11{fill:rgb(215,48,39)}
+-.RdYlGn .q2-11{fill:rgb(244,109,67)}
+-.RdYlGn .q3-11{fill:rgb(253,174,97)}
+-.RdYlGn .q4-11{fill:rgb(254,224,139)}
+-.RdYlGn .q5-11{fill:rgb(255,255,191)}
+-.RdYlGn .q6-11{fill:rgb(217,239,139)}
+-.RdYlGn .q7-11{fill:rgb(166,217,106)}
+-.RdYlGn .q8-11{fill:rgb(102,189,99)}
+-.RdYlGn .q9-11{fill:rgb(26,152,80)}
+-.RdYlGn .q10-11{fill:rgb(0,104,55)}
++.cv .lv1 {fill: #d6e685;}
++.cv .lv2 {fill: #8cc665;}
++.cv .lv3 {fill: #44a340;}
++.cv .lv4 {fill: #1e6823;}
+
+ &lt;/style&gt;
+ &lt;body&gt;
+@@ -37,21 +30,21 @@ body {
+
+ var width = 960,
+     height = 136,
+-    cellSize = 17; // cell size
++    cellSize = 13; // cell size
+
+ var percent = d3.format(&quot;.1%&quot;),
+     format = d3.time.format(&quot;%Y-%m-%d&quot;);
+
+ var color = d3.scale.quantize()
+     .domain([-.05, .05])
+-    .range(d3.range(11).map(function(d) { return &quot;q&quot; + d + &quot;-11&quot;; }));
++    .range(d3.range(1,5).map(function(d) { return &quot;lv&quot; + d; }));
+
+ var svg = d3.select(&quot;body&quot;).selectAll(&quot;svg&quot;)
+     .data(d3.range(2008,2009))
+   .enter().append(&quot;svg&quot;)
+     .attr(&quot;width&quot;, width)
+     .attr(&quot;height&quot;, height)
+-    .attr(&quot;class&quot;, &quot;RdYlGn&quot;)
++    .attr(&quot;class&quot;, &quot;cv&quot;)
+   .append(&quot;g&quot;)
+     .attr(&quot;transform&quot;, &quot;translate(&quot; + ((width - cellSize * 53) / 2) + &quot;,&quot; + (height - cellSize * 7 - 1) + &quot;)&quot;);
+
+@@ -73,12 +66,6 @@ var rect = svg.selectAll(&quot;.day&quot;)
+ rect.append(&quot;title&quot;)
+     .text(function(d) { return d; });
+
+-svg.selectAll(&quot;.month&quot;)
+-    .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
+-  .enter().append(&quot;path&quot;)
+-    .attr(&quot;class&quot;, &quot;month&quot;)
+-    .attr(&quot;d&quot;, monthPath);
+-
+ d3.csv(&quot;dji.csv&quot;, function(error, csv) {
+   if (error) throw error;
+
+@@ -93,17 +80,6 @@ d3.csv(&quot;dji.csv&quot;, function(error, csv) {
+       .text(function(d) { return d + &quot;: &quot; + percent(data[d]); });
+ });
+
+-function monthPath(t0) {
+-  var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+-      d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
+-      d1 = t1.getDay(), w1 = d3.time.weekOfYear(t1);
+-  return &quot;M&quot; + (w0 + 1) * cellSize + &quot;,&quot; + d0 * cellSize
+-      + &quot;H&quot; + w0 * cellSize + &quot;V&quot; + 7 * cellSize
+-      + &quot;H&quot; + w1 * cellSize + &quot;V&quot; + (d1 + 1) * cellSize
+-      + &quot;H&quot; + (w1 + 1) * cellSize + &quot;V&quot; + 0
+-      + &quot;H&quot; + (w0 + 1) * cellSize + &quot;Z&quot;;
+-}
+-
+ d3.select(self.frameElement).style(&quot;height&quot;, &quot;2910px&quot;);
+
+ &lt;/script&gt;</code></pre>
+<h2 id="过去一年"><a href="#过去一年" class="headerlink" title="过去一年"></a>过去一年</h2><p>将 Calendar View 显示的一整年调整为过去一年</p>
+<p><img src="/contents/calendar-view/4.png" alt="Last whole year"></p>
+<pre><code class="diff">@@ -39,27 +39,36 @@ var color = d3.scale.quantize()
+     .domain([-.05, .05])
+     .range(d3.range(1,5).map(function(d) { return &quot;lv&quot; + d; }));
+
+-var svg = d3.select(&quot;body&quot;).selectAll(&quot;svg&quot;)
+-    .data(d3.range(2008,2009))
+-  .enter().append(&quot;svg&quot;)
++var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
+     .attr(&quot;width&quot;, width)
+     .attr(&quot;height&quot;, height)
+     .attr(&quot;class&quot;, &quot;cv&quot;)
+   .append(&quot;g&quot;)
+     .attr(&quot;transform&quot;, &quot;translate(&quot; + ((width - cellSize * 53) / 2) + &quot;,&quot; + (height - cellSize * 7 - 1) + &quot;)&quot;);
+
+-svg.append(&quot;text&quot;)
+-    .attr(&quot;transform&quot;, &quot;translate(-6,&quot; + cellSize * 3.5 + &quot;)rotate(-90)&quot;)
+-    .style(&quot;text-anchor&quot;, &quot;middle&quot;)
+-    .text(function(d) { return d; });
++var today = new Date();
++var lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000);
++var shiftWeeks = 53 - d3.time.weekOfYear(lastYear);
++
++var shiftWeek = function(d) {
++  var year = d.getFullYear();
++  var thisYear = today.getFullYear();
++  var weekOfYear = d3.time.weekOfYear(d);
++  if (year &lt; thisYear) {
++    weekOfYear = weekOfYear - 53 + shiftWeeks;
++  } else {
++    weekOfYear += shiftWeeks - 1;
++  }
++  return weekOfYear;
++};
+
+ var rect = svg.selectAll(&quot;.day&quot;)
+-    .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
++    .data(d3.time.days(lastYear, today))
+   .enter().append(&quot;rect&quot;)
+     .attr(&quot;class&quot;, &quot;day&quot;)
+     .attr(&quot;width&quot;, cellSize)
+     .attr(&quot;height&quot;, cellSize)
+-    .attr(&quot;x&quot;, function(d) { return d3.time.weekOfYear(d) * cellSize; })
++    .attr(&quot;x&quot;, function(d) { return shiftWeek(d) * cellSize; })
+     .attr(&quot;y&quot;, function(d) { return d.getDay() * cellSize; })
+     .datum(format);</code></pre>
+<h2 id="添加标签"><a href="#添加标签" class="headerlink" title="添加标签"></a>添加标签</h2><p>添加周及月份标签</p>
+<p><img src="/contents/calendar-view/5.png" alt="Add labels"></p>
+<pre><code class="diff">@@ -46,6 +46,18 @@ var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
+   .append(&quot;g&quot;)
+     .attr(&quot;transform&quot;, &quot;translate(&quot; + ((width - cellSize * 53) / 2) + &quot;,&quot; + (height - cellSize * 7 - 1) + &quot;)&quot;);
+
++svg.append(&#39;text&#39;)
++  .attr(&#39;transform&#39;, &#39;translate(-14,&#39; + cellSize*1.8 + &#39;)&#39;)
++  .text(&#39;一&#39;);
++
++svg.append(&#39;text&#39;)
++  .attr(&#39;transform&#39;, &#39;translate(-14,&#39; + cellSize*3.8 + &#39;)&#39;)
++  .text(&#39;三&#39;);
++
++svg.append(&#39;text&#39;)
++  .attr(&#39;transform&#39;, &#39;translate(-14,&#39; + cellSize*5.8 + &#39;)&#39;)
++  .text(&#39;五&#39;);
++
+ var today = new Date();
+ var lastYear = new Date(today.getTime() - 365 * 24 * 60 * 60 * 1000);
+ var shiftWeeks = 53 - d3.time.weekOfYear(lastYear);
+@@ -62,6 +74,18 @@ var shiftWeek = function(d) {
+   return weekOfYear;
+ };
+
++var startYear = lastYear.getFullYear();
++var startMonth = lastYear.getDate() === 1 ? lastYear.getMonth() : lastYear.getMonth() + 1;
++for (var i = 0; i &lt; 12; i ++) {
++  var s = new Date(startYear, startMonth + i, 1);
++  var w = shiftWeek(s) + (s.getDay() &gt; 0 ? 1 : 0);
++  if (w &gt; 52) {
++    break;
++  }
++  var m = s.getMonth() + 1;
++  var l = m &gt; 9 ? m : &#39;0&#39; + m;
++  svg.append(&#39;text&#39;)
++    .attr(&#39;transform&#39;, &#39;translate(&#39; + cellSize * w + &#39;, -5)&#39;)
++    .text(l);
++}
++
+ var rect = svg.selectAll(&quot;.day&quot;)
+     .data(d3.time.days(lastYear, today))
+   .enter().append(&quot;rect&quot;)</code></pre>
+<h2 id="修改数据源"><a href="#修改数据源" class="headerlink" title="修改数据源"></a>修改数据源</h2><p>将数据来源由 <code>csv</code> 调整为 <code>object</code></p>
+<p><img src="/contents/calendar-view/6.png" alt="Change data source"></p>
+<pre><code class="diff">@@ -99,19 +99,17 @@ var rect = svg.selectAll(&quot;.day&quot;)
+ rect.append(&quot;title&quot;)
+     .text(function(d) { return d; });
+
+-d3.csv(&quot;dji.csv&quot;, function(error, csv) {
+-  if (error) throw error;
+-
+-  var data = d3.nest()
+-    .key(function(d) { return d.Date; })
+-    .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+-    .map(csv);
+-
+-  rect.filter(function(d) { return d in data; })
+-      .attr(&quot;class&quot;, function(d) { return &quot;day &quot; + color(data[d]); })
+-    .select(&quot;title&quot;)
+-      .text(function(d) { return d + &quot;: &quot; + percent(data[d]); });
+-});
++
++var data = {
++  &#39;2015-11-24&#39;: 0,
++  &#39;2015-11-25&#39;: -0.5,
++  &#39;2015-11-26&#39;: 0.5
++};
++
++rect.filter(function(d) { return d in data; })
++    .attr(&quot;class&quot;, function(d) { return &quot;day &quot; + color(data[d]); })
++  .select(&quot;title&quot;)
++    .text(function(d) { return d + &quot;: &quot; + percent(data[d]); });
+
+ d3.select(self.frameElement).style(&quot;height&quot;, &quot;2910px&quot;);</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#只留一年"><span class="toc-number">1.</span> <span class="toc-text">只留一年</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改样式"><span class="toc-number">2.</span> <span class="toc-text">修改样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过去一年"><span class="toc-number">3.</span> <span class="toc-text">过去一年</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#添加标签"><span class="toc-number">4.</span> <span class="toc-text">添加标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改数据源"><span class="toc-number">5.</span> <span class="toc-text">修改数据源</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

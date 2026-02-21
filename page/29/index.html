@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/covers/kubeasz.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Cloud"><b>「
+                </b>CLOUD<b> 」</b></a>
+            
+            十月 04, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2020/10/04/install-k8s-cluster-offline-with-kubeasz/" title="使用 kubeasz 离线安装 k8s 集群" class="posttitle">使用 kubeasz 离线安装 k8s 集群</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                13k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                11 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p><a href="https://github.com/easzlab/kubeasz" target="_blank" rel="noopener">kubeasz</a> 将 k8s 集群的部署难度降低到了傻瓜相机的级别。<br>本文以 <a href="https://github.com/easzlab/kubeasz/tree/2.2.1" target="_blank" rel="noopener">kubeasz v2.2.1</a> 为例，介绍一下使用 kubeasz 离线安装 k8s 集群的方式。</p>
+<p>在一个可联网的环境，按 <a href="https://github.com/easzlab/kubeasz/blob/master/docs/setup/offline_install.md" target="_blank" rel="noopener">离线...</a></p>
+            
+            <span class="read-more"><a href="/2020/10/04/install-k8s-cluster-offline-with-kubeasz/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/kubeasz.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud">
+                  <b>「 </b>CLOUD<b> 」</b>
+                </a>
+            
+            十月 04, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/10/04/install-k8s-cluster-offline-with-kubeasz/" title="使用 kubeasz 离线安装 k8s 集群" class="posttitle">使用 kubeasz 离线安装 k8s 集群</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        13k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://github.com/easzlab/kubeasz" target="_blank" rel="noopener">kubeasz</a> 将 k8s 集群的部署难度降低到了傻瓜相机的级别。<br>本文以 <a href="https://github.com/easzlab/kubeasz/tree/2.2.1" target="_blank" rel="noopener">kubeasz v2.2.1</a> 为例，介绍一下使用 kubeasz 离线安装 k8s 集群的方式。</p>
+<p>在一个可联网的环境，按 <a href="https://github.com/easzlab/kubeasz/blob/master/docs/setup/offline_install.md" target="_blank" rel="noopener">离线安装集群</a> 文档中内容，将所需文件都下载到本地：</p>
+<pre><code class="bash"># 下载工具脚本 easzup，举例使用 kubeasz 版本 2.2.1
+$ export release=2.2.1
+$ curl -C- -fLO --retry 3 https://github.com/easzlab/kubeasz/releases...</code></pre>
+            
+            <span class="read-more"><a href="/2020/10/04/install-k8s-cluster-offline-with-kubeasz/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/vscode/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/IDE">
+                  <b>「 </b>IDE<b> 」</b>
+                </a>
+            
+            九月 26, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/09/26/vscode-remote-ssh/" title="VS Code Remote - SSH 插件" class="posttitle">VS Code Remote - SSH 插件</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在需要到服务器上编辑文件的时候，如果遇到有较多文件分散在不同目录时，使用终端工具其实挺繁琐的。</p>
+<p>在 VS Code 中，有一个插件 <a href="https://github.com/Microsoft/vscode-remote-release" target="_blank" rel="noopener">Remote - SSH</a>，可以配置好 SSH 连接后，打开远程主机上的任意路径，之后就像使用 VS Code 操作本地文件夹一样。</p>
+<p>官方对此插件的简介为：</p>
+<blockquote>
+<p>Open any folder on a remote machine using SSH and take advantage of VS Code’s full feature set.</p>
+</blockquote>
+<p>但实际使用时，有...</p>
+            
+            <span class="read-more"><a href="/2020/09/26/vscode-remote-ssh/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/hibernate.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Linux">
+                  <b>「 </b>LINUX<b> 」</b>
+                </a>
+            
+            九月 20, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/09/20/unable-to-hibernate/" title="纳尼？休眠不能？！" class="posttitle">纳尼？休眠不能？！</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>CentOS 7，<code>systemctl hibernate</code> 休眠失败，按照提示使用 <code>journalctl -xe</code> 查看具体原因，得到类似如下内容的日志：</p>
+<pre><code class="log">Feb 09 14:18:14 pike systemd[1]: Starting Sleep.
+Feb 09 14:18:14 pike systemd[1]: Reached target Sleep.
+Feb 09 14:18:14 pike systemd[1]: Starting Hibernate...
+Feb 09 14:18:14...</code></pre>
+            
+            <span class="read-more"><a href="/2020/09/20/unable-to-hibernate/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/ssh-certificate-authentication.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            九月 13, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/09/13/ssh-authorized-keys/" title="SSH 免密登录" class="posttitle">SSH 免密登录</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>假设 local 需要 ssh 连接到 remote，且不希望每次连接的时候都输入密码（比如从服务器 A 连到 服务器 B）。</p>
+<pre><code class="bash"># 在本地（local 主机）.ssh 路径生成公钥和私钥文件
+$ ssh-keygen -t rsa
+# 一路回车即可</code></pre>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><p>local</p>
+<pre><code class="bash">$ cd ~/.ssh
+# 查看该路径下是否有 authorized_keys 文件，如果没有：
+$ cp id_rsa.pub authorized_keys
+# 如果有：
+$ cat id_rsa.pub &gt;&gt; authorized_k...</code></pre>
+            
+            <span class="read-more"><a href="/2020/09/13/ssh-authorized-keys/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/redis-arm-image/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Docker">
+                  <b>「 </b>DOCKER<b> 」</b>
+                </a>
+            
+            九月 06, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/09/06/huawei-kunpeng-redis-docker-image/" title="华为鲲鹏下可用的 Redis docker 镜像" class="posttitle">华为鲲鹏下可用的 Redis docker 镜像</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Arm/" rel="tag">Arm</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在华为鲲鹏服务器下，使用 Docker 时，因鲲鹏服务器使用的芯片为 ARM 架构，镜像也需要使用 ARM 版本的。</p>
+<p>从 x86 架构拉取的镜像直接导出导入到鲲鹏服务器上是不可以直接使用的。</p>
+<p>可以通过 <code>docker inspect IMAGE_NAME</code> 查看镜像的架构类型。</p>
+<p>在鲲鹏服务器上重新拉取镜像，会自动下载 ARM 架构的镜像，前提是需要有提供 ARM 架构的版本，如：</p>
+<p></p>
+<p>但在鲲鹏服务器上，使用官方提供的 ARM64 版本的 Redis 镜像，启动时会报如下异常：</p>
+<pre><code class="bash">&lt;jemalloc...</code></pre>
+            
+            <span class="read-more"><a href="/2020/09/06/huawei-kunpeng-redis-docker-image/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/gitee-pages/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Git">
+                  <b>「 </b>GIT<b> 」</b>
+                </a>
+            
+            八月 30, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/08/30/gitee-pages/" title="联通 4G 访问 GitHub Pages 受阻肿么办？" class="posttitle">联通 4G 访问 GitHub Pages 受阻肿么办？</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>联通 4G 抽风性的无法正常访问 GitHub Pages，GitHub 有时候也抽，哥俩抽的频率还不同步。</p>
+<p>这时候有域名和主机的朋友可以考虑架个 Nginx 反向代理一下，那没有条件的朋友们如何创造条件也要上呢？</p>
+<p>Gitee（<a href="https://gitee.com/），是一个不错的选择，可以同步" target="_blank" rel="noopener">https://gitee.com/），是一个不错的选择，可以同步</a> GitHub Pages 仓库，并提供 Gitee Pages 功能。</p>
+<p>注册账号后新建仓库，选择 <code>导入已有仓库</code>，点击创建，即可将 GitHub Pages 的仓库迁移到 Gitee 上来。</p>
+<p>导入仓库之后，...</p>
+            
+            <span class="read-more"><a href="/2020/08/30/gitee-pages/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/subnet-mask.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/DevOps">
+                  <b>「 </b>DEVOPS<b> 」</b>
+                </a>
+            
+            八月 23, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/08/23/subnet-mask/" title="子网掩码是神马" class="posttitle">子网掩码是神马</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Network/" rel="tag">Network</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在手动配置 IPv4 地址时，需要配置子网掩码，一般会是 <code>255.255.255.0</code> 这样的形式，或者在 <code>ifconfig</code> 中表示为 <code>netmask 0xffffff00</code>。那么什么是子网掩码？子网掩码为什么一般都是这样的呢？</p>
+<p>目前所说的 IP 地址，一般还是指 IPv4 地址。IPv4 是指长度为 32 位（4个字节）的一组数字，为方便记忆及描述，使用十进制表示，并在每个字节之间使用 <code>.</code> 间隔（点分十进制，Dotted decimal notation）。</p>
+<p>比如 <code>127.0.0.1</code> 为 IP 地...</p>
+            
+            <span class="read-more"><a href="/2020/08/23/subnet-mask/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/ace.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud">
+                  <b>「 </b>CLOUD<b> 」</b>
+                </a>
+            
+            八月 16, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/08/16/ace/" title="Alibaba Cloud Certified Expert" class="posttitle">Alibaba Cloud Certified Expert</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p><a href="https://github.com/AlphaHinex/ACP/tree/gh-pages/raw-materials/ACE-2020%E5%B9%B47%E6%9C%88-105%E5%88%86" target="_blank" rel="noopener">2020年7月 105分 截屏</a></p>
+<p><a href="https://alphahinex.github.io/ACP">在线练习</a></p>
+<p><a href="https://github.com/AlphaHinex/ACP" target="_blank" rel="noopener">在线练习代码仓库</a></p>
+<p>Base on <a href="https://github.com/BobbyBLACK/JavaScript_QUIZ" target="_blank" rel="noopener">Bobby Black’s Fork</a> of <a href="https://github.com/jrue/JavaScript-Quiz" target="_blank" rel="noopener">jrue’s JavaScript-Quiz</a></p>
+<p>做了如下改动：</p>
+<ol>
+<li>支持多选题</li>
+<li>对已掌握的题可以去除，循环答题是不会再次出现。刷新页面时题库重置</li>
+<li>每次刷新页面随机出题顺序</li>
+<li>增加不蒜子统计</li>
+<li>将题目内容抽取为了单独的 js 文件，方便切换</li>
+</ol>
+<p>当前在线版本为 ACE 内容，可在 <a href="https://github.com/AlphaHinex/ACP/blob/gh-pages/index.html#L13" target="_blank" rel="noopener">index.html</a> 中切换 ACP（<a href="https://github.com/AlphaHinex/ACP/blob/gh-pages/quiz.js" target="_blank" rel="noopener">quiz.js</a>） 及 ACE（<a href="https://github.com/AlphaHinex/ACP/blob/gh-pages/ace.js" target="_blank" rel="noopener">ace.js</a>)。</p>
+
+            
+            <span class="read-more"><a href="/2020/08/16/ace/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/rsync.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Linux">
+                  <b>「 </b>LINUX<b> 」</b>
+                </a>
+            
+            八月 09, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/08/09/rsync-and-cron/" title="通过 rsync 和 cron 实现日志文件的准实时同步" class="posttitle">通过 rsync 和 cron 实现日志文件的准实时同步</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.9k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>服务器中日志文件希望即时同步到另一个服务器中，并且能够 tail。</p>
+<ol>
+<li>通过 rsync 进行文件的同步</li>
+<li>通过计划任务完成准实时的同步</li>
+</ol>
+<h3 id="rsync"><a href="#rsync" class="headerlink" title="rsync"></a>rsync</h3><p><a href="https://rsync.samba.org/" target="_blank" rel="noopener">rsync</a> 是一个 <a href="https://github.com/WayneD/rsync" target="_blank" rel="noopener">开源</a> 的工具，提供了快速的增量文件同步功能。包含在了 Linux 各主流发行版中。</p>
+<p>基本用法为：<code>rsync [options] src dest</code>，支持本地及远程文件的拷贝（但不支持 src 和 dest 同时为远程地址）。</p>
+<p>详细用法可以参考 <a href="https://rsync.samba.org/documentation.html" target="_blank" rel="noopener">官方文档</a> 或网上其他资料，如 <a href="https://cloud.tencent.com/developer/article/1114056" target="_blank" rel="noopener">rsync - Linux下进行文件同步命令</a>。</p>
+<h3 id="cron"><a href="#cron" class="headerlink" title="cron"></a>cron</h3><p>cron...</p>
+            
+            <span class="read-more"><a href="/2020/08/09/rsync-and-cron/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/how-request-find-servlet/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Tomcat">
+                  <b>「 </b>TOMCAT<b> 」</b>
+                </a>
+            
+            八月 02, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/08/02/how-request-find-servlet/" title="Tomcat 是怎么找到用来处理请求的 Servlet 的？" class="posttitle">Tomcat 是怎么找到用来处理请求的 Servlet 的？</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        12 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2020/04/30/where-are-servlets/">Servlet 注册到了哪？</a> 中，我们找到了配置的 Servlet 被包装成了一个 <code>StandardWrapper</code>，以注册的 Servlet name 为 key 放入了其父容器（Context）一个 HashMap 里。那么当 Tomcat 收到一个请求的时候，是怎么找到对应的 Servlet 以对请求进行处理的呢？</p>
+<p>先放一张图：</p>
+<p></p>
+<p>总的来说，这个过程分为两部分：</p>
+<ol>
+<li>读取所有 Servlet 的配置，放入 Mapper 中；</li>
+<li>将请求匹配到具体的 Servlet 上。</li>
+</ol>
+<blockquote>
+<p>注：本文以 <a href="https://github.com/apache/tomcat/tree/9.0.35" target="_blank" rel="noopener">Tomcat...</a></p></blockquote>
+            
+            <span class="read-more"><a href="/2020/08/02/how-request-find-servlet/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/30/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

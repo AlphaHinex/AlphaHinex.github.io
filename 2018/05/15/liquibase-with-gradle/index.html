@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Using Liquibase with Gradle in Spring Project - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    <meta name="description" content="Spring 项目通过 Gradle 插件使用 Liquibase 的简易说明
+Liquibase 是什么引用 Liquibase 官网 的一张图片：
+
+类似的工具还有 Flyway。
+为什么选择 ,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Using Liquibase with Gradle in Spring Project</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(https://www.liquibase.org/custom_images/home_tagline.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                五月 15, 2018
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2018/05/15/liquibase-with-gradle/" title="Using Liquibase with Gradle in Spring Project" class="">Using Liquibase with Gradle in Spring Project</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Liquibase/" rel="tag">Liquibase</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>Spring 项目通过 Gradle 插件使用 Liquibase 的简易说明</p>
+<h2 id="Liquibase-是什么"><a href="#Liquibase-是什么" class="headerlink" title="Liquibase 是什么"></a>Liquibase 是什么</h2><p>引用 <a href="http://www.liquibase.org/index.html" target="_blank" rel="noopener">Liquibase 官网</a> 的一张图片：</p>
+<p><img src="http://www.liquibase.org/custom_images/home_tagline.png" alt="Source Control for Your Database"></p>
+<p>类似的工具还有 <a href="https://flywaydb.org/" target="_blank" rel="noopener">Flyway</a>。</p>
+<h2 id="为什么选择-Liquibase"><a href="#为什么选择-Liquibase" class="headerlink" title="为什么选择 Liquibase"></a>为什么选择 Liquibase</h2><p><a href="https://flywaydb.org/" target="_blank" rel="noopener">Flyway 官网</a> 上有一个同类工具特性的对比，详见 <code>Feature Comparison</code> 部分或下图：</p>
+<p><img src="/contents/liquibase-with-gradle/Feature-Comparison.png" alt="Feature Comparison"></p>
+<p>看图的话，Flyway 完胜，不过 <strong>等等！看完下面内容再做决定</strong>：</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/37385823/liquibase-vs-flyway-which-one-to-use" target="_blank" rel="noopener">Liquibase vs Flyway which one to use?</a></li>
+<li><a href="https://reflectoring.io/database-refactoring-flyway-vs-liquibase/" target="_blank" rel="noopener">Tool-based Database Refactoring: Flyway vs. Liquibase</a></li>
+<li><a href="http://ju.outofmemory.cn/entry/85903" target="_blank" rel="noopener">Java世界最棒的DB Migration Tool</a></li>
+</ul>
+<p>一句话总结一下：</p>
+<pre><code>面向 SQL，选择 Flyway
+不面向 SQL，选择 Liquibase</code></pre><h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use?"></a>How to use?</h2><p>Liquibase 的使用方式可参考官方提供的 <a href="http://www.liquibase.org/quickstart.html" target="_blank" rel="noopener">Quick Start</a> 文档，这里主要讲一下 <strong>Liquibase 和 Spring 集成使用的方式</strong>。</p>
+<h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>先统一一下本文中使用的各类组件的版本：</p>
+<ul>
+<li><a href="https://github.com/liquibase/liquibase/tree/liquibase-parent-3.6.1" target="_blank" rel="noopener">liquibase v3.6.1</a></li>
+<li><a href="https://github.com/liquibase/liquibase-gradle-plugin/tree/acf7a693563471f83fd26b9e15365ab98011d804" target="_blank" rel="noopener">liquibase-gradle-plugin v1.2.4</a></li>
+<li><a href="https://github.com/gradle/gradle/tree/v4.6.0" target="_blank" rel="noopener">Gradle v4.6</a></li>
+<li><a href="https://github.com/h2database/h2database/tree/version-1.3/version-1.3.176/h2" target="_blank" rel="noopener">H2 v1.3.176</a></li>
+</ul>
+<h3 id="入口-bean"><a href="#入口-bean" class="headerlink" title="入口 bean"></a>入口 bean</h3><pre><code class="xml">&lt;bean id=&quot;liquibase&quot; class=&quot;liquibase.integration.spring.SpringLiquibase&quot; lazy-init=&quot;false&quot;&gt;
+    &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;/&gt;
+    &lt;property name=&quot;changeLog&quot; value=&quot;classpath*:liquibase/changelog.xml&quot;/&gt;
+    &lt;property name=&quot;contexts&quot; value=&quot;${database.liquibase.profile}&quot;/&gt;
+&lt;/bean&gt;</code></pre>
+<p>需要注意几点：</p>
+<ol>
+<li>数据库的变更最好在应用启动时进行，所以需要给入口 bean 配置上 <code>lazy-init=&quot;false&quot;</code></li>
+<li>Spring 提供的 <a href="http://propersoft-cn.github.io/pep-refs/projects/spring-framework/4.3.0/index.html#beans-definition-profiles" target="_blank" rel="noopener">profiles</a> 机制可以对应到 Liquibase 的 <a href="http://www.liquibase.org/documentation/contexts.html" target="_blank" rel="noopener">Contexts</a> 上，以便在不同的 profile 执行不同的数据库操作</li>
+<li>大型项目一般都会分模块，模块最终可能会以 jar 包方式被引用。入口 changelog.xml 可能也是存在于 jar 包中的。故 <code>changeLog</code> 属性的 <code>value</code> 配置为 <code>classpath*:liquibase/changelog.xml</code>。<strong>想法很不错，但这里会遇到一个问题：<code>CORE-3139</code></strong></li>
+</ol>
+<h4 id="CORE-3139"><a href="#CORE-3139" class="headerlink" title="CORE-3139"></a>CORE-3139</h4><p><a href="https://liquibase.jira.com/browse/CORE-3139" target="_blank" rel="noopener">CORE-3139</a> 是 Liquibase 无法从 JAR 包中读取资源文件的一个 bug。这个 bug 已有 <a href="https://github.com/liquibase/liquibase/pull/725" target="_blank" rel="noopener">PR #725</a> 进行了处理，CORE-3139 中也标记这个问题已在 Liquibase <code>v3.5.4</code> 版本中修复，但事实证明在 <a href="https://github.com/liquibase/liquibase/tree/liquibase-parent-3.6.1" target="_blank" rel="noopener">Liquibase v3.6.1</a> 版本中仍然存在，且之前修复这个问题的代码也基本都被覆盖掉了 orz。</p>
+<p>这个问题只会影响到从 JAR 包中读取资源文件的情况（比如 changelog.xml 在 JAR 包中），资源直接存在于文件系统时并不受此问题影响。</p>
+<p>为了避免这个问题再反复出现，新提交了一个 <a href="https://github.com/liquibase/liquibase/pull/767" target="_blank" rel="noopener">PR #767</a> 对问题进行了修正，并补充了单元测试。如需将 changelog 打入 JAR 包中，可使用合并了此 PR 的版本的 Liquibase。</p>
+<h3 id="Change-Log-的组织"><a href="#Change-Log-的组织" class="headerlink" title="Change Log 的组织"></a>Change Log 的组织</h3><p>项目模块化后，Change Log 也需要分布到各个模块中，与官方 <a href="http://www.liquibase.org/bestpractices.html" target="_blank" rel="noopener">最佳实践</a> 给出的结构不同，项目中的结构可能更类似下面的情况：</p>
+<pre><code>├── a
+│   └── src
+│       └── main
+│           └── resources
+│               └── liquibase
+│                   └── changelog.xml
+├── b
+│   └── src
+│       └── main
+│           └── resources
+│               └── liquibase
+│                   └── changelogs
+│                       ├── changelog-ddl-b.xml
+│                       └── changelog-dml-b.xml
+└── c
+    └── src
+        └── main
+            └── resources
+                └── liquibase
+                    └── changelogs
+                        └── changelog-dml-c.xml</code></pre><p>除 <code>a</code> 模块作为 changelog 入口模块外，<code>b</code>、<code>c</code> 模块可能都是被以 JAR 包方式选择性引入的，即 <code>a</code> 模块的 changelog.xml 不应该感知到 <code>b</code>、<code>c</code> 模块内的 <code>changelog-*.xml</code>；同时当引入 <code>b</code>、<code>c</code> 模块时又能将模块下的 <code>changelog-*.xml</code> 都正常加载到。</p>
+<p>实现这个需求需借助 Liquibase 提供的 <a href="http://www.liquibase.org/documentation/includeall.html" target="_blank" rel="noopener">includeAll</a>，同时要注意下其中的 <code>Warnings</code>：</p>
+<blockquote>
+<p>If you do choose to use the includeAll tag, make sure you have a naming strategy in place that will insure that you will never have conflicts or need to rename files to change to force a reordering.</p>
+</blockquote>
+<p>可参考如下方式组织 changelogs：</p>
+<ul>
+<li>入口 changelog 为 <code>liquibase/changelog.xml</code></li>
+<li>为避免入口 changelog include 到自己，各模块的 changelog 存放路径要与入口 changelog 路径有区别，如放在 <code>liquibase/changelogs/</code> 路径下</li>
+<li>将 DDL 和 DML 分开放置，且按 <code>changelog-[ddl/dml]-{module}.xml</code> 方式命名，因为 Liquibase 是将所有 changelog 文件按字典序方式执行，这样可以保证 DDL 会优先 DML 执行，且不会因路径相同导致 changelog 文件被覆盖</li>
+</ul>
+<blockquote>
+<p>注：即使在不同 JAR 包下，相对路径相同的 changelog 文件也会被覆盖</p>
+</blockquote>
+<blockquote>
+<p>如需从 JAR 包中读取 changelog，你可能需要 <a href="https://github.com/liquibase/liquibase/pull/767" target="_blank" rel="noopener">PR #767</a>。</p>
+</blockquote>
+<h4 id="入口-Change-Log"><a href="#入口-Change-Log" class="headerlink" title="入口 Change Log"></a>入口 Change Log</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;databaseChangeLog
+    xmlns=&quot;http://www.liquibase.org/xml/ns/dbchangelog&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd&quot;&gt;
+    &lt;includeAll path=&quot;classpath*:liquibase/changelogs/&quot; context=&quot;dev, production&quot;/&gt;
+&lt;/databaseChangeLog&gt;</code></pre>
+<h4 id="Change-Log-Template"><a href="#Change-Log-Template" class="headerlink" title="Change Log Template"></a>Change Log Template</h4><pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;databaseChangeLog xmlns=&quot;http://www.liquibase.org/xml/ns/dbchangelog&quot;
+                   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+                   xsi:schemaLocation=&quot;http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd&quot;&gt;
+    &lt;changeSet author=&quot;alphahinex&quot; id=&quot;20180515-1&quot;&gt;
+      ...
+    &lt;/changeSet&gt;
+&lt;/databaseChangeLog&gt;</code></pre>
+<h3 id="利用-Gradle-执行-Liquibase-命令"><a href="#利用-Gradle-执行-Liquibase-命令" class="headerlink" title="利用 Gradle 执行 Liquibase 命令"></a>利用 Gradle 执行 Liquibase 命令</h3><p>如果不是从项目起始时就使用了 Liquibase，或者不想手写 Change Set，可以通过 Liquibase 提供的 <a href="http://www.liquibase.org/documentation/command_line.html" target="_blank" rel="noopener">命令</a> 来生成 Change Log 或 DDL 的变更（数据的变更暂不支持生成）。如果是使用 Gradle 的项目，可以利用 <a href="https://github.com/liquibase/liquibase-gradle-plugin/tree/acf7a693563471f83fd26b9e15365ab98011d804" target="_blank" rel="noopener">Liquibase 的 Gradle 插件</a> 来执行命令，更加便捷。</p>
+<blockquote>
+<p>Liquibase 项目本身的活跃度目前并不高，插件的活跃度及文档的准确性更是问题重重，这也是本文存在的意义之一。</p>
+</blockquote>
+<h4 id="Gradle-配置"><a href="#Gradle-配置" class="headerlink" title="Gradle 配置"></a>Gradle 配置</h4><p>以 <a href="http://h2database.com/html/main.html" target="_blank" rel="noopener">H2 数据库</a> 为例，为执行 Liquibase 引入数据库驱动：</p>
+<pre><code class="gradle">buildscript {
+    dependencies {
+        classpath &#39;com.h2database:h2:1.3.176&#39;
+    }
+}</code></pre>
+<p>引入插件：</p>
+<pre><code class="gradle">plugins {
+    id &#39;org.liquibase.gradle&#39; version &#39;1.2.4&#39;
+}</code></pre>
+<p>定义 activities 用以生成不同的 Change Log：</p>
+<pre><code class="gradle">ext {
+    // 数据库地址
+    liquibaseUrl = &#39;jdbc:h2:~/data/h2/pep_dev;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE&#39;
+    // 旧版数据库地址，比较差异用
+    liquibaseOldUrl = &#39;jdbc:h2:~/data/h2-diff/pep_dev;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE&#39;
+    liquibaseUsername = &#39;sa&#39;
+    liquibasePassword = &#39;&#39;
+}
+
+liquibase {
+    activities {
+        // 生成全库结构 Change Log
+        genDev {
+            changeLogFile &#39;db/dev.xml&#39;
+            url           liquibaseUrl
+            username      liquibaseUsername
+            password      liquibasePassword
+        }
+        // 生成全库数据 Change Log
+        genDevData {
+            changeLogFile     &#39;db/dev-data.xml&#39;
+            url               liquibaseUrl
+            username          liquibaseUsername
+            password          liquibasePassword
+            diffTypes         &#39;data&#39;
+        }
+        // 对比生成数据库结构变更 Change Log
+        diffDev {
+            changeLogFile     &#39;db/dev-diff.xml&#39;
+            url               liquibaseOldUrl
+            username          liquibaseUsername
+            password          liquibasePassword
+            referenceUrl      liquibaseUrl
+            referenceUsername liquibaseUsername
+            referencePassword liquibasePassword
+        }
+    }
+    // 若不设定 runList，所有 activities 都会被执行
+    // -PrunList=abc 并不好用，所以要执行指定的 activities 时，可直接修改此处值
+    // 多个值可用逗号间隔，如 &#39;genDev,genDevData&#39;
+    runList = &#39;genDevData&#39;
+}</code></pre>
+<h3 id="生成-Change-Log"><a href="#生成-Change-Log" class="headerlink" title="生成 Change Log"></a>生成 Change Log</h3><h4 id="全库-Change-Log，包括结构和数据"><a href="#全库-Change-Log，包括结构和数据" class="headerlink" title="全库 Change Log，包括结构和数据"></a>全库 Change Log，包括结构和数据</h4><ol>
+<li><code>runList</code> 设定为 <code>genDev,genDevData</code></li>
+<li><code>./gradlew generateChangelog</code></li>
+<li>在 <code>./db/dev.xml</code> 可找到全库结构的 Change Log</li>
+<li>在 <code>./db/dev-data.xml</code> 可找到全库数据的 Change Log。</li>
+</ol>
+<blockquote>
+<p>注意：执行命令前需保证这两个文件不存在，否则会报错。</p>
+</blockquote>
+<blockquote>
+<p>生成的 Change Log 中的内容最好进行检查和一定的调整，以免自动生成的名称没有直观的含义，或产生冲突等问题。</p>
+</blockquote>
+<h4 id="结构变更-Change-Log"><a href="#结构变更-Change-Log" class="headerlink" title="结构变更 Change Log"></a>结构变更 Change Log</h4><ol>
+<li>欲进行数据库结构变更时，先将变更前的库备份，例如从 <code>~/data/h2/pep_dev</code> 备份至 <code>~/data/h2-diff/pep_dev</code></li>
+<li><code>runList</code> 设定为 <code>diffDev</code></li>
+<li><code>./gradlew diffChangeLog</code></li>
+<li>结构变更 Change Log 将生成至 <code>./db/dev-diff.xml</code>。</li>
+</ol>
+<h4 id="新增数据"><a href="#新增数据" class="headerlink" title="新增数据"></a>新增数据</h4><ol>
+<li>在数据库中执行 insert 语句</li>
+<li>修改 build.gradle 中配置的 liquibase.runList，将其值改为 <code>genDevData</code></li>
+<li><code>./gradlew generateChangelog</code></li>
+<li>从 <code>db/dev-data.xml</code> 中找到新增数据的 changeSet，并放至相应模块的 change log 文件中</li>
+</ol>
+<h4 id="变更数据"><a href="#变更数据" class="headerlink" title="变更数据"></a>变更数据</h4><p>Liquibase <a href="http://forum.liquibase.org/topic/data-diff-diffchangelog" target="_blank" rel="noopener">目前并不支持数据变更的生成</a>，可参照官方文档手写 Change Set，语法基本类似 SQL，可参照：</p>
+<ul>
+<li><a href="http://www.liquibase.org/documentation/changes/update.html" target="_blank" rel="noopener">Update</a></li>
+<li><a href="http://www.liquibase.org/documentation/changes/delete.html" target="_blank" rel="noopener">Delete</a></li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/liquibase/liquibase" target="_blank" rel="noopener">Liquibase</a></li>
+<li><a href="http://www.liquibase.org/documentation/index.html" target="_blank" rel="noopener">Liquibase Documentation</a></li>
+<li><a href="https://github.com/liquibase/liquibase-gradle-plugin" target="_blank" rel="noopener">liquibase-gradle-plugin</a></li>
+<li><a href="https://github.com/liquibase/liquibase-hibernate/wiki#why-not-use-hbm2ddl" target="_blank" rel="noopener">Why not use HBM2DDL?</a></li>
+<li><a href="http://www.liquibase.org/documentation/generating_changelogs.html" target="_blank" rel="noopener">Generating Change Logs</a></li>
+<li><a href="http://www.liquibase.org/documentation/existing_project.html" target="_blank" rel="noopener">Adding Liquibase on an Existing project</a></li>
+<li><a href="https://github.com/liquibase/liquibase-hibernate" target="_blank" rel="noopener">liquibase-hibernate</a></li>
+<li><a href="http://www.liquibase.org/documentation/diff.html" target="_blank" rel="noopener">Database “Diff”</a></li>
+<li><a href="http://www.liquibase.org/documentation/spring.html" target="_blank" rel="noopener">Spring Integration</a></li>
+<li><a href="http://www.liquibase.org/documentation/trimming_changelogs.html" target="_blank" rel="noopener">Trimming ChangeLog Files</a></li>
+<li><a href="https://stackoverflow.com/questions/8397488/comparing-databases-and-generating-sql-script-using-liquibase" target="_blank" rel="noopener">comparing databases and generating sql script using liquibase</a></li>
+<li><a href="http://www.liquibase.org/documentation/changes/index.html" target="_blank" rel="noopener">Bundled Liquibase Changes</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Liquibase-是什么"><span class="toc-number">1.</span> <span class="toc-text">Liquibase 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么选择-Liquibase"><span class="toc-number">2.</span> <span class="toc-text">为什么选择 Liquibase</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#How-to-use"><span class="toc-number">3.</span> <span class="toc-text">How to use?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#版本"><span class="toc-number">3.1.</span> <span class="toc-text">版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#入口-bean"><span class="toc-number">3.2.</span> <span class="toc-text">入口 bean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Change-Log-的组织"><span class="toc-number">3.3.</span> <span class="toc-text">Change Log 的组织</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用-Gradle-执行-Liquibase-命令"><span class="toc-number">3.4.</span> <span class="toc-text">利用 Gradle 执行 Liquibase 命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成-Change-Log"><span class="toc-number">3.5.</span> <span class="toc-text">生成 Change Log</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

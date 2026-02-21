@@ -1,0 +1,618 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>kubelet 架构设计解析之 Memory Manager - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,kubelet, Memory Manager, Kubernetes, UMA, NUMA"> 
+    <meta name="description" content="作者：@weiliang-ms
+1. Memory Manager介绍说明Memory Manager(译为内存管理器)是 kubelet 内部的一个组件，旨在为 Guaranteed  QoS 类,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">kubelet 架构设计解析之 Memory Manager</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/kubelet-memory-manager/figure2.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                八月 06, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/08/06/kubelet-memory-manager/" title="kubelet 架构设计解析之 Memory Manager" class="">kubelet 架构设计解析之 Memory Manager</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>作者：<a href="https://github.com/weiliang-ms" target="_blank" rel="noopener">@weiliang-ms</a></p>
+<h1 id="1-Memory-Manager介绍说明"><a href="#1-Memory-Manager介绍说明" class="headerlink" title="1. Memory Manager介绍说明"></a>1. Memory Manager介绍说明</h1><p>Memory Manager(译为内存管理器)是 kubelet 内部的一个组件，旨在为 <strong>Guaranteed</strong>  QoS 类型 pod 提供保证内存(和大页内存)分配功能，该特性提供了几种分配策略：</p>
+<ol>
+<li>单 NUMA 策略：用于高性能和性能敏感的应用程序</li>
+<li>多 NUMA 策略：补充完善单 NUMA 策略无法管理的情况</li>
+</ol>
+<p>也就是说，只要 pod 所需的内存量超过单个 NUMA 节点的容量，就会使用多 NUMA 策略跨多个 NUMA 节点提供保证的内存。</p>
+<p>在这两种场景中，内存管理器都使用提示生成协议为 pod 生成最合适的 NUMA 关联，并将这些关联提示提供给中央管理器(Topology Manager)。此外，内存管理器确保 pod 请求的内存从最小数量的 NUMA 节点分配。</p>
+<p>从技术上讲，单 NUMA 策略是多 NUMA 策略的一种特殊情况，因此 kubernetes 开发团队没有为它们开发单独的实现。</p>
+<h2 id="1-1-什么是NUMA？"><a href="#1-1-什么是NUMA？" class="headerlink" title="1.1 什么是NUMA？"></a>1.1 什么是NUMA？</h2><p>早期的计算机，内存控制器还没有整合进 CPU，所有的内存访问都需要经过北桥芯片来完成。如下图所示，CPU 通过前端总线（FSB，Front Side Bus）连接到北桥芯片，然后北桥芯片连接到内存——内存控制器集成在北桥芯片里面。</p>
+<p><img src="/contents/kubelet-memory-manager/figure1.png" alt="FSB"></p>
+<p>上面这种架构被称为 UMA（Uniform Memory Access, 一致性内存访问 ）：总线模型保证了 CPU 的所有内存访问都是一致的，不必考虑不同内存地址之间的差异。</p>
+<p>在 UMA 架构下，CPU 和内存之间的通信全部都要通过前端总线。而提高性能的方式，就是不断地提高 CPU、前端总线和内存的工作频率。</p>
+<p>由于物理条件的限制，不断提高工作频率的方式接近瓶颈。CPU 性能的提升开始从提高主频转向增加 CPU 数量（多核、多 CPU）。越来越多的 CPU 对前端总线的争用，使前端总线成为了瓶颈。为了消除 UMA 架构的瓶颈，NUMA（Non-Uniform Memory Access, 非一致性内存访问）架构诞生了：</p>
+<p><img src="/contents/kubelet-memory-manager/figure2.png" alt="NUMA"></p>
+<ol>
+<li>CPU 厂商把内存控制器集成到 CPU 内部，一般一个 CPU socket 会有一个独立的内存控制器。</li>
+<li>每个 CPU scoket 独立连接到一部分内存，这部分 CPU 直连的内存称为“本地内存”。</li>
+<li>CPU 之间通过 QPI（Quick Path Interconnect） 总线进行连接。CPU 可以通过 QPI 总线访问不和自己直连的“远程内存”。</li>
+</ol>
+<p>和 UMA 架构不同，在 NUMA 架构下，内存的访问出现了本地和远程的区别：访问远程内存的延时会明显高于访问本地内存。</p>
+<h2 id="1-2-什么是大页内存？"><a href="#1-2-什么是大页内存？" class="headerlink" title="1.2 什么是大页内存？"></a>1.2 什么是大页内存？</h2><p>大页内存(HugePages)，有时也叫“大内存页”、“内存大页”、“标准大页”。计算机内存以页的形式分配给进程。通常这些页相当小，这意味着消耗大量内存的进程也将消耗大量的页。对于那些内存操作非常频繁的业务来说，大页内存可以有效的提高性能。简而言之，通过启用大页内存，系统只需要处理较少的页面映射表，从而减少访问/维护它们的开销！大页内存在数据库服务器这样的系统上特别有用。像 MySQL 和 PostgreSQL 这样的进程可以使用大页内存，以减少对 RAM 缓存的压力。</p>
+<h2 id="1-3-什么是Guaranteed-QoS-pod？"><a href="#1-3-什么是Guaranteed-QoS-pod？" class="headerlink" title="1.3 什么是Guaranteed QoS pod？"></a>1.3 什么是Guaranteed QoS pod？</h2><p>Kubernetes 通过 <a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-qos/" target="_blank" rel="noopener">服务质量类（Quality of Service class，QoS class）</a> 定义了三种 pod 类型， Kubernetes 在 Node 资源不足时使用 QoS 类来就驱逐 Pod 作出决定：</p>
+<ul>
+<li><strong>Guaranteed</strong>：pod 中 每个容器 limits.cpu == requests.cpu &amp;&amp; limits.memory== requests.memory. Guaranteed 类型 Pod 具有最严格的资源限制，并且最不可能面临驱逐。</li>
+<li><strong>Burstable</strong>： Pod 中至少一个容器有内存或 CPU 的 request 或 limit 且非 Guaranteed。</li>
+<li><strong>BestEffort</strong>：Pod 不满足 Guaranteed 或 Burstable 的判据条件，即Pod 中的所有容器没有设置内存 limit 或内存 request，也没有设置 CPU limit 或 CPU request 。</li>
+</ul>
+<p>三种 pod 优先级：<strong>Guaranteed &gt; Burstable &gt; BestEffort</strong></p>
+<h1 id="2-Memory-Manager开发动机"><a href="#2-Memory-Manager开发动机" class="headerlink" title="2. Memory Manager开发动机"></a>2. Memory Manager开发动机</h1><ol>
+<li>为容器(同一 pod 内的容器)提供最小数量的 NUMA 节点上有保证的内存(和大页内存)分配。</li>
+<li>保证整个容器组(同一 pod 内的容器)的内存和大页面与相同 NUMA 节点的关联。</li>
+</ol>
+<p><strong>内存管理器的设计应用对于性能敏感的程序、数据库、虚拟化影响巨大：</strong></p>
+<p>由于数据库(例如，Oracle, PostgreSQL和MySQL)需要相对大量的内存和大页内存，来相对有效地访问大量数据。而为了减少由跨 NUMA 内存访问和共享引起的延迟，所有资源(CPU内核、内存、大页内存和I/O设备)都应该对齐到同一个 NUMA 节点，这将极大地提高稳定性和性能。</p>
+<p>并且内存数据库（Redis等）具有更大的内存需求，可以扩展到多个 NUMA 节点。这就产生了跨多个 NUMA 节点维持和管理内存的需求。</p>
+<h1 id="3-Memory-Manager架构设计"><a href="#3-Memory-Manager架构设计" class="headerlink" title="3. Memory Manager架构设计"></a>3. Memory Manager架构设计</h1><p><img src="/contents/kubelet-memory-manager/figure3.png" alt="arch"></p>
+<p>一旦 kubelet 请求 Guaranteed QoS 类型 pod 许可，如上图所示，拓扑管理器（Topology Manager）就会向内存管理器 (Memory Manager) 查询 pod 中所有容器的内存和大页内存的首选 NUMA 亲和关系。</p>
+<p>对于 pod 中的每个容器，内存管理器使用其内部数据库(即Node Map)计算关联。Node Map 是一个对象，它负责跟踪 Guaranteed  QoS 类 Pod 中所有容器的内存(和大页内存)的使用情况。一旦内存管理器完成计算，它将结果返回给拓扑管理器，以便拓扑管理器可以计算出哪个 NUMA 节点或一组 NUMA 节点最适合容器的内存固定。对 pod 中的所有容器执行总体计算，如果没有容器被拒绝，则 kubelet 最终接收并部署该 pod。</p>
+<p>在 pod 接收阶段，内存管理器调用 Allocate() 方法并更新其 Node Map 对象。随后内存管理器调用 AddContainer() 方法并强制分配容器的内存和大页内存，并限制到对应 NUMA 节点或 NUMA 节点组。最终通过CRI 接口更新控制组配置项（cpuset.mems项）。</p>
+<p><strong>内存管理器为(且仅为) Guaranteed  QoS类中的pod提供有保证的内存分配。</strong></p>
+<h2 id="3-1-多NUMA节点保证内存分配原理"><a href="#3-1-多NUMA节点保证内存分配原理" class="headerlink" title="3.1 多NUMA节点保证内存分配原理"></a>3.1 多NUMA节点保证内存分配原理</h2><p>主要思想是将一组 NUMA 节点视为一个独立的单元，并由内存管理器管理这些独立的单元。</p>
+<p>NUMA 节点组不能相交。下面的图举例说明了一组不相交的 NUMA 组。图中的组是不相交的，即:[0]，[1,2]，[3]。必须遵守该规则，因为重叠的组基本上不能确保在多个 NUMA 节点上有保证的内存分配。</p>
+<p><img src="/contents/kubelet-memory-manager/figure4.png" alt="multi"></p>
+<p>例如，以下组重叠，[0,1]，[1,2]和[3]，因为它们有一个以1为索引的公共 NUMA 节点。换句话说，如果组重叠(比如：[0,1]和[1,2])，则[1,2]组的内存资源可能会优先被另一组([0,1])消耗，[1,2]组可用内存资源会被抢占。</p>
+<h2 id="3-2-节点映射（Node-Map）"><a href="#3-2-节点映射（Node-Map）" class="headerlink" title="3.2 节点映射（Node Map）"></a>3.2 节点映射（Node Map）</h2><p>内存管理器有一个内部数据库，即节点映射（Node Map），它包含内存映射（Memory Map）。该数据库用于记录在 Guaranteed QoS 类中为已部署的容器保留的内存。节点映射对象记录 Node 对象中不相交的 NUMA-node组的动态配置。注意，实际上内存映射提供了跟踪内存的计数器。因此，不应该将映射理解为允许保留内存范围或连续内存块的映射。</p>
+<p>在部署容器时，还使用映射来计算NUMA关联。内存管理器支持传统内存和各种可能大小的大页内存(例如2 MiB或1 GiB)，节点向内存管理器提供三种类型的内存，即:常规内存、hugepages-1Gi和hugepages-2Mi。</p>
+<p>在启动时，内存管理器为每个 NUMA 节点和各自的内存类型初始化一个 Memory Table 集合，从而生成准备使用的内存映射对象。</p>
+<pre><code class="Go">// MemoryTable 包含内存信息
+type MemoryTable struct {
+        TotalMemSize   uint64 `json:&quot;total&quot;`
+        SystemReserved uint64 `json:&quot;systemReserved&quot;`
+        Allocatable    uint64 `json:&quot;allocatable&quot;`
+        Reserved       uint64 `json:&quot;reserved&quot;`
+        Free           uint64 `json:&quot;free&quot;`
+}
+
+// NodeState 包含 NUMA 节点关联信息
+type NodeState struct {
+        // NumberOfAssignments contains a number memory assignments from this node
+        // When the container requires memory and hugepages it will increase number of assignments by two
+        NumberOfAssignments int `json:&quot;numberOfAssignments&quot;`
+        // MemoryTable 包含 NUMA 节点内存关联信息
+        MemoryMap map[v1.ResourceName]*MemoryTable `json:&quot;memoryMap&quot;`
+        // NodeGroups contains NUMA nodes that current NUMA node in group with them
+        // It means that we have container that pinned to the current NUMA node and all group nodes
+        Nodes []int `json:&quot;nodes&quot;`
+}
+
+// NodeMap 包含 每个 NUMA 节点的内存信息.
+type NodeMap map[int]*NodeState</code></pre>
+<h2 id="3-3-内存映射（Memory-Map）"><a href="#3-3-内存映射（Memory-Map）" class="headerlink" title="3.3 内存映射（Memory Map）"></a>3.3 内存映射（Memory Map）</h2><p>内存映射用于跟踪每个 NUMA 节点的内存使用情况。内存映射包含几个计数器，用于跟踪内存使用情况。存在以下等式：</p>
+<pre><code class="Shell">Allocatable = TotalMemSize - SystemReserved
+Free + Reserved = Allocatable
+
+Free = Allocatable - Reserved 
+Reserved = Allocatable - Free</code></pre>
+<ul>
+<li>TotalMemSize 的值由 cadvisor 为每种内存类型(常规内存、hugepages-1Gi等)提供给内存管理器。TotalMemSize 的值是恒定的，表示 NUMA 节点上可用的特定类型内存的总(最大)容量。</li>
+<li>SystemReserved 由 systemReserved 配置项设置，表示预留给系统服务的资源大小（如kubelet、其他系统服务）</li>
+<li>Reserved 表示  Guaranteed  QoS 类型 pod 中为容器预留的保证内存总量</li>
+</ul>
+<h3 id="3-3-1-启动阶段内存映射"><a href="#3-3-1-启动阶段内存映射" class="headerlink" title="3.3.1 启动阶段内存映射"></a>3.3.1 启动阶段内存映射</h3><p>下图展示了节点启动后不久的内存映射(常规内存)：</p>
+<p><img src="/contents/kubelet-memory-manager/figure5.png" alt="mapping1"></p>
+<p>SystemReserved 的值是由 kubelet 启动参数预先配置。SystemReserved 在运行时保持不变，因此Allocatable在运行时也是不变的。</p>
+<p><img src="/contents/kubelet-memory-manager/figure6.png" alt="mapping2"></p>
+<p>SystemReserved 表示系统预留的内存大小，用于系统，即内核、操作系统守护进程和核心节点组件，如 kubelet (kubelet守护进程)。</p>
+<h3 id="3-3-2-运行阶段内存映射"><a href="#3-3-2-运行阶段内存映射" class="headerlink" title="3.3.2 运行阶段内存映射"></a>3.3.2 运行阶段内存映射</h3><p>下图中，容器A和容器B实际消耗的内存（红色色块、紫色色块）少于内存管理器保留的(保证内存)内存大小（红色虚线框、紫色虚线框），所以对于两个容器来说，它们的内存消耗都低于它们的内存限制(limits.memroy)，并且容器正常运行。</p>
+<p><img src="/contents/kubelet-memory-manager/figure7.png" alt="mapping3"></p>
+<p>当 kubernetes 节点发生 OOM 时(cgroups内存限制、hard-eviction-treshold 等)，由 kubelet、系统内核（linux oom killer）进行处理，而非由内存管理器处理。</p>
+<h2 id="3-4-工作方式"><a href="#3-4-工作方式" class="headerlink" title="3.4 工作方式"></a>3.4 工作方式</h2><p>下面展示内存管理器如何管理不同 QoS 类(Guaranteed, bestefort /Burstable)中的 pod，以及内存管理器如何动态管理(创建或删除) NUMA 节点的非相交组。</p>
+<h3 id="3-4-1-多NUMA节点"><a href="#3-4-1-多NUMA节点" class="headerlink" title="3.4.1 多NUMA节点"></a>3.4.1 多NUMA节点</h3><ol>
+<li><p>创建 pod1 ，其中 pod1 内存配额为15G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）</p>
+<p> <img src="/contents/kubelet-memory-manager/figure8.png" alt="pod1"></p>
+<p> 内存管理器随后创建 名为 group1 的组，group1 包含 NUMA 节点与 pod1，同时更新 pod1 控制组cpuset.mems 参数[[0,1], 15G]</p>
+<p> <img src="/contents/kubelet-memory-manager/figure9.png" alt="group1"></p>
+</li>
+<li><p>创建 pod2 ，其中 pod2 内存配额为5G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）</p>
+<p> 尽管 group1剩余内存（5G）满足 Pod2 内存需求（5G），但由于 group1 是<strong>多 NUMA 节点</strong>，集群节点中存在能满足 pod2 内存需求的<strong>单 NUMA 节点</strong>（假设存在）, 所以 pod2 准入请求将被拒绝。</p>
+<p> <img src="/contents/kubelet-memory-manager/figure10.png" alt="pod2"></p>
+</li>
+<li><p>当 pod3 （非Guaranteed QoS类型）尝试加入 group1 时，将被放行 。这是为什么呢？</p>
+<p> 因为<strong>内存管理器只管理 Guaranteed QoS类型 Pod</strong>，对于非Guaranteed QoS类型Pod一律放行准入。</p>
+<p> <img src="/contents/kubelet-memory-manager/figure11.png" alt="pod3"></p>
+<p> 由于 pod3 是非Guaranteed QoS类型 pod ， pod3 内存使用有可能会超过 5G 时，当出现这种情况时将会将触发 OOM。这种 OOM 情况有两种处理机制：</p>
+<ol>
+<li><p>kubelet 触发 pod 驱逐机制，进而释放出更多可用内存</p>
+</li>
+<li><p>触发linux OOM killer，优先 kill 低优先级进程（如：BestEffort/QoS、Burstable/QoS类型 pod） </p>
+<p>两种机制优先级：kubelet &gt; linux OOM killer</p>
+<p><img src="/contents/kubelet-memory-manager/figure12.png" alt="pod3-1"></p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-4-2-单NUMA节点"><a href="#3-4-2-单NUMA节点" class="headerlink" title="3.4.2 单NUMA节点"></a>3.4.2 单NUMA节点</h3><ol>
+<li><p>创建 pod4 ，其中 pod4 内存配额为2G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）</p>
+<p> <img src="/contents/kubelet-memory-manager/figure13.png" alt="pod4"></p>
+<p> 内存管理器随后创建 名为 group2 的组，group2 包含 NUMA 节点与 pod4</p>
+</li>
+<li><p>创建 pod5 ，其中 pod5内存配额为6G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）</p>
+<p> 由于group2仍有8G可用内存，pod5将被加入到group2</p>
+<p> <img src="/contents/kubelet-memory-manager/figure14.png" alt="pod5"></p>
+</li>
+<li><p>创建 pod6 ，其中 pod6内存配额为3G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）,由于group2仅有2G可用内存，pod6将被加入到group3</p>
+<p> <img src="/contents/kubelet-memory-manager/figure15.png" alt="pod6"></p>
+</li>
+<li><p>创建 pod7 ，其中 pod6内存配额为8G，且 requests.memory == limits.memory （即Guaranteed QoS 类型pod）,由于group3仅有7G可用内存，pod7准入请求将被拒绝。（尽管group2 + group3 剩余容量之和满pod7，但无法跨group）</p>
+<p> <img src="/contents/kubelet-memory-manager/figure16.png" alt="pod7"></p>
+</li>
+</ol>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/336365600" target="_blank" rel="noopener">每个程序员都应该知道的 CPU 知识：NUMA</a></li>
+<li><a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-qos/" target="_blank" rel="noopener">pod qos</a></li>
+<li><a href="https://linuxconfig.org/how-to-enable-hugepages-on-linux" target="_blank" rel="noopener">how-to-enable-hugepages-on-linux</a></li>
+<li><a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/1769-memory-manager/README.md#summary" target="_blank" rel="noopener">memory-manager</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Memory-Manager介绍说明"><span class="toc-number">1.</span> <span class="toc-text">1. Memory Manager介绍说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-什么是NUMA？"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 什么是NUMA？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-什么是大页内存？"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 什么是大页内存？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-什么是Guaranteed-QoS-pod？"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 什么是Guaranteed QoS pod？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-Memory-Manager开发动机"><span class="toc-number">2.</span> <span class="toc-text">2. Memory Manager开发动机</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Memory-Manager架构设计"><span class="toc-number">3.</span> <span class="toc-text">3. Memory Manager架构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-多NUMA节点保证内存分配原理"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 多NUMA节点保证内存分配原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-节点映射（Node-Map）"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 节点映射（Node Map）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-内存映射（Memory-Map）"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 内存映射（Memory Map）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-启动阶段内存映射"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 启动阶段内存映射</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-运行阶段内存映射"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2 运行阶段内存映射</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-工作方式"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 工作方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-多NUMA节点"><span class="toc-number">3.4.1.</span> <span class="toc-text">3.4.1 多NUMA节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-单NUMA节点"><span class="toc-number">3.4.2.</span> <span class="toc-text">3.4.2 单NUMA节点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

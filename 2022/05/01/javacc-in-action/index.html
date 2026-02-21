@@ -1,0 +1,893 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JavaCC 实战 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,JavaCC, compiler, parser, BNF, EBNF"> 
+    <meta name="description" content="JavaCCJava Compiler Compiler (JavaCC) 是一个语法解释器生成工具，可以读取语法规则，并将其转换为能够识别这些语法的 Java 程序。
+比如通过 Java 程序解析,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">JavaCC 实战</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/javacc-in-action.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                五月 01, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/05/01/javacc-in-action/" title="JavaCC 实战" class="">JavaCC 实战</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    20k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    18 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaCC/" rel="tag">JavaCC</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="JavaCC"><a href="#JavaCC" class="headerlink" title="JavaCC"></a>JavaCC</h1><p>Java Compiler Compiler (JavaCC) 是一个语法解释器生成工具，可以读取语法规则，并将其转换为能够识别这些语法的 Java 程序。</p>
+<p>比如通过 Java 程序解析 Structured Query Language (SQL)。</p>
+<p>语法规则使用类似 <a href="https://alphahinex.github.io/2022/04/24/bnf-ebnf/">如何描述一种语言？</a> 中介绍的 EBNF 规范进行描述，组织为 <code>.jj</code> 格式的文件。</p>
+<p>JavaCC 发布包是 JAR 格式，可以通过 Java 命令直接执行，读取 <code>.jj</code> 文件，并根据其生成可运行的 Java 代码，实现对符合语法规则的内容的解析。</p>
+<p>生成的 Java 代码只需要 JRE 运行环境，没有额外依赖。</p>
+<h2 id="语法文件格式"><a href="#语法文件格式" class="headerlink" title="语法文件格式"></a>语法文件格式</h2><p>一个 <code>.jj</code> 语法文件格式如下：</p>
+<pre><code class="bnf">javacc_input ::= javacc_options
+                 &quot;PARSER_BEGIN&quot; &quot;(&quot; identifier &quot;)&quot;
+                 CompilationUnit
+                 &quot;PARSER_END&quot; &quot;(&quot; identifier &quot;)&quot;
+                 ( production )+
+                 &lt;EOF&gt;</code></pre>
+<p>分为三部分：</p>
+<h3 id="javacc-options"><a href="#javacc-options" class="headerlink" title="javacc_options"></a><code>javacc_options</code></h3><pre><code class="bnf">javacc_options ::= [ &quot;options&quot; &quot;{&quot; ( option-binding )*; &quot;}&quot; ]</code></pre>
+<p>JavaCC 的配置选项，整个部分为可选的，可以在 <code>.jj</code> 文件中指定，也可以在生成 Java 代码时通过命令行参数指定。</p>
+<p>可以指定生成 DEBUG 信息、生成非静态类等，完整的可用参数可以通过命令行获得，如：</p>
+<pre><code class="bash">$ java -classpath javacc-7.0.11.jar javacc</code></pre>
+<p>或者查看 <a href="https://javacc.github.io/javacc/documentation/grammar.html" target="_blank" rel="noopener">JavaCC Grammar</a> 语法文档。</p>
+<h3 id="PARSER-BEGIN-PARSER-END"><a href="#PARSER-BEGIN-PARSER-END" class="headerlink" title="PARSER_BEGIN ~ PARSER_END"></a><code>PARSER_BEGIN</code> ~ <code>PARSER_END</code></h3><pre><code class="bnf">identifier ::= &lt;IDENTIFIER&gt;
+
+CompilationUnit ::= ( PackageDeclaration )?
+                    ( ImportDeclaration )*
+                    ( TypeDeclaration )*</code></pre>
+<p>解析器类定义，<code>identifier</code> 需与 <code>CompilationUnit</code> 中类名一致，如：</p>
+<pre><code class="java">PARSER_BEGIN(Example)
+
+/** Simple brace matcher. */
+public class Example {
+
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException {
+    Example parser = new Example(System.in);
+    parser.Input();
+  }
+
+}
+
+PARSER_END(Example)</code></pre>
+<h3 id="production"><a href="#production" class="headerlink" title="production"></a><code>production</code></h3><pre><code class="bnf">production ::= javacode_production
+             | cppcode_production
+             | regular_expr_production
+             | token_manager_decls
+             | bnf_production</code></pre>
+<p><code>production</code> 部分即为最重要的词法和语法规则描述。</p>
+<p>JavaCC 将词法规则（如保留字、表达式）和语法规则（BNF）都统一写在一个文件中，并支持使用正则表达式，使语法描述文件易读且易于维护。</p>
+<p>词法规则一般通过 <code>regular_expr_production</code> 部分进行描述，<br>常用 <code>SKIP</code> 定义需要忽略的内容（如空格、换行等），<code>TOKEN</code> 定义语法中的保留字等，<br>每个部分都可以出现多次，便于将内容分类放置，如：</p>
+<pre><code class="jj">SKIP :
+{
+  &quot; &quot;
+| &quot;\t&quot;
+| &quot;\n&quot;
+| &quot;\r&quot;
+}
+
+TOKEN:
+{
+    &lt;TODO: &quot;TODO&quot;&gt;
+|   &lt;USE: &quot;USE&quot;&gt;
+|   &lt;CREATE: &quot;CREATE&quot;&gt;
+}
+
+TOKEN:
+{
+    &lt;S_BIT_FORMAT1: &quot;b&quot; &quot;&#39;&quot; ([&quot;0&quot;, &quot;1&quot;])+ &quot;&#39;&quot;&gt;
+|   &lt;S_BIT_FORMAT2: &quot;0&quot; &quot;b&quot; ([&quot;0&quot;, &quot;1&quot;])+&gt;
+}</code></pre>
+<p>语法规则一般通过 <code>bnf_production</code> 部分描述，<code>bnf_production</code> 的 BNF 如下：</p>
+<pre><code class="bnf">bnf_production ::= AccessModifier
+                   ResultType
+                   identifier
+                   FormalParameters ( &quot;throws&quot; Name ( &quot;,&quot; Name )* )?
+                   &quot;:&quot;
+                   Block
+                   &quot;{&quot; expansion_choices &quot;}&quot;</code></pre>
+<p>能够支持复杂的语法描述，简单的实例如下：</p>
+<pre><code class="jj">void Input() :
+{}
+{
+  MatchedBraces() (&quot;\n&quot;|&quot;\r&quot;)* &lt;EOF&gt;
+}</code></pre>
+<pre><code class="jj">SqlStatement SetVariableStatement():
+{
+    Assignment assignment;
+}
+{
+    (
+        &lt;SET&gt; assignment = Assignment()
+    )
+    {
+        return new SetVariableStatement(assignment);
+    }
+}</code></pre>
+<p>上面两个实例中的第一行可以理解为 Java 中的方法签名，会对应到生成的 Parser 类中的方法。<br>下面的 <code>{}</code> 中可以定义一些变量，供最后一组 <code>{}</code> 中的内容使用。<br>最后一组 <code>{}</code> 中定义该规则会匹配的内容，以及方法的返回值（可选）。</p>
+<p>完整的 JavaCC BNF 描述可见 <a href="https://javacc.github.io/javacc/documentation/bnf.html" target="_blank" rel="noopener">官方文档</a> 。</p>
+<p>一个简单的，可以解析成对的大括号以及内嵌的成对大括号的 <code>Example.jj</code> 语法文件完整实例如下：</p>
+<pre><code class="jj">PARSER_BEGIN(Example)
+
+/** Simple brace matcher. */
+public class Example {
+
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException {
+    Example parser = new Example(System.in);
+    parser.Input();
+  }
+
+}
+
+PARSER_END(Example)
+
+/** Root production. */
+void Input() :
+{}
+{
+  MatchedBraces() (&quot;\n&quot;|&quot;\r&quot;)* &lt;EOF&gt;
+}
+
+/** Brace matching production. */
+void MatchedBraces() :
+{}
+{
+  &quot;{&quot; [ MatchedBraces() ] &quot;}&quot;
+}</code></pre>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><p>有了 <code>.jj</code> 文件，接下来让我们看看如何使用其生成解析器的代码。</p>
+<p>以上面的 <code>Example.jj</code> 为例，我们可以按如下方式生成解析器：</p>
+<pre><code class="bash">$ java -classpath /path/to/javacc-7.0.11.jar javacc Example.jj
+Java Compiler Compiler Version 7.0.11 (Parser Generator)
+(type &quot;javacc&quot; with no arguments for help)
+Reading from file Example.jj . . .
+File &quot;TokenMgrError.java&quot; does not exist.  Will create one.
+File &quot;ParseException.java&quot; does not exist.  Will create one.
+File &quot;Token.java&quot; does not exist.  Will create one.
+File &quot;SimpleCharStream.java&quot; does not exist.  Will create one.
+Parser generated successfully.
+$ tree
+.
+├── Example.java
+├── Example.jj
+├── ExampleConstants.java
+├── ExampleTokenManager.java
+├── ParseException.java
+├── SimpleCharStream.java
+├── Token.java
+└── TokenMgrError.java
+
+0 directories, 8 files</code></pre>
+<p>可以看到根据 <code>Example.jj</code> 文件生成了七个 Java 文件，可以直接编译运行：</p>
+<pre><code class="bash">$ javac Example.java
+$ java Example
+{}}
+Exception in thread &quot;main&quot; ParseException: Encountered &quot; &quot;}&quot; &quot;} &quot;&quot; at line 1, column 3.
+Was expecting one of:
+    &lt;EOF&gt;
+    &quot;\n&quot; ...
+    &quot;\r&quot; ...
+
+    at Example.generateParseException(Example.java:247)
+    at Example.jj_consume_token(Example.java:185)
+    at Example.Input(Example.java:42)
+    at Example.main(Example.java:9)</code></pre>
+<p>输入数量不匹配的大括号时，会抛出 <code>ParseException</code> 异常。</p>
+<p>为了观察语法规则匹配情况，可以在使用 JavaCC 生成解析器时，添加 <code>-debug_parser</code> 参数，之后编译运行，可以看到输入 <code>{}</code> 的匹配日志：</p>
+<pre><code class="bash">$ java -classpath /Users/alphahinex/github/origin/javacc-demo/lib/javacc-7.0.11.jar javacc -debug_parser Example.jj
+Java Compiler Compiler Version 7.0.11 (Parser Generator)
+(type &quot;javacc&quot; with no arguments for help)
+Reading from file Example.jj . . .
+File &quot;TokenMgrError.java&quot; is being rebuilt.
+File &quot;ParseException.java&quot; is being rebuilt.
+File &quot;Token.java&quot; is being rebuilt.
+File &quot;SimpleCharStream.java&quot; is being rebuilt.
+Parser generated successfully.
+$ javac Example.java
+$ java Example
+Call:    Input
+  Call:    MatchedBraces
+{}
+    Consumed token: &lt;&quot;{&quot; at line 1 column 1&gt;
+    Consumed token: &lt;&quot;}&quot; at line 1 column 2&gt;
+  Return: MatchedBraces
+  Consumed token: &lt;&quot;\n&quot;: &quot;\n&quot; at line 1 column 3&gt;
+  Consumed token: &lt;&lt;EOF&gt; at line 1 column 3&gt;
+Return: Input</code></pre>
+<blockquote>
+<p>注意：<code>&lt;EOF&gt;</code> 可通过 <code>Control</code>+<code>D</code> 输入，表示到达了文件或输入的结尾。</p>
+</blockquote>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>为了能够更好的理解或编写 <code>.jj</code> 文件，我们需要了解一些基本的概念。</p>
+<h3 id="TokenManager"><a href="#TokenManager" class="headerlink" title="TokenManager"></a>TokenManager</h3><p>JavaCC 的词法规则是由一组词法状态（Lexical State）组成的，每个词法状态有一个唯一的标识，可以将词法状态理解为语法中所需要识别的最小单位。Token Manager 按照语法规则描述，以词法状态为单位进行状态的变迁，所以在任意时刻 Token Manager 都是处在这些词法状态的某一个状态中。Token Manager 类在初始化时，默认是从一个标准的 <code>DEFAULT</code> 词法状态开始，也可以通过构造参数指定其他词法状态。</p>
+<p>在进行 Token 的匹配时，Token Manager 会尽可能的寻找最长的匹配内容。如果存在相同长度的最长匹配内容，会按照在语法描述文件中出现的先后顺序，选择先出现的内容作为最佳匹配结果。</p>
+<p>在完成一个词法状态的匹配后，可以指定一个词法动作（Lexical Action），也可以迁移到一个新的词法状态中，如果没有指定新的词法状态，Token Manager 会继续留在之前的状态中。</p>
+<p>更多说明请见官方文档：<a href="https://javacc.github.io/javacc/tutorials/token-manager.html" target="_blank" rel="noopener">https://javacc.github.io/javacc/tutorials/token-manager.html</a></p>
+<h3 id="LOOKAHEAD"><a href="#LOOKAHEAD" class="headerlink" title="LOOKAHEAD"></a>LOOKAHEAD</h3><p>以下面的语法描述为例：</p>
+<pre><code class="jj">void Input() :
+{}
+{
+  &quot;a&quot; BC() &quot;c&quot;
+}
+
+void BC() :
+{}
+{
+  &quot;b&quot; [ &quot;c&quot; ]
+}</code></pre>
+<p>按照语法描述，这个解析器应该会识别 <code>abc</code> 和 <code>abcc</code> 两个输入内容。当我们使用 <code>abc</code> 作为输入进行语法解析时，一般的解析过程大致如下：</p>
+<p>Step：</p>
+<ol>
+<li>第一个字符为 <code>a</code>，与 <code>Input</code> 中的 <code>a</code> 匹配</li>
+<li>接下来会进入到 <code>BC</code> 中，第二个字符 <code>b</code> 与 <code>BC</code> 中的 <code>b</code> 匹配</li>
+<li>此时，我们来到了语法中的一个选择点：<code>BC</code> 中的 <code>[&quot;c&quot;]</code> 为可选内容，所以既可以选择继续在 <code>BC</code> 中尝试匹配，也可以跳出 <code>BC</code> 回到 <code>Input</code> 中尝试继续匹配。我们选择继续留在 <code>BC</code> 中，此时需要一个 <code>c</code>，输入中的第三个字符 <code>c</code> 可以匹配</li>
+<li>现在我们完成了非终止符 <code>BC</code> 的匹配，继续回到 <code>Input</code> 中尝试匹配。语法中要求此时还应该有一个 <code>c</code>，但我们已经没有输入的字符了</li>
+<li>当我们遇到类似这样的场景时，意味着我们在之前的选择点中做出了错误的选择。我们回到做出这个错误选择的第三步，并尝试做出不同的选择，这个过程称为回溯（backtracking）</li>
+<li>我们现在回到了步骤三的状态，并做出不同的选择，即不继续留在 <code>BC</code> 中，而是返回到 <code>Input</code> 中继续进行匹配。此时语法要求一个 <code>c</code>，而我们输入的第三个字符恰好是 <code>c</code></li>
+<li>我们成功抵达了 <code>Input</code> 的最后状态，这意味着输入的字符串 <code>abc</code> 成功匹配了 <code>Input</code> 语法</li>
+</ol>
+<p>我们按照上面描述的一般解析过程可以看到，一个输入的解析可能会导致大量的回溯操作，这会消耗很多时间，对于解析器而言，这样的回溯耗时是不能接受的，所以大部分解析器不会按照上面描述的方式进行回溯，甚至选择根本不回溯，它们会根据在选择点时能够得到的有限信息直接进行决策。</p>
+<p>JavaCC 处理这类问题的方式，是向前多看一些 Token，以便做出更好的决定，在 JavaCC 中，称为 <code>LOOKAHEAD</code>，默认的行为是向前多看一个 Token，即 <code>LOOKAHEAD(1)</code>。这种从左向右扫描输入，分析过程使用最左推导的方式统称为 <a href="https://en.wikipedia.org/wiki/LL_grammar" target="_blank" rel="noopener">LL 语法</a>，JavaCC 的 <code>LOOKAHEAD(1)</code> 即为 <code>LL(1)</code>。</p>
+<p>通过 <code>javacc_options</code> 部分或命令行参数，可以调整全局的 <code>LOOKAHEAD</code> 为更大的值，也可以针对某个语法指定局部的 <code>LOOKAHEAD</code> 值。</p>
+<p>更多说明请见官方文档：<a href="https://javacc.github.io/javacc/tutorials/lookahead.html" target="_blank" rel="noopener">https://javacc.github.io/javacc/tutorials/lookahead.html</a></p>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="求和-100-23"><a href="#求和-100-23" class="headerlink" title="求和(100,23)"></a>求和(100,23)</h2><p>一个简单的整数求和中文公式解析器实例，语法文件 <a href="https://github.com/AlphaHinex/javacc-demo/blob/main/src/main/javacc/SumParser.jj" target="_blank" rel="noopener">SumParser.jj</a>：</p>
+<pre><code class="jj">options {
+    DEBUG_PARSER = true;
+    UNICODE_INPUT = true;
+    STATIC = false;
+}
+
+PARSER_BEGIN(SumParser)
+package io.github.alphahinex.javacc.demo.sum;
+
+/** Simple brace matcher. */
+public class SumParser {
+
+  /** Main entry point. */
+  public static void main(String args[]) throws ParseException {
+    SumParser parser = new SumParser(System.in);
+    System.out.println(parser.Sum());
+  }
+
+}
+PARSER_END(SumParser)
+
+SKIP : {
+      &quot; &quot;
+    | &quot;\t&quot;
+    | &quot;\n&quot;
+    | &quot;\r&quot;
+}
+
+TOKEN : {
+      &lt;SUM: &quot;求和&quot;&gt;
+    | &lt;INTEGER: ([&quot;+&quot;,&quot;-&quot;])? [&quot;1&quot;-&quot;9&quot;] ([&quot;0&quot;-&quot;9&quot;])*&gt;
+}
+
+/** Root production. */
+int Sum() :
+{
+    int left;
+    int right;
+}
+{
+  &lt;SUM&gt; &quot;(&quot; left=Integer() &quot;,&quot; right=Integer() &quot;)&quot; { return left + right; }
+}
+
+int Integer() :
+{
+    Token tk;
+}
+{
+    tk = &lt;INTEGER&gt; { return Integer.parseInt(tk.image); }
+}</code></pre>
+<p><a href="https://github.com/AlphaHinex/javacc-demo/blob/main/src/test/groovy/org/javacc/tutorials/example/SumParserSpec.groovy" target="_blank" rel="noopener">单元测试</a>：</p>
+<pre><code class="groovy">class SumParserSpec extends Specification {
+
+    @Unroll
+    def &#39;#formula = #result&#39;() {
+        expect:
+        new SumParser(new ByteArrayInputStream(formula.getBytes())).Sum() == result
+
+        where:
+        formula         | result
+        &#39;求和(100,23)&#39;   | 123
+        &#39;求和(-100, 23)&#39;  | -77
+    }
+
+}</code></pre>
+<h2 id="AbccParser"><a href="#AbccParser" class="headerlink" title="AbccParser"></a>AbccParser</h2><p>在官方文档中，介绍了一种 <a href="https://javacc.github.io/javacc/tutorials/lookahead.html#semantic" target="_blank" rel="noopener">Semantic LOOKAHEAD</a> 的方式解决 <a href="https://javacc.github.io/javacc/tutorials/lookahead.html#example1" target="_blank" rel="noopener">Example1</a> 只能匹配 <code>abcc</code> 而不能匹配 <code>abc</code> 的问题。</p>
+<p>但从 <a href="https://github.com/AlphaHinex/javacc-demo/blob/main/src/test/groovy/org/javacc/tutorials/example/TutorialSpec.groovy#L19-L27" target="_blank" rel="noopener">单元测试</a> 的实际执行结果来看，在解析 <code>abc</code> 时，依然会抛出解析异常。</p>
+<pre><code class="groovy">def &#39;Semantic.jj still only match `abcc`, could not match `abc`&#39;() {
+    expect:
+    new Semantic(new ByteArrayInputStream(&#39;abcc&#39;.getBytes())).Input()
+
+    when:
+    new Semantic(new ByteArrayInputStream(&#39;abc&#39;.getBytes())).Input()
+    then:
+    thrown(org.javacc.tutorials.semantic.ParseException)
+}</code></pre>
+<p><a href="https://github.com/AlphaHinex/javacc-demo/blob/main/src/main/javacc/AbccParser.jj" target="_blank" rel="noopener">这里</a> 给出了一个能够同时解析 <code>abc</code> 和 <code>abcc</code> 的语法描述，修改了官方文档例子中的 <code>getToken(2).kind != C</code> 为 <code>getToken(2).kind == C</code>：</p>
+<pre><code class="jj">void BC() :
+{}
+{
+  &quot;b&quot;
+  [
+    LOOKAHEAD( &quot;c&quot;, { getToken(2).kind == C } )
+    &lt;C:&quot;c&quot;&gt;
+  ]
+}</code></pre>
+<p><a href="https://github.com/AlphaHinex/javacc-demo/blob/main/src/test/groovy/org/javacc/tutorials/example/TutorialSpec.groovy#L29-L33" target="_blank" rel="noopener">测试用例</a> 如下：</p>
+<pre><code class="groovy">def &#39;AbccParser.jj could match both `abcc` and `abc`&#39;() {
+    expect:
+    new AbccParser(new ByteArrayInputStream(&#39;abcc&#39;.getBytes())).Input()
+    new AbccParser(new ByteArrayInputStream(&#39;abc&#39;.getBytes())).Input()
+}</code></pre>
+<h2 id="MySQL-Parser"><a href="#MySQL-Parser" class="headerlink" title="MySQL Parser"></a>MySQL Parser</h2><p><a href="https://github.com/AlphaHinex/mysql2h2-converter" target="_blank" rel="noopener">AlphaHinex/mysql2h2-converter</a> 是从 <a href="https://github.com/andrewparmet/mysql2h2-converter" target="_blank" rel="noopener">andrewparmet/mysql2h2-converter</a> fork 的一个仓库，在 <a href="https://github.com/AlphaHinex/mysql2h2-converter/blob/enhance/parser/src/main/javacc/sqlgrammar.jj" target="_blank" rel="noopener">sqlgrammar.jj</a> 文件中补充了对 MySQL 语法的一些支持，使该库可以适应更多的 SQL 转换场景。</p>
+<p>可从下面单元测试中新增加的用例，了解增加的语法支持：</p>
+<pre><code class="diff"> package com.granveaud.mysql2h2converter.parser;
+
+ import org.junit.Test;
+
+ import com.granveaud.mysql2h2converter.SQLParserManager;
+@@ -61,18 +62,39 @@ public class BasicTest {
+                 &quot;t1 int(10) NOT NULL AUTO_INCREMENT,&quot; +
+                 &quot;t2 int(10) NOT NULL,&quot; +
+                 &quot;t3 varchar(55) DEFAULT &#39;&#39;,&quot; +
+-                &quot;PRIMARY KEY (t1),&quot; +
++                &quot;t4 datetime DEFAULT &#39;&#39;,&quot; +
++                &quot;t5 datetime(0) DEFAULT &#39;&#39;,&quot; +
++                &quot;PRIMARY KEY (t1) USING BTREE,&quot; +
+                 &quot;UNIQUE KEY u1 (t1,t2),&quot; +
+                 &quot;KEY k1 (t2),&quot; +
+-                &quot;CONSTRAINT c1 FOREIGN KEY (t2) REFERENCES test2 (t2) ON DELETE CASCADE&quot; +
+-                &quot;) ENGINE=InnoDB DEFAULT CHARSET=utf8&quot;;
++                &quot;CONSTRAINT c1 FOREIGN KEY (t2) REFERENCES test2 (t2) ON DELETE CASCADE,&quot; +
++                &quot;UNIQUE INDEX `UNIQUE_NAME_NAMESPACES` (`NAME`,`NAMESPACE`) USING BTREE&quot; +
++                &quot;) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci&quot;;
+         assertStatementEquals(str);
++
++        str = &quot;CREATE TABLE test (t1 int(10)) ENGINE=InnoDB CHARACTER SET=utf8mb4&quot;;
++        assertStatementEquals(str, &quot;CREATE TABLE test (t1 int(10)) ENGINE=InnoDB CHARACTER=utf8mb4&quot;);
+     }
+
+     @Test
+     public void testAlterTable() throws Exception {
+         String str = &quot;ALTER TABLE test ADD CONSTRAINT c1 FOREIGN KEY (f1) REFERENCES test2 (t2)&quot;;
+         assertStatementEquals(str);
++
++        str = &quot;ALTER TABLE test MODIFY c1 VARCHAR(255) NULL&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;ALTER TABLE test MODIFY COLUMN c1 VARCHAR(255) NULL&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;ALTER TABLE test MODIFY c1 VARCHAR(255) NULL FIRST&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;ALTER TABLE test MODIFY COLUMN c1 VARCHAR(255) NULL AFTER c0&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;ALTER TABLE test MODIFY c1 VARCHAR(256) AFTER c0,MODIFY c2 VARCHAR(256)&quot;;
++        assertStatementEquals(str);
+     }
+
+     @Test
+@@ -101,4 +123,44 @@ public class BasicTest {
+         str = &quot;INSERT INTO t1 VALUES (\&quot;this is a test test2 \\\&quot; \\t\\n \\\&quot; test3 \\&#39;\&quot;,\&quot;test4\&quot;,\&quot;this is a test &#39;&#39; test5 \\&#39; &#39;&#39; \\&#39; test6 \\\\\&quot;,\&quot;test7\&quot;)&quot;;
+         assertStatementEquals(str);
+     }
++
++    @Test
++    public void testSetNames() throws ParseException {
++        String str = &quot;SET NAMES utf8mb4&quot;;
++        assertStatementEquals(str, &quot;SET NAMES=utf8mb4&quot;);
++    }
++
++    @Test
++    public void testDelete() throws Exception {
++        String str = &quot;DELETE FROM test&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;DELETE FROM test WHERE t1=1&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;DELETE FROM test WHERE t1=&#39;abc&#39; AND t2=1&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;DELETE FROM test WHERE t1=\&quot;2\&quot; OR t2=1&quot;;
++        assertStatementEquals(str);
++    }
++
++    @Test
++    public void testUpdate() throws ParseException {
++        String str = &quot;UPDATE test SET t1=1,t2=&#39;test&#39;,t3=5.0 WHERE t4=1&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;UPDATE test SET t1=CONCAT(t1,&#39;-\&quot;)-&#39;, \&quot;&#39;\&quot;,&#39;-&#39;,t2) WHERE t4=1&quot;;
++        assertStatementEquals(str);
++    }
++
++    @Test
++    public void testWhereClause() throws ParseException {
++        String str = &quot;DELETE FROM test WHERE t1 IN (&#39;1&#39;,&#39;2&#39;,&#39;3&#39;)&quot;;
++        assertStatementEquals(str);
++
++        str = &quot;DELETE FROM test WHERE t1&lt;&gt;&#39;&#39; &amp;&amp; t2 IS NOT NULL&quot;;
++        assertStatementEquals(str);
++    }
++
+ }</code></pre>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://blog.csdn.net/newpidian/article/details/52964017" target="_blank" rel="noopener">JavaCC 详解</a></li>
+<li><a href="https://www.iteye.com/topic/359454?spm=a2c6h.12873639.article-detail.5.29097943B68VnB" target="_blank" rel="noopener">小型桌面计算器的实现</a></li>
+<li><a href="https://developer.aliyun.com/article/14660" target="_blank" rel="noopener">JavaCC 的学习</a></li>
+<li><a href="https://www.cnblogs.com/orlion/p/7096645.html" target="_blank" rel="noopener">JavaCC 从入门到出门</a></li>
+<li><a href="https://blog.csdn.net/liu_jin_hui/article/details/121266235" target="_blank" rel="noopener">javacc</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaCC"><span class="toc-number">1.</span> <span class="toc-text">JavaCC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#语法文件格式"><span class="toc-number">1.1.</span> <span class="toc-text">语法文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#javacc-options"><span class="toc-number">1.1.1.</span> <span class="toc-text">javacc_options</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PARSER-BEGIN-PARSER-END"><span class="toc-number">1.1.2.</span> <span class="toc-text">PARSER_BEGIN ~ PARSER_END</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#production"><span class="toc-number">1.1.3.</span> <span class="toc-text">production</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用法"><span class="toc-number">1.2.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.3.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TokenManager"><span class="toc-number">1.3.1.</span> <span class="toc-text">TokenManager</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LOOKAHEAD"><span class="toc-number">1.3.2.</span> <span class="toc-text">LOOKAHEAD</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">2.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#求和-100-23"><span class="toc-number">2.1.</span> <span class="toc-text">求和(100,23)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AbccParser"><span class="toc-number">2.2.</span> <span class="toc-text">AbccParser</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL-Parser"><span class="toc-number">2.3.</span> <span class="toc-text">MySQL Parser</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

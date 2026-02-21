@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>torch.nn.Embedding 中 max_norm 的作用 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,PyTorch, Embedding, max_norm, L2, 范数, 词向量, 正则化"> 
+    <meta name="description" content="
+
+https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html#torch.nn.Embedding
+
+1. 类比 ,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">torch.nn.Embedding 中 max_norm 的作用</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/max-norm-of-pytorch-embedding/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                一月 11, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/01/11/max-norm-of-pytorch-embedding/" title="torch.nn.Embedding 中 max_norm 的作用" class="">torch.nn.Embedding 中 max_norm 的作用</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="https://alphahinex.github.io/contents/max-norm-of-pytorch-embedding/cover.png" alt=""></p>
+<blockquote>
+<p><a href="https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html#torch.nn.Embedding" target="_blank" rel="noopener">https://docs.pytorch.org/docs/stable/generated/torch.nn.Embedding.html#torch.nn.Embedding</a></p>
+</blockquote>
+<h2 id="1-类比-“词典”"><a href="#1-类比-“词典”" class="headerlink" title="1. 类比 “词典”"></a>1. 类比 “词典”</h2><p><code>nn.Embedding(num_embeddings, embedding_dim)</code> 可以看成是一个<strong>查表词典</strong>：</p>
+<ul>
+<li>有 <code>num_embeddings</code> 行，每一行是一个 <code>embedding_dim</code> 维的向量。</li>
+<li>输入是索引（比如单词 ID、类别 ID），输出是对应行的向量。</li>
+</ul>
+<p><code>max_norm</code> 的作用：</p>
+<p>给这个“词典”里的<strong>每一行向量</strong>设一个“最大长度”限制：</p>
+<ul>
+<li>这里的“长度”是向量的 <strong>p-范数</strong>，默认是 L2 范数（欧几里得长度）。</li>
+<li>当某一行被用到（即该 index 出现在输入中）时，如果它的范数大于 <code>max_norm</code>，就会<strong>被按比例缩小</strong>，使得它的范数刚好等于 <code>max_norm</code>。</li>
+</ul>
+<p>重要点：</p>
+<ul>
+<li>这个“缩小”发生在 <strong>forward 的时候</strong>，是<strong>原地修改 embedding.weight 的部分行</strong>。</li>
+<li>只有被当前 batch 索引到的那些行才会被检查和可能被缩放。</li>
+</ul>
+<h2 id="2-一个具体、可手算的小例子"><a href="#2-一个具体、可手算的小例子" class="headerlink" title="2. 一个具体、可手算的小例子"></a>2. 一个具体、可手算的小例子</h2><h3 id="2-1-定义一个简单的-Embedding"><a href="#2-1-定义一个简单的-Embedding" class="headerlink" title="2.1 定义一个简单的 Embedding"></a>2.1 定义一个简单的 Embedding</h3><p>假设我们手动构造一个 embedding 权重（方便算）：</p>
+<pre><code class="python">num_embeddings = 5   # 总共有 5 行
+embedding_dim = 3   # 每行是 3 维向量
+max_norm = 1.5</code></pre>
+<p>我们设定当前（某一次训练时刻）的权重矩阵为：</p>
+<p>$$<br>W \in \mathbb{R}^{5 \times 3} =<br>\begin{bmatrix}<br>0.3367 &amp; 0.1288 &amp; 0.2345 \\<br>0.2303 &amp; -1.1229 &amp; -0.1863 \\<br>2.2082 &amp; -0.6380 &amp; 0.4617 \\<br>0.2674 &amp; 0.5349 &amp; 0.8094 \\<br>1.1103 &amp; -1.6898 &amp; -0.9890<br>\end{bmatrix}<br>$$</p>
+<p>也就是：</p>
+<ul>
+<li>第 0 行：<code>[0.3367,  0.1288,  0.2345]</code></li>
+<li>第 1 行：<code>[0.2303, -1.1229, -0.1863]</code></li>
+<li>第 2 行：<code>[2.2082, -0.6380,  0.4617]</code></li>
+<li>第 3 行：<code>[0.2674,  0.5349,  0.8094]</code></li>
+<li>第 4 行：<code>[1.1103, -1.6898, -0.9890]</code></li>
+</ul>
+<h3 id="2-2-计算每一行的-L2-范数"><a href="#2-2-计算每一行的-L2-范数" class="headerlink" title="2.2 计算每一行的 L2 范数"></a>2.2 计算每一行的 L2 范数</h3><p>对每一行向量 $v = (x, y, z)$，L2 范数定义为：</p>
+<p>$$<br>\|v\|_2 = \sqrt{x^2 + y^2 + z^2}<br>$$</p>
+<p>逐行计算：</p>
+<h4 id="向量-0"><a href="#向量-0" class="headerlink" title="向量 0"></a>向量 0</h4><p>$$<br>v_0 = (0.3367, 0.1288, 0.2345)<br>$$</p>
+<p>$$<br>\|v_0\|_2 = \sqrt{0.3367^2 + 0.1288^2 + 0.2345^2}<br>\approx 0.4300<br>$$</p>
+<p>（约等于 0.43，小于 1.5，不会被改动）</p>
+<h4 id="向量-1"><a href="#向量-1" class="headerlink" title="向量 1"></a>向量 1</h4><p>$$<br>v_1 = (0.2303, -1.1229, -0.1863)<br>$$</p>
+<p>$$<br>\|v_1\|_2 = \sqrt{0.2303^2 + (-1.1229)^2 + (-0.1863)^2}<br>\approx 1.1613<br>$$</p>
+<p>（小于 1.5，不会被改动）</p>
+<h4 id="向量-2（会被裁剪）"><a href="#向量-2（会被裁剪）" class="headerlink" title="向量 2（会被裁剪）"></a>向量 2（会被裁剪）</h4><p>$$<br>v_2 = (2.2082, -0.6380, 0.4617)<br>$$</p>
+<p>$$<br>\|v_2\|_2 = \sqrt{2.2082^2 + (-0.6380)^2 + 0.4617^2}<br>\approx 2.3444 &gt; 1.5<br>$$</p>
+<p>这个超过了 <code>max_norm=1.5</code>，<strong>需要被缩小</strong>。</p>
+<h4 id="向量-3"><a href="#向量-3" class="headerlink" title="向量 3"></a>向量 3</h4><p>$$<br>v_3 = (0.2674, 0.5349, 0.8094)<br>$$</p>
+<p>$$<br>\|v_3\|_2 \approx 1.0063 &lt; 1.5<br>$$</p>
+<p>不改。</p>
+<h4 id="向量-4（会被裁剪）"><a href="#向量-4（会被裁剪）" class="headerlink" title="向量 4（会被裁剪）"></a>向量 4（会被裁剪）</h4><p>$$<br>v_4 = (1.1103, -1.6898, -0.9890)<br>$$</p>
+<p>$$<br>\|v_4\|_2 = \sqrt{1.1103^2 + (-1.6898)^2 + (-0.9890)^2}<br>\approx 2.2508 &gt; 1.5<br>$$</p>
+<p>也超过了 1.5，需要缩小。</p>
+<p><strong>小结：</strong></p>
+<ul>
+<li>需要被处理的只有：行 2 和 行 4（它们的范数 &gt; 1.5）</li>
+</ul>
+<h2 id="3-max-norm-的具体计算公式（重归一化）"><a href="#3-max-norm-的具体计算公式（重归一化）" class="headerlink" title="3. max_norm 的具体计算公式（重归一化）"></a>3. max_norm 的具体计算公式（重归一化）</h2><p>对每一个需要被裁剪的向量 $ v $：</p>
+<ol>
+<li>先算出当前范数：$ \|v\| $</li>
+<li>如果 $ \|v\| &gt; \text{max_norm} $，就按系数<br>$$<br>\text{scale} = \frac{\text{max_norm}}{\|v\|}<br>$$<br>去缩小它：<br>$$<br>v_{\text{new}} = v \times \text{scale}<br>$$</li>
+</ol>
+<p>这样就有：</p>
+<p>$$<br>\|v_{\text{new}}\| = \|v \times \text{scale}\| = \text{scale} \cdot \|v\|<br>= \frac{\text{max_norm}}{\|v\|} \cdot \|v\| = \text{max_norm}<br>$$</p>
+<h3 id="3-1-对行-2-的计算"><a href="#3-1-对行-2-的计算" class="headerlink" title="3.1 对行 2 的计算"></a>3.1 对行 2 的计算</h3><ul>
+<li>原始向量：</li>
+</ul>
+<p>$$<br>v_2 = (2.2082, -0.6380, 0.4617), \quad \|v_2\| \approx 2.3444<br>$$</p>
+<ul>
+<li>缩放系数：</li>
+</ul>
+<p>$$<br>\text{scale}_2 = \frac{1.5}{2.3444} \approx 0.6396<br>$$</p>
+<ul>
+<li>新向量（逐元素相乘）：</li>
+</ul>
+<p>$$<br>v_{2,\text{new}} = v_2 \times 0.6396 \approx<br>(2.2082 \times 0.6396,\; -0.6380 \times 0.6396,\; 0.4617 \times 0.6396)<br>$$</p>
+<p>数值约为：</p>
+<p>$$<br>v_{2,\text{new}} \approx (1.4128,\; -0.4082,\; 0.2954)<br>$$</p>
+<p>再检查一下新范数：</p>
+<p>$$<br>\|v_{2,\text{new}}\|_2 \approx 1.5000<br>$$</p>
+<h3 id="3-2-对行-4-的计算"><a href="#3-2-对行-4-的计算" class="headerlink" title="3.2 对行 4 的计算"></a>3.2 对行 4 的计算</h3><ul>
+<li>原始向量：</li>
+</ul>
+<p>$$<br>v_4 = (1.1103, -1.6898, -0.9890), \quad \|v_4\| \approx 2.2508<br>$$</p>
+<ul>
+<li>缩放系数：</li>
+</ul>
+<p>$$<br>\text{scale}_4 = \frac{1.5}{2.2508} \approx 0.6665<br>$$</p>
+<ul>
+<li>新向量：</li>
+</ul>
+<p>$$<br>v_{4,\text{new}} \approx<br>(1.1103 \times 0.6665,\; -1.6898 \times 0.6665,\; -0.9890 \times 0.6665)<br>\approx (0.7399,\; -1.1261,\; -0.6591)<br>$$</p>
+<p>新范数：</p>
+<p>$$<br>\|v_{4,\text{new}}\|_2 \approx 1.5000<br>$$</p>
+<h2 id="4-重归一化后的权重矩阵"><a href="#4-重归一化后的权重矩阵" class="headerlink" title="4. 重归一化后的权重矩阵"></a>4. 重归一化后的权重矩阵</h2><p>归一化之后，新的权重矩阵 $W’$ 变为：</p>
+<p>$$<br>W’ =<br>\begin{bmatrix}<br>0.3367 &amp; 0.1288 &amp; 0.2345 \\<br>0.2303 &amp; -1.1229 &amp; -0.1863 \\<br>1.4128 &amp; -0.4082 &amp; 0.2954 \\<br>0.2674 &amp; 0.5349 &amp; 0.8094 \\<br>0.7399 &amp; -1.1261 &amp; -0.6591<br>\end{bmatrix}<br>$$</p>
+<p>新的各行范数：</p>
+<ul>
+<li>第 0 行：0.4300（未变）</li>
+<li>第 1 行：1.1613（未变）</li>
+<li>第 2 行：<strong>1.5000（从 2.3444 被缩到 1.5）</strong></li>
+<li>第 3 行：1.0063（未变）</li>
+<li>第 4 行：<strong>1.5000（从 2.2508 被缩到 1.5）</strong></li>
+</ul>
+<h2 id="5-对权重的具体影响总结"><a href="#5-对权重的具体影响总结" class="headerlink" title="5. 对权重的具体影响总结"></a>5. 对权重的具体影响总结</h2><h3 id="只影响被访问到且范数超限的行"><a href="#只影响被访问到且范数超限的行" class="headerlink" title="只影响被访问到且范数超限的行"></a><strong>只影响被访问到且范数超限的行</strong></h3><ul>
+<li>forward 时只拿到了某些 index（比如本 batch 里用到的词 ID），<code>max_norm</code> 只会根据这些 index 去检查并缩放对应行。</li>
+<li>其它没被访问到的行，这一轮 forward 不会去动它。</li>
+</ul>
+<h3 id="操作是-in-place-的"><a href="#操作是-in-place-的" class="headerlink" title="操作是 in-place 的"></a><strong>操作是 in-place 的</strong></h3><p>官方文档明确说明：当 <code>max_norm</code> 不为 <code>None</code> 时，<code>Embedding.forward</code> 会<strong>原地修改 <code>weight</code></strong>。  </p>
+<p>这意味着：</p>
+<ul>
+<li>缩放后的权重会被保留下来，用于之后的训练步骤。</li>
+<li>如果你在 forward 之前对 <code>embedding.weight</code> 做可微操作，需要先 <code>.clone()</code> 一份再用，否则会和 autograd 的 in-place 规则冲突。</li>
+</ul>
+<h3 id="不改变方向，只改变长度"><a href="#不改变方向，只改变长度" class="headerlink" title="不改变方向，只改变长度"></a><strong>不改变方向，只改变长度</strong></h3><ul>
+<li>向量被按比例整体缩小：<br> $$<br> v_{\text{new}} = v \cdot \frac{\text{max_norm}}{\|v\|}<br> $$</li>
+<li>方向（单位向量）不变，只是“缩短”到指定长度。</li>
+</ul>
+<h3 id="起到正则化-稳定作用"><a href="#起到正则化-稳定作用" class="headerlink" title="起到正则化 / 稳定作用"></a><strong>起到正则化 / 稳定作用</strong></h3><ul>
+<li>限制每个 embedding 行向量的最大范数，可以避免某些向量过大，防止梯度爆炸或某些词向量“过度主导”模型。</li>
+</ul>
+<h2 id="6-一句话记住"><a href="#6-一句话记住" class="headerlink" title="6. 一句话记住"></a>6. 一句话记住</h2><p>在 <code>nn.Embedding</code> 里：</p>
+<blockquote>
+<p><code>max_norm</code> = “给每一行 embedding 向量设一个<strong>最大长度</strong>，<br>每次 forward 时，凡是被用到且长度超过这个上限的行，都会被<strong>按比例缩到这个长度</strong>，并且是<strong>直接改写权重矩阵</strong>的。”</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-类比-“词典”"><span class="toc-number">1.</span> <span class="toc-text">1. 类比 “词典”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-一个具体、可手算的小例子"><span class="toc-number">2.</span> <span class="toc-text">2. 一个具体、可手算的小例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-定义一个简单的-Embedding"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 定义一个简单的 Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-计算每一行的-L2-范数"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 计算每一行的 L2 范数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-max-norm-的具体计算公式（重归一化）"><span class="toc-number">3.</span> <span class="toc-text">3. max_norm 的具体计算公式（重归一化）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-对行-2-的计算"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 对行 2 的计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-对行-4-的计算"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 对行 4 的计算</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-重归一化后的权重矩阵"><span class="toc-number">4.</span> <span class="toc-text">4. 重归一化后的权重矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-对权重的具体影响总结"><span class="toc-number">5.</span> <span class="toc-text">5. 对权重的具体影响总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#只影响被访问到且范数超限的行"><span class="toc-number">5.1.</span> <span class="toc-text">只影响被访问到且范数超限的行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#操作是-in-place-的"><span class="toc-number">5.2.</span> <span class="toc-text">操作是 in-place 的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不改变方向，只改变长度"><span class="toc-number">5.3.</span> <span class="toc-text">不改变方向，只改变长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#起到正则化-稳定作用"><span class="toc-number">5.4.</span> <span class="toc-text">起到正则化 &#x2F; 稳定作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-一句话记住"><span class="toc-number">6.</span> <span class="toc-text">6. 一句话记住</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,547 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>无法动态附加到 Java 进程？ - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,socket file, .java_pid, java.io.tmpdir, Dynamic Attach, /tmp, systemd"> 
+    <meta name="description" content="现象找出 Java 应用频繁 Full GC 的原因 中介绍了一些 JDK 中自带的命令，如：jmap、jstat 等，但在实际使用时，可能会遇到类似如下的问题：
+$ jmap -histo 286,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">无法动态附加到 Java 进程？</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/unable-to-open-socket-file.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                十二月 19, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/12/19/unable-to-open-socket-file/" title="无法动态附加到 Java 进程？" class="">无法动态附加到 Java 进程？</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JDK/" rel="tag">JDK</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p><a href="https://alphahinex.github.io/2021/12/12/find-the-reason-of-full-gc/">找出 Java 应用频繁 Full GC 的原因</a> 中介绍了一些 JDK 中自带的命令，<br>如：<code>jmap</code>、<code>jstat</code> 等，但在实际使用时，可能会遇到类似如下的问题：</p>
+<pre><code class="bash">$ jmap -histo 2867
+2867: Unable to open socket file: target process not responding or HotSpot VM not loaded
+The -F option can be used when the target process is not responding</code></pre>
+<p>出现这种情况时，如果不是 Java 进程所属的用户和执行命令的用户不一致导致，那么按照提示使用 <code>-F</code> 参数可能也无济于事，重启 Java 应用后才可正常使用。</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>出现这种情况时，基本是 socket file（<code>.java_pid&lt;pid&gt;</code> 文件）被删除导致，其中 <code>&lt;pid&gt;</code> 为对应 Java 进程的 ID。</p>
+<h2 id="这个文件在哪？"><a href="#这个文件在哪？" class="headerlink" title="这个文件在哪？"></a>这个文件在哪？</h2><p>这个文件，会被生成到操作系统临时路径下，如 linux 下为 <code>/tmp</code> 。</p>
+<p>默认情况下，可以通过 <code>System.getproperty(&quot;java.io.tmpdir&quot;)</code>（Java 应用的临时路径）来获取操作系统临时路径，但 <code>java.io.tmpdir</code> 这个属性可以通过环境变量、启动参数等进行改变，而操作系统的临时路径是没有办法被修改的，因为是硬编码到 <a href="https://github.com/openjdk/jdk/blob/master/src/hotspot/os/linux/os_linux.cpp" target="_blank" rel="noopener">对应操作系统的 JVM 代码</a> 中的，如：</p>
+<pre><code class="cpp">// This must be hard coded because it&#39;s the system&#39;s temporary
+// directory not the java application&#39;s temp directory, ala java.io.tmpdir.
+const char* os::get_temp_directory() { return &quot;/tmp&quot;; }</code></pre>
+<p>以现象中的 pid（2867）为例，对应 Linux 操作系统下该 Java 进程的 socket file 全路径为：<code>/tmp/.java_pid2867</code></p>
+<h2 id="为什么需要这个文件？"><a href="#为什么需要这个文件？" class="headerlink" title="为什么需要这个文件？"></a>为什么需要这个文件？</h2><p>这是由 JVM 的 <a href="http://openjdk.java.net/groups/hotspot/docs/Serviceability.html#battach" target="_blank" rel="noopener">Dynamic Attach 机制</a> 决定的。</p>
+<p><code>jmap</code>、<code>jstack</code> 等命令，都是通过这个机制来实现的。该机制的作用是，在 Java 进程运行过程中，为其动态附加一个外部进程，使外部进程可以与 Java 进程进行通信，实现例如 dump 等交互。</p>
+<p><code>jmap -histo</code>、<code>jmap -dump</code>、<code>jstack</code> 等命令执行时，都需要指定一个 Java 进程的 PID，作用即为向目标 JVM 发送一个 attach 请求。</p>
+<p>通过 Java 代码，也可以发起这个附加请求，如：</p>
+<pre><code class="java">import com.sun.tools.attach.VirtualMachine;
+
+...
+
+String pid = &quot;2867&quot;;
+VirtualMachine jvm = VirtualMachine.attach(pid);
+...
+jvm.detach();
+
+...</code></pre>
+<p>在第一次发生附加请求时，Dynamic attach 会在目标 JVM 中运行一个 Attach Listener 线程，可通过如下方式观察：</p>
+<pre><code class="bash"># 前台运行一个 java 应用，观察 console 输出内容
+$ java -jar hello.jar
+
+# 新开一个终端窗口，获得 java 进程 id
+$ jps
+22480 jar
+23032 Jps
+
+# 发送一个 QUIT 信号
+$ kill -3 22480</code></pre>
+<p>此时会在 Java 应用的 console 中，输出线程相关信息。在未进行过 Dynamic attach 时，Java 应用的线程栈中是没有 <code>Attach Listener</code> 线程的。</p>
+<pre><code class="bash"># 触发一个附加请求
+$ jstack -l 22480
+...
+&quot;Attach Listener&quot; #20 daemon prio=9 os_prio=31 tid=0x00007fd113814000 nid=0x450b waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+   Locked ownable synchronizers:
+    - None
+...</code></pre>
+<p>可以看到线程栈中多出了一个名为 <code>Attach Listener</code> 的线程。</p>
+<p>随后，这个线程会与发起附加请求的源 JVM，以依赖操作系统的方式进行通信：</p>
+<pre><code class="text">* On Solaris, the Doors IPC mechanism is used. The door is attached to a file in the file system so that clients can access it.
+* On Linux, a Unix domain socket is used. This socket is bound to a file in the filesystem so that clients can access it.
+* On Windows, the created thread is given the name of a pipe which is served by the client. The result of the operations are written to this pipe by the target JVM.</code></pre>
+<p>在 Linux 中，上面文档所指的 <code>This socket is bound to a file in the filesystem</code>，即为前面提到的 <code>.java_pid&lt;pid&gt;</code> 文件。</p>
+<h2 id="这个文件为什么会被删除？"><a href="#这个文件为什么会被删除？" class="headerlink" title="这个文件为什么会被删除？"></a>这个文件为什么会被删除？</h2><p>因为这个 socket file 生成在操作系统的临时路径，如 Linux 下的 <code>/tmp</code>，而 Linux 的 <code>/tmp</code> 路径下的文件，默认在重启，或者超过 10 天的情况下会被删除。</p>
+<h2 id="能不能让这个文件生成到别的路径？"><a href="#能不能让这个文件生成到别的路径？" class="headerlink" title="能不能让这个文件生成到别的路径？"></a>能不能让这个文件生成到别的路径？</h2><p>如上所述，操作系统的临时路径是在 JVM 源代码中硬编码的，并且与 <code>java.io.tmpdir</code> 等属性不同，无法通过环境变量等形式进行更改。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>分析完原因，让这个问题不再发生的解决方案，就只剩下让这个生成在操作系统临时路径下的 socket 文件不被删除了。</p>
+<p>以 CentOS7 为例，临时文件夹下文件的删除，是由 Systemd Cleanup 任务完成的，可在其配置文件 <code>/usr/lib/tmpfiles.d/tmp.conf</code> 中，添加如下内容，以排除对 socket 文件的删除：</p>
+<pre><code class="conf">x /tmp/.java_pid*</code></pre>
+<p>其中，<code>x</code> 代表在清理任务中，排除符合的文件。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://www.jianshu.com/p/542e50edc8e3" target="_blank" rel="noopener">Java Attach机制</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzIzNjI1ODc2OA==&mid=2650886799&idx=1&sn=108c5fdfcd2695594d4f80ff02fc9a70&mpshare=1&scene=21&srcid=0114WsKpUmDXhRtqy8x7JX5w#wechat_redirect" target="_blank" rel="noopener">JVM源码分析之Attach机制实现完全解读</a></li>
+<li><a href="http://openjdk.java.net/groups/hotspot/docs/Serviceability.html" target="_blank" rel="noopener">Serviceability in HotSpot</a></li>
+<li><a href="https://www.sitepoint.com/fixing-bugs-in-running-java-code-with-dynamic-attach/" target="_blank" rel="noopener">Fixing Bugs in Running Java Code with Dynamic Attach</a></li>
+<li><a href="https://confluence.atlassian.com/kb/jvm-is-not-reachable-with-jstat-and-jstack-1031281491.html" target="_blank" rel="noopener">JVM is not reachable with jstat and jstack</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#现象"><span class="toc-number">1.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#原因"><span class="toc-number">2.</span> <span class="toc-text">原因</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#这个文件在哪？"><span class="toc-number">2.1.</span> <span class="toc-text">这个文件在哪？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么需要这个文件？"><span class="toc-number">2.2.</span> <span class="toc-text">为什么需要这个文件？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#这个文件为什么会被删除？"><span class="toc-number">2.3.</span> <span class="toc-text">这个文件为什么会被删除？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#能不能让这个文件生成到别的路径？"><span class="toc-number">2.4.</span> <span class="toc-text">能不能让这个文件生成到别的路径？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

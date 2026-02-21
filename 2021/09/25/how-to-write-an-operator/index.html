@@ -1,0 +1,735 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】如何写一个operator - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Operator, Controller, Reconcile"> 
+    <meta name="description" content="原文地址：https://www.jianshu.com/p/79476712575e
+如何写一个operator文章源地址请移步writing-a-controller-for-pod-label,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】如何写一个operator</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/how-to-write-an-operator.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                九月 25, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/09/25/how-to-write-an-operator/" title="【转】如何写一个operator" class="">【转】如何写一个operator</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://www.jianshu.com/p/79476712575e" target="_blank" rel="noopener">https://www.jianshu.com/p/79476712575e</a></p>
+<h1 id="如何写一个operator"><a href="#如何写一个operator" class="headerlink" title="如何写一个operator"></a>如何写一个operator</h1><p>文章源地址请移步<a href="https://kubernetes.io/blog/2021/06/21/writing-a-controller-for-pod-labels/" target="_blank" rel="noopener">writing-a-controller-for-pod-labels</a></p>
+<p><a href="https://github.com/weiliang-ms/label-operator" target="_blank" rel="noopener">样例代码</a></p>
+<h2 id="k8s中的operator是什么？"><a href="#k8s中的operator是什么？" class="headerlink" title="k8s中的operator是什么？"></a>k8s中的operator是什么？</h2><p><code>operator</code>旨在简化基于<code>k8s</code>部署有状态服务（例如：<code>ceph</code>集群、<code>skywalking</code>集群）</p>
+<p>可以利用<a href="https://sdk.operatorframework.io/" target="_blank" rel="noopener">Operator SDK</a> 构建一个<code>operator</code>，<br><code>operator</code>使扩展<code>k8s</code>及实现自定义调度变得更加简单。</p>
+<p>尽管<a href="https://sdk.operatorframework.io/" target="_blank" rel="noopener">Operator SDK</a> 适合构建功能齐全的<code>operator</code>，<br>但也可以使用它来编写单个控制器。</p>
+<p>这篇文章将指导您在<code>Go</code>中编写一个<code>Kubernetes</code>控制器，该控制器将向具有特定注释的<code>pod</code>添加<code>pod-name</code>标签</p>
+<h2 id="为什么我们需要一个控制器呢？"><a href="#为什么我们需要一个控制器呢？" class="headerlink" title="为什么我们需要一个控制器呢？"></a>为什么我们需要一个控制器呢？</h2><p>最近我们项目中有这么个需求：通过一个<code>service</code>将流量路由至同一<code>ReplicaSet</code>中指定<code>pod</code>内（<code>service</code>对应一个或多个<code>pod</code>）</p>
+<p>而原生<code>k8s</code>并不能实现该功能，因为原生<code>service</code>只能通过<code>label</code>与<code>Pod</code>匹配，并且同一<code>ReplicaSet</code>内，<code>Pod</code>具有相同标签。</p>
+<p>上述需求有两种解决方案:</p>
+<ol>
+<li>创建<code>service</code>时不指定标签选择器，而是利用<code>Endpoints</code>或<code>EndpointSlices</code>关联<code>pod</code><br>此时我们需要写一个自定义控制器，用于插入指定<code>pod</code>的端点地址至<code>Endpoints</code>或<code>EndpointSlices</code>对象</li>
+<li>为每个<code>Pod</code>添加具有唯一<code>value</code>的标签，接下来我们就可以利用标签选择器进行<code>service</code>与<code>Pod</code>的关联。</li>
+</ol>
+<hr>
+<p>由于<code>k8s</code>中的控制器实质是个控制循环程序，控制器可以对<code>k8s</code>的资源（Resource，比如namespace、service等）进行监听追踪。</p>
+<p>此时如果我们创建一个控制器，仅监听<code>Pod</code>资源，针对指定<code>Pod</code>进行<code>label</code>处理，就可实现上述需求。</p>
+<p>当然<code>k8s</code>原生资源<code>StatefulSets</code>也是可以实现这一功能的，但假设我们不想/不能使用<code>StatefulSets</code>类型去实现呢？</p>
+<p>一般情况下，我们很少直接创建<code>Pod</code>类型，而是通过<code>Deployment, ReplicaSet</code>间接创建<code>Pod</code>。</p>
+<p>我们可以指定标签添加到<code>PodSpec</code>中的每个<code>Pod</code>，但不能使用动态值，因此无法复制<code>StatefulSet</code>的<code>pod-name</code>标签。</p>
+<p>我们尝试使用<a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook" target="_blank" rel="noopener">mutating admission webhook</a><br>实现。<br>当任何人创建<code>Pod</code>时，<code>webhook</code>会自动注入一个包含<code>Pod</code>名称的标签对<code>Pod</code>进行修改。</p>
+<p>遗憾的是这种方式并不能实现我们的需求： 并不是所有的<code>Pod</code>在创建前都有名字。<br>举个例子：当<code>ReplicaSet</code>控制器创建一个<code>Pod</code>时，他向<code>kube-apiserver</code>发送一个请求，获取一个<code>namePrefix</code>而非<code>name</code></p>
+<p><code>kubeapi-server</code>在将新的<code>Pod</code>持久化到<code>etcd</code>之前生成一个唯一的名称，<br>这个过程发生于在调用我们的许可<code>webhook</code>之后。所以在大多数情况下，我们无法知道一个带有<code>mutating webhook</code>的<code>Pod</code>的名字</p>
+<p>一旦<code>Pod</code>持久化至<code>K8s</code>集群中时，它几乎不会发生变更，但我们仍然可以通过以下方式，添加<code>label</code></p>
+<pre><code class="shell">kubectl label my-pod my-label-key=my-label-value</code></pre>
+<p>我们需要观察<code>Kubernetes API</code>中任何<code>Pod</code>的变化，并添加我们想要的标签。<br>我们将编写一个控制器来为我们做这件事，而不是手动做这件事</p>
+<h2 id="利用Operator-SDK构建一个控制器"><a href="#利用Operator-SDK构建一个控制器" class="headerlink" title="利用Operator SDK构建一个控制器"></a>利用Operator SDK构建一个控制器</h2><p>控制器是一个协调循环，它从<code>Kubernetes API</code>中读取期望的资源状态，并采取行动使集群的实际状态达到期望状态</p>
+<h3 id="安装配置"><a href="#安装配置" class="headerlink" title="安装配置"></a>安装配置</h3><blockquote>
+<p>1.安装<code>Operator SDK</code></p>
+</blockquote>
+<ul>
+<li>下载二进制</li>
+</ul>
+<pre><code class="shell">sudo curl -LO https://github.com/operator-framework/operator-sdk/releases/download/v1.12.0/operator-sdk_linux_amd64
+sudo mv operator-sdk_linux_amd64 /usr/local/bin/operator-sdk</code></pre>
+<blockquote>
+<p>2.构建工程</p>
+</blockquote>
+<pre><code class="shell">mkdir label-operator &amp;&amp; cd label-operator</code></pre>
+<blockquote>
+<p>3.初始化工程</p>
+</blockquote>
+<pre><code class="shell">export GOPROXY=https://goproxy.cn
+operator-sdk init --domain=weiliang.io --repo=github.com/weiliang-ms/label-operator</code></pre>
+<blockquote>
+<p>4.创建控制器</p>
+</blockquote>
+<p>接下来我们创建一个控制器，这个控制器将会处理<code>Pod</code>资源，而非自定义资源，所以不需要生成资源代码。</p>
+<pre><code class="shell">operator-sdk create api --group=core --version=v1 --kind=Pod --controller=true --resource=false</code></pre>
+<h3 id="初始化编码"><a href="#初始化编码" class="headerlink" title="初始化编码"></a>初始化编码</h3><blockquote>
+<p><code>controllers/pod_controller.go</code>解析</p>
+</blockquote>
+<p>现在我们拥有了一个新文件: <code>controllers/pod_controller.go</code>。<br>该文件包含了<code>PodReconciler</code>类型，该类型包含两个方法：</p>
+<ul>
+<li><code>Reconcile</code>函数：</li>
+</ul>
+<pre><code class="go">func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    _ = log.FromContext(ctx)
+
+    // your logic here
+
+    return ctrl.Result{}, nil
+}</code></pre>
+<p>当创建、更新、或删除<code>Pod</code>时会调用<code>Reconcile</code>方法，<code>Pod</code>名称与命名空间作为函数入参，存于<code>ctrl.Request</code>对象之中</p>
+<ul>
+<li><code>SetupWithManager</code>函数：</li>
+</ul>
+<pre><code class="go">func (r *PodReconciler) SetupWithManager(mgr ctrl.Manager) error {
+    return ctrl.NewControllerManagedBy(mgr).
+            For(&amp;corev1.Pod{}).
+            Complete(r)
+}</code></pre>
+<p><code>operator</code>会在启动时执行<code>SetupWithManager</code>函数，<code>SetupWithManager</code>函数用于生命监听资源类型</p>
+<p>因为我们只想要监听<code>Pod</code>资源变化，所以监听资源这部分代码不动</p>
+<blockquote>
+<p><code>RBAC</code>设置</p>
+</blockquote>
+<p>接下来为我们的控制器配置<code>RBAC</code>权限，代码生成器生成的默认权限如下：</p>
+<pre><code>//+kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=core,resources=pods/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=core,resources=pods/finalizers,verbs=update</code></pre><p>显然我们并不需要以上全部权限，我们控制器从不会<code>CRUD</code> <code>Pod</code>的<code>status</code>与<code>finalizers</code>字段。</p>
+<p>控制器需要的仅仅是对<code>Pod</code>的读权限与更新权限，本着最小原则，我们调整权限如下</p>
+<pre><code>// +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;watch;update;patch</code></pre><p>此时我们已经编写好了控制器的基本调用逻辑。</p>
+<h3 id="实现Reconcile函数"><a href="#实现Reconcile函数" class="headerlink" title="实现Reconcile函数"></a>实现Reconcile函数</h3><p>我们希望<code>Reconcile</code>实现以下功能：</p>
+<ol>
+<li>通过入参<code>ctrl.Request</code>中的<code>Pod</code>名称与命名空间字段，请求<code>k8s api</code>获取<code>Pod</code>对象</li>
+<li>如果<code>Pod</code>拥有<code>add-pod-name-label</code>注解，给这个<code>Pod</code>添加一个<code>pod-name</code>标签</li>
+<li>将上一步<code>Pod</code>的变更回写<code>k8s</code>中</li>
+</ol>
+<p>接下来我们为注解与标签定义一些常量</p>
+<pre><code class="go">const (
+    addPodNameLabelAnnotation = &quot;padok.fr/add-pod-name-label&quot;
+    podNameLabel              = &quot;padok.fr/pod-name&quot;
+)</code></pre>
+<blockquote>
+<p>根据入参获取<code>Pod</code></p>
+</blockquote>
+<p>首先我们根据入参信息，去<code>k8s api</code>获取<code>Pod</code>实例</p>
+<pre><code class="go">func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    l := log.FromContext(ctx)
+
+    var pod corev1.Pod
+    if err := r.Get(ctx, req.NamespacedName, &amp;pod); err != nil {
+        l.Error(err, &quot;unable to fetch Pod&quot;)
+        return ctrl.Result{}, err
+    }
+
+    return ctrl.Result{}, nil
+}</code></pre>
+<blockquote>
+<p>异常处理</p>
+</blockquote>
+<p>当创建、更新或删除一个<code>Pod</code>时，会触发我们控制器的<code>Reconcile</code>方法</p>
+<p>但当事件为’删除事件’时，<code>r.Get()</code>会返回一个指定错误对象，接下来我们通过引用下面的包来处理这个异常。</p>
+<pre><code class="go">package controllers
+
+import (
+    // other imports...
+    apierrors &quot;k8s.io/apimachinery/pkg/api/errors&quot;
+    // other imports...
+)
+// other functions...
+func (r *PodReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    l := log.FromContext(ctx)
+
+    var pod corev1.Pod
+    if err := r.Get(ctx, req.NamespacedName, &amp;pod); err != nil {
+        if apierrors.IsNotFound(err) {
+            // we&#39;ll ignore not-found errors, since we can get them on deleted requests.
+            return ctrl.Result{}, nil
+        }
+        l.Error(err, &quot;unable to fetch Pod&quot;)
+        return ctrl.Result{}, err
+    }
+
+    return ctrl.Result{}, nil
+}
+// other functions...</code></pre>
+<blockquote>
+<p>编辑<code>Pod</code>，判断注解、标签是否存在</p>
+</blockquote>
+<p>此时我们已经获取到了这个<code>Pod</code>对象（创建、更新事件），接下来我们获取<code>Pod</code>的注解元数据，判断是否需要添加标签</p>
+<pre><code class="go">...
+    /*
+       Step 1: 添加或移除标签.
+    */
+
+    // 判断Pod是否存在注解 -&gt; padok.fr/add-pod-name-label: true
+    labelShouldBePresent := pod.Annotations[addPodNameLabelAnnotation] == &quot;true&quot;
+    // 判断Pod是否存在标签 -&gt; padok.fr/pod-name: Pod名称
+    labelIsPresent := pod.Labels[podNameLabel] == pod.Name
+
+    // 如果期望状态与实际状态一致（含有上述标签、注解），返回
+    if labelShouldBePresent == labelIsPresent {
+        log.Info(&quot;no update required&quot;)
+        return ctrl.Result{}, nil
+    }
+
+    // 存在注解 -&gt; padok.fr/add-pod-name-label: true
+    if labelShouldBePresent {
+        // 判断标签map是否为空
+        if pod.Labels == nil {
+            // 为空创建
+            pod.Labels = make(map[string]string)
+        }
+        // 添加标签 -&gt; padok.fr/pod-name: Pod名称
+        pod.Labels[podNameLabel] = pod.Name
+        log.Info(&quot;adding label&quot;)
+    } else {
+        // 不存在注解 -&gt; padok.fr/add-pod-name-label: true
+        // 移除标签
+        delete(pod.Labels, podNameLabel)
+        log.Info(&quot;removing label&quot;)
+    }
+...</code></pre>
+<blockquote>
+<p>回写<code>Pod</code>至<code>k8s</code></p>
+</blockquote>
+<pre><code class="go">    /*
+        Step 2: Update the Pod in the Kubernetes API.
+    */
+
+    if err := r.Update(ctx, &amp;pod); err != nil {
+        l.Error(err, &quot;unable to update Pod&quot;)
+        return ctrl.Result{}, err
+    }</code></pre>
+<p>当我们回写<code>Pod</code>变更至<code>k8s</code>时存在以下风险：集群内的<code>Pod</code>与我们获取到的<code>Pod</code>已经不一致（可能通过其他渠道变更了该<code>Pod</code>）</p>
+<p>在编写一个<code>k8s</code>控制器时，我们应该明白一个问题：<strong>我们编写的控制器并不是唯一能操作<code>k8s</code>资源对象的实例</strong>(其他控制器、<code>kubectl</code>等亦能操作<code>k8s</code>资源对象)</p>
+<p>当发生这种情况时，最好的做法是通过重新排队事件，从头开始处理。</p>
+<pre><code class="go"> if err := r.Update(ctx, &amp;pod); err != nil {
+    if apierrors.IsConflict(err) {
+        // The Pod has been updated since we read it.
+        // Requeue the Pod to try to reconciliate again.
+        return ctrl.Result{Requeue: true}, nil
+    }
+    if apierrors.IsNotFound(err) {
+        // The Pod has been deleted since we read it.
+        // Requeue the Pod to try to reconciliate again.
+        return ctrl.Result{Requeue: true}, nil
+    }
+    log.Error(err, &quot;unable to update Pod&quot;)
+    return ctrl.Result{}, err
+}</code></pre>
+<h3 id="在k8s集群内运行该控制器"><a href="#在k8s集群内运行该控制器" class="headerlink" title="在k8s集群内运行该控制器"></a>在k8s集群内运行该控制器</h3><p>本人本地开发环境为<code>windows10</code> + <code>Ubuntu 20</code></p>
+<blockquote>
+<p>本地<code>ubuntu</code>安装<code>Kubectl</code>并配置<code>kube-config</code></p>
+</blockquote>
+<p>集群信息</p>
+<pre><code class="shell">weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ kubectl get node
+NAME    STATUS   ROLES           AGE   VERSION
+node1   Ready    master,worker   62d   v1.18.6
+node2   Ready    master,worker   62d   v1.18.6
+node3   Ready    master,worker   62d   v1.18.6
+node4   Ready    worker          62d   v1.18.6</code></pre>
+<blockquote>
+<p><code>label-operator</code>下执行</p>
+</blockquote>
+<p><code>shell</code>目录</p>
+<pre><code>weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ pwd
+/mnt/d/github/label-operator</code></pre><p>运行<code>operator</code></p>
+<pre><code class="shell">export GOPROXY=https://goproxy.cn
+make run</code></pre>
+<blockquote>
+<p>运行一个<code>nginx</code>服务<code>Pod</code></p>
+</blockquote>
+<p>新建一个<code>ubuntu shell</code>窗口执行</p>
+<pre><code class="shell">kubectl run --image=nginx:1.20.0 my-nginx</code></pre>
+<p>查看<code>Pod</code>信息</p>
+<pre><code class="shell">weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ kubectl get pod
+NAME                                 READY   STATUS              RESTARTS   AGE
+my-nginx                             1/1     Running             0          78s</code></pre>
+<p>此时运行<code>operator</code>的窗口会输出如下信息，说明监听成功</p>
+<pre><code class="bash">2021-09-24T11:52:10.588+0800    INFO    controller-runtime.manager.controller.pod       no update required      {&quot;reconciler group&quot;: &quot;&quot;, &quot;reconciler kind&quot;: &quot;Pod&quot;, &quot;name&quot;: &quot;m
+y-nginx&quot;, &quot;namespace&quot;: &quot;default&quot;}
+2021-09-24T11:52:10.597+0800    INFO    controller-runtime.manager.controller.pod       no update required      {&quot;reconciler group&quot;: &quot;&quot;, &quot;reconciler kind&quot;: &quot;Pod&quot;, &quot;name&quot;: &quot;m
+y-nginx&quot;, &quot;namespace&quot;: &quot;default&quot;}
+2021-09-24T11:52:10.630+0800    INFO    controller-runtime.manager.controller.pod       no update required      {&quot;reconciler group&quot;: &quot;&quot;, &quot;reconciler kind&quot;: &quot;Pod&quot;, &quot;name&quot;: &quot;m
+y-nginx&quot;, &quot;namespace&quot;: &quot;default&quot;}</code></pre>
+<blockquote>
+<p>查看<code>Pod</code>标签</p>
+</blockquote>
+<pre><code class="shell">weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ kubectl get pod my-nginx --show-labels
+NAME       READY   STATUS    RESTARTS   AGE     LABELS
+my-nginx   1/1     Running   0          4m38s   run=my-nginx</code></pre>
+<blockquote>
+<p>此时我们给该<code>Pod</code>打上以下注解，并查看是否已自动添加新的标签</p>
+</blockquote>
+<pre><code class="shell">weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ kubectl annotate pod my-nginx padok.fr/add-pod-name-label=true
+pod/my-nginx annotated</code></pre>
+<p>查看标签</p>
+<pre><code class="shell">weiliang@DESKTOP-O8QG6I5:/mnt/d/github/label-operator$ kubectl get pod my-nginx --show-labels
+NAME       READY   STATUS    RESTARTS   AGE     LABELS
+my-nginx   1/1     Running   0          6m39s   padok.fr/pod-name=my-nginx,run=my-nginx</code></pre>
+<p><strong>成功了！</strong> 我们成功的实现上面的需求</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何写一个operator"><span class="toc-number">1.</span> <span class="toc-text">如何写一个operator</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#k8s中的operator是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">k8s中的operator是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么我们需要一个控制器呢？"><span class="toc-number">1.2.</span> <span class="toc-text">为什么我们需要一个控制器呢？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用Operator-SDK构建一个控制器"><span class="toc-number">1.3.</span> <span class="toc-text">利用Operator SDK构建一个控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装配置"><span class="toc-number">1.3.1.</span> <span class="toc-text">安装配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#初始化编码"><span class="toc-number">1.3.2.</span> <span class="toc-text">初始化编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现Reconcile函数"><span class="toc-number">1.3.3.</span> <span class="toc-text">实现Reconcile函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在k8s集群内运行该控制器"><span class="toc-number">1.3.4.</span> <span class="toc-text">在k8s集群内运行该控制器</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

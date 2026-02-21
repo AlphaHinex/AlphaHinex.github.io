@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>离线环境 JetBrains 远程开发 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,JetBrains, offline mode, remote development, PyCharm, JetBrains GateWay, JetBrains Client Downloader, JetBrains Client, JBR, JetBrains Runtime, IDE Backend, HTTP server, GLIBC"> 
+    <meta name="description" content="本文以 PyCharm 纯离线模式官方文档 为例，对其中一些不太清晰的地方进行补充说明，可作为使用 JetBrains IDE 在离线环境进行远程开发的指引。
+适用场景
+
+服务器均无法连接互联网
+一,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">离线环境 JetBrains 远程开发</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/jetbrains-fully-offline-mode/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/IDE"><b>「
+                    </b>IDE<b> 」</b></a>
+                
+                十二月 07, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/12/07/jetbrains-fully-offline-mode/" title="离线环境 JetBrains 远程开发" class="">离线环境 JetBrains 远程开发</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JetBrains/" rel="tag">JetBrains</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>本文以 <a href="https://www.jetbrains.com/help/pycharm/fully-offline-mode.html" target="_blank" rel="noopener">PyCharm 纯离线模式官方文档</a> 为例，对其中一些不太清晰的地方进行补充说明，可作为使用 JetBrains IDE 在离线环境进行远程开发的指引。</p>
+<h1 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h1><p><img src="https://alphahinex.github.io/contents/jetbrains-fully-offline-mode/cover.png" alt="overview"></p>
+<ul>
+<li>服务器均无法连接互联网</li>
+<li>一台或多台远程开发服务器（拥有本地机器中不具备的源码、运行时环境、GPU 等）</li>
+<li>一台 HTTP 服务器（可以与远程开发环境使用相同服务器）</li>
+<li>本地机器（无需安装 IDE，本例中即为无需安装 PyCharm）</li>
+<li>有可联网环境，能下载必须资源，并传输至离线环境</li>
+</ul>
+<h1 id="主要组件"><a href="#主要组件" class="headerlink" title="主要组件"></a>主要组件</h1><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">描述</th>
+<th align="left">最终放置位置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">JetBrains Client Downloader</td>
+<td align="left">下载器，可用来下载其他组件</td>
+<td align="left">联网环境</td>
+</tr>
+<tr>
+<td align="left">IDE Backend</td>
+<td align="left">IDE 后端，作为服务运行在远程开发环境中</td>
+<td align="left">HTTP 服务器</td>
+</tr>
+<tr>
+<td align="left">JetBrains Client</td>
+<td align="left">轻量级 IDE，相当于 PyCharm 等</td>
+<td align="left">HTTP 服务器</td>
+</tr>
+<tr>
+<td align="left">JetBrains Gateway</td>
+<td align="left">用来连接 JetBrains Client 和 IDE Backend 的网关</td>
+<td align="left">本地机器</td>
+</tr>
+</tbody></table>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><p>在联网环境下载必需文件：</p>
+<ol>
+<li><p>参照 <a href="https://alphahinex.github.io/2025/10/19/full-platforms-jetbrains-clients-downloader/">全平台可用的 JetBrains Client Downloader</a> 在联网环境准备 JetBrains Client Downloader。</p>
+</li>
+<li><p>选择 IDE 一个具体版本，获得 Build 号。例如在 <a href="https://www.jetbrains.com/pycharm/download/other.html" target="_blank" rel="noopener">PyCharm 下载页面</a>，找到 <code>Version 2025.2.4</code> 的 <code>Build</code> 为 <code>252.27397.106</code>。</p>
+<p> <img src="https://alphahinex.github.io/contents/jetbrains-fully-offline-mode/build.png" alt="build"></p>
+</li>
+<li><p>使用 JetBrains Client Downloader 下载 IDE 后端，例如： <code>./jetbrains-clients-downloader --products-filter PY --build-filter 252.27397.106 --platforms-filter linux-x64 --download-backends ./remote-dev</code> 。</p>
+</li>
+<li><p>使用 JetBrains Client Downloader 下载各平台版本的 JetBrains Client，以满足不同操作系统的本地机器远程开发使用，例如：<code>./jetbrains-clients-downloader --products-filter PY --build-filter 252.27397.106 ./remote-dev/clients</code> 。</p>
+</li>
+<li><p>使用 JetBrains Client Downloader 下载本地机器系统版本的 JetBrains GateWay，GateWay 的 Build 号跟 IDE 的可能不完全对应，可从 <a href="https://data.services.jetbrains.com/products" target="_blank" rel="noopener">https://data.services.jetbrains.com/products</a> 选择最相近的 Build 号下载（GateWay 与 IDE Backend 的主版本号需要一致，否则可能看不到 IDE 后端列表）：<code>./jetbrains-clients-downloader --products-filter GW --build-filter 252.27397.101 --platforms-filter osx-x64 --download-backends ./remote-dev</code> 。</p>
+</li>
+<li><p>从 <a href="https://download.jetbrains.com/idea/code-with-me/backend/jetbrains-clients-downloader-linux-x86_64-2149.tar.gz" target="_blank" rel="noopener">JetBrains Client Downloader 包</a> 中提取 <code>jbr</code> 目录，作为 <code>JRE</code> 稍后使用。</p>
+</li>
+</ol>
+<p>下载内容清单供参考：</p>
+<pre><code class="text">remote-dev
+├── KEYS
+├── backends
+│   ├── GW
+│   │   ├── JetBrainsGateway-2025.2.4.dmg
+│   │   └── products.json
+│   ├── PY
+│   │   ├── products.json
+│   │   └── pycharm-2025.2.4.tar.gz
+│   └── products.json
+├── clients
+│   ├── JetBrainsClient-252.27397.106-aarch64.jbr.win.zip
+│   ├── JetBrainsClient-252.27397.106-aarch64.jbr.win.zip.sha256
+│   ├── JetBrainsClient-252.27397.106-aarch64.jbr.win.zip.sha256.asc
+│   ├── JetBrainsClient-252.27397.106-aarch64.sit
+│   ├── JetBrainsClient-252.27397.106-aarch64.sit.sha256
+│   ├── JetBrainsClient-252.27397.106-aarch64.sit.sha256.asc
+│   ├── JetBrainsClient-252.27397.106-aarch64.tar.gz
+│   ├── JetBrainsClient-252.27397.106-aarch64.tar.gz.sha256
+│   ├── JetBrainsClient-252.27397.106-aarch64.tar.gz.sha256.asc
+│   ├── JetBrainsClient-252.27397.106.jbr.win.zip
+│   ├── JetBrainsClient-252.27397.106.jbr.win.zip.sha256
+│   ├── JetBrainsClient-252.27397.106.jbr.win.zip.sha256.asc
+│   ├── JetBrainsClient-252.27397.106.sit
+│   ├── JetBrainsClient-252.27397.106.sit.sha256
+│   ├── JetBrainsClient-252.27397.106.sit.sha256.asc
+│   ├── JetBrainsClient-252.27397.106.tar.gz
+│   ├── JetBrainsClient-252.27397.106.tar.gz.sha256
+│   ├── JetBrainsClient-252.27397.106.tar.gz.sha256.asc
+│   ├── KEYS
+│   ├── force_mirror_unix_timestamp_ms
+│   └── minimal_clients_downloader_version
+├── force_mirror_unix_timestamp_ms
+├── jbr
+│   ├── bin
+│   ├── conf
+│   ├── legal
+│   ├── lib
+│   └── release
+└── minimal_clients_downloader_version</code></pre>
+<p>除 JetBrains GateWay 安装包放置到本地机器之外，其余内容需传输至 HTTP 服务器。</p>
+<h1 id="HTTP-服务器"><a href="#HTTP-服务器" class="headerlink" title="HTTP 服务器"></a>HTTP 服务器</h1><p>以将 <code>remote-dev</code> 目录上传至服务器 <code>/resources/jetbrains/remote-dev</code> 路径为例，<br>在远程开发环境服务器中，通过 HTTP 服务（如 Nginx）将 <code>/resources/jetbrains/remote-dev</code> 路径发布至 <a href="http://192.168.1.16/resources/jetbrains/remote-dev" target="_blank" rel="noopener">http://192.168.1.16/resources/jetbrains/remote-dev</a> ，获得四个 URL：</p>
+<ol>
+<li><code>productsInfoUrl</code>：<a href="http://192.168.1.16/resources/jetbrains/remote-dev/backends/products.json" target="_blank" rel="noopener">http://192.168.1.16/resources/jetbrains/remote-dev/backends/products.json</a></li>
+<li><code>clientDownloadUrl</code>: <a href="http://192.168.1.16/resources/jetbrains/remote-dev/clients/" target="_blank" rel="noopener">http://192.168.1.16/resources/jetbrains/remote-dev/clients/</a></li>
+<li><code>jreDownloadUrl</code>: <a href="http://192.168.1.16/resources/jetbrains/remote-dev/jbr/" target="_blank" rel="noopener">http://192.168.1.16/resources/jetbrains/remote-dev/jbr/</a></li>
+<li><code>pgpPublicKeyUrl</code>: <a href="http://192.168.1.16/resources/jetbrains/remote-dev/KEYS" target="_blank" rel="noopener">http://192.168.1.16/resources/jetbrains/remote-dev/KEYS</a></li>
+</ol>
+<h1 id="本地机器"><a href="#本地机器" class="headerlink" title="本地机器"></a>本地机器</h1><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="macOS"><a href="#macOS" class="headerlink" title="macOS"></a>macOS</h3><p>创建四个文件 <code>productsInfoUrl</code>、<code>clientDownloadUrl</code>、<code>jreDownloadUrl</code>、<code>pgpPublicKeyUrl</code>，每个文件中存放对应 URL，如：</p>
+<pre><code class="bash">$ pwd
+/Users/alphahinex/Library/Application Support/JetBrains/RemoteDev
+$ ls
+clientDownloadUrl jreDownloadUrl    pgpPublicKeyUrl   productsInfoUrl
+$ cat clientDownloadUrl
+http://192.168.1.16/resources/jetbrains/remote-dev/clients/</code></pre>
+<ul>
+<li>用户级配置，将四个文件放到 <code>/Users/UserName/Library/Application Support/JetBrains/RemoteDev/</code> 路径；</li>
+<li>系统级配置，将四个文件放到 <code>/Library/Application Support/JetBrains/RemoteDev/</code>。</li>
+</ul>
+<blockquote>
+<p>路径不存在直接创建即可。</p>
+</blockquote>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>与 macOS 创建文件相同。</p>
+<ul>
+<li>用户级配置，将四个文件放到 <code>$HOME/.config/JetBrains/RemoteDev/</code>；</li>
+<li>系统级配置，将四个文件放到 <code>/etc/xdg/JetBrains/RemoteDev/</code>。</li>
+</ul>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>用注册表替代文件。用户级在 <code>HKEY_CURRENT_USER</code>，系统级在 <code>HKEY_LOCAL_MACHINE</code> 中的 <code>SOFTWARE\JetBrains\RemoteDev</code> 下创建字符串值，Name 对应文件名，Data 对应 URL：</p>
+<p><img src="https://alphahinex.github.io/contents/jetbrains-fully-offline-mode/offline_mode.png" alt="regedit"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>本地机器安装并打开 JetBrains GateWay，配置 SSH 连接至远程开发环境，选择 IDE 版本及工程路径后，等待从 HTTP 服务下载对应资源并上传至远程开发环境 <code>~/.cache/JetBrains/</code>。一切顺利的话即可看到由 GateWay 打开的 JetBrains Client 已连接至远程开发环境中启动的 IDE Backend 服务，之后就可以远程开发了。</p>
+<p><img src="https://alphahinex.github.io/contents/jetbrains-fully-offline-mode/gateway.png" alt="gateway"></p>
+<h1 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h1><h2 id="社区版不支持远程开发"><a href="#社区版不支持远程开发" class="headerlink" title="社区版不支持远程开发"></a>社区版不支持远程开发</h2><p>IDEA 和 PyCharm 社区版不支持远程开发，需要升级到 Ultimate 或 Pro 等版本，详情见：</p>
+<p><a href="https://www.jetbrains.com.cn/remote-development/" target="_blank" rel="noopener">https://www.jetbrains.com.cn/remote-development/</a></p>
+<blockquote>
+<p>我可以获得 IntelliJ IDEA Community 和 PyCharm Community 版本的远程开发许可证吗？</p>
+<p>IntelliJ IDEA Community Edition 或 PyCharm 不支持远程开发。您需要将订阅升级到 IntelliJ IDEA Ultimate 或 PyCharm Pro。</p>
+</blockquote>
+<h2 id="Deploy-Failed"><a href="#Deploy-Failed" class="headerlink" title="Deploy Failed"></a>Deploy Failed</h2><p><img src="https://alphahinex.github.io/contents/jetbrains-fully-offline-mode/failed.png" alt="failed"></p>
+<p>在 Linux 环境运行 JetBrains IDE 对于 <a href="https://ftp.gnu.org/gnu/libc/" target="_blank" rel="noopener">GLIBC</a> 有最低版本要求，例如 <a href="https://www.jetbrains.com/help/pycharm/2025.2/installation-guide.html#requirements" target="_blank" rel="noopener">PyCharm 2025.2 要求 GLIBC 不低于 2.28</a>，<a href="https://www.jetbrains.com/help/idea/2023.1/installation-guide.html#requirements" target="_blank" rel="noopener">IDEA 2023.1 要求 GLIBC 不低于 2.27</a>。</p>
+<p>当出现类似上图的报错时，可以到远程开发环境检查一下 GLIBC 版本：</p>
+<pre><code class="bash"># 检查 GLIBC 版本
+$ ldd --version
+ldd (GNU libc) 2.17
+Copyright (C) 2012 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+由 Roland McGrath 和 Ulrich Drepper 编写。
+# 找到 IDE Backend 绑定的 JetBrains Runtime 目录，检查 libjvm.so 依赖的 GLIBC 版本
+$ cd ~/.cache/JetBrains/RemoteDev/dist/0915790bcd0d3_pycharm-2025.2.4/jbr/bin/
+$ ./java
+Error: dl failure on line 582
+Error: failed /root/.cache/JetBrains/RemoteDev/dist/0915790bcd0d3_pycharm-2025.2.4/jbr/lib/server/libjvm.so, because /lib64/libm.so.6: version `GLIBC_2.27&#39; not found (required by /root/.cache/JetBrains/RemoteDev/dist/0915790bcd0d3_pycharm-2025.2.4/jbr/lib/server/libjvm.so)</code></pre>
+<p>此时可降低 IDE Backend 至支持当前 GLIBC 的版本。</p>
+<h2 id="GateWay-中看不到-IDE-列表"><a href="#GateWay-中看不到-IDE-列表" class="headerlink" title="GateWay 中看不到 IDE 列表"></a>GateWay 中看不到 IDE 列表</h2><p>以下为推测内容，未经完全验证，仅供参考。</p>
+<p>推测 GateWay 是在 <code>productsInfoUrl</code> 中从自身版本号往上查找 IDE Backend 的。</p>
+<p><code>productsInfoUrl</code> 中包含多个版本的 IDE Backend 时：</p>
+<ul>
+<li>如果有与 GateWay 版本相匹配的 IDE Backend 版本，IDE 列表显示匹配的版本，否则：</li>
+<li>如果远程开发环境已经安装了某个版本的 IDE Backend，那么 GateWay 会显示已安装版本；如有更新版本的 IDE Backend 也会显示；</li>
+<li>如果远程开发环境没有安装任何版本的 IDE Backend，那么 GateWay 只会显示从自身版本号往上查找到的 IDE Backend 最新版本。</li>
+</ul>
+<p>所以如果 GateWay 版本高于 <code>productsInfoUrl</code> 中 IDE Backend 最高版本时，IDE 列表显示为空。</p>
+<p>如出现 IDE 列表为空的情况，可尝试降低 GateWay 版本至与 <code>productsInfoUrl</code> 中 IDE Backend 相匹配版本（大版本号相同，Build 号可不同）。</p>
+<p>本地机器也可以安装多个版本的 GateWay 来连接不同远程开发环境中不同版本的 IDE Backend。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#适用场景"><span class="toc-number">1.</span> <span class="toc-text">适用场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#主要组件"><span class="toc-number">2.</span> <span class="toc-text">主要组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#准备工作"><span class="toc-number">3.</span> <span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-服务器"><span class="toc-number">4.</span> <span class="toc-text">HTTP 服务器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地机器"><span class="toc-number">5.</span> <span class="toc-text">本地机器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">5.1.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#macOS"><span class="toc-number">5.1.1.</span> <span class="toc-text">macOS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-number">5.1.2.</span> <span class="toc-text">Linux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows"><span class="toc-number">5.1.3.</span> <span class="toc-text">Windows</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">5.2.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Troubleshooting"><span class="toc-number">6.</span> <span class="toc-text">Troubleshooting</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#社区版不支持远程开发"><span class="toc-number">6.1.</span> <span class="toc-text">社区版不支持远程开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deploy-Failed"><span class="toc-number">6.2.</span> <span class="toc-text">Deploy Failed</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GateWay-中看不到-IDE-列表"><span class="toc-number">6.3.</span> <span class="toc-text">GateWay 中看不到 IDE 列表</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

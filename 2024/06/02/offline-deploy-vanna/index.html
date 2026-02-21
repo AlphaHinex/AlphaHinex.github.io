@@ -1,0 +1,578 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vanna 离线环境部署 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Vanna, LLM, RAG, Text to SQL, Python, Flask"> 
+    <meta name="description" content="Vanna 简介Vanna 是一个 MIT 许可的开源 Python RAG（Retrieval-Augmented Generation）框架，可以用来以对话形式与 SQL 数据库交互。
+Vann,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Vanna 离线环境部署</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/offline-deploy-vanna/vanna-flask.gif);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                六月 02, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/06/02/offline-deploy-vanna/" title="Vanna 离线环境部署" class="">Vanna 离线环境部署</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/RAG/" rel="tag">RAG</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="Vanna-简介"><a href="#Vanna-简介" class="headerlink" title="Vanna 简介"></a>Vanna 简介</h2><p><a href="https://github.com/vanna-ai/vanna" target="_blank" rel="noopener">Vanna</a> 是一个 MIT 许可的开源 Python RAG（Retrieval-Augmented Generation）框架，可以用来以对话形式与 SQL 数据库交互。</p>
+<p>Vanna 提供两种使用方式：</p>
+<ol>
+<li>代码调用，如 <code>vn.ask(&quot;What are the top 10 customers by sales?&quot;)</code></li>
+<li>基于 Flash 的 <a href="https://vanna.ai/docs/web-app/" target="_blank" rel="noopener">Web 应用</a></li>
+</ol>
+<p><img src="/contents/offline-deploy-vanna/vanna-flask.gif" alt="web-app"></p>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><p><img src="/contents/offline-deploy-vanna/how-vanna-works.gif" alt="how"></p>
+<p>Vanna 的工作原理与通常的 RAG 原理类似，即：</p>
+<ol>
+<li>先将数据库表的元数据信息、DDL 语句、SQL 查询问答对等信息向量化，存储在向量库中；</li>
+<li>用户提问时，将问题与向量库中的信息向量进行匹配，找到相关的信息向量，然后将问题和信息向量组织成提示词输入到 LLM 中，生成 SQL 查询语句；</li>
+<li>用户可对生成的 SQL 进行反馈，正确的 SQL 会被添加到向量库以提高后续问答的精度。</li>
+</ol>
+<h2 id="离线环境使用"><a href="#离线环境使用" class="headerlink" title="离线环境使用"></a>离线环境使用</h2><p><a href="https://vanna.ai/docs/app/" target="_blank" rel="noopener">Quickstart With Sample Data</a> 中提供的示例代码需要从 <a href="https://vanna.ai/" target="_blank" rel="noopener">vanna.ai</a> 获得注册邮箱对应的 <code>api_key</code>：</p>
+<pre><code class="python">!pip install vanna
+import vanna
+from vanna.remote import VannaDefault
+vn = VannaDefault(model=&#39;chinook&#39;, api_key=vanna.get_api_key(&#39;my-email@example.com&#39;))
+vn.connect_to_sqlite(&#39;https://vanna.ai/Chinook.sqlite&#39;)
+vn.ask(&quot;What are the top 10 albums by sales?&quot;)</code></pre>
+<p>离线环境使用时，可以选择构建自定义类型的 Vanna 对象，避免对 <code>vanna.ai</code> 在线环境的依赖。</p>
+<p>在 <a href="https://vanna.ai/docs/postgres-openai-vanna-vannadb/" target="_blank" rel="noopener">Quickstart With Your Own Data</a> 中，可以根据部署环境选择实际需要使用的 LLM、向量库 和 数据库类型。</p>
+<p>以下以 <a href="https://vanna.ai/docs/mysql-openai-standard-chromadb/" target="_blank" rel="noopener">OpenAI + ChromaDB + MySQL</a> 为例进行说明。</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>安装依赖（可通过内网源或构建镜像）：</p>
+<pre><code class="bash">$ pip install &#39;vanna[chromadb,openai,mysql]&#39;</code></pre>
+<p>准备向量嵌入模型文件，放至 <code>~/.cache/chroma/onnx_models/all-MiniLM-L6-v2/onnx.tar.gz</code>：</p>
+<pre><code class="bash">$ wget https://chroma-onnx-models.s3.amazonaws.com/all-MiniLM-L6-v2/onnx.tar.gz</code></pre>
+<blockquote>
+<p>也可从 <a href="https://www.modelscope.cn/models/wengad/all-MiniLM-L6-v2/files" target="_blank" rel="noopener">ModelScope all-MiniLM-L6-v2</a> 下载。</p>
+</blockquote>
+<p>构建 Vanna 实例，使用兼容 OpenAI 接口的本地 LLM：</p>
+<pre><code class="python">from openai import OpenAI
+
+
+client = OpenAI(api_key=&#39;sk-xxx&#39;, base_url=&#39;http://127.0.0.1:19131/v1/&#39;)
+
+class MyVanna(ChromaDB_VectorStore, OpenAI_Chat):
+    def __init__(self, config=None):
+        ChromaDB_VectorStore.__init__(self, config=config)
+        OpenAI_Chat.__init__(self, client=client, config=config)
+
+vn = MyVanna(config={&#39;model&#39;: &#39;qwen1.5-72b-chat&#39;})</code></pre>
+<p>配置数据库连接：</p>
+<pre><code class="python">vn.connect_to_mysql(host=&#39;my-host&#39;, dbname=&#39;my-db&#39;, user=&#39;my-user&#39;, password=&#39;my-password&#39;, port=123)</code></pre>
+<h3 id="“训练”"><a href="#“训练”" class="headerlink" title="“训练”"></a>“训练”</h3><p>准备“训练”数据：</p>
+<pre><code class="python"># The information schema query may need some tweaking depending on your database. This is a good starting point.
+df_information_schema = vn.run_sql(&quot;SELECT * FROM INFORMATION_SCHEMA.COLUMNS&quot;)
+
+# This will break up the information schema into bite-sized chunks that can be referenced by the LLM
+plan = vn.get_training_plan_generic(df_information_schema)
+print(plan)</code></pre>
+<p>执行“训练”：</p>
+<pre><code class="python"># If you like the plan, then uncomment this and run it to train
+vn.train(plan=plan)</code></pre>
+<blockquote>
+<p>这里的“训练”，实际相当于是对数据进行向量化，并添加至向量库，并不涉及对 LLM 的权重调整。</p>
+</blockquote>
+<p>可随时补充“训练”数据：</p>
+<pre><code class="python"># The following are methods for adding training data. Make sure you modify the examples to match your database.
+
+# DDL statements are powerful because they specify table names, colume names, types, and potentially relationships
+vn.train(ddl=&#39;&#39;&#39;
+    CREATE TABLE IF NOT EXISTS my-table (
+        id INT PRIMARY KEY,
+        name VARCHAR(100),
+        age INT
+    )
+&#39;&#39;&#39;)
+
+# Sometimes you may want to add documentation about your business terminology or definitions.
+vn.train(documentation=&quot;Our business defines OTIF score as the percentage of orders that are delivered on time and in full&quot;)
+
+# You can also add SQL queries to your training data. This is useful if you have some queries already laying around. You can just copy and paste those from your editor to begin generating new SQL.
+vn.train(sql=&quot;SELECT * FROM my-table WHERE name = &#39;John Doe&#39;&quot;)</code></pre>
+<p>查看“训练数据”：</p>
+<pre><code class="python"># At any time you can inspect what training data the package is able to reference
+training_data = vn.get_training_data()
+print(training_data)</code></pre>
+<p>或删除“训练数据”：</p>
+<pre><code class="python"># You can remove training data if there&#39;s obsolete/incorrect information. 
+vn.remove_training_data(id=&#39;1-ddl&#39;)</code></pre>
+<h3 id="对话"><a href="#对话" class="headerlink" title="对话"></a>对话</h3><p>对话时，vanna 会从“训练”数据中找出 10 个最相关的信息向量，将其作为输入给 LLM 的提示词的一部分，用以辅助生成 SQL：</p>
+<pre><code class="python">vn.ask(question=&#39;有哪些表&#39;)</code></pre>
+<h3 id="启动-Web-App"><a href="#启动-Web-App" class="headerlink" title="启动 Web App"></a>启动 Web App</h3><pre><code class="python">from vanna.flask import VannaFlaskApp
+VannaFlaskApp(vn, allow_llm_to_see_data=True).run(port=8085, host=&#39;0.0.0.0&#39;)</code></pre>
+<p>上面代码会在 8085 端口启动一个 Vanna Flask Web App，更多参数设置可见 <a href="https://vanna.ai/docs/web-app/#customization" target="_blank" rel="noopener">Customization</a>。</p>
+<p><img src="/contents/offline-deploy-vanna/plotly.png" alt="plotly"></p>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><ul>
+<li><a href="https://vanna.ai/docs/FAQ/#can-i-run-this-offline" target="_blank" rel="noopener">Can I run this “offline”?</a></li>
+<li><a href="https://vanna.ai/docs/local.html" target="_blank" rel="noopener">Vanna Docs: Local</a></li>
+<li><a href="https://developer.aliyun.com/article/1464026" target="_blank" rel="noopener">vanna+qwen实现私有模型的SQL转换</a></li>
+<li><a href="https://blog.csdn.net/wengad/article/details/138675869" target="_blank" rel="noopener">TEXT2SQL工具vanna本地化安装和应用</a></li>
+<li><a href="https://www.modelscope.cn/models/wengad/all-MiniLM-L6-v2/files" target="_blank" rel="noopener">ModelScope all-MiniLM-L6-v2</a></li>
+<li><a href="https://mp.weixin.qq.com/s/ss30Azj1hqX2xJrQmfhBaw" target="_blank" rel="noopener">Vanna AI：告别代码，用自然语言轻松查询数据库，领先的RAG2SQL技术让结果更智能、更精准！</a></li>
+<li><a href="https://github.com/vanna-ai/vanna/discussions/289" target="_blank" rel="noopener">how to set allow_llm_to_see_data=True</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vanna-简介"><span class="toc-number">1.</span> <span class="toc-text">Vanna 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#工作原理"><span class="toc-number">1.1.</span> <span class="toc-text">工作原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#离线环境使用"><span class="toc-number">2.</span> <span class="toc-text">离线环境使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup"><span class="toc-number">2.1.</span> <span class="toc-text">Setup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“训练”"><span class="toc-number">2.2.</span> <span class="toc-text">“训练”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对话"><span class="toc-number">2.3.</span> <span class="toc-text">对话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动-Web-App"><span class="toc-number">2.4.</span> <span class="toc-text">启动 Web App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相关资料"><span class="toc-number">3.</span> <span class="toc-text">相关资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

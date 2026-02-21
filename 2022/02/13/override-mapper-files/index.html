@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>覆盖 MyBatis Mapper 文件 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MyBatis, MyBatis-Plus, Mapper 文件, 覆盖, 替换, Spring Boot 应用, 不重新打包, 不修改 jar 包"> 
+    <meta name="description" content="在 通过 -Xbootclasspath/a 参数修改 Spring Boot 应用行为实例 的 场景2 中，我们通过 -Xbootclasspath/a 参数，对 Spring Boot 应用 J,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">覆盖 MyBatis Mapper 文件</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/override-mapper-files.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                二月 13, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/02/13/override-mapper-files/" title="覆盖 MyBatis Mapper 文件" class="">覆盖 MyBatis Mapper 文件</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    12 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MyBatis/" rel="tag">MyBatis</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在 <a href="https://alphahinex.github.io/2022/01/23/bootclasspath-in-action/">通过 -Xbootclasspath/a 参数修改 Spring Boot 应用行为实例</a> 的 场景2 中，我们通过 <code>-Xbootclasspath/a</code> 参数，对 Spring Boot 应用 JAR 包中的 Mapper 文件进行了覆盖，但美中不足的是需要将未修改的 Mapper 文件也重新附加进去。</p>
+<p>本文将演示两种仅需将改动的 Mapper 文件覆盖进去的方式。</p>
+<h1 id="不全部替换会怎么样？"><a href="#不全部替换会怎么样？" class="headerlink" title="不全部替换会怎么样？"></a>不全部替换会怎么样？</h1><p>先让我们看一下，在使用 MyBatis 时，如果仅将修改了的 Mapper 文件（即非全部 Mapper 文件）添加到 <code>bootclasspath</code> 时，会发生什么。</p>
+<p>还是使用 <a href="https://github.com/AlphaHinex/bootclasspath" target="_blank" rel="noopener">bootclasspath</a> 中的演示代码：</p>
+<pre><code class="bash"># 对代码进行编译打包
+$ mvn clean package -DskipTests
+
+# 从编译路径删除未修改的 UserMapper 文件
+$ rm -f hacked/target/classes/sql/db/mapper/UserMapper.xml
+
+# 按照 Case 2 的语句启动服务
+$ java -Xbootclasspath/a:./hacked/target/classes/sql -jar app/target/app-0.0.1-SNAPSHOT.jar
+
+# 访问服务
+$ curl localhost:8080</code></pre>
+<p>此时在控制台中，可以看到异常信息：</p>
+<pre><code class="text">2022-01-30 10:02:19.704 ERROR 17294 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): io.github.alphahinex.bootclasspath.dao.UserDAO.customCount] with root cause
+
+org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): io.github.alphahinex.bootclasspath.dao.UserDAO.customCount
+    at org.apache.ibatis.binding.MapperMethod$SqlCommand.&lt;init&gt;(MapperMethod.java:235) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.binding.MapperMethod.&lt;init&gt;(MapperMethod.java:53) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.binding.MapperProxy.lambda$cachedInvoker$0(MapperProxy.java:108) ~[mybatis-3.5.9.jar!/:3.5.9]
+    ……</code></pre>
+<p>即无法找到 UserDAO 对应的 Mapper 文件。</p>
+<p>按照上面的启动命令，此应用中有两个路径都包含 Mapper 文件：</p>
+<ol>
+<li><code>file [./hacked/target/classes/sql/db/mapper]</code> —— 仅包含修改的 CountryMapper 文件（没有 UserMapper，所以上面报找不到 UserDAO 对应的 Mapper 文件也正常）</li>
+<li><code>URL [jar:file:./app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/db/mapper]</code> —— 包含全部 Mapper 文件</li>
+</ol>
+<p>如果我们将 <code>mybatis.mapper-locations</code> 参数由 <code>classpath:db/mapper/*Mapper.xml</code> 修改为 <code>classpath*:db/mapper/*Mapper.xml</code>（<code>classpath</code> 后面加一个 <code>*</code>） 会怎么样呢？</p>
+<pre><code class="bash">$ java -Xbootclasspath/a:./hacked/target/classes/sql -jar app/target/app-0.0.1-SNAPSHOT.jar --mybatis.mapper-locations=classpath:db/mapper/*Mapper.xml</code></pre>
+<p>应用在启动时，会直接报错：</p>
+<pre><code class="text">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#39;demoController&#39; defined in URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/io/github/alphahinex/bootclasspath/controller/DemoController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#39;userDAO&#39; defined in URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/io/github/alphahinex/bootclasspath/dao/UserDAO.class]: Unsatisfied dependency expressed through bean property &#39;sqlSessionFactory&#39;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#39;sqlSessionFactory&#39; defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method &#39;sqlSessionFactory&#39; threw exception; nested exception is org.springframework.core.NestedIOException: Failed to parse mapping resource: &#39;URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/db/mapper/CountryMapper.xml]&#39;; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is &#39;URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/db/mapper/CountryMapper.xml]&#39;. Cause: java.lang.IllegalArgumentException: Mapped Statements collection already contains value for io.github.alphahinex.bootclasspath.dao.CountryDAO.cc. please check file [/Users/alphahinex/github/origin/bootclasspath/hacked/target/classes/sql/db/mapper/CountryMapper.xml] and URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/db/mapper/CountryMapper.xml]
+……
+Caused by: java.lang.IllegalArgumentException: Mapped Statements collection already contains value for io.github.alphahinex.bootclasspath.dao.CountryDAO.cc. please check file [/Users/alphahinex/github/origin/bootclasspath/hacked/target/classes/sql/db/mapper/CountryMapper.xml] and URL [jar:file:/Users/alphahinex/github/origin/bootclasspath/app/target/app-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/db/mapper/CountryMapper.xml]
+    at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:1037) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:993) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.session.Configuration.addMappedStatement(Configuration.java:791) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.builder.MapperBuilderAssistant.addMappedStatement(MapperBuilderAssistant.java:297) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.builder.xml.XMLStatementBuilder.parseStatementNode(XMLStatementBuilder.java:113) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:138) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.builder.xml.XMLMapperBuilder.buildStatementFromContext(XMLMapperBuilder.java:131) ~[mybatis-3.5.9.jar!/:3.5.9]
+    at org.apache.ibatis.builder.xml.XMLMapperBuilder.configurationElement(XMLMapperBuilder.java:121) ~[mybatis-3.5.9.jar!/:3.5.9]
+    ... 68 common frames omitted</code></pre>
+<p>即两个路径内的 CountryMapper 文件冲突了。</p>
+<h1 id="如何精准覆盖？"><a href="#如何精准覆盖？" class="headerlink" title="如何精准覆盖？"></a>如何精准覆盖？</h1><p>两种方式可以解决上述问题。</p>
+<h2 id="修改-MyBatis-源码"><a href="#修改-MyBatis-源码" class="headerlink" title="修改 MyBatis 源码"></a>修改 MyBatis 源码</h2><p>根据异常堆栈（<code>at org.apache.ibatis.session.Configuration$StrictMap.put(Configuration.java:1037) ~[mybatis-3.5.9.jar!/:3.5.9]</code>），找到报错位置源码：</p>
+<pre><code class="java">    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public V put(String key, V value) {
+      if (containsKey(key)) {
+        throw new IllegalArgumentException(name + &quot; already contains value for &quot; + key
+            + (conflictMessageProducer == null ? &quot;&quot; : conflictMessageProducer.apply(super.get(key), value)));
+      }
+      if (key.contains(&quot;.&quot;)) {
+        final String shortKey = getShortName(key);
+        if (super.get(shortKey) == null) {
+          super.put(shortKey, value);
+        } else {
+          super.put(shortKey, (V) new Ambiguity(shortKey));
+        }
+      }
+      return super.put(key, value);
+    }</code></pre>
+<p>可以看到，在加载 Mapper 文件时，如果已经存在了相同的 key，再 put 时就会抛出异常。</p>
+<p>因为我们的本意即为覆盖，所以一定会存在 key 相同的情况。根据 <a href="https://alphahinex.github.io/2020/12/27/override-same-class/">Override same class</a> 中描述的类覆盖的先后顺序，通过 <code>-Xbootclasspath/a</code> 参数指定的路径会优先加载，所以可以在出现相同 key 时，直接忽略掉后加载的 Mapper 文件。修改方式如下：</p>
+<pre><code class="diff">@@ -1013,9 +1013,11 @@ public class Configuration {
+     @Override
+     @SuppressWarnings(&quot;unchecked&quot;)
+     public V put(String key, V value) {
++      System.out.println(&quot;HACKED::Put key [&quot; + key + &quot;] with value [&quot; + (value instanceof MappedStatement ? ((MappedStatement)value).getResource() : value) + &quot;]&quot;);
+       if (containsKey(key)) {
+-        throw new IllegalArgumentException(name + &quot; already contains value for &quot; + key
++        System.out.println(name + &quot; already contains value for &quot; + key
+             + (conflictMessageProducer == null ? &quot;&quot; : conflictMessageProducer.apply(super.get(key), value)));
++        return null;
+       }
+       if (key.contains(&quot;.&quot;)) {
+         final String shortKey = getShortName(key);</code></pre>
+<p>bootclasspath 演示项目的 <a href="https://github.com/AlphaHinex/bootclasspath/tree/mybatis-override" target="_blank" rel="noopener">mybatis-override</a> 分支提供了修改的 <code>Configuration.java</code> 类和可运行的代码，参照 README 中描述，将修改的 Mapper 文件和修改的 MyBatis 代码附加到原始 JAR 包中运行：</p>
+<pre><code class="bash">$ java -Xbootclasspath/a:./hacked/target/classes/sql:./hacked/target/classes:/Users/alphahinex/.m2/repository/org/mybatis/mybatis/3.5.9/mybatis-3.5.9.jar -jar app/target/app-0.0.1-SNAPSHOT.jar --mybatis.mapper-locations=classpath*:db/mapper/*Mapper.xml</code></pre>
+<blockquote>
+<p>注意替换上面的 mybatis-3.5.9.jar 路径，以及增加 <code>mybatis.mapper-locations</code> 参数指定 <code>classpath*:</code>前缀</p>
+</blockquote>
+<p>应用启动不再报错，之后访问 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> 可以看到，<code>Country count</code> 的值从原 JAR 包中的 <code>151</code>，变更为了 SQL 修改后的 <code>26</code>，<code>User count</code> 值未发生改变。</p>
+<pre><code class="bash">$ curl localhost:8080
+User count: 3
+Country count: 26</code></pre>
+<p>即完成了 Mapper 文件的精准覆盖。</p>
+<h2 id="使用-MyBatis-Plus"><a href="#使用-MyBatis-Plus" class="headerlink" title="使用 MyBatis-Plus"></a>使用 MyBatis-Plus</h2><p>相比修改 MyBatis 源码，更简单的方式是可以直接引入 <a href="https://baomidou.com/" target="_blank" rel="noopener">MyBatis-Plus</a>。</p>
+<h3 id="可修改源码重新打包"><a href="#可修改源码重新打包" class="headerlink" title="可修改源码重新打包"></a>可修改源码重新打包</h3><p>能够修改源码重新打包应用时，只需要引入 MyBatis-Plus 的依赖即可，例如在 <a href="https://github.com/AlphaHinex/bootclasspath" target="_blank" rel="noopener">演示项目</a> 的 <code>main</code> 分支做如下调整并重新打包，即可实现仅从 JAR 包外部加载变更的 Mapper 文件：</p>
+<pre><code class="diff">diff --git a/app/pom.xml b/app/pom.xml
+index f3e5ec4..2b494ab 100644
+--- a/app/pom.xml
++++ b/app/pom.xml
+@@ -26,6 +26,11 @@
+             &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+             &lt;version&gt;2.2.1&lt;/version&gt;
+         &lt;/dependency&gt;
++        &lt;dependency&gt;
++            &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
++            &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
++            &lt;version&gt;3.1.2&lt;/version&gt;
++        &lt;/dependency&gt;
+
+         &lt;dependency&gt;
+             &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+diff --git a/app/src/main/resources/application.properties b/app/src/main/resources/application.properties
+index d8b39d2..ef5435a 100644
+--- a/app/src/main/resources/application.properties
++++ b/app/src/main/resources/application.properties
+@@ -1,4 +1,4 @@
+ spring.datasource.url=jdbc:h2:mem:bootclasspath
++mybatis-plus.mapper-locations=classpath:db/mapper/*Mapper.xml
+ spring.sql.init.schema-locations=classpath:db/sql/*ddl.sql
+ spring.sql.init.data-locations=classpath:db/sql/*dml.sql
+-mybatis.mapper-locations=classpath:db/mapper/*Mapper.xml</code></pre>
+<blockquote>
+<p>在引入了 MyBatis-Plus 后，注意将指定 Mapper 文件路径的参数，由 <code>mybatis.mapper-locations</code> 替换为 <code>mybatis-plus.mapper-location</code></p>
+</blockquote>
+<p>修改后的效果及演示，可在演示项目的 <a href="https://github.com/AlphaHinex/bootclasspath/tree/plus" target="_blank" rel="noopener">plus</a> 分支查看：</p>
+<pre><code class="bash">$ mvn clean package -DskipTests
+
+$ java -Xbootclasspath/a:./hacked/target/classes/sql -jar app/target/app-0.0.1-SNAPSHOT.jar --mybatis-plus.mapper-locations=classpath*:db/mapper/*Mapper.xml
+
+$ curl localhost:8080
+User count: 3
+Country count: 26</code></pre>
+<h3 id="无法重新打包"><a href="#无法重新打包" class="headerlink" title="无法重新打包"></a>无法重新打包</h3><p>若无法修改源码或重新打包 Spring Boot 应用时，可参照 <a href="https://alphahinex.github.io/2021/03/14/spring-boot-launcher/">如何给 Spring Boot 外挂 classpath？</a> 提供的方式，修改启动命令，将 MyBatis-Plus 相关 JAR 包添加进去（不建议使用 <code>-Xbootclasspath/a</code> 参数）。</p>
+<p>需添加的 JAR 包如下，以放到 <code>./libs</code> 路径为例：</p>
+<pre><code class="bash">$ tree libs
+libs
+├── mybatis-plus-3.1.2.jar
+├── mybatis-plus-annotation-3.1.2.jar
+├── mybatis-plus-boot-starter-3.1.2.jar
+├── mybatis-plus-core-3.1.2.jar
+└── mybatis-plus-extension-3.1.2.jar
+
+0 directories, 5 files</code></pre>
+<p>假设使用演示项目 <a href="https://github.com/AlphaHinex/bootclasspath/tree/mybatis-override" target="_blank" rel="noopener">mybatis-override 分支</a> 构建出来的 JAR 包，可使用如下命令启动，并查看效果：</p>
+<pre><code class="bash">$ java -cp app/target/app-0.0.1-SNAPSHOT.jar -Dloader.path=./hacked/src/main/resources/sql,./libs org.springframework.boot.loader.PropertiesLauncher --mybatis-plus.mapper-locations=classpath*:db/mapper/*Mapper.xml</code></pre>
+<p>有两点需要注意：</p>
+<ol>
+<li><code>-Dloader.path</code> 参数中的多个路径使用 <code>,</code> 间隔</li>
+<li>因原始 JAR 包中使用的是 MyBatis，通过启动命令动态加入了 MyBatis-plus，故需添加 <code>mybatis-plus.mapper-locations</code> 参数指定 Mapper 文件路径</li>
+</ol>
+<p>访问 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> ，可看到外部挂载的 Mapper 文件内容已生效。</p>
+<pre><code class="bash">$ curl localhost:8080
+User count: 3
+Country count: 26</code></pre>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://jishuin.proginn.com/p/763bfbd63a31" target="_blank" rel="noopener">MyBatis-Plus 中 Mapper 重载踩坑指南</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#不全部替换会怎么样？"><span class="toc-number">1.</span> <span class="toc-text">不全部替换会怎么样？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何精准覆盖？"><span class="toc-number">2.</span> <span class="toc-text">如何精准覆盖？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#修改-MyBatis-源码"><span class="toc-number">2.1.</span> <span class="toc-text">修改 MyBatis 源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-MyBatis-Plus"><span class="toc-number">2.2.</span> <span class="toc-text">使用 MyBatis-Plus</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#可修改源码重新打包"><span class="toc-number">2.2.1.</span> <span class="toc-text">可修改源码重新打包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#无法重新打包"><span class="toc-number">2.2.2.</span> <span class="toc-text">无法重新打包</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

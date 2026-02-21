@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Kubernetes Patterns》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kubernetes, Patterns"> 
+    <meta name="description" content="Chapter 1. IntroductionDistributed Primitives
+Local and distributed primitives
+
+Annotations
+Another,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Kubernetes Patterns》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/kubernetes-patterns/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                十月 23, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/10/23/kubernetes-patterns/" title="《Kubernetes Patterns》书摘" class="">《Kubernetes Patterns》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    25k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    23 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Chapter-1-Introduction"><a href="#Chapter-1-Introduction" class="headerlink" title="Chapter 1. Introduction"></a>Chapter 1. Introduction</h1><h2 id="Distributed-Primitives"><a href="#Distributed-Primitives" class="headerlink" title="Distributed Primitives"></a>Distributed Primitives</h2><ul>
+<li>Local and distributed primitives<br><img src="/contents/kubernetes-patterns/table-1-1.png" alt=""></li>
+</ul>
+<h3 id="Annotations"><a href="#Annotations" class="headerlink" title="Annotations"></a>Annotations</h3><ul>
+<li>Another primitive very similar to labels is called annotations. Like labels, annotations are organized as a map, but they are intended for specifying nonsearchable metadata and for machine usage rather than human.</li>
+<li>So while labels are used primarily for query matching and performing actions on the matching resources, annotations are used to attach metadata that can be consumed by a machine.</li>
+</ul>
+<h1 id="Part-I-Foundational-Patterns"><a href="#Part-I-Foundational-Patterns" class="headerlink" title="Part I. Foundational Patterns"></a>Part I. Foundational Patterns</h1><h2 id="Chapter-2-Predicatable-Demands"><a href="#Chapter-2-Predicatable-Demands" class="headerlink" title="Chapter 2. Predicatable Demands"></a>Chapter 2. Predicatable Demands</h2><h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Pod-Priority"><a href="#Pod-Priority" class="headerlink" title="Pod Priority"></a>Pod Priority</h4><ul>
+<li>Here comes the critical part. If there are no nodes with enough capacity to place a Pod, the scheduler can preempt (remove) lower-priority Pods from nodes to free up resources and place Pods with higher priority.</li>
+<li>The Kubelet first considers QoS and then PriorityClass of Pods before eviction.</li>
+</ul>
+<h4 id="Project-Resources"><a href="#Project-Resources" class="headerlink" title="Project Resources"></a>Project Resources</h4><ul>
+<li>LimitRange allows setting resource usage limits for each type of resource. In addition to specifying the minimum and maximum permitted amounts for different resource types and the default values for these resources, it also allows you to control the ratio between the requests and limits, also known as the overcommit level.</li>
+</ul>
+<h2 id="Chapter-3-Declarative-Deployment"><a href="#Chapter-3-Declarative-Deployment" class="headerlink" title="Chapter 3. Declarative Deployment"></a>Chapter 3. Declarative Deployment</h2><h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Bule-Green-Release"><a href="#Bule-Green-Release" class="headerlink" title="Bule-Green Release"></a>Bule-Green Release</h4><ul>
+<li>A Blue-Green deployment needs to be done manually if no extensions like a Service Mesh or Knative is used, though.</li>
+</ul>
+<h2 id="Chapter-4-Health-Probe"><a href="#Chapter-4-Health-Probe" class="headerlink" title="Chapter 4. Health Probe"></a>Chapter 4. Health Probe</h2><h3 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Readiness-Probes"><a href="#Readiness-Probes" class="headerlink" title="Readiness Probes"></a>Readiness Probes</h4><ul>
+<li>Rather than restarting the container, a failed readiness probe causes the container to be removed from the service endpoint and not receive any new traffic.</li>
+<li>It is also useful for shielding the service from traffic at later stages, as readiness probes are performed regularly, similarly to liveness checks.</li>
+<li>While process health checks and liveness checks are intended to recover from the failure by restarting the container, the readiness check buys time for your application and expects it to recover by itself. Keep in mind that Kubernetes tries to prevent your container from receiving new requests (when it is shutting down, for example), regardless of whether the readiness check still passes after having received a SIGTERM signal.</li>
+</ul>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><ul>
+<li>Apart from logging to standard streams, it is also a good practice to log the reason for exiting a container to <code>/dev/termination-log</code>. This location is the place where the container can state its last will before being permanently vanished.</li>
+</ul>
+<h2 id="Chapter-5-Managed-Lifecycle"><a href="#Chapter-5-Managed-Lifecycle" class="headerlink" title="Chapter 5. Managed Lifecycle"></a>Chapter 5. Managed Lifecycle</h2><h3 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Poststart-Hook"><a href="#Poststart-Hook" class="headerlink" title="Poststart Hook"></a>Poststart Hook</h4><ul>
+<li>The <code>postStart</code> action is a blocking call, and the container status remains <code>Waiting</code> until the <code>postStart</code> handler completes, which in turn keeps the Pod status in the <code>Pending</code> state. This nature of <code>postStart</code> can be used to delay the startup state of the container while giving time to the main container process to initialize.</li>
+</ul>
+<h2 id="Chapter-6-Automated-Placement"><a href="#Chapter-6-Automated-Placement" class="headerlink" title="Chapter 6. Automated Placement"></a>Chapter 6. Automated Placement</h2><h3 id="Solution-4"><a href="#Solution-4" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Placement-Policies"><a href="#Placement-Policies" class="headerlink" title="Placement Policies"></a>Placement Policies</h4><ul>
+<li>Consider that in addition to configuring the policies of the default scheduler, it is also possible to run multiple schedulers and allow Pods to specify which scheduler to place them. You can start another scheduler instance that is configured differently by giving it a unique name. Then when defining a Pod, just add the field <code>.spec.schedulerName</code> with the name of your custom scheduler to the Pod specification and the Pod will be picked up by the custom scheduler only.</li>
+</ul>
+<h4 id="Scheduling-Process"><a href="#Scheduling-Process" class="headerlink" title="Scheduling Process"></a>Scheduling Process</h4><ul>
+<li>A Pod-to-node assignment process<br><img src="/contents/kubernetes-patterns/figure-6-1.png" alt=""></li>
+<li>As soon as a Pod is created that is not assigned to a node yet, it gets picked by the scheduler together with all the available nodes and the set of filtering and priority policies. In the first stage, the scheduler applies the filtering policies and removes all nodes that do not qualify based on the Pod’s criteria. In the second stage, the remaining nodes get ordered by weight. In the last stage the Pod gets a node assigned, which is the primary outcome of the scheduling process.</li>
+</ul>
+<h4 id="Taints-and-Tolerations"><a href="#Taints-and-Tolerations" class="headerlink" title="Taints and Tolerations"></a>Taints and Tolerations</h4><ul>
+<li>There are hard taints that prevent scheduling on a node (<code>effect=NoSchedule</code>), soft taints that try to avoid scheduling on a node (<code>effect=PreferNoSchedule</code>), and taints that can evict already running Pods from a node (<code>effect=NoExecute</code>).</li>
+<li>Once a Pod is assigned to a node, the job of the scheduler is done, and it does not change the placement of the Pod unless the Pod is deleted and recreated without a node assignment. As you have seen, with time, this can lead to resource fragmentation and poor utilization of cluster resources. Another potential issue is that the scheduler decisions are based on its cluster view at the point in time when a new Pod is scheduled. If a cluster is dynamic and the resource profile of the nodes changes or new nodes are added, the scheduler will not rectify its previous Pod placements. Apart from changing the node capacity, you may also alter the labels on the nodes that affect placement, but past placements are not rectified either.</li>
+<li>All these are scenarios that can be addressed by the descheduler. The Kubernetes descheduler is an optional feature that typically is run as a Job whenever a cluster administrator decides it is a good time to tidy up and defragment a cluster by rescheduling the Pods. The descheduler comes with some predefined policies that can be enabled and tuned or disabled. The policies are passed as a file to the descheduler Pod, and currently, they are the following:<ol>
+<li>RemoveDuplicates</li>
+<li>LowNodeUtilization</li>
+<li>RemovePodsViolatingInterPodAntiAffinity</li>
+<li>RemovePodsViolatingNodeAffinity</li>
+</ol>
+</li>
+<li>Regardless of the policy used, the descheduler avoids evicting the following:<ol>
+<li>Critical Pods that are marked with <code>scheduler.alpha.kubernetes.io/criticalpod</code> annotation.</li>
+<li>Pods not managed by a ReplicaSet, Deployment, or Job.</li>
+<li>Pods managed by a DaemonSet.</li>
+<li>Pods that have local storage.</li>
+<li>Pods with PodDisruptionBudget where eviction would violate its rules.</li>
+<li>Deschedule Pod itself (achieved by marking itself as a critical Pod).</li>
+</ol>
+</li>
+</ul>
+<h1 id="Part-II-Behavioral-Patterns"><a href="#Part-II-Behavioral-Patterns" class="headerlink" title="Part II. Behavioral Patterns"></a>Part II. Behavioral Patterns</h1><h2 id="Chapter-9-Daemon-Service"><a href="#Chapter-9-Daemon-Service" class="headerlink" title="Chapter 9. Daemon Service"></a>Chapter 9. Daemon Service</h2><h3 id="Solution-5"><a href="#Solution-5" class="headerlink" title="Solution"></a>Solution</h3><ul>
+<li>By default, a DaemonSet places one Pod instance to every node. That can be controlled and limited to a subset of nodes by using the <code>nodeSelector</code> field.</li>
+<li>A Pod created by a DaemonSet already has <code>nodeName</code> specified. As a result, the DaemonSet doesn’t require the existence of the Kubernetes scheduler to run containers. That also allows using a DaemonSet for running and managing the Kubernetes components.</li>
+<li>Pods created by a DaemonSet can run before the scheduler has started, which allows them to run before any other Pod is placed on a node.</li>
+<li>Since the scheduler is not used, the <code>unschedulable</code> field of a node is not respected by the DaemonSet controller.</li>
+<li>Pods managed by a DaemonSet are supposed to run only on targeted nodes, and as a result, are treated with higher priority and differently by many controllers. For example, the descheduler will avoid evicting such Pods, the cluster autoscaler will manage them separately, etc.</li>
+</ul>
+<h2 id="Chapter-10-Singleton-Service"><a href="#Chapter-10-Singleton-Service" class="headerlink" title="Chapter 10. Singleton Service"></a>Chapter 10. Singleton Service</h2><h3 id="Solution-6"><a href="#Solution-6" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Out-of-Application-Locking"><a href="#Out-of-Application-Locking" class="headerlink" title="Out-of-Application Locking"></a>Out-of-Application Locking</h4><ul>
+<li>If ReplicaSets do not provide the desired guarantees for your application, and you have strict singleton requirements, StatefulSets might be the answer.</li>
+<li>However, such a Service is still useful because a headless Service with selectors creates endpoint records in the API Server and generates DNS A records for the matching Pod(s). With that, a DNS lookup for the Service does not return its virtual IP, but instead the IP address(es) of the backing Pod(s). That enables direct access to the singleton Pod via the Service DNS record, and without going through the Service virtual IP. For example, if we create a headless Service with the name <code>my-singleton</code>, we can use it as <code>my-singleton.default.svc.cluster.local</code> to access the Pod’s IP address directly.</li>
+<li>To sum up, for nonstrict singletons, a ReplicaSet with one replica and a regular Service would suffice. For a strict singleton and better performant service discovery, a StatefulSet and a headless Service would be preferred.</li>
+</ul>
+<h2 id="Chapter-11-Stateful-Service"><a href="#Chapter-11-Stateful-Service" class="headerlink" title="Chapter 11. Stateful Service"></a>Chapter 11. Stateful Service</h2><h3 id="Solution-7"><a href="#Solution-7" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Networking"><a href="#Networking" class="headerlink" title="Networking"></a>Networking</h4><ul>
+<li>For example, if our random-generator Service belongs to the default namespace, we can reach our <code>rg-0</code> Pod through its fully qualified domain name: <code>rg-0.random-generator.default.svc.cluster.local</code>, where the Pod’s name is prepended to the Service name. This mapping allows other members of the clustered application or other clients to reach specific Pods if they wish to.</li>
+<li>We can also perform DNS lookup for SRV records (e.g., through <code>dig SRV random-generator.default.svc.cluster.local</code>) and discover all running Pods registered with the StatefulSet’s governing Service.</li>
+</ul>
+<h4 id="Other-Features"><a href="#Other-Features" class="headerlink" title="Other Features"></a>Other Features</h4><ul>
+<li>Partitioned Updates: … By using the default rolling update strategy, you can partition instances by specifying a <code>.spec.updateStrategy.rollingUpdate.partition</code> number. The parameter (with a default value of 0) indicates the ordinal at which the StatefulSet should be partitioned for updates. If the parameter is specified, all Pods with an ordinal index greater than or equal to the partition are updated while all Pods with an ordinal less than that are not updated. That is true even if the Pods are deleted; Kubernetes recreates them at the previous version. This feature can enable partial updates to clustered stateful applications (ensuring the quorum is preserved, for example), and then roll out the changes to the rest of the cluster by setting the partition back to 0.</li>
+<li>Parallel Deployments: When we set <code>.spec.podManagementPolicy</code> to Parallel, the StatefulSet launches or terminates all Pods in parallel, and does not wait for Pods to become running and ready or completely terminated before moving to the next one. If sequential processing is not a requirement for your stateful application, this option can speed up operational procedures.</li>
+</ul>
+<h2 id="Chapter-12-Service-Discovery"><a href="#Chapter-12-Service-Discovery" class="headerlink" title="Chapter 12. Service Discovery"></a>Chapter 12. Service Discovery</h2><h3 id="Solution-8"><a href="#Solution-8" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Internal-Service-Discovery"><a href="#Internal-Service-Discovery" class="headerlink" title="Internal Service Discovery"></a>Internal Service Discovery</h4><ul>
+<li>Session affinity: When there is a new request, the Service picks a Pod randomly to connect to by default. That can be changed with sessionAffinity: ClientIP, which makes all requests originating from the same client IP stick to the same Pod. Remember that Kubernetes Services performs L4 transport layer load balancing, and it can not look into the network packets and perform application-level load balancing such as HTTP cookie-based session affinity.</li>
+<li>Choosing ClusterIP: During Service creation, we can specify an IP to use with the field <code>.spec.clusterIP</code>. It must be a valid IP address and within a predefined range. While not recommended, this option can turn out to be handy when dealing with legacy applications configured to use a specific IP address, or if there is an existing DNS entry we wish to reuse.</li>
+</ul>
+<h3 id="Discussion-1"><a href="#Discussion-1" class="headerlink" title="Discussion"></a>Discussion</h3><ul>
+<li>Service Discovery mechanisms<br><img src="/contents/kubernetes-patterns/table-12-1.png" alt=""></li>
+</ul>
+<h2 id="Chapter-13-Self-Awareness"><a href="#Chapter-13-Self-Awareness" class="headerlink" title="Chapter 13. Self Awareness"></a>Chapter 13. Self Awareness</h2><h3 id="Solution-9"><a href="#Solution-9" class="headerlink" title="Solution"></a>Solution</h3><ul>
+<li>Downward API information available in fieldRef.fieldPath<br><img src="/contents/kubernetes-patterns/table-13-1.png" alt=""></li>
+<li>Downward API information available in resourceFieldRef.resource<br><img src="/contents/kubernetes-patterns/table-13-2.png" alt=""></li>
+<li>A user can change certain metadata such as labels and annotations while a Pod is running. Unless the Pod is restarted, environment variables will not reflect such a change. But downwardAPI volumes can reflect updates to labels and annotations.</li>
+<li>Downward API through volumes<br><img src="/contents/kubernetes-patterns/example-13-2.png" alt=""><ol>
+<li>Values from the Downward API can be mounted as files into the Pod.</li>
+<li>The file labels contain all labels, line by line, in the format name=value. This file gets updated when labels are changing.</li>
+<li>The annotations file holds all annotations in the same format as the labels.</li>
+</ol>
+</li>
+<li>With volumes, if the metadata changes while the Pod is running, it is reflected in the volume files. But it is still up to the consuming application to detect the file change and read the updated data accordingly. If such a functionality is not implemented in the application, a Pod restart still might be required.</li>
+</ul>
+<h1 id="Part-III-Structural-Patterns"><a href="#Part-III-Structural-Patterns" class="headerlink" title="Part III. Structural Patterns"></a>Part III. Structural Patterns</h1><h2 id="Chapter-14-Init-Container"><a href="#Chapter-14-Init-Container" class="headerlink" title="Chapter 14. Init Container"></a>Chapter 14. Init Container</h2><h3 id="Solution-10"><a href="#Solution-10" class="headerlink" title="Solution"></a>Solution</h3><ul>
+<li>More Initialization Techniques: A few other related techniques used to initialize Kubernetes resources are different from init containers and worth listing here for completeness:<ol>
+<li>Admission controllers: … This plugin system is not very flexible, which is why admission webhooks were added to Kubernetes.</li>
+<li>Admission webhooks: … There are two types of admission webhooks: the mutating webhook (which can change resources to enforce custom defaults) and the validating webhook (which can reject resources to enforce custom admission policies).</li>
+<li>Initializers</li>
+<li>PodPresets: PodPresets are evaluated by another admission controller, which helps inject fields specified in a matching PodPreset into Pods at creation time.</li>
+</ol>
+</li>
+<li>… init containers is for developers deploying on Kubernetes, whereas the techniques described here help administrators control and manage the container initialization process.</li>
+</ul>
+<h1 id="Part-IV-Configuration-Patterns"><a href="#Part-IV-Configuration-Patterns" class="headerlink" title="Part IV. Configuration Patterns"></a>Part IV. Configuration Patterns</h1><h2 id="Chapter-21-Configuration-Template"><a href="#Chapter-21-Configuration-Template" class="headerlink" title="Chapter 21. Configuration Template"></a>Chapter 21. Configuration Template</h2><h3 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h3><ul>
+<li>… there is a limit on the sum of all values of ConfigMaps or Secrets, which is 1 MB (a limit imposed by the underlying backend store Etcd).</li>
+</ul>
+<h1 id="Part-V-Advanced-Patterns"><a href="#Part-V-Advanced-Patterns" class="headerlink" title="Part V. Advanced Patterns"></a>Part V. Advanced Patterns</h1><h2 id="Chapter-22-Controller"><a href="#Chapter-22-Controller" class="headerlink" title="Chapter 22. Controller"></a>Chapter 22. Controller</h2><h3 id="Solution-11"><a href="#Solution-11" class="headerlink" title="Solution"></a>Solution</h3><ul>
+<li>From an evolutionary and complexity point of view, we can classify the active reconciliation components into two groups:<ol>
+<li>Controllers: A simple reconciliation process that monitors and acts on standard Kubernetes resources. More often, these controllers enhance platform behavior and add new platform features.</li>
+<li>Operators: A sophisticated reconciliation process that interacts with CustomResourceDefini tions (CRDs), which are at the heart of the Operator pattern. Typically, these Operators encapsulate complex application domain logic and manage the full application lifecycle.</li>
+</ol>
+</li>
+<li>Labels … are indexed in the backend database and can be efficiently searched for in queries.</li>
+<li>A limitation of labels is that only alphanumeric names and values with restrictions can be used.</li>
+<li>Annotations are not indexed, …</li>
+<li>Preferring annotations over labels for arbitrary metadata also has the advantage that it does not negatively impact the internal Kubernetes performance.</li>
+<li>Note the <code>watch=true</code> query parameter in Example 22-2. This parameter indicates to the API Server not to close the HTTP connection but to send events along the response channel as soon as they happen (hanging GET or Comet are other names for this kind of technique). The loop reads every individual event as it arrives as a single item to process.</li>
+</ul>
+<h2 id="Chapter-23-Operator"><a href="#Chapter-23-Operator" class="headerlink" title="Chapter 23. Operator"></a>Chapter 23. Operator</h2><h3 id="Problem-1"><a href="#Problem-1" class="headerlink" title="Problem"></a>Problem</h3><ul>
+<li>Custom resources, together with a Controller acting on these resources, form the Operator pattern.</li>
+</ul>
+<h3 id="Solution-12"><a href="#Solution-12" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><ul>
+<li><a href="http://bit.ly/2Ucjs0J" target="_blank" rel="noopener">Awesome Operators</a> has a nice list of real-world operators that are all based on the concepts covered in this chapter.</li>
+<li>If you are looking for an operator written in the Java programming languages, the Strimzi Operator is an excellent example of an operator that manages a complex messaging system like Apache Kafka on Kubernetes. Another good starting point for Java-based operators is the JVM Operator Toolkit, which provides a foundation for creating operators in Java and JVM-based languages like Groovy or Kotlin and also comes with a set of examples.</li>
+</ul>
+<h2 id="Chapter-24-Elastic-Scale"><a href="#Chapter-24-Elastic-Scale" class="headerlink" title="Chapter 24. Elastic Scale"></a>Chapter 24. Elastic Scale</h2><h3 id="Solution-13"><a href="#Solution-13" class="headerlink" title="Solution"></a>Solution</h3><h4 id="Horizontal-Pod-Autoscaling"><a href="#Horizontal-Pod-Autoscaling" class="headerlink" title="Horizontal Pod Autoscaling"></a>Horizontal Pod Autoscaling</h4><ul>
+<li>Deployments create new ReplicaSets during updates but without copying over any HPA definitions. If you apply an HPA to a ReplicaSet managed by a Deployment, it is not copied over to new ReplicaSets and will be lost. A better technique is to apply the HPA to the higher-level Deployment abstraction, which preserves and applies the HPA to the new ReplicaSet versions.</li>
+</ul>
+<h4 id="Vertical-Pod-Autoscaling"><a href="#Vertical-Pod-Autoscaling" class="headerlink" title="Vertical Pod Autoscaling"></a>Vertical Pod Autoscaling</h4><ul>
+<li>Update policy: Controls how VPA applies changes. The Initial mode allows assigning resource requests only during Pod creation time but not later. The default Auto mode allows resource assignment to Pods at creation time, but additionally, it can update Pods during their lifetimes, by evicting and rescheduling the Pod. The value <code>Off</code> disables automatic changes to Pods, but allows suggesting resource values. This is a kind of dry run for discovering the right size of a container, but without applying it directly.</li>
+<li><code>updateMode: Off</code>: The VPA recommender gathers Pod metrics and events and then produces recommendations. The VPA recommendations are always stored in the status section of the VPA resource. However, this is how far the <code>Off</code> mode goes. It analyzes and produces recommendations, but it does not apply them to the Pods. This mode is useful for getting insight on the Pod resource consumption without introducing any changes and causing disruption. That decision is left for the user to make if desired.</li>
+</ul>
+<h4 id="Cluster-Autoscaling"><a href="#Cluster-Autoscaling" class="headerlink" title="Cluster Autoscaling"></a>Cluster Autoscaling</h4><ul>
+<li>Kubernetes Cluster Autoscaler (CA)</li>
+<li>While HPA and VPA perform Pod-level scaling and ensure service capacity elasticity within a cluster, CA provides node scalability to ensure cluster capacity elasticity.</li>
+</ul>
+<h4 id="Scaling-Levels"><a href="#Scaling-Levels" class="headerlink" title="Scaling Levels"></a>Scaling Levels</h4><ul>
+<li>You can also go one step further and use techniques and libraries such as Netflix’s Adaptive Concurrency Limits library, where the application can dynamically calculate its concurrency limits by self-profiling and adapting.</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-1-Introduction"><span class="toc-number">1.</span> <span class="toc-text">Chapter 1. Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Distributed-Primitives"><span class="toc-number">1.1.</span> <span class="toc-text">Distributed Primitives</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Annotations"><span class="toc-number">1.1.1.</span> <span class="toc-text">Annotations</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-I-Foundational-Patterns"><span class="toc-number">2.</span> <span class="toc-text">Part I. Foundational Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-2-Predicatable-Demands"><span class="toc-number">2.1.</span> <span class="toc-text">Chapter 2. Predicatable Demands</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">2.1.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-3-Declarative-Deployment"><span class="toc-number">2.2.</span> <span class="toc-text">Chapter 3. Declarative Deployment</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-4-Health-Probe"><span class="toc-number">2.3.</span> <span class="toc-text">Chapter 4. Health Probe</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-2"><span class="toc-number">2.3.1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Discussion"><span class="toc-number">2.3.2.</span> <span class="toc-text">Discussion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-5-Managed-Lifecycle"><span class="toc-number">2.4.</span> <span class="toc-text">Chapter 5. Managed Lifecycle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-3"><span class="toc-number">2.4.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-6-Automated-Placement"><span class="toc-number">2.5.</span> <span class="toc-text">Chapter 6. Automated Placement</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-4"><span class="toc-number">2.5.1.</span> <span class="toc-text">Solution</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-II-Behavioral-Patterns"><span class="toc-number">3.</span> <span class="toc-text">Part II. Behavioral Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-9-Daemon-Service"><span class="toc-number">3.1.</span> <span class="toc-text">Chapter 9. Daemon Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-5"><span class="toc-number">3.1.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-10-Singleton-Service"><span class="toc-number">3.2.</span> <span class="toc-text">Chapter 10. Singleton Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-6"><span class="toc-number">3.2.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-11-Stateful-Service"><span class="toc-number">3.3.</span> <span class="toc-text">Chapter 11. Stateful Service</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-7"><span class="toc-number">3.3.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-12-Service-Discovery"><span class="toc-number">3.4.</span> <span class="toc-text">Chapter 12. Service Discovery</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-8"><span class="toc-number">3.4.1.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Discussion-1"><span class="toc-number">3.4.2.</span> <span class="toc-text">Discussion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-13-Self-Awareness"><span class="toc-number">3.5.</span> <span class="toc-text">Chapter 13. Self Awareness</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-9"><span class="toc-number">3.5.1.</span> <span class="toc-text">Solution</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-III-Structural-Patterns"><span class="toc-number">4.</span> <span class="toc-text">Part III. Structural Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-14-Init-Container"><span class="toc-number">4.1.</span> <span class="toc-text">Chapter 14. Init Container</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-10"><span class="toc-number">4.1.1.</span> <span class="toc-text">Solution</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-IV-Configuration-Patterns"><span class="toc-number">5.</span> <span class="toc-text">Part IV. Configuration Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-21-Configuration-Template"><span class="toc-number">5.1.</span> <span class="toc-text">Chapter 21. Configuration Template</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem"><span class="toc-number">5.1.1.</span> <span class="toc-text">Problem</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Part-V-Advanced-Patterns"><span class="toc-number">6.</span> <span class="toc-text">Part V. Advanced Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-22-Controller"><span class="toc-number">6.1.</span> <span class="toc-text">Chapter 22. Controller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-11"><span class="toc-number">6.1.1.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-23-Operator"><span class="toc-number">6.2.</span> <span class="toc-text">Chapter 23. Operator</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Problem-1"><span class="toc-number">6.2.1.</span> <span class="toc-text">Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-12"><span class="toc-number">6.2.2.</span> <span class="toc-text">Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-24-Elastic-Scale"><span class="toc-number">6.3.</span> <span class="toc-text">Chapter 24. Elastic Scale</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution-13"><span class="toc-number">6.3.1.</span> <span class="toc-text">Solution</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,716 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Python量化交易》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,vn.py, 量化交易, Python, 策略开发, 数据分析, 回测, 量化投资, 交易策略"> 
+    <meta name="description" content="豆瓣评分 7.8
+第1章 量化交易速览1.1 为何选择量化交易
+严格地说，量化交易是运用复杂的统计学方法和数学模型，从庞大的历史数据中海选出能带来超额收益的多种“大概率”事件以找出规律、制定策略，并,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Python量化交易》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/python-quantitative-trading/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                七月 13, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/07/13/python-quantitative-trading/" title="《Python量化交易》书摘" class="">《Python量化交易》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9.6k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://book.douban.com/subject/33452830/" target="_blank" rel="noopener">豆瓣评分 7.8</a></p>
+<h1 id="第1章-量化交易速览"><a href="#第1章-量化交易速览" class="headerlink" title="第1章 量化交易速览"></a>第1章 量化交易速览</h1><h2 id="1-1-为何选择量化交易"><a href="#1-1-为何选择量化交易" class="headerlink" title="1.1 为何选择量化交易"></a>1.1 为何选择量化交易</h2><blockquote>
+<p>严格地说，量化交易是运用复杂的统计学方法和数学模型，从庞大的历史数据中海选出能带来超额收益的多种“大概率”事件以找出规律、制定策略，并且能用数据模型验证、固化这些规律和策略，然后用计算机来严格、高效地执行之。</p>
+</blockquote>
+<h2 id="1-4-中国量化投资的发展历史"><a href="#1-4-中国量化投资的发展历史" class="headerlink" title="1.4 中国量化投资的发展历史"></a>1.4 中国量化投资的发展历史</h2><blockquote>
+<p>一般来说，期货相对于股票债券更适合量化交易。</p>
+</blockquote>
+<blockquote>
+<p>不同于股票T+1制度，期货采用T+0制度，所以期货投资者更加青睐于短线交易。同时，相对于股票动辄要上千万资金的程序化接口，期货程序化交易接口资金门槛低得多，更有利于实现量化交易。而且期货成交量与持仓量的高倍数也使得期货投机氛围更浓厚，价格波动比股票大，所以高收益产品更受青睐。</p>
+</blockquote>
+<blockquote>
+<p>由于国内交易所发布数据的频率通常为每秒钟2笔或4笔，交易者无论利用什么软件，行情发送频率都是一定的，无法实现毫秒级别的快速开平仓，因此多数交易者都会持仓数秒钟以上，与国外所谓的高频交易有着本质区别。</p>
+</blockquote>
+<blockquote>
+<p>2015年9月，中金所对股指期货实施史上最严厉监管，提高10倍手续费，股指期货交易量骤降为180万手，对于手续费极度敏感的高频做市商没法做了。</p>
+</blockquote>
+<blockquote>
+<p>接着交易所将日内平仓手续费提高至100倍，一时间交易量下降99%，股指期货市场基本上消停了。</p>
+</blockquote>
+<blockquote>
+<p>从美国的研究实证上来看，从1990年到2013年，标普500指数与CTA指数的相关性为-0.10左右，这表明CTA策略是独立于股市的，商品类资产与股票类资产可以形成互补。所以，在A股方向还未明确的时候，配置CTA基金可作为分散投资。</p>
+</blockquote>
+<h2 id="1-5-国内常用的量化交易策略"><a href="#1-5-国内常用的量化交易策略" class="headerlink" title="1.5 国内常用的量化交易策略"></a>1.5 国内常用的量化交易策略</h2><blockquote>
+<p>商品交易顾问（Commodity Trading Advisor，简称CTA）是指通过为客户提供期货、期权方面的交易建议，或者通过受管理的期货账户参与实际交易，来获得收益的机构或个人。</p>
+</blockquote>
+<blockquote>
+<p>趋势跟踪策略在一定程度就是“追涨杀跌”的策略，通过快速止损实现“大赢小亏”，从而在整体上获利。一般情况下，国内习惯把趋势跟踪策略简称为CTA策略。</p>
+</blockquote>
+<blockquote>
+<p>该策略是以某资产价格的历史信息为基础，要么设置一个价格正常波动的范围（即通道），当价格突破这个范围时采取策略；要么通过长短期均线的相对运动趋势采取策略。这类策略在本质上都是一种基于市场波动强度的投资策略，在市场波动剧烈时容易获利，在市场波动较小时，收益率较低。并非每次交易都能获利，及时止损从而实现“大赢小亏”，才是趋势跟踪策略的目标。</p>
+</blockquote>
+<blockquote>
+<p>根据所跟踪趋势级别的不同，趋势跟踪策略可分为日内短线策略和日间中长线策略。</p>
+</blockquote>
+<blockquote>
+<p>价差套利策略，通过捕捉市场的不合理价差，买入被低估的资产，卖出被高估的资产，获得回归收益，达到资本赢利或避险的目的。</p>
+</blockquote>
+<blockquote>
+<p>价差套利进一步细分为跨期套利、期现套利、跨品种套利、跨市场套利这四种。</p>
+</blockquote>
+<blockquote>
+<p>跨品种套利的品种一般有两类：一是选择产品与原材料，二是选择能互相替代的产品。</p>
+</blockquote>
+<blockquote>
+<p>生产1吨生铁，大约需要1.5～2吨的铁矿石、0.4～0.6吨的焦炭。</p>
+</blockquote>
+<blockquote>
+<p>一般而言，100%大豆=18.5%豆油+80%豆粕+1.5%消耗。</p>
+</blockquote>
+<blockquote>
+<p>焦煤是焦炭的上游产业，按照现在的生产技术，1.3吨焦煤可以产出1吨焦炭。</p>
+</blockquote>
+<blockquote>
+<p>热轧卷板与螺纹钢同为钢材，原材料成本相近，因此两者价格具有较好的相关性。然而，由于下游消费市场具有差异，两者短期的供需关系会有不同，也就有了套利机会。</p>
+</blockquote>
+<blockquote>
+<p>豆油、棕榈油与菜籽油均为食品添加剂，互为替代品。一般情况下，豆油与棕榈油、豆油与菜籽油的相关性较强，而棕榈油与菜籽油的相关性则相对弱些，因此推荐使用豆油与其他两个品种进行套利。</p>
+</blockquote>
+<blockquote>
+<p>强麦指强筋小麦。小麦和玉米是世界范围内重要的两种农作物，在粮食和饲料市场中占据相当大的份额。两者互为替代品，价格具有同涨同跌的大趋势。但由于两者的收获季节不同，受气候等因素的影响也不同，因此价差会出现波动，提供跨品种套利机会</p>
+</blockquote>
+<blockquote>
+<p>根据2007年以来市场实际走势来看，整体而言沪深300指数及上证50指数走势的相关性极强</p>
+</blockquote>
+<blockquote>
+<p>中证500指数与其他两大指数的相关性较弱，由于成份股的差异性，中证500及上证50指数的相关性最弱。</p>
+</blockquote>
+<blockquote>
+<p>α衡量了非系统性风险，βs衡量了系统性风险。</p>
+</blockquote>
+<blockquote>
+<p>Alpha是肉，Beta是面。指数基金全是Beta，卖的是馒头；主动型公募基金卖的有肉有面，是包子；而对冲基金卖的就是纯肉。</p>
+</blockquote>
+<blockquote>
+<p>Alpha策略注重选股，属于主动投资，相比之下，Beta策略注重对投资时机的选择，属于被动投资。</p>
+</blockquote>
+<blockquote>
+<p>在多因子模型的实际应用中，希望将有效的因子加以组合和处理，减少模型中变量的个数，这种减少自变量的过程叫作降维。降维有利于防止过拟合，过拟合就是把历史数据的噪声也拟合过来了，所以因子并不是越多越好。</p>
+</blockquote>
+<blockquote>
+<p>我们认为一个综合指标的方差越大，其包含的信息也就越多。因此，在所有线性组合中，用方差最大的那一个作为第一主成分。如果认为第一主成分不能有效地反映原来的信息，我们就取另一个和第一主成分相关系数为0的线性组合作为第二主成分，依此类推。</p>
+</blockquote>
+<blockquote>
+<p>在方向性交易中，正值的Gamma在赚钱的时候会让你加速赚钱，在亏钱的时候会让你减速亏钱。</p>
+</blockquote>
+<blockquote>
+<p>标的物是涨是跌太难猜了，波动率变化更好猜。从概率上看，波动率交易比方向性交易的胜率更大，</p>
+</blockquote>
+<h2 id="1-7-宽客的两大阵形：P宗与Q宗"><a href="#1-7-宽客的两大阵形：P宗与Q宗" class="headerlink" title="1.7 宽客的两大阵形：P宗与Q宗"></a>1.7 宽客的两大阵形：P宗与Q宗</h2><blockquote>
+<p>从应用上来讲，Q宗是模型固定，用数据来精化模型的参数；而P宗则可以有若干备选模型，由数据的计算结果来选择最佳的模型。</p>
+</blockquote>
+<h2 id="1-8-宽客的3种职能分类"><a href="#1-8-宽客的3种职能分类" class="headerlink" title="1.8 宽客的3种职能分类"></a>1.8 宽客的3种职能分类</h2><blockquote>
+<p>原则上是交易越高频，资金容量越低。</p>
+</blockquote>
+<h2 id="1-9-宽客的四大派系"><a href="#1-9-宽客的四大派系" class="headerlink" title="1.9 宽客的四大派系"></a>1.9 宽客的四大派系</h2><blockquote>
+<p>量化投资的三个层次，选股是最低的层面，之后是行业配置，最上面是仓位选择。</p>
+</blockquote>
+<h1 id="第2章-Python量化变成基础"><a href="#第2章-Python量化变成基础" class="headerlink" title="第2章 Python量化变成基础"></a>第2章 Python量化变成基础</h1><h2 id="2-2-数据"><a href="#2-2-数据" class="headerlink" title="2.2 数据"></a>2.2 数据</h2><blockquote>
+<p>元组和列表之间的主要区别是元组不能像列表那样改变元素的值，可以简单地理解为“只读列表”。</p>
+</blockquote>
+<blockquote>
+<p>集合是一个无序不重复元素的序列。之前说的列表可以包括重复的元素，而集合是没有重复元素的容器，用花括号“{ }”来表示集合</p>
+</blockquote>
+<blockquote>
+<p>定义一个空集合必须用set()，而不是“{ }”，因为“{ }”是用来创建一个空字典的。</p>
+</blockquote>
+<h2 id="2-6-类和实例"><a href="#2-6-类和实例" class="headerlink" title="2.6 类和实例"></a>2.6 类和实例</h2><blockquote>
+<p>Python采用多继承机制，一个类可以同时继承多个父类。</p>
+</blockquote>
+<blockquote>
+<p>继承的基类有先后顺序，写在类名后的圆括号“()”里。</p>
+</blockquote>
+<blockquote>
+<p>私有属性，即任何以双下画线开头的名字，只能在该类中被调用，不能在外部调用或者继承，不能被子类继承，也不会被子类覆盖，可以使用“实例名.类名私有属性名”进行访问，如a._Student__headmaster。</p>
+</blockquote>
+<h2 id="2-7-NumPy与Pandas"><a href="#2-7-NumPy与Pandas" class="headerlink" title="2.7 NumPy与Pandas"></a>2.7 NumPy与Pandas</h2><blockquote>
+<p>NumPy中一维数组的格式是Array，Pandas中的则是Series。</p>
+</blockquote>
+<blockquote>
+<p>相对于列表，NumPy提供统计分析功能，如用std()计算标准差，用mean()计算平均值，同时也支持向量运算。</p>
+</blockquote>
+<blockquote>
+<p>Pandas一维数组在定义的时候就有索引index，格 式 是x=pd.Series([ ],index[ ])。定义好一维数组以后，就可以使用describe() 方法来获取一维数组的描述统计信息，包括一维数组里面有多少个元素、平均值是多少、标准差及四分位。</p>
+</blockquote>
+<blockquote>
+<p>跟NumPy一维数组Array一样，Pandas的Series也支持向量运算，但只能与索引值相同的值相加。</p>
+</blockquote>
+<blockquote>
+<p>代码如下：</p>
+</blockquote>
+<pre><code class="python"># 1. 向量运算，向量相加
+s1=pd.Series([1,2,3,4],index=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;])
+s2=pd.Series([10,20,30,40], index=[&#39;a&#39;,&#39;b&#39;,&#39;e&#39;,&#39;f&#39;])
+s3=s1+s2
+s3
+&gt;&gt; a    11.0
+b    22.0
+c     NaN
+d     NaN
+e     NaN
+f     NaN
+dtype: float64</code></pre>
+<blockquote>
+<p>在数据分析过程中如果不希望出现空值NaN，有2个办法：</p>
+<p>（1）用dropna（）方法来删除空值NaN。</p>
+<p>（2）可用add将两个一维数组相加，并传入fill_value参数，其中fill_value用来填充空值，比如用0来填充。</p>
+</blockquote>
+<pre><code class="python"># 2.删除空值NaN
+s3.dropna()
+&gt;&gt; a    11.0
+b    22.0
+dtype: float64
+
+# 3.用数字0来填充空值
+s3=s1.add(s2,fill_value=0)
+s3
+&gt;&gt; a    11.0
+b    22.0
+c     3.0
+d     4.0
+e    30.0
+f    40.0
+dtype: float64</code></pre>
+<blockquote>
+<p>分组计算，使用数轴参数“axis”，其中axis=1是按每一行进行分组计算的；axis=0是按每一列进行分组计算的</p>
+</blockquote>
+<blockquote>
+<p>相对于NumPy二维数组的Array，Pandas二维数组DataFrame有两个优点：</p>
+<p>（1）数组中的每一列都可以是不同类型，方便表示Excel中的数据。</p>
+<p>（2）数组中的每一行/列都有一个索引表格，类似于一维数组Series，使得常见的表格数据很容易制作。</p>
+</blockquote>
+<h1 id="第3章-vn-py入门"><a href="#第3章-vn-py入门" class="headerlink" title="第3章 vn.py入门"></a>第3章 vn.py入门</h1><blockquote>
+<p><img src="https://alphahinex.github.io/contents/python-quantitative-trading/3.1.jpeg" alt="表3-1 GitHub全球开源量化交易项目（2018年6月Star排名）"><br>￼</p>
+</blockquote>
+<h1 id="第4章-在vn-py中实现CTA策略"><a href="#第4章-在vn-py中实现CTA策略" class="headerlink" title="第4章 在vn.py中实现CTA策略"></a>第4章 在vn.py中实现CTA策略</h1><blockquote>
+<p>CTA策略作为量化交易入门首选的中低频策略，持仓周期可以是几分钟到几天，并不需要Tick级别数据，用1分钟K线级别数据进行策略回测即可。</p>
+</blockquote>
+<h1 id="第5章-经典CTA策略"><a href="#第5章-经典CTA策略" class="headerlink" title="第5章 经典CTA策略"></a>第5章 经典CTA策略</h1><h2 id="5-2-Dual-Thrust策略"><a href="#5-2-Dual-Thrust策略" class="headerlink" title="5.2 Dual Thrust策略"></a>5.2 Dual Thrust策略</h2><blockquote>
+<p>Dual Thrust是一个趋势跟踪系统，由迈克尔·查莱克（Michael Chalek）在20世纪80年代开发，曾被Futures Truth杂志评为最赚钱的策略之一。Dual Thrust系统具有简单易用、适用度广的特点，其思路简单、参数很少，配合不同的参数、止盈止损和仓位管理，可以为投资者带来长期稳定的收益，被投资者广泛应用于股票、货币、贵金属、债券、能源及股指期货市场等。</p>
+</blockquote>
+<blockquote>
+<p>在Dual Thrust策略中，对于震荡区间的定义非常关键，这也是该交易策略的核心和精髓。Dual Thrust策略使用Range=Max(HH-LC, HC-LL)来描述震荡区间的大小。其中HH是N日最高价的最高价，LC是N日收盘价的最低价，HC是N日收盘价的最高价，LL是N日最低价的最低价。</p>
+</blockquote>
+<h2 id="5-3-AtrRsi策略"><a href="#5-3-AtrRsi策略" class="headerlink" title="5.3 AtrRsi策略"></a>5.3 AtrRsi策略</h2><blockquote>
+<p>平均真实波动范围（Average True Range）</p>
+</blockquote>
+<blockquote>
+<p>ATR指标主要是用来衡量市场波动的强烈度，即用来显示市场变化率的指标。注意，这一指标主要用来衡量价格的波动，并不能直接反映价格走向及其趋势稳定性。</p>
+</blockquote>
+<blockquote>
+<p>首先应计算出TR（即当天的真实波幅）</p>
+</blockquote>
+<blockquote>
+<p>TR在当日最高价与最低价，当日最高价与昨日最收盘价，当日最低价与昨日收盘价这3种情况中取最大值。</p>
+</blockquote>
+<blockquote>
+<p>一般而言，市场常用的数据周期是14及21</p>
+</blockquote>
+<blockquote>
+<p>ATR=(前13天的TR+当天的TR) / 14</p>
+</blockquote>
+<h2 id="5-5-布林带通道策略"><a href="#5-5-布林带通道策略" class="headerlink" title="5.5 布林带通道策略"></a>5.5 布林带通道策略</h2><blockquote>
+<p>当ATR增大时，说明市场波动率高，市场上下跳动的幅度很大，止损位置可以相对设置得远一些；当ATR减小时，说明行情波动不大，这时候需要把止损位置设置得近一点，以锁定利润。所以，用ATR指标比固定百分点位的移动止损在行情不断变化的市场效果会好一些。</p>
+</blockquote>
+<h1 id="附录A主流交易品种"><a href="#附录A主流交易品种" class="headerlink" title="附录A主流交易品种"></a>附录A主流交易品种</h1><h2 id="A-1-股票"><a href="#A-1-股票" class="headerlink" title="A.1 股票"></a>A.1 股票</h2><blockquote>
+<p>600开头的股票是上证A股，属于大盘股，其中6006开头的股票是最早上市的股票，6016开头的股票为大盘蓝筹股。</p>
+</blockquote>
+<h2 id="A-3-期权"><a href="#A-3-期权" class="headerlink" title="A.3 期权"></a>A.3 期权</h2><blockquote>
+<p>期权又分为看涨期权（Call）和看跌期权（Put），根据买卖方向又可以分为多头（Long）和空头（Short）。所以就产生了以下4种基本的交易形式。</p>
+</blockquote>
+<blockquote>
+<p>1．买入看涨期权（Long Call）</p>
+</blockquote>
+<blockquote>
+<p>2．卖出看涨期权（Short Call）</p>
+</blockquote>
+<blockquote>
+<p>3．买入看跌期权（Long Put）</p>
+</blockquote>
+<blockquote>
+<p>4．卖出看跌期权（Short Put）</p>
+</blockquote>
+<blockquote>
+<p>利率改变也会影响期权价格。Rho衡量利率转变对期权价格变化幅度。由于中国是利率管制国家，所以利率变化风险可以忽略不计。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/python-quantitative-trading/A-17.jpeg" alt="图A-17 5个希腊值在期权中的符号和含义"></p>
+</blockquote>
+<blockquote>
+<p>期权的4种交易形式对应着不同的希腊值，如图A-18所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/python-quantitative-trading/A-18.jpeg" alt="图A-18 期权的4种交易形式对应着不同的希腊值"></p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第1章-量化交易速览"><span class="toc-number">1.</span> <span class="toc-text">第1章 量化交易速览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-为何选择量化交易"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 为何选择量化交易</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-中国量化投资的发展历史"><span class="toc-number">1.2.</span> <span class="toc-text">1.4 中国量化投资的发展历史</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-国内常用的量化交易策略"><span class="toc-number">1.3.</span> <span class="toc-text">1.5 国内常用的量化交易策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-宽客的两大阵形：P宗与Q宗"><span class="toc-number">1.4.</span> <span class="toc-text">1.7 宽客的两大阵形：P宗与Q宗</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-8-宽客的3种职能分类"><span class="toc-number">1.5.</span> <span class="toc-text">1.8 宽客的3种职能分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-9-宽客的四大派系"><span class="toc-number">1.6.</span> <span class="toc-text">1.9 宽客的四大派系</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第2章-Python量化变成基础"><span class="toc-number">2.</span> <span class="toc-text">第2章 Python量化变成基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-数据"><span class="toc-number">2.1.</span> <span class="toc-text">2.2 数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-类和实例"><span class="toc-number">2.2.</span> <span class="toc-text">2.6 类和实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-NumPy与Pandas"><span class="toc-number">2.3.</span> <span class="toc-text">2.7 NumPy与Pandas</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第3章-vn-py入门"><span class="toc-number">3.</span> <span class="toc-text">第3章 vn.py入门</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第4章-在vn-py中实现CTA策略"><span class="toc-number">4.</span> <span class="toc-text">第4章 在vn.py中实现CTA策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第5章-经典CTA策略"><span class="toc-number">5.</span> <span class="toc-text">第5章 经典CTA策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-Dual-Thrust策略"><span class="toc-number">5.1.</span> <span class="toc-text">5.2 Dual Thrust策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-AtrRsi策略"><span class="toc-number">5.2.</span> <span class="toc-text">5.3 AtrRsi策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-布林带通道策略"><span class="toc-number">5.3.</span> <span class="toc-text">5.5 布林带通道策略</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A主流交易品种"><span class="toc-number">6.</span> <span class="toc-text">附录A主流交易品种</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-1-股票"><span class="toc-number">6.1.</span> <span class="toc-text">A.1 股票</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-3-期权"><span class="toc-number">6.2.</span> <span class="toc-text">A.3 期权</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

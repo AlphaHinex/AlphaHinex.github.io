@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SSH Port Forwarding, aka SSH Tunneling - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Linux, SSH, SSH Port Forwarding, SSH Tunneling, ssh_config, sshd_config, man"> 
+    <meta name="description" content="SSH（Secure Shell）端口转发（SSH Port Forwarding），也叫 SSH 隧道（SSH Tunneling），是 SSH 中的一种机制，可以在 SSH 客户端与服务端之间，,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">SSH Port Forwarding, aka SSH Tunneling</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/ssh-port-forwarding/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                六月 12, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/06/12/ssh-port-forwarding/" title="SSH Port Forwarding, aka SSH Tunneling" class="">SSH Port Forwarding, aka SSH Tunneling</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>SSH（Secure Shell）端口转发（SSH Port Forwarding），也叫 SSH 隧道（SSH Tunneling），是 SSH 中的一种机制，可以在 SSH 客户端与服务端之间，建立一条隧道，将客户端端口转发至服务端，也可将服务端端口转发至客户端。利用这种机制，可以为老式应用，提供加密通讯的途径，以及其他一些更广泛的用途。</p>
+<p><img src="/contents/ssh-port-forwarding/Securing_applications_with_ssh_tunneling___port_forwarding.png" alt="Securing applications with ssh tunneling/port forwarding"></p>
+<h2 id="怎么端口转发-创建隧道？"><a href="#怎么端口转发-创建隧道？" class="headerlink" title="怎么端口转发/创建隧道？"></a>怎么端口转发/创建隧道？</h2><p>利用 SSH 客户端，即可完成隧道的创建，创建隧道时，需指定隧道两端的端口，故也叫端口转发。</p>
+<p>端口转发分为两种：</p>
+<ol>
+<li>本地端口转发</li>
+<li>远程端口转发</li>
+</ol>
+<p>下面以 <a href="https://en.wikipedia.org/wiki/OpenSSH" target="_blank" rel="noopener">OpenSSH</a> 为例，进行具体实例说明。</p>
+<h3 id="本地端口转发（Local-Port-Forwarding）"><a href="#本地端口转发（Local-Port-Forwarding）" class="headerlink" title="本地端口转发（Local Port Forwarding）"></a>本地端口转发（Local Port Forwarding）</h3><p>假如有这样一个场景：</p>
+<p>本地可以通过 <code>2426</code> 端口 ssh 连接到 <code>remote-host</code>。<br>在 remote-host 上的 <code>3306</code> 端口有一个 MySQL 服务。<br>受各种因素所限，本地无法连接 remote-host 的 3306 端口，但想要使用 remote-host 上的 MySQL 服务，且不能修改其端口号。</p>
+<p>此时本地端口转发就可以派上用场了：</p>
+<pre><code class="bash">$ ssh -L 4406:remote-host:3306 user@remote-host -p 2426</code></pre>
+<p><code>-L</code> 意为使用本地端口转发。<code>4406</code> 为使用的本地端口。<code>remote-host:3306</code> 需为所登录的 SSH 服务端可访问的地址及端口。<br><code>user@remote-host</code> 为登录 SSH 服务端的用户和地址，<code>-p</code> 为指定 SSH 服务所在端口，如使用默认端口（<code>22</code>)，此部分内容可省略。</p>
+<p>此例意为将对本地 4406 端口的访问，通过 SSH 客户端所创建的隧道，转发至 remote-host 的 3306 端口。此时便可通过访问本地 4406 端口，连接至 remote-host 中 3306 的 MySQL 了。</p>
+<p>默认情况下，任何可以连接到本地（此 SSH 客户端所在）4406 端口的机器，都可以使用此隧道。需限定仅本机可使用此隧道时，可绑定具体地址，如：</p>
+<pre><code class="bash">$ ssh -L 127.0.0.1:4406:remote-host:3306 user@remote-host -p 2426</code></pre>
+<h3 id="远程端口转发（Remote-Port-Forwarding）"><a href="#远程端口转发（Remote-Port-Forwarding）" class="headerlink" title="远程端口转发（Remote Port Forwarding）"></a>远程端口转发（Remote Port Forwarding）</h3><p>远程端口转发，可适用于如下场景：</p>
+<p>内网环境有一个 MySQL 服务，外网无法直接访问到此服务，但内网可连接至外网一 SSH 服务（remote-host）。<br>通过远程端口转发，可以在内网建立一条与 remote-host 的隧道，并将外网端口（如 5506）转发至内网 MySQL 的 3306 端口。<br>此时连接 remote-host 的 5506，即可访问内网 MySQL 3306 的服务。</p>
+<p>在内网 MySQL 服务所在机器中执行：</p>
+<pre><code class="bash">$ ssh -R 5506:localhost:3306 remote-host</code></pre>
+<p>意为使用本地 SSH 客户端相同用户，默认端口（22）连接 remote-host，并将 remote-host 的 5506 端口，转发至本地 localhost 3306 端口。</p>
+<p>默认情况下，此时仅可在 remote-host 服务器自身，通过 5506 端口访问到内网的 3306 服务。</p>
+<p>在 SSH 服务端的 <code>sshd_config</code> 文件（<code>/etc/ssh/sshd_config</code>）中，可通过 <code>GatewayPorts</code> 参数控制此行为。</p>
+<pre><code class="doc">GatewayPorts
+        是否允许远程主机连接本地的转发端口。默认值是&quot;no&quot;。
+        sshd(8) 默认将远程端口转发绑定到loopback地址。这样将阻止其它远程主机连接到转发端口。
+        GatewayPorts 指令可以让 sshd 将远程端口转发绑定到非loopback地址，这样就可以允许远程主机连接了。
+        &quot;no&quot;表示仅允许本地连接，&quot;yes&quot;表示强制将远程端口转发绑定到统配地址(wildcard address)，
+        &quot;clientspecified&quot;表示允许客户端选择将远程端口转发绑定到哪个地址。</code></pre>
+<blockquote>
+<p>—— 引自 <a href="http://www.jinbuguo.com/openssh/sshd_config.html" target="_blank" rel="noopener">sshd_config 中文手册</a></p>
+</blockquote>
+<p>在配置文件中进行 <code>GatewayPorts yes</code> 配置后，可通过 <code>systemctl restart sshd</code> 重启 ssh 服务使配置生效。</p>
+<h2 id="如何保持会话？"><a href="#如何保持会话？" class="headerlink" title="如何保持会话？"></a>如何保持会话？</h2><p>按上述方式进行端口转发时，会通过 SSH 方式连接到服务端。但按默认设置，客户端在空闲一段时间后可能会中断，需保持会话时，可在 <code>~/.ssh/config</code> 中加入：</p>
+<pre><code class="config">Host *
+  ServerAliveInterval 30</code></pre>
+<ul>
+<li><code>Host *</code> 表示连接任意地址均使用此配置。如果需要针对某个主机，可配置为指定 host 或者 IP；</li>
+<li><code>ServerAliveInterval 30</code> 表示 SSH 客户端每隔 <code>30秒</code> 给远程主机发送一个 no-op 包，no-op 是无任何操作的意思，这样远程主机就不会关闭这个SSH会话。</li>
+</ul>
+<p>参数说明可通过 <code>man ssh_config</code> 进行查看，如：</p>
+<pre><code class="man">ServerAliveInterval
+        Sets a timeout interval in seconds after which if no data has been received from the server, ssh(1) will send a message through the
+        encrypted channel to request a response from the server.  The default is 0, indicating that these messages will not be sent to the
+        server.</code></pre>
+<h2 id="怎么后台运行"><a href="#怎么后台运行" class="headerlink" title="怎么后台运行"></a>怎么后台运行</h2><p>设置了超时时间后，在 SSH 客户端存在期间可以一直使用端口转发。但客户端关闭后就会失效。SSH 提供了后台运行的方式来解决这个问题。</p>
+<p>以上面远程端口转发为例，可使用如下方式，使连接在后台运行。</p>
+<pre><code class="bash">$ ssh -fNgR 5506:localhost:3306 remote-host</code></pre>
+<p>各参数含义如下：</p>
+<pre><code class="man">-f      Requests ssh to go to background just before command execution.  This is useful if ssh is going to ask for passwords or
+        passphrases, but the user wants it in the background.  This implies -n.  The recommended way to start X11 programs at a remote
+        site is with something like ssh -f host xterm.
+
+        If the ExitOnForwardFailure configuration option is set to ``yes&#39;&#39;, then a client started with -f will wait for all remote port
+        forwards to be successfully established before placing itself in the background.
+
+-N      Do not execute a remote command.  This is useful for just forwarding ports.
+
+-g      Allows remote hosts to connect to local forwarded ports.  If used on a multiplexed connection, then this option must be specified
+        on the master process.</code></pre>
+<p>另外，后台运行时，同样也存在服务端断开连接的情况。此时若需保持会话，可通过 <code>-o</code> 参数指定客户端参数，如：</p>
+<pre><code class="bash">$ ssh -fNgR 5506:localhost:3306 remote-host -o ServerAliveInterval=30</code></pre>
+<h2 id="如何防止滥用-？"><a href="#如何防止滥用-？" class="headerlink" title="如何防止滥用 ？"></a>如何防止滥用 ？</h2><p>为防止端口转发被滥用，一般需要在服务器配置中（/etc/ssh/sshd_config）明确禁止此行为，如：</p>
+<pre><code class="config">AllowTcpForwarding no
+AllowStreamLocalForwarding no
+GatewayPorts no
+PermitTunnel no</code></pre>
+<blockquote>
+<p>注意：即使禁用了端口转发，依然存在用户运行自己的 SSH 服务等其他可能，不能彻底避免安全性问题。</p>
+</blockquote>
+<p>各参数详细说明，可通过 <code>man sshd_config</code> 进行查看：</p>
+<pre><code class="man">AllowTcpForwarding
+        Specifies whether TCP forwarding is permitted.  The available options are yes (the default) or all to allow TCP forwarding, no to
+        prevent all TCP forwarding, local to allow local (from the perspective of ssh(1)) forwarding only or remote to allow remote forward-
+        ing only.  Note that disabling TCP forwarding does not improve security unless users are also denied shell access, as they can
+        always install their own forwarders.
+
+AllowStreamLocalForwarding
+        Specifies whether StreamLocal (Unix-domain socket) forwarding is permitted.  The available options are yes (the default) or all to
+        allow StreamLocal forwarding, no to prevent all StreamLocal forwarding, local to allow local (from the perspective of ssh(1)) for-
+        warding only or remote to allow remote forwarding only.  Note that disabling StreamLocal forwarding does not improve security unless
+        users are also denied shell access, as they can always install their own forwarders.
+
+GatewayPorts
+        Specifies whether remote hosts are allowed to connect to ports forwarded for the client.  By default, sshd(8) binds remote port for-
+        wardings to the loopback address.  This prevents other remote hosts from connecting to forwarded ports.  GatewayPorts can be used to
+        specify that sshd should allow remote port forwardings to bind to non-loopback addresses, thus allowing other hosts to connect.  The
+        argument may be no to force remote port forwardings to be available to the local host only, yes to force remote port forwardings to
+        bind to the wildcard address, or clientspecified to allow the client to select the address to which the forwarding is bound.  The
+        default is no.
+
+PermitTunnel
+        Specifies whether tun(4) device forwarding is allowed.  The argument must be yes, point-to-point (layer 3), ethernet (layer 2), or
+        no.  Specifying yes permits both point-to-point and ethernet.  The default is no.
+
+        Independent of this setting, the permissions of the selected tun(4) device must allow access to the user.</code></pre>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><pre><code class="bash"># 将本地 3426 端口映射至 remote 22 端口，此时可 ssh 到此机器的 3426 端口，以实现以此机器作为跳板 ssh 到 remote 主机的效果
+$ ssh -fNgL 3426:remote:22 root@remote -o ServerAliveInterval=30
+
+# 有一跳板机可访问内外网，通过外网端口，经跳板机，访问内网服务
+# 可先将本地端口（如：3427）转发至内网服务（192.168.174.74:8888）上
+$ ssh -fNgL 3427:192.168.174.74:8888 root@192.168.174.74 -o ServerAliveInterval=30
+# 再将外网端口（如：3427，可不一样）转发至本地端口上，即可通过 remote:3427 访问 192.168.174.74:8888 的服务
+$ ssh -fNgR 3427:localhost:3427 root@remote -o ServerAliveInterval=30</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://www.ssh.com/ssh/tunneling/example" target="_blank" rel="noopener">SSH Port Forwarding Example</a></li>
+<li><a href="https://www.ssh.com/ssh/tunneling/" target="_blank" rel="noopener">SSH tunnel</a></li>
+<li><a href="https://www.jianshu.com/p/c0f1ef1f01c2" target="_blank" rel="noopener">Iterm2 SSH保持连接方法</a></li>
+<li><a href="http://www.jinbuguo.com/openssh/sshd_config.html" target="_blank" rel="noopener">sshd_config 中文手册</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么端口转发-创建隧道？"><span class="toc-number">1.</span> <span class="toc-text">怎么端口转发&#x2F;创建隧道？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#本地端口转发（Local-Port-Forwarding）"><span class="toc-number">1.1.</span> <span class="toc-text">本地端口转发（Local Port Forwarding）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#远程端口转发（Remote-Port-Forwarding）"><span class="toc-number">1.2.</span> <span class="toc-text">远程端口转发（Remote Port Forwarding）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何保持会话？"><span class="toc-number">2.</span> <span class="toc-text">如何保持会话？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么后台运行"><span class="toc-number">3.</span> <span class="toc-text">怎么后台运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何防止滥用-？"><span class="toc-number">4.</span> <span class="toc-text">如何防止滥用 ？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">5.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

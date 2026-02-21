@@ -1,0 +1,779 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《A Survey of Large Language Models》论文 v4 中文版摘抄 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,LLM, ICL, CoT, Transformer, RLHF, 大语言模型, 涌现能力, 适配微调, 应用, 对齐, 能力评估"> 
+    <meta name="description" content="摘要
+有趣的是，当参数规模超过一定水平时，这些规模扩大的语言模型的性能不仅得到了显著提升，而且还表现出一些小规模语言模型(如 BERT)所不具备的特殊能力(如上下文学习)。
+
+1 引言
+语言建模是提,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《A Survey of Large Language Models》论文 v4 中文版摘抄</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/a-survey-of-large-language-models.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                五月 21, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/05/21/a-survey-of-large-language-models/" title="《A Survey of Large Language Models》论文 v4 中文版摘抄" class="">《A Survey of Large Language Models》论文 v4 中文版摘抄</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    17k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    16 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><blockquote>
+<p>有趣的是，当参数规模超过一定水平时，这些规模扩大的语言模型的性能不仅得到了显著提升，而且还表现出一些小规模语言模型(如 BERT)所不具备的特殊能力(如上下文学习)。</p>
+</blockquote>
+<h1 id="1-引言"><a href="#1-引言" class="headerlink" title="1 引言"></a>1 引言</h1><blockquote>
+<p>语言建模是提高机器语言智能的主要方法之一</p>
+</blockquote>
+<blockquote>
+<p>可以分为四个主要发展阶段</p>
+<ol>
+<li>统计语言模型（SLM）</li>
+<li>神经语言模型（NLM）</li>
+<li>预训练语言模型（PLM）</li>
+<li>大语言模型（LLM）</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>本综述从四个主要方面对 LLM 的最近进展进行文献综述，包括预训练(如何预训练出一个有能力的 LLM)、适应微调(如何从有效性和安全性两个角度有效地微调预训练的 LLM)、使用(如何利用 LLM 解决各种下游任务)以及能力评估(如何评估 LLM 的能力和现有的经验性发现)</p>
+</blockquote>
+<h1 id="2-概述"><a href="#2-概述" class="headerlink" title="2 概述"></a>2 概述</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h2 id="大语言模型的涌现能力"><a href="#大语言模型的涌现能力" class="headerlink" title="大语言模型的涌现能力"></a>大语言模型的涌现能力</h2><blockquote>
+<p>LLM 的“涌现能力”被正式定义为“在小模型中不存在但在大模型中出现的能力”，这是区分 LLM 与以前的 PLM 最突出的特征之一。</p>
+</blockquote>
+<blockquote>
+<p>三个代表性的 LLM 涌现能力</p>
+<ol>
+<li>上下文学习</li>
+<li>指令遵循</li>
+<li>逐步推理</li>
+</ol>
+</blockquote>
+<h2 id="LLM-关键技术"><a href="#LLM-关键技术" class="headerlink" title="LLM 关键技术"></a>LLM 关键技术</h2><h3 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h3><blockquote>
+<p>预训练数据的质量在实现良好性能方面起着关键作用，因此在扩展预训练语料库时，数据收集和清洗策略非常重要。</p>
+</blockquote>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><h3 id="能力引导"><a href="#能力引导" class="headerlink" title="能力引导"></a>能力引导</h3><h3 id="对齐微调"><a href="#对齐微调" class="headerlink" title="对齐微调"></a>对齐微调</h3><h3 id="工具操作"><a href="#工具操作" class="headerlink" title="工具操作"></a>工具操作</h3><h1 id="3-大语言模型资源"><a href="#3-大语言模型资源" class="headerlink" title="3 大语言模型资源"></a>3 大语言模型资源</h1><h2 id="3-1-公开可用的模型检查点或-API"><a href="#3-1-公开可用的模型检查点或-API" class="headerlink" title="3.1 公开可用的模型检查点或 API"></a>3.1 公开可用的模型检查点或 API</h2><h3 id="百亿参数量级别的模型"><a href="#百亿参数量级别的模型" class="headerlink" title="百亿参数量级别的模型"></a>百亿参数量级别的模型</h3><blockquote>
+<p>CodeGen(11B)是一个为生成代码设计的自回归语言模型，可用作探索代码生成能力的候选模型，其提出了一个新的基准测试 MTPB [76]，专门用于多轮程序合成，由 115 个专家生成的问题组成，为了解决这些问题，需要大语言模型获得足够的编程知识(例如数学、数组操作和算法)。</p>
+</blockquote>
+<blockquote>
+<p>百亿参数量级别的模型通常需要数百甚至上千个 GPU 或 TPU。 例如，GPT-NeoX-20B 使用了 12 个微服务器，每个服务器配备了 8 个 NVIDIA A100-SXM4-40GB GPU，LLaMA 使用了 2048 个 A100-80G GPU。</p>
+</blockquote>
+<h3 id="千亿参数量级别的模型"><a href="#千亿参数量级别的模型" class="headerlink" title="千亿参数量级别的模型"></a>千亿参数量级别的模型</h3><h3 id="大语言模型的公共-API"><a href="#大语言模型的公共-API" class="headerlink" title="大语言模型的公共 API"></a>大语言模型的公共 API</h3><h2 id="3-2-常用语料库"><a href="#3-2-常用语料库" class="headerlink" title="3.2 常用语料库"></a>3.2 常用语料库</h2><blockquote>
+<ul>
+<li>Books</li>
+<li>CommonCrawl</li>
+<li>Reddit Links</li>
+<li>Wikipedia</li>
+<li>Code</li>
+<li>Others</li>
+</ul>
+</blockquote>
+<h2 id="3-3-算法库资源"><a href="#3-3-算法库资源" class="headerlink" title="3.3 算法库资源"></a>3.3 算法库资源</h2><blockquote>
+<ul>
+<li>Transformers</li>
+<li>DeepSpeed</li>
+<li>Megatron-LM</li>
+<li>JAX</li>
+<li>Colossal-AI</li>
+<li>BMTrain</li>
+<li>FastMoE</li>
+</ul>
+</blockquote>
+<h1 id="4-预训练"><a href="#4-预训练" class="headerlink" title="4 预训练"></a>4 预训练</h1><h2 id="4-1-数据收集"><a href="#4-1-数据收集" class="headerlink" title="4.1 数据收集"></a>4.1 数据收集</h2><h3 id="4-1-1-数据来源"><a href="#4-1-1-数据来源" class="headerlink" title="4.1.1 数据来源"></a>4.1.1 数据来源</h3><blockquote>
+<p>通用文本数据</p>
+<ul>
+<li>网页</li>
+<li>对话文本</li>
+<li>书籍</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>专用文本数据</p>
+<ul>
+<li>多语言文本</li>
+<li>科学文本</li>
+<li>代码</li>
+</ul>
+</blockquote>
+<h3 id="4-1-2-数据预处理"><a href="#4-1-2-数据预处理" class="headerlink" title="4.1.2 数据预处理"></a>4.1.2 数据预处理</h3><h4 id="质量过滤"><a href="#质量过滤" class="headerlink" title="质量过滤"></a>质量过滤</h4><blockquote>
+<ul>
+<li>基于语言的过滤</li>
+<li>基于度量的过滤</li>
+<li>基于统计的过滤</li>
+<li>基于关键词的过滤</li>
+</ul>
+</blockquote>
+<h4 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h4><h4 id="隐私去除"><a href="#隐私去除" class="headerlink" title="隐私去除"></a>隐私去除</h4><h4 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h4><h3 id="4-1-3-预训练数据对大语言模型的影响"><a href="#4-1-3-预训练数据对大语言模型的影响" class="headerlink" title="4.1.3 预训练数据对大语言模型的影响"></a>4.1.3 预训练数据对大语言模型的影响</h3><h4 id="混合来源"><a href="#混合来源" class="headerlink" title="混合来源"></a>混合来源</h4><blockquote>
+<p>单独训练过多的某个领域的数据会影响大语言模型在其他领域的泛化能力</p>
+</blockquote>
+<h4 id="预训练数据的数量"><a href="#预训练数据的数量" class="headerlink" title="预训练数据的数量"></a>预训练数据的数量</h4><blockquote>
+<p>建议研究人员在扩展模型参数时，尤其要注意高质量数据的数量， 以充分训练模型。</p>
+</blockquote>
+<h4 id="预训练数据的质量"><a href="#预训练数据的质量" class="headerlink" title="预训练数据的质量"></a>预训练数据的质量</h4><h2 id="4-2-架构"><a href="#4-2-架构" class="headerlink" title="4.2 架构"></a>4.2 架构</h2><h3 id="4-2-1-主流架构"><a href="#4-2-1-主流架构" class="headerlink" title="4.2.1 主流架构"></a>4.2.1 主流架构</h3><blockquote>
+<p>由于 Transformer 架构的出色并行性和容量，Transformer 架构已成为开发各种大语言模型的事实标准骨干，使得将语言模型扩展到数百亿或数千亿个参数成为可能</p>
+</blockquote>
+<blockquote>
+<p>一般来说， 现有大语言模型的主流架构可以大致分为三种类型</p>
+</blockquote>
+<h4 id="编码器-解码器架构"><a href="#编码器-解码器架构" class="headerlink" title="编码器-解码器架构"></a>编码器-解码器架构</h4><blockquote>
+<p>目前，只有少数大语言模型是基于编码器-解码器架构构建的</p>
+</blockquote>
+<h4 id="因果解码器架构"><a href="#因果解码器架构" class="headerlink" title="因果解码器架构"></a>因果解码器架构</h4><blockquote>
+<p>GPT 系列模型 [26, 55, 119] 是基于因果解码器架构开发的。</p>
+</blockquote>
+<blockquote>
+<p>因果解码器和前缀解码器都属于仅解码器体系结构</p>
+</blockquote>
+<h4 id="前缀解码器架构"><a href="#前缀解码器架构" class="headerlink" title="前缀解码器架构"></a>前缀解码器架构</h4><blockquote>
+<p>前缀解码器架构(也称非因果解码器架构) 修正了因果解码器的掩码机制，以使其能够对前缀标记执行双向注意力 [157]，并仅对生成的标记执行单向注意力。</p>
+</blockquote>
+<h3 id="4-2-2-详细配置"><a href="#4-2-2-详细配置" class="headerlink" title="4.2.2 详细配置"></a>4.2.2 详细配置</h3><blockquote>
+<ul>
+<li>标准化</li>
+<li>激活函数</li>
+<li>位置编码</li>
+<li>注意力机制和偏差</li>
+</ul>
+</blockquote>
+<h3 id="4-2-3-预训练任务"><a href="#4-2-3-预训练任务" class="headerlink" title="4.2.3 预训练任务"></a>4.2.3 预训练任务</h3><blockquote>
+<ul>
+<li>语言模型</li>
+<li>去噪自编码</li>
+</ul>
+</blockquote>
+<h3 id="4-2-4-总结与讨论"><a href="#4-2-4-总结与讨论" class="headerlink" title="4.2.4 总结与讨论"></a>4.2.4 总结与讨论</h3><h2 id="4-3-模型训练"><a href="#4-3-模型训练" class="headerlink" title="4.3 模型训练"></a>4.3 模型训练</h2><h3 id="4-3-1-优化设置"><a href="#4-3-1-优化设置" class="headerlink" title="4.3.1 优化设置"></a>4.3.1 优化设置</h3><blockquote>
+<ul>
+<li>批量训练</li>
+<li>学习率</li>
+<li>优化器</li>
+<li>稳定训练</li>
+</ul>
+</blockquote>
+<h3 id="4-3-2-可扩展的训练技术"><a href="#4-3-2-可扩展的训练技术" class="headerlink" title="4.3.2 可扩展的训练技术"></a>4.3.2 可扩展的训练技术</h3><h4 id="3D-并行"><a href="#3D-并行" class="headerlink" title="3D 并行"></a>3D 并行</h4><blockquote>
+<ul>
+<li>数据并行</li>
+<li>流水线并行</li>
+<li>张量并行</li>
+</ul>
+</blockquote>
+<h4 id="ZeRO"><a href="#ZeRO" class="headerlink" title="ZeRO"></a>ZeRO</h4><h4 id="混合精度训练"><a href="#混合精度训练" class="headerlink" title="混合精度训练"></a>混合精度训练</h4><h4 id="整体训练建议"><a href="#整体训练建议" class="headerlink" title="整体训练建议"></a>整体训练建议</h4><blockquote>
+<p>通常，量化技术被广泛用于在推理阶段减少大语言模型的时间和空间成本 [189]。虽然会损失一些模型性能，但量化语言模型具有更小的模型大小和更快的推理速度</p>
+</blockquote>
+<blockquote>
+<p>对于模型量化，INT8 量化是一个流行的选择 [190]。此外，一些研究工作尝试开发更激进的 INT4 量化方法 [82]。</p>
+</blockquote>
+<h1 id="5-大语言模型的适配微调"><a href="#5-大语言模型的适配微调" class="headerlink" title="5 大语言模型的适配微调"></a>5 大语言模型的适配微调</h1><h2 id="5-1-指令微调"><a href="#5-1-指令微调" class="headerlink" title="5.1 指令微调"></a>5.1 指令微调</h2><blockquote>
+<p>两种微调预训练后的大语言模型的方法</p>
+<ol>
+<li>指令微调 —— 旨在增强(或解锁)大语言模型的能力</li>
+<li>对齐微调 —— 旨在将大语言模型的行为与人类的价值观或偏好对齐</li>
+</ol>
+</blockquote>
+<h3 id="5-1-1-格式化实例构造"><a href="#5-1-1-格式化实例构造" class="headerlink" title="5.1.1 格式化实例构造"></a>5.1.1 格式化实例构造</h3><h4 id="格式化已有数据集"><a href="#格式化已有数据集" class="headerlink" title="格式化已有数据集"></a>格式化已有数据集</h4><h4 id="格式化人类需求"><a href="#格式化人类需求" class="headerlink" title="格式化人类需求"></a>格式化人类需求</h4><h4 id="实例构建的关键因素"><a href="#实例构建的关键因素" class="headerlink" title="实例构建的关键因素"></a>实例构建的关键因素</h4><blockquote>
+<ul>
+<li>扩展指令</li>
+<li>格式设计</li>
+</ul>
+</blockquote>
+<h3 id="5-1-2-指令微调策略"><a href="#5-1-2-指令微调策略" class="headerlink" title="5.1.2 指令微调策略"></a>5.1.2 指令微调策略</h3><blockquote>
+<ul>
+<li>平衡数据分布</li>
+<li>结合指令微调和预训练</li>
+</ul>
+</blockquote>
+<h3 id="5-1-3-指令微调的效果"><a href="#5-1-3-指令微调的效果" class="headerlink" title="5.1.3 指令微调的效果"></a>5.1.3 指令微调的效果</h3><h4 id="性能改进"><a href="#性能改进" class="headerlink" title="性能改进"></a>性能改进</h4><blockquote>
+<p>最近的研究在多个规模(从 77M 到 540B 不等)上对语言模型进 行了实验，表明不同规模的模型都可以从指令微调中受益 [83, 201]，随着参数规模的增加，性能也得到了提升 [84]。</p>
+</blockquote>
+<blockquote>
+<p>此外，经过指令微调的较小模型甚至可以比未经微调的较大模型表现更好 [28, 83]。</p>
+</blockquote>
+<h4 id="任务泛化性"><a href="#任务泛化性" class="headerlink" title="任务泛化性"></a>任务泛化性</h4><h2 id="5-2-对齐微调"><a href="#5-2-对齐微调" class="headerlink" title="5.2 对齐微调"></a>5.2 对齐微调</h2><h3 id="5-2-1-对齐微调的背景"><a href="#5-2-1-对齐微调的背景" class="headerlink" title="5.2.1 对齐微调的背景"></a>5.2.1 对齐微调的背景</h3><h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><h4 id="对齐标准"><a href="#对齐标准" class="headerlink" title="对齐标准"></a>对齐标准</h4><blockquote>
+<ul>
+<li>有用性</li>
+<li>诚实性</li>
+<li>无害性</li>
+</ul>
+</blockquote>
+<h3 id="5-2-2-人类反馈收集"><a href="#5-2-2-人类反馈收集" class="headerlink" title="5.2.2 人类反馈收集"></a>5.2.2 人类反馈收集</h3><h4 id="标注人员选择"><a href="#标注人员选择" class="headerlink" title="标注人员选择"></a>标注人员选择</h4><h4 id="人类反馈收集"><a href="#人类反馈收集" class="headerlink" title="人类反馈收集"></a>人类反馈收集</h4><blockquote>
+<ul>
+<li>基于排序的方法</li>
+<li>基于问题的方法</li>
+<li>基于规则的方法</li>
+</ul>
+</blockquote>
+<h3 id="5-2-3-基于人类反馈的强化学习"><a href="#5-2-3-基于人类反馈的强化学习" class="headerlink" title="5.2.3 基于人类反馈的强化学习"></a>5.2.3 基于人类反馈的强化学习</h3><h4 id="RLHF-系统"><a href="#RLHF-系统" class="headerlink" title="RLHF 系统"></a>RLHF 系统</h4><h4 id="RLHF-的关键步骤"><a href="#RLHF-的关键步骤" class="headerlink" title="RLHF 的关键步骤"></a>RLHF 的关键步骤</h4><blockquote>
+<ul>
+<li>监督微调</li>
+<li>训练奖励模型</li>
+<li>RL 微调</li>
+</ul>
+</blockquote>
+<h1 id="6-使用"><a href="#6-使用" class="headerlink" title="6 使用"></a>6 使用</h1><h2 id="6-1-上下文学习"><a href="#6-1-上下文学习" class="headerlink" title="6.1 上下文学习"></a>6.1 上下文学习</h2><blockquote>
+<p>“上下文学习”（ICL）首次在 GPT-3 中被提出，并成为利用大语言模型的典型方法</p>
+</blockquote>
+<h3 id="6-1-1-上下文学习的一般形式"><a href="#6-1-1-上下文学习的一般形式" class="headerlink" title="6.1.1 上下文学习的一般形式"></a>6.1.1 上下文学习的一般形式</h3><h3 id="6-1-2-样例设计"><a href="#6-1-2-样例设计" class="headerlink" title="6.1.2 样例设计"></a>6.1.2 样例设计</h3><h4 id="样例选择"><a href="#样例选择" class="headerlink" title="样例选择"></a>样例选择</h4><blockquote>
+<ul>
+<li>启发式的方法</li>
+<li>基于大语言模型的方法</li>
+</ul>
+</blockquote>
+<h4 id="样例格式"><a href="#样例格式" class="headerlink" title="样例格式"></a>样例格式</h4><h4 id="样例顺序"><a href="#样例顺序" class="headerlink" title="样例顺序"></a>样例顺序</h4><h3 id="6-1-3-底层机制"><a href="#6-1-3-底层机制" class="headerlink" title="6.1.3 底层机制"></a>6.1.3 底层机制</h3><h4 id="预训练如何影响-ICL？"><a href="#预训练如何影响-ICL？" class="headerlink" title="预训练如何影响 ICL？"></a>预训练如何影响 ICL？</h4><blockquote>
+<p>ICL 首次在 GPT-3 [55] 中提出，其表明 ICL 的能力随着模型尺寸的增大而增强。而有些研究表明，小规模的预训练语言模型也可以通过特别设计的训练任务来展示出强大的 ICL 能力(例如学习根据由任务实例和查询组成的输入来预测标签)，甚至可能超越规模更大的模型[234]。因此，训练任务的设计是影响大语言模型的 ICL 能力的一个 重要因素。</p>
+</blockquote>
+<blockquote>
+<p>研究表明，ICL 的性能主要取决于预训练语料的来源而非规模</p>
+</blockquote>
+<blockquote>
+<p>当训练数据可以被聚类成许多不常见的类别，而不是均匀分布，模型就会出现 ICL 的能力。</p>
+</blockquote>
+<h4 id="大语言模型如何实现-ICL？"><a href="#大语言模型如何实现-ICL？" class="headerlink" title="大语言模型如何实现 ICL？"></a>大语言模型如何实现 ICL？</h4><h2 id="6-2-思维链提示"><a href="#6-2-思维链提示" class="headerlink" title="6.2 思维链提示"></a>6.2 思维链提示</h2><h3 id="6-2-1-用-CoT-进行上下文学习"><a href="#6-2-1-用-CoT-进行上下文学习" class="headerlink" title="6.2.1 用 CoT 进行上下文学习"></a>6.2.1 用 CoT 进行上下文学习</h3><h4 id="少样本-CoT"><a href="#少样本-CoT" class="headerlink" title="少样本 CoT"></a>少样本 CoT</h4><blockquote>
+<ul>
+<li>CoT 设计提示</li>
+<li>增强的 CoT 策略</li>
+</ul>
+</blockquote>
+<h4 id="零样本-CoT"><a href="#零样本-CoT" class="headerlink" title="零样本 CoT"></a>零样本 CoT</h4><h3 id="6-2-2-关于-CoT-的讨论"><a href="#6-2-2-关于-CoT-的讨论" class="headerlink" title="6.2.2 关于 CoT 的讨论"></a>6.2.2 关于 CoT 的讨论</h3><h4 id="CoT-何时适用于大语言模型？"><a href="#CoT-何时适用于大语言模型？" class="headerlink" title="CoT 何时适用于大语言模型？"></a>CoT 何时适用于大语言模型？</h4><blockquote>
+<p>由于 CoT 是一种涌现能 力 [47]，它只能有效增强有 100 亿或更多参数的足够大的模型[32]，而对小模型则无效。</p>
+</blockquote>
+<blockquote>
+<p>此外，由于CoT通过中间推理步骤增强了标准提示，它的效果主要体现在需要逐步推理的任务 [32]，例如算术推理、常识推理和符号推理。然而，对于不依赖于复杂推理的其他任务，它可能会比标准提示表现更差</p>
+</blockquote>
+<h4 id="大语言模型为什么能够进行-CoT-推理？"><a href="#大语言模型为什么能够进行-CoT-推理？" class="headerlink" title="大语言模型为什么能够进行 CoT 推理？"></a>大语言模型为什么能够进行 CoT 推理？</h4><h5 id="CoT-能力的来源"><a href="#CoT-能力的来源" class="headerlink" title="CoT 能力的来源"></a>CoT 能力的来源</h5><blockquote>
+<p>关于 CoT 能力的来源，研究者普遍将其归因于使用代码进行训练，因为在代码数据训练过的模型表现出强大的推理能力</p>
+</blockquote>
+<blockquote>
+<p>指令调整似乎不是获得 CoT 能力的关键原因</p>
+</blockquote>
+<h5 id="各个组件的作用"><a href="#各个组件的作用" class="headerlink" title="各个组件的作用"></a>各个组件的作用</h5><h1 id="7-能力评测"><a href="#7-能力评测" class="headerlink" title="7 能力评测"></a>7 能力评测</h1><h2 id="7-1-基础评测任务"><a href="#7-1-基础评测任务" class="headerlink" title="7.1 基础评测任务"></a>7.1 基础评测任务</h2><h3 id="7-1-1-语言生成"><a href="#7-1-1-语言生成" class="headerlink" title="7.1.1 语言生成"></a>7.1.1 语言生成</h3><h4 id="语言建模"><a href="#语言建模" class="headerlink" title="语言建模"></a>语言建模</h4><blockquote>
+<p>作为大语言模型最基本的能力，语言建模旨在基于前面的词元预测下一个词元 [15]，主要关注基本的语言理解和生成能力。</p>
+</blockquote>
+<blockquote>
+<p>语言建模任务的性能通常遵循扩展定律 [30]，这意味着提升语言模型的参数量将提高准确性并降低困惑度。</p>
+</blockquote>
+<h4 id="条件文本生成"><a href="#条件文本生成" class="headerlink" title="条件文本生成"></a>条件文本生成</h4><blockquote>
+<p>作为语言生成中的一个重要话题，条件文本生成 [48] 旨在基于给定的条件生成满足特定任务需求的文本，通常包括机器翻译 [337]、文本摘要 [338] 和问答系统 [339] 等。</p>
+</blockquote>
+<h4 id="代码合成"><a href="#代码合成" class="headerlink" title="代码合成"></a>代码合成</h4><blockquote>
+<p>除了生成高质量的自然语言外，现有的大语言模型还表现出强大的生成形式化语言的能力，尤其是满足特定条件的计算机程序(即代码)，这种能力被称为代码合成</p>
+</blockquote>
+<h4 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h4><h5 id="可控生成"><a href="#可控生成" class="headerlink" title="可控生成"></a>可控生成</h5><blockquote>
+<p>现有工作 [40] 表明，当生成文本的时候施加复杂的结构约束，大语言模型可以很好地处理局部关系(例如，相邻句子之间的交互)，但可能难以应对全局关系(即长距离相关性)。例如，要生成一个由多个段落组成的复杂长篇文章，仍然很难直接在全局上确保特定的文本结构(例如概念的顺序和逻辑流程)。对于需要遵循结构化规则或语法的生成任务，例如代码合成，会更加具有挑战性。</p>
+</blockquote>
+<blockquote>
+<p>为了解决这个问题，一种潜在的解决方案是将一次性生成(即直接生成目标输出)扩展到大语言模型的迭代提示。</p>
+</blockquote>
+<h5 id="专业化生成"><a href="#专业化生成" class="headerlink" title="专业化生成"></a>专业化生成</h5><blockquote>
+<p>直观上，领域知识对于模型的专业化至关重要。然而，将这种专业知识注入到大语言模型中并不容易。</p>
+</blockquote>
+<blockquote>
+<p>正如最近的分析所讨论的 [46, 349]，当大语言模型被训练以展现某些特定的能力，使它们在某些领域表现出色时，它们可能会在其他领域遇到困难。这样的问题与神经网络训练中的灾难性遗忘 [350, 351] 有关，它指的是整合新旧知识时产生的冲突现象。</p>
+</blockquote>
+<blockquote>
+<p>因此，开发有效的模型专业化方法至关重要，这些方法可以灵活地使大语言模型适应各种任务场景，并尽可能保留其原有的能力。</p>
+</blockquote>
+<h3 id="7-1-2-知识利用"><a href="#7-1-2-知识利用" class="headerlink" title="7.1.2 知识利用"></a>7.1.2 知识利用</h3><h4 id="闭卷问答"><a href="#闭卷问答" class="headerlink" title="闭卷问答"></a>闭卷问答</h4><h4 id="开卷问答"><a href="#开卷问答" class="headerlink" title="开卷问答"></a>开卷问答</h4><blockquote>
+<p>为了从外部资源中选择相关知识，大语言模型通常与一个文本检索器(甚至是一个搜索引擎)配对，该文本检索器与大语言模型独立或联合进行训练</p>
+</blockquote>
+<h4 id="知识补全"><a href="#知识补全" class="headerlink" title="知识补全"></a>知识补全</h4><h4 id="主要问题-1"><a href="#主要问题-1" class="headerlink" title="主要问题"></a>主要问题</h4><h5 id="幻觉"><a href="#幻觉" class="headerlink" title="幻觉"></a>幻觉</h5><blockquote>
+<p>幻觉在现有的大语言模型中广泛存在，甚至包括最优秀的大语言模型，如 GPT-4 [45]</p>
+</blockquote>
+<h5 id="知识实时性"><a href="#知识实时性" class="headerlink" title="知识实时性"></a>知识实时性</h5><blockquote>
+<p>微调大语言模型是非常昂贵的，而且在增量训练大语言模型时很可能会导致灾难性遗忘问题。</p>
+</blockquote>
+<blockquote>
+<p>直接修改内在知识或将特定知识注入大语言模型是很困难的</p>
+</blockquote>
+<h3 id="7-1-3-复杂推理"><a href="#7-1-3-复杂推理" class="headerlink" title="7.1.3 复杂推理"></a>7.1.3 复杂推理</h3><h4 id="知识推理"><a href="#知识推理" class="headerlink" title="知识推理"></a>知识推理</h4><h4 id="符号推理"><a href="#符号推理" class="headerlink" title="符号推理"></a>符号推理</h4><h4 id="数学推理"><a href="#数学推理" class="headerlink" title="数学推理"></a>数学推理</h4><h4 id="主要问题-2"><a href="#主要问题-2" class="headerlink" title="主要问题"></a>主要问题</h4><blockquote>
+<ul>
+<li>不一致性</li>
+<li>数值计算</li>
+</ul>
+</blockquote>
+<h2 id="7-2-高级能力评估"><a href="#7-2-高级能力评估" class="headerlink" title="7.2 高级能力评估"></a>7.2 高级能力评估</h2><h3 id="7-2-1-人类对齐"><a href="#7-2-1-人类对齐" class="headerlink" title="7.2.1 人类对齐"></a>7.2.1 人类对齐</h3><h3 id="7-2-2-与外部环境的互动"><a href="#7-2-2-与外部环境的互动" class="headerlink" title="7.2.2 与外部环境的互动"></a>7.2.2 与外部环境的互动</h3><h3 id="7-2-3-工具操作"><a href="#7-2-3-工具操作" class="headerlink" title="7.2.3 工具操作"></a>7.2.3 工具操作</h3><h2 id="7-3-公开基准和经验性分析"><a href="#7-3-公开基准和经验性分析" class="headerlink" title="7.3 公开基准和经验性分析"></a>7.3 公开基准和经验性分析</h2><h3 id="7-3-1-评测基准"><a href="#7-3-1-评测基准" class="headerlink" title="7.3.1 评测基准"></a>7.3.1 评测基准</h3><blockquote>
+<ul>
+<li>MMLU</li>
+<li>BIG-bench</li>
+<li>HELM</li>
+</ul>
+</blockquote>
+<h3 id="7-3-2-大语言模型能力的综合分析"><a href="#7-3-2-大语言模型能力的综合分析" class="headerlink" title="7.3.2 大语言模型能力的综合分析"></a>7.3.2 大语言模型能力的综合分析</h3><h4 id="通才"><a href="#通才" class="headerlink" title="通才"></a>通才</h4><blockquote>
+<ul>
+<li>熟练度</li>
+<li>稳定度</li>
+</ul>
+</blockquote>
+<h4 id="专才"><a href="#专才" class="headerlink" title="专才"></a>专才</h4><blockquote>
+<ul>
+<li>医疗</li>
+<li>教育</li>
+<li>法律</li>
+</ul>
+</blockquote>
+<h1 id="8-总结与未来方向"><a href="#8-总结与未来方向" class="headerlink" title="8 总结与未来方向"></a>8 总结与未来方向</h1><h2 id="理论与原理"><a href="#理论与原理" class="headerlink" title="理论与原理"></a>理论与原理</h2><blockquote>
+<p>已有工作显示，当语言模型的参数增加到某个临界规模(例如 100 亿)时，会以一种意想不到的方式(突然性能飞跃)涌现出一些能力 [32, 47]，通常包括上下文学习、指令跟随和逐步推理。</p>
+</blockquote>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><h2 id="模型训练"><a href="#模型训练" class="headerlink" title="模型训练"></a>模型训练</h2><h2 id="模型应用"><a href="#模型应用" class="headerlink" title="模型应用"></a>模型应用</h2><blockquote>
+<p>由于在实际应用中微调的成本非常高，提示已成为使用大型语言模型的主要方法。通过将任务描述和示例合并到提示中，上下文学习(一种特殊形式的提示)赋予了 LLM 在新任务上表现良好的能力，甚至在某些情况下胜过全数据微调模型。</p>
+</blockquote>
+<h2 id="安全与对齐"><a href="#安全与对齐" class="headerlink" title="安全与对齐"></a>安全与对齐</h2><h2 id="应用与生态"><a href="#应用与生态" class="headerlink" title="应用与生态"></a>应用与生态</h2>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-引言"><span class="toc-number">2.</span> <span class="toc-text">1 引言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-概述"><span class="toc-number">3.</span> <span class="toc-text">2 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#背景"><span class="toc-number">3.1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大语言模型的涌现能力"><span class="toc-number">3.2.</span> <span class="toc-text">大语言模型的涌现能力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLM-关键技术"><span class="toc-number">3.3.</span> <span class="toc-text">LLM 关键技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#扩展"><span class="toc-number">3.3.1.</span> <span class="toc-text">扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#训练"><span class="toc-number">3.3.2.</span> <span class="toc-text">训练</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#能力引导"><span class="toc-number">3.3.3.</span> <span class="toc-text">能力引导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对齐微调"><span class="toc-number">3.3.4.</span> <span class="toc-text">对齐微调</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#工具操作"><span class="toc-number">3.3.5.</span> <span class="toc-text">工具操作</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-大语言模型资源"><span class="toc-number">4.</span> <span class="toc-text">3 大语言模型资源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-公开可用的模型检查点或-API"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 公开可用的模型检查点或 API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#百亿参数量级别的模型"><span class="toc-number">4.1.1.</span> <span class="toc-text">百亿参数量级别的模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#千亿参数量级别的模型"><span class="toc-number">4.1.2.</span> <span class="toc-text">千亿参数量级别的模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大语言模型的公共-API"><span class="toc-number">4.1.3.</span> <span class="toc-text">大语言模型的公共 API</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-常用语料库"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 常用语料库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-算法库资源"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 算法库资源</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-预训练"><span class="toc-number">5.</span> <span class="toc-text">4 预训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-数据收集"><span class="toc-number">5.1.</span> <span class="toc-text">4.1 数据收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-数据来源"><span class="toc-number">5.1.1.</span> <span class="toc-text">4.1.1 数据来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-数据预处理"><span class="toc-number">5.1.2.</span> <span class="toc-text">4.1.2 数据预处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-预训练数据对大语言模型的影响"><span class="toc-number">5.1.3.</span> <span class="toc-text">4.1.3 预训练数据对大语言模型的影响</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-架构"><span class="toc-number">5.2.</span> <span class="toc-text">4.2 架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-1-主流架构"><span class="toc-number">5.2.1.</span> <span class="toc-text">4.2.1 主流架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-2-详细配置"><span class="toc-number">5.2.2.</span> <span class="toc-text">4.2.2 详细配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-3-预训练任务"><span class="toc-number">5.2.3.</span> <span class="toc-text">4.2.3 预训练任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-4-总结与讨论"><span class="toc-number">5.2.4.</span> <span class="toc-text">4.2.4 总结与讨论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-模型训练"><span class="toc-number">5.3.</span> <span class="toc-text">4.3 模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-1-优化设置"><span class="toc-number">5.3.1.</span> <span class="toc-text">4.3.1 优化设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-2-可扩展的训练技术"><span class="toc-number">5.3.2.</span> <span class="toc-text">4.3.2 可扩展的训练技术</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-大语言模型的适配微调"><span class="toc-number">6.</span> <span class="toc-text">5 大语言模型的适配微调</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-指令微调"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 指令微调</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-格式化实例构造"><span class="toc-number">6.1.1.</span> <span class="toc-text">5.1.1 格式化实例构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-2-指令微调策略"><span class="toc-number">6.1.2.</span> <span class="toc-text">5.1.2 指令微调策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-3-指令微调的效果"><span class="toc-number">6.1.3.</span> <span class="toc-text">5.1.3 指令微调的效果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-对齐微调"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 对齐微调</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-1-对齐微调的背景"><span class="toc-number">6.2.1.</span> <span class="toc-text">5.2.1 对齐微调的背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-人类反馈收集"><span class="toc-number">6.2.2.</span> <span class="toc-text">5.2.2 人类反馈收集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-3-基于人类反馈的强化学习"><span class="toc-number">6.2.3.</span> <span class="toc-text">5.2.3 基于人类反馈的强化学习</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-使用"><span class="toc-number">7.</span> <span class="toc-text">6 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-上下文学习"><span class="toc-number">7.1.</span> <span class="toc-text">6.1 上下文学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-上下文学习的一般形式"><span class="toc-number">7.1.1.</span> <span class="toc-text">6.1.1 上下文学习的一般形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-2-样例设计"><span class="toc-number">7.1.2.</span> <span class="toc-text">6.1.2 样例设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-3-底层机制"><span class="toc-number">7.1.3.</span> <span class="toc-text">6.1.3 底层机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-思维链提示"><span class="toc-number">7.2.</span> <span class="toc-text">6.2 思维链提示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-1-用-CoT-进行上下文学习"><span class="toc-number">7.2.1.</span> <span class="toc-text">6.2.1 用 CoT 进行上下文学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-关于-CoT-的讨论"><span class="toc-number">7.2.2.</span> <span class="toc-text">6.2.2 关于 CoT 的讨论</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-能力评测"><span class="toc-number">8.</span> <span class="toc-text">7 能力评测</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-基础评测任务"><span class="toc-number">8.1.</span> <span class="toc-text">7.1 基础评测任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-语言生成"><span class="toc-number">8.1.1.</span> <span class="toc-text">7.1.1 语言生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-知识利用"><span class="toc-number">8.1.2.</span> <span class="toc-text">7.1.2 知识利用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-复杂推理"><span class="toc-number">8.1.3.</span> <span class="toc-text">7.1.3 复杂推理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-高级能力评估"><span class="toc-number">8.2.</span> <span class="toc-text">7.2 高级能力评估</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-1-人类对齐"><span class="toc-number">8.2.1.</span> <span class="toc-text">7.2.1 人类对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-与外部环境的互动"><span class="toc-number">8.2.2.</span> <span class="toc-text">7.2.2 与外部环境的互动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-3-工具操作"><span class="toc-number">8.2.3.</span> <span class="toc-text">7.2.3 工具操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-公开基准和经验性分析"><span class="toc-number">8.3.</span> <span class="toc-text">7.3 公开基准和经验性分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-评测基准"><span class="toc-number">8.3.1.</span> <span class="toc-text">7.3.1 评测基准</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-大语言模型能力的综合分析"><span class="toc-number">8.3.2.</span> <span class="toc-text">7.3.2 大语言模型能力的综合分析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-总结与未来方向"><span class="toc-number">9.</span> <span class="toc-text">8 总结与未来方向</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#理论与原理"><span class="toc-number">9.1.</span> <span class="toc-text">理论与原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型架构"><span class="toc-number">9.2.</span> <span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型训练"><span class="toc-number">9.3.</span> <span class="toc-text">模型训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型应用"><span class="toc-number">9.4.</span> <span class="toc-text">模型应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安全与对齐"><span class="toc-number">9.5.</span> <span class="toc-text">安全与对齐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用与生态"><span class="toc-number">9.6.</span> <span class="toc-text">应用与生态</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

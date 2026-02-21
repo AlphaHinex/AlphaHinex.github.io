@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《架构整洁之道》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,架构整洁之道, 软件设计, 架构原则, 软件工程, 设计模式, 代码质量, 系统设计, 最佳实践"> 
+    <meta name="description" content="豆瓣评分 8.7
+第1部分 概述第1章 设计与架构究竟是什么
+软件架构的终极目标是，用最小的人力成本来满足构建和维护该系统的需求。
+
+
+一个软件架构的优劣，可以用它满足用户需求所需要的成本来衡量。如,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《架构整洁之道》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/clean-architecture/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                二月 02, 2025
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2025/02/02/clean-architecture/" title="《架构整洁之道》书摘" class="">《架构整洁之道》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    21k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    19 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://book.douban.com/subject/30333919/" target="_blank" rel="noopener">豆瓣评分 8.7</a></p>
+<h1 id="第1部分-概述"><a href="#第1部分-概述" class="headerlink" title="第1部分 概述"></a>第1部分 概述</h1><h2 id="第1章-设计与架构究竟是什么"><a href="#第1章-设计与架构究竟是什么" class="headerlink" title="第1章 设计与架构究竟是什么"></a>第1章 设计与架构究竟是什么</h2><blockquote>
+<p>软件架构的终极目标是，用最小的人力成本来满足构建和维护该系统的需求。</p>
+</blockquote>
+<blockquote>
+<p>一个软件架构的优劣，可以用它满足用户需求所需要的成本来衡量。如果该成本很低，并且在系统的整个生命周期内一直都能维持这样的低成本，那么这个系统的设计就是优良的。如果该系统的每次发布都会提升下一次变更的成本，那么这个设计就是不好的。就这么简单。</p>
+</blockquote>
+<h2 id="第2章-两个价值维度"><a href="#第2章-两个价值维度" class="headerlink" title="第2章 两个价值维度"></a>第2章 两个价值维度</h2><blockquote>
+<p>软件系统的第一个价值维度：系统行为，是紧急的，但是并不总是特别重要。</p>
+</blockquote>
+<blockquote>
+<p>软件系统的第二个价值维度：系统架构，是重要的，但是并不总是特别紧急。</p>
+</blockquote>
+<blockquote>
+<p>最终我们应将这四类事情进行如下排序：</p>
+<ol>
+<li>重要且紧急</li>
+<li>重要不紧急</li>
+<li>不重要但紧急</li>
+<li>不重要且不紧急</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>在这里你可以看到，软件的系统架构——那些重要的事情——占据了该列表的前两位，而系统行为——那些紧急的事情——只占据了第一和第三位。</p>
+</blockquote>
+<blockquote>
+<p>业务部门与研发人员经常犯的共同错误就是将第三优先级的事情提到第一优先级去做。</p>
+</blockquote>
+<blockquote>
+<p>换句话说，他们没有把真正紧急并且重要的功能和紧急但是不重要的功能分开。这个错误导致了重要的事被忽略了，重要的系统架构问题让位给了不重要的系统行为功能。</p>
+</blockquote>
+<blockquote>
+<p>但研发人员还忘了一点，那就是业务部门原本就是没有能力评估系统架构的重要程度的，这本来就应该是研发人员自己的工作职责！所以，平衡系统架构的重要性与功能的紧急程度这件事，是软件研发人员自己的职责。</p>
+</blockquote>
+<blockquote>
+<p>为了做好上述职责，软件团队必须做好斗争的准备——或者说“长期抗争”的准备。现状就是这样。研发团队必须从公司长远利益出发与其他部门抗争，这和管理团队的工作一样，甚至市场团队、销售团队、运营团队都是这样。公司内部的抗争本来就是无止境的。</p>
+</blockquote>
+<blockquote>
+<p>有成效的软件研发团队会迎难而上，毫不掩饰地与所有其他的系统相关方进行平等的争吵。</p>
+</blockquote>
+<blockquote>
+<p>请记住：如果忽视软件架构的价值，系统将会变得越来越难以维护，终会有一天，系统将会变得再也无法修改。如果系统变成了这个样子，那么说明软件开发团队没有和需求方做足够的抗争，没有完成自己应尽的职责。</p>
+</blockquote>
+<h1 id="第2部分-从基础构建开始：编程范式"><a href="#第2部分-从基础构建开始：编程范式" class="headerlink" title="第2部分 从基础构建开始：编程范式"></a>第2部分 从基础构建开始：编程范式</h1><h2 id="第3章-编程范式总览"><a href="#第3章-编程范式总览" class="headerlink" title="第3章 编程范式总览"></a>第3章 编程范式总览</h2><blockquote>
+<p>三个编程范式，它们分别是结构化编程(structured programming)、面向对象编程(object-oriented programming)以及函数式编程(functional programming)。</p>
+</blockquote>
+<blockquote>
+<p>我们可以将结构化编程范式归结为一句话：<br>结构化编程对程序控制权的直接转移进行了限制和规范。</p>
+</blockquote>
+<blockquote>
+<p>在这里，我们也可以用一句话来总结面向对象编程：<br>面向对象编程对程序控制权的间接转移进行了限制和规范。</p>
+</blockquote>
+<blockquote>
+<p>我们在这里可以将函数式编程范式总结为下面这句话：<br>函数式编程对程序中的赋值进行了限制和规范。</p>
+</blockquote>
+<blockquote>
+<p>它们都从某一方面限制和规范了程序员的能力。没有一个范式是增加新能力的。也就是说，每个编程范式的目的都是设置限制。这些范式主要是为了告诉我们不能做什么，而不是可以做什么。</p>
+</blockquote>
+<blockquote>
+<p>另外，我们应该认识到，这三个编程范式分别限制了goto语句、函数指针和赋值语句的使用。</p>
+</blockquote>
+<blockquote>
+<p>多态是我们跨越架构边界的手段，函数式编程是我们规范和限制数据存放位置与访问权限的手段，结构化编程则是各模块的算法实现基础。<br>这和软件架构的三大关注重点不谋而合：功能性、组件独立性以及数据管理。</p>
+</blockquote>
+<h2 id="第4章-结构化编程"><a href="#第4章-结构化编程" class="headerlink" title="第4章 结构化编程"></a>第4章 结构化编程</h2><blockquote>
+<p>Dijkstra在研究过程中发现了一个问题：goto语句的某些用法会导致某个模块无法被递归拆分成更小的、可证明的单元，这会导致无法采用分解法来将大型问题进一步拆分成更小的、可证明的部分。</p>
+</blockquote>
+<blockquote>
+<p>Bohm和Jocopini刚刚证明了人们可以用顺序结构、分支结构、循环结构这三种结构构造出任何程序。</p>
+</blockquote>
+<blockquote>
+<p>这个发现非常重要：因为它证明了我们构建可推导模块所需要的控制结构集与构建所有程序所需的控制结构集的最小集是等同的。这样一来，结构化编程就诞生了。</p>
+</blockquote>
+<blockquote>
+<p>循环结构的证明过程则有些不同，为了证明一段循环程序的正确性，Dijkstra需要采用数学归纳法。具体来说就是，首先要用枚举法证明循环1次的正确性。接下来再证明如果循环N次是正确的，那么循环N+1次也同样也是正确的。最后还要用枚举法证明循环结构的起始与结束条件的正确性。</p>
+</blockquote>
+<blockquote>
+<p>现如今，无论是否自愿，我们都是结构化编程范式的践行者了，因为我们用的编程语言基本上都已经禁止了不受限制的直接控制转移语句。</p>
+</blockquote>
+<blockquote>
+<p>科学和数学在证明方法上有着根本性的不同，科学理论和科学定律通常是无法被证明的</p>
+</blockquote>
+<blockquote>
+<p>这就是科学理论和科学定律的特点：它们可以被证伪，但是没有办法被证明。</p>
+</blockquote>
+<blockquote>
+<p>科学方法论不需要证明某条结论是正确的，只需要想办法证明它是错误的。如果某个结论经过一定的努力无法证伪，我们则认为它在当下是足够正确的。</p>
+</blockquote>
+<blockquote>
+<p>结构化编程范式中最有价值的地方就是，它赋予了我们创造可证伪程序单元的能力。</p>
+</blockquote>
+<blockquote>
+<p>更重要的是，这也是为什么在架构设计领域，功能性降解拆分仍然是最佳实践之一。</p>
+</blockquote>
+<blockquote>
+<p>无论在哪一个层面上，从最小的函数到最大组件，软件开发的过程都和科学研究非常类似，它们都是由证伪驱动的。软件架构师需要定义可以方便地进行证伪（测试）的模块、组件以及服务。为了达到这个目的，他们需要将类似结构化编程的限制方法应用在更高的层面上。</p>
+</blockquote>
+<h2 id="第5章-面向对象编程"><a href="#第5章-面向对象编程" class="headerlink" title="第5章 面向对象编程"></a>第5章 面向对象编程</h2><blockquote>
+<p>虽然面向对象编程在继承性方面并没有开创出新，但是的确在数据结构的伪装性上提供了相当程度的便利性。</p>
+</blockquote>
+<blockquote>
+<p>请注意模块ML1和接口I在源代码上的依赖关系（或者叫继承关系），该关系的方向和控制流正好是相反的，我们称之为依赖反转。这种反转对软件架构设计的影响是非常大的。</p>
+</blockquote>
+<blockquote>
+<p>面向对象编程到底是什么？业界在这个问题上存在着很多不同的说法和意见。然而对一个软件架构师来说，其含义应该是非常明确的：面向对象编程就是以多态为手段来对源代码中的依赖关系进行控制的能力，这种能力让软件架构师可以构建出某种插件式架构，让高层策略性组件与底层实现性组件相分离，底层组件可以被编译成插件，实现独立于高层组件的开发和部署。</p>
+</blockquote>
+<h2 id="第6章-函数式编程"><a href="#第6章-函数式编程" class="headerlink" title="第6章 函数式编程"></a>第6章 函数式编程</h2><blockquote>
+<p>函数式编程语言中的变量(Variable)是不可变(Vary)的。</p>
+</blockquote>
+<blockquote>
+<p>为什么不可变性是软件架构设计需要考虑的重点呢？为什么软件架构师要操心变量的可变性呢？答案显而易见：所有的竞争问题、死锁问题、并发更新问题都是由可变变量导致的。如果变量永远不会被更改，那就不可能产生竞争或者并发更新问题。如果锁状态是不可变的，那就永远不会产生死锁问题。</p>
+</blockquote>
+<blockquote>
+<p>如果我们能忽略存储器与处理器在速度上的限制，那么答案是肯定的。否则的话，不可变性只有在一定情况下是可行的。</p>
+</blockquote>
+<blockquote>
+<p>在这里，swap！所采用的策略是传统的比较+替换算法。即先读取counter变量的值，再将其传入inc函数。然后当inc函数返回时，将原先用锁保护起来的counter值与传入inc时的值进行比较。如果两边的值一致，则将inc函数返回的值存入counter，释放锁。否则，先释放锁，再从头进行重试。</p>
+</blockquote>
+<blockquote>
+<p>当然，atom这个机制只适用于上面这种简单的应用程序，它并不适用于解决由多个相关变量同时需要更改所引发的并发更新问题和死锁问题，要想解决这些问题，我们就需要用到更复杂的机制。</p>
+</blockquote>
+<blockquote>
+<p>这里的要点是：一个架构设计良好的应用程序应该将状态修改的部分和不需要修改状态的部分隔离成单独的组件，然后用合适的机制来保护可变量。</p>
+</blockquote>
+<blockquote>
+<p>软件架构师应该着力于将大部分处理逻辑都归于不可变组件中，可变状态组件的逻辑应该越少越好。</p>
+</blockquote>
+<h1 id="第3部分-设计原则"><a href="#第3部分-设计原则" class="headerlink" title="第3部分 设计原则"></a>第3部分 设计原则</h1><blockquote>
+<ul>
+<li>SRP：单一职责原则。</li>
+<li>OCP：开闭原则。</li>
+<li>LSP：里氏替换原则。</li>
+<li>ISP：接口隔离原则。</li>
+<li>DIP：依赖反转原则。</li>
+</ul>
+</blockquote>
+<h2 id="第7章-SRP：单一职责原则"><a href="#第7章-SRP：单一职责原则" class="headerlink" title="第7章 SRP：单一职责原则"></a>第7章 SRP：单一职责原则</h2><blockquote>
+<p>任何一个软件模块都应该只对某一类行为者负责。</p>
+</blockquote>
+<h2 id="第8章-OCP：开闭原则"><a href="#第8章-OCP：开闭原则" class="headerlink" title="第8章 OCP：开闭原则"></a>第8章 OCP：开闭原则</h2><blockquote>
+<p>“软件系统不应该依赖其不直接使用的组件”这一基本原则。</p>
+</blockquote>
+<blockquote>
+<p>OCP是我们进行系统架构设计的主导原则，其主要目标是让系统易于扩展，同时限制其每次被修改所影响的范围。实现方式是通过将系统划分为一系列组件，并且将这些组件间的依赖关系按层次结构进行组织，使得高阶组件不会因低阶组件被修改而受到影响。</p>
+</blockquote>
+<h2 id="第10章-ISP：接口隔离原则"><a href="#第10章-ISP：接口隔离原则" class="headerlink" title="第10章 ISP：接口隔离原则"></a>第10章 ISP：接口隔离原则</h2><blockquote>
+<p>任何层次的软件设计如果依赖了它并不需要的东西，就会带来意料之外的麻烦。</p>
+</blockquote>
+<h2 id="第11章-DIP：依赖反转原则"><a href="#第11章-DIP：依赖反转原则" class="headerlink" title="第11章 DIP：依赖反转原则"></a>第11章 DIP：依赖反转原则</h2><blockquote>
+<p>我们在软件系统中并不可能完全消除违反DIP的情况。通常只需要把它们集中于少部分的具体实现组件中，将其与系统的其他部分隔离即可。</p>
+</blockquote>
+<h1 id="第4部分-组件构建原则"><a href="#第4部分-组件构建原则" class="headerlink" title="第4部分 组件构建原则"></a>第4部分 组件构建原则</h1><h2 id="第12章-组件"><a href="#第12章-组件" class="headerlink" title="第12章 组件"></a>第12章 组件</h2><blockquote>
+<p>无论采用什么编程语言来开发软件，组件都是该软件在部署过程中的最小单元。</p>
+</blockquote>
+<blockquote>
+<p>无论采用哪种部署形式，设计良好的组件都应该永远保持可被独立部署的特性，这同时也意味着这些组件应该可以被单独开发。</p>
+</blockquote>
+<h2 id="第13章-组件聚合"><a href="#第13章-组件聚合" class="headerlink" title="第13章 组件聚合"></a>第13章 组件聚合</h2><blockquote>
+<p>三个与构建组件相关的基本原则：</p>
+<ul>
+<li>REP：复用/发布等同原则。</li>
+<li>CCP：共同闭包原则。</li>
+<li>CRP：共同复用原则。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>软件复用的最小粒度应等同于其发布的最小粒度。</p>
+</blockquote>
+<blockquote>
+<p>我们应该将那些会同时修改，并且为相同目的而修改的类放到同一个组件中，而将不会同时修改，并且不会为了相同目的而修改的那些类放到不同的组件中。</p>
+</blockquote>
+<blockquote>
+<p>不要强迫一个组件的用户依赖他们不需要的东西。</p>
+</blockquote>
+<h2 id="第14章-组件耦合"><a href="#第14章-组件耦合" class="headerlink" title="第14章 组件耦合"></a>第14章 组件耦合</h2><blockquote>
+<p>组件依赖关系图中不应该出现环。</p>
+</blockquote>
+<blockquote>
+<p>依赖关系必须要指向更稳定的方向。</p>
+</blockquote>
+<blockquote>
+<p>任何一个我们预期会经常变更的组件都不应该被一个难于修改的组件所依赖，否则这个多变的组件也将会变得非常难以被修改。</p>
+</blockquote>
+<blockquote>
+<p>稳定指的是“很难移动”。所以稳定性应该与变更所需的工作量有关。</p>
+</blockquote>
+<blockquote>
+<p>例如，硬币是不稳定的，因为只需要很小的动作就可以推倒它，而桌子则是非常稳定的，因为将它掀翻需要很大的动作。</p>
+</blockquote>
+<blockquote>
+<p>带有许多入向依赖关系的组件是非常稳定的，因为它的任何变更都需要应用到所有依赖它的组件上。</p>
+</blockquote>
+<blockquote>
+<p>I：不稳定性，I=Fan-out/(Fan-in+Fan-out)。该指标的范围是[0,1],I=0意味着组件是最稳定的，I=1意味着组件是最不稳定的。</p>
+</blockquote>
+<blockquote>
+<p>稳定依赖原则(SDP)的要求是让每个组件的I指标都必须大于其所依赖组件的I指标。</p>
+</blockquote>
+<blockquote>
+<p>也就是说，组件结构依赖图中各组件的I指标必须要按其依赖关系方向递减。</p>
+</blockquote>
+<blockquote>
+<p>并不是所有组件都应该是稳定的</p>
+</blockquote>
+<blockquote>
+<p>如果一个系统中的所有组件都处于最高稳定性状态，那么系统就一定无法再进行变更了，这显然不是我们想要的。</p>
+</blockquote>
+<blockquote>
+<p>事实上，我们设计组件架构图的目的就是要决定应该让哪些组件稳定，让哪些组件不稳定。</p>
+</blockquote>
+<blockquote>
+<p>一个组件的抽象化程度应该与其稳定性保持一致。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/clean-architecture/14.13.jpeg" alt="图14.13：排除区"></p>
+</blockquote>
+<h1 id="第5部分-软件架构"><a href="#第5部分-软件架构" class="headerlink" title="第5部分 软件架构"></a>第5部分 软件架构</h1><blockquote>
+<p>如果想设计一个便于推进各项工作的系统，其策略就是要在设计中尽可能长时间地保留尽可能多的可选项。</p>
+</blockquote>
+<blockquote>
+<p>软件架构的终极目标就是最大化程序员的生产力，同时最小化系统的总运营成本。</p>
+</blockquote>
+<blockquote>
+<p>如果在开发高层策略时有意地让自己摆脱具体细节的纠缠，我们就可以将与具体实现相关的细节决策推迟或延后，因为越到项目的后期，我们就拥有越多的信息来做出合理的决策。</p>
+</blockquote>
+<blockquote>
+<p>我们保留这些可选项的时间越长，实验的机会也就越多。而实验做得越多，我们做决策的时候就能拥有越充足的信息。</p>
+</blockquote>
+<blockquote>
+<p>一个优秀的软件架构师应该致力于最大化可选项数量。</p>
+</blockquote>
+<blockquote>
+<p>优秀的架构师会小心地将软件的高层策略与其底层实现隔离开，让高层策略与实现细节脱钩，使其策略部分完全不需要关心底层细节，当然也不会对这些细节有任何形式的依赖。另外，优秀的架构师所设计的策略应该允许系统尽可能地推迟与实现细节相关的决策，越晚做决策越好。</p>
+</blockquote>
+<h2 id="第16章-独立性"><a href="#第16章-独立性" class="headerlink" title="第16章 独立性"></a>第16章 独立性</h2><blockquote>
+<p>重复的情况中也有一些是假的，或者说这种重复只是表面性的。如果有两段看起来重复的代码，它们走的是不同的演进路径，也就是说它们有着不同的变更速率和变更缘由，那么这两段代码就不是真正的重复。</p>
+</blockquote>
+<blockquote>
+<p>我们一定要小心避免陷入对任何重复都要立即消除的应激反应模式中。一定要确保这些消除动作只针对那些真正意义上的重复。</p>
+</blockquote>
+<blockquote>
+<p>通常，我会倾向于将系统的解耦推行到某种一旦有需要就可以随时转变为服务的程度即可，让整个程序尽量长时间地保持单体结构，以便给未来留下可选项。</p>
+</blockquote>
+<blockquote>
+<p>在这种方式下，系统最初的组件隔离措施都是做在源码层次上的，这样的解耦可能在整个项目的生命周期里已经足够了。然而，如果部署和开发方面有更高的需求出现，那么将某些组件解耦到部署单元层次就可能够了，起码能撑上一阵。</p>
+</blockquote>
+<blockquote>
+<p>一个设计良好的架构应该能允许一个系统从单体结构开始，以单一文件的形式部署，然后逐渐成长为一组相互独立的可部署单元，甚至是独立的服务或者微服务。最后还能随着情况的变化，允许系统逐渐回退到单体结构。</p>
+</blockquote>
+<blockquote>
+<p>并且，一个设计良好的架构在上述过程中还应该能保护系统的大部分源码不受变更影响。对整个系统来说，解耦模式也应该是一个可选项。我们在进行大型部署时可以采用一种模式，而在进行小型部署时则可以采用另一种模式。</p>
+</blockquote>
+<blockquote>
+<p>这里的主要观点认为，一个系统所适用的解耦模式可能会随着时间而变化，优秀的架构师应该能预见这一点，并且做出相应的对策。</p>
+</blockquote>
+<h2 id="第17章-划分边界"><a href="#第17章-划分边界" class="headerlink" title="第17章 划分边界"></a>第17章 划分边界</h2><blockquote>
+<p>软件架构设计本身就是一门划分边界的艺术。边界的作用是将软件分割成各种元素，以便约束边界两侧之间的依赖关系。</p>
+</blockquote>
+<blockquote>
+<p>架构师们所追求的目标是最大限度地降低构建和维护一个系统所需的人力资源。那么我们就需要了解一个系统最消耗人力资源的是什么？答案是系统中存在的耦合——尤其是那些过早做出的、不成熟的决策所导致的耦合。</p>
+</blockquote>
+<blockquote>
+<p>数据库又与业务逻辑无关，所以两者之间也应该有一条边界线。</p>
+</blockquote>
+<blockquote>
+<p>大部分人都已经习惯性地认为数据库是与业务逻辑不可分割的了，有些人甚至认为，数据库相关逻辑部分本身就是业务逻辑的具体体现。</p>
+</blockquote>
+<blockquote>
+<p>这个想法从根本上就是错误的。数据库应该是业务逻辑间接使用的一个工具。业务逻辑并不需要了解数据库的表结构、查询语言或其他任何数据库内部的实现细节。业务逻辑唯一需要知道的，就是有一组可以用来查询和保存数据的函数。这样一来，我们才可以将数据库隐藏在接口后面。</p>
+</blockquote>
+<h2 id="第18章-边界剖析"><a href="#第18章-边界剖析" class="headerlink" title="第18章 边界剖析"></a>第18章 边界剖析</h2><blockquote>
+<p>本地进程往往运行于单个处理器或多核系统的同一组处理器上，但它们拥有各自不同的地址空间。一般来说，现有的内存保护机制会使这些进程无法共享其内存，但它们通常可以用某种独立的内存区域来实现共享。</p>
+</blockquote>
+<blockquote>
+<p>最常见的情况是，这些本地进程会用socket来实现彼此的通信。</p>
+</blockquote>
+<blockquote>
+<p>一个系统中通常会同时包含高通信量、低延迟的本地架构边界和低通信量、高延迟的服务边界。</p>
+</blockquote>
+<h2 id="第19章-策略与层次"><a href="#第19章-策略与层次" class="headerlink" title="第19章 策略与层次"></a>第19章 策略与层次</h2><blockquote>
+<p>我们对“层次”是严格按照“输入与输出之间的距离”来定义的。也就是说，一条策略距离系统的输入/输出越远，它所属的层次就越高。而直接管理输入/输出的策略在系统中的层次是最低的。</p>
+</blockquote>
+<blockquote>
+<p>低层组件应该成为高层组件的插件。</p>
+</blockquote>
+<h2 id="第20章-业务逻辑"><a href="#第20章-业务逻辑" class="headerlink" title="第20章 业务逻辑"></a>第20章 业务逻辑</h2><blockquote>
+<p>关键业务逻辑和关键业务数据是紧密相关的，所以它们很适合被放在同一个对象中处理。我们将这种对象称为“业务实体(Entity)”￼。</p>
+</blockquote>
+<blockquote>
+<p>当我们创建这样一个类时，其实就是在将软件中具体实现了该关键业务的部分聚合在一起，将其与自动化系统中我们所构建的其他部分隔离区分。这个类独自代表了整个业务逻辑，它与数据库、用户界面、第三方框架等内容无关。该类可以在任何一个系统中提供与其业务逻辑相关的服务，它不会去管这个系统是如何呈现给用户的，数据是如何存储的，或者是以何种方式运行的。总而言之，业务实体这个概念中应该只有业务逻辑，没有别的。</p>
+</blockquote>
+<blockquote>
+<p>业务实体不一定非要用面向对象编程语言的类来实现。业务实体这个概念只要求我们将关键业务数据和关键业务逻辑绑定在一个独立的软件模块内。</p>
+</blockquote>
+<blockquote>
+<p>用例本质上就是关于如何操作一个自动化系统的描述，它定义了用户需要提供的输入数据、用户应该得到的输出信息以及产生输出所应该采取的处理步骤。</p>
+</blockquote>
+<blockquote>
+<p>可能有些读者会选择直接在数据结构中使用对业务实体对象的引用。毕竟，业务实体与请求/响应模型之间有很多相同的数据。但请一定不要这样做！这两个对象存在的意义是非常、非常不一样的。随着时间的推移，这两个对象会以不同的原因、不同的速率发生变更。所以将它们以任何方式整合在一起都是对共同闭包原则(CCP)和单一职责原则(SRP)的违反。这样做的后果，往往会导致代码中出现很多分支判断语句和中间数据。</p>
+</blockquote>
+<blockquote>
+<p>业务逻辑是一个软件系统存在的意义，它们属于核心功能，是系统用来赚钱或省钱的那部分代码，是整个系统中的皇冠明珠。</p>
+</blockquote>
+<blockquote>
+<p>这些业务逻辑应该保持纯净，不要掺杂用户界面或者所使用的数据库相关的东西。在理想情况下，这部分代表业务逻辑的代码应该是整个系统的核心，其他低层概念的实现应该以插件形式接入系统中。业务逻辑应该是系统中最独立、复用性最高的代码。</p>
+</blockquote>
+<h2 id="第21章-尖叫的软件架构"><a href="#第21章-尖叫的软件架构" class="headerlink" title="第21章 尖叫的软件架构"></a>第21章 尖叫的软件架构</h2><blockquote>
+<p>架构设计不是（或者说不应该是）与框架相关的，这件事不应该是基于框架来完成的。</p>
+</blockquote>
+<blockquote>
+<p>如果我们的架构是基于框架来设计的，它就不能基于我们的用例来设计了。</p>
+</blockquote>
+<blockquote>
+<p>良好的架构设计应该只关注用例，并能将它们与其他的周边因素隔离。</p>
+</blockquote>
+<h2 id="第22章-整洁架构"><a href="#第22章-整洁架构" class="headerlink" title="第22章 整洁架构"></a>第22章 整洁架构</h2><blockquote>
+<p><img src="/contents/clean-architecture/22.1.jpeg" alt="图22.1：整洁架构"></p>
+</blockquote>
+<blockquote>
+<p>图22.1中的同心圆分别代表了软件系统中的不同层次，通常越靠近中心，其所在的软件层次就越高。基本上，外层圆代表的是机制，内层圆代表的是策略。</p>
+</blockquote>
+<blockquote>
+<p>当然这其中有一条贯穿整个架构设计的规则，即它的依赖关系规则：<br>源码中的依赖关系必须只指向同心圆的内层，即由低层机制指向高层策略。</p>
+</blockquote>
+<blockquote>
+<p>我们不应该让外层圆中发生的任何变更影响到内层圆的代码。</p>
+</blockquote>
+<blockquote>
+<p>业务实体这一层中封装的是整个系统的关键业务逻辑，一个业务实体既可以是一个带有方法的对象，也可以是一组数据结构和函数的集合。无论如何，只要它能被系统中的其他不同应用复用就可以。</p>
+</blockquote>
+<blockquote>
+<p>软件的用例层中通常包含的是特定应用场景下的业务逻辑，这里面封装并实现了整个系统的所有用例。这些用例引导了数据在业务实体之间的流入/流出，并指挥着业务实体利用其中的关键业务逻辑来实现用例的设计目标。</p>
+</blockquote>
+<blockquote>
+<p>软件的接口适配器层中通常是一组数据转换器，它们负责将数据从对用例和业务实体而言最方便操作的格式，转化成外部系统（譬如数据库以及Web）最方便操作的格式。</p>
+</blockquote>
+<blockquote>
+<p>图22.1中最外层的模型层一般是由工具、数据库、Web框架等组成的。在这一层中，我们通常只需要编写一些与内层沟通的黏合性代码。</p>
+</blockquote>
+<h2 id="第23章-展示器和谦卑对象"><a href="#第23章-展示器和谦卑对象" class="headerlink" title="第23章 展示器和谦卑对象"></a>第23章 展示器和谦卑对象</h2><blockquote>
+<p>谦卑对象模式最初的设计目的是帮助单元测试的编写者区分容易测试的行为与难以测试的行为，并将它们隔离。其设计思路非常简单，就是将这两类行为拆分成两组模块或类。其中一组模块被称为谦卑(Humble)组，包含了系统中所有难以测试的行为，而这些行为已经被简化到不能再简化了。另一组模块则包含了所有不属于谦卑对象的行为。</p>
+</blockquote>
+<blockquote>
+<p>视图部分属于难以测试的谦卑对象。这种对象的代码通常应该越简单越好，它只应负责将数据填充到GUI上，而不应该对数据进行任何处理。</p>
+</blockquote>
+<blockquote>
+<p>展示器则是可测试的对象。展示器的工作是负责从应用程序中接收数据，然后按视图的需要将这些数据格式化，以便视图将其呈现在屏幕上。</p>
+</blockquote>
+<blockquote>
+<p>总而言之，应用程序所能控制的、要在屏幕上显示的一切东西，都应该在视图模型中以字符串、布尔值或枚举值的形式存在。然后，视图部分除了加载视图模型所需要的值，不应该再做任何其他事情。因此，我们才能说视图是谦卑对象。</p>
+</blockquote>
+<blockquote>
+<p>强大的可测试性是一个架构的设计是否优秀的显著衡量标准之一。</p>
+</blockquote>
+<blockquote>
+<p>对于用例交互器(interactor)与数据库中间的组件，我们通常称之为数据库网关。这些数据库网关本身是一个多态接口，包含了应用程序在数据库上所要执行的创建、读取、更新、删除等所有操作。</p>
+</blockquote>
+<blockquote>
+<p>ORM系统应该属于系统架构中的哪一层呢？当然是数据库层。ORM其实就是在数据库和数据库网关接口之间构建了另一种谦卑对象的边界。</p>
+</blockquote>
+<blockquote>
+<p>在每个系统架构的边界处，都有可能发现谦卑对象模式的存在。因为跨边界的通信肯定需要用到某种简单的数据结构，而边界会自然而然地将系统分割成难以测试的部分与容易测试的部分，所以通过在系统的边界处运用谦卑对象模式，我们可以大幅地提高整个系统的可测试性。</p>
+</blockquote>
+<h2 id="第24章-不完全边界"><a href="#第24章-不完全边界" class="headerlink" title="第24章 不完全边界"></a>第24章 不完全边界</h2><blockquote>
+<p>省掉最后一步</p>
+</blockquote>
+<blockquote>
+<p>构建不完全边界的一种方式就是在将系统分割成一系列可以独立编译、独立部署的组件之后，再把它们构建成一个组件。换句话说，在将系统中所有的接口、用于输入/输出的数据格式等每一件事都设置好之后，仍选择将它们统一编译和部署为一个组件。</p>
+</blockquote>
+<blockquote>
+<p>单向边界</p>
+</blockquote>
+<blockquote>
+<p>门户模式</p>
+</blockquote>
+<blockquote>
+<p>在本章，我们介绍了三种不完全地实现架构边界的简单方法。当然，这类边界还有许多种其他实现方式，本章所介绍的这三种策略只为示范之用。</p>
+</blockquote>
+<blockquote>
+<p>每种实现方式都有相应的成本和收益。每种方式都有自己所适用的场景，它们可以被用来充当最终完整架构边界的临时替代品。同时，如果这些边界最终被证明是没有必要存在的，那么也可以被自然降解。</p>
+</blockquote>
+<blockquote>
+<p>架构师的职责之一就是预判未来哪里有可能会需要设置架构边界，并决定应该以完全形式还是不完全形式来实现它们。</p>
+</blockquote>
+<h2 id="第25章-层次与边界"><a href="#第25章-层次与边界" class="headerlink" title="第25章 层次与边界"></a>第25章 层次与边界</h2><blockquote>
+<p>我们设计这个例子的目的就是为了证明架构边界可以存在于任何地方。作为架构师，我们必须要小心审视究竟在什么地方才需要设计架构边界。另外，我们还必须弄清楚完全实现这些边界将会带来多大的成本。</p>
+</blockquote>
+<blockquote>
+<p>同时，我们也必须要了解如果事先忽略了这些边界，后续再添加会有多么困难——哪怕有覆盖广泛的测试，严加小心的重构也于事无补。</p>
+</blockquote>
+<blockquote>
+<p>软件架构师必须仔细权衡成本，决定哪里需要设计架构边界，以及这些地方需要的是完整的边界，还是不完全的边界，还是可以忽略的边界。</p>
+</blockquote>
+<blockquote>
+<p>而且，这不是一次性的决定。我们不能在项目开始时就决定好哪里需要设计边界，哪里不需要。相反，架构师必须持续观察系统的演进，时刻注意哪里可能需要设计边界，然后仔细观察这些地方会由于不存在边界而出现哪些问题。</p>
+</blockquote>
+<blockquote>
+<p>当出现问题时，我们还需要权衡一下实现这个边界的成本，并拿它与不实现这个边界的成本对比——这种对比经常需要反复地进行。我们的目标是找到设置边界的优势超过其成本的拐点，那就是实现该边界的最佳时机。</p>
+</blockquote>
+<blockquote>
+<p>持之以恒，一刻也不能放松。</p>
+</blockquote>
+<h2 id="第27章-服务：宏观与微观"><a href="#第27章-服务：宏观与微观" class="headerlink" title="第27章 服务：宏观与微观"></a>第27章 服务：宏观与微观</h2><blockquote>
+<p>如果给服务之间传递的数据记录中增加了一个新字段，那么每个需要操作这个字段的服务都必须要做出相应的变更，服务之间必须对这条数据的解读达成一致。因此其实这些服务全部是强耦合于这条数据结构的，因此它们是间接彼此耦合的。</p>
+</blockquote>
+<blockquote>
+<p>上文说到的解耦合谬论已经说明拆分服务并不意味着这些服务可以彼此独立开发、部署和运维。如果这些服务之间以数据形式或者行为形式相耦合，那么它们的开发、部署和运维也必须彼此协调来进行。</p>
+</blockquote>
+<blockquote>
+<p>虽然服务化可能有助于提升系统的可扩展性和可研发性，但服务本身却并不能代表整个系统的架构设计。系统的架构是由系统内部的架构边界，以及边界之间的依赖关系所定义的，与系统中各组件之间的调用和通信方式无关。</p>
+</blockquote>
+<h2 id="第28章-测试边界"><a href="#第28章-测试边界" class="headerlink" title="第28章 测试边界"></a>第28章 测试边界</h2><blockquote>
+<p>事实上，我们可以将测试组件视为系统架构中最外圈的程序。它们始终是向内依赖的，而且系统中没有其他组件依赖于它们。</p>
+</blockquote>
+<blockquote>
+<p>脆弱的测试还往往会让系统变得非常死板。当开发者意识到一些简单的修改就会导致大量的测试出错时，他们自然就会抵制修改。</p>
+</blockquote>
+<blockquote>
+<p>GUI往往是多变的，因此通过GUI来验证系统的测试一定是脆弱的。因此，我们在系统设计与测试设计时，应该让业务逻辑不通过GUI也可以被测试。</p>
+</blockquote>
+<blockquote>
+<p>每当应用程序中的一个函数或类发生变更时，该测试套件就必须进行大量相应的修改。因此，这些测试是非常脆弱的，它们也会让产品代码变得非常死板。</p>
+</blockquote>
+<blockquote>
+<p>测试专用API的作用就是将应用程序与测试代码解耦。这样，我们的产品代码就可以在不影响测试的情况下进行重构和演进。同样的，这种设计也允许测试代码在不影响生产代码的情况下进行重构和演进。</p>
+</blockquote>
+<blockquote>
+<p>这种具有超级权限的测试专用API如果被部署到我们的产品系统中，可能会是非常危险的。如果要避免这种情况发生，应该将测试专用API及其对应的具体实现放置在一个单独的、可独立部署的组件中。</p>
+</blockquote>
+<h2 id="第29章-整洁的嵌入式架构"><a href="#第29章-整洁的嵌入式架构" class="headerlink" title="第29章 整洁的嵌入式架构"></a>第29章 整洁的嵌入式架构</h2><blockquote>
+<p>Doug在这篇文章中提出了以下观点：</p>
+<p>“虽然软件本身并不会随时间推移而磨损，但硬件及其固件却会随时间推移而过时，随即也需要对软件做相应改动。”</p>
+</blockquote>
+<blockquote>
+<p>在这里，我想对Dough上面的那个观点做一点补充：<br>“虽然软件质量本身并不会随时间推移而损耗，但是未妥善管理的硬件依赖和固件依赖却是软件的头号杀手。”</p>
+</blockquote>
+<blockquote>
+<p>Doug的这段观点表述让我意识到，大家普遍所认知的固件定义是错误的，或者至少是过时的。固件并不一定是指存储在ROM中的代码。固件也并不是依据其存储的位置来定义的，而是由其代码的依赖关系，及其随着硬件的演进在变更难度上的变化来定义的。</p>
+</blockquote>
+<blockquote>
+<p>虽然你可能并不是嵌入式系统的开发者，但如果你在代码中嵌入了SQL或者是代码中引入了对某个平台的依赖的话，其实就是在写固件代码。</p>
+</blockquote>
+<blockquote>
+<p>对于程序员和工程师，我的意思很明确：不要再写固件代码了，让我们的代码活得更久一点！</p>
+</blockquote>
+<blockquote>
+<p>Kent Beck描述了软件构建过程中的三个阶段（引号部分是他的原话，楷体部分是我的注解）：</p>
+<ol>
+<li>“先让代码工作起来”——如果代码不能工作，就不能产生价值。</li>
+<li>“然后再试图将它变好”——通过对代码进行重构，让我们自己和其他人更好地理解代码，并能按照需求不断地修改代码。</li>
+<li>“最后再试着让它运行得更快”——按照性能提升的“需求”来重构代码。</li>
+</ol>
+</blockquote>
+<blockquote>
+<p><img src="/contents/clean-architecture/29.6.jpeg" alt="图29.6：操作系统抽象层"></p>
+</blockquote>
+<h1 id="第6部分-实现细节"><a href="#第6部分-实现细节" class="headerlink" title="第6部分 实现细节"></a>第6部分 实现细节</h1><blockquote>
+<p>很多数据访问框架允许将数据行和数据表以对象的形式在系统内部传递。这么做在系统架构上来说是完全错误的，这会导致程序的用例、业务逻辑、甚至UI与数据的关系模型相互绑定在一起。</p>
+</blockquote>
+<blockquote>
+<p>即使数据保存在数据库或者文件系统中，我们最终也会将其读取到内存中，并按照最方便的形式将其组织成列表、集合、堆栈、队列、树等各种数据结构，继续按文件和表格的形式来操作数据是非常少见的。</p>
+</blockquote>
+<h2 id="第31章-Web是实现细节"><a href="#第31章-Web是实现细节" class="headerlink" title="第31章 Web是实现细节"></a>第31章 Web是实现细节</h2><blockquote>
+<p>因为业务逻辑可以被视为是一组用例的集合。而每个用例都是以用户的身份来执行某种操作的，所以它们都可以用输入数据、处理过程以及输出数据这个流程来描述。</p>
+</blockquote>
+<h2 id="第32章-应用程序框架是实现细节"><a href="#第32章-应用程序框架是实现细节" class="headerlink" title="第32章 应用程序框架是实现细节"></a>第32章 应用程序框架是实现细节</h2><blockquote>
+<p>框架并不等同于系统架构——尽管有些框架确实以此为目标。</p>
+</blockquote>
+<blockquote>
+<p>我们可以使用框架——但要时刻警惕，别被它拖住。我们应该将框架作为架构最外圈的一个实现细节来使用，不要让它们进入内圈。</p>
+</blockquote>
+<h2 id="第33章-案例分析：视频销售网站"><a href="#第33章-案例分析：视频销售网站" class="headerlink" title="第33章 案例分析：视频销售网站"></a>第33章 案例分析：视频销售网站</h2><blockquote>
+<p>系统架构设计中的第一步，是识别系统中的各种角色和用例。</p>
+</blockquote>
+<h2 id="第34章-拾遗"><a href="#第34章-拾遗" class="headerlink" title="第34章 拾遗"></a>第34章 拾遗</h2><blockquote>
+<p><img src="/contents/clean-architecture/34.1.jpg" alt="图34.1：按层封装"></p>
+</blockquote>
+<blockquote>
+<p>这种方式在项目初期之所以会很合适，是因为它不会过于复杂。但就像Martin指出的那样，一旦软件规模扩展了，我们很快就会发现将代码分为三大块并不够，需要进一步进行模块化。</p>
+</blockquote>
+<blockquote>
+<p>另外一种组织代码的形式是“按功能封装”，即垂直切分，根据相关的功能、业务概念或者聚合根（领域驱动设计原则中的术语）来切分。在常见的实现中，所有的类型都会放在一个相同的包中，以业务概念来命名。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/clean-architecture/34.2.jpg" alt="图34.2：按功能封装"></p>
+</blockquote>
+<blockquote>
+<p>通过采用“端口和适配器”“六边形架构”“边界、控制器、实体”等，我们可以创造出一个业务领域代码与具体实现细节（数据库、框架等）隔离的架构。总结下来，如图34.3所示，我们可以区分出代码中的内部代码（领域，Domain）与外部代码（基础设施，Infrastructure）。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/clean-architecture/34.3.jpeg" alt="图34.3：区分内部代码和外部代码"></p>
+</blockquote>
+<blockquote>
+<p>这里主要的规则是，只有外部代码能依赖内部代码，反之则不能。</p>
+</blockquote>
+<blockquote>
+<p><img src="/contents/clean-architecture/34.4.jpeg" alt="图34.4：“查看订单”业务用例"></p>
+</blockquote>
+<blockquote>
+<p>我对组件的定义稍有不同：“在一个执行环境（应用程序）中的、一个干净、良好的接口背后的一系列相关功能的集合”。这个定义来自我的“C4软件架构模型”。这个模型以一种层级模型讨论软件系统的静态结构，其中的概念包括容器、组件、类。这个模型认为，系统由一个或者多个容器组成（例如Web应用、移动App、独立应用、数据库、文件系统），每个容器包含一个或多个组件，每个组件由一个或多个类组成。每个组件具体存在于哪个jar文件中则是另外一个维度的事情。</p>
+</blockquote>
+<blockquote>
+<p>Public类型越少，潜在的依赖关系就越少。</p>
+</blockquote>
+<blockquote>
+<p>现在包外代码就不能再直接使用OrdersRepository接口或者其对应的实现，我们就可以利用编译器来维护架构设计原则了。</p>
+</blockquote>
+<h1 id="后序"><a href="#后序" class="headerlink" title="后序"></a>后序</h1><blockquote>
+<p>而我似乎注定要把时间花在画那些带箭头的盒子和编写PowerPoint的事情上，而这些事对真实代码的影响近乎为零。</p>
+</blockquote>
+<blockquote>
+<p>影响软件质量最好的方法还是编写代码。</p>
+</blockquote>
+<blockquote>
+<p>大型架构像恐龙一样消失了，前期设计够用、后期进行大量重构的设计思想如小巧玲珑的哺乳动物一样代替了它们，软件架构迎来了响应式设计的时代。</p>
+</blockquote>
+<blockquote>
+<p>把架构设计工作交给程序员的问题就是，程序员必须学会像架构师一样思考问题。</p>
+</blockquote>
+<h1 id="附录A-架构设计考古"><a href="#附录A-架构设计考古" class="headerlink" title="附录A 架构设计考古"></a>附录A 架构设计考古</h1><blockquote>
+<p>在真正制作出来一个可复用框架之前，是不知道怎么制作一个可复用框架的。想要制作一个可复用的框架，必须要和几个复用该框架的应用一起开发。</p>
+</blockquote>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第1部分-概述"><span class="toc-number">1.</span> <span class="toc-text">第1部分 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-设计与架构究竟是什么"><span class="toc-number">1.1.</span> <span class="toc-text">第1章 设计与架构究竟是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-两个价值维度"><span class="toc-number">1.2.</span> <span class="toc-text">第2章 两个价值维度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第2部分-从基础构建开始：编程范式"><span class="toc-number">2.</span> <span class="toc-text">第2部分 从基础构建开始：编程范式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-编程范式总览"><span class="toc-number">2.1.</span> <span class="toc-text">第3章 编程范式总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-结构化编程"><span class="toc-number">2.2.</span> <span class="toc-text">第4章 结构化编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-面向对象编程"><span class="toc-number">2.3.</span> <span class="toc-text">第5章 面向对象编程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-函数式编程"><span class="toc-number">2.4.</span> <span class="toc-text">第6章 函数式编程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第3部分-设计原则"><span class="toc-number">3.</span> <span class="toc-text">第3部分 设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-SRP：单一职责原则"><span class="toc-number">3.1.</span> <span class="toc-text">第7章 SRP：单一职责原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第8章-OCP：开闭原则"><span class="toc-number">3.2.</span> <span class="toc-text">第8章 OCP：开闭原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第10章-ISP：接口隔离原则"><span class="toc-number">3.3.</span> <span class="toc-text">第10章 ISP：接口隔离原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第11章-DIP：依赖反转原则"><span class="toc-number">3.4.</span> <span class="toc-text">第11章 DIP：依赖反转原则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第4部分-组件构建原则"><span class="toc-number">4.</span> <span class="toc-text">第4部分 组件构建原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第12章-组件"><span class="toc-number">4.1.</span> <span class="toc-text">第12章 组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第13章-组件聚合"><span class="toc-number">4.2.</span> <span class="toc-text">第13章 组件聚合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第14章-组件耦合"><span class="toc-number">4.3.</span> <span class="toc-text">第14章 组件耦合</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第5部分-软件架构"><span class="toc-number">5.</span> <span class="toc-text">第5部分 软件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第16章-独立性"><span class="toc-number">5.1.</span> <span class="toc-text">第16章 独立性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第17章-划分边界"><span class="toc-number">5.2.</span> <span class="toc-text">第17章 划分边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第18章-边界剖析"><span class="toc-number">5.3.</span> <span class="toc-text">第18章 边界剖析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第19章-策略与层次"><span class="toc-number">5.4.</span> <span class="toc-text">第19章 策略与层次</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第20章-业务逻辑"><span class="toc-number">5.5.</span> <span class="toc-text">第20章 业务逻辑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第21章-尖叫的软件架构"><span class="toc-number">5.6.</span> <span class="toc-text">第21章 尖叫的软件架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第22章-整洁架构"><span class="toc-number">5.7.</span> <span class="toc-text">第22章 整洁架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第23章-展示器和谦卑对象"><span class="toc-number">5.8.</span> <span class="toc-text">第23章 展示器和谦卑对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第24章-不完全边界"><span class="toc-number">5.9.</span> <span class="toc-text">第24章 不完全边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第25章-层次与边界"><span class="toc-number">5.10.</span> <span class="toc-text">第25章 层次与边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第27章-服务：宏观与微观"><span class="toc-number">5.11.</span> <span class="toc-text">第27章 服务：宏观与微观</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第28章-测试边界"><span class="toc-number">5.12.</span> <span class="toc-text">第28章 测试边界</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第29章-整洁的嵌入式架构"><span class="toc-number">5.13.</span> <span class="toc-text">第29章 整洁的嵌入式架构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第6部分-实现细节"><span class="toc-number">6.</span> <span class="toc-text">第6部分 实现细节</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第31章-Web是实现细节"><span class="toc-number">6.1.</span> <span class="toc-text">第31章 Web是实现细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第32章-应用程序框架是实现细节"><span class="toc-number">6.2.</span> <span class="toc-text">第32章 应用程序框架是实现细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第33章-案例分析：视频销售网站"><span class="toc-number">6.3.</span> <span class="toc-text">第33章 案例分析：视频销售网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第34章-拾遗"><span class="toc-number">6.4.</span> <span class="toc-text">第34章 拾遗</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#后序"><span class="toc-number">7.</span> <span class="toc-text">后序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#附录A-架构设计考古"><span class="toc-number">8.</span> <span class="toc-text">附录A 架构设计考古</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

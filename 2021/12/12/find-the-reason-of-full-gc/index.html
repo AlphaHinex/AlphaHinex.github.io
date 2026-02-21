@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>找出 Java 应用频繁 Full GC 的原因 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,JVM, full gc, gc, heap, dump, jps, jstat, jmap, jvisualvm, MAT"> 
+    <meta name="description" content="现象一个线上的 Java 应用（JDK1.8，默认 Parallel GC）在运行几天之后，出现频繁 Full GC 的现象，使用 jstat -gcutil &amp;lt;pid&amp;gt; 2s 观察，状,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">找出 Java 应用频繁 Full GC 的原因</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/find-the-reason-of-full-gc/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                十二月 12, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/12/12/find-the-reason-of-full-gc/" title="找出 Java 应用频繁 Full GC 的原因" class="">找出 Java 应用频繁 Full GC 的原因</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>一个线上的 Java 应用（JDK1.8，默认 Parallel GC）在运行几天之后，出现频繁 Full GC 的现象，使用 <code>jstat -gcutil &lt;pid&gt; 2s</code> 观察，状态大致如下：</p>
+<pre><code class="bash">$ jstat -gcutil 23426 2s
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+  0.00   0.00  93.17  99.99  83.81  78.48   1814   90.687    45  261.660  352.347
+  0.00   0.00  97.30  99.99  83.81  78.48   1814   90.687    45  261.660  352.347
+  0.00   0.00 100.00  99.99  83.81  78.48   1814   90.687    46  261.660  352.347
+  0.00   0.00 100.00  99.99  83.81  78.48   1814   90.687    46  261.660  352.347
+  0.00   0.00 100.00  99.99  83.81  78.48   1814   90.687    46  261.660  352.347
+  0.00   0.00 100.00  99.99  83.81  78.48   1814   90.687    46  261.660  352.347
+  0.00   0.00  14.38  99.99  83.81  78.48   1814   90.687    46  269.050  359.737
+  0.00   0.00  22.19  99.99  83.81  78.48   1814   90.687    46  269.050  359.737</code></pre>
+<p>在 Eden 区用满后，并不进行 Young GC（1814），而是直接触发 Full GC（45 =&gt; 46），导致 CPU 使用率上升，应用响应慢。</p>
+<p>重启应用后，CPU 使用率恢复正常，老年代占用空间降低，新生代空间占满后，执行 Young GC，不引发 Full GC。</p>
+<p>运行一段时间，老年代占用空间持续上升，Full GC 也不会有空间被回收，直至老年代空间占满，再次出现最初的情况。</p>
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h2 id="jps"><a href="#jps" class="headerlink" title="jps"></a>jps</h2><p>JDK 中自带的 <code>jps</code>（Java Virtual Machine Process Status Tool） 命令，可以快速查询 Java 的进程标识（pid），如：</p>
+<pre><code class="bash">$ jps
+7168 Jps
+7114 hello.jar</code></pre>
+<p>但有时可能会遇到类似下面的情况：</p>
+<pre><code class="bash">$ jps
+12929 -- process information unavailable
+31097 -- process information unavailable
+12878 Jps</code></pre>
+<p>某些 pid 后面并未显示出对应的 java 应用信息，原因是运行 java 应用的用户与执行 jps 命令的用户不一致，通过 <code>su</code> 等切换为相同的用户再执行 <code>jps</code> 命令即可。</p>
+<h2 id="jstat"><a href="#jstat" class="headerlink" title="jstat"></a>jstat</h2><p>获得 Java 应用的 pid 之后，可以使用 <code>jstat</code>（Java Virtual Machine statistics monitoring tool）对指定 Java 应用进行监控，以上面 pid 为 <code>7114</code> 的 Java 应用为例：</p>
+<pre><code class="bash">$ jstat -gcutil 7114 2s
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096
+  0.00   0.00   6.11   7.94  92.59  90.24      6    0.028     2    0.068    0.096</code></pre>
+<p>上面命令意为获得 pid 为 7114 的 Java 应用的垃圾收集统计信息，时间间隔 2 秒统计一次。</p>
+<p>统计信息每列的具体含义如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Column</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">S0</td>
+<td align="left">Survivor  space  0  utilization as a per-</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">centage of the space’s current  capacity.</td>
+</tr>
+<tr>
+<td align="left">S1</td>
+<td align="left">Survivor  space  1  utilization as a per-</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">centage of the space’s current  capacity.</td>
+</tr>
+<tr>
+<td align="left">E</td>
+<td align="left">Eden space utilization as a percentage of</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">the space’s current capacity.</td>
+</tr>
+<tr>
+<td align="left">O</td>
+<td align="left">Old space utilization as a percentage  of</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">the space’s current capacity.</td>
+</tr>
+<tr>
+<td align="left">M</td>
+<td align="left">Metaspace utilization as a percentage of</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">the space’s current capacity.</td>
+</tr>
+<tr>
+<td align="left">CCS</td>
+<td align="left">Compressed class space utilization as a</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">percentage.</td>
+</tr>
+<tr>
+<td align="left">YGC</td>
+<td align="left">Number of young generation GC events.</td>
+</tr>
+<tr>
+<td align="left">YGCT</td>
+<td align="left">Young generation garbage collection time.</td>
+</tr>
+<tr>
+<td align="left">FGC</td>
+<td align="left">Number of Full GC events.</td>
+</tr>
+<tr>
+<td align="left">FGCT</td>
+<td align="left">Full garbage collection time.</td>
+</tr>
+<tr>
+<td align="left">GCT</td>
+<td align="left">Total garbage collection time.</td>
+</tr>
+</tbody></table>
+<p>关于 <code>jstat</code> 命令更多的说明，可见 <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/jstat.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>通过上述命令，可以观察到最初现象中描述的故障时 Java 应用的 GC 状态。</p>
+<h2 id="GC-日志"><a href="#GC-日志" class="headerlink" title="GC 日志"></a>GC 日志</h2><p><code>jstat</code> 统计的是应用在执行命令时的状态，通常我们不能预知故障发生，并提前使用 <code>jstat</code> 进行监控，这时可以选择将应用的 GC 状况输出到日志文件中，以便后续查询和分析。在启动 Java 应用时，可以选择添加如下参数：</p>
+<pre><code class="bash">-Xloggc:/home/admin/filelogs/gc.log 
+-XX:+PrintGCDetails
+-XX:+UseGCLogFileRotation 
+-XX:NumberOfGCLogFiles=5 
+-XX:GCLogFileSize=200m</code></pre>
+<p>Java 的参数大致可以分为三类：</p>
+<ol>
+<li>标准参数（<code>-</code>），如：<code>-jar</code>、<code>-Dproperty=value</code></li>
+<li>非标准参数（<code>-X</code>），如：<code>-Xms</code>、<code>-Xmx</code></li>
+<li>高级参数（<code>-XX</code>），如：<code>-XX:+HeapDumpOnOutOfMemoryError</code>、<code>-XX:HeapDumpPath=path</code></li>
+</ol>
+<p>上面添加的 GC 日志相关参数的意思为：</p>
+<p>每次 GC 时，将 GC 日志输出至指定文件，并启用日志文件滚动，滚动文件数量 <code>5</code> 个，每个文件大小 <code>200mb</code> 。</p>
+<p>各类参数的详细说明，可参见 <a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/java.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>也可通过如下命令查看所使用的 Java 版本支持的所有高级参数：</p>
+<pre><code class="bash">$ java -XX:+PrintFlagsFinal -version</code></pre>
+<h2 id="jmap-heap"><a href="#jmap-heap" class="headerlink" title="jmap -heap"></a>jmap -heap</h2><p>通过 GC 统计及日志，可以发现 GC 的执行时间、次数、耗时，以及每次 GC 所释放的内存情况。</p>
+<p>正常情况下，对象均应在年轻代被创建，使用过后被年轻代 GC 回收，回收不了的对象进入幸存区，在年轻代经历多次 GC 仍不能被回收的对象，会被移至老年代，当老年代空间也被使用满或无法放入新对象时，触发 Full GC。</p>
+<p>YGC 执行时间短，对系统影响较小，而 FGC 会引发 STW（Stop the world），占用大量计算资源，执行时间较长，对系统影响较大。所以 YGC 的次数，应该明显高于 FGC，且每次 FGC 应该能够有内存空间被释放出来。</p>
+<p>当频繁发生 FGC，且对系统造成比较大的影响时，可以先通过 <code>jmap</code>（memory map）命令查看堆的内存分配及使用情况，如：</p>
+<pre><code class="bash">$ jmap -heap 7114
+Attaching to process ID 7114, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.121-b13
+
+using thread-local object allocation.
+Parallel GC with 8 thread(s)
+
+Heap Configuration:
+   MinHeapFreeRatio         = 0
+   MaxHeapFreeRatio         = 100
+   MaxHeapSize              = 20971520 (20.0MB)
+   NewSize                  = 3145728 (3.0MB)
+   MaxNewSize               = 6815744 (6.5MB)
+   OldSize                  = 7340032 (7.0MB)
+   NewRatio                 = 2
+   SurvivorRatio            = 8
+   MetaspaceSize            = 21807104 (20.796875MB)
+   CompressedClassSpaceSize = 1073741824 (1024.0MB)
+   MaxMetaspaceSize         = 17592186044415 MB
+   G1HeapRegionSize         = 0 (0.0MB)
+
+Heap Usage:
+PS Young Generation
+Eden Space:
+   capacity = 2621440 (2.5MB)
+   used     = 538160 (0.5132293701171875MB)
+   free     = 2083280 (1.9867706298828125MB)
+   20.5291748046875% used
+From Space:
+   capacity = 1572864 (1.5MB)
+   used     = 1572864 (1.5MB)
+   free     = 0 (0.0MB)
+   100.0% used
+To Space:
+   capacity = 2097152 (2.0MB)
+   used     = 0 (0.0MB)
+   free     = 2097152 (2.0MB)
+   0.0% used
+PS Old Generation
+   capacity = 14155776 (13.5MB)
+   used     = 11533024 (10.998748779296875MB)
+   free     = 2622752 (2.501251220703125MB)
+   81.47221317997685% used
+
+13542 interned Strings occupying 1172704 bytes.</code></pre>
+<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>通过 <code>jmap -heap &lt;pid&gt;</code> 观察对比应用重启后，以及发生故障时堆的分配情况，发现故障时，S0（<code>From Space</code>/<code>Survivor1</code>） 及 S1（<code>To Space</code>/<code>Survivor2</code>） 被分配的空间非常小（几 <code>mb</code>，甚至为 <code>0mb</code>），堆的大部分空间被老年代占据且无法释放，当 Eden 区也被占满后，本应进行 Young GC，但 S0 和 S1 均没有空间了，只能触发 Full GC 希望能从老年代中释放出一些空间。然而此时老年代中的对象均未能释放，导致 Full GC 时间长且无效果，进而引起频繁 Full GC。</p>
+<p>出现这种状况时，基本可以断定应用中出现了内存泄露，导致垃圾收集器无法回收内存。</p>
+<p>要解决这个问题，我们首先需要知道内存中究竟都存放了哪些对象，以及这些对象为什么不能被垃圾回收。</p>
+<h2 id="jmap-histo"><a href="#jmap-histo" class="headerlink" title="jmap -histo"></a>jmap -histo</h2><p>使用 <code>jmap</code> 命令，还可以获得堆中对象的柱状图统计信息，如：</p>
+<pre><code class="bash">$ jmap -histo:live 7114 | more
+
+ num     #instances         #bytes  class name
+----------------------------------------------
+   1:         29510        2809856  [C
+   2:          6998         769912  java.lang.Class
+   3:         29465         707160  java.lang.String
+   4:         21190         678080  java.util.concurrent.ConcurrentHashMap$Node
+   5:          6549         318440  [Ljava.lang.Object;
+   6:          2043         306528  [B
+:</code></pre>
+<blockquote>
+<p>注意：<code>:live</code> 参数会触发 FGC，以保证统计出的都是存活的对象。如果想保留现场，可不添加此参数。</p>
+</blockquote>
+<h2 id="jmap-dump"><a href="#jmap-dump" class="headerlink" title="jmap -dump"></a>jmap -dump</h2><p>从柱状图统计信息中，可以了解到堆中占用内存最多的类及实例数量，但无法得知这些对象为什么不能被垃圾回收，此时可以进行堆转储（heap dump），以便进一步分析：</p>
+<pre><code class="bash">$ jmap -h
+...
+    -dump:&lt;dump-options&gt; to dump java heap in hprof binary format
+                         dump-options:
+                           live         dump only live objects; if not specified,
+                                        all objects in the heap are dumped.
+                           format=b     binary format
+                           file=&lt;file&gt;  dump heap to &lt;file&gt;
+...</code></pre>
+<pre><code class="bash">$ jmap -dump:live,format=b,file=/path/to/heap.hprof 7114
+Dumping heap to /path/to/heap.hprof ...
+Heap dump file created</code></pre>
+<p><code>live</code> 参数同上，不想触发 FGC，可直接去掉，如：</p>
+<pre><code class="bash">$ jmap -dump:format=b,file=/path/to/heap.hprof 7114</code></pre>
+<h2 id="jvisualvm"><a href="#jvisualvm" class="headerlink" title="jvisualvm"></a>jvisualvm</h2><p>分析堆 dump 文件，可以使用 JDK 自带的 <code>jvisualvm</code> 工具，命令行中直接输入即可：</p>
+<pre><code class="bash">$ jvisualvm</code></pre>
+<p>打开界面后，选择 文件 -&gt; 装入，选择 <code>hprof</code> 类型，并将堆 dump 文件导入即可：</p>
+<p><img src="/contents/find-the-reason-of-full-gc/jvisualvm-load.png" alt="load"></p>
+<p><img src="/contents/find-the-reason-of-full-gc/jvisualvm.png" alt="jvisualvm"></p>
+<p>在装载比较大的 heap dump 文件时，可能会出现内存溢出等问题，可使用 <code>-J</code> 指定 Java 标准参数，如：</p>
+<pre><code class="bash">$ jvisualvm -J-Xms2048m -J-Xmx4096m</code></pre>
+<p><code>jvisualvm</code> 虽然比 <code>jmap -histo</code> 直观了一些，但用来分析问题，能够获取的信息还是比较少，并且在分析比较大的堆转储文件时，性能低下，实用性较低。</p>
+<h2 id="MAT"><a href="#MAT" class="headerlink" title="MAT"></a>MAT</h2><p>Eclipse 出品的 <a href="https://www.eclipse.org/mat/" target="_blank" rel="noopener">Memory Analyzer (MAT)</a> 工具是一个更好的选择，能够快速的对大 dump 文件进行分析，并且功能丰富。</p>
+<p>在分析较大堆文件时，也可能会遇到软件本身内存溢出的问题，可通过在配置文件中指定 Java 标准参数中的内存参数进行调整，如在 Mac 中，可在 <code>/Applications/mat.app/Contents/Eclipse/MemoryAnalyzer.ini</code> 中添加 Xmx 的配置。</p>
+<p>MAT 解析完堆文件后，会提供泄露分析报告等，方便快速定位问题。</p>
+<p>关于 MAT 的使用，可以参照 <a href="http://help.eclipse.org/latest/index.jsp?topic=/org.eclipse.mat.ui.help/welcome.html" target="_blank" rel="noopener">官方文档</a></p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>使用 MAT 分析本文最初描述现象的故障节点 heap dump 文件，在 <code>Dominator Tree</code> 视图中，发现大量内存空间被某类线程所占用：</p>
+<p><img src="/contents/find-the-reason-of-full-gc/mat.png" alt="mat"></p>
+<p>而线程中存在大量线程变量引用的集合对象，类似 <code>ThreadLocal&lt;Map&lt;String, List&lt;Object&gt;&gt;&gt;</code> 这种结构，因为使用了线程池，线程使用后没有对 ThreadLocal 对象进行 <code>clear</code> 操作，导致线程变量泄露，占用了大量内存，无法被 GC 回收，进而导致了最初的故障现象。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#现象"><span class="toc-number">1.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工具"><span class="toc-number">2.</span> <span class="toc-text">工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jps"><span class="toc-number">2.1.</span> <span class="toc-text">jps</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jstat"><span class="toc-number">2.2.</span> <span class="toc-text">jstat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GC-日志"><span class="toc-number">2.3.</span> <span class="toc-text">GC 日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jmap-heap"><span class="toc-number">2.4.</span> <span class="toc-text">jmap -heap</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#分析"><span class="toc-number">3.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jmap-histo"><span class="toc-number">3.1.</span> <span class="toc-text">jmap -histo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jmap-dump"><span class="toc-number">3.2.</span> <span class="toc-text">jmap -dump</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jvisualvm"><span class="toc-number">3.3.</span> <span class="toc-text">jvisualvm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MAT"><span class="toc-number">3.4.</span> <span class="toc-text">MAT</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#原因"><span class="toc-number">4.</span> <span class="toc-text">原因</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

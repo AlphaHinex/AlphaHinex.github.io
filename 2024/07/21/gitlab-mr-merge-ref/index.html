@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GitLab Merge Request 的 merge 引用 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,refs/merge-requests/$iid/merge, refs/merge-requests/$iid/head, GitLab MR, GitLab Merge Request"> 
+    <meta name="description" content="merge 引用及用途10.3 Git 内部原理 - Git 引用 及 10.5 Git 内部原理 - 引用规范 中介绍了 Git 的引用（references，或简写为 refs）及其规范，可在本,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">GitLab Merge Request 的 merge 引用</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/gitlab-mr-merge-ref.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Git"><b>「
+                    </b>GIT<b> 」</b></a>
+                
+                七月 21, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/07/21/gitlab-mr-merge-ref/" title="GitLab Merge Request 的 merge 引用" class="">GitLab Merge Request 的 merge 引用</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitLab/" rel="tag">GitLab</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="merge-引用及用途"><a href="#merge-引用及用途" class="headerlink" title="merge 引用及用途"></a><code>merge</code> 引用及用途</h1><p><a href="https://git-scm.com/book/zh/v2/Git-内部原理-Git-引用" target="_blank" rel="noopener">10.3 Git 内部原理 - Git 引用</a> 及 <a href="https://git-scm.com/book/zh/v2/Git-内部原理-引用规范" target="_blank" rel="noopener">10.5 Git 内部原理 - 引用规范</a> 中介绍了 Git 的引用（references，或简写为 refs）及其规范，可在本地 Git 仓库的 <code>.git/refs</code> 路径下查看已经 fetch 到本地的引用文件。</p>
+<p>当我们在 GitLab 中创建一个 MergeRequest 时，remote 仓库中会自动创建 <code>refs/merge-requests/$iid/head</code> 和 <code>refs/merge-requests/$iid/merge</code> 两个引用，分别对应 MR 源分支内容，以及 <strong>将 MR 源分支内容合并至目标分支后的内容</strong>。</p>
+<p>当我们对这个 <code>merge</code> 引用进行持续集成时，就可以实现未雨绸缪的效果：</p>
+<p><strong>即使尚未合并 MR，持续集成检查和验证的，却相当于是将 MR 合并至目标分支之后的效果。</strong></p>
+<p>这样在出现问题时，只需继续在 MR 中进行修改即可，而不是将已经合并至目标分支的内容回滚之后再重新处理。</p>
+<h1 id="本地获取-merge-引用"><a href="#本地获取-merge-引用" class="headerlink" title="本地获取 merge 引用"></a>本地获取 <code>merge</code> 引用</h1><h2 id="增加-fetch-引用规范"><a href="#增加-fetch-引用规范" class="headerlink" title="增加 fetch 引用规范"></a>增加 <code>fetch</code> 引用规范</h2><p><code>.git/config</code> 配置文件中可以指定多个用于获取操作的引用规范。</p>
+<p>添加 <code>merge</code> 引用的方式为增加 <code>+refs/merge-requests/*/merge:refs/remotes/origin/merge-requests/*/merge</code>，如：</p>
+<pre><code class="ini">[remote &quot;origin&quot;]
+    url = https://gitlab.com/AlphaHinex/merge-refs-test.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+    fetch = +refs/merge-requests/*/merge:refs/remotes/origin/merge-requests/*/merge</code></pre>
+<p>在 GitLab 上创建 MergeRequest 之后，可使用 <code>fetch</code> 命令获取 <code>merge</code> 引用，如：</p>
+<pre><code class="bash">$ git fetch origin
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+展开对象中: 100% (1/1), 248 字节 | 248.00 KiB/s, 完成.
+来自 https://gitlab.com/AlphaHinex/merge-refs-test
+ * [新引用]          refs/merge-requests/1/merge -&gt; origin/merge-requests/1/merge</code></pre>
+<h2 id="show-ref-查看引用列表"><a href="#show-ref-查看引用列表" class="headerlink" title="show-ref 查看引用列表"></a><code>show-ref</code> 查看引用列表</h2><p>之后可通过 <code>show-ref</code> 查看引用及对应的 commit id：</p>
+<pre><code class="bash">$ git show-ref
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/heads/main
+8f8976a512437c13784586460556dffeef53c645 refs/heads/mr
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/remotes/origin/HEAD
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/remotes/origin/main
+f03da17f11a905fcc4766c97f05de2fa8c78ecda refs/remotes/origin/merge-requests/1/merge
+8f8976a512437c13784586460556dffeef53c645 refs/remotes/origin/mr</code></pre>
+<p>也可以将 <code>fetch</code> 配置为 <code>+refs/merge-requests/*:refs/remotes/origin/merge-requests/*</code>，同时获得 MR 的 <code>head</code> 和 <code>merge</code> 分支：</p>
+<pre><code class="bash">$ git fetch
+来自 https://gitlab.com/AlphaHinex/merge-refs-test
+ * [新引用]          refs/merge-requests/1/head -&gt; origin/merge-requests/1/head
+$ git show-ref
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/heads/main
+8f8976a512437c13784586460556dffeef53c645 refs/heads/mr
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/remotes/origin/HEAD
+dcaeb64e20196eda19b7f71b86287566d987ea56 refs/remotes/origin/main
+8f8976a512437c13784586460556dffeef53c645 refs/remotes/origin/merge-requests/1/head
+f03da17f11a905fcc4766c97f05de2fa8c78ecda refs/remotes/origin/merge-requests/1/merge
+8f8976a512437c13784586460556dffeef53c645 refs/remotes/origin/mr</code></pre>
+<p>可以看到，共有三个不同的 commit id：</p>
+<ol>
+<li><code>dcaeb64e20196eda19b7f71b86287566d987ea56</code>：对应本地及远程的 <code>main</code> 分支及 <code>HEAD</code> 引用</li>
+<li><code>8f8976a512437c13784586460556dffeef53c645</code>：对应本地及远程的 <code>mr</code> 分支，以及 <code>merge-requests/1/head</code> 引用</li>
+<li><code>f03da17f11a905fcc4766c97f05de2fa8c78ecda</code>：对应远程的 <code>merge-requests/1/merge</code> 引用</li>
+</ol>
+<p><img src="/contents/covers/gitlab-mr-merge-ref.png" alt=""></p>
+<blockquote>
+<p>左侧未显示完整的即为 <code>merge-requests/1/merge</code> 引用。</p>
+</blockquote>
+<p>从本地和 GitLab 上的 <code>main</code> 分支及 <code>mr</code> 分支提交记录里可以找到前两个 commit id，而第三个 commit id 则是 GitLab 在远程仓库的 <code>merge-requests/1/merge</code> 分支上将 <code>mr</code> 分支合并至目标分支 <code>main</code> 自动创建的 commit 对应的 id。</p>
+<h1 id="为-merge-引用创建分支"><a href="#为-merge-引用创建分支" class="headerlink" title="为 merge 引用创建分支"></a>为 <code>merge</code> 引用创建分支</h1><pre><code class="bash">$ git branch -a
+* main
+  mr
+  remotes/origin/HEAD -&gt; origin/main
+  remotes/origin/main
+  remotes/origin/merge-requests/1/head
+  remotes/origin/merge-requests/1/merge
+  remotes/origin/mr</code></pre>
+<pre><code class="bash">$ git checkout merge-requests/1/merge
+分支 &#39;merge-requests/1/merge&#39; 设置为跟踪来自 &#39;origin&#39; 的远程分支 &#39;merge-requests/1/merge&#39;。
+切换到一个新分支 &#39;merge-requests/1/merge&#39;</code></pre>
+<pre><code class="bash">$ git branch -a
+  main
+* merge-requests/1/merge
+  mr
+  remotes/origin/HEAD -&gt; origin/main
+  remotes/origin/main
+  remotes/origin/merge-requests/1/head
+  remotes/origin/merge-requests/1/merge
+  remotes/origin/mr</code></pre>
+<pre><code class="bash">$ git status
+位于分支 merge-requests/1/merge
+您的分支与上游分支 &#39;origin/merge-requests/1/merge&#39; 一致。
+
+无文件要提交，干净的工作区</code></pre>
+<p>此时即可直接在本地的 <code>merge-requests/1/merge</code> 分支上审查 MR 合并后的代码状态。</p>
+<h1 id="merge-引用行为验证"><a href="#merge-引用行为验证" class="headerlink" title="merge 引用行为验证"></a><code>merge</code> 引用行为验证</h1><blockquote>
+<p>以下内容在 GitLab Community Edition v16.8.1 版本，及在线版 GitLab Enterprise Edition 17.3.0-pre <a href="https://gitlab.com/gitlab-org/gitlab/-/commits/453542d17ca" target="_blank" rel="noopener">453542d17ca</a> 中验证。</p>
+</blockquote>
+<h2 id="创建-MR-之前，是否会在远程库中出现-head-merge-分支"><a href="#创建-MR-之前，是否会在远程库中出现-head-merge-分支" class="headerlink" title="创建 MR 之前，是否会在远程库中出现 head/merge 分支"></a>创建 MR 之前，是否会在远程库中出现 head/merge 分支</h2><p>不会。</p>
+<h2 id="在-MR-分支上提交新-commit-时，merge-分支内容是否会同步变化？"><a href="#在-MR-分支上提交新-commit-时，merge-分支内容是否会同步变化？" class="headerlink" title="在 MR 分支上提交新 commit 时，merge 分支内容是否会同步变化？"></a>在 MR 分支上提交新 commit 时，merge 分支内容是否会同步变化？</h2><p>会。但可能稍微有个延迟。</p>
+<pre><code class="bash">$ git checkout mr
+切换到分支 &#39;mr&#39;
+您的分支与上游分支 &#39;origin/mr&#39; 一致。</code></pre>
+<pre><code class="bash">$ touch new-file-in-mr-branch
+$ git add .
+$ git commit -am &quot;New commit in mr branch&quot;
+[mr 3436570] New commit in mr branch
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new-file-in-mr-branch
+$ git push origin mr
+枚举对象中: 3, 完成.
+对象计数中: 100% (3/3), 完成.
+使用 8 个线程进行压缩
+压缩对象中: 100% (2/2), 完成.
+写入对象中: 100% (2/2), 306 字节 | 306.00 KiB/s, 完成.
+总共 2（差异 0），复用 0（差异 0），包复用 0
+remote:
+remote: View merge request for mr:
+remote:   https://gitlab.com/AlphaHinex/merge-refs-test/-/merge_requests/1
+remote:
+To https://gitlab.com/AlphaHinex/merge-refs-test.git
+   8f8976a..3436570  mr -&gt; mr</code></pre>
+<p>拉取远程库的 <code>merge</code> 引用：</p>
+<pre><code class="bash">$ git fetch origin
+来自 https://gitlab.com/AlphaHinex/merge-refs-test
+   8f8976a..3436570  refs/merge-requests/1/head -&gt; origin/merge-requests/1/head</code></pre>
+<blockquote>
+<p>如果拉取时没有 merge 引用的变化，可稍等一会之后再试：</p>
+<pre><code class="bash">$ git fetch
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
+展开对象中: 100% (1/1), 248 字节 | 248.00 KiB/s, 完成.
+来自 https://gitlab.com/AlphaHinex/merge-refs-test
+ + f03da17...b20a111 refs/merge-requests/1/merge -&gt; origin/merge-requests/1/merge  (强制更新)</code></pre>
+</blockquote>
+<h2 id="在目标分支上提交新-commit-时，merge-分支内容是否会同步变化？"><a href="#在目标分支上提交新-commit-时，merge-分支内容是否会同步变化？" class="headerlink" title="在目标分支上提交新 commit 时，merge 分支内容是否会同步变化？"></a>在目标分支上提交新 commit 时，merge 分支内容是否会同步变化？</h2><p>也会，同样可能有个延迟。</p>
+<pre><code class="bash">$ git checkout main</code></pre>
+<pre><code class="bash">$ touch new-file-in-main-branch
+$ git add .
+$ git commit -am &quot;New commit in main branch&quot;
+[main 8a98bc0] New commit in main branch
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 new-file-in-main-branch
+$ git push origin main
+枚举对象中: 4, 完成.
+对象计数中: 100% (4/4), 完成.
+使用 8 个线程进行压缩
+压缩对象中: 100% (2/2), 完成.
+写入对象中: 100% (3/3), 299 字节 | 299.00 KiB/s, 完成.
+总共 3（差异 0），复用 0（差异 0），包复用 0
+To https://gitlab.com/AlphaHinex/merge-refs-test.git
+   dcaeb64..8a98bc0  main -&gt; main</code></pre>
+<pre><code class="bash">$ git fetch origin
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 2 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+展开对象中: 100% (2/2), 293 字节 | 146.00 KiB/s, 完成.
+来自 https://gitlab.com/AlphaHinex/merge-refs-test
+ + b20a111...2978ae6 refs/merge-requests/1/merge -&gt; origin/merge-requests/1/merge  (强制更新)</code></pre>
+<h2 id="MR-分支新-commit-与目标分支新-commit-存在冲突时，merge-分支内容是否会同步变化？"><a href="#MR-分支新-commit-与目标分支新-commit-存在冲突时，merge-分支内容是否会同步变化？" class="headerlink" title="MR 分支新 commit 与目标分支新 commit 存在冲突时，merge 分支内容是否会同步变化？"></a>MR 分支新 commit 与目标分支新 commit 存在冲突时，merge 分支内容是否会同步变化？</h2><p>此时 merge 分支不再同步变化，后续 MR 分支上的新提交 commit 也不会同步到 merge 分支上，需要处理冲突之后，才能恢复同步。</p>
+<h2 id="MR-关闭之后，是否还会同步更新-merge-分支内容？"><a href="#MR-关闭之后，是否还会同步更新-merge-分支内容？" class="headerlink" title="MR 关闭之后，是否还会同步更新 merge 分支内容？"></a>MR 关闭之后，是否还会同步更新 merge 分支内容？</h2><p>不会了，重新开启 MR 后会继续同步更新。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://youtrack.jetbrains.com/issue/TW-45099/Commit-Status-Publisher-Allow-refs-merge-requests-in-gitlab-support" target="_blank" rel="noopener">[Commit Status Publisher] Allow refs/merge-requests/* in gitlab support</a></li>
+<li><a href="https://stackoverflow.com/questions/38619518/teamcity-trigger-on-pull-request-vs-trigger-on-merge/49388182#49388182" target="_blank" rel="noopener">TeamCity Trigger on Pull Request vs Trigger on Merge</a></li>
+<li><a href="https://git-scm.com/book/id/v2/GitHub-Maintaining-a-Project" target="_blank" rel="noopener">6.3 GitHub - Maintaining a Project</a></li>
+<li><a href="https://stackoverflow.com/questions/63594658/git-refs-merge-vs-head-in-pull-request" target="_blank" rel="noopener">Git refs merge vs head in pull request</a></li>
+<li><a href="https://gitlab.com/gitlab-org/gitlab-foss/-/issues/47110" target="_blank" rel="noopener">Create merge refs for MRs (merge and squash methods)</a></li>
+<li><a href="https://github.com/readthedocs/readthedocs.org/issues/6958" target="_blank" rel="noopener">Consider using the merge URL on PR builds</a></li>
+<li><a href="https://community.atlassian.com/t5/Bitbucket-questions/Difference-of-refs-pull-requests-lt-ID-gt-merge-and-refs-pull/qaq-p/772142" target="_blank" rel="noopener">Difference of refs/pull-requests/<ID>/merge and refs/pull-requests/<ID>/from</a></li>
+<li><a href="https://gitlab.com/gitlab-org/gitlab-foss/-/merge_requests/25504" target="_blank" rel="noopener">Use merge request HEAD ref for detached merge request pipelines</a></li>
+<li><a href="https://gitlab.com/gitlab-org/gitlab/-/issues/215432" target="_blank" rel="noopener">Able to push to /ref/merge-requests/*/head</a></li>
+<li><a href="https://docs.gitlab.com/ee/api/merge_requests.html" target="_blank" rel="noopener">Merge requests API</a></li>
+<li><a href="https://www.bookstack.cn/read/gitlab-doc-zh/docs-337.md" target="_blank" rel="noopener">Gitlab 中文文档 - Merge requests API</a></li>
+<li><a href="https://docs.gitlab.com/ee/ci/pipelines/merge_request_pipelines.html" target="_blank" rel="noopener">Merge request pipelines</a></li>
+<li><a href="https://www.jvt.me/posts/2019/01/19/git-ref-gitlab-merge-requests/" target="_blank" rel="noopener">Using Git refs to check out GitLab Merge Requests, from your local repo</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#merge-引用及用途"><span class="toc-number">1.</span> <span class="toc-text">merge 引用及用途</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地获取-merge-引用"><span class="toc-number">2.</span> <span class="toc-text">本地获取 merge 引用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#增加-fetch-引用规范"><span class="toc-number">2.1.</span> <span class="toc-text">增加 fetch 引用规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#show-ref-查看引用列表"><span class="toc-number">2.2.</span> <span class="toc-text">show-ref 查看引用列表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#为-merge-引用创建分支"><span class="toc-number">3.</span> <span class="toc-text">为 merge 引用创建分支</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#merge-引用行为验证"><span class="toc-number">4.</span> <span class="toc-text">merge 引用行为验证</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-MR-之前，是否会在远程库中出现-head-merge-分支"><span class="toc-number">4.1.</span> <span class="toc-text">创建 MR 之前，是否会在远程库中出现 head&#x2F;merge 分支</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在-MR-分支上提交新-commit-时，merge-分支内容是否会同步变化？"><span class="toc-number">4.2.</span> <span class="toc-text">在 MR 分支上提交新 commit 时，merge 分支内容是否会同步变化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在目标分支上提交新-commit-时，merge-分支内容是否会同步变化？"><span class="toc-number">4.3.</span> <span class="toc-text">在目标分支上提交新 commit 时，merge 分支内容是否会同步变化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MR-分支新-commit-与目标分支新-commit-存在冲突时，merge-分支内容是否会同步变化？"><span class="toc-number">4.4.</span> <span class="toc-text">MR 分支新 commit 与目标分支新 commit 存在冲突时，merge 分支内容是否会同步变化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MR-关闭之后，是否还会同步更新-merge-分支内容？"><span class="toc-number">4.5.</span> <span class="toc-text">MR 关闭之后，是否还会同步更新 merge 分支内容？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

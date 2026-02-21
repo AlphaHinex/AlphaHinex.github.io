@@ -1,0 +1,997 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/iterm2-ssh-via-ssh/cover.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Mac"><b>「
+                </b>MAC<b> 」</b></a>
+            
+            十一月 28, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2021/11/28/iterm2-ssh-via-ssh/" title="iTerm2 快速通过跳板机 ssh 远程登录" class="posttitle">iTerm2 快速通过跳板机 ssh 远程登录</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                6.2k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                6 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>假设有 A、B、C …… 几批主机：</p>
+<ul>
+<li>a0 为跳板机，a1 ~ an 为实际要操作的目标远程主机</li>
+<li>b0 为跳板机，b1 ~ bn 为实际要操作的目标远程主机</li>
+</ul>
+<p>以此类推，共有 n 批。</p>
+<p>客户端能联通...</p>
+            
+            <span class="read-more"><a href="/2021/11/28/iterm2-ssh-via-ssh/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/iterm2-ssh-via-ssh/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            十一月 28, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/28/iterm2-ssh-via-ssh/" title="iTerm2 快速通过跳板机 ssh 远程登录" class="posttitle">iTerm2 快速通过跳板机 ssh 远程登录</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SSH/" rel="tag">SSH</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>假设有 A、B、C …… 几批主机：</p>
+<ul>
+<li>a0 为跳板机，a1 ~ an 为实际要操作的目标远程主机</li>
+<li>b0 为跳板机，b1 ~ bn 为实际要操作的目标远程主机</li>
+</ul>
+<p>以此类推，共有 n 批。</p>
+<p>客户端能联通各跳板机，但无法直接联通目标主机，每批主机之间网络隔离。</p>
+<p>需通过 ssh 远程登录目标主机时，是比较痛苦的一件事，一堆 ip 和密码不便记忆，从文档里找又效率很低。</p>
+<p>首先想到的是配置跳板机和各目标主机之间的 <a href="https://alphahinex.github.io/2020/09/13/ssh-authorized-keys/">SSH 免密登录</a>，能够起到不用记忆密码的作用，但需要配置客户端和各个跳板机的免密登录，以及各...</p>
+            
+            <span class="read-more"><a href="/2021/11/28/iterm2-ssh-via-ssh/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/k8s-static-pod.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十一月 21, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/21/k8s-static-pod/" title="【转】kubernetes中静态pod学习笔记" class="posttitle">【转】kubernetes中静态pod学习笔记</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/eac82da1a366" target="_blank" rel="noopener">https://www.jianshu.com/p/eac82da1a366</a></p>
+<p>最近翻看<code>kubelet</code>源码，看到配置项的时候，发现了静态<code>pod</code>这一概念。</p>
+<p>而本人也是使用<code>kubesphere</code>对<code>k8s</code>进行管理的，其中<code>kubesphere</code>启动<code>k8s</code>控制节点服务（控制器、调度器、<code>apiserver</code>）也是通过静态<code>pod</code>进行管理的。</p>
+<p>由此，想学习学习静态<code>pod</code>的概念。</p>
+<blockquote>
+<p>什么是静态<code>pod</code>？</p>
+</blockquote>
+<p>由<code>kubelet</code>直接管理的<code>pod</code>被称为静态<code>pod</code></p>
+<p>我们通常通过以下方式创建<code>pod</code>:</p>
+<ol>
+<li>调用<code>api-server...</code></li></ol>
+            
+            <span class="read-more"><a href="/2021/11/21/k8s-static-pod/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/mysql-connector-j-reference-configuration-properties/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Database">
+                  <b>「 </b>DATABASE<b> 」</b>
+                </a>
+            
+            十一月 14, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/14/mysql-connector-j-reference-configuration-properties/" title="是时候升级 MySQL Connector&#x2F;J 到 8.0 了" class="posttitle">是时候升级 MySQL Connector&#x2F;J 到 8.0 了</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>使用 JDBC 连接 MySQL 时，你是否也对 JDBC URL 连接串中的参数感到很神秘？</p>
+<p>例如：</p>
+<pre><code class="text">jdbc:mysql://localhost:3306/hinex?useSSL=false&amp;serverTimezone=UTC</code></pre>
+<p>连接串的通用格式为：</p>
+<pre><code class="text">protocol//[hosts][/database][?properties]</code></pre>
+<p>那么可用的 <code>properties</code> 都有哪些？默认值和可用的值都有什么，又都是什么含义呢？</p>
+<p>这就要从 <code>Connector/J</code> 说起了。</p>
+<p><a href="https://dev.mysql.com/doc/index-connectors.html" target="_blank" rel="noopener">Connector...</a></p>
+            
+            <span class="read-more"><a href="/2021/11/14/mysql-connector-j-reference-configuration-properties/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/k8s-cap.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十一月 07, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/07/k8s-cap/" title="【转】Linux CAP介绍与k8s下配置使用" class="posttitle">【转】Linux CAP介绍与k8s下配置使用</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        13k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        12 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/a7f6c4f420fa" target="_blank" rel="noopener">https://www.jianshu.com/p/a7f6c4f420fa</a></p>
+<blockquote>
+<p>关于capability</p>
+</blockquote>
+<p>发音</p>
+<pre><code>美[keɪpəˈbɪləti] 英[keɪpə&#39;bɪləti]</code></pre><p>译为<code>能力</code>或<code>功能</code>，一般缩写<code>CAP</code>，以下我们简称<code>Capabilities</code>为<code>CAP</code></p>
+<p>从内核<code>2.2</code>开始，<code>Linux</code>将传统上与超级用户<code>root</code>关联的特权划分为不同的单元，称为<code>CAP</code>。</p>
+<p><code>CAP</code>作为线程(<code>Linux</code>并不真正区分进程和线程)的属性存在，每个单元可以独立启用和禁用。<br>如此一来，权限检查的过程就变成了：<br>在执行特...</p>
+            
+            <span class="read-more"><a href="/2021/11/07/k8s-cap/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/difference-between-gmt-plus-8-and-asia-shanghai/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 31, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/31/difference-between-gmt-plus-8-and-asia-shanghai/" title="GMT+8 和 Asia&#x2F;Shanghai 的区别" class="posttitle">GMT+8 和 Asia&#x2F;Shanghai 的区别</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/TimeZone/" rel="tag">TimeZone</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>现今全球共分为24个时区。实际上，常常1个国家或1个省份同时跨着2个或更多时区，为了照顾到行政上的方便，常将1个国家或1个省份划在一起。所以时区并不严格按南北直线来划分，而是按自然条件来划分。例如，中国幅员宽广，差不多跨5个时区，但为了使用方便简单，实际上在只用东八时区的标准时即北京时间为准。 —— 引自百度百科 <a href="https://baike.baidu.com/item/%E6%97%B6%E5%8C%BA/491122" target="_blank" rel="noopener">时区</a></p>
+</blockquote>
+<p>时区可以使用名称（如：东八区、西五区）、偏移量（如：<code>UTC+8</code>、<code>UTC-5</code>）、<a href="https://www.timeanddate.com/time/zones/" target="_blank" rel="noopener">缩写</a>（如：<code>PST</code>、<code>CST</code>），或 <a href="https://github.com/eggert/tz" target="_blank" rel="noopener">时区数据库</a> 中 <code>Area/Location</code> 的形式（如 <code>Asia...</code></p>
+            
+            <span class="read-more"><a href="/2021/10/31/difference-between-gmt-plus-8-and-asia-shanghai/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/champ.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud Native">
+                  <b>「 </b>CLOUD NATIVE<b> 」</b>
+                </a>
+            
+            十月 24, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/24/champ/" title="Cloud Native Healthcare Security Application Management Platform" class="posttitle">Cloud Native Healthcare Security Application Management Platform</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Champ/" rel="tag">Champ</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>首先进行个简单的介绍：</p>
+<p>东软医保云应用管理平台，这个名字比较长，所以我们内部起了个代号，即 Code Name —— CHAMP，<br>意为：Cloud Native Healthcare Security Application Management Platform，<br>是一个 面向多云微服务架构新医保应用的 / 云原生应用管理平台，<br>之后我会简称为云平台或 CHAMP。</p>
+<p>再来介绍一下 面向多云微服务架构新医保应用：<br>2018 年国家医保局挂牌，随即便启动了新医保系统的建设。在系统建设初期，即确立了新医保...</p>
+            
+            <span class="read-more"><a href="/2021/10/24/champ/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(https://wyiyi.github.io/amber/contents/flow/filterChain.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 17, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/17/servlet-filter/" title="Servlet 之 Filter" class="posttitle">Servlet 之 Filter</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/10/01/filter/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/10/01/filter/</a></p>
+<p>Servlet 作为Java Web 的基础，在 Servlet API 中提供了一个 Filter 接口，Filter，又称过滤器。<br>所谓过滤器顾名思义是用来过滤的，可以从客户端向服务端发送请求进行过滤，也可以对服务器返回响应进行处理。</p>
+<p></p>
+<p>根据上面的流程可以看出，Filter的作用就是在用户请求到达Servlet之前，进行拦截。在拦截到用户的请求后，我们可以实现一些自定义的业务逻辑。<br>例如：...</p>
+            
+            <span class="read-more"><a href="/2021/10/17/servlet-filter/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/using-finalizers-to-control-deletion/state-diagram-finalize.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十月 10, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/10/using-finalizers-to-control-deletion/" title="【转】使用Finalizers控制k8s资源删除" class="posttitle">【转】使用Finalizers控制k8s资源删除</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/c46f449d5bf2" target="_blank" rel="noopener">https://www.jianshu.com/p/c46f449d5bf2</a></p>
+<blockquote>
+<p>文章引用</p>
+</blockquote>
+<ul>
+<li><a href="https://kubernetes.io/blog/2021/05/14/using-finalizers-to-control-deletion/" target="_blank" rel="noopener">using-finalizers-to-control-deletion</a></li>
+</ul>
+<p>你有没有在使用<code>k8s</code>过程中遇到过这种情况: 通过<code>kubectl delete</code>指令删除一些资源时，一直处于<code>Terminating</code>状态。<br>这是为什么呢？</p>
+<p>本文将介绍当你执行<code>kubectl delete</code>语句时，<code>K8s</code>内部都执行了哪些操作。<br>以及为何有些资源’删除不掉’(具体表现为一直<code>Terminating</code>，删除<code>namespace...</code></p>
+            
+            <span class="read-more"><a href="/2021/10/10/using-finalizers-to-control-deletion/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/use-sentinel-to-govern-dubbo-services/cover.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud">
+                  <b>「 </b>CLOUD<b> 」</b>
+                </a>
+            
+            十月 03, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/03/use-sentinel-to-govern-dubbo-services/" title="使用 Sentinel 进行 Dubbo 服务治理" class="posttitle">使用 Sentinel 进行 Dubbo 服务治理</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        12k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Governance/" rel="tag">Governance</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Microservices/" rel="tag">Microservices</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>服务治理是一个比较宏观的概念，包括的内容也比较多，就像 <a href="https://www.jianshu.com/p/dd818114ab4b" target="_blank" rel="noopener">《当我们在说微服务治理的时候究竟在说什么》</a> 里所说，可以用治理城市交通的方式，来类比服务的治理，例如：</p>
+<ul>
+<li>前方道路拥堵时，即使绿灯，交警也会让原地等待，直至缓解后才能通行，即为 <strong>熔断</strong></li>
+<li>路面出现裂缝，临时铺盖铁板，即为 <strong>降级</strong></li>
+<li>道路施工或查酒驾，车道变少，即为 <strong>限流</strong></li>
+<li>人行道、非机动车道、机动车道等，均为 <strong>路由</strong></li>
+<li>限号、限行，即为 <strong>访问限制</strong></li>
+<li>导航躲避拥堵路段，即为 <strong>负载均衡</strong></li>
+</ul>
+<p>采用各种治理手段的目的，都是为了能够在相同的基础设施条件下，尽可能的多的...</p>
+            
+            <span class="read-more"><a href="/2021/10/03/use-sentinel-to-govern-dubbo-services/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/how-to-write-an-operator.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            九月 25, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/09/25/how-to-write-an-operator/" title="【转】如何写一个operator" class="posttitle">【转】如何写一个operator</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        13 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/79476712575e" target="_blank" rel="noopener">https://www.jianshu.com/p/79476712575e</a></p>
+<p>文章源地址请移步<a href="https://kubernetes.io/blog/2021/06/21/writing-a-controller-for-pod-labels/" target="_blank" rel="noopener">writing-a-controller-for-pod-labels</a></p>
+<p><a href="https://github.com/weiliang-ms/label-operator" target="_blank" rel="noopener">样例代码</a></p>
+<p><code>operator</code>旨在简化基于<code>k8s</code>部署有状态服务（例如：<code>ceph</code>集群、<code>skywalking</code>集群）</p>
+<p>可以利用<a href="https://sdk.operatorframework.io/" target="_blank" rel="noopener">Operator SDK</a> 构建一个<code>operator</code>，<br><code>operator</code>使扩展<code>k8s</code>及实现自定义调度变得更加简单。</p>
+<p>尽管<a href="https://sdk.operatorframework.io/" target="_blank" rel="noopener">Operator SDK</a> 适合构建功能齐全的<code>operator</code>，<br>但也可以使用它来编写单个控制器...</p>
+            
+            <span class="read-more"><a href="/2021/09/25/how-to-write-an-operator/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/24/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

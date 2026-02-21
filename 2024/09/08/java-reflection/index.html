@@ -1,0 +1,717 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】掌握 Java 反射机制 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,reflection, Field, Method, Class, proxy, annotation, dynamic proxy, InnocationHandler"> 
+    <meta name="description" content="原文地址：https://wyiyi.github.io/amber/2024/09/01/Reflection/
+反射机制概述Java 反射机制允许程序在运行时取得任何类的内部信息，并能直接操作任,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】掌握 Java 反射机制</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(https://wyiyi.github.io/amber/contents/2024/reflection.JPEG);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                九月 08, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/09/08/java-reflection/" title="【转】掌握 Java 反射机制" class="">【转】掌握 Java 反射机制</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2024/09/01/Reflection/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2024/09/01/Reflection/</a></p>
+<h2 id="反射机制概述"><a href="#反射机制概述" class="headerlink" title="反射机制概述"></a>反射机制概述</h2><p><code>Java</code> 反射机制允许程序在运行时取得任何类的内部信息，并能直接操作任意对象的内部属性及方法。</p>
+<h3 id="反射机制常用的类"><a href="#反射机制常用的类" class="headerlink" title="反射机制常用的类"></a>反射机制常用的类</h3><ul>
+<li><code>java.lang.Class</code>：代表类和接口，提供了获取类信息的方法。</li>
+<li><code>java.lang.reflect.Constructor</code>：代表类的构造函数。</li>
+<li><code>java.lang.reflect.Field</code>：代表类的成员变量。</li>
+<li><code>java.lang.reflect.Method</code>：代表类的方法。</li>
+<li><code>java.lang.reflect.Modifier</code>：访问修饰符的查询。</li>
+</ul>
+<h2 id="Class-类"><a href="#Class-类" class="headerlink" title="Class 类"></a>Class 类</h2><p>在 <code>Java</code> 中，<code>Class</code> 类用于表示类的字节码。它是反射的入口，包含了与类有关的信息。</p>
+<p><code>Class</code> 对象在类加载时由 <code>Java</code> 虚拟机自动创建。</p>
+<p>可以通过以下几种方式获取：</p>
+<ol>
+<li>使用<code>Class.forName()</code> 通过类的全限定名：<pre><code class="Java">Class&lt;?&gt; cls = Class.forName(&quot;java.lang.String&quot;);</code></pre>
+</li>
+<li>使用<code>.class</code>语法：<pre><code class="Java">Class&lt;?&gt; cls = String.class;</code></pre>
+</li>
+<li>使用<code>object.getClass()</code>方法：<pre><code class="Java">String s = &quot;Hello&quot;;  
+Class&lt;?&gt; cls = s.getClass();</code></pre>
+</li>
+</ol>
+<h2 id="通过反射创建对象"><a href="#通过反射创建对象" class="headerlink" title="通过反射创建对象"></a>通过反射创建对象</h2><p>可以通过以下方式创建对象：</p>
+<ol>
+<li><code>Class.newInstance()</code>：使用 <code>Class</code> 对象的 <code>newInstance()</code> 方法，要求类有一个无参的构造器，并且构造器是可访问的。</li>
+<li><code>Class.getConstructor()</code> 和 <code>newInstance()</code>：使用 <code>Class</code> 对象的 <code>getConstructor()</code> 方法获取指定的构造器，在调用 <code>newInstance()</code> 方法，可以传递参数给构造器。</li>
+<li><code>Constructor.newInstance(Object... initargs)</code>：适用于已经存在<code>Constructor</code> 对象，使用 <code>Constructor</code> 对象的 <code>newInstance()</code> 方法，可以直接传递参数给构造器。</li>
+</ol>
+<h2 id="通过反射操作属性和方法"><a href="#通过反射操作属性和方法" class="headerlink" title="通过反射操作属性和方法"></a>通过反射操作属性和方法</h2><p>反射允许访问和操作类的私有属性和方法：</p>
+<h3 id="访问字段：使用-Field-类的-get-和-set-方法。"><a href="#访问字段：使用-Field-类的-get-和-set-方法。" class="headerlink" title="访问字段：使用 Field 类的 get 和 set 方法。"></a>访问字段：使用 <code>Field</code> 类的 <code>get</code> 和 <code>set</code> 方法。</h3><ol>
+<li>获取目标类的 <code>Class</code> 对象<pre><code class="Java">Class&lt;?&gt; clazz = Class.forName(&quot;com.example.TargetClass&quot;);</code></pre>
+</li>
+<li>使用 <code>Class</code> 对象的 <code>getDeclaredField()</code> 方法来获取指定的私有字段<pre><code class="Java">Field field = clazz.getDeclaredField(&quot;fieldName&quot;);</code></pre>
+</li>
+<li>设置 <code>Field</code> 对象的可访问性（如果字段是私有的）<pre><code class="Java">field.setAccessible(true);</code></pre>
+</li>
+<li>创建目标类的实例（如果字段不是静态的）<pre><code class="Java">Object obj = clazz.getDeclaredConstructor().newInstance();</code></pre>
+</li>
+<li>通过 <code>Field</code> 对象读取字段的值<pre><code class="Java">Object value = field.get(obj);</code></pre>
+</li>
+<li>通过 <code>Field</code> 对象修改字段的值<pre><code class="Java">// 假设 newValue 是要设置的新值
+field.set(obj, newValue); </code></pre>
+</li>
+</ol>
+<h3 id="访问方法：使用-Method-类的-invoke-方法。"><a href="#访问方法：使用-Method-类的-invoke-方法。" class="headerlink" title="访问方法：使用 Method 类的 invoke 方法。"></a>访问方法：使用 <code>Method</code> 类的 <code>invoke</code> 方法。</h3><ol>
+<li>获取目标类的 <code>Class</code> 对象<pre><code class="Java">Class&lt;?&gt; clazz = Class.forName(&quot;com.example.TargetClass&quot;);</code></pre>
+</li>
+<li>使用 <code>Class</code> 对象的 <code>getDeclaredMethod()</code> 方法来获取指定的私有方法<pre><code class="Java">Method method = clazz.getDeclaredMethod(&quot;privateMethodName&quot;, int.class);</code></pre>
+</li>
+<li>设置 <code>Method</code> 对象的可访问性（如果方法是私有的）<pre><code class="Java">method.setAccessible(true);</code></pre>
+</li>
+<li>创建目标类的实例（如果方法不是静态的）<pre><code class="Java">Object obj = clazz.getDeclaredConstructor().newInstance();</code></pre>
+</li>
+<li>通过 <code>Method</code> 对象调用目标对象的方法，可以传递参数<pre><code class="Java">Object returnValue = method.invoke(obj, 10); // 假设方法需要一个 int 类型的参数</code></pre>
+</li>
+</ol>
+<h2 id="反射应用场景"><a href="#反射应用场景" class="headerlink" title="反射应用场景"></a>反射应用场景</h2><ol>
+<li>框架开发：如 Spring 框架使用反射来实现依赖注入（DI）和面向切面编程（AOP）。</li>
+<li>动态代理：Java 的代理模式可以通过反射实现动态代理，这在许多框架中也十分常见。</li>
+<li>对象序列化与反序列化：在序列化和反序列化过程中，可能会用到反射来创建对象和恢复对象状态。</li>
+<li>数据库访问框架：如 Hibernate、MyBatis 等框架，通过反射来映射数据库表和 Java 对象。</li>
+<li>工具类开发：例如 JavaBean 的属性拷贝工具，通过反射来获取和设置属性值。</li>
+<li>测试工具：如 JUnit，通过反射来运行测试用例。</li>
+</ol>
+<h2 id="反射应用实例"><a href="#反射应用实例" class="headerlink" title="反射应用实例"></a>反射应用实例</h2><h3 id="获得自定义注解标记点属性并赋值"><a href="#获得自定义注解标记点属性并赋值" class="headerlink" title="获得自定义注解标记点属性并赋值"></a>获得自定义注解标记点属性并赋值</h3><ol>
+<li>自定义注解类 <code>MyAnnotation</code></li>
+</ol>
+<pre><code class="java">import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface MyAnnotation {
+    String value() default &quot;default&quot;;
+}</code></pre>
+<ol start="2">
+<li>定义一个类，在类的属性上使用注解 <code>MyClass</code></li>
+</ol>
+<pre><code class="java">public class MyClass {
+    @MyAnnotation(value = &quot;initialValue&quot;)
+    private String annotatedField;
+
+    public MyClass() {
+        this.annotatedField = &quot;initialValue&quot;;
+    }
+
+    public String getAnnotatedField() {
+        return annotatedField;
+    }
+
+    public void setAnnotatedField(String annotatedField) {
+        this.annotatedField = annotatedField;
+    }
+}</code></pre>
+<ol start="3">
+<li>获得自定义注解标记点属性并赋值</li>
+</ol>
+<pre><code class="java">import java.lang.reflect.Field;
+
+public class ReflectionExample {
+    public static void main(String[] args) throws Exception {
+        MyClass obj = new MyClass();
+        Class&lt;?&gt; clazz = obj.getClass();
+
+        // 获取 MyClass 中所有声明的字段
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            // 检查字段是否带有 MyAnnotation 注解
+            if (field.isAnnotationPresent(MyAnnotation.class)) {
+                // 获取注解
+                MyAnnotation annotation = field.getAnnotation(MyAnnotation.class);
+                // 获取注解的值
+                String value = annotation.value();
+                System.out.println(&quot;Annotation value: &quot; + value); //输出：Annotation value: initial_value
+
+                // 设置字段可访问（如果字段是私有的）
+                field.setAccessible(true);
+                // 修改字段的值
+                field.set(obj, &quot;newValue&quot;);
+                System.out.println(&quot;New field value: &quot; + field.get(obj)); // 输出：New field value: newValue
+            }
+        }
+    }
+}</code></pre>
+<h3 id="使用反射创建接口的动态代理类"><a href="#使用反射创建接口的动态代理类" class="headerlink" title="使用反射创建接口的动态代理类"></a>使用反射创建接口的动态代理类</h3><ol>
+<li>定义一个接口（不定义实现类）<code>SimpleInterface</code></li>
+</ol>
+<pre><code class="Java">public interface SimpleInterface {
+
+    String sayHello(String name);
+}</code></pre>
+<ol start="2">
+<li>创建动态代理类，实现SimpleProxyHandler 接口，用于修改方法的返回值</li>
+</ol>
+<pre><code class="Java">import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class SimpleProxyHandler implements InvocationHandler {
+
+    private Object target;
+
+    public SimpleProxyHandler(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println(&quot;Before method call: &quot; + method.getName());
+
+        Object result = method.invoke(target, args);
+
+        System.out.println(&quot;After method call: &quot; + method.getName());
+
+        return result;
+    }
+}</code></pre>
+<ol start="3">
+<li>使用反射创建接口的动态代理类，并调用接口方法得到结果</li>
+</ol>
+<pre><code class="Java">public static void main(String[] args) {
+        SimpleInterface proxyInstance = (SimpleInterface) Proxy.newProxyInstance(
+                SimpleInterface.class.getClassLoader(),
+                new Class&lt;?&gt;[]{SimpleInterface.class},
+                new SimpleProxyHandler(new SimpleInterface() {
+
+                    // 匿名内部类实现SimpleInterface接口
+                    @Override
+                    public String sayHello(String name) {
+                        return &quot;Hello, &quot; + name + &quot;!&quot;;
+                    }
+                })
+        );
+
+        String greeting = proxyInstance.sayHello(&quot;World&quot;);
+        System.out.println(greeting); // 输出: Hello, World!
+    }</code></pre>
+<h3 id="使用动态代理修改接口实现"><a href="#使用动态代理修改接口实现" class="headerlink" title="使用动态代理修改接口实现"></a>使用动态代理修改接口实现</h3><ol>
+<li>自定义接口 <code>SimpleInterface</code> 和实现类 <code>SimpleInterfaceImpl</code></li>
+</ol>
+<pre><code class="Java">public interface SimpleInterface {
+
+    int performOperation(int a, int b);
+}</code></pre>
+<pre><code class="Java">public class SimpleInterfaceImpl implements SimpleInterface{
+    @Override
+    public int performOperation(int a, int b) {
+        return a + b;
+    }
+
+    @Override
+    public String sayHello(String name) {
+        return &quot;Hello, &quot; + name;
+    }
+}</code></pre>
+<ol start="2">
+<li>创建一个动态代理类，实现<code>InvocationHandler</code>接口，用于修改方法的返回值</li>
+</ol>
+<pre><code class="Java">import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class SimpleInterfaceHandler implements InvocationHandler {
+    private final Object target;
+
+    public SimpleInterfaceHandler(Object target) {
+        this.target = target;
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object result = method.invoke(target, args);
+
+        // 修改返回值：将结果 * 2
+        if (result instanceof Integer) {
+            result = (Integer) result * 2;
+        }
+
+        return result;
+    }
+}</code></pre>
+<ol start="3">
+<li>使用动态代理来修改实现类中的方法行为</li>
+</ol>
+<pre><code class="Java">public static void main(String[] args) {
+        SimpleInterface implementation = new SimpleInterfaceImpl();
+
+        SimpleInterface proxyInstance = (SimpleInterface) Proxy.newProxyInstance(
+                SimpleInterface.class.getClassLoader(),
+                new Class&lt;?&gt;[]{SimpleInterface.class},
+                new SimpleInterfaceHandler(implementation)
+        );
+
+        int result = proxyInstance.performOperation(5, 3);
+
+        System.out.println(&quot;Result of operation: &quot; + result); // 输出: Result of operation: 16
+    }</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射机制概述"><span class="toc-number">1.</span> <span class="toc-text">反射机制概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#反射机制常用的类"><span class="toc-number">1.1.</span> <span class="toc-text">反射机制常用的类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class-类"><span class="toc-number">2.</span> <span class="toc-text">Class 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过反射创建对象"><span class="toc-number">3.</span> <span class="toc-text">通过反射创建对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过反射操作属性和方法"><span class="toc-number">4.</span> <span class="toc-text">通过反射操作属性和方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#访问字段：使用-Field-类的-get-和-set-方法。"><span class="toc-number">4.1.</span> <span class="toc-text">访问字段：使用 Field 类的 get 和 set 方法。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问方法：使用-Method-类的-invoke-方法。"><span class="toc-number">4.2.</span> <span class="toc-text">访问方法：使用 Method 类的 invoke 方法。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射应用场景"><span class="toc-number">5.</span> <span class="toc-text">反射应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射应用实例"><span class="toc-number">6.</span> <span class="toc-text">反射应用实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获得自定义注解标记点属性并赋值"><span class="toc-number">6.1.</span> <span class="toc-text">获得自定义注解标记点属性并赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用反射创建接口的动态代理类"><span class="toc-number">6.2.</span> <span class="toc-text">使用反射创建接口的动态代理类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用动态代理修改接口实现"><span class="toc-number">6.3.</span> <span class="toc-text">使用动态代理修改接口实现</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Java 线程状态介绍 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,JVM, OS, Thread, NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED"> 
+    <meta name="description" content="JVM 中的线程，有六种状态，定义在 java.lang.Thread.State 枚举类中，从 1.5 版本开始，至目前最新的 17、18，基本没有变化。
+先来看一下 Java Doc 中对这六种,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Java 线程状态介绍</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/java-thread-states/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                七月 24, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/07/24/java-thread-states/" title="Java 线程状态介绍" class="">Java 线程状态介绍</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>JVM 中的线程，有六种状态，定义在 <code>java.lang.Thread.State</code> 枚举类中，从 <a href="https://docs.oracle.com/javase/1.5.0/docs/api/" target="_blank" rel="noopener">1.5</a> 版本开始，至目前最新的 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Thread.State.html" target="_blank" rel="noopener">17</a>、<a href="https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/lang/Thread.State.html" target="_blank" rel="noopener">18</a>，基本没有变化。</p>
+<p>先来看一下 Java Doc 中对这六种状态的描述：</p>
+<p><img src="/contents/java-thread-states/cover.png" alt=""></p>
+<p>注意下面那句话：</p>
+<blockquote>
+<p>A thread can be in only one state at a given point in time. These states are virtual machine states which do not reflect any operating system thread states.</p>
+</blockquote>
+<p>这段话提到两点：</p>
+<ol>
+<li>JVM 中的线程，在某一时间点，只能处于一种状态中；</li>
+<li>上面这些状态是 JVM 虚拟机中的线程状态，不对应任何操作系统的线程状态。</li>
+</ol>
+<h1 id="六种线程状态的理解"><a href="#六种线程状态的理解" class="headerlink" title="六种线程状态的理解"></a>六种线程状态的理解</h1><p>先看两种比较简单的状态。</p>
+<h2 id="NEW-TERMINATED"><a href="#NEW-TERMINATED" class="headerlink" title="NEW / TERMINATED"></a>NEW / TERMINATED</h2><h3 id="NEW"><a href="#NEW" class="headerlink" title="NEW"></a>NEW</h3><blockquote>
+<p>Thread state for a thread which has not yet started.</p>
+</blockquote>
+<p>线程对象创建后，尚未开始执行时，处于 <code>NEW</code> 状态。</p>
+<h3 id="TERMINATED"><a href="#TERMINATED" class="headerlink" title="TERMINATED"></a>TERMINATED</h3><blockquote>
+<p>Thread state for a terminated thread. The thread has completed execution.</p>
+</blockquote>
+<p>线程对象完成执行或终止退出后，处于 <code>TERMINATED</code> 状态。</p>
+<h3 id="获取线程状态"><a href="#获取线程状态" class="headerlink" title="获取线程状态"></a>获取线程状态</h3><p>可以在线程实例上，直接调用 <code>getState()</code> 方法，获取此线程的状态，如：</p>
+<pre><code class="bash">$ jshell
+|  欢迎使用 JShell -- 版本 11.0.3
+|  要大致了解该版本, 请键入: /help intro
+
+jshell&gt; Thread t = new Thread()
+t ==&gt; Thread[Thread-3,5,main]
+
+jshell&gt; t.getState()
+$8 ==&gt; NEW
+
+jshell&gt; t.start()
+
+jshell&gt; t.getState()
+$10 ==&gt; TERMINATED</code></pre>
+<p>可以看到，线程对象刚创建后，查看状态时，为 <code>NEW</code> 状态；调用 <code>start()</code> 方法并执行完毕后，转换为 <code>TERMINATED</code> 状态。</p>
+<blockquote>
+<p>Java 9 开始提供了 <code>jshell</code> 工具，可以用于执行 Java 代码并立即获得执行结果。</p>
+</blockquote>
+<h2 id="RUNNABLE"><a href="#RUNNABLE" class="headerlink" title="RUNNABLE"></a>RUNNABLE</h2><blockquote>
+<p>Thread state for a runnable thread. A thread in the runnable state is executing in the Java virtual machine but it may be waiting for other resources from the operating system such as processor.</p>
+</blockquote>
+<p>一个正在 Java 虚拟机中执行的线程处于这一状态，但它可能正在等待来自于操作系统的其它资源，比如处理器。</p>
+<p>注意上面提到过：这里的状态指的是 JVM 虚拟机中的线程状态，不对应任何操作系统的线程状态。</p>
+<p>JVM 将 CPU、硬盘、网络等都视为资源，有资源在为线程服务，它就认为线程是可以执行的，即使此时线程正在等待阻塞式的 IO 或网络操作，线程的状态也是 <code>RUNNABLE</code>。</p>
+<pre><code class="java">@Test
+public void runnableState() {
+    Thread t = new Thread(() -&gt; {
+        try(Scanner in = new Scanner(System.in)) {
+            in.nextLine();
+        }
+    });
+    assert Thread.State.NEW.equals(t.getState());
+
+    t.start();
+    assert Thread.State.RUNNABLE.equals(t.getState());
+}</code></pre>
+<p>Java 线程状态的改变通常只与自身显式引入的机制有关，比如 <code>synchronized</code> 机制有可能让线程进入 <code>BLOCKED</code> 状态，<code>sleep</code>、<code>wait</code> 等方法则可能让其进入 <code>WATING</code> 之类的状态。</p>
+<h2 id="BLOCKED-WAITING-TIMED-WAITING"><a href="#BLOCKED-WAITING-TIMED-WAITING" class="headerlink" title="BLOCKED / WAITING / TIMED_WAITING"></a>BLOCKED / WAITING / TIMED_WAITING</h2><p>剩下三种状态，可以先看一下这个视频，通过生活中的例子，对这三种状态进行了解释：</p>
+<video width="640" height="360" preload controls>
+  <source src="/contents/java-thread-states/video.mp4">
+</video>
+
+<blockquote>
+<p>该视频搬运自 <a href="https://www.youtube.com/watch?v=fzYLtYaJ_D0" target="_blank" rel="noopener">油管</a>，使用 <a href="https://yt1s.com/" target="_blank" rel="noopener">https://yt1s.com/</a> 下载。</p>
+</blockquote>
+<h3 id="BLOCKED"><a href="#BLOCKED" class="headerlink" title="BLOCKED"></a>BLOCKED</h3><blockquote>
+<p>Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling Object.wait.</p>
+</blockquote>
+<p>视频中，菲利普家的车子是一个同步资源：在车子被其妻子线程使用时，菲利普线程只能处于等待状态，等待车子空闲下来以便为他所用。</p>
+<p><code>BLOCKED</code> 状态跟 I/O 的阻塞是不同的，它不是一般意义上的阻塞，而是特指被 <code>synchronized</code> 块阻塞，即是跟线程同步有关的一个状态，是由 Java 的同步机制引起的等待状态。</p>
+<h3 id="WAITING"><a href="#WAITING" class="headerlink" title="WAITING"></a>WAITING</h3><blockquote>
+<p>Thread state for a waiting thread. A thread is in the waiting state due to calling one of the following methods:</p>
+<ul>
+<li>Object.wait with no timeout</li>
+<li>Thread.join with no timeout</li>
+<li>LockSupport.park</li>
+</ul>
+<p>A thread in the waiting state is waiting for another thread to perform a particular action. For example, a thread that has called Object.wait() on an object is waiting for another thread to call Object.notify() or Object.notifyAll() on that object. A thread that has called Thread.join() is waiting for a specified thread to terminate.</p>
+</blockquote>
+<p>视频中，车子这个同步资源，因为超速被交警扣押（<code>wait</code>），菲利普线程陷入了 <code>WATING</code> 状态。交警线程需要对车子资源进行一系列处理后，才会允许（<code>notify</code>）菲利普线程继续使用此资源，进而使菲利普线程恢复为 <code>RUNNABLE</code> 状态。</p>
+<blockquote>
+<p><code>Object</code> 中的 <code>wait</code> 方法必须在该线程持有此对象的锁时才能被调用，否则会抛出 <code>IllegalMonitorStateException</code> 异常。</p>
+</blockquote>
+<p>除了 <code>Object.wait</code> 方法外，<code>Thread.join</code> 和 <code>LockSupport.park</code> 也会导致线程转换为 <code>WAITING</code> 状态。注意，这几个方法都是不带超时时间的。</p>
+<h3 id="TIMED-WAITING"><a href="#TIMED-WAITING" class="headerlink" title="TIMED_WAITING"></a>TIMED_WAITING</h3><blockquote>
+<p>Thread state for a waiting thread with a specified waiting time. A thread is in the timed waiting state due to calling one of the following methods with a specified positive waiting time:</p>
+<ul>
+<li>Thread.sleep</li>
+<li>Object.wait with timeout</li>
+<li>Thread.join with timeout</li>
+<li>LockSupport.parkNanos</li>
+<li>LockSupport.parkUntil</li>
+</ul>
+</blockquote>
+<p><code>TIMED_WAITING</code> 状态与 <code>WAITING</code> 状态的区别，是 <code>TIMED_WAITING</code> 包含一个超时时间，在到达时限后，即使没有外部通知，也会自我唤醒。</p>
+<p>视频中，菲利普线程因不想上班迟到，在等待拼车人线程通知时，设定了超时时间 10 分钟，时间到了，不管拼车人是否出现，都会继续前进。</p>
+<p>在该状态的 Java Doc 描述中，也可以看到，触发该状态的五个方法，都是需要设定超时时间的。调用带超时时间的等待方法，可以避免因通知失效导致等待线程陷入无休止的等待。</p>
+<h1 id="线程-dump"><a href="#线程-dump" class="headerlink" title="线程 dump"></a>线程 dump</h1><p>了解了线程状态的含义，在分析 Java 应用的运行状况时会非常有帮助。</p>
+<p>要获得一个运行中的 Java 进程的线程栈信息时，可使用 JDK 中自带的 <code>jstack</code> 工具，如：</p>
+<pre><code class="bash">$ jstack -l &lt;pid&gt;</code></pre>
+<blockquote>
+<p><code>&lt;pid&gt;</code> 需替换为 Java 进程 ID，可通过 <code>jps</code> 命令查询。</p>
+</blockquote>
+<p>上面命令会将线程栈信息直接输出到控制台，将其输出内容重定向到文件，即可获得线程 dump 文件：</p>
+<pre><code class="bash">$ jstack -l &lt;pid&gt; &gt; thread.dump</code></pre>
+<p>可通过文本编辑器直接打开线程 dump 文件，里面包含该 Java 进程中每个 Java 线程的栈信息，例如：</p>
+<pre><code class="dump">&quot;http-nio-8080-Poller&quot; #19 daemon prio=5 os_prio=31 cpu=77.35ms elapsed=664.82s tid=0x00007ffbd1ea0800 nid=0x6303 runnable  [0x00007000099a2000]
+   java.lang.Thread.State: RUNNABLE
+    at sun.nio.ch.KQueue.poll(java.base@11.0.3/Native Method)
+    at sun.nio.ch.KQueueSelectorImpl.doSelect(java.base@11.0.3/KQueueSelectorImpl.java:122)
+    at sun.nio.ch.SelectorImpl.lockAndDoSelect(java.base@11.0.3/SelectorImpl.java:124)
+    - locked &lt;0x000000070de1e270&gt; (a sun.nio.ch.Util$2)
+    - locked &lt;0x000000070de1def0&gt; (a sun.nio.ch.KQueueSelectorImpl)
+    at sun.nio.ch.SelectorImpl.select(java.base@11.0.3/SelectorImpl.java:136)
+    at org.apache.tomcat.util.net.NioEndpoint$Poller.run(NioEndpoint.java:787)
+    at java.lang.Thread.run(java.base@11.0.3/Thread.java:834)
+
+   Locked ownable synchronizers:
+    - None</code></pre>
+<p>可以看出，该线程处于 <code>RUNNABLE</code> 状态中。</p>
+<h1 id="可视化工具"><a href="#可视化工具" class="headerlink" title="可视化工具"></a>可视化工具</h1><h2 id="VisualVM"><a href="#VisualVM" class="headerlink" title="VisualVM"></a>VisualVM</h2><p><a href="https://visualvm.github.io/" target="_blank" rel="noopener">VisualVM</a> 可以查看本地或远程运行中的 Java 进程的线程状态，在 JDK 6~8 中是 JDK 中自带的工具，JDK 9 之后不再包含在 JDK 中，可从 <a href="https://visualvm.github.io/download.html" target="_blank" rel="noopener">VisualVM 下载页面</a> 下载最新版。</p>
+<p>可通过 <code>jvisualvm</code> 命令启动 VisualVM：</p>
+<p><img src="/contents/java-thread-states/jvisualvm.png" alt=""></p>
+<p>由上图右下角可以看到，VisualVM 中，对线程状态的划分与 JDK 中定义的线程状态不相同，但是有对应关系的。</p>
+<p>在 <a href="https://github.com/visualvm/visualvm.java.net.backup/blob/master/visualvm/applicationviews/src/com/sun/tools/visualvm/application/views/threads/ThreadMXBeanDataManager.java#L177-L198" target="_blank" rel="noopener">ThreadMXBeanDataManager.ThreadMonitoredDataResponse#getState</a> 中定义了两种线程状态的映射：</p>
+<pre><code class="java">byte getState(ThreadInfo threadInfo) {
+    Thread.State state = threadInfo.getThreadState();
+    switch (state) {
+        case BLOCKED:
+            return CommonConstants.THREAD_STATUS_MONITOR;
+        case RUNNABLE:
+            return CommonConstants.THREAD_STATUS_RUNNING;
+        case TIMED_WAITING:
+        case WAITING:
+            StackTraceElement[] stack = threadInfo.getStackTrace();
+            if (stack.length&gt;0) {
+                StackTraceElement el = stack[0];
+                if (isSleeping(el)) return CommonConstants.THREAD_STATUS_SLEEPING;
+                if (isParked(el)) return CommonConstants.THREAD_STATUS_PARK;
+            }
+            return CommonConstants.THREAD_STATUS_WAIT;
+        case TERMINATED:
+        case NEW:
+            return CommonConstants.THREAD_STATUS_ZOMBIE;
+    }
+    return CommonConstants.THREAD_STATUS_UNKNOWN;
+}</code></pre>
+<p>即</p>
+<table>
+<thead>
+<tr>
+<th align="left">JDK</th>
+<th align="left">Visual VM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">BLOCKED</td>
+<td align="left">Monitor</td>
+</tr>
+<tr>
+<td align="left">RUNNABLE</td>
+<td align="left">Running</td>
+</tr>
+<tr>
+<td align="left">WAITING / TIMED_WAITING</td>
+<td align="left">Sleeping / Park / Wait</td>
+</tr>
+<tr>
+<td align="left">TERMINATED / NEW</td>
+<td align="left">Zombie</td>
+</tr>
+</tbody></table>
+<h2 id="fastThread"><a href="#fastThread" class="headerlink" title="fastThread"></a>fastThread</h2><p>fastThread 网站（ <a href="https://fastthread.io/" target="_blank" rel="noopener">https://fastthread.io/</a> ）为我们提供了一个免费的，在线分析线程 dump 文件的方案，可以将 dump 文件上传，得到可视化的分析结果：</p>
+<p><img src="/contents/java-thread-states/fastthread.png" alt=""></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://my.oschina.net/goldenshaw/blog/386788" target="_blank" rel="noopener">关于 Java 的线程状态</a></li>
+<li><a href="https://my.oschina.net/goldenshaw/blog/705397" target="_blank" rel="noopener">Java 线程状态之 RUNNABLE</a></li>
+<li><a href="https://my.oschina.net/goldenshaw/blog/706663" target="_blank" rel="noopener">Java 线程状态之 BLOCKED</a></li>
+<li><a href="https://my.oschina.net/goldenshaw/blog/802620" target="_blank" rel="noopener">Java 线程状态之 WAITING</a></li>
+<li><a href="https://my.oschina.net/goldenshaw/blog/806018" target="_blank" rel="noopener">Java 线程状态之 TIMED_WAITING</a></li>
+<li><a href="https://stackoverflow.com/questions/27406200/visualvm-thread-states/27406503" target="_blank" rel="noopener">VisualVM - Thread States</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#六种线程状态的理解"><span class="toc-number">1.</span> <span class="toc-text">六种线程状态的理解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NEW-TERMINATED"><span class="toc-number">1.1.</span> <span class="toc-text">NEW &#x2F; TERMINATED</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NEW"><span class="toc-number">1.1.1.</span> <span class="toc-text">NEW</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TERMINATED"><span class="toc-number">1.1.2.</span> <span class="toc-text">TERMINATED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程状态"><span class="toc-number">1.1.3.</span> <span class="toc-text">获取线程状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RUNNABLE"><span class="toc-number">1.2.</span> <span class="toc-text">RUNNABLE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BLOCKED-WAITING-TIMED-WAITING"><span class="toc-number">1.3.</span> <span class="toc-text">BLOCKED &#x2F; WAITING &#x2F; TIMED_WAITING</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BLOCKED"><span class="toc-number">1.3.1.</span> <span class="toc-text">BLOCKED</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WAITING"><span class="toc-number">1.3.2.</span> <span class="toc-text">WAITING</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TIMED-WAITING"><span class="toc-number">1.3.3.</span> <span class="toc-text">TIMED_WAITING</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程-dump"><span class="toc-number">2.</span> <span class="toc-text">线程 dump</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#可视化工具"><span class="toc-number">3.</span> <span class="toc-text">可视化工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#VisualVM"><span class="toc-number">3.1.</span> <span class="toc-text">VisualVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fastThread"><span class="toc-number">3.2.</span> <span class="toc-text">fastThread</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

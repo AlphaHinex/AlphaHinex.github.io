@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】Java 线程状态之 BLOCKED - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,java, blocked, thread.state, 线程, 线程状态"> 
+    <meta name="description" content="原文地址：https://xiaogd.net/md/java-线程状态之-blocked
+目录
+
+BLOCKED 状态的定义
+进入（enter）同步块时阻塞
+wait 之后重进入（reenter）,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】Java 线程状态之 BLOCKED</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/java-thread-states/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                八月 28, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/08/28/java-thread-blocked/" title="【转】Java 线程状态之 BLOCKED" class="">【转】Java 线程状态之 BLOCKED</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>原文地址：<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-blocked" target="_blank" rel="noopener">https://xiaogd.net/md/java-线程状态之-blocked</a></p>
+<p>目录</p>
+<ul>
+<li>BLOCKED 状态的定义</li>
+<li>进入（enter）同步块时阻塞</li>
+<li>wait 之后重进入（reenter）同步块时阻塞</li>
+<li>总结</li>
+</ul>
+<p>在<a href="https://xiaogd.net/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-runnable/" target="_blank" rel="noopener">上一篇</a>中，我们强调了 BLOCKED 状态跟 I/O 的阻塞是不同的，它不是一般意义上的阻塞，而是特指被 synchronized 块阻塞，即是跟线程同步有关的一个状态。</p>
+<h1 id="BLOCKED-状态的定义"><a href="#BLOCKED-状态的定义" class="headerlink" title="BLOCKED 状态的定义"></a>BLOCKED 状态的定义</h1><p><a href="http://my.oschina.net/goldenshaw/blog/386788" target="_blank" rel="noopener">前面</a>已经说过 BLOCKED(阻塞) 的简单定义为：</p>
+<blockquote>
+<p>一个正在阻塞等待一个监视器锁的线程处于这一状态。(A thread that is blocked waiting for a monitor lock is in this state.)</p>
+</blockquote>
+<p>更加详细的定义可以参考 Thread.State 中的 javadoc：</p>
+<pre><code class="java">/**
+ * Thread state for a thread blocked waiting for a monitor lock.
+ * A thread in the blocked state is waiting for a monitor lock
+ * to enter a synchronized block/method or
+ * reenter a synchronized block/method after calling
+ * {@link Object#wait() Object.wait}.
+ */
+BLOCKED,</code></pre>
+<p>这句话很长，可以拆成两个简单句来理解。</p>
+<ol>
+<li>A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method.<blockquote>
+<p>一个处于 blocked 状态的线程正在等待一个监视器锁以进入一个同步的块或方法。</p>
+</blockquote>
+</li>
+<li>A thread in the blocked state is waiting for a monitor lock to reenter a synchronized block/method after calling Object.wait.<blockquote>
+<p>一个处于 blocked 状态的线程正在等待一个监视器锁，在其调用 Object.wait 方法之后，以再次进入一个同步的块或方法。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="进入（enter）同步块时阻塞"><a href="#进入（enter）同步块时阻塞" class="headerlink" title="进入（enter）同步块时阻塞"></a>进入（enter）同步块时阻塞</h1><p>先说第一句，这个比较好理解。</p>
+<p>监视器锁用于同步访问，以达到多线程间的互斥。所以一旦一个线程获取锁进入同步块，在其出来之前，如果其它线程想进入，就会因为获取不到锁而阻塞在同步块之外，这时的状态就是 BLOCKED。</p>
+<blockquote>
+<p>注：这一状态的进入及解除都不受我们控制，当锁可用时，线程即从阻塞状态中恢复。</p>
+</blockquote>
+<p>我们可以用一些代码来演示这一过程：</p>
+<pre><code class="java">@Test
+public void testBlocked() throws Exception {
+    class Counter {
+        int counter;
+        public synchronized void increase() {
+            counter++;
+            try {
+                Thread.sleep(30000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+    Counter c = new Counter();
+
+    Thread t1 = new Thread(new Runnable() {
+        public void run() {
+            c.increase();
+        }
+    }, &quot;t1线程&quot;);
+    t1.start();
+
+    Thread t2 = new Thread(new Runnable() {
+        public void run() {
+            c.increase();
+        }
+    }, &quot;t2线程&quot;);
+    t2.start();
+
+    Thread.sleep(100); // 确保 t2 run已经得到执行
+    assertThat(t2.getState()).isEqualTo(Thread.State.BLOCKED);
+}</code></pre>
+<blockquote>
+<p>以上定义了一个访问计数器 counter，有一个同步的 increase 方法。t1 线程先进入，然后在同步块里面睡觉，导致锁迟迟无法释放，t2 尝试执行同步方法时就因无法获取锁而被阻塞了。</p>
+</blockquote>
+<p>VisualVM 监控显示了 t2 线程的状态：</p>
+<p><img src="/contents/java-thread-states/visualvm-blocked.jpg" alt=""></p>
+<blockquote>
+<p>图上的“监视（monitor）”状态即为 BLOCKED 状态。可以看到在 t1睡眠期间 t2处于 BLOCKED 状态。<br>BLOCKED 状态可以视作是一种特殊的 WAITING，特指等待锁。</p>
+</blockquote>
+<h1 id="wait-之后重进入（reenter）同步块时阻塞"><a href="#wait-之后重进入（reenter）同步块时阻塞" class="headerlink" title="wait 之后重进入（reenter）同步块时阻塞"></a>wait 之后重进入（reenter）同步块时阻塞</h1><p>现在再次来看第二句：</p>
+<ol start="2">
+<li>A thread in the blocked state is waiting for a monitor lock to reenter a synchronized block/method after calling Object.wait.</li>
+</ol>
+<blockquote>
+<p>一个处于 blocked 状态的线程正在等待一个监视器锁，在其调用 Object.wait 方法之后，以再次进入一个同步的块或方法。</p>
+</blockquote>
+<p>这句话有点绕，也不好翻译成一句简洁的中文。如果没有对 wait 的相关背景有较好的理解，则不容易理解这句话。我们在此把它稍微展开讲一下。既然是 reenter，说明有两次 enter，这个过程是这样的：</p>
+<ol>
+<li>调用 wait 方法必须在同步块中，即是要先获取锁并进入同步块，这是第一次 enter。</li>
+<li>而调用 wait 之后则会释放该锁，并进入此锁的等待队列（wait set）中。</li>
+<li>当收到其它线程的 notify 或 notifyAll 通知之后，等待线程并不能立即恢复执行，因为停止的地方是在同步块内，而锁已经释放了，所以它要重新获取锁才能再次进入（reenter）同步块，然后从上次 wait 的地方恢复执行。这是第二次 enter，所以叫 reenter。</li>
+<li>但锁并不会优先给它，该线程还是要与其它线程去竞争锁，这一过程跟 enter 的过程其实是一样的，因此也可能因为锁已经被其它线程据有而导致 BLOCKED。</li>
+</ol>
+<p>这一过程就是所谓的 reenter a synchronized block/method after calling Object.wait。</p>
+<p>关于这一点，因为也涉及到了 WAITING 的状态，可结合 <a href="https://xiaogd.net/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-waiting/" target="_blank" rel="noopener">Java 线程状态之 WAITING</a> 一起来理解，在那里还增加了一些动画的演示来辅助理解。</p>
+<p>我们也用一段代码来演示这一过程：</p>
+<pre><code class="java">@Test
+public void testReenterBlocked() throws Exception {
+    class Account {
+        int amount = 100; // 账户初始100元
+        public synchronized void deposit(int cash) { // 存钱
+            amount += cash;
+            notify();
+            try {
+                Thread.sleep(30000); // 通知后却暂时不退出
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        public synchronized void withdraw(int cash) { // 取钱
+            while (cash &amp;gt; amount) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            amount -= cash;
+        }
+    }
+    Account account = new Account();
+    Thread withdrawThread = new Thread(new Runnable() {
+        public void run() {
+            account.withdraw(200);
+        }
+    }, &quot;取钱线程&quot;);
+    withdrawThread.start();
+
+    Thread.sleep(100); // 确保取钱线程已经得到执行
+
+    assertThat(withdrawThread.getState()).isEqualTo(Thread.State.WAITING);
+
+    Thread depositThread = new Thread(new Runnable() {
+        public void run() {
+            account.deposit(100);
+        }
+    }, &quot;存钱线程&quot;);
+    Thread.sleep(10000); // 让取钱线程等待一段时间
+    depositThread.start();
+
+    Thread.sleep(300); // 确保取钱线程已经被存钱线程所通知到
+
+    assertThat(withdrawThread.getState()).isEqualTo(Thread.State.BLOCKED);
+
+}</code></pre>
+<p>简要介绍一下以上代码场景：</p>
+<ol>
+<li>有一个账户对象，有存钱（deposit）和取钱（withdraw）方法，初始金额100元。</li>
+<li>取钱线程先启动，并进入（enter）同步块，试图取 200 元，发现钱不够，调用 wait，锁释放，线程挂起（WAITING 状态）。</li>
+<li>10 秒后存钱线程启动，存入钱并通知（notify）取钱线程，但之后继续在同步块中睡眠，导致锁没有释放。</li>
+<li>取钱线程收到通知后，退出 WAITING 状态，但已经不持有锁，当试图重新进入（reenter）同步块以恢复执行时，因锁尚未被存钱线程释放，于是被阻塞（BLOCKED 状态）。</li>
+</ol>
+<p>监控的显示：</p>
+<p><img src="/contents/java-thread-states/visualvm-reenterblocked.jpg" alt=""></p>
+<blockquote>
+<p>如图，取钱线程先是 WAITING，在收到通知因无法获取锁而阻塞（BLOCKED）。</p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>综合来看这两句话，两层意思，其实还是一个意思，简单地讲，就是enter，reenter 也还是 enter，概括地讲：</p>
+<blockquote>
+<p>当因为获取不到锁而无法进入同步块时，线程处于 BLOCKED 状态。</p>
+</blockquote>
+<p>如果有线程长时间处于 BLOCKED 状态，要考虑是否发生了死锁（deadlock）的状况。<br>BLOCKED 状态可以视作为一种特殊的 waiting，是传统 waiting 状态的一个细分：</p>
+<p><img src="/contents/java-thread-states/os-jvm-thread-state.png" alt=""></p>
+<p>由于还没有讲到 WAITING 状态，而这里有涉及到了 wait 方法，所以上面对 wait 也稍微做了些分析，在下一章节，会更加详细的分析 WAITING 和 TIMED_WAITING 这两个状态。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BLOCKED-状态的定义"><span class="toc-number">1.</span> <span class="toc-text">BLOCKED 状态的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#进入（enter）同步块时阻塞"><span class="toc-number">2.</span> <span class="toc-text">进入（enter）同步块时阻塞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wait-之后重进入（reenter）同步块时阻塞"><span class="toc-number">3.</span> <span class="toc-text">wait 之后重进入（reenter）同步块时阻塞</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

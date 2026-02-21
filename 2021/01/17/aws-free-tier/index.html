@@ -1,0 +1,576 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>薅 AWS 羊毛 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,AWS, EC2, GFW, VPS"> 
+    <meta name="description" content="AWS，即 Amazon Web Services，是由 Amazon 提供的云服务。在 Gartner 新的 2020 年云基础设施和平台服务 (CIPS) 魔力象限 中，Gartner Rese,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">薅 AWS 羊毛</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/aws-free-tier/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Cloud"><b>「
+                    </b>CLOUD<b> 」</b></a>
+                
+                一月 17, 2021
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2021/01/17/aws-free-tier/" title="薅 AWS 羊毛" class="">薅 AWS 羊毛</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.5k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GFW/" rel="tag">GFW</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://amazonaws-china.com/cn/" target="_blank" rel="noopener">AWS</a>，即 Amazon Web Services，是由 Amazon 提供的云服务。在 <a href="https://www.gartner.com/en" target="_blank" rel="noopener">Gartner</a> 新的 <a href="https://blogs.gartner.com/raj-bala/2020/09/10/gartner-publishes-the-magic-quadrant-for-cloud-infrastructure-and-platform-services-2020/?_ga=2.190865065.247882349.1610534360-616680468.1610534360" target="_blank" rel="noopener">2020 年云基础设施和平台服务 (CIPS) 魔力象限</a> 中，Gartner Research 将 AWS 定位在“领导者象限”中。在此魔力象限中，CIPS（Cloud Infrastructure and Platform Services）被定义为“标准化、高度自动化的产品，其中基础设施资源（例如计算、联网和存储）由集成式平台服务加以补充。”</p>
+<p><img src="/contents/aws-free-tier/cips-mq.jpg" alt="Magic Quadrant for Cloud Infrastructure and Platform Services, 2020"></p>
+<h2 id="免费套餐"><a href="#免费套餐" class="headerlink" title="免费套餐"></a>免费套餐</h2><p>作为领导者，AWS 提供的福利也是很厚道的，为每个账号都提供了免费套餐，包括试用、12 个月免费和永久免费三种类型的多种产品，详细可见：</p>
+<ul>
+<li><a href="https://amazonaws-china.com/cn/free" target="_blank" rel="noopener">AWS 海外区域账户免费套餐</a></li>
+<li><a href="https://www.amazonaws.cn/free/" target="_blank" rel="noopener">AWS 中国（宁夏）区域免费套餐</a></li>
+</ul>
+<p>关于免费套餐的内容，官网有如下说明：</p>
+<blockquote>
+<p>12 个月免费：这些免费套餐产品仅适用于新 AWS 客户，在自注册 AWS 之日起 12 个月内可用。当 12 个月的免费使用期过期或您的应用程序使用量超过了免费套餐限额，您只需支付标准的按使用量付费的服务费率（请参阅每个服务页面上的完整定价详情）。存在限制条件；有关更多详细信息，请参阅优惠条款。<br>‍<br>永久免费：这些免费套餐产品在 12 个月的 AWS 免费套餐期限到期后不会自动过期，而是无期限地提供给现有的和新的 AWS 客户。<br>‍<br>试用：这些免费套餐产品是短期试用产品，始于第一次试用开始时。试用期过后，您只需支付标准的按使用量付费的服务费率（请参阅每个服务页面上的完整定价详情）。<br>‍<br>客户在全球区域中使用的套餐服务使用量，均将计入 Amazon AWS 免费套餐中。AWS 免费套餐中的免费使用量每月计算一次（所有区域）并自动应用到账单中，免费使用量不能累计。目前，我们尚未在 AWS GovCloud（美国）区域和中国（北京）区域提供 AWS 免费套餐。</p>
+</blockquote>
+<p><strong>即，免费使用不假，但是是有 <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html" target="_blank" rel="noopener">限额</a> 的，超过限额是仍然要付费的，别问我怎么知道的。</strong></p>
+<h2 id="怎么薅"><a href="#怎么薅" class="headerlink" title="怎么薅"></a>怎么薅</h2><h3 id="注册账号"><a href="#注册账号" class="headerlink" title="注册账号"></a>注册账号</h3><p>到 <a href="https://amazonaws-china.com/cn/" target="_blank" rel="noopener">AWS</a> <code>创建 AWS 账户</code>，注册过程中需要填写银行卡信息，可以使用信用卡，注册后会产生 1 美元的预授权交易。完成注册信息填写后，需要等待服务激活，官方说法 <code>您的服务可能需要24小时才能完全激活</code>。进度会通过注册邮箱进行通知。</p>
+<p>服务激活后，即可选择开通免费套餐中的服务了。</p>
+<blockquote>
+<p>免费套餐是为每个账号提供的，账号通过邮箱注册，注册信息中，手机号、银行卡号等信息，可以重复使用，只要邮箱不同即可，这意味着。。。</p>
+</blockquote>
+<h3 id="开通服务"><a href="#开通服务" class="headerlink" title="开通服务"></a>开通服务</h3><p>以开通 EC2 服务为例，EC2 是 AWS 的 <code>Virtual Servers in the Cloud</code>。</p>
+<p>先在 <code>AWS 管理控制台</code> 中选择区域，如 <code>亚太地区 (东京)ap-northeast-1</code>，然后在 <code>Services</code> 中选择 <code>EC2</code>，在东京开通一台 EC2 服务。</p>
+<p>点击 <code>启动实例</code>，选择系统镜像，勾选 <code>仅免费套餐</code>，选择一个符合条件的镜像，如 <code>Amazon Linux 2 AMI (HVM), SSD Volume Type</code>。之后选择符合免费套餐条件的实例类型 <code>t2.micro</code>。配置安全组时，可以开放一些端口供后续使用，也可以在需要时再进行设置。</p>
+<p>完成设置准备启动时，会提示 <code>选择现有密钥对或创建新密钥对</code>，创建一个新密钥对，并下载私钥文件后，即可启动实例。</p>
+<blockquote>
+<p>注意过程中的提示：您必须下载私有密钥文件(*.pem 文件)才能继续操作。请将其存储在安全且易于访问的位置。您无法在创建文件后再次下载此文件。</p>
+</blockquote>
+<p>实例启动成功后，可至实例信息界面，点击 <code>连接</code>，选择 <code>EC2 Instance Connect</code>、<code>会话管理器</code>、<code>SSH 客户端</code> 方式连接至 EC2 实例。</p>
+<h3 id="限额"><a href="#限额" class="headerlink" title="限额"></a>限额</h3><p>羊毛虽好，但不要无节制的薅。</p>
+<p>免费套餐是有时限和限额的。</p>
+<ul>
+<li>12 个月免费是指 <strong>从注册之日</strong> 起 12 个月内</li>
+<li>还要注意服务用量的叠加，如 EC2 服务 12 个月内免费，但每月免费时长是 750 小时，所以在免费套餐内，可以连续使用一个 Linux 实例一个月，或者使用十个 Linux 实例，每个每月 75 小时</li>
+</ul>
+<p>用量接近限额时，会收到邮件提醒，一定要注意免费套餐的限额，否则会收费。</p>
+<p>另外 EC2 服务会带有一个外网 IP，即使时限没超过用量，带宽超过也是会收费的，如：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Bandwidth</th>
+<th align="left"></th>
+<th align="left">$0.15</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$0.000 per GB - data transfer in per month</td>
+<td align="left">16.818 GB</td>
+<td align="left">$0.00</td>
+</tr>
+<tr>
+<td align="left">$0.000 per GB - data transfer out under the monthly global free tier</td>
+<td align="left">15.000 GB</td>
+<td align="left">$0.00</td>
+</tr>
+<tr>
+<td align="left">$0.000 per GB - regional data transfer under the monthly global free tier</td>
+<td align="left">0.007 GB</td>
+<td align="left">$0.00</td>
+</tr>
+<tr>
+<td align="left">$0.114 per GB - first 10 TB / month data transfer out beyond the global free tier</td>
+<td align="left">1.299 GB</td>
+<td align="left">$0.15</td>
+</tr>
+</tbody></table>
+<p>在账单界面可以看到具体限额和用量：</p>
+<table>
+<thead>
+<tr>
+<th align="left">服务</th>
+<th align="left">免费套餐的使用量限额</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Amazon Elastic Compute Cloud</td>
+<td align="left">750 hours per month of Amazon EC2 Linux, RHEL, or SLES t2.micro or t3.micro instance dependent on region</td>
+</tr>
+<tr>
+<td align="left">Amazon Elastic Compute Cloud</td>
+<td align="left">30 GB of Amazon Elastic Block Storage in any combination of General Purpose (SSD) or Magnetic</td>
+</tr>
+<tr>
+<td align="left">AWS Data Transfer</td>
+<td align="left">15 GB of bandwidth out aggregated across all AWS services</td>
+</tr>
+<tr>
+<td align="left">AWS Key Management Service</td>
+<td align="left">20,000 free requests per month for AWS Key Management Service</td>
+</tr>
+</tbody></table>
+<h3 id="套餐到期"><a href="#套餐到期" class="headerlink" title="套餐到期"></a>套餐到期</h3><p>12 个月的免费套餐到期时，开通的服务不会自动停止。服务继续运行将会产生费用。如不再使用，需手动停止服务。</p>
+<p>以 EC2 服务为例，选择对应实例，停止或终止实例即可。停止后可再次启动实例，终止后则不能。</p>
+<blockquote>
+<p>注意：停止或终止实例均会导致 IP 发生变化。重启实例不会改变 IP。</p>
+</blockquote>
+<blockquote>
+<p>可通过控制台查询公网 IP 地址，也可以在主机中通过 <code>curl http://169.254.169.254/latest/meta-data/public-ipv4</code> 进行查询。</p>
+</blockquote>
+<p>另外，12个月免费期不是指 365 天，具体过期时间，可以收到的到期提醒邮件为准，大致为整月结算。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#免费套餐"><span class="toc-number">1.</span> <span class="toc-text">免费套餐</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么薅"><span class="toc-number">2.</span> <span class="toc-text">怎么薅</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册账号"><span class="toc-number">2.1.</span> <span class="toc-text">注册账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开通服务"><span class="toc-number">2.2.</span> <span class="toc-text">开通服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#限额"><span class="toc-number">2.3.</span> <span class="toc-text">限额</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#套餐到期"><span class="toc-number">2.4.</span> <span class="toc-text">套餐到期</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

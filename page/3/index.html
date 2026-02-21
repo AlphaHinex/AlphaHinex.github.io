@@ -1,0 +1,1014 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/jdwp-objectid/cover.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Java"><b>「
+                </b>JAVA<b> 」</b></a>
+            
+            十月 05, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2025/10/05/jdwp-objectid/" title="【转】Debug调试时 Object@xxx表示什么" class="posttitle">【转】Debug调试时 Object@xxx表示什么</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                2.2k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                2 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <ul>
+<li>原文链接：<a href="https://blog.csdn.net/baichoufei90/article/details/84102509" target="_blank" rel="noopener">Debug调试时 Object@xxx表示什么</a></li>
+<li>原文作者：<a href="https://blog.csdn.net/baichoufei90?type=blog" target="_blank" rel="noopener">迷路剑客</a></li>
+</ul>
+<p>再用IDEA等工具调试Java代码时，往往会看到类似<code>Person@434</code>这样的信息。关于<code>@</code>符号后面数字表示的含义，这里...</p>
+            
+            <span class="read-more"><a href="/2025/10/05/jdwp-objectid/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/jdwp-objectid/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 05, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/10/05/jdwp-objectid/" title="【转】Debug调试时 Object@xxx表示什么" class="posttitle">【转】Debug调试时 Object@xxx表示什么</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文链接：<a href="https://blog.csdn.net/baichoufei90/article/details/84102509" target="_blank" rel="noopener">Debug调试时 Object@xxx表示什么</a></li>
+<li>原文作者：<a href="https://blog.csdn.net/baichoufei90?type=blog" target="_blank" rel="noopener">迷路剑客</a></li>
+</ul>
+<p>再用IDEA等工具调试Java代码时，往往会看到类似<code>Person@434</code>这样的信息。关于<code>@</code>符号后面数字表示的含义，这里解释一下。</p>
+<p></p>
+<p>首先这里要说下，这个数字不是<code>HashCode</code>，也不是其16进制形式。</p>
+<p><code>Object</code>对象有一个默认的<code>toString</code>方法如下：</p>
+<pre><code class="java">public String toString() {
+    return getClass().getName() + &quot;@&quot; + Integer...</code></pre>
+            
+            <span class="read-more"><a href="/2025/10/05/jdwp-objectid/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/find-all-beanfactories-in-spring-boot.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Spring">
+                  <b>「 </b>SPRING<b> 」</b>
+                </a>
+            
+            九月 27, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/09/27/find-all-beanfactories-in-spring-boot/" title="如何找到 SpringBoot 应用中的所有 BeanFactory" class="posttitle">如何找到 SpringBoot 应用中的所有 BeanFactory</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        8 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2020/04/24/multi-dispatcherservlet/">还在给每个请求加前缀避免模块间接口冲突呢？</a> 中，我们讨论了在一个 Spring Boot 应用中注册多个 <code>DispatcherServlet</code> 来实现应用上下文隔离的方案，以达到在不同 Servlet 关联的上下文中，注册相同 <code>RequestMapping</code> 的 <code>Controller</code>，乃至相同名称的 Bean 的效果。</p>
+<p>在实际使用这种模式时，可能会遇到某些原因导致上下文隔离的效果跟预期不一致的情况，比如 <code>SpringBootApplication</code> 启动类上使用了 <code>@ComponentScan</code> 注...</p>
+            
+            <span class="read-more"><a href="/2025/09/27/find-all-beanfactories-in-spring-boot/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/kylin-v10-audit-memory-leak.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Linux">
+                  <b>「 </b>LINUX<b> 」</b>
+                </a>
+            
+            九月 21, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/09/21/kylin-v10-audit-memory-leak/" title="【转】麒麟v10操作系统audit内存溢出引发的k8s灾难性雪崩" class="posttitle">【转】麒麟v10操作系统audit内存溢出引发的k8s灾难性雪崩</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        3.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        3 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>作者：<a href="https://www.jianshu.com/u/d682f8cbe064" target="_blank" rel="noopener">微凉哇</a></li>
+<li>原文：<a href="https://www.jianshu.com/p/486f443d05d6" target="_blank" rel="noopener">麒麟v10操作系统audit内存溢出引发的k8s灾难性雪崩</a></li>
+</ul>
+<p>笔者最近在国产化操作系统部署了一套k8s服务，今天发现好多应用都出现无法调度的问题。原因均指向：节点内存不足。</p>
+<p>环境信息</p>
+<pre><code class="bash">[root@localhost ~]# rpm -qa|grep audit
+audit-libs-3.0-5.se.06.ky10.x86_64
+python3-audit-3.0-5.se.06.ky10.x86_64
+audit-3.0-5.se.06.ky10.x86_64
+[root...</code></pre>
+            
+            <span class="read-more"><a href="/2025/09/21/kylin-v10-audit-memory-leak/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/mockito-core-vs-mockito-inline.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Test">
+                  <b>「 </b>TEST<b> 」</b>
+                </a>
+            
+            九月 14, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/09/14/mockito-core-vs-mockito-inline/" title="【转】Mockito Core 与 Mockito Inline 的区别" class="posttitle">【转】Mockito Core 与 Mockito Inline 的区别</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mockito/" rel="tag">Mockito</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Testing/" rel="tag">Testing</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>作者：<a href="https://www.baeldung.com/author/oscarramadhan" target="_blank" rel="noopener">Oscar Ramadhan</a></li>
+<li>英文版：<a href="https://www.baeldung.com/mockito-core-vs-mockito-inline" target="_blank" rel="noopener">Difference Between Mockito Core and Mockito Inline</a></li>
+<li>中文版：<a href="https://www.baeldung-cn.com/mockito-core-vs-mockito-inline" target="_blank" rel="noopener">Mockito Core 与 Mockito Inline 的区别</a></li>
+</ul>
+<p>Mockito 是 Java 中最流行的模拟对象框架之一，它提供了 Mockito Core 和 Mockito Inline 两个核心库，用于满足单元测试中不同场景的需求。</p>
+<p>✅ 想深入学习 Mockito 测试技巧？可以参考我们的 <a href="https://www.baeldung-cn.com/tag/mockito/" target="_blank" rel="noopener">Mockito 系列教程</a>。</p>
+<p>Mockito...</p>
+            
+            <span class="read-more"><a href="/2025/09/14/mockito-core-vs-mockito-inline/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/servlet-path-of-request-in-multi-servlets-env.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            九月 07, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/09/07/servlet-path-of-request-in-multi-servlets-env/" title="多 Servlet 环境下，请求的 ServletPath 是什么" class="posttitle">多 Servlet 环境下，请求的 ServletPath 是什么</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        17k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        15 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>Servlet 是 Java EE（现为 Jakarta EE）规范中的一个重要组件，用于处理客户端请求并生成动态响应。Servlet 通常运行在 Servlet 容器（如 Apache Tomcat、Jetty 等）中，负责接收 HTTP 请求、处理业务逻辑并返回 HTTP 响应。</p>
+<p>以下内容引自 <a href="https://liaoxuefeng.com/books/jerrymouse/servlet-spec/index.html" target="_blank" rel="noopener">廖雪峰的官方网站 - 手写Tomcat - Servlet规范</a>：</p>
+<blockquote>
+<p>Servlet规范有好几个版本，每个版本都有一些新的功能。以下是一些常见版本的新功能：</p>
+<p>Servlet 1.0：定义了Servlet...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/09/07/servlet-path-of-request-in-multi-servlets-env/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/spring-beanfactory-applicationcontext.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Spring">
+                  <b>「 </b>SPRING<b> 」</b>
+                </a>
+            
+            八月 31, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/08/31/spring-beanfactory-applicationcontext/" title="Spring 中 BeanFactory 和 ApplicationContext 的关系梳理" class="posttitle">Spring 中 BeanFactory 和 ApplicationContext 的关系梳理</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        593
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p>几个重点：</p>
+<ol>
+<li><code>BeanFactory</code> 接口提供的查找 Bean 的方法，需要时都会到父级工厂（如果有的话）中去查找。</li>
+<li><code>ListableBeanFactory</code> 接口中可以获得一类 Bean，不会包含父级工厂中的 Bean。</li>
+<li><code>ApplicationContext</code> 接口继承了 <code>ListableBeanFactory</code> 接口，同时继承了 <code>HierarchicalBeanFactory</code> 接口以支持父级上下文。</li>
+<li><code>WebApplicationContext</code> 接口在 <code>ApplicationContext</code> 的基础...</li></ol>
+            
+            <span class="read-more"><a href="/2025/08/31/spring-beanfactory-applicationcontext/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/funds-watchdog.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Go">
+                  <b>「 </b>GO<b> 」</b>
+                </a>
+            
+            八月 24, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/08/24/funds-watchdog/" title="基金实时估值监控命令行工具" class="posttitle">基金实时估值监控命令行工具</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Dingtalk/" rel="tag">Dingtalk</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://github.com/AlphaHinex/go-toolkit/tree/main/watchdog" target="_blank" rel="noopener">watchdog</a> 是一个监控基金实时估值的命令行工具，可配合系统计划任务定时执行。</p>
+<ul>
+<li>内置监控时间点，每 15 分钟查询一次基金实时估值（14:46 后每两分钟一次），计划任务可配置为每分钟执行一次</li>
+<li>自动过滤估值小于 0 的基金，每小时展示一次所有监控基金估值情况</li>
+<li>按估值涨幅降序排序</li>
+<li>对波动幅度超过阈值的基金给出历史净值信息</li>
+<li>监控结果信息支持控制台输出和飞书、钉钉机器人通知</li>
+<li>每日净值更新后自动输出结果或发送通知</li>
+</ul>
+<pre><code class="bash">./watchdog -c test.yaml [--verbose] [--watch...</code></pre>
+            
+            <span class="read-more"><a href="/2025/08/24/funds-watchdog/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/sonar-either-re-interrupt-or-rethrow/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            八月 17, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/08/17/sonar-either-re-interrupt-or-rethrow/" title="【转】sonar对于处理InterruptedException异常提示的原因分析" class="posttitle">【转】sonar对于处理InterruptedException异常提示的原因分析</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Sonar/" rel="tag">Sonar</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://blog.csdn.net/CSDN_WYL2016/article/details/106837995" target="_blank" rel="noopener">https://blog.csdn.net/CSDN_WYL2016/article/details/106837995</a></li>
+<li>原文作者：<a href="https://blog.csdn.net/CSDN_WYL2016?type=blog" target="_blank" rel="noopener">码拉松</a></li>
+</ul>
+<p>当我们使用会抛出InterruptedException异常的方法时，如果处理不当可能会发生一些预期之外的问题。</p>
+<p>下面看一段代码演示：</p>
+<pre><code class="java">public class ThreadInterruptedDemo {
+
+    public static void main(String[] args) throws InterruptedException {...</code></pre>
+            
+            <span class="read-more"><a href="/2025/08/17/sonar-either-re-interrupt-or-rethrow/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-9-modularity/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            八月 10, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/08/10/java-9-modularity/" title="《Java 9模块化开发：核心原则与实践》书摘" class="posttitle">《Java 9模块化开发：核心原则与实践》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        25k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        22 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://book.douban.com/subject/30297395/" target="_blank" rel="noopener">豆瓣评分 6.9</a></p>
+<blockquote>
+<p>所有代码示例都可以在GitHub（<a href="https://github.com/java9-modularity/examples" target="_blank" rel="noopener">https://github.com/java9-modularity/examples</a> ）上找到。</p>
+</blockquote>
+<blockquote>
+<p>知识是共享的唯一财富</p>
+</blockquote>
+<h3 id="1-1-什么是模块化"><a href="#1-1-什么是模块化" class="headerlink" title="1.1 什么是模块化"></a>1.1 什么是模块化</h3><blockquote>
+<p>模块必须遵循以下三个核心原则：</p>
+<p>1.强封装性</p>
+<p>2.定义良好的接口</p>
+<p>3.显式依赖</p>
+</blockquote>
+<h3 id="1-2-在Java-9之前"><a href="#1-2-在Java-9之前" class="headerlink" title="1.2 在Java 9之前"></a>1.2 在Java 9之前</h3><blockquote>
+<p>OSGi要求将导入的包在JAR中列为元数据，称之为捆绑包（bundle）。</p>
+</blockquote>
+<blockquote>
+<p>此外，还必须显式定义导出哪些包，即对其他捆绑包可见的包。</p>
+</blockquote>
+<blockquote>
+<p>Maven和OSGi构建在JVM和Java...</p></blockquote>
+            
+            <span class="read-more"><a href="/2025/08/10/java-9-modularity/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/double-pointers/problem.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/algorithm">
+                  <b>「 </b>ALGORITHM<b> 」</b>
+                </a>
+            
+            八月 03, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2025/08/03/double-pointers/" title="【转】【算法专题突破】双指针 - 有效三角形的个数（5）" class="posttitle">【转】【算法专题突破】双指针 - 有效三角形的个数（5）</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://developer.aliyun.com/article/1363712" target="_blank" rel="noopener">https://developer.aliyun.com/article/1363712</a></li>
+<li>原文作者：<a href="https://developer.aliyun.com/profile/w73sboktmi6qk/article_1?spm=a2c6h.12873639.article_author.d_article_author_article.62cd99e0oLRoNX" target="_blank" rel="noopener">戊子仲秋</a></li>
+</ul>
+<p>题目链接：<a href="https://leetcode.cn/problems/valid-triangle-number/?spm=a2c6h.12873639.article-detail.4.62cd99e0oLRoNX" target="_blank" rel="noopener">611. 有效三角形的个数 - 力扣（Leetcode）</a></p>
+<p></p>
+<p>我们可以根据示例1来理解这一道题目，<br><br>他说数组里面的数可以组成三角形三条边的个数，<br><br>那我们先自己枚举一下所有情况看看：<br><br> 【2， 2， 3】<br><br> 【2， 2， 4】<br><br> 【2， 3， 4】<br><br> 【2， 3， 4】<br><br>总共是四种情况，<br><br>而第二种情况是不成立的，看看示例，我们可以知道，虽然都是2，<br><br>但是不同位置可以看成不同的元素。</p>
+<p>一...</p>
+            
+            <span class="read-more"><a href="/2025/08/03/double-pointers/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/4/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

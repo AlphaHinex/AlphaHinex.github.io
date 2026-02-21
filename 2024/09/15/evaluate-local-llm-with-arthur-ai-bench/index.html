@@ -1,0 +1,656 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>使用 Arthur Bench 评估本地领域模型 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,arthur-ai, bench, LLM, evaluate, qa correctness, python, docker, domain model"> 
+    <meta name="description" content="Arthur Bench 简介Arthur Bench 是一个评估大模型的开源工具。
+使用 Arthur Bench 评估 LLM，需编写少量代码，即测试套件（TestSuite），在套件中选择内置,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">使用 Arthur Bench 评估本地领域模型</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/evaluate-local-llm-with-arthur-ai-bench/overview.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                九月 15, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/09/15/evaluate-local-llm-with-arthur-ai-bench/" title="使用 Arthur Bench 评估本地领域模型" class="">使用 Arthur Bench 评估本地领域模型</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Arthur-Bench-简介"><a href="#Arthur-Bench-简介" class="headerlink" title="Arthur Bench 简介"></a>Arthur Bench 简介</h1><p><a href="https://github.com/arthur-ai/bench" target="_blank" rel="noopener">Arthur Bench</a> 是一个评估大模型的开源工具。</p>
+<p>使用 <code>Arthur Bench</code> 评估 LLM，需编写少量代码，即测试套件（<code>TestSuite</code>），在套件中选择内置评分方法（也可自定义评分方法），对 LLM 的相应内容进行评估打分。</p>
+<p>内置的评分方法 分为四类：</p>
+<ol>
+<li>基于提示词评分，如问答正确性（<code>qa_correctness</code>）、摘要质量（<code>summary_quality</code>）、是否存在幻觉（<code>hallucination</code>）；</li>
+<li>基于 Embedding 评分，如（<code>bertscore</code>）、（<code>hedging_language</code>）；</li>
+<li>基于词汇评分，如（<code>exact_match</code>）、（<code>readability</code>）、（<code>specificity</code>）、（<code>word_count_match</code>）；</li>
+<li>代码生成能力评分，如使用 Python 单元测试（<code>python_unit_testing</code>）验证生成代码正确性。</li>
+</ol>
+<p>各类评分方法需要的入参包括以下五类：</p>
+<ol>
+<li>Input：输入的问题</li>
+<li>Reference Output：参考（标准）答案</li>
+<li>Candidate Output：LLM 输出的答案</li>
+<li>Context：上下文</li>
+<li>Unit Tests：单元测试</li>
+</ol>
+<p>各类评分方法需要的入参详见官方文档中的 <a href="https://github.com/arthur-ai/bench/blob/main/docs/source/scoring.md" target="_blank" rel="noopener">Scoring</a>。</p>
+<h1 id="使用-Arthur-Bench-评估本地领域模型"><a href="#使用-Arthur-Bench-评估本地领域模型" class="headerlink" title="使用 Arthur Bench 评估本地领域模型"></a>使用 Arthur Bench 评估本地领域模型</h1><p>本文采用 LLM 自我评估的方式，使用本地 LLM 同时作为领域模型和评估模型，基于 <code>qa_correctness</code> 评分方法打分，整体流程如下：</p>
+<ol>
+<li>将准备好的领域知识问题通过 LangChain 输入给本地领域大模型，获得大模型的回复；</li>
+<li>将领域大模型回复的内容，与准备好的标准答案，以提示词形式输入给本地评估大模型，将领域大模型的回答内容分类为<code>正确</code>、<code>错误</code>、<code>不确定</code>三类；</li>
+<li>通过评分方法，为领域大模型的回复情况打分。</li>
+</ol>
+<p><img src="/contents/evaluate-local-llm-with-arthur-ai-bench/overview.png" alt="overview"></p>
+<blockquote>
+<p>绘图工具：<a href="https://excalidraw.com/" target="_blank" rel="noopener">https://excalidraw.com/</a></p>
+</blockquote>
+<h1 id="实现方案"><a href="#实现方案" class="headerlink" title="实现方案"></a>实现方案</h1><h2 id="docker-环境准备"><a href="#docker-环境准备" class="headerlink" title="docker 环境准备"></a>docker 环境准备</h2><p>在 docker 环境中完成上述过程。</p>
+<p>先拉取 python 镜像：</p>
+<pre><code class="bash">docker pull python:3.10.14</code></pre>
+<blockquote>
+<p>python 3.9 中安装 <code>bench</code> 好像报错，需要 python 3.10</p>
+</blockquote>
+<p>启动并进入容器：</p>
+<pre><code class="bash">docker run -it --name bench -p 8088:8000 python:3.10.14 bash</code></pre>
+<p>容器中安装 Arthur Bench：</p>
+<pre><code class="bash">pip install &#39;arthur-bench[server]&#39;</code></pre>
+<blockquote>
+<p>内网环境可使用内部源安装，如：<code>pip install &#39;arthur-bench[server]&#39; -i http://192.168.131.211:8083/pypi/web/simple/ --trusted-host 192.168.131.211</code></p>
+</blockquote>
+<h2 id="修改源码"><a href="#修改源码" class="headerlink" title="修改源码"></a>修改源码</h2><p>以当前最新发布版 <a href="https://github.com/arthur-ai/bench/releases/tag/0.3.1" target="_blank" rel="noopener">0.3.1</a> 为例，需要修改一些源码，以适应本地离线环境容器内使用。</p>
+<h3 id="避免-Tiktoken-对外网的访问"><a href="#避免-Tiktoken-对外网的访问" class="headerlink" title="避免 Tiktoken 对外网的访问"></a>避免 Tiktoken 对外网的访问</h3><p><code>0.3.1</code> 版本在执行测试套件时，即使使用的评分方法（Scoring method）不是 <code>summary_quality</code>，也会执行其中的方法，造成对 <a href="https://github.com/openai/tiktoken" target="_blank" rel="noopener">tiktoken</a> 相关 host 的访问，离线环境会报如下错误：</p>
+<pre><code class="log">requests.exceptions.ConnectionError: HTTPSConnectionPool(host=&#39;openaipublic.blob.core.windows.net&#39;, port=443): Max retries exceeded with url: /encodings/cl100k_base.tiktoken (Caused by NameResolutionError(&quot;&lt;urllib3.connection.HTTPSConnection object at 0x7f23efb00820&gt;: Failedto resolve &#39;openaipublic.blob.core.windows.net&#39; ([Errno -3] Temporary failure in name resolution)&quot;))</code></pre>
+<p>可对 <code>/usr/local/lib/python3.10/site-packages/arthur_bench/scoring/summary_quality.py</code> 做如下修改，暂时跳过：</p>
+<pre><code class="diff">diff --git a/arthur_bench/scoring/summary_quality.py b/arthur_bench/scoring/summary_quality.py
+index 71e0ff4..1793e72 100644
+--- a/arthur_bench/scoring/summary_quality.py
++++ b/arthur_bench/scoring/summary_quality.py
+@@ -21,7 +21,8 @@ CONTEXT_WINDOW_MAP = {
+     &quot;gpt-4-32k&quot;: 32768,
+ }
+ EVALUATOR_MODEL = &quot;gpt-3.5-turbo&quot;
+-TIKTOKEN_ENCODER = tiktoken.get_encoding(&quot;cl100k_base&quot;)
++# TIKTOKEN_ENCODER = tiktoken.get_encoding(&quot;cl100k_base&quot;)
++TIKTOKEN_ENCODER = None
+ TIKTOKEN_ERROR_PADDING = 150
+ LLM_CHOICE_TO_FLOAT = {&quot;0&quot;: 0.0, &quot;1&quot;: 1.0, &quot;tie&quot;: 0.5}
+ LLM_CHOICE_TO_CATEGORIES = {</code></pre>
+<p>或直接使用 <code>sed</code> 命令修改：</p>
+<pre><code class="bash">sed -i \
+&#39;s/.*TIKTOKEN_ENCODER = tiktoken.get_encoding(&quot;cl100k_base&quot;)/TIKTOKEN_ENCODER = None/g&#39; \
+/usr/local/lib/python3.10/site-packages/arthur_bench/scoring/summary_quality.py</code></pre>
+<h3 id="使测试套件可使用本地评估模型重复执行"><a href="#使测试套件可使用本地评估模型重复执行" class="headerlink" title="使测试套件可使用本地评估模型重复执行"></a>使测试套件可使用本地评估模型重复执行</h3><p>本文示例中，评分方法使用的是 <code>qa_correctness</code>，并且将评估模型也替换成了本地的 LLM。为使测试套件可多次执行，需修改 <code>/usr/local/lib/python3.10/site-packages/arthur_bench/scoring/qa_quality.py</code> 中的 <code>QAQualityCorrectness</code> 初始化方法：</p>
+<pre><code class="diff">diff --git a/arthur_bench/scoring/qa_quality.py b/arthur_bench/scoring/qa_quality.py
+index e8389f8..e669f2e 100644
+--- a/arthur_bench/scoring/qa_quality.py
++++ b/arthur_bench/scoring/qa_quality.py
+@@ -29,6 +29,8 @@ class QAQualityCorrectness(Scorer):
+                 &quot;Custom LLM is allowed, but unexpected results may occur if it is not a&quot;
+                 &quot; chat model&quot;
+             )
++            if isinstance(llm, dict):
++                llm = ChatOpenAI(**llm)
+         self.evaluator = LLMChain(llm=llm, prompt=DECIDE)
+
+     @staticmethod</code></pre>
+<p>或直接使用 <code>sed</code> 命令修改：</p>
+<pre><code class="bash">sed -i \
+&#39;/self.evaluator = LLMChain(llm=llm, prompt=DECIDE)/i \
+            if isinstance(llm, dict):\
+                llm = ChatOpenAI(**llm)&#39; \
+/usr/local/lib/python3.10/site-packages/arthur_bench/scoring/qa_quality.py</code></pre>
+<h3 id="使-HTTP-服务可从外部访问"><a href="#使-HTTP-服务可从外部访问" class="headerlink" title="使 HTTP 服务可从外部访问"></a>使 HTTP 服务可从外部访问</h3><p>修改 <code>/usr/local/lib/python3.10/site-packages/arthur_bench/server/run_server.py</code> 中的 host 为 <code>0.0.0.0</code>：</p>
+<pre><code class="diff">diff --git a/arthur_bench/server/run_server.py b/arthur_bench/server/run_server.py
+index 9346ef4..3a67ebf 100644
+--- a/arthur_bench/server/run_server.py
++++ b/arthur_bench/server/run_server.py
+@@ -231,7 +231,7 @@ def run():
+
+     uvicorn.run(
+         &quot;arthur_bench.server.run_server:app&quot;,
+-        host=&quot;127.0.0.1&quot;,
++        host=&quot;0.0.0.0&quot;,
+         port=8000,
+         log_level=&quot;info&quot;,
+     )</code></pre>
+<p>或直接使用 <code>sed</code> 命令修改：</p>
+<pre><code class="bash">sed -i &#39;s/host=&quot;127.0.0.1&quot;,/host=&quot;0.0.0.0&quot;,/g&#39; /usr/local/lib/python3.10/site-packages/arthur_bench/server/run_server.py</code></pre>
+<h2 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h2><p>以 <a href="https://mp.weixin.qq.com/s/KZ-5jSMAcdu8tH9rWVls_w" target="_blank" rel="noopener">高效办成一件事，全国医保经办系统练兵比武大赛</a> 中的部分题目为例，作为 QA 数据考察本地领域模型能力，将题目和参考答案整理成 csv 格式：</p>
+<pre><code class="bash">$ cat &gt; qa_test_data.csv &lt;&lt;EOF
+input,reference_output
+医保亲情账户是指什么？有什么功能？,医保亲情账户是指国家医保局为了方便老人、小孩等申领医保电子凭证，在国家医保服务APP上推出的一项便民功能。亲情账户可以帮助家庭成员出示医保电子凭证用于挂号、买药、结算。
+个账家庭共济是指什么？,个账家庭共济是指职工医保个人账户余额共济给家庭成员使用，支付个人负担的医药费用，或代缴家庭成员的城乡居民医保费。
+&quot;&quot;&quot;两病&quot;&quot;患者门诊用药保障机制中的&quot;&quot;两病&quot;&quot;指的是哪两个病种？&quot;,&quot;&quot;&quot;两病&quot;&quot;是指高血压、糖尿病。&quot;
+&quot;请简述&quot;&quot;两病&quot;&quot;患者门诊用药保障机制明确的用药范围。&quot;,按最新版国家基本医疗保险药品目录所列品种，优先选用目录甲类药品，优先选用国家基本药物，优先选用通过一致性评价的品种，优先选用集中招标采购中选药品。
+【多选】根据《医疗保障基金使用监督管理条例》（国务院令 第735号），参保人员不得利用其享受医疗保障待遇的机会（）A.转卖药品 B.接受返还现金 C.接受实物 D.获得其他非法利益,答案：ABCD
+EOF</code></pre>
+<h2 id="编写测试套件代码并执行"><a href="#编写测试套件代码并执行" class="headerlink" title="编写测试套件代码并执行"></a>编写测试套件代码并执行</h2><p>参考官方文档中，对接本地大模型的 <a href="https://github.com/arthur-ai/bench/blob/main/docs/source/compare_llm_providers.md" target="_blank" rel="noopener">Compare LLM Providers</a> 和使用 csv 数据文件的 <a href="https://github.com/arthur-ai/bench/blob/main/docs/source/creating_test_suites.md" target="_blank" rel="noopener">Creating test suites</a>，编写测试套件代码如下：</p>
+<pre><code class="bash">$ cat &gt; qa_test_suite.py &lt;&lt;EOF
+import time
+
+import pandas as pd
+from arthur_bench.scoring import QAQualityCorrectness
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from arthur_bench.run.testsuite import TestSuite
+from langchain.chat_models import ChatOpenAI
+
+llm = ChatOpenAI(
+    temperature=0.5,
+    openai_api_base=&#39;http://192.168.174.64:19131/v1&#39;,
+    openai_api_key=&#39;api_key&#39;,
+    model_name=&#39;qwen1.5-72b-chat&#39;
+)
+
+data = pd.read_csv(&#39;qa_test_data.csv&#39;)
+# 问题列
+input_data = data[&#39;input&#39;]
+# 参考答案列
+reference_data = data[&#39;reference_output&#39;]
+# 使用 apply 函数组合 &#39;input&#39; 列和 &#39;reference_output&#39; 列的数据作为 context 数据，即提供问题和答案，供 LLM 对生成的问题答案进行评价
+context_data = [i for i in data.apply(lambda row: row[&#39;input&#39;]+row[&#39;reference_output&#39;], axis=1)]
+
+# 定义提示模板
+prompt_template = PromptTemplate(
+    input_variables=[&quot;text&quot;],
+    template=&quot;&quot;&quot;{text}&quot;&quot;&quot;
+)
+
+# 创建链
+chain = LLMChain(
+    llm=llm,
+    prompt=prompt_template
+)
+
+# 调用链
+responses = [chain.run(i) for i in input_data]
+
+my_suite = TestSuite(
+    &quot;chs_qa_test_suite&quot;,
+    scoring_method=QAQualityCorrectness(llm),
+    input_text_list=input_data,
+)
+my_suite.run(
+    f&quot;#{time.time()}&quot;,
+    context_list=context_data,
+    candidate_output_list=responses
+)
+EOF</code></pre>
+<p>执行测试套件：</p>
+<pre><code class="bash">$ python qa_test_suite.py
+Custom LLM is allowed, but unexpected results may occur if it is not a chat model
+25it [00:06,  3.75it/s]</code></pre>
+<p>如需多次执行测试套件，需在首次执行之后，修改 <code>./bench_runs/&lt;test_suite_name&gt;</code> 下的 <code>suite.json</code>，将其中 <code>scoring_method</code> 的</p>
+<pre><code class="json">&quot;config&quot;: {}</code></pre>
+<p>修改为需要用来执行评估的本地模型，如：</p>
+<pre><code class="json">&quot;config&quot;: {&quot;llm&quot;: {&quot;temperature&quot;: 0.0, &quot;openai_api_base&quot;: &quot;http://192.168.174.64:19131/v1&quot;, &quot;openai_api_key&quot;: &quot;your_openai_api_key&quot;, &quot;model_name&quot;: &quot;qwen1.5-72b-chat&quot;}}</code></pre>
+<p>或直接使用 <code>sed</code> 命令修改：</p>
+<pre><code class="bash">sed -i \
+&#39;s/&quot;config&quot;: {}/&quot;config&quot;: {&quot;llm&quot;: {&quot;temperature&quot;: 0.5, &quot;openai_api_base&quot;: &quot;http:\/\/192.168.174.64:19131\/v1&quot;, &quot;openai_api_key&quot;: &quot;your_openai_api_key&quot;, &quot;model_name&quot;: &quot;qwen1.5-72b-chat&quot;}}/g&#39; \
+./bench_runs/chs_qa_test_suite/suite.json</code></pre>
+<h2 id="查看测试结果"><a href="#查看测试结果" class="headerlink" title="查看测试结果"></a>查看测试结果</h2><p>启动容器时，将容器内的 <code>8000</code> 端口映射到了宿主机的 <code>8088</code> 端口，所以可以直接在宿主机访问 <a href="http://localhost:8088" target="_blank" rel="noopener">http://localhost:8088</a> 进入 bench web UI 查看测试结果。</p>
+<p><img src="/contents/evaluate-local-llm-with-arthur-ai-bench/summary.png" alt="summary"></p>
+<p><img src="/contents/evaluate-local-llm-with-arthur-ai-bench/compare.png" alt="compare"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Arthur-Bench-简介"><span class="toc-number">1.</span> <span class="toc-text">Arthur Bench 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用-Arthur-Bench-评估本地领域模型"><span class="toc-number">2.</span> <span class="toc-text">使用 Arthur Bench 评估本地领域模型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现方案"><span class="toc-number">3.</span> <span class="toc-text">实现方案</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#docker-环境准备"><span class="toc-number">3.1.</span> <span class="toc-text">docker 环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改源码"><span class="toc-number">3.2.</span> <span class="toc-text">修改源码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#避免-Tiktoken-对外网的访问"><span class="toc-number">3.2.1.</span> <span class="toc-text">避免 Tiktoken 对外网的访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使测试套件可使用本地评估模型重复执行"><span class="toc-number">3.2.2.</span> <span class="toc-text">使测试套件可使用本地评估模型重复执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使-HTTP-服务可从外部访问"><span class="toc-number">3.2.3.</span> <span class="toc-text">使 HTTP 服务可从外部访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据准备"><span class="toc-number">3.3.</span> <span class="toc-text">数据准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编写测试套件代码并执行"><span class="toc-number">3.4.</span> <span class="toc-text">编写测试套件代码并执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看测试结果"><span class="toc-number">3.5.</span> <span class="toc-text">查看测试结果</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

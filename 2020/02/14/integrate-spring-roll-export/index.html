@@ -1,0 +1,604 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>集成 Spring Roll 的通用导出列表数据为 Excel 功能 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Java, Spring, RestController, Export, Excel, Spring Roll, POI, 通用导出"> 
+    <meta name="description" content="Spring Roll 中提供了一个基于业务 REST Controller 实现的通用 Excel 导出功能，可将列表页查询结果直接导出为 Excel 文件。
+本文描述如何集成 roll-expo,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">集成 Spring Roll 的通用导出列表数据为 Excel 功能</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(https://it.wisc.edu/wp-content/uploads/DoIT-C-ITWiscEdu-Excel-675x300-News-Images.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Spring Roll"><b>「
+                    </b>SPRING ROLL<b> 」</b></a>
+                
+                二月 14, 2020
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2020/02/14/integrate-spring-roll-export/" title="集成 Spring Roll 的通用导出列表数据为 Excel 功能" class="">集成 Spring Roll 的通用导出列表数据为 Excel 功能</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    6.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    6 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Excel/" rel="tag">Excel</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Roll/" rel="tag">Spring Roll</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://github.com/AlphaHinex/spring-roll" target="_blank" rel="noopener">Spring Roll</a> 中提供了一个基于业务 REST Controller 实现的通用 Excel 导出功能，可将列表页查询结果直接导出为 Excel 文件。</p>
+<p>本文描述如何集成 <a href="https://github.com/AlphaHinex/spring-roll/tree/v0.0.7.RELEASE/modules/blocks/roll-export" target="_blank" rel="noopener">roll-export</a> 模块，获得通用导出功能。</p>
+<h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><p><code>Spring Roll</code> 的包目前发布在 <code>GitHub Packages</code> 中，可参照 <a href="https://alphahinex.github.io/2020/01/17/github-packages-in-action/">GitHub Packages in Action</a> 或官方文档，对构建工具进行配置。</p>
+<p>之后可在 Maven 中添加：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;io.github.spring-roll&lt;/groupId&gt;
+    &lt;artifactId&gt;roll-export&lt;/artifactId&gt;
+    &lt;version&gt;0.0.7.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+<p>或在 Gradle 中添加 <code>io.github.spring-roll:roll-export:0.0.7.RELEASE</code> 。</p>
+<h2 id="扫描-Spring-Roll-中组件"><a href="#扫描-Spring-Roll-中组件" class="headerlink" title="扫描 Spring Roll 中组件"></a>扫描 Spring Roll 中组件</h2><p>在相关配置类中增加 <code>@ComponentScan(basePackages = &quot;io.github.springroll&quot;)</code></p>
+<blockquote>
+<p>若之前使用了 <code>@SpringBootApplication</code> 注解所在类作为默认包扫描路径，在添加上述配置后，需要额外再显示声明一下扫描包路径。</p>
+</blockquote>
+<h2 id="提供从查询接口获得导出数据的实现类"><a href="#提供从查询接口获得导出数据的实现类" class="headerlink" title="提供从查询接口获得导出数据的实现类"></a>提供从查询接口获得导出数据的实现类</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>将对业务接口的调用信息封装到请求中，调用通用导出接口。通用导出接口负责将请求转发给实际业务接口，并对业务接口返回对象进行处理，获得到要导出的数据，再将数据填入 Excel 中，并输出到 Response 里。</p>
+<h3 id="接口签名"><a href="#接口签名" class="headerlink" title="接口签名"></a>接口签名</h3><p>通用导出接口为 <code>/export/excel/{title}</code>，提供 <code>GET</code> 及 <code>POST</code> 两种形式：</p>
+<h4 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h4><pre><code class="java">@GetMapping(&quot;/export/excel/{title}&quot;)
+public void export(@PathVariable String title, @RequestParam String cols, @RequestParam String url, String tomcatUriEncoding, HttpServletRequest request, HttpServletResponse response) throws Exception</code></pre>
+<h4 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h4><pre><code class="java">@PostMapping(&quot;/export/excel/{title}&quot;)
+public void export(@PathVariable String title, @RequestBody ExportModel model, HttpServletRequest request, HttpServletResponse response) throws Exception</code></pre>
+<pre><code class="java">public class ExportModel {
+
+    /**
+     * 列表中对 columns 的定义
+     */
+    private List&lt;ColumnDef&gt; cols;
+    /**
+     * 查询数据请求 url
+     */
+    private String url;
+    /**
+     * tomcat server.xml 中 Connector 设定的 URIEncoding 值，若未设置，默认为 ISO-8859-1
+     */
+    private String tomcatUriEncoding;
+    /**
+     * 业务请求的 Request Body
+     */
+    private Map bizReqBody;
+
+}</code></pre>
+<h3 id="参数描述"><a href="#参数描述" class="headerlink" title="参数描述"></a>参数描述</h3><p>针对业务接口可能存在 GET 和 POST 两种形式，通用导出接口也提供了两种类型。GET 时将所有参数（包括通用导出接口所需参数，及业务接口所需参数两部分）放入请求参数中，POST 时将参数放入请求体中。参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">通用导出接口所需参数</th>
+<th align="left">参数描述</th>
+<th align="left">是否必填</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">title</td>
+<td align="left">导出文件名</td>
+<td align="left">必填</td>
+</tr>
+<tr>
+<td align="left">cols</td>
+<td align="left">列表（前端）中对 columns 的定义，支持 EasyUI、QUI 及 ElementUI 中表格组件对属性和名称的定义</td>
+<td align="left">必填</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="left">具体业务的查询 url。GET 时将业务接口参数直接拼接到 url 后面，注意需进行 URL Encode；POST 时使用 bizReqBody 参数传递业务接口请求体</td>
+<td align="left">必填</td>
+</tr>
+<tr>
+<td align="left">tomcatUriEncoding</td>
+<td align="left">tomcat <code>server.xml</code> 中 Connector 设定的 URIEncoding 值，若未设置，默认为 <code>ISO-8859-1</code></td>
+<td align="left">非必填</td>
+</tr>
+<tr>
+<td align="left">bizReqBody</td>
+<td align="left">调用 POST 接口时，使用此属性传递业务接口请求体</td>
+<td align="left">POST 时必填</td>
+</tr>
+</tbody></table>
+<p>通用导出功能会根据 url 参数及调用导出接口所使用的 HTTP Method 去构造一个访问业务查询接口的请求，并对业务接口的返回对象使用实现了 <a href="https://github.com/AlphaHinex/spring-roll/blob/v0.0.7.RELEASE/modules/blocks/roll-export/src/main/java/io/github/springroll/export/excel/handler/PaginationHandler.java" target="_blank" rel="noopener">PaginationHandler</a> 接口的组件集合进行解析，获得具体业务数据之后，将其按照 cols 中的定义，输出到 Excel 中。</p>
+<p>故在集成时，需根据业务接口的返回类型，提供获得具体业务数据的 <code>PaginationHandler</code> 接口的实现。</p>
+<p>例如：</p>
+<pre><code class="java">@Component
+public class WrapperResponseIQueryPaginationHandler implements PaginationHandler {
+
+    @Override
+    public Optional&lt;Collection&gt; getPaginationData(Object rawObject) {
+        Optional&lt;Collection&gt; result = Optional.empty();
+        if (rawObject instanceof WrapperResponse) {
+            Object object = ((WrapperResponse) rawObject).getData();
+            if (object instanceof IQuery) {
+                result = Optional.ofNullable(((IQuery)object).getResult());
+            }
+        }
+        return result;
+    }
+
+}</code></pre>
+<p><code>cols</code> 参数结构目前（v0.0.7.RELEASE）支持 EasyUI、QUI 及 ElementUI 三种前端类库中表格组件对属性和名称的定义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">框架</th>
+<th align="left"><code>属性</code>字段</th>
+<th align="left"><code>名称</code>字段</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">EasyUI</td>
+<td align="left">field</td>
+<td align="left">title</td>
+</tr>
+<tr>
+<td align="left">QUI</td>
+<td align="left">name</td>
+<td align="left">display</td>
+</tr>
+<tr>
+<td align="left">ElementUI</td>
+<td align="left">prop</td>
+<td align="left">label</td>
+</tr>
+</tbody></table>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>集成之后可访问通用导出接口进行验证，如：</p>
+<p><a href="http://localhost:8080/demo/export/excel/%E5%AF%BC%E5%87%BA?cols=%5B%7B%22name%22%3A%22clctId%22%2C%22display%22%3A%22%E9%87%87%E9%9B%86%E5%AE%9E%E4%BE%8BID%22%7D%2C%7B%22name%22%3A%22clctSttId%22%2C%22display%22%3A%22%E7%BB%9F%E8%AE%A1%E4%BB%BB%E5%8A%A1ID%22%7D%2C%7B%22name%22%3A%22bizTotlCnt%22%2C%22display%22%3A%22%E4%B8%9A%E5%8A%A1%E6%80%BB%E9%87%8F%22%7D%5D&url=%2Fbiz%2Fquery%2Fpage%3FpageSize%3D9999%26pageNumber%3D1" target="_blank" rel="noopener">GET 请求示例 URL</a>。</p>
+<p>或 POST 请求 curl</p>
+<pre><code class="bash">curl &#39;http://localhost:8080/export/excel/test&#39; -H &#39;Content-Type: application/json;charset=UTF-8&#39; --data-binary &#39;{&quot;bizReqBody&quot;:{&quot;userName&quot;:&quot;&quot;,&quot;age&quot;:&quot;&quot;},&quot;cols&quot;:[{&quot;name&quot;:&quot;userName&quot;,&quot;display&quot;:&quot;员工姓名&quot;},{&quot;name&quot;:&quot;userId&quot;,&quot;display&quot;:&quot;员工编号&quot;}],&quot;title&quot;:&quot;员工信息&quot;,&quot;url&quot;:&quot;http://localhost:8080/user/queryUserListByPage&quot;}&#39;</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#添加依赖"><span class="toc-number">1.</span> <span class="toc-text">添加依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扫描-Spring-Roll-中组件"><span class="toc-number">2.</span> <span class="toc-text">扫描 Spring Roll 中组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提供从查询接口获得导出数据的实现类"><span class="toc-number">3.</span> <span class="toc-text">提供从查询接口获得导出数据的实现类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本原理"><span class="toc-number">3.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接口签名"><span class="toc-number">3.2.</span> <span class="toc-text">接口签名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数描述"><span class="toc-number">3.3.</span> <span class="toc-text">参数描述</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#验证"><span class="toc-number">4.</span> <span class="toc-text">验证</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

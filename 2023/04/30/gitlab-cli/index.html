@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>分析 Gitlab 提交记录的命令行工具 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Gitlab, commit, diff, csv, RAWGraphs"> 
+    <meta name="description" content="是什么GitLab Analyser 是一个使用 Golang 编写的跨平台命令行工具。
+通过调用 GitLab REST API ，可分析指定项目和分支在某时间范围内的 Commit 情况，包括：,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">分析 Gitlab 提交记录的命令行工具</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/gitlab-cli/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Git"><b>「
+                    </b>GIT<b> 」</b></a>
+                
+                四月 30, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/04/30/gitlab-cli/" title="分析 Gitlab 提交记录的命令行工具" class="">分析 Gitlab 提交记录的命令行工具</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Gitlab/" rel="tag">Gitlab</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h1><p><a href="https://github.com/AlphaHinex/go-toolkit/tree/main/gitlab" target="_blank" rel="noopener">GitLab Analyser</a> 是一个使用 <a href="https://go.dev/" target="_blank" rel="noopener">Golang</a> 编写的跨平台命令行工具。</p>
+<p>通过调用 <a href="https://docs.gitlab.com/ee/api/rest/" target="_blank" rel="noopener">GitLab REST API</a> ，可分析指定项目和分支在某时间范围内的 Commit 情况，包括：</p>
+<ol>
+<li>统计每个提交中修改的所有文件</li>
+<li>统计新增代码行数、减少代码行数 —— 相当于 <code>git diff</code></li>
+<li>统计有效新增代码行数（忽略空格和换行的新增代码行数）、有效减少代码行数 —— 相当于 <code>git diff -w</code></li>
+</ol>
+<p>统计结果按提交人邮箱进行汇总后，按有效代码总行数排名，并输出至 console。</p>
+<p>同时，将所有提交的分析明细数据输出至命令执行路径下 CSV 文件中，还可通过指定 <a href="https://open.feishu.cn/document/ukTMukTMukTM/ucTM5YjL3ETO24yNxkjN" target="_blank" rel="noopener">飞书机器人</a> 的 webhook 地址发送统计结果。</p>
+<p>主要使用了以下两个 API：</p>
+<ol>
+<li><a href="https://docs.gitlab.com/ee/api/projects.html" target="_blank" rel="noopener">/help/api/projects.md</a></li>
+<li><a href="https://docs.gitlab.com/ee/api/commits.html" target="_blank" rel="noopener">/help/api/commits.md</a></li>
+</ol>
+<h1 id="怎么用"><a href="#怎么用" class="headerlink" title="怎么用"></a>怎么用</h1><h2 id="获得可执行文件"><a href="#获得可执行文件" class="headerlink" title="获得可执行文件"></a>获得可执行文件</h2><h3 id="下载二进制文件"><a href="#下载二进制文件" class="headerlink" title="下载二进制文件"></a>下载二进制文件</h3><p><a href="https://github.com/AlphaHinex/go-toolkit/releases" target="_blank" rel="noopener">Releases</a> 页面可直接下载为 macOS、Linux、Windows 预编译好的最新发布版二进制文件，平台及架构对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">x86_64</th>
+<th align="left">arm64</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">macOS</td>
+<td align="left">gitlab_darwin_amd64</td>
+<td align="left">gitlab_darwin_arm64</td>
+</tr>
+<tr>
+<td align="left">Linux</td>
+<td align="left">gitlab_linux_amd64</td>
+<td align="left">gitlab_linux_arm64</td>
+</tr>
+<tr>
+<td align="left">Windows</td>
+<td align="left">gitlab_win_amd64.exe</td>
+<td align="left">x</td>
+</tr>
+</tbody></table>
+<h3 id="源码编译"><a href="#源码编译" class="headerlink" title="源码编译"></a>源码编译</h3><p>预编译版本不满足需求时，可使用源码自行编译。</p>
+<p>下载 <a href="https://github.com/AlphaHinex/go-toolkit" target="_blank" rel="noopener">go-toolkit</a> 仓库代码后，进入 <code>gitlab</code> 路径，在目标使用平台执行 <code>go build</code> 或根据目标平台选择合适的 <a href="https://golang.google.cn/doc/install/source#environment" target="_blank" rel="noopener">GOOS/GOARCH 组合</a> 通过 <code>GOOS=linux GOARCH=amd64 go build</code> 编译，获得二进制文件。</p>
+<h2 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h2><p>GitLab 地址及 Project ID 为必须指定的参数，其余参数均为可选。</p>
+<ul>
+<li>GitLab 地址为访问 GitLab 仓库的根路径，如：<a href="https://gitlab.com/、http://192.168.16.24:8888/" target="_blank" rel="noopener">https://gitlab.com/、http://192.168.16.24:8888/</a> 。</li>
+<li>Project ID 可从项目首页获得，如 <a href="https://gitlab.com/gnachman/iterm2" target="_blank" rel="noopener">https://gitlab.com/gnachman/iterm2</a> 项目的 ID 为 <code>252461</code> 。<br>  <img src="/contents/gitlab-cli/iterm2.png" alt="iterm2"></li>
+</ul>
+<h3 id="查看版本及帮助信息"><a href="#查看版本及帮助信息" class="headerlink" title="查看版本及帮助信息"></a>查看版本及帮助信息</h3><pre><code class="bash">$ ./gitlab -h
+   gitlab - Use GitLab API to analyse commits
+
+USAGE:
+   gitlab [global options] command [command options] [arguments...]
+
+VERSION:
+   v2.1.1
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --url value, -u value            GitLab host url, required, like https://gitlab.com/
+   --access-token value, -t value   Access token to use GitLab API
+   --project-ids value, -p value    Project IDs in GitLab, required, could multi: 5,7-10,13-25
+   --branch value, -b value         Branch of project, will analyse all branches if not set
+   --since value                    Date of since, from 00:00:00 (default: &quot;2022-01-01&quot;)
+   --until value                    Date of until, to 23:59:59 (default: &quot;2022-12-31&quot;)
+   --parallel value                 Number of commit parsers (default: 16)
+   --lark value                     Lark webhook url
+   --commit-parents commit-parents  Only count the commit has commit-parents number parent(s), 
+                                        -1 means counting all commits, 
+                                        0 means only counting the initial commit, 
+                                        2 means only counting merge request commit, 
+                                        1 means exclude initial commit and merge request commit (default: -1)
+   --help, -h                       show help (default: false)
+   --version, -v                    print the version (default: false)</code></pre>
+<h3 id="指定项目、分支、时间范围"><a href="#指定项目、分支、时间范围" class="headerlink" title="指定项目、分支、时间范围"></a>指定项目、分支、时间范围</h3><p>分析 <code>iterm2</code> 项目 <code>master</code> 分支 2018 年 7 月代码提交情况：</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com -p 252461 -b master --since 2018-07-01 --until 2018-07-31
+2023/04/29 11:33:35 Start to analyse master branch of iterm2 project ...
+2023/04/29 11:33:37 Load all commits
+2023/04/29 11:33:45 Generate 252461_iterm2_master_2018-07-01~2018-07-31.csv use 9.814436582s.
+
+iterm2 项目 master  分支代码分析结果（2018-07-01~2018-07-31)
+
+No. author                                             effLines(ratio)    effAdds(ratio)    commits    files
+ 1. George Nachman(gnachman@gmail.com)                 25053(85.28%)    20006(85.44%)    143    886
+ 2. George Nachman(gln@whatsapp.com)                   2050(82.93%)    1314(82.49%)    29    88
+ 3. Stefan Sundin(git@stefansundin.com)                12(92.31%)    10(90.91%)    3    5
+ 4. George Nachman(gnachman+github@gmail.com)          10(90.91%)    9(90.00%)    1    3
+
+以上结果统计了 Parent 数量为 -1 的 Commit（时间范围内）
+* effLines（有效代码行数）= 有效增加代码行数 + 有效减少代码行数
+* effLines ratio（有效代码率）= 有效代码行数 / 总代码行数 * 100%
+* effAdds（有效增加行数）= 有效增加代码行数
+* effAdds ratio（有效增加率）= 有效增加代码行数 / 总增加代码行数 * 100%
+* commits：Commit 总数
+* files：文件总数（不去重）
+* 有效代码：忽略仅有空格或换行的代码改动，diff -w</code></pre>
+<h3 id="忽略初始-Commit-及-Merge-Request-Commit"><a href="#忽略初始-Commit-及-Merge-Request-Commit" class="headerlink" title="忽略初始 Commit 及 Merge Request Commit"></a>忽略初始 Commit 及 Merge Request Commit</h3><p><code>--commit-parents 1</code> 排除初始提交和 Merge Request 提交。</p>
+<p>设为 <code>0</code> 时仅统计初始化提交，设为 <code>2</code> 时仅统计 Merge Request 提交。</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com -p 252461 -b master --since 2018-07-01 --until 2018-07-31 --commit-parents 1
+2023/04/29 11:33:56 Start to analyse master branch of iterm2 project ...
+2023/04/29 11:33:58 Load all commits
+2023/04/29 11:34:07 Generate 252461_iterm2_master_2018-07-01~2018-07-31.csv use 10.985404116s.
+
+iterm2 项目 master  分支代码分析结果（2018-07-01~2018-07-31)
+
+No. author                                             effLines(ratio)    effAdds(ratio)    commits    files
+ 1. George Nachman(gnachman@gmail.com)                 24824(85.18%)    19861(85.37%)    142    878
+ 2. George Nachman(gln@whatsapp.com)                   2050(82.93%)    1314(82.49%)    29    88
+ 3. Stefan Sundin(git@stefansundin.com)                12(92.31%)    10(90.91%)    3    5
+
+以上结果统计了除初始 Commit 和 Merge Request 外的所有 Commit（时间范围内）
+* effLines（有效代码行数）= 有效增加代码行数 + 有效减少代码行数
+* effLines ratio（有效代码率）= 有效代码行数 / 总代码行数 * 100%
+* effAdds（有效增加行数）= 有效增加代码行数
+* effAdds ratio（有效增加率）= 有效增加代码行数 / 总增加代码行数 * 100%
+* commits：Commit 总数
+* files：文件总数（不去重）
+* 有效代码：忽略仅有空格或换行的代码改动，diff -w</code></pre>
+<h3 id="分析所有分支"><a href="#分析所有分支" class="headerlink" title="分析所有分支"></a>分析所有分支</h3><p>不指定分支参数时，可分析所有分支：</p>
+<pre><code class="bash">$ ./gitlab -p 252461 -u https://gitlab.com/ --since 2022-12-24 --until 2023-04-28</code></pre>
+<h3 id="分析多个项目"><a href="#分析多个项目" class="headerlink" title="分析多个项目"></a>分析多个项目</h3><p>可使用逗号间隔多个项目 ID，<code>-</code> 表示连续的 ID 范围，如</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com -p 5,7-10,13-25,252461 \
+-b master --since 2018-07-01 --until 2018-07-29</code></pre>
+<h3 id="指定-access-token"><a href="#指定-access-token" class="headerlink" title="指定 access token"></a>指定 access token</h3><p><a href="https://gitlab.com/-/profile/personal_access_tokens" target="_blank" rel="noopener">/-/profile/personal_access_tokens</a> 界面生成 Access Token 后，通过 <code>-t</code> 参数传入，即可访问私有仓库，如：</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com -t XXXXXX \
+-p 6777 -b develop --commit-parents 1</code></pre>
+<h3 id="发送飞书通知"><a href="#发送飞书通知" class="headerlink" title="发送飞书通知"></a>发送飞书通知</h3><p>获得飞书自定义机器人的 webhook 地址后，通过 <code>--lark</code> 参数传入，即可在分析结束后，将控制台中输出的统计信息，通过飞书机器人发送至飞书群中：</p>
+<pre><code class="bash">$ ./gitlab -u https://gitlab.com -p 252461 -b master --since 2018-07-01 --until 2018-07-29 \
+--lark https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxxxxxxxxxxxx</code></pre>
+<p><img src="/contents/gitlab-cli/lark.png" alt="lark"></p>
+<h2 id="合并统计结果"><a href="#合并统计结果" class="headerlink" title="合并统计结果"></a>合并统计结果</h2><p>分析得到多个明细 CSV 文件时，可以使用如下脚本合并为一个 CSV 以便后续进行使用：</p>
+<pre><code class="bash">$ cat merge.sh
+echo &quot;project\tbranch\tsha\tdate\tauthor\temail\tfilename\tfiletype\toperation\tadd\tdel\taddIgnoreSpace\tdelIgnoreSpace&quot; &gt; merge.csv
+cat *_*-*~*-*.csv | grep -v &quot;project\tbranch\tsha\tdate\tauthor\temail\tfilename\tfiletype\toperation\tadd\tdel\taddIgnoreSpace\tdelIgnoreSpace&quot; &gt;&gt; merge.csv</code></pre>
+<h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><p>生成的 CSV 文件，可以直接使用 <a href="https://alphahinex.github.io/2023/02/12/rawgraphs/">RAWGraphs</a> 完成数据可视化，如 <code>iterm2</code> 仓库 <code>master</code> 分支 2022-12-24 ~ 2023-04-28 按提交者统计的新增代码行数及减少代码行数对比：</p>
+<p><img src="/contents/gitlab-cli/graph.png" alt="graph"></p>
+<h1 id="Gitlab-API-分页查询"><a href="#Gitlab-API-分页查询" class="headerlink" title="Gitlab API 分页查询"></a>Gitlab API 分页查询</h1><p>最后，简单总结一下 GitLab 各 API 的分页接口实现方式：GitLab REST API 的分页，是通过响应头给出元数据信息的，在数据量较大时，接口会自动按分页返回数据，并在响应头中添加 <code>X-Next-Page</code> 头，以标识下一页的页码，可将其作为查询下一页的 <code>page</code> 请求参数值。当 <code>X-Next-Page</code> 值为空时，意味着不再有下一页数据，即完成了全部数据的分页读取。</p>
+<p>除 <code>X-Next-Page</code> 头外，还有其他相关的响应头：<code>X-Page</code>、<code>X-Per-Page</code>、<code>X-Prev-Page</code>、<code>X-Total</code>、<code>X-Total-Pages</code>。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#是什么"><span class="toc-number">1.</span> <span class="toc-text">是什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#怎么用"><span class="toc-number">2.</span> <span class="toc-text">怎么用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#获得可执行文件"><span class="toc-number">2.1.</span> <span class="toc-text">获得可执行文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载二进制文件"><span class="toc-number">2.1.1.</span> <span class="toc-text">下载二进制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码编译"><span class="toc-number">2.1.2.</span> <span class="toc-text">源码编译</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用示例"><span class="toc-number">2.2.</span> <span class="toc-text">使用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看版本及帮助信息"><span class="toc-number">2.2.1.</span> <span class="toc-text">查看版本及帮助信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定项目、分支、时间范围"><span class="toc-number">2.2.2.</span> <span class="toc-text">指定项目、分支、时间范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#忽略初始-Commit-及-Merge-Request-Commit"><span class="toc-number">2.2.3.</span> <span class="toc-text">忽略初始 Commit 及 Merge Request Commit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析所有分支"><span class="toc-number">2.2.4.</span> <span class="toc-text">分析所有分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析多个项目"><span class="toc-number">2.2.5.</span> <span class="toc-text">分析多个项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定-access-token"><span class="toc-number">2.2.6.</span> <span class="toc-text">指定 access token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发送飞书通知"><span class="toc-number">2.2.7.</span> <span class="toc-text">发送飞书通知</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#合并统计结果"><span class="toc-number">2.3.</span> <span class="toc-text">合并统计结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可视化"><span class="toc-number">2.4.</span> <span class="toc-text">可视化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gitlab-API-分页查询"><span class="toc-number">3.</span> <span class="toc-text">Gitlab API 分页查询</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

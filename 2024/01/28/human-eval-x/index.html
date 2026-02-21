@@ -1,0 +1,810 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HumanEval-X - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,HumanEval-X, HumanEval, OpenAI, FastChat, sample, pass@k"> 
+    <meta name="description" content="HumanEval-X 是 清华大学 KEG 实验室 THUDM 在 CodeGeeX 系列多语言代码生成模型中提供的一套评价标准。
+使用了与 HumanEval 相似的评价方式，不同的是，除 Py,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">HumanEval-X</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/human-eval-x.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                一月 28, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/01/28/human-eval-x/" title="HumanEval-X" class="">HumanEval-X</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    25k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    23 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://github.com/THUDM/CodeGeeX/tree/main/codegeex/benchmark" target="_blank" rel="noopener">HumanEval-X</a> 是 清华大学 KEG 实验室 <a href="https://github.com/THUDM" target="_blank" rel="noopener">THUDM</a> 在 <a href="https://github.com/THUDM?q=codegeex&type=all" target="_blank" rel="noopener">CodeGeeX</a> 系列多语言代码生成模型中提供的一套评价标准。</p>
+<p>使用了与 <a href="https://alphahinex.github.io/2023/12/31/human-eval/">HumanEval</a> 相似的评价方式，不同的是，除 <code>Python</code> 外还包含了 <code>C++</code>、<code>Java</code>、<code>JavaScript</code>、<code>Go</code> 及 <code>Rust</code> 语言的手写样本，可对上述语言的代码生成能力进行评价：</p>
+<p><img src="/contents/covers/human-eval-x.png" alt="codegeex2"></p>
+<p>接下来，我们以评估 <a href="https://huggingface.co/bigcode/starcoderbase-7b" target="_blank" rel="noopener">StarCoderBase-7B</a> 模型的 Java 代码生成能力为例，简单介绍一下 <code>HumanEval-X</code> 的用法。</p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>先来看下数据集，引用 <a href="https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/README_zh.md#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8humaneval-x" target="_blank" rel="noopener">如何使用HumanEval-X</a> 对样本数据集的描述：</p>
+<blockquote>
+<p>样本使用JSON列表格式存储在<code>codegeex/benchmark/humaneval-x/[LANG]/data/humaneval_[LANG].jsonl.gz</code>，每条样本包含6个部分：</p>
+<ul>
+<li><code>task_id</code>: 题目的目标语言与ID。语言为[“Python”, “Java”, “JavaScript”, “CPP”, “Go”]中之一。</li>
+<li><code>prompt</code>: 函数声明与描述，用于代码生成。</li>
+<li><code>declaration</code>: 仅有函数声明，用于代码翻译。</li>
+<li><code>canonical_solution</code>: 手写的示例解答。</li>
+<li><code>test</code>: 隐藏测例，用于评测。</li>
+<li><code>example_test</code>: 提示中出现的公开测例，用于评测。</li>
+</ul>
+</blockquote>
+<p>下面是 <a href="https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/humaneval-x/java/data/humaneval_java.jsonl.gz" target="_blank" rel="noopener">humaneval_java.jsonl.gz</a> 中的一条数据（总计包含 164 条样本数据）：</p>
+<pre><code class="json">{
+    &quot;task_id&quot;: &quot;Java/0&quot;,
+    &quot;prompt&quot;: &quot;import java.util.*;\nimport java.lang.*;\n\nclass Solution {\n    /**\n    Check if in given list of numbers, are any two numbers closer to each other than given threshold.\n    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.0, 3.0), 0.5)\n    false\n    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.8, 3.0, 4.0, 5.0, 2.0), 0.3)\n    true\n     */\n    public boolean hasCloseElements(List&lt;Double&gt; numbers, double threshold) {\n&quot;,
+    &quot;declaration&quot;: &quot;import java.util.*;\nimport java.lang.*;\n\nclass Solution {\n    public boolean hasCloseElements(List&lt;Double&gt; numbers, double threshold) {\n&quot;,
+    &quot;canonical_solution&quot;: &quot;        for (int i = 0; i &lt; numbers.size(); i++) {\n            for (int j = i + 1; j &lt; numbers.size(); j++) {\n                double distance = Math.abs(numbers.get(i) - numbers.get(j));\n                if (distance &lt; threshold) return true;\n            }\n        }\n        return false;\n    }\n}&quot;,
+    &quot;test&quot;: &quot;public class Main {\n    public static void main(String[] args) {\n        Solution s = new Solution();\n        List&lt;Boolean&gt; correct = Arrays.asList(\n                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(11.0, 2.0, 3.9, 4.0, 5.0, 2.2)), 0.3),\n                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 3.9, 4.0, 5.0, 2.2)), 0.05),\n                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 5.9, 4.0, 5.0)), 0.95),\n                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 5.9, 4.0, 5.0)), 0.8),\n                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0, 2.0)), 0.1),\n                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.1, 4.1, 5.1)), 1.0),\n                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.1, 4.1, 5.1)), 0.5)\n        );\n        if (correct.contains(false)) {\n            throw new AssertionError();\n        }\n    }\n}&quot;,
+    &quot;example_test&quot;: &quot;public class Main {\n    public static void main(String[] args) {\n        Solution s = new Solution();\n        List&lt;Boolean&gt; correct = Arrays.asList(\n                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 3.0)), 0.5),\n                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.8, 3.0, 4.0, 5.0, 2.0)), 0.3)\n        );\n        if (correct.contains(false)) {\n            throw new AssertionError();\n        }\n    }\n}\n&quot;,
+    &quot;text&quot;: &quot;    Check if in given list of numbers, are any two numbers closer to each other than given threshold.\n    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.0, 3.0), 0.5)\n    false\n    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.8, 3.0, 4.0, 5.0, 2.0), 0.3)\n    true&quot;
+}</code></pre>
+<p>输入给大模型的提示词 <code>prompt</code> 为：</p>
+<pre><code class="java">import java.util.*;
+import java.lang.*;
+
+class Solution {
+    /**
+    Check if in given list of numbers, are any two numbers closer to each other than given threshold.
+    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.0, 3.0), 0.5)
+    false
+    &gt;&gt;&gt; hasCloseElements(Arrays.asList(1.0, 2.8, 3.0, 4.0, 5.0, 2.0), 0.3)
+    true
+     */
+    public boolean hasCloseElements(List&lt;Double&gt; numbers, double threshold) {</code></pre>
+<p>手写的示例解答 <code>canonical_solution</code> 为：</p>
+<pre><code class="java">        for (int i = 0; i &lt; numbers.size(); i++) {
+            for (int j = i + 1; j &lt; numbers.size(); j++) {
+                double distance = Math.abs(numbers.get(i) - numbers.get(j));
+                if (distance &lt; threshold) return true;
+            }
+        }
+        return false;
+    }
+}</code></pre>
+<p>用于评测的测试用例 <code>test</code> 为：</p>
+<pre><code class="java">public class Main {
+    public static void main(String[] args) {
+        Solution s = new Solution();
+        List&lt;Boolean&gt; correct = Arrays.asList(
+                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(11.0, 2.0, 3.9, 4.0, 5.0, 2.2)), 0.3),
+                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 3.9, 4.0, 5.0, 2.2)), 0.05),
+                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 5.9, 4.0, 5.0)), 0.95),
+                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 5.9, 4.0, 5.0)), 0.8),
+                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.0, 2.0, 3.0, 4.0, 5.0, 2.0)), 0.1),
+                s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.1, 4.1, 5.1)), 1.0),
+                !s.hasCloseElements(new ArrayList&lt;&gt;(Arrays.asList(1.1, 2.2, 3.1, 4.1, 5.1)), 0.5)
+        );
+        if (correct.contains(false)) {
+            throw new AssertionError();
+        }
+    }
+}</code></pre>
+<h2 id="评估方式"><a href="#评估方式" class="headerlink" title="评估方式"></a>评估方式</h2><p>将每条数据的 <code>prompt</code> 输入给大模型，拼接上大模型生成的代码，作为被 <code>test</code> 中测试代码使用的 <code>Solution</code> 类，执行测试用例记录测试结果是否通过。</p>
+<p>需要准备一份 <code>jsonl</code> 格式的用来评估生成的代码的样本文件，格式可基于原始数据格式，在每行数据的 JSON 对象中添加一个 <code>generation</code> 属性，如：</p>
+<pre><code class="jsonl">{&quot;task_id&quot;: &quot;../..&quot;, &quot;prompt&quot;: &quot;../..&quot;, &quot;declaration&quot;: &quot;../..&quot;, &quot;canonical_solution&quot;: &quot;../..&quot;, &quot;test&quot;: &quot;../..&quot;, &quot;example_test&quot;: &quot;../..&quot;, &quot;generation: &quot;...&quot;}
+{&quot;task_id&quot;: &quot;../..&quot;, &quot;prompt&quot;: &quot;../..&quot;, &quot;declaration&quot;: &quot;../..&quot;, &quot;canonical_solution&quot;: &quot;../..&quot;, &quot;test&quot;: &quot;../..&quot;, &quot;example_test&quot;: &quot;../..&quot;, &quot;generation: &quot;...&quot;}
+...</code></pre>
+<blockquote>
+<p>注：按 <a href="https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/README_zh.md#%E8%AF%84%E6%B5%8B" target="_blank" rel="noopener">评测</a> 文档中给出的格式例子，每条数据仅包含 <code>task_id</code> 和 <code>generation</code> 两个属性，执行评估时可能会报错。</p>
+</blockquote>
+<p><code>HumanEval-X</code> 的评估结果形式与 <code>HumanEval</code> 一致，是以 <code>pass@k</code> 表示的一个百分比概率。其中 <code>k</code> 通常使用的值为 10<sup>0</sup>、10<sup>1</sup>、10<sup>2</sup>。</p>
+<p>使用 <code>pass@k</code> 指标时，可以为每个问题（<code>task_id</code>）生成 <code>k</code> 个待评估样本，当有任何一个样本通过测试时，则认为问题已解决，并报告解决问题的总比例。</p>
+<p>然而，以这种方式计算 <code>pass@k</code> 可能会有很高的方差，这意味着每次得到的结果可能会有很大的差异。取而代之的，在 <a href="https://arxiv.org/abs/2107.03374" target="_blank" rel="noopener">Evaluating Large Language Models Trained on Code</a> 论文中使用的计算 <code>pass@k</code> 的方法为：</p>
+<p>为每个问题生成 <code>n</code> 个样本（<code>n ≥ k</code>），计算通过单元测试的正确样本数 <code>c</code>（<code>c ≤ n</code>），每个问题按如下方式计算该问题的 <code>pass@k</code>，之后将所有问题 <code>pass@k</code> 的平均值作为最终评估结果。</p>
+<pre><code class="python">def pass_at_k(n, c, k): 
+    &quot;&quot;&quot;
+    :param n: total number of samples
+    :param c: number of correct samples
+    :param k: k in pass@$k$
+    &quot;&quot;&quot;
+    if n - c &lt; k: return 1.0
+    return 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))</code></pre>
+<p><code>HumanEval</code> 及 <code>HumanEval-X</code> 使用的都是这个算法：</p>
+<pre><code class="python">pass_at_k = {f&quot;pass@{k}&quot;: estimate_pass_at_k(total, correct, k).mean()
+             for k in ks if (total &gt;= k).all()}</code></pre>
+<blockquote>
+<ul>
+<li><a href="https://github.com/openai/human-eval/blob/master/human_eval/evaluation.py#L89-L90" target="_blank" rel="noopener">https://github.com/openai/human-eval/blob/master/human_eval/evaluation.py#L89-L90</a></li>
+<li><a href="https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/evaluate_humaneval_x.py#L211-L212" target="_blank" rel="noopener">https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/evaluate_humaneval_x.py#L211-L212</a></li>
+</ul>
+</blockquote>
+<pre><code class="python">def estimate_pass_at_k(
+    num_samples: Union[int, List[int], np.ndarray],
+    num_correct: Union[List[int], np.ndarray],
+    k: int
+) -&gt; np.ndarray:
+    &quot;&quot;&quot;
+    Estimates pass@k of each problem and returns them in an array.
+    &quot;&quot;&quot;
+
+    def estimator(n: int, c: int, k: int) -&gt; float:
+        &quot;&quot;&quot;
+        Calculates 1 - comb(n - c, k) / comb(n, k).
+        &quot;&quot;&quot;
+        if n - c &lt; k:
+            return 1.0
+        return 1.0 - np.prod(1.0 - k / np.arange(n - c + 1, n + 1))
+
+    if isinstance(num_samples, int):
+        num_samples_it = itertools.repeat(num_samples, len(num_correct))
+    else:
+        assert len(num_samples) == len(num_correct)
+        num_samples_it = iter(num_samples)
+
+    return np.array([estimator(int(n), int(c), k) for n, c in zip(num_samples_it, num_correct)])</code></pre>
+<blockquote>
+<ul>
+<li><a href="https://github.com/openai/human-eval/blob/master/human_eval/evaluation.py#L13-L36" target="_blank" rel="noopener">https://github.com/openai/human-eval/blob/master/human_eval/evaluation.py#L13-L36</a></li>
+<li><a href="https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/metric.py#L27-L50" target="_blank" rel="noopener">https://github.com/THUDM/CodeGeeX/blob/main/codegeex/benchmark/metric.py#L27-L50</a></li>
+</ul>
+</blockquote>
+<h2 id="生成样本"><a href="#生成样本" class="headerlink" title="生成样本"></a>生成样本</h2><p>下面给出一段生成样本文件的示例代码 <code>gen_samples.py</code>：调用通过 <a href="https://github.com/lm-sys/FastChat" target="_blank" rel="noopener">FastChat</a> 为大语言模型代理的 <a href="https://platform.openai.com/docs/api-reference/completions/create" target="_blank" rel="noopener">Create completion</a> 接口，为每个 task 生成 <code>num_samples_per_task</code> 个样本，生成样本文件为 <code>samples.jsonl</code>。</p>
+<pre><code class="python">import time
+from datetime import datetime
+
+import json
+import requests
+from human_eval.data import write_jsonl, read_problems
+
+problems = read_problems(&#39;/workspace/CodeGeeX/codegeex/benchmark/humaneval-x/java/data/humaneval_java.jsonl.gz&#39;)
+
+def generate_one_completion(task_id, prompt):
+    print(datetime.now().strftime(&quot;%H:%M:%S&quot;), task_id)
+    url = &#39;http://localhost:9000/v1/completions&#39;
+    headers = {&#39;Content-Type&#39;: &#39;application/json&#39;, &#39;Connection&#39;: &#39;close&#39;}
+    data = {
+        &quot;model&quot;: &quot;starcoder&quot;,
+        &quot;prompt&quot;: prompt,
+        &quot;max_tokens&quot;: 1000,
+        &quot;temperature&quot;: 0.2
+    }
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        result = json.loads(response.text)[&quot;choices&quot;][0][&quot;text&quot;]
+        print(result)
+        return result
+    except:
+        print(f&quot;Exception occurs, wait 3 seconds then retry...&quot;)
+        time.sleep(3)
+        generate_one_completion(task_id, prompt)
+
+
+num_samples_per_task = 1
+for task_id in problems:
+    for _ in range(num_samples_per_task):
+        samples = [
+            dict(
+                task_id=task_id,
+                generation=generate_one_completion(task_id, problems[task_id][&quot;prompt&quot;]),
+                canonical_solution=problems[task_id][&quot;canonical_solution&quot;],
+                declaration=problems[task_id][&quot;declaration&quot;],
+                example_test=problems[task_id][&quot;example_test&quot;],
+                prompt=problems[task_id][&quot;prompt&quot;],
+                test=problems[task_id][&quot;test&quot;],
+                text=problems[task_id][&quot;text&quot;]
+            )
+        ]
+        write_jsonl(&quot;samples.jsonl&quot;, samples, True)</code></pre>
+<h2 id="评估环境"><a href="#评估环境" class="headerlink" title="评估环境"></a>评估环境</h2><p>执行评估涉及到多种语言的编译和运行，HumanEval-X 使用的 <a href="https://github.com/THUDM/CodeGeeX/tree/main/codegeex/benchmark#evaluation-environment" target="_blank" rel="noopener">评估环境</a> 依赖及版本如下：</p>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Python</td>
+<td>3.8.12</td>
+</tr>
+<tr>
+<td>JDK</td>
+<td>18.0.2.1</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>16.14.0</td>
+</tr>
+<tr>
+<td>js-md5</td>
+<td>0.7.3</td>
+</tr>
+<tr>
+<td>C++</td>
+<td>11</td>
+</tr>
+<tr>
+<td>g++</td>
+<td>7.5.0</td>
+</tr>
+<tr>
+<td>Boost</td>
+<td>1.71.0</td>
+</tr>
+<tr>
+<td>OpenSSL</td>
+<td>3.0.0</td>
+</tr>
+<tr>
+<td>go</td>
+<td>1.18.4</td>
+</tr>
+</tbody></table>
+<p>可直接使用官方提供的 Docker 镜像作为评估环境：</p>
+<pre><code class="bash"># 拉取镜像
+$ docker pull rishubi/codegeex:latest
+# 启动并进入容器，挂载生成样本脚本 gen_samples.py 至容器内 /work/data 路径下
+$ docker run -ti --rm -v /path/to/gen_samples.py:/work/data/gen_samples.py rishubi/codegeex bash</code></pre>
+<p><code>latest</code> 镜像的构建时间是 2022年9月20日，进入容器后，先更新一下容器中的 CodeGeeX 仓库代码：</p>
+<pre><code class="bash">$ cd /workspace/CodeGeeX
+$ git pull origin main</code></pre>
+<p>参照下面 <code>diff</code> 内容去掉 <code>/workspace/CodeGeeX/codegeex/benchmark/execution.py</code> 文件中的注释内容：</p>
+<pre><code class="diff">diff --git a/codegeex/benchmark/execution.py b/codegeex/benchmark/execution.py
+index cbdf14f..604eeec 100644
+--- a/codegeex/benchmark/execution.py
++++ b/codegeex/benchmark/execution.py
+@@ -122,7 +122,7 @@ def check_correctness(
+                     # does not perform destructive actions on their host or network.
+                     # Once you have read this disclaimer and taken appropriate precautions,
+                     # uncomment the following line and proceed at your own risk:
+-                     exec_result = subprocess.run([&quot;go&quot;, &quot;test&quot;, f&quot;-timeout={timeout}s&quot;, &quot;main_test.go&quot;], timeout=timeout, capture_output=True)
++                    exec_result = subprocess.run([&quot;go&quot;, &quot;test&quot;, f&quot;-timeout={timeout}s&quot;, &quot;main_test.go&quot;], timeout=timeout, capture_output=True)
+
+                 if exec_result.returncode == 0:
+                     result.append(&quot;passed&quot;)
+@@ -167,7 +167,7 @@ def check_correctness(
+                     # does not perform destructive actions on their host or network.
+                     # Once you have read this disclaimer and taken appropriate precautions,
+                     # uncomment the following line and proceed at your own risk:
+-                     exec_result = subprocess.run([&quot;node&quot;, &quot;test.js&quot;], timeout=timeout, capture_output=True)
++                    exec_result = subprocess.run([&quot;node&quot;, &quot;test.js&quot;], timeout=timeout, capture_output=True)
+
+                 if exec_result.stderr.decode():
+                     err = exec_result.stderr.decode()
+@@ -220,7 +220,7 @@ def check_correctness(
+                         # does not perform destructive actions on their host or network.
+                         # Once you have read this disclaimer and taken appropriate precautions,
+                         # uncomment the following line and proceed at your own risk:
+-                         exec_result = subprocess.run([&quot;./a.out&quot;], timeout=timeout, capture_output=True)
++                        exec_result = subprocess.run([&quot;./a.out&quot;], timeout=timeout, capture_output=True)
+
+                     if exec_result.returncode == 0:
+                         result.append(&quot;passed&quot;)
+@@ -344,7 +344,7 @@ def check_correctness(
+                     # does not perform destructive actions on their host or network.
+                     # Once you have read this disclaimer and taken appropriate precautions,
+                     # uncomment the following line and proceed at your own risk:
+-                    # exec_result = subprocess.run([f&#39;java&#39;, &#39;-cp&#39;, tmp_dir, &#39;Main&#39;], timeout=timeout, capture_output=True)
++                    exec_result = subprocess.run([f&#39;java&#39;, &#39;-cp&#39;, tmp_dir, &#39;Main&#39;], timeout=timeout, capture_output=True)
+                     if exec_result.returncode == 0:
+                         res = &quot;passed&quot;
+                     elif exec_result.returncode == 1:</code></pre>
+<p>使用 <code>gen_samples.py</code> 脚本生成评估数据</p>
+<pre><code class="bash"># 工作目录 /work/data
+$ cd /work/data
+# 安装依赖
+$ pip install human-eval
+# 生成评估数据，可调整 gen_samples.py 中参数
+$ python gen_samples.py</code></pre>
+<h2 id="执行评估"><a href="#执行评估" class="headerlink" title="执行评估"></a>执行评估</h2><pre><code class="bash">$ cd /workspace/CodeGeeX/
+$ bash scripts/evaluate_humaneval_x.sh /work/data/samples.jsonl java
+/work/data/samples.jsonl
+python /workspace/CodeGeeX/codegeex/benchmark/humaneval-x/evaluate_humaneval_x.py     --input_file /work/data/samples.jsonl     --n_workers 64     --tmp_dir /workspace/CodeGeeX/codegeex/benchmark/humaneval-x/     --problem_file /workspace/CodeGeeX/codegeex/benchmark/humaneval-x/java/data/humaneval_java.jsonl.gz     --timeout 5
+Reading samples...
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 164/164 [00:00&lt;00:00, 240.52it/s]
+Counter({&#39;Java/0&#39;: 1, &#39;Java/1&#39;: 1, &#39;Java/2&#39;: 1, &#39;Java/3&#39;: 1, &#39;Java/4&#39;: 1, &#39;Java/5&#39;: 1, &#39;Java/6&#39;: 1, &#39;Java/7&#39;: 1, &#39;Java/8&#39;: 1, &#39;Java/9&#39;: 1, &#39;Java/10&#39;: 1, &#39;Java/11&#39;: 1, &#39;Java/12&#39;: 1, &#39;Java/13&#39;: 1, &#39;Java/14&#39;: 1, &#39;Java/15&#39;: 1, &#39;Java/16&#39;: 1, &#39;Java/17&#39;: 1, &#39;Java/18&#39;: 1, &#39;Java/19&#39;: 1, &#39;Java/20&#39;: 1, &#39;Java/21&#39;: 1, &#39;Java/22&#39;: 1, &#39;Java/23&#39;: 1, &#39;Java/24&#39;: 1, &#39;Java/25&#39;: 1, &#39;Java/26&#39;: 1, &#39;Java/27&#39;: 1, &#39;Java/28&#39;: 1, &#39;Java/29&#39;: 1, &#39;Java/30&#39;: 1, &#39;Java/31&#39;: 1, &#39;Java/32&#39;: 1, &#39;Java/33&#39;: 1, &#39;Java/34&#39;: 1, &#39;Java/35&#39;: 1, &#39;Java/36&#39;: 1, &#39;Java/37&#39;: 1, &#39;Java/38&#39;: 1, &#39;Java/39&#39;: 1, &#39;Java/40&#39;: 1, &#39;Java/41&#39;: 1, &#39;Java/42&#39;: 1, &#39;Java/43&#39;: 1, &#39;Java/44&#39;: 1, &#39;Java/45&#39;: 1, &#39;Java/46&#39;: 1, &#39;Java/47&#39;: 1, &#39;Java/48&#39;: 1, &#39;Java/49&#39;: 1, &#39;Java/50&#39;: 1, &#39;Java/51&#39;: 1, &#39;Java/52&#39;: 1, &#39;Java/53&#39;: 1, &#39;Java/54&#39;: 1, &#39;Java/55&#39;: 1, &#39;Java/56&#39;: 1, &#39;Java/57&#39;: 1, &#39;Java/58&#39;: 1, &#39;Java/59&#39;: 1, &#39;Java/60&#39;: 1, &#39;Java/61&#39;: 1, &#39;Java/62&#39;: 1, &#39;Java/63&#39;: 1, &#39;Java/64&#39;: 1, &#39;Java/65&#39;: 1, &#39;Java/66&#39;: 1, &#39;Java/67&#39;: 1, &#39;Java/68&#39;: 1, &#39;Java/69&#39;: 1, &#39;Java/70&#39;: 1, &#39;Java/71&#39;: 1, &#39;Java/72&#39;: 1, &#39;Java/73&#39;: 1, &#39;Java/74&#39;: 1, &#39;Java/75&#39;: 1, &#39;Java/76&#39;: 1, &#39;Java/77&#39;: 1, &#39;Java/78&#39;: 1, &#39;Java/79&#39;: 1, &#39;Java/80&#39;: 1, &#39;Java/81&#39;: 1, &#39;Java/82&#39;: 1, &#39;Java/83&#39;: 1, &#39;Java/84&#39;: 1, &#39;Java/85&#39;: 1, &#39;Java/86&#39;: 1, &#39;Java/87&#39;: 1, &#39;Java/88&#39;: 1, &#39;Java/89&#39;: 1, &#39;Java/90&#39;: 1, &#39;Java/91&#39;: 1, &#39;Java/92&#39;: 1, &#39;Java/93&#39;: 1, &#39;Java/94&#39;: 1, &#39;Java/95&#39;: 1, &#39;Java/96&#39;: 1, &#39;Java/97&#39;: 1, &#39;Java/98&#39;: 1, &#39;Java/99&#39;: 1, &#39;Java/100&#39;: 1, &#39;Java/101&#39;: 1, &#39;Java/102&#39;: 1, &#39;Java/103&#39;: 1, &#39;Java/104&#39;: 1, &#39;Java/105&#39;: 1, &#39;Java/106&#39;: 1, &#39;Java/107&#39;: 1, &#39;Java/108&#39;: 1, &#39;Java/109&#39;: 1, &#39;Java/110&#39;: 1, &#39;Java/111&#39;: 1, &#39;Java/112&#39;: 1, &#39;Java/113&#39;: 1, &#39;Java/114&#39;: 1, &#39;Java/115&#39;: 1, &#39;Java/116&#39;: 1, &#39;Java/117&#39;: 1, &#39;Java/118&#39;: 1, &#39;Java/119&#39;: 1, &#39;Java/120&#39;: 1, &#39;Java/121&#39;: 1, &#39;Java/122&#39;: 1, &#39;Java/123&#39;: 1, &#39;Java/124&#39;: 1, &#39;Java/125&#39;: 1, &#39;Java/126&#39;: 1, &#39;Java/127&#39;: 1, &#39;Java/128&#39;: 1, &#39;Java/129&#39;: 1, &#39;Java/130&#39;: 1, &#39;Java/131&#39;: 1, &#39;Java/132&#39;: 1, &#39;Java/133&#39;: 1, &#39;Java/134&#39;: 1, &#39;Java/135&#39;: 1, &#39;Java/136&#39;: 1, &#39;Java/137&#39;: 1, &#39;Java/138&#39;: 1, &#39;Java/139&#39;: 1, &#39;Java/140&#39;: 1, &#39;Java/141&#39;: 1, &#39;Java/142&#39;: 1, &#39;Java/143&#39;: 1, &#39;Java/144&#39;: 1, &#39;Java/145&#39;: 1, &#39;Java/146&#39;: 1, &#39;Java/147&#39;: 1, &#39;Java/148&#39;: 1, &#39;Java/149&#39;: 1, &#39;Java/150&#39;: 1, &#39;Java/151&#39;: 1, &#39;Java/152&#39;: 1, &#39;Java/153&#39;: 1, &#39;Java/154&#39;: 1, &#39;Java/155&#39;: 1, &#39;Java/156&#39;: 1, &#39;Java/157&#39;: 1, &#39;Java/158&#39;: 1, &#39;Java/159&#39;: 1, &#39;Java/160&#39;: 1, &#39;Java/161&#39;: 1, &#39;Java/162&#39;: 1, &#39;Java/163&#39;: 1})
+Running test suites...
+100%|███████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 164/164 [00:07&lt;00:00, 22.01it/s]
+{&#39;pass@1&#39;: 0.21341463414634146}
+Writing to:  /work/data/samples_results.jsonl
+Evaluation finished.</code></pre>
+<p>得到评估结果为：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Model</th>
+<th align="left">HumanEval-X Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">StarCoderBase-7B</td>
+<td align="left">0.21341463414634146</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Sampling temperature=0.2, n=1, top_p=1.0 for pass@1</p>
+</blockquote>
+<p>在评估输出文件（本例中为 <code>/work/data/samples_results.jsonl</code>）中可以通过 <code>passed</code> 属性查看每个样本的测试结果，<code>result</code> 属性查看具体信息。</p>
+<p><code>pass</code></p>
+<pre><code class="json">{
+    &quot;task_id&quot;: &quot;Java/9&quot;, 
+    &quot;completion_id&quot;: 0, 
+    &quot;test_code&quot;: &quot;...&quot;, 
+    &quot;prompt&quot;: &quot;...&quot;, 
+    &quot;generation&quot;: &quot;\tList&lt;Integer&gt; result = new ArrayList&lt;Integer&gt;();\n\tint max = 0;\n\tfor (int i = 0; i &lt; numbers.size(); i++) {\n\t    if (numbers.get(i) &gt; max) {\n\t\tmax = numbers.get(i);\n\t    }\n\t    result.add(max);\n\t}\n\treturn result;\n    }\n}\n&quot;, 
+    &quot;result&quot;: &quot;passed&quot;, 
+    &quot;passed&quot;: true, 
+    &quot;finish&quot;: -1, 
+    &quot;file&quot;: &quot;&quot;, 
+    &quot;output&quot;: []
+}</code></pre>
+<p><code>failed</code></p>
+<pre><code class="json">{
+    &quot;task_id&quot;: &quot;Java/6&quot;, 
+    &quot;completion_id&quot;: 0, 
+    &quot;test_code&quot;: &quot;...&quot;, 
+    &quot;prompt&quot;: &quot;...&quot;, 
+    &quot;generation&quot;: &quot;\tList&lt;Integer&gt; result = new ArrayList&lt;&gt;();\n\tStack&lt;Integer&gt; stack = new Stack&lt;&gt;();\n\tfor (char c : paren_string.toCharArray()) {\n\t    if (c == &#39;(&#39;) {\n\t\tstack.push(0);\n\t    } else {\n\t\tif (stack.empty()) {\n\t\t    result.add(-1);\n\t\t} else {\n\t\t    result.add(stack.pop() + 1);\n\t\t}\n\t    }\n\t}\n\treturn result;\n    }\n}\n&quot;, 
+    &quot;result&quot;: &quot;failed: wrong answer&quot;, 
+    &quot;passed&quot;: false, 
+    &quot;finish&quot;: -1, 
+    &quot;file&quot;: &quot;&quot;, 
+    &quot;output&quot;: []
+}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据集"><span class="toc-number">1.</span> <span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#评估方式"><span class="toc-number">2.</span> <span class="toc-text">评估方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成样本"><span class="toc-number">3.</span> <span class="toc-text">生成样本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#评估环境"><span class="toc-number">4.</span> <span class="toc-text">评估环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行评估"><span class="toc-number">5.</span> <span class="toc-text">执行评估</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

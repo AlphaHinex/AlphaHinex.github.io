@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kafka 性能测试 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Kafka, Producer, Consumer, Performance, Test"> 
+    <meta name="description" content="Kafka 自带脚本简介在 Apache Kafka 安装目录的 bin 路径下，包括启停服务在内的很多脚本。这些脚本能够帮助我们完成对 Kafka 的各类操作，其中就有对生产者和消费者进行性能测试,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Kafka 性能测试</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/kafka-perf-test.jpeg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Kafka"><b>「
+                    </b>KAFKA<b> 」</b></a>
+                
+                六月 19, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/06/19/kafka-perf-test/" title="Kafka 性能测试" class="">Kafka 性能测试</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    12k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    11 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kafka/" rel="tag">Kafka</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="Kafka-自带脚本简介"><a href="#Kafka-自带脚本简介" class="headerlink" title="Kafka 自带脚本简介"></a>Kafka 自带脚本简介</h2><p>在 <a href="https://kafka.apache.org/" target="_blank" rel="noopener">Apache Kafka</a> 安装目录的 <code>bin</code> 路径下，包括启停服务在内的很多脚本。这些脚本能够帮助我们完成对 Kafka 的各类操作，其中就有对生产者和消费者进行性能测试的工具。</p>
+<p>脚本分为两个版本：Linux 下执行的 Shell 脚本，以及 Windows 下执行的 bat 脚本。</p>
+<p>以 Shell 脚本为例，可以查看脚本内容，除了停止 ZooKeeper 和 Kafka 服务的脚本外，其余脚本均会在最后调用 <code>kafka-run-class.sh</code> 并根据使用脚本的不同，传入不同的类进行处理。</p>
+<p>本文主要涉及下面五个脚本：</p>
+<ol>
+<li><code>kafka-topics.sh</code> —— 操作主题</li>
+<li><code>kafka-console-producer.sh</code> —— 控制台生产者</li>
+<li><code>kafka-console-consumer.sh</code> —— 控制台消费者</li>
+<li><code>kafka-producer-perf-test.sh</code> —— 生产者性能测试</li>
+<li><code>kafka-consumer-perf-test.sh</code> —— 消费者性能测试</li>
+</ol>
+<p>可以先随便执行一个脚本查看一下是否能够正常执行脚本，如：</p>
+<pre><code class="bash">$ ./kafka-topics.sh --version
+2.4.1 (Commit:c57222ae8cd7866b)</code></pre>
+<blockquote>
+<p>如果在执行脚本时，遇到端口占用等问题无法正常执行，可以查看 <code>kafka-run-class.sh</code> 脚本查找原因。例如 JMX 端口被占用时，可通过环境变量重新指定端口后再执行脚本：<code>JMX_PORT=6666 ./kafka-topics.sh --version</code>。</p>
+</blockquote>
+<h2 id="创建主题"><a href="#创建主题" class="headerlink" title="创建主题"></a>创建主题</h2><p>可参照如下命令，创建一个名为 <code>hinex-topic</code> 的主题，分区数为 <code>6</code>，副本数为 <code>2</code>：</p>
+<pre><code class="bash">$ ./kafka-topics.sh --create --bootstrap-server localhost:9092 --topic hinex-topic --partitions 6 --replication-factor 2</code></pre>
+<p>命令执行成功后，可以在消息代理的日志路径（<code>&lt;log.dirs&gt;/&lt;topic&gt;-&lt;partition_idx&gt;</code>）中，看到分区的存储目录。本例中第一个分区在第三个消息代理节点上的存储路径为 <code>/kafka/kafka-logs-kafka-sh-2/hinex-topic-0</code>。关于 Kafka 的记录存储结构，可阅读 <a href="https://alphahinex.github.io/2022/06/12/deep-dive-into-apache-kafka-storage-internals/">【译】深入了解 Apache Kafka 存储内部</a> 了解更多。</p>
+<h2 id="控制台生产者及消费者"><a href="#控制台生产者及消费者" class="headerlink" title="控制台生产者及消费者"></a>控制台生产者及消费者</h2><p>可通过脚本，在控制台中生产及消费消息，验证消息队列基本功能。</p>
+<p>在一个终端窗口中启动生产者：</p>
+<pre><code class="bash">$ ./kafka-console-producer.sh --broker-list localhost:9092 --topic hinex-topic</code></pre>
+<p>在另一个终端窗口中启动消费者：</p>
+<pre><code class="bash">$ ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic hinex-topic</code></pre>
+<p>此时在生产者中输入消息内容并回车，消费者终端窗口中可以接收到消息。</p>
+<p>功能正常，接下来可以开始进行性能测试了。</p>
+<h2 id="生产者性能测试"><a href="#生产者性能测试" class="headerlink" title="生产者性能测试"></a>生产者性能测试</h2><p>由于测试用的主题中并没有什么消息记录，所以先进行生产者性能测试产生消息，再进行消费者性能测试。</p>
+<p>可参照如下方式，使用 <code>kafka-producer-perf-test.sh</code> 脚本，约每秒钟产生 10 条消息，每条消息 1024 字节，共产生 200 条消息：</p>
+<pre><code class="bash">$ ./kafka-producer-perf-test.sh --producer-props bootstrap.servers=localhost:9092 --topic hinex-topic --throughput 10 --record-size 1024 --num-records 200
+52 records sent, 10.4 records/sec (0.01 MB/sec), 14.9 ms avg latency, 428.0 ms max latency.
+50 records sent, 10.0 records/sec (0.01 MB/sec), 2.2 ms avg latency, 3.0 ms max latency.
+50 records sent, 10.0 records/sec (0.01 MB/sec), 1.9 ms avg latency, 3.0 ms max latency.
+200 records sent, 10.005003 records/sec (0.01 MB/sec), 5.40 ms avg latency, 428.00 ms max latency, 2 ms 50th, 14 ms 95th, 26 ms 99th, 428ms 99.9th.</code></pre>
+<p>从执行结果中，可以看到消息发送的进度、每秒发送的消息数及数据量、平均延迟及最大延迟等统计信息。</p>
+<p>如果想测试一下消息队列的吞吐量，可以将 <code>--throughput</code> 参数设为 <code>-1</code>：</p>
+<pre><code class="bash">$ ./kafka-producer-perf-test.sh --producer-props bootstrap.servers=localhost:9092 --topic hinex-topic --throughput -1 --record-size 1024 --num-records 1000000
+685215 records sent, 137043.0 records/sec (133.83 MB/sec), 189.0 ms avg latency, 665.0 ms max latency.
+1000000 records sent, 133333.333333 records/sec (130.21 MB/sec), 206.16 ms avg latency, 679.00 ms max latency, 134 ms 50th, 629 ms 95th, 668 ms 99th, 677 ms 99.9th.</code></pre>
+<h2 id="消费者性能测试"><a href="#消费者性能测试" class="headerlink" title="消费者性能测试"></a>消费者性能测试</h2><p>消费者性能测试可使用 <code>kafka-consumer-perf-test.sh</code> 脚本，如：</p>
+<pre><code class="bash">$ ./kafka-consumer-perf-test.sh --broker-list localhost:9092 --topic hinex-topic --messages 1000000
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 06:58:43:565, 2022-06-16 06:58:46:464, 976.7813, 336.9373, 1000224, 345023.8013, 1655362724003, -1655362721104, -0.0000, -0.0006</code></pre>
+<p>可通过 <code>kafka-consumer-perf-test.sh --help</code> 获得参数详细说明。</p>
+<h2 id="清理测试数据"><a href="#清理测试数据" class="headerlink" title="清理测试数据"></a>清理测试数据</h2><p>测试结束后，可将测试主题删除：</p>
+<pre><code class="bash">$ ./kafka-topics.sh --delete --bootstrap-server localhost:9092 --topic hinex-topic</code></pre>
+<blockquote>
+<p>注意，执行删除操作后，分区目录不会被立即删除，而是会添加 <code>delete</code> 后缀，需等待清理线程确实将目录从磁盘删除后，才能再次创建同名主题。</p>
+</blockquote>
+<h2 id="实测数据"><a href="#实测数据" class="headerlink" title="实测数据"></a>实测数据</h2><p>对照 <a href="https://engineering.linkedin.com/kafka/benchmarking-apache-kafka-2-million-writes-second-three-cheap-machines" target="_blank" rel="noopener">Benchmarking Apache Kafka: 2 Million Writes Per Second (On Three Cheap Machines)</a> 中场景，使用自带脚本进行一组实测。</p>
+<p>每组测试使用 5 千万条记录，每条记录大小为 100 字节。</p>
+<h3 id="仅生产者"><a href="#仅生产者" class="headerlink" title="仅生产者"></a>仅生产者</h3><p>各场景结果汇总如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">场景</th>
+<th align="left">引文</th>
+<th align="left">实测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单个生产者，6 分区无副本</td>
+<td align="left">821,557 records/sec (78.3 MB/sec)</td>
+<td align="left">1,000,000 records/sec (95.37 MB/sec)</td>
+</tr>
+<tr>
+<td align="left">单个生产者，6 分区 3 异步副本</td>
+<td align="left">786,980 records/sec (75.1 MB/sec)</td>
+<td align="left">615,558 records/sec (58.70 MB/sec)</td>
+</tr>
+<tr>
+<td align="left">单个生产者，6 分区 3 同步副本</td>
+<td align="left">421,823 records/sec (40.2 MB/sec)</td>
+<td align="left">335,629 records/sec (32.01 MB/sec)</td>
+</tr>
+<tr>
+<td align="left">三个生产者，6 分区无副本</td>
+<td align="left">2,024,032 records/sec (193.0 MB/sec)</td>
+<td align="left">2,646,892 records/sec (252.42 MB/sec)</td>
+</tr>
+</tbody></table>
+<p>各场景运行过程记录如下。</p>
+<h4 id="场景一：单个生产者，6-分区无副本"><a href="#场景一：单个生产者，6-分区无副本" class="headerlink" title="场景一：单个生产者，6 分区无副本"></a>场景一：单个生产者，6 分区无副本</h4><pre><code class="bash">$ ./kafka-topics.sh --create --bootstrap-server localhost:9092 --topic topic-6-1 --partitions 6
+
+$ ./kafka-producer-perf-test.sh --producer-props bootstrap.servers=localhost:9092 --topic topic-6-1 --throughput -1 --record-size 100 --num-records 50000000
+50000000 records sent, 1000000.000000 records/sec (95.37 MB/sec), 24.25 ms avg latency, 1206.00 ms max latency, 3 ms 50th, 112 ms 95th, 498 ms 99th, 1094 ms 99.9th.</code></pre>
+<h4 id="场景二：单个生产者，6-分区-3-异步副本"><a href="#场景二：单个生产者，6-分区-3-异步副本" class="headerlink" title="场景二：单个生产者，6 分区 3 异步副本"></a>场景二：单个生产者，6 分区 3 异步副本</h4><pre><code class="bash">$ ./kafka-topics.sh --create --bootstrap-server localhost:9092 --topic topic-6-3 --partitions 6 --replication-factor 3
+
+$ ./kafka-producer-perf-test.sh --producer-props bootstrap.servers=localhost:9092 acks=1 --topic topic-6-3 --throughput -1 --record-size 100 --num-records 50000000
+50000000 records sent, 615558.865894 records/sec (58.70 MB/sec), 375.32 ms avg latency, 2870.00 ms max latency, 84 ms 50th, 1253 ms 95th,2091 ms 99th, 2806 ms 99.9th.</code></pre>
+<h4 id="场景三：单个生产者，6-分区-3-同步副本"><a href="#场景三：单个生产者，6-分区-3-同步副本" class="headerlink" title="场景三：单个生产者，6 分区 3 同步副本"></a>场景三：单个生产者，6 分区 3 同步副本</h4><pre><code class="bash">$ ./kafka-producer-perf-test.sh --producer-props bootstrap.servers=localhost:9092 acks=all --topic topic-6-3 --throughput -1 --record-size 100 --num-records 50000000
+50000000 records sent, 335629.035939 records/sec (32.01 MB/sec), 873.85 ms avg latency, 4041.00 ms max latency, 791 ms 50th, 2017 ms 95th, 3058 ms 99th, 3872 ms 99.9th.</code></pre>
+<h4 id="场景四：三个生产者，6-分区无副本"><a href="#场景四：三个生产者，6-分区无副本" class="headerlink" title="场景四：三个生产者，6 分区无副本"></a>场景四：三个生产者，6 分区无副本</h4><p>三个终端同时执行如下命令（两个生产 1700 万数据，一个生产 1600 万数据）：</p>
+<pre><code class="bash">$ /opt/kafka/bin/kafka-producer-perf-test.sh --producer-props bootstrap.servers=kafka-sh.app-ns:9092 --topic topic-6-1 --throughput -1 --record-size 100 --num-records 17000000</code></pre>
+<pre><code class="bash"># 终端一结果：
+17000000 records sent, 880829.015544 records/sec (84.00 MB/sec), 30.52 ms avg latency, 368.00 ms max latency, 4 ms 50th, 232 ms 95th, 323 ms 99th, 350 ms 99.9th.
+
+# 终端二结果：
+17000000 records sent, 906956.892872 records/sec (86.49 MB/sec), 31.32 ms avg latency, 568.00 ms max latency, 5 ms 50th, 167 ms 95th, 381 ms 99th, 455 ms 99.9th.
+
+# 终端三结果：
+16000000 records sent, 859106.529210 records/sec (81.93 MB/sec), 21.48 ms avg latency, 438.00 ms max latency, 4 ms 50th, 105 ms 95th, 239 ms 99th, 373 ms 99.9th.</code></pre>
+<h3 id="仅消费者"><a href="#仅消费者" class="headerlink" title="仅消费者"></a>仅消费者</h3><p>各场景使用 6 分区 3 副本的主题，结果汇总如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">场景</th>
+<th align="left">引文</th>
+<th align="left">实测</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">单个消费者</td>
+<td align="left">940,521 records/sec (89.7 MB/sec)</td>
+<td align="left">2,527,424 records/sec (241.03 MB/sec)</td>
+</tr>
+<tr>
+<td align="left">三个消费者</td>
+<td align="left">2,615,968 records/sec (249.5 MB/sec)</td>
+<td align="left">6,403,110 records/sec (610.65 MB/sec)</td>
+</tr>
+</tbody></table>
+<p>各场景运行过程记录如下。</p>
+<h4 id="场景一：单个消费者"><a href="#场景一：单个消费者" class="headerlink" title="场景一：单个消费者"></a>场景一：单个消费者</h4><pre><code class="bash">$ /opt/kafka/bin/kafka-consumer-perf-test.sh --broker-list kafka-sh.app-ns:9092 --topic topic-6-3 --messages 50000000
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 07:46:52:812, 2022-06-16 07:47:12:595, 4768.3754, 241.0340, 50000040, 2527424.5564, 1655372813244, -1655372793461, -0.0000, -0.0302</code></pre>
+<h4 id="场景二：三个消费者"><a href="#场景二：三个消费者" class="headerlink" title="场景二：三个消费者"></a>场景二：三个消费者</h4><p>三个终端同时执行如下命令（两个消费 1700 万数据，一个消费 1600 万数据）：</p>
+<pre><code class="bash">$ /opt/kafka/bin/kafka-consumer-perf-test.sh --broker-list kafka-sh.app-ns:9092 --topic topic-6-3 --messages 17000000</code></pre>
+<pre><code class="bash"># 终端一结果：
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 07:47:50:540, 2022-06-16 07:47:58:508, 1621.2508, 203.4702, 17000047, 2133540.0351, 1655430470988, -1655430463020, -0.0000, -0.0103
+
+# 终端二结果：
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 07:47:50:474, 2022-06-16 07:47:58:614, 1621.2880, 199.1754, 17000437, 2088505.7740, 1655430470849, -1655430462709, -0.0000, -0.0103
+
+# 终端三结果：
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 07:47:50:567, 2022-06-16 07:47:57:903, 1525.9067, 208.0025, 16000291, 2181064.7492, 1655430470939, -1655430463603, -0.0000, -0.0097</code></pre>
+<h3 id="生产同时消费"><a href="#生产同时消费" class="headerlink" title="生产同时消费"></a>生产同时消费</h3><p>使用一个新的 6 分区 3 副本的主题，生产脚本和消费脚本同时执行。</p>
+<p>引文：795,064 records/sec (75.8 MB/sec)<br>实测：738,836 records/sec (70.46 MB/sec)</p>
+<p>生产者终端：</p>
+<pre><code class="bash">$ /opt/kafka/bin/kafka-topics.sh --create --bootstrap-server kafka-sh.app-ns:9092 --topic newer-6-3 --partitions 6 --replication-factor 3
+
+$ /opt/kafka/bin/kafka-producer-perf-test.sh --producer-props bootstrap.servers=kafka-sh.app-ns:9092 --topic newer-6-3 --throughput -1 --record-size 100 --num-records 50000000
+50000000 records sent, 738836.185241 records/sec (70.46 MB/sec), 148.42 ms avg latency, 2406.00 ms max latency, 18 ms 50th, 840 ms 95th, 1596 ms 99th, 2278 ms 99.9th.</code></pre>
+<p>消费者终端：</p>
+<pre><code class="bash">$ /opt/kafka/bin/kafka-consumer-perf-test.sh --broker-list kafka-sh.app-ns:9092 --topic newer-6-3 --messages 50000000
+start.time, end.time, data.consumed.in.MB, MB.sec, data.consumed.in.nMsg, nMsg.sec, rebalance.time.ms, fetch.time.ms, fetch.MB.sec, fetch.nMsg.sec
+2022-06-16 07:58:37:525, 2022-06-16 07:59:44:772, 4768.3716, 70.9083, 50000000, 743527.5923, 1655373517960, -1655373450713, -0.0000, -0.0302</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Kafka-自带脚本简介"><span class="toc-number">1.</span> <span class="toc-text">Kafka 自带脚本简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建主题"><span class="toc-number">2.</span> <span class="toc-text">创建主题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制台生产者及消费者"><span class="toc-number">3.</span> <span class="toc-text">控制台生产者及消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者性能测试"><span class="toc-number">4.</span> <span class="toc-text">生产者性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者性能测试"><span class="toc-number">5.</span> <span class="toc-text">消费者性能测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#清理测试数据"><span class="toc-number">6.</span> <span class="toc-text">清理测试数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实测数据"><span class="toc-number">7.</span> <span class="toc-text">实测数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#仅生产者"><span class="toc-number">7.1.</span> <span class="toc-text">仅生产者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#仅消费者"><span class="toc-number">7.2.</span> <span class="toc-text">仅消费者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生产同时消费"><span class="toc-number">7.3.</span> <span class="toc-text">生产同时消费</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

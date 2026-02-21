@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Java 后端自动化测试 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,JUnit, DbUnit, Mockito, JaCoCo, Maven"> 
+    <meta name="description" content="自动化测试相关概念测试用例测试用例是一组输入、执行条件和预期结果的集合，用于验证软件系统的正确性。
+自动化测试自动化测试是指使用自动化工具或脚本来执行测试用例，以减少人工测试的工作量，提高测试效率和,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Java 后端自动化测试</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/java-backend-test-automation/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Test"><b>「
+                    </b>TEST<b> 」</b></a>
+                
+                八月 11, 2024
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2024/08/11/java-backend-test-automation/" title="Java 后端自动化测试" class="">Java 后端自动化测试</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    22k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    20 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Automation-test/" rel="tag">Automation test</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="自动化测试相关概念"><a href="#自动化测试相关概念" class="headerlink" title="自动化测试相关概念"></a>自动化测试相关概念</h1><h2 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h2><p>测试用例是一组输入、执行条件和预期结果的集合，用于验证软件系统的正确性。</p>
+<h2 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h2><p>自动化测试是指使用自动化工具或脚本来执行测试用例，以减少人工测试的工作量，提高测试效率和准确性。</p>
+<h2 id="测试金字塔"><a href="#测试金字塔" class="headerlink" title="测试金字塔"></a>测试金字塔</h2><p><a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener">测试金字塔</a> 是一种指导自动化测试策略的框架，它建议在不同层次上分配不同数量和类型的测试，以确保成本效益、减轻团队负担并提高测试准确性。这个概念最初由 Mike Cohn 提出，主要分为三个层次：单元测试（Unit Tests）、服务测试（Service Tests，也称为集成测试）、以及用户界面测试（UI Tests）。越靠近塔底的测试类型执行的速度越快、越稳定（不易发生变化）；越靠近塔尖的测试类型编写成本越高、收益越低。</p>
+<p>人们对测试金字塔中测试的类型有不同的划分，但是总体的思想是一致的。</p>
+<p><img src="/contents/java-backend-test-automation/test-pyramid.png" alt="pyramid"></p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>单元测试是金字塔的基础层，它们不依赖外部资源（如数据库、网络等）快速、独立，并且数量众多，专注于单个代码单元的行为验证。</p>
+<h3 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h3><p>集成测试位于中间层，测试不同组件之间的交互，数量相对较少。</p>
+<h3 id="用户界面测试"><a href="#用户界面测试" class="headerlink" title="用户界面测试"></a>用户界面测试</h3><p>UI测试或端到端测试位于金字塔的顶层，覆盖从用户角度的完整交互流程，但数量最少，因为它们成本高且维护难度大。</p>
+<h2 id="Mocking-amp-Stubbing"><a href="#Mocking-amp-Stubbing" class="headerlink" title="Mocking &amp; Stubbing"></a>Mocking &amp; Stubbing</h2><p>Mocking（模拟）是指创建一个模拟对象来代替实际的依赖对象。这个模拟对象会按照测试的需要来行为，通常用于验证被测试代码是否按照预期与依赖项交互。</p>
+<p>Stubbing（存根）与 Mocking 类似，但更侧重于提供预定义的返回值或行为，而不是验证交互。Stub 对象用于替换实际的依赖对象，以便在测试中控制或预测它们的输出。</p>
+<p>在实际的软件开发中，Mocking 和 Stubbing 通常结合使用，以创建一个可控的测试环境。</p>
+<p><strong>区别</strong></p>
+<ul>
+<li>目的：Mocking 主要用于验证代码与依赖项的交互，而 Stubbing 主要用于控制测试环境，提供可预测的输出。</li>
+<li>行为：Mock 可以在测试中模拟更复杂的行为，如条件返回或引发异常，而 Stub 通常只提供简单的固定返回值。</li>
+<li>验证：Mock 对象可以在测试后验证方法是否被正确调用，包括调用次数和参数，而 Stub 通常不进行这种验证。</li>
+</ul>
+<h2 id="测试覆盖率"><a href="#测试覆盖率" class="headerlink" title="测试覆盖率"></a>测试覆盖率</h2><p>测试覆盖率，反映了测试用例对软件代码的覆盖程度，通常以百分比来表示。</p>
+<p>测试覆盖率是一种度量标准，用于衡量测试是否覆盖了代码的各个部分，例如语句覆盖、分支覆盖、条件覆盖、路径覆盖等。</p>
+<p>测试覆盖率越高，意味着测试用例覆盖的代码越多，但并不意味着测试用例的质量越高，100% 的测试覆盖率也不能保证软件完全没有缺陷，所以在设计测试用例时，应该注重测试用例的质量。</p>
+<h2 id="测试驱动开发"><a href="#测试驱动开发" class="headerlink" title="测试驱动开发"></a>测试驱动开发</h2><p>测试驱动开发（Test-Driven Development，简称TDD）是一种软件开发流程，其核心理念是先编写测试用例，再编写能够通过这些测试用例的代码。TDD的目的是确保代码的可测试性、可维护性和质量。</p>
+<h1 id="自动化测试常用工具"><a href="#自动化测试常用工具" class="headerlink" title="自动化测试常用工具"></a>自动化测试常用工具</h1><h2 id="Build-Tool"><a href="#Build-Tool" class="headerlink" title="Build Tool"></a>Build Tool</h2><p>通常情况下，构建工具（如 Maven、Gradle）会在项目构建过程中自动执行测试用例。</p>
+<p>以 Maven 为例，可在 <a href="https://start.spring.io/" target="_blank" rel="noopener">https://start.spring.io/</a> 生成一个 Spring Boot 项目，解压后可以找到一个 <code>src/test/java/com/example/demo/DemoApplicationTests.java</code> 测试类：</p>
+<pre><code class="java">package com.example.demo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DemoApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}</code></pre>
+<p>使用 Maven 运行测试用例：</p>
+<pre><code class="bash">$ mvn test
+...
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.example.demo.DemoApplicationTests
+...
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.843 s -- in com.example.demo.DemoApplicationTests
+[INFO]
+[INFO] Results:
+[INFO]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+...</code></pre>
+<p>执行 <code>mvn package</code> 命令时也会自动执行测试用例，如果测试用例失败，构建过程会终止。如果需要跳过测试用例，可以使用 <code>-DskipTests</code> 参数：</p>
+<pre><code class="bash">mvn package -DskipTests</code></pre>
+<h2 id="JUnit"><a href="#JUnit" class="headerlink" title="JUnit"></a>JUnit</h2><p>JUnit 是一个 Java 编程语言的单元测试框架，用于编写和运行重复测试。JUnit 提供了注解和断言来编写测试用例，可以方便地进行测试驱动开发。</p>
+<p>当前 Junit 的主要版本是 <a href="https://github.com/junit-team/junit5/" target="_blank" rel="noopener">JUnit 5</a>，上一个主要版本 <a href="https://github.com/junit-team/junit4" target="_blank" rel="noopener">JUnit 4</a> 的最后发布版 <a href="https://github.com/junit-team/junit4/releases/tag/r4.13.2" target="_blank" rel="noopener">4.13.2</a> 是 2021 年发布的。</p>
+<h3 id="JUnit5"><a href="#JUnit5" class="headerlink" title="JUnit5"></a>JUnit5</h3><p>不同于之前版本的 JUnit，JUnit 5 是由三个不同的子项目组成的模块化测试框架：</p>
+<p><code>JUnit 5 = JUnit Platform + JUnit Jupiter + JUnit Vintage</code></p>
+<ul>
+<li><code>JUnit Platform</code> 负责在 JVM 中启动测试框架。它定义了 <a href="https://junit.org/junit5/docs/current/api/org.junit.platform.engine/org/junit/platform/engine/TestEngine.html" target="_blank" rel="noopener">TestEngine</a> API 用来开发可在其平台上运行的测试框架。</li>
+<li><code>JUnit Jupiter</code> 包含了对 JUnit 5 新注解的支持，并提供了一个能够运行 JUnit 5 测试用例的 <code>TestEngine</code> 实现。</li>
+<li><code>JUnit Vintage</code> 提供了用于运行 JUnit 3 和 JUnit 4 的测试用例的 <code>TestEngine</code> 实现。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">JUnit 5 常用注解</th>
+<th align="left">作用</th>
+<th align="left">JUnit 4 对应注解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>@Test</code></td>
+<td align="left">标记一个方法是测试方法</td>
+<td align="left"><code>@Test</code></td>
+</tr>
+<tr>
+<td align="left"><code>@BeforeEach</code></td>
+<td align="left">在<strong>每个</strong>测试方法之前都执行的方法</td>
+<td align="left"><code>@Before</code></td>
+</tr>
+<tr>
+<td align="left"><code>@AfterEach</code></td>
+<td align="left">在<strong>每个</strong>测试方法之后都执行的方法</td>
+<td align="left"><code>@After</code></td>
+</tr>
+<tr>
+<td align="left"><code>@BeforeAll</code></td>
+<td align="left">在所有测试方法之前执行一次的方法，需要 <code>static</code></td>
+<td align="left"><code>@BeforeClass</code></td>
+</tr>
+<tr>
+<td align="left"><code>@AfterAll</code></td>
+<td align="left">在所有测试方法之后执行一次的方法，需要 <code>static</code></td>
+<td align="left"><code>@AfterClass</code></td>
+</tr>
+<tr>
+<td align="left"><code>@Disabled</code></td>
+<td align="left">禁用测试类或方法</td>
+<td align="left"><code>@Ignore</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>更多注解可见 <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-annotations" target="_blank" rel="noopener">2.1. Annotations</a> 。</p>
+</blockquote>
+<h3 id="JUnit5-基础注解"><a href="#JUnit5-基础注解" class="headerlink" title="JUnit5 基础注解"></a>JUnit5 基础注解</h3><pre><code class="java">package com.example.demo;
+
+import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DemoApplicationTests {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(DemoApplicationTests.class);
+
+    @BeforeAll
+    static void setup() {
+        LOGGER.info(&quot;@BeforeAll - executes once before all test methods in this class&quot;);
+    }
+
+    @BeforeEach
+    void init() {
+        LOGGER.info(&quot;@BeforeEach - executes before each test method in this class&quot;);
+    }
+
+    @AfterEach
+    void tearDown() {
+        LOGGER.info(&quot;@AfterEach - executed after each test method.&quot;);
+    }
+
+    @AfterAll
+    static void done() {
+        LOGGER.info(&quot;@AfterAll - executed after all test methods.&quot;);
+    }
+
+    @Test
+    void contextLoads() {
+    }
+
+    @DisplayName(&quot;Single test successful&quot;)
+    @Test
+    void testSingleSuccessTest() {
+        LOGGER.info(&quot;Success&quot;);
+    }
+
+    @Test
+    @Disabled(&quot;Not implemented yet&quot;)
+    void testShowSomething() {
+    }
+
+}</code></pre>
+<pre><code class="bash">$ mvn test
+...
+17:34:33.848 [main] INFO com.example.demo.DemoApplicationTests -- @BeforeAll - executes once before all test methods in this class
+
+  .   ____          _            __ _ _
+ /\\ / ___&#39;_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | &#39;_ | &#39;_| | &#39;_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  &#39;  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.2)
+
+2024-08-08T17:34:34.251+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : Starting DemoApplicationTests using Java 17.0.2 with PID 35736 (started by alphahinex in /Users/alphahinex/Desktop/demo)
+2024-08-08T17:34:34.253+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2024-08-08T17:34:34.957+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : Started DemoApplicationTests in 1.063 seconds (process running for 2.405)
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2024-08-08T17:34:35.904+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : @BeforeEach - executes before each test method in this class
+2024-08-08T17:34:35.911+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : @AfterEach - executed after each test method.
+2024-08-08T17:34:35.933+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : @BeforeEach - executes before each test method in this class
+2024-08-08T17:34:35.934+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : Success
+2024-08-08T17:34:35.935+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : @AfterEach - executed after each test method.
+2024-08-08T17:34:35.940+08:00  INFO 35736 --- [demo] [           main] com.example.demo.DemoApplicationTests    : @AfterAll - executed after all test methods.
+[WARNING] Tests run: 3, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 2.521 s -- in com.example.demo.DemoApplicationTests
+[INFO]
+[INFO] Results:
+[INFO]
+[WARNING] Tests run: 3, Failures: 0, Errors: 0, Skipped: 1
+...</code></pre>
+<p>从输出的日志信息可以看到，<code>@BeforeAll</code> 和 <code>@AfterAll</code> 的日志只打印了一次，<code>@BeforeEach</code> 和 <code>@AfterEach</code> 的日志在每个没 <code>@Disabled</code> 的 <code>@Test</code> 方法执行前后都会打印。</p>
+<h3 id="JUnit5-断言"><a href="#JUnit5-断言" class="headerlink" title="JUnit5 断言"></a>JUnit5 断言</h3><p>断言是测试用例最重要的组成部分。</p>
+<p>断言可以用来验证方法的行为是否符合预期，并在断言失败时使测试用例失败，进而体现到最终的测试报告中。</p>
+<p>可以说没有断言的测试用例没有任何意义，因为测试用例始终会执行通过。</p>
+<p>JUnit 5 的断言都包含在 <code>org.junit.jupiter.api.Assertions</code> 类的静态方法中，并支持了 Lambda 表达式等 Java 新特性，常见的断言包括：</p>
+<ul>
+<li><code>assertTrue</code>：用于验证条件是否为 <code>true</code>。</li>
+<li><code>assertFalse</code>：用于验证条件是否为 <code>false</code>。</li>
+<li><code>assertNull</code>：用于验证对象是否为 <code>null</code>。</li>
+<li><code>assertNotNull</code>：用于验证对象是否不为 <code>null</code>。</li>
+<li><code>assertEquals</code>：用于验证两个对象是否相等。</li>
+<li><code>assertNotEquals</code>：用于验证两个对象是否不相等。</li>
+<li><code>assertArrayEquals</code>：用于验证两个数组是否相等。</li>
+<li><code>assertSame</code>：用于验证两个对象是否是同一个对象。</li>
+<li><code>assertNotSame</code>：用于验证两个对象是否不是同一个对象。</li>
+<li><code>assertThrows</code>：用于验证方法是否抛出了指定的异常。</li>
+<li><code>assertAll</code>：用于组合多个断言，当其中一个断言失败时，后续断言不会执行。</li>
+</ul>
+<pre><code class="java">@Test
+void groupAssertions() {
+    int[] numbers = {0, 1, 2, 3, 4};
+    assertNotNull(numbers);
+    assertAll(&quot;numbers&quot;,
+        () -&gt; assertEquals(0, numbers[0]),
+        () -&gt; assertSame(3, numbers[3]),
+        () -&gt; assertArrayEquals(new int[]{0, 1, 2, 3, 4}, numbers)
+    );
+}</code></pre>
+<h3 id="JUnit5-假设"><a href="#JUnit5-假设" class="headerlink" title="JUnit5 假设"></a>JUnit5 假设</h3><p>假设用来在测试方法中定义前提条件，如果假设不成立，则测试方法会被忽略。</p>
+<p>JUnit 5 的假设方法包含在 <code>org.junit.jupiter.api.Assumptions</code> 类中，有三类静态方法：</p>
+<ol>
+<li><code>assumeTrue</code>：假设条件为 <code>true</code>，否则忽略测试方法。</li>
+<li><code>assumeFalse</code>：假设条件为 <code>false</code>，否则忽略测试方法。</li>
+<li><code>assumingThat</code>：假设条件为 <code>true</code>，否则忽略测试方法。</li>
+</ol>
+<pre><code class="java">@Test
+void testOnlyOnCiServer() {
+    assumeTrue(&quot;CI&quot;.equals(System.getenv(&quot;ENV&quot;)));
+    // remainder of test
+}</code></pre>
+<h3 id="JUnit5-验证异常"><a href="#JUnit5-验证异常" class="headerlink" title="JUnit5 验证异常"></a>JUnit5 验证异常</h3><p>JUnit 5 中不再使用之前的 <code>@Test(expected = …​)</code> 和 <code>ExpectedException</code> 规则来设定期待抛出的异常。异常的验证都通过 <code>Assertions.assertThrows(…​)</code> 方法实现：</p>
+<pre><code class="java">@Test
+void shouldThrowException() {
+    Throwable exception = assertThrows(UnsupportedOperationException.class, () -&gt; {
+      throw new UnsupportedOperationException(&quot;Not supported&quot;);
+    });
+    assertEquals(&quot;Not supported&quot;, exception.getMessage());
+}
+
+@Test
+void assertThrowsException() {
+    String str = null;
+    assertThrows(IllegalArgumentException.class, () -&gt; {
+      Integer.valueOf(str);
+    });
+}</code></pre>
+<h3 id="DbUnit"><a href="#DbUnit" class="headerlink" title="DbUnit"></a>DbUnit</h3><p><a href="https://dbunit.sourceforge.net/dbunit/" target="_blank" rel="noopener">DbUnit</a> 是一个 JUnit 4 的扩展，可以在测试过程中基于 XML 数据集管控测试数据库中数据状态，最后的发布版本是 2024年06月02日 的 <a href="https://dbunit.sourceforge.net/dbunit/changes-report.html#a2.8.0" target="_blank" rel="noopener">v2.8.0</a>。</p>
+<p>基本思路是继承 <code>DBTestCase</code> 基类后，通过实现 <code>getDataSet()</code> 方法，将准备的 XML 格式数据文件加载到测试库中，之后通过 <code>org.dbunit.Assertion</code> 中的断言进行数据验证。</p>
+<p>如果想在 JUnit 5 中使用 DbUnit，需要在依赖中添加 JUnit 4 和 JUnit Vintage 引擎：</p>
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;junit&lt;/groupId&gt;
+    &lt;artifactId&gt;junit&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.junit.vintage&lt;/groupId&gt;
+    &lt;artifactId&gt;junit-vintage-engine&lt;/artifactId&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+<p>以下是一个使用 DbUnit 的示例：</p>
+<p><code>com.example.demo.DataSourceDBUnitTest</code>:</p>
+<pre><code class="java">package com.example.demo;
+
+import org.dbunit.Assertion;
+import org.dbunit.DataSourceBasedDBTestCase;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.h2.jdbcx.JdbcDataSource;
+import org.junit.Test;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DataSourceDBUnitTest extends DataSourceBasedDBTestCase {
+    @Override
+    protected DataSource getDataSource() {
+        JdbcDataSource dataSource = new JdbcDataSource();
+        dataSource.setURL(
+            &quot;jdbc:h2:mem:default;MODE=LEGACY;DB_CLOSE_DELAY=-1;init=runscript from &#39;classpath:dbunit/schema.sql&#39;&quot;);
+        dataSource.setUser(&quot;sa&quot;);
+        dataSource.setPassword(&quot;sa&quot;);
+        return dataSource;
+    }
+
+    @Override
+    protected IDataSet getDataSet() throws Exception {
+        return new FlatXmlDataSetBuilder().build(getClass().getClassLoader()
+            .getResourceAsStream(&quot;dbunit/data.xml&quot;));
+    }
+
+    @Override
+    protected DatabaseOperation getSetUpOperation() {
+        return DatabaseOperation.REFRESH;
+    }
+
+    @Override
+    protected DatabaseOperation getTearDownOperation() {
+        return DatabaseOperation.DELETE_ALL;
+    }
+
+    @Test
+    public void testGivenDataSetEmptySchema_whenDataSetCreated_thenTablesAreEqual() throws Exception {
+        IDataSet expectedDataSet = getDataSet();
+        ITable expectedTable = expectedDataSet.getTable(&quot;CLIENTS&quot;);
+        IDataSet databaseDataSet = getConnection().createDataSet();
+        ITable actualTable = databaseDataSet.getTable(&quot;CLIENTS&quot;);
+        Assertion.assertEquals(expectedTable, actualTable);
+    }
+
+}</code></pre>
+<p><code>src/test/resources/dbunit/schema.sql</code>:</p>
+<pre><code class="sql">CREATE TABLE IF NOT EXISTS CLIENTS
+(
+    `id`         int AUTO_INCREMENT NOT NULL,
+    `first_name` varchar(100)       NOT NULL,
+    `last_name`  varchar(100)       NOT NULL,
+    PRIMARY KEY (`id`)
+);
+
+CREATE TABLE IF NOT EXISTS ITEMS
+(
+    `id`       int AUTO_INCREMENT NOT NULL,
+    `title`    varchar(100)       NOT NULL,
+    `produced` date,
+    `price`    float,
+    PRIMARY KEY (`id`)
+);</code></pre>
+<p><code>src/test/resources/dbunit/data.xml</code>:</p>
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;dataset&gt;
+    &lt;CLIENTS id=&#39;1&#39; first_name=&#39;Charles&#39; last_name=&#39;Xavier&#39;/&gt;
+    &lt;ITEMS id=&#39;1&#39; title=&#39;Grey T-Shirt&#39; price=&#39;17.99&#39; produced=&#39;2019-03-20&#39;/&gt;
+    &lt;ITEMS id=&#39;2&#39; title=&#39;Fitted Hat&#39; price=&#39;29.99&#39; produced=&#39;2019-03-21&#39;/&gt;
+    &lt;ITEMS id=&#39;3&#39; title=&#39;Backpack&#39; price=&#39;54.99&#39; produced=&#39;2019-03-22&#39;/&gt;
+    &lt;ITEMS id=&#39;4&#39; title=&#39;Earrings&#39; price=&#39;14.99&#39; produced=&#39;2019-03-23&#39;/&gt;
+    &lt;ITEMS id=&#39;5&#39; title=&#39;Socks&#39; price=&#39;9.99&#39;/&gt;
+&lt;/dataset&gt;</code></pre>
+<p>更多 DbUnit 用法可参见 <a href="https://www.baeldung.com/java-dbunit" target="_blank" rel="noopener">Introduction to DBUnit</a> 及 <a href="https://dbunit.sourceforge.net/dbunit/howto.html" target="_blank" rel="noopener">Getting Started</a> 等文档。</p>
+<blockquote>
+<p>个人感觉 <a href="https://docs.spring.io/spring-framework/reference/index.html" target="_blank" rel="noopener">Spring Framework</a> 下的 <a href="https://docs.spring.io/spring-framework/reference/testing/testcontext-framework.html" target="_blank" rel="noopener">Spring TestContext Framework</a> 中所提供的 <a href="https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/executing-sql.html" target="_blank" rel="noopener">Executing SQL Scripts</a> 方式面向 SQL，相比 XML 更加直观，且无需引入三方依赖，对 JUnit 版本也没有限制。</p>
+</blockquote>
+<h2 id="Mockito"><a href="#Mockito" class="headerlink" title="Mockito"></a>Mockito</h2><p><a href="https://site.mockito.org/" target="_blank" rel="noopener">Mockito</a> 是 Java 生态常用的 Mock 框架，用于创建和配置 Mock 对象，以及验证测试中的行为。Mockito 会被 Spring Boot Starter 自动依赖，无需额外引入。</p>
+<p><code>org.mockito.Mockito</code> 类中常用的静态方法包括：</p>
+<ul>
+<li><code>mock</code>：创建一个 Mock 对象。</li>
+<li><code>verify</code>：验证 Mock 对象的行为。</li>
+<li><code>spy</code>：创建一个部分 Mock 的对象，真实方法会被调用，但依然可以进行验证和 stub。</li>
+<li><code>when</code>：配置 Mock 对象的行为。</li>
+</ul>
+<pre><code class="java">@Test
+void mockAndVerify() {
+    List&lt;String&gt; mockedList = mock(List.class);
+
+    mockedList.add(&quot;one&quot;);
+    mockedList.add(&quot;two&quot;);
+    mockedList.add(&quot;two&quot;);
+    mockedList.add(&quot;three&quot;);
+    verify(mockedList).add(&quot;three&quot;);
+
+    verify(mockedList, times(2)).add(&quot;two&quot;);
+    verify(mockedList, atLeastOnce()).add(&quot;three&quot;);
+    verify(mockedList, atMost(3)).add(&quot;one&quot;);
+}
+
+@Test
+void spyAndStub() {
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    List&lt;String&gt; spiedList = spy(list);
+    spiedList.add(&quot;one&quot;);
+    spiedList.add(&quot;two&quot;);
+    spiedList.add(&quot;three&quot;);
+    assertEquals(3, spiedList.size());
+
+    when(spiedList.get(0)).thenReturn(&quot;first&quot;);
+    assertEquals(&quot;first&quot;, spiedList.get(0));
+    assertEquals(&quot;two&quot;, spiedList.get(1));
+}</code></pre>
+<h2 id="JaCoCo"><a href="#JaCoCo" class="headerlink" title="JaCoCo"></a>JaCoCo</h2><p><a href="https://github.com/jacoco/jacoco" target="_blank" rel="noopener">JaCoCo</a> 是 Java 的代码覆盖率工具，可与 Maven 或 Gradle 集成，用于生成代码覆盖率报告。</p>
+<p>在 Maven 中使用 JaCoCo <a href="https://www.jacoco.org/jacoco/trunk/doc/maven.html" target="_blank" rel="noopener">插件</a>，只需在 <code>pom.xml</code> 中添加以下配置：</p>
+<pre><code class="xml">&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.jacoco&lt;/groupId&gt;
+            &lt;artifactId&gt;jacoco-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;0.8.12&lt;/version&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;prepare-agent&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;report&lt;/id&gt;
+                    &lt;phase&gt;test&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;report&lt;/goal&gt;
+                    &lt;/goals&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+<p>执行 <code>mvn test</code> 后，JaCoCo 会生成一个 <code>target/site/jacoco/index.html</code> 的代码覆盖率报告。</p>
+<p><img src="/contents/java-backend-test-automation/jacoco.png" alt="jacoco"></p>
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><p>完整示例代码可见：<a href="https://github.com/AlphaHinex/java-test-demo" target="_blank" rel="noopener">https://github.com/AlphaHinex/java-test-demo</a></p>
+<h1 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h1><ul>
+<li><a href="https://www.baeldung.com/junit-5" target="_blank" rel="noopener">A Guide to JUnit 5</a></li>
+<li><a href="https://alphahinex.github.io/2020/02/05/microservices-integration-test-in-action/">微服务的自动化集成测试实战</a></li>
+<li><a href="https://alphahinex.github.io/2022/04/17/easy-java-and-spring-test/">写测试用例都这么简单了，你不来试试？</a></li>
+<li><a href="https://alphahinex.github.io/2022/05/22/use-postman-to-do-system-acceptance-test/">使用 Postman 进行系统可接受性测试</a></li>
+<li><a href="https://alphahinex.github.io/2023/04/16/postman-data-file/">借助 Data File 实现请求数据与 Postman 脚本的分离</a></li>
+<li><a href="https://alphahinex.github.io/2022/07/17/apache-bench/">ApacheBench 简介</a></li>
+<li><a href="https://alphahinex.github.io/2024/08/04/postfile-for-ab/">构造 ApacheBench 可用的 postfile</a></li>
+<li><a href="https://alphahinex.github.io/2023/09/24/sonar-quality-gates/">Sonar Quality Gates</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自动化测试相关概念"><span class="toc-number">1.</span> <span class="toc-text">自动化测试相关概念</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#测试用例"><span class="toc-number">1.1.</span> <span class="toc-text">测试用例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动化测试"><span class="toc-number">1.2.</span> <span class="toc-text">自动化测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试金字塔"><span class="toc-number">1.3.</span> <span class="toc-text">测试金字塔</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#单元测试"><span class="toc-number">1.3.1.</span> <span class="toc-text">单元测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#集成测试"><span class="toc-number">1.3.2.</span> <span class="toc-text">集成测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用户界面测试"><span class="toc-number">1.3.3.</span> <span class="toc-text">用户界面测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mocking-amp-Stubbing"><span class="toc-number">1.4.</span> <span class="toc-text">Mocking &amp; Stubbing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试覆盖率"><span class="toc-number">1.5.</span> <span class="toc-text">测试覆盖率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试驱动开发"><span class="toc-number">1.6.</span> <span class="toc-text">测试驱动开发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自动化测试常用工具"><span class="toc-number">2.</span> <span class="toc-text">自动化测试常用工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Build-Tool"><span class="toc-number">2.1.</span> <span class="toc-text">Build Tool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JUnit"><span class="toc-number">2.2.</span> <span class="toc-text">JUnit</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#JUnit5"><span class="toc-number">2.2.1.</span> <span class="toc-text">JUnit5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUnit5-基础注解"><span class="toc-number">2.2.2.</span> <span class="toc-text">JUnit5 基础注解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUnit5-断言"><span class="toc-number">2.2.3.</span> <span class="toc-text">JUnit5 断言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUnit5-假设"><span class="toc-number">2.2.4.</span> <span class="toc-text">JUnit5 假设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUnit5-验证异常"><span class="toc-number">2.2.5.</span> <span class="toc-text">JUnit5 验证异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DbUnit"><span class="toc-number">2.2.6.</span> <span class="toc-text">DbUnit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mockito"><span class="toc-number">2.3.</span> <span class="toc-text">Mockito</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JaCoCo"><span class="toc-number">2.4.</span> <span class="toc-text">JaCoCo</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#示例代码"><span class="toc-number">3.</span> <span class="toc-text">示例代码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#相关资料"><span class="toc-number">4.</span> <span class="toc-text">相关资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

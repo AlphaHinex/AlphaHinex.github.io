@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《Linux in Action》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Linux, Docker, stat, info, netstat, find, DMZ, NAT, nice, syslogd, chroot, dd, lsblk, lspci, lsusb, crontab"> 
+    <meta name="description" content="Chapter 1: Welcome to Linux1.2 Basic survival skills1.2.1 The Linux file system
+UNIX Filesystem Hie,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《Linux in Action》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/linux-in-action/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                一月 01, 2023
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2023/01/01/linux-in-action/" title="《Linux in Action》书摘" class="">《Linux in Action》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    43k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    39 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="Chapter-1-Welcome-to-Linux"><a href="#Chapter-1-Welcome-to-Linux" class="headerlink" title="Chapter 1: Welcome to Linux"></a>Chapter 1: Welcome to Linux</h1><h2 id="1-2-Basic-survival-skills"><a href="#1-2-Basic-survival-skills" class="headerlink" title="1.2 Basic survival skills"></a>1.2 Basic survival skills</h2><h3 id="1-2-1-The-Linux-file-system"><a href="#1-2-1-The-Linux-file-system" class="headerlink" title="1.2.1 The Linux file system"></a>1.2.1 The Linux file system</h3><ul>
+<li>UNIX Filesystem Hierarchy Standard (FHS)</li>
+<li>Figure 1.2 Common top-level directories as defined by the UNIX FHS<br><img src="/contents/linux-in-action/figure1.2.png" alt=""></li>
+</ul>
+<h3 id="1-2-3-Getting-things-done-Linux-file-management-tools"><a href="#1-2-3-Getting-things-done-Linux-file-management-tools" class="headerlink" title="1.2.3 Getting things done: Linux file management tools"></a>1.2.3 Getting things done: Linux file management tools</h3><ul>
+<li>“Touching” an existing file with <code>touch</code> updates its time stamp without making any changes. This can be useful if, for some reason, you want to change how various commands like <code>ls</code> list or display a file. (It can also be helpful if you’d like your boss to think that you’ve been hard at work on a data file that, in fact, you haven’t opened for weeks.)</li>
+<li>Every object within a Linux file system is represented by a unique collection of metadata called an <code>inode</code>. I suppose you could say that the file system index discussed earlier is built from the metadata associated with all the many inodes on a drive. To display more information about the file you just created using <code>touch</code>, including inode information, you can use the <code>stat</code> command:<br><img src="/contents/linux-in-action/stat.png" alt=""></li>
+<li>As you can see, the output includes data describing the file’s name, attributes, and time stamps. But it also tells you its inode ID number. It’s important to be aware that when you move, copy, or delete a file or directory, all you’re really doing is editing its inode attributes, not its ID. An <code>inode</code>, by the way, is an object used by UNIX systems to identify the disk location and attributes of files within a file system (as illustrated in figure 1.2). Usually there’ll be exactly one inode for each file or directory.</li>
+</ul>
+<h3 id="1-2-5-Pseudo-file-systems"><a href="#1-2-5-Pseudo-file-systems" class="headerlink" title="1.2.5 Pseudo file systems"></a>1.2.5 Pseudo file systems</h3><ul>
+<li>A normal file is a collection of data that can be reliably accessed over and over again, even after a system reboot. By contrast, the contents of a Linux pseudo (or virtual) file, like those that might exist in the /sys/ and /proc/ directories, don’t really exist in the normal sense. A pseudo file’s contents are dynamically generated by the OS itself to represent specific values.<pre><code class="bash">$ cat /sys/block/sda/size
+1937389568</code></pre>
+</li>
+<li>Originally, <code>sda</code> probably stood for SCSI Device A, but I find that thinking of it as Storage Device A makes it more meaningful. You might also run into device designations like /dev/hda (hard drive), /dev/sr0 (DVD drive), /dev/cdrom (that’s right, a CD-ROM drive), or even /dev/fd0 (floppy drive).<br><img src="/contents/linux-in-action/block.png" alt=""></li>
+</ul>
+<h2 id="1-3-Getting-help"><a href="#1-3-Getting-help" class="headerlink" title="1.3 Getting help"></a>1.3 Getting help</h2><h3 id="1-3-2-Info"><a href="#1-3-2-Info" class="headerlink" title="1.3.2 Info"></a>1.3.2 Info</h3><pre><code class="bash">$ info</code></pre>
+<ul>
+<li>Figure 1.3 The first screen of Info’s main menu. Info links may appear different on your system depending on what software you’ve installed.<br><img src="/contents/linux-in-action/figure1.3.png" alt=""></li>
+</ul>
+<h3 id="1-3-3-The-internet"><a href="#1-3-3-The-internet" class="headerlink" title="1.3.3 The internet"></a>1.3.3 The internet</h3><ul>
+<li>On nearly all modern Linux distributions (with the notable exception of Ubuntu 14.04), you can access all system logs through <code>journalctl</code>:<pre><code class="bash">$ journalctl</code></pre>
+</li>
+<li>In case you’d prefer to see only those lines that don’t contain the word <code>error</code>, you’d add <code>-v</code> (for inverted results):<pre><code class="bash">$ journalctl | grep filename.php | grep -v error</code></pre>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>Linux uses pseudo file systems to expose data on the hardware environment to processes and users.</li>
+</ul>
+<h2 id="Key-terms"><a href="#Key-terms" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li>File globbing involves using wildcard characters to refer to multiple files with a single command.</li>
+<li>Pseudo file systems are directories containing files with dynamic data automati-cally generated at or after system boot.</li>
+</ul>
+<h1 id="Chapter-3-Remote-connectivity-Safely-accessing-networked-machines"><a href="#Chapter-3-Remote-connectivity-Safely-accessing-networked-machines" class="headerlink" title="Chapter 3: Remote connectivity: Safely accessing networked machines"></a>Chapter 3: Remote connectivity: Safely accessing networked machines</h1><h2 id="3-2-Getting-started-with-OpenSSH"><a href="#3-2-Getting-started-with-OpenSSH" class="headerlink" title="3.2 Getting started with OpenSSH"></a>3.2 Getting started with OpenSSH</h2><ul>
+<li>You can force a process (like SSH) to automatically load on system startup using <code>systemctl enable ssh</code>, or to not load on startup with <code>systemctl disable ssh</code>.</li>
+</ul>
+<h2 id="3-4-Password-free-SSH-access"><a href="#3-4-Password-free-SSH-access" class="headerlink" title="3.4 Password-free SSH access"></a>3.4 Password-free SSH access</h2><h3 id="3-4-2-Copying-the-public-key-over-a-network"><a href="#3-4-2-Copying-the-public-key-over-a-network" class="headerlink" title="3.4.2 Copying the public key over a network"></a>3.4.2 Copying the public key over a network</h3><ul>
+<li>… the backslash character (), which tells Bash to read the next line as part of the current line. Make sure there are no characters (including a space) after the backslash.</li>
+</ul>
+<h2 id="3-7-Linux-process-management"><a href="#3-7-Linux-process-management" class="headerlink" title="3.7 Linux process management"></a>3.7 Linux process management</h2><h3 id="3-7-1-Viewing-processes-with-the-ps-command"><a href="#3-7-1-Viewing-processes-with-the-ps-command" class="headerlink" title="3.7.1 Viewing processes with the ps command"></a>3.7.1 Viewing processes with the ps command</h3><ul>
+<li>If you want to visualize parent and child shells/processes, you can use the <code>pstree</code> command (adding the <code>-p</code> argument to display the PIDs for each process). Note how the first process (assigned PID 1) is systemd. On older versions of Linux (Ubuntu 14.04 and earlier, for instance), this would have been called init instead:</li>
+</ul>
+<h2 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>On most modern Linux distributions, processes are managed by systemd through the systemctl tool.</li>
+</ul>
+<h2 id="Key-terms-1"><a href="#Key-terms-1" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li>A <code>password</code> is a string of regular characters, while a <code>passphrase</code> can include spaces and punctuation.</li>
+</ul>
+<h2 id="Command-line-review"><a href="#Command-line-review" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>$ cat.ssh/id_rsa.pub | ssh ubuntu@10.0.3.142 &quot;cat &gt;&gt; .ssh/authorized_keys&quot;</code> copies a local key and pastes it on a remote machine.</li>
+<li><code>ssh -X ubuntu@10.0.3.142</code> allows you to log in to a remote host for a graphics-enabled session.</li>
+</ul>
+<h1 id="Chapter-4-Archive-management-Backing-up-or-copying-entire-file-systems"><a href="#Chapter-4-Archive-management-Backing-up-or-copying-entire-file-systems" class="headerlink" title="Chapter 4: Archive management: Backing up or copying entire file systems"></a>Chapter 4: Archive management: Backing up or copying entire file systems</h1><h2 id="4-2-What-to-archive"><a href="#4-2-What-to-archive" class="headerlink" title="4.2 What to archive"></a>4.2 What to archive</h2><ul>
+<li>It’s pretty simple to tell which partitions are used for pseudo files: if the file designation is tmpfs and the number of bytes reported in the Used column is 0, then the odds are you’re looking at a temporary rather than a normal file system.</li>
+<li>… keep your /boot/ directory in the largest partition.</li>
+</ul>
+<h2 id="4-4-Archiving-files-and-file-systems-using-tar"><a href="#4-4-Archiving-files-and-file-systems-using-tar" class="headerlink" title="4.4 Archiving files and file systems using tar"></a>4.4 Archiving files and file systems using tar</h2><h3 id="4-4-2-Streaming-file-system-archives"><a href="#4-4-2-Streaming-file-system-archives" class="headerlink" title="4.4.2 Streaming file system archives"></a>4.4.2 Streaming file system archives</h3><ul>
+<li>… create an archive image of a working Linux installation and stream it to a remote storage location …</li>
+</ul>
+<pre><code class="bash">$ tar czvf - --one-file-system / /usr /var \ 
+--exclude=/home/andy/ | ssh username@10.0.3.141 \
+&quot;cat &gt; /home/username/workstation-backup-Apr-10.tar.gz&quot;</code></pre>
+<ul>
+<li>… I used a dash (<code>czvf -</code>). The dash outputs data to standard output.</li>
+<li>The <code>--one-file-system</code> argument excludes all data from any file system besides the current one. This means that pseudo partitions like /sys/ and /dev/ won’t be added to the archive.</li>
+</ul>
+<h3 id="4-4-3-Aggregating-files-with-find"><a href="#4-4-3-Aggregating-files-with-find" class="headerlink" title="4.4.3 Aggregating files with find"></a>4.4.3 Aggregating files with find</h3><ul>
+<li>Here’s a single command that will search the /var/www/html/ hierarchy for files with names that include the file extension .mp4. When a file is found, <code>tar</code> will be executed with the argument <code>-r</code> to append (as opposed to overwrite) the video file to a file called videos.tar:<br><img src="/contents/linux-in-action/find.png" alt=""></li>
+<li>By default, <code>locate</code> searches the entire system for files matching the string that you specify.</li>
+<li><code>locate</code> isn’t actually searching the file system itself, but simply running your search string against entries in a preexisting index.</li>
+<li>Normally the index is updated every time the system boots, but you can also manually do the job by running <code>updatedb</code></li>
+</ul>
+<h3 id="4-4-4-Preserving-permissions-and-ownership…and-extracting-archives"><a href="#4-4-4-Preserving-permissions-and-ownership…and-extracting-archives" class="headerlink" title="4.4.4 Preserving permissions and ownership…and extracting archives"></a>4.4.4 Preserving permissions and ownership…and extracting archives</h3><ul>
+<li>The first dash (① in the figure) means that the object being listed is a file. It would be replaced with a <code>d</code> if it were a directory. The next three characters ② are a representation of the file’s permissions as they apply to its owner, the next three ③ are the permissions as they apply to its group, and the final three ④ represent the permissions all other users have over this file.</li>
+<li>Figure 4.5 A breakdown of the data displayed by the ls -l command<br><img src="/contents/linux-in-action/figure4.5.png" alt=""></li>
+<li>If you want to change a file’s permissions, use the change mode (<code>chmod</code>) tool:<pre><code class="bash">$ chmod o-r /bin/zcat
+$ chmod g+w /bin/zcat</code></pre>
+</li>
+<li>This example removes the ability of others (<code>o</code>) to read the file and adds write permissions for the group (<code>g</code>). A file’s owner would be represented by the letter <code>u</code> (for user).</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Permission</th>
+<th align="left">Character</th>
+<th align="left">Number</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Read</td>
+<td align="left">r</td>
+<td align="left">4</td>
+</tr>
+<tr>
+<td align="left">Write</td>
+<td align="left">w</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">Execute</td>
+<td align="left">x</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The <code>&amp;&amp;</code> characters will execute a second command only if the first command was successful.</li>
+<li>Extracting an archive overwrites any files with the same names in the current directory <code>without</code> warning.</li>
+<li>Generally, only users with administrator powers can work with resources in other users’ accounts.</li>
+<li>The solution is to perform these operations as an administrator, using <code>sudo</code>.</li>
+</ul>
+<h2 id="4-5-Archiving-partitions-with-dd"><a href="#4-5-Archiving-partitions-with-dd" class="headerlink" title="4.5 Archiving partitions with dd"></a>4.5 Archiving partitions with dd</h2><ul>
+<li>Using dd, … can make perfect byte-for-byte images of, well, just about anything digital.</li>
+<li>NOTE As always with <code>dd</code>, pause and think very carefully before pressing that Enter key!</li>
+</ul>
+<h2 id="4-6-Synchronizing-archives-with-rsync"><a href="#4-6-Synchronizing-archives-with-rsync" class="headerlink" title="4.6 Synchronizing archives with rsync"></a>4.6 Synchronizing archives with rsync</h2><pre><code class="bash"># Creates 10 files named file1 to file10
+$ touch file{1..10}</code></pre>
+<h2 id="Command-line-review-1"><a href="#Command-line-review-1" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>find /var/www/ -iname &quot;*.mp4&quot; -exec tar -rvf videos.tar {} \;</code> finds files meeting a set criteria and streams their names to <code>tar</code> to include in an archive.</li>
+<li><code>chmod o-r /bin/zcat</code> removes read permissions for others.</li>
+</ul>
+<h1 id="Chapter-5-Automated-administration-Configuring-automated-offsite-backups"><a href="#Chapter-5-Automated-administration-Configuring-automated-offsite-backups" class="headerlink" title="Chapter 5: Automated administration: Configuring automated offsite backups"></a>Chapter 5: Automated administration: Configuring automated offsite backups</h1><h2 id="5-1-Scripting-with-Bash"><a href="#5-1-Scripting-with-Bash" class="headerlink" title="5.1 Scripting with Bash"></a>5.1 Scripting with Bash</h2><h3 id="5-1-1-A-sample-script-for-backing-up-system-files"><a href="#5-1-1-A-sample-script-for-backing-up-system-files" class="headerlink" title="5.1.1 A sample script for backing up system files"></a>5.1.1 A sample script for backing up system files</h3><ul>
+<li>Cron, by default, will always run as root.</li>
+</ul>
+<h3 id="5-1-2-A-sample-script-for-changing-filenames"><a href="#5-1-2-A-sample-script-for-changing-filenames" class="headerlink" title="5.1.2 A sample script for changing filenames"></a>5.1.2 A sample script for changing filenames</h3><ul>
+<li>… convert spaces within filenames to … underscore characters<pre><code class="bash">#!/bin/bash
+echo &quot;which directory would you like to check?&quot;
+read directory
+  find $directory -type f | while read file; do 
+      if [[ &quot;$file&quot; = *[[:space:]]* ]]; then
+      mv &quot;$file&quot; `echo $file | tr &#39; &#39; &#39;_&#39;`
+      fi;
+  done</code></pre>
+</li>
+</ul>
+<h2 id="5-3-Scheduling-regular-backups-with-cron"><a href="#5-3-Scheduling-regular-backups-with-cron" class="headerlink" title="5.3 Scheduling regular backups with cron"></a>5.3 Scheduling regular backups with cron</h2><ul>
+<li>If you’ve got, say, a file system backup script in an executable file you want run at set intervals, you copy it to the appropriate directory: cron.hourly/ for execution each hour, cron.daily/ to be run daily, and so on.</li>
+<li>NOTE By default, on some systems a user won’t be able to create crontab jobs unless a file called /etc/cron.allow containing their username is created. Debian/Ubuntu, however, allow individual crontab jobs right out of the box.</li>
+</ul>
+<h2 id="5-4-Scheduling-irregular-backups-with-anacron"><a href="#5-4-Scheduling-irregular-backups-with-anacron" class="headerlink" title="5.4 Scheduling irregular backups with anacron"></a>5.4 Scheduling irregular backups with anacron</h2><ul>
+<li>… <code>anacrontab</code> … is where you schedule operations to run at a set time after each system boot.</li>
+</ul>
+<h2 id="5-5-Scheduling-regular-backups-with-systemd-timers"><a href="#5-5-Scheduling-regular-backups-with-systemd-timers" class="headerlink" title="5.5 Scheduling regular backups with systemd timers"></a>5.5 Scheduling regular backups with systemd timers</h2><ul>
+<li>Figure 5.4 The command systemctl list-timers –all provides a rich range of historical data for all existing systemd timer jobs.<br><img src="/contents/linux-in-action/figure5.4.png" alt=""><pre><code class="bash">$ systemctl start site-backup.timer
+$ systemctl enable site-backup.timer</code></pre>
+<pre><code class="bash">$ systemctl is-enabled backup.timer
+enabled
+$ systemctl is-active backup.timer
+active</code></pre>
+</li>
+</ul>
+<h2 id="Summary-2"><a href="#Summary-2" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>Linux keeps user account and authentication information in plain text files (named passwd, group, shadow, and gshadow) in the /etc/ directory.</li>
+<li>Adding a directive to the anacrontab file executes commands relative to system boots, rather than at absolute times.</li>
+<li>systemd timers can be set to run based on both absolute time and in reaction to system events, like changes to hardware states.</li>
+</ul>
+<h2 id="Key-terms-2"><a href="#Key-terms-2" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li>All Linux commands output <code>exit codes</code> upon completion: 0 represents a successful execution, but all positive integers can be set by a program to represent various failed states.</li>
+<li>A <code>bucket</code> is an AWS object that works much the same way as a directory on an operating system.</li>
+</ul>
+<h2 id="Command-line-review-2"><a href="#Command-line-review-2" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>#!/bin/bash</code> (the so-called “shebang line”) tells Linux which shell interpreter you’re going to be using for a script.</li>
+<li><code>||</code> inserts an <code>or</code> condition into a script. Think of this as either “the command to the left is successul” or “execute the command to the right.”</li>
+<li><code>&amp;&amp;</code> - inserts an <code>and</code> condition into a script. Think of this as “if the command to the left is successful” and “execute the command to the right.”</li>
+<li><code>test -f /etc/filename</code> tests for the existence of the specified file or directory name.</li>
+</ul>
+<h1 id="Chapter-6-Emergency-tools-Building-a-system-recovery-device"><a href="#Chapter-6-Emergency-tools-Building-a-system-recovery-device" class="headerlink" title="Chapter 6: Emergency tools: Building a system recovery device"></a>Chapter 6: Emergency tools: Building a system recovery device</h1><h2 id="6-1-Working-in-recovery-rescue-mode"><a href="#6-1-Working-in-recovery-rescue-mode" class="headerlink" title="6.1 Working in recovery/rescue mode"></a>6.1 Working in recovery/rescue mode</h2><h3 id="6-1-1-The-GRUB-bootloader"><a href="#6-1-1-The-GRUB-bootloader" class="headerlink" title="6.1.1 The GRUB bootloader"></a>6.1.1 The GRUB bootloader</h3><ul>
+<li>What’s GRUB? It’s the GNU GRand Unified Bootloader.</li>
+<li>Master Boot Record (MBR)</li>
+<li>Figure 6.3 The key steps in the boot process of a Linux computer<br><img src="/contents/linux-in-action/figure6.3.png" alt=""></li>
+</ul>
+<h2 id="6-2-Building-a-live-boot-recovery-drive"><a href="#6-2-Building-a-live-boot-recovery-drive" class="headerlink" title="6.2 Building a live-boot recovery drive"></a>6.2 Building a live-boot recovery drive</h2><h3 id="6-2-2-Writing-live-boot-images-to-USB-drives"><a href="#6-2-2-Writing-live-boot-images-to-USB-drives" class="headerlink" title="6.2.2 Writing live-boot images to USB drives"></a>6.2.2 Writing live-boot images to USB drives</h3><ul>
+<li>But if the image will be written to a USB drive and if you happen to be working on an Ubuntu host, you’ll first need to modify the image by adding an MBR to the .ISO archive so that BIOS and UEFI firmware will know what to do with it.</li>
+<li>On Ubuntu hosts, you use <code>isohybrid</code> for that image modification. The apt package containing <code>isohybrid</code> is called syslinux-utils.<pre><code class="bash">$ apt update
+$ apt install syslinux-utils
+$ cd ~/Downloads
+$ isohybrid systemrescuecd-x86-5.0.2.iso</code></pre>
+</li>
+<li>… <code>lsblk</code>, which stands for <code>list block devices</code>.<br><img src="/contents/linux-in-action/lsblk.png" alt=""></li>
+<li>First unmount the drive itself so <code>dd</code> can get full access.<br><img src="/contents/linux-in-action/sync.png" alt=""></li>
+</ul>
+<h2 id="Summary-3"><a href="#Summary-3" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>File systems can be mounted and administered using a virtual process called <code>chroot</code>.</li>
+</ul>
+<h2 id="Key-terms-3"><a href="#Key-terms-3" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li>The tool <code>chroot</code> opens virtual root shells within mounted file systems.</li>
+</ul>
+<h2 id="Command-line-review-3"><a href="#Command-line-review-3" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>isohybrid systemrescuecd-x86-5.0.2.iso</code> adds a USB-friendly MBR to a live-boot image.</li>
+<li><code>mount /dev/sdc1 /run/temp-directory</code> mounts a partition to a directory on the live file system.</li>
+<li><code>ddrescue -d /dev/sdc1 /run/usb-mount/sdc1-backup.img /run/usb-mount/ sdc1-backup.logfile</code> saves files on a damaged partition to an image named sdc1-backup.img and writes events to a log file.</li>
+<li><code>chroot /run/mountdir/</code> opens a root shell on a file system.</li>
+</ul>
+<h1 id="Chapter-8-Networked-file-sharing-Building-a-Nextcloud-file-sharing-server"><a href="#Chapter-8-Networked-file-sharing-Building-a-Nextcloud-file-sharing-server" class="headerlink" title="Chapter 8: Networked file sharing: Building a Nextcloud file-sharing server"></a>Chapter 8: Networked file sharing: Building a Nextcloud file-sharing server</h1><h2 id="8-3-Installing-Nextcloud-manually"><a href="#8-3-Installing-Nextcloud-manually" class="headerlink" title="8.3 Installing Nextcloud manually"></a>8.3 Installing Nextcloud manually</h2><h3 id="8-3-4-Downloading-and-unpacking-Nextcloud"><a href="#8-3-4-Downloading-and-unpacking-Nextcloud" class="headerlink" title="8.3.4 Downloading and unpacking Nextcloud"></a>8.3.4 Downloading and unpacking Nextcloud</h3><ul>
+<li>Unpacking a .tar.bz2 archive requires the <code>xjf</code> arguments, rather than the <code>xzf</code> you’d use for a .gz:<br><img src="/contents/linux-in-action/xjf.png" alt=""></li>
+</ul>
+<h1 id="Chapter-9-Securing-your-web-server"><a href="#Chapter-9-Securing-your-web-server" class="headerlink" title="Chapter 9: Securing your web server"></a>Chapter 9: Securing your web server</h1><h2 id="9-2-Controlling-network-access"><a href="#9-2-Controlling-network-access" class="headerlink" title="9.2 Controlling network access"></a>9.2 Controlling network access</h2><h3 id="9-2-2-Using-nonstandard-ports"><a href="#9-2-2-Using-nonstandard-ports" class="headerlink" title="9.2.2 Using nonstandard ports"></a>9.2.2 Using nonstandard ports</h3><ul>
+<li>Network ports: The 65,535 available network ports are divided into three categories:</li>
+</ul>
+<ol>
+<li>Ports between 1 and 1023 are designated as well-known and have been set aside for recognized services like SSH (22) and HTTP (80). You should never use a well-known port number for your own applications, as you’re likely to cause a conflict.</li>
+<li>Ports between 1024 and 49151 are registered, meaning companies and organizations have requested that specific ports in this range be set aside for their applications even if they haven’t become universally adopted. Examples of this are port 1812, which is used for the RADIUS authentication protocol, and 3306, MySQL’s dedicated port.</li>
+<li>Ports between 49152 and 65535 are unregistered and are considered dynamic (or private). These ports are available for any temporary or ad hoc use, particularly on private networks. You can be confident that they won’t clash with known applications or services.</li>
+</ol>
+<h2 id="9-5-Auditing-system-resources"><a href="#9-5-Auditing-system-resources" class="headerlink" title="9.5 Auditing system resources"></a>9.5 Auditing system resources</h2><h3 id="9-5-1-Scanning-for-open-ports"><a href="#9-5-1-Scanning-for-open-ports" class="headerlink" title="9.5.1 Scanning for open ports"></a>9.5.1 Scanning for open ports</h3><ul>
+<li>The <code>netstat</code> command displays open ports along with a wealth of information about how those ports are being used.</li>
+<li>… <code>-n</code> tells <code>netstat</code> to include the numeric ports and addresses, <code>-l</code> includes only listening sockets, and <code>-p</code> adds the process ID of the listening program.<br><img src="/contents/linux-in-action/netstat.png" alt=""><br><img src="/contents/linux-in-action/ss.png" alt=""></li>
+</ul>
+<h3 id="9-5-2-Scanning-for-active-services"><a href="#9-5-2-Scanning-for-active-services" class="headerlink" title="9.5.2 Scanning for active services"></a>9.5.2 Scanning for active services</h3><p><img src="/contents/linux-in-action/systemctl.png" alt=""></p>
+<h2 id="Key-terms-4"><a href="#Key-terms-4" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li><code>Discretionary access control systems</code> (DACs) allow users control over file system resources.</li>
+<li>Control over resources on <code>mandatory access control systems</code> (MACs) is ultimately managed by system-wide policies.</li>
+</ul>
+<h1 id="Chapter-10-Securing-network-connections-Creating-a-VPN-or-DMZ"><a href="#Chapter-10-Securing-network-connections-Creating-a-VPN-or-DMZ" class="headerlink" title="Chapter 10: Securing network connections: Creating a VPN or DMZ"></a>Chapter 10: Securing network connections: Creating a VPN or DMZ</h1><h2 id="10-2-Building-intrusion-resistant-networks"><a href="#10-2-Building-intrusion-resistant-networks" class="headerlink" title="10.2 Building intrusion-resistant networks"></a>10.2 Building intrusion-resistant networks</h2><h3 id="10-2-1-Demilitarized-zones-DMZs"><a href="#10-2-1-Demilitarized-zones-DMZs" class="headerlink" title="10.2.1 Demilitarized zones (DMZs)"></a>10.2.1 Demilitarized zones (DMZs)</h3><ul>
+<li>One popular isolation architecture is known as a DMZ (a contraction of the phrase used to describe a geographic buffer between two distrustful nations: demilitarized zone).</li>
+</ul>
+<h2 id="Summary-4"><a href="#Summary-4" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>iptables and nftables are deep and flexible command-line implementations of the netfilters Linux kernel firewall tool.</li>
+</ul>
+<h1 id="Chapter-11-System-monitoring-Working-with-log-files"><a href="#Chapter-11-System-monitoring-Working-with-log-files" class="headerlink" title="Chapter 11: System monitoring: Working with log files"></a>Chapter 11: System monitoring: Working with log files</h1><h2 id="11-1-Working-with-system-logs"><a href="#11-1-Working-with-system-logs" class="headerlink" title="11.1 Working with system logs"></a>11.1 Working with system logs</h2><ul>
+<li>For decades, Linux logging has been managed by the <code>syslogd</code> daemon. Syslogd would collect the log messages that system processes and applications sent to the /dev/log pseudo device. Then it would direct the messages to appropriate plain text log files in the /var/log/ directory. </li>
+<li>Figure 11.1 The flow of log data from sample sources through the syslogd daemon<br><img src="/contents/linux-in-action/figure11.1.png" alt=""></li>
+<li>Linux logging is now also handled by journald.</li>
+<li>But the fact that journald stores log data in a binary file rather than plain text is definitely an issue.</li>
+<li>Figure 11.2 The journald logs (including those generated by syslogd) are consumed using the journalctl command-line tool.<br><img src="/contents/linux-in-action/figure11.2.png" alt=""></li>
+</ul>
+<h2 id="11-3-Consuming-large-files"><a href="#11-3-Consuming-large-files" class="headerlink" title="11.3 Consuming large files"></a>11.3 Consuming large files</h2><h3 id="11-3-2-Using-awk"><a href="#11-3-2-Using-awk" class="headerlink" title="11.3.2 Using awk"></a>11.3.2 Using awk</h3><ul>
+<li>By default, awk divides a line of text into individual fields, each separated by one or more spaces.</li>
+</ul>
+<h2 id="Key-terms-5"><a href="#Key-terms-5" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li>A <code>network-based intrusion detection system</code> (NIDS) monitors a private network for evidence of infiltration.</li>
+<li>A <code>host-based intrusion detection system</code> (HIDS) monitors servers for evidence system files have been maliciously altered.</li>
+</ul>
+<h1 id="Chapter-13-Troubleshooting-system-performance-issues"><a href="#Chapter-13-Troubleshooting-system-performance-issues" class="headerlink" title="Chapter 13: Troubleshooting system performance issues"></a>Chapter 13: Troubleshooting system performance issues</h1><h2 id="13-1-CPU-load-problems"><a href="#13-1-CPU-load-problems" class="headerlink" title="13.1 CPU load problems"></a>13.1 CPU load problems</h2><h3 id="13-1-1-Measuring-CPU-load"><a href="#13-1-1-Measuring-CPU-load" class="headerlink" title="13.1.1 Measuring CPU load"></a>13.1.1 Measuring CPU load</h3><ul>
+<li>A load average of 1.27 on a system with one CPU would mean that, on average, the CPU is working to capacity and another 27% of processes are waiting for the their turn with the CPU. By contrast, a load average of 0.27 on a system with one CPU would mean that, on average, the CPU was unused for 73% of the time. On a four-core system, you might see load averages in the range of 2.1, which would be just over 50% of capacity (or unused for around 52% of the time).</li>
+</ul>
+<h3 id="13-1-2-Managing-CPU-load"><a href="#13-1-2-Managing-CPU-load" class="headerlink" title="13.1.2 Managing CPU load"></a>13.1.2 Managing CPU load</h3><ul>
+<li>SETTING PRIORITIES WITH NICE：Sometimes you won’t be able to kill a process because it’s a necessary part of a mission-critical service. But you can limit the CPU resources it gets using <code>nice</code>. By default, a new process is given a <code>nice</code> value of 0, but you can change that to any number between -20 and 19. The higher the number, the nicer the process will be when it comes to giving up resources in favor of other processes. And, by contrast, the lower the number, the less nice the process will be as it grabs as many resources as it can get, regardless of the pain and suffering that might cause others.</li>
+<li>… the dash (-) followed by <code>15</code> tells Linux that the script will run with a very nice attitude. This means that when there’s a conflict over resource access, your script will back off, but otherwise it’ll take whatever’s available:<pre><code class="bash">$ nice -15 /var/scripts/mybackup.sh</code></pre>
+</li>
+<li>If running your script is an urgent priority that has to complete as soon as possible, you could add a second dash to give the process a negative value (<code>-15</code>), as in this example:<pre><code class="bash">$ nice --15 /var/scripts/mybackup.sh</code></pre>
+</li>
+<li>You can also use <code>renice</code> to change the way a process behaves even after it’s started. This example will, when necessary, limit the resources available to the process currently assigned PID 2145:<pre><code class="bash">$ renice 15 -p 2145</code></pre>
+</li>
+<li>Symbols for CPU-related metrics displayed by top</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Metric</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">us</td>
+<td align="left">Time running high-priority (un-niced) processes</td>
+</tr>
+<tr>
+<td align="left">sy</td>
+<td align="left">Time running kernel processes</td>
+</tr>
+<tr>
+<td align="left">ni</td>
+<td align="left">Time running low-priority (nice) processes</td>
+</tr>
+<tr>
+<td align="left">id</td>
+<td align="left">Time spent idling</td>
+</tr>
+<tr>
+<td align="left">wa</td>
+<td align="left">Time waiting for I/O events to complete</td>
+</tr>
+<tr>
+<td align="left">hi</td>
+<td align="left">Time spent managing hardware interrupts</td>
+</tr>
+<tr>
+<td align="left">si</td>
+<td align="left">Time spent managing software interrupts</td>
+</tr>
+<tr>
+<td align="left">st</td>
+<td align="left">Time stolen from this VM by its hypervisor (host)</td>
+</tr>
+</tbody></table>
+<h2 id="13-2-Memory-problems"><a href="#13-2-Memory-problems" class="headerlink" title="13.2 Memory problems"></a>13.2 Memory problems</h2><h3 id="13-2-1-Assessing-memory-status"><a href="#13-2-1-Assessing-memory-status" class="headerlink" title="13.2.1 Assessing memory status"></a>13.2.1 Assessing memory status</h3><ul>
+<li>… <code>shared</code> is memory that’s used by tmpfs to maintain the various pseudo file systems we’ve come to know and love, like /dev/ and /sys/. Buffers and cache are associated with memory used by the kernel for block level I/O operations</li>
+</ul>
+<h3 id="13-2-2-Assessing-swap-status"><a href="#13-2-2-Assessing-swap-status" class="headerlink" title="13.2.2 Assessing swap status"></a>13.2.2 Assessing swap status</h3><ul>
+<li>You can get a glimpse of the way swap is being used on your system from <code>vmstat</code>.</li>
+<li>The two columns you should watch most closely are <code>si</code>, which measures data transfers from swap into system memory, and <code>so</code>, which reports transfers out of system memory into swap.</li>
+<li>If you’re getting consistent movement into and out of swap, you should consider adding physical RAM, unless the slower performance isn’t a problem for your workload.</li>
+</ul>
+<h2 id="13-3-Storage-availability-problems"><a href="#13-3-Storage-availability-problems" class="headerlink" title="13.3 Storage availability problems"></a>13.3 Storage availability problems</h2><h3 id="13-3-1-Inode-limits"><a href="#13-3-1-Inode-limits" class="headerlink" title="13.3.1 Inode limits"></a>13.3.1 Inode limits</h3><pre><code class="bash">$ find . -xdev -type f | cut -d &quot;/&quot; -f 2 | sort | uniq -c | sort -n</code></pre>
+<ul>
+<li>Table 13.2 explains what it all means.</li>
+<li>Table13.2 find command syntax</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Syntax</th>
+<th align="left">Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">.</td>
+<td align="left">Start searching within and below the current directory.</td>
+</tr>
+<tr>
+<td align="left">-xdev</td>
+<td align="left">Remain within a single file system.</td>
+</tr>
+<tr>
+<td align="left">-type f</td>
+<td align="left">Search for objects of type file.</td>
+</tr>
+<tr>
+<td align="left">cut -d “/“</td>
+<td align="left">Remove text identified by the delimiter (/ character, in this case).</td>
+</tr>
+<tr>
+<td align="left">-f 2</td>
+<td align="left">Select the second field found.</td>
+</tr>
+<tr>
+<td align="left">sort</td>
+<td align="left">Sort lines of output, and send to standard out (stout).</td>
+</tr>
+<tr>
+<td align="left">uniq -c</td>
+<td align="left">Count the number of lines sent by sort.</td>
+</tr>
+<tr>
+<td align="left">sort -n</td>
+<td align="left">Display the output in numeric order.</td>
+</tr>
+</tbody></table>
+<p><img src="/contents/linux-in-action/find-sort.png" alt=""></p>
+<h2 id="13-5-Monitoring-tools"><a href="#13-5-Monitoring-tools" class="headerlink" title="13.5 Monitoring tools"></a>13.5 Monitoring tools</h2><h3 id="13-5-2-Visualizing-your-data"><a href="#13-5-2-Visualizing-your-data" class="headerlink" title="13.5.2 Visualizing your data"></a>13.5.2 Visualizing your data</h3><ul>
+<li>… you can use a tool called nmonchart to convert the data files to the much more user-friendly .html format.</li>
+</ul>
+<h2 id="Summary-5"><a href="#Summary-5" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>iftop and NetHogs are two among dozens of Linux tools for accessing network load data, and tc can be used to control usage.</li>
+</ul>
+<h2 id="Key-terms-6"><a href="#Key-terms-6" class="headerlink" title="Key terms"></a>Key terms</h2><ul>
+<li><code>Swap memory</code> is space on a hard drive designated as virtual RAM, in case you run out of the real thing.</li>
+</ul>
+<h2 id="Security-best-practices"><a href="#Security-best-practices" class="headerlink" title="Security best practices"></a>Security best practices</h2><ul>
+<li>Running iftop can show you remote network hosts with live connections to your system.</li>
+</ul>
+<h2 id="Command-line-review-4"><a href="#Command-line-review-4" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>find . -xdev -type f | cut -d &quot;/&quot; -f 2 | sort | uniq -c | sort-n</code> counts and displays the numbers of files by parent directory.</li>
+<li><code>nethogs eth0</code> displays processes and transfers data related to network connections using the eth0 interface.</li>
+<li><code>tc qdisc add dev eth0 root netem delay 100ms</code> slows down all network transfers through the eth0 interface by 100 milliseconds.</li>
+</ul>
+<h1 id="Chapter-14-Troubleshooting-network-issues"><a href="#Chapter-14-Troubleshooting-network-issues" class="headerlink" title="Chapter 14: Troubleshooting network issues"></a>Chapter 14: Troubleshooting network issues</h1><h2 id="14-1-Understanding-TCP-IP-addressing"><a href="#14-1-Understanding-TCP-IP-addressing" class="headerlink" title="14.1 Understanding TCP/IP addressing"></a>14.1 Understanding TCP/IP addressing</h2><h3 id="Working-with-NAT-addressing"><a href="#Working-with-NAT-addressing" class="headerlink" title="Working with NAT addressing"></a>Working with NAT addressing</h3><ul>
+<li>The NAT protocol sets aside three IPv4 address ranges that can only be used for private addressing:</li>
+</ul>
+<ol>
+<li>10.0.0.0 to 10.255.255.255</li>
+<li>172.16.0.0 to 172.31.255.255</li>
+<li>192.168.0.0 to 192.168.255.255</li>
+</ol>
+<ul>
+<li>NOTE: Following networking conventions, DHCP servers generally don’t assign the numbers 0, 1, and 255 to network devices.</li>
+</ul>
+<h2 id="14-3-Troubleshooting-outbound-connectivity"><a href="#14-3-Troubleshooting-outbound-connectivity" class="headerlink" title="14.3 Troubleshooting outbound connectivity"></a>14.3 Troubleshooting outbound connectivity</h2><h3 id="14-3-1-Tracking-down-the-status-of-your-network"><a href="#14-3-1-Tracking-down-the-status-of-your-network" class="headerlink" title="14.3.1 Tracking down the status of your network"></a>14.3.1 Tracking down the status of your network</h3><ul>
+<li>You can list all the PCI-based hardware currently installed using <code>lspci</code>.</li>
+<li>NOTE: The <code>Peripheral Component Interconnect</code> (PCI) is a hardware standard used to allow peripheral devices to connect to the microprocessors on computer motherboards through the PCI bus. Various newer standards, like PCI Express (PCIe), also exist, each using its own unique form factor to physically connect to a motherboard.</li>
+<li>Besides <code>lspci</code>, you can also use the lshw tool to display the networking hardware your system knows about. By itself, <code>lshw</code> returns a complete hardware profile, but <code>lshw -class network</code> will show you only the subset of that profile that relates to networking. Try it.</li>
+</ul>
+<h2 id="Security-best-practices-1"><a href="#Security-best-practices-1" class="headerlink" title="Security best practices"></a>Security best practices</h2><ul>
+<li>It’s good to periodically use a tool like <code>nmap</code> to audit your system for inappropriately open ports.</li>
+</ul>
+<h2 id="Command-line-review-5"><a href="#Command-line-review-5" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>dmesg | grep -A 2 Ethernet</code> searches the <code>dmesg</code> logs for references to the string <code>Ethernet</code> and displays references along with the subsequent two lines of output.</li>
+<li><code>ip route add default via 192.168.1.1 dev eth0</code> manually sets a new network route for a computer.</li>
+<li><code>dhclient enp0s3</code> requests a dynamic (DHCP) IP address for the enp0s3 interface.</li>
+<li><code>ip addr add 192.168.1.10/24 dev eth0</code> assigns a static IP address to the eth0 interface, which won’t persist past the next system restart.</li>
+<li><code>ip link set dev enp0s3 up</code> starts the enp0s3 interface (useful after editing the configuration).</li>
+<li><code>netstat -l | grep http</code> scans a local machine for a web service listening on port 80.</li>
+<li><code>nc -z -v bootstrap-it.com 443 80</code> scans a remote web site for services listening on the ports 443 or 80.</li>
+</ul>
+<h1 id="Chapter-15-Troubleshooting-peripheral-devices"><a href="#Chapter-15-Troubleshooting-peripheral-devices" class="headerlink" title="Chapter 15: Troubleshooting peripheral devices"></a>Chapter 15: Troubleshooting peripheral devices</h1><h2 id="15-1-Identifying-attached-devices"><a href="#15-1-Identifying-attached-devices" class="headerlink" title="15.1 Identifying attached devices"></a>15.1 Identifying attached devices</h2><ul>
+<li>… <code>lsusb</code> lists any USB devices Linux is aware of, …</li>
+<li>When run with <code>root</code> permissions, <code>lshw</code> prints a complete hardware profile of your system.</li>
+</ul>
+<h2 id="Command-line-review-6"><a href="#Command-line-review-6" class="headerlink" title="Command-line review"></a>Command-line review</h2><ul>
+<li><code>lshw -c memory</code> (or <code>lshw -class memory</code>) displays the memory section of a sys- tem’s hardware profile.</li>
+<li><code>ls /lib/modules/`uname -r`</code> lists the contents of the directory under /lib/modules/ containing modules for your current, active kernel.</li>
+<li><code>lsmod</code> lists all active modules.</li>
+<li><code>modprobe -c</code> lists all available modules.</li>
+<li><code>find /lib/modules/$(uname -r) -type f -name ath9k*</code> searches for a file among the available kernel modules with a name starting with <code>ath9k</code>.</li>
+<li><code>modprobe ath9k</code> loads the specified module into the kernel.</li>
+<li><code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;systemd.unit=runlevel3.target&quot;</code> (in the /etc/default/grub file) loads Linux as a multiuser, nongraphic session.</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-1-Welcome-to-Linux"><span class="toc-number">1.</span> <span class="toc-text">Chapter 1: Welcome to Linux</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Basic-survival-skills"><span class="toc-number">1.1.</span> <span class="toc-text">1.2 Basic survival skills</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-The-Linux-file-system"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.2.1 The Linux file system</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-3-Getting-things-done-Linux-file-management-tools"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2.3 Getting things done: Linux file management tools</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-5-Pseudo-file-systems"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.2.5 Pseudo file systems</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Getting-help"><span class="toc-number">1.2.</span> <span class="toc-text">1.3 Getting help</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-Info"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.3.2 Info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-The-internet"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.3.3 The internet</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-number">1.3.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms"><span class="toc-number">1.4.</span> <span class="toc-text">Key terms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-3-Remote-connectivity-Safely-accessing-networked-machines"><span class="toc-number">2.</span> <span class="toc-text">Chapter 3: Remote connectivity: Safely accessing networked machines</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Getting-started-with-OpenSSH"><span class="toc-number">2.1.</span> <span class="toc-text">3.2 Getting started with OpenSSH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-Password-free-SSH-access"><span class="toc-number">2.2.</span> <span class="toc-text">3.4 Password-free SSH access</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-2-Copying-the-public-key-over-a-network"><span class="toc-number">2.2.1.</span> <span class="toc-text">3.4.2 Copying the public key over a network</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7-Linux-process-management"><span class="toc-number">2.3.</span> <span class="toc-text">3.7 Linux process management</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-1-Viewing-processes-with-the-ps-command"><span class="toc-number">2.3.1.</span> <span class="toc-text">3.7.1 Viewing processes with the ps command</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-1"><span class="toc-number">2.4.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-1"><span class="toc-number">2.5.</span> <span class="toc-text">Key terms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review"><span class="toc-number">2.6.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-4-Archive-management-Backing-up-or-copying-entire-file-systems"><span class="toc-number">3.</span> <span class="toc-text">Chapter 4: Archive management: Backing up or copying entire file systems</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-What-to-archive"><span class="toc-number">3.1.</span> <span class="toc-text">4.2 What to archive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-Archiving-files-and-file-systems-using-tar"><span class="toc-number">3.2.</span> <span class="toc-text">4.4 Archiving files and file systems using tar</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-2-Streaming-file-system-archives"><span class="toc-number">3.2.1.</span> <span class="toc-text">4.4.2 Streaming file system archives</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-3-Aggregating-files-with-find"><span class="toc-number">3.2.2.</span> <span class="toc-text">4.4.3 Aggregating files with find</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-4-Preserving-permissions-and-ownership…and-extracting-archives"><span class="toc-number">3.2.3.</span> <span class="toc-text">4.4.4 Preserving permissions and ownership…and extracting archives</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-5-Archiving-partitions-with-dd"><span class="toc-number">3.3.</span> <span class="toc-text">4.5 Archiving partitions with dd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-6-Synchronizing-archives-with-rsync"><span class="toc-number">3.4.</span> <span class="toc-text">4.6 Synchronizing archives with rsync</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-1"><span class="toc-number">3.5.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-5-Automated-administration-Configuring-automated-offsite-backups"><span class="toc-number">4.</span> <span class="toc-text">Chapter 5: Automated administration: Configuring automated offsite backups</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-Scripting-with-Bash"><span class="toc-number">4.1.</span> <span class="toc-text">5.1 Scripting with Bash</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-A-sample-script-for-backing-up-system-files"><span class="toc-number">4.1.1.</span> <span class="toc-text">5.1.1 A sample script for backing up system files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-2-A-sample-script-for-changing-filenames"><span class="toc-number">4.1.2.</span> <span class="toc-text">5.1.2 A sample script for changing filenames</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-Scheduling-regular-backups-with-cron"><span class="toc-number">4.2.</span> <span class="toc-text">5.3 Scheduling regular backups with cron</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-Scheduling-irregular-backups-with-anacron"><span class="toc-number">4.3.</span> <span class="toc-text">5.4 Scheduling irregular backups with anacron</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-Scheduling-regular-backups-with-systemd-timers"><span class="toc-number">4.4.</span> <span class="toc-text">5.5 Scheduling regular backups with systemd timers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-2"><span class="toc-number">4.5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-2"><span class="toc-number">4.6.</span> <span class="toc-text">Key terms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-2"><span class="toc-number">4.7.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-6-Emergency-tools-Building-a-system-recovery-device"><span class="toc-number">5.</span> <span class="toc-text">Chapter 6: Emergency tools: Building a system recovery device</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-Working-in-recovery-rescue-mode"><span class="toc-number">5.1.</span> <span class="toc-text">6.1 Working in recovery&#x2F;rescue mode</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-1-The-GRUB-bootloader"><span class="toc-number">5.1.1.</span> <span class="toc-text">6.1.1 The GRUB bootloader</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-Building-a-live-boot-recovery-drive"><span class="toc-number">5.2.</span> <span class="toc-text">6.2 Building a live-boot recovery drive</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-2-Writing-live-boot-images-to-USB-drives"><span class="toc-number">5.2.1.</span> <span class="toc-text">6.2.2 Writing live-boot images to USB drives</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-3"><span class="toc-number">5.3.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-3"><span class="toc-number">5.4.</span> <span class="toc-text">Key terms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-3"><span class="toc-number">5.5.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-8-Networked-file-sharing-Building-a-Nextcloud-file-sharing-server"><span class="toc-number">6.</span> <span class="toc-text">Chapter 8: Networked file sharing: Building a Nextcloud file-sharing server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-Installing-Nextcloud-manually"><span class="toc-number">6.1.</span> <span class="toc-text">8.3 Installing Nextcloud manually</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-4-Downloading-and-unpacking-Nextcloud"><span class="toc-number">6.1.1.</span> <span class="toc-text">8.3.4 Downloading and unpacking Nextcloud</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-9-Securing-your-web-server"><span class="toc-number">7.</span> <span class="toc-text">Chapter 9: Securing your web server</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-Controlling-network-access"><span class="toc-number">7.1.</span> <span class="toc-text">9.2 Controlling network access</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-Using-nonstandard-ports"><span class="toc-number">7.1.1.</span> <span class="toc-text">9.2.2 Using nonstandard ports</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5-Auditing-system-resources"><span class="toc-number">7.2.</span> <span class="toc-text">9.5 Auditing system resources</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-5-1-Scanning-for-open-ports"><span class="toc-number">7.2.1.</span> <span class="toc-text">9.5.1 Scanning for open ports</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-5-2-Scanning-for-active-services"><span class="toc-number">7.2.2.</span> <span class="toc-text">9.5.2 Scanning for active services</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-4"><span class="toc-number">7.3.</span> <span class="toc-text">Key terms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-10-Securing-network-connections-Creating-a-VPN-or-DMZ"><span class="toc-number">8.</span> <span class="toc-text">Chapter 10: Securing network connections: Creating a VPN or DMZ</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#10-2-Building-intrusion-resistant-networks"><span class="toc-number">8.1.</span> <span class="toc-text">10.2 Building intrusion-resistant networks</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-1-Demilitarized-zones-DMZs"><span class="toc-number">8.1.1.</span> <span class="toc-text">10.2.1 Demilitarized zones (DMZs)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-4"><span class="toc-number">8.2.</span> <span class="toc-text">Summary</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-11-System-monitoring-Working-with-log-files"><span class="toc-number">9.</span> <span class="toc-text">Chapter 11: System monitoring: Working with log files</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1-Working-with-system-logs"><span class="toc-number">9.1.</span> <span class="toc-text">11.1 Working with system logs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-3-Consuming-large-files"><span class="toc-number">9.2.</span> <span class="toc-text">11.3 Consuming large files</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-2-Using-awk"><span class="toc-number">9.2.1.</span> <span class="toc-text">11.3.2 Using awk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-5"><span class="toc-number">9.3.</span> <span class="toc-text">Key terms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-13-Troubleshooting-system-performance-issues"><span class="toc-number">10.</span> <span class="toc-text">Chapter 13: Troubleshooting system performance issues</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#13-1-CPU-load-problems"><span class="toc-number">10.1.</span> <span class="toc-text">13.1 CPU load problems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-1-1-Measuring-CPU-load"><span class="toc-number">10.1.1.</span> <span class="toc-text">13.1.1 Measuring CPU load</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-1-2-Managing-CPU-load"><span class="toc-number">10.1.2.</span> <span class="toc-text">13.1.2 Managing CPU load</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-2-Memory-problems"><span class="toc-number">10.2.</span> <span class="toc-text">13.2 Memory problems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-2-1-Assessing-memory-status"><span class="toc-number">10.2.1.</span> <span class="toc-text">13.2.1 Assessing memory status</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#13-2-2-Assessing-swap-status"><span class="toc-number">10.2.2.</span> <span class="toc-text">13.2.2 Assessing swap status</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-3-Storage-availability-problems"><span class="toc-number">10.3.</span> <span class="toc-text">13.3 Storage availability problems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-3-1-Inode-limits"><span class="toc-number">10.3.1.</span> <span class="toc-text">13.3.1 Inode limits</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-5-Monitoring-tools"><span class="toc-number">10.4.</span> <span class="toc-text">13.5 Monitoring tools</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#13-5-2-Visualizing-your-data"><span class="toc-number">10.4.1.</span> <span class="toc-text">13.5.2 Visualizing your data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary-5"><span class="toc-number">10.5.</span> <span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Key-terms-6"><span class="toc-number">10.6.</span> <span class="toc-text">Key terms</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Security-best-practices"><span class="toc-number">10.7.</span> <span class="toc-text">Security best practices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-4"><span class="toc-number">10.8.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-14-Troubleshooting-network-issues"><span class="toc-number">11.</span> <span class="toc-text">Chapter 14: Troubleshooting network issues</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#14-1-Understanding-TCP-IP-addressing"><span class="toc-number">11.1.</span> <span class="toc-text">14.1 Understanding TCP&#x2F;IP addressing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Working-with-NAT-addressing"><span class="toc-number">11.1.1.</span> <span class="toc-text">Working with NAT addressing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-3-Troubleshooting-outbound-connectivity"><span class="toc-number">11.2.</span> <span class="toc-text">14.3 Troubleshooting outbound connectivity</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#14-3-1-Tracking-down-the-status-of-your-network"><span class="toc-number">11.2.1.</span> <span class="toc-text">14.3.1 Tracking down the status of your network</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Security-best-practices-1"><span class="toc-number">11.3.</span> <span class="toc-text">Security best practices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-5"><span class="toc-number">11.4.</span> <span class="toc-text">Command-line review</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Chapter-15-Troubleshooting-peripheral-devices"><span class="toc-number">12.</span> <span class="toc-text">Chapter 15: Troubleshooting peripheral devices</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#15-1-Identifying-attached-devices"><span class="toc-number">12.1.</span> <span class="toc-text">15.1 Identifying attached devices</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Command-line-review-6"><span class="toc-number">12.2.</span> <span class="toc-text">Command-line review</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

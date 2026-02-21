@@ -1,0 +1,785 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TiDB 数据库核心原理与架构 [TiDB v6]（101）笔记 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,TiDB, PD, TiDB Server, TiKV, TiFlash, Raft, RocksDB, Region, HTAP, OLTP, OLAP, MVCC"> 
+    <meta name="description" content="在线学习地址：https://learn.pingcap.com/learner/course/960001
+TiDB 数据库架构Lesson 01 TiDB 数据库架构概述
+TiDB 整体架构：T,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">TiDB 数据库核心原理与架构 [TiDB v6]（101）笔记</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/tidb-v6-pcta/01-01.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Database"><b>「
+                    </b>DATABASE<b> 」</b></a>
+                
+                十一月 06, 2022
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2022/11/06/tidb-v6-pcta/" title="TiDB 数据库核心原理与架构 [TiDB v6]（101）笔记" class="">TiDB 数据库核心原理与架构 [TiDB v6]（101）笔记</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/TiDB/" rel="tag">TiDB</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>在线学习地址：<a href="https://learn.pingcap.com/learner/course/960001" target="_blank" rel="noopener">https://learn.pingcap.com/learner/course/960001</a></p>
+<h1 id="TiDB-数据库架构"><a href="#TiDB-数据库架构" class="headerlink" title="TiDB 数据库架构"></a>TiDB 数据库架构</h1><h2 id="Lesson-01-TiDB-数据库架构概述"><a href="#Lesson-01-TiDB-数据库架构概述" class="headerlink" title="Lesson 01 TiDB 数据库架构概述"></a>Lesson 01 TiDB 数据库架构概述</h2><ul>
+<li>TiDB 整体架构：TiDB Server、TiKV、TiFlash、PD<br><img src="/contents/tidb-v6-pcta/01-01.png" alt=""></li>
+<li>TiFlash 是 TiKV 的列存版本，并参与复制，保持数据一致 </li>
+<li>PD（Placement Driver） 节点记录数据在哪些 TiKV 或 TiFlash 节点上，以及全局时间戳（TSO），还会配合 TiDB Server 生成事务的唯一 ID </li>
+<li>数据分区（Region）存储（96~144mb），默认三副本，一个 leader 负责读写，另两个读 </li>
+<li>96mb 后 Region 里就不会新插入数据了，但可能会修改已有的数据，所以 region 大小是 96~144mb 一个区间</li>
+<li>兼容 MySQL 5.7 协议 </li>
+<li>TiKV = Transaction + MVCC + Raft + rocksdb raft + rocksdb kv </li>
+<li>分布式事务是两阶段提交。两阶段提交的锁信息被持久化到 TiKV 中。 </li>
+<li>PD 会收集集群信息进行调度，达到平衡数据的效果 </li>
+<li>TiKV 承载 OLTP 业务，TiFlash 承载 OLAP 业务，达到业务隔离。TiDB Server 根据 SQL 进行预测，智能选择使用 TiKV 还是 TiFlash 进行查询，也可以人工指定 </li>
+<li>TiDB Server 是无状态的，不存储数据。支持扩展，缓解连接压力</li>
+<li>TiDB Server 会解析，编译，优化 SQL 语句，生成执行计划；同时会负责将关系型数据转化为 KV 存储进行持久化，以及将 KV 存储转化为关系型数据返回给客户端 </li>
+<li>对于历史版本数据的垃圾回收，是由 TiDB Server 在 TiKV 上完成的 </li>
+<li>数据在TiKV中是以键值对（KEY-VALUE）形式存储的</li>
+</ul>
+<h2 id="Lesson-02-TiDB-Server"><a href="#Lesson-02-TiDB-Server" class="headerlink" title="Lesson 02 TiDB Server"></a>Lesson 02 TiDB Server</h2><ul>
+<li>TiDB Server 架构<br><img src="/contents/tidb-v6-pcta/02-01.PNG" alt=""></li>
+<li>TiDB Server 主要功能：</li>
+</ul>
+<ol>
+<li>处理客户端的链接</li>
+<li>SQL 语句的解析和编译</li>
+<li>关系型数据与 KV 的转化</li>
+<li>SQL 语句的执行</li>
+<li>Online DDL 的执行（DDL 操作不会阻塞读写，但对整个 TiDB 来说，同一时刻只能有一个 TiDB Server 进行 DDL 操作）</li>
+<li>垃圾回收</li>
+<li>热点小表缓存 V6.0</li>
+</ol>
+<ul>
+<li>多个 TiDB Server 轮换选举 Owner 节点，Owner 中的 worker 负责执行 DDL</li>
+<li>DDL job 会存储在 TiKV 中进行持久化</li>
+<li>TiDB 是用 Go 开发的</li>
+<li>TiDB Server GC 默认 10 分钟触发一次，删除当前时间上一个 safe point 之前的历史版本数据</li>
+<li>热点小表缓存，限制表数据需在 64m 以下，可通过 <code>ALTER TABLE users CACHE;</code> 将 users 表放入 TiDB Server 的 <code>cache table</code> 中。</li>
+<li>热点小表缓存如何保证读写一致的问题：<code>tidb_table_cache_lease=5</code> 参数控制缓存租约。5s 之内用户可以从缓存中读取数据；租约到期前，任何用户不能修改此表，租约过期后，写数据直接写入 TiKV，读也是从 TiKV 读，完成写操作之后，缓存重新续约，缓存内容也会刷新。所以当租约到期时，读性能会下降。不支持对缓存表直接做 DDL 操作，需要先关闭。</li>
+<li>TiDB 中的表分为两种：聚簇表、非聚簇表。聚簇表需要有主键，非聚簇表可以有主键，也可以没有。KV 转换时，聚簇表使用主键作为 key，非聚簇表不管是否定义了主键，都会生成一个 key。</li>
+<li>Protocol Layer 通过 PD Client 异步向 PD 请求 TSO，同时继续进行 SQL 解析和编译，在实际执行前，获取异步请求 TSO 的结果<br><img src="/contents/tidb-v6-pcta/02-02.PNG" alt=""><br><img src="/contents/tidb-v6-pcta/02-03.PNG" alt=""></li>
+</ul>
+<h2 id="Lesson-03-TiKV"><a href="#Lesson-03-TiKV" class="headerlink" title="Lesson 03 TiKV"></a>Lesson 03 TiKV</h2><h3 id="TiKV-持久化"><a href="#TiKV-持久化" class="headerlink" title="TiKV-持久化"></a>TiKV-持久化</h3><ul>
+<li>TiKV 架构<br><img src="/contents/tidb-v6-pcta/03-01.PNG" alt=""></li>
+<li>RocksDB 写入数据时，先将数据写入到磁盘上的 WAL 文件中（可通过设置 <code>sync_log=true</code> 将数据直接写入到磁盘，避免先写入到操作系统的缓存再批量刷到磁盘中而产生的故障时数据丢失的问题），再将数据写入内存的 <code>MemTable</code> 中（避免因断电等故障导致的内存中数据丢失），<code>MemTable</code> 中数据写满后，转为 <code>immutable MemTable</code>，有一个 <code>immutable MemTable</code> 就会触发向磁盘的写入。如果写 <code>MemTable</code> 速度远大于 <code>immutable MemTable</code> 写入磁盘的速度，会触发 RocksDB 的流控，导致客户端写入速度降低。<br><img src="/contents/tidb-v6-pcta/03-02.PNG" alt=""></li>
+<li>RocksDB 数据落盘后是分层组织的。<code>Level 0</code> 是对 <code>immutable MemTable</code> 内容的复刻（转储）。每层数据达到限额时，会进行压缩及按 key 排序，形成下一层的文件（Level 0 不需要排序）。<br><img src="/contents/tidb-v6-pcta/03-03.PNG" alt=""></li>
+<li>RocksDB Column Families（CF），列簇，可以将键值对按不同的属性分配给不同的 CF，实现分片。不同列簇各有一套 <code>MemTable</code>、<code>SST</code> 文件等，但共享一份 <code>WAL</code> 文件。写入数据时可指定列簇，不指定时会使用默认的 <code>Default</code> 列簇。<br><img src="/contents/tidb-v6-pcta/03-04.PNG" alt=""></li>
+</ul>
+<h3 id="TiKV-分布式事务"><a href="#TiKV-分布式事务" class="headerlink" title="TiKV-分布式事务"></a>TiKV-分布式事务</h3><ul>
+<li>TiKV 的分布式事务主要是通过 乐观锁/悲观锁 + 两阶段提交 实现的，并借助了三个列簇：<code>Default</code>、<code>Lock</code>、<code>Write</code></li>
+<li>当用户写入了一行数据时，如果该行数据长度小于 255 字节，那么会被存储到 <code>Write</code> 列簇中，否则会被存入到 <code>Default</code> 列簇中</li>
+<li>修改多行数据时，只给第一行数据加主锁，其他行的锁会指向主锁</li>
+<li>MVCC：多版本并发控制，该机制可保证不阻塞新事务读取正在事务中的数据的之前已提交的版本</li>
+</ul>
+<h3 id="TiKV-Raft"><a href="#TiKV-Raft" class="headerlink" title="TiKV-Raft"></a>TiKV-Raft</h3><ul>
+<li>Raft共识：</li>
+</ul>
+<ol>
+<li>Raft Group 组内成员选举得到Leader 节点；</li>
+<li>Leader 节点负责所有的读写 IO</li>
+<li>Follower只同步变化日志</li>
+<li>Leader + Follower 多数节点写入成功即成功</li>
+</ol>
+<ul>
+<li>一个 Region 会连同其副本，共同组成一个 raft group，多个 region 就会有多个 raft group，即 Multi Raft</li>
+<li>TiKV包括两个rocksdb：rocksdb raft存放 raft 日志，rocksdb kv存放数据。</li>
+<li>Region 的复制是通过 Raft 日志实现的：Raft Leader 先将数据写入 Raft 日志，然后将日志分发给 follower，follower 收到日志后存入 rocksdb raft，当多数 follower 已完成 raft 日志的同步后，各节点再将数据根据 raft 日志存入自己节点的 rocksdb kv 中</li>
+<li>通过为每个节点的选举超时时间增加自动的随机值，可以较大程度避免多个节点同时发起选举</li>
+<li>Raft 日志复制过程：</li>
+</ul>
+<ol>
+<li>Propose：写 raft 日志</li>
+<li>Append：持久化到 rocksdb raft</li>
+<li>Replicate：将 raft 日志复制到其他的 TiKV<br>3.1. Append：Follower 收到 raft 日志后，在自己节点持久化到 rocksdb raft</li>
+<li>Committed：给 Leader 回应，不是用户的 committed</li>
+<li>Apply：持久化到 rocksdb kv 中，用户提交成功</li>
+</ol>
+<h3 id="TiKV-读写与Coprocessor"><a href="#TiKV-读写与Coprocessor" class="headerlink" title="TiKV-读写与Coprocessor"></a>TiKV-读写与Coprocessor</h3><ul>
+<li>数据的写入：借助 <code>raftsotre pool</code> 和 <code>apply pool</code> 两个线程池<br><img src="/contents/tidb-v6-pcta/03-05.png" alt=""></li>
+<li>数据的读取方式：</li>
+</ul>
+<ol>
+<li>ReadIndex Read：读取时先得到已经 commit 的 raft 日志位置，等待该日志完成 apply 后，再进行读取</li>
+<li>Lease Read：也叫 Local Read。读取需要保证在 Leader 节点读取，通过心跳机制保证，从 Leader 节点发出心跳后至 election timeout 之前，都能保证没有重新选举 Leader 节点，进而保证在 Leader 节点完成数据读取</li>
+<li>Follower Read：与 ReadIndex Read 机制类似，但可能会出现从 Follower 读到 Leader 中尚未 apply 的数据（如果 Follower 的 apply 比 Leader apply 快的话）</li>
+</ol>
+<ul>
+<li>Coprocessor：移动计算不移动数据</li>
+<li>TiFlash 节点也有 Coprocessor，也可以计算</li>
+</ul>
+<h2 id="Lesson-04-Placement-Driver"><a href="#Lesson-04-Placement-Driver" class="headerlink" title="Lesson 04 Placement Driver"></a>Lesson 04 Placement Driver</h2><ul>
+<li>PD 集成了 etcd</li>
+<li>PD 主要功能：</li>
+</ul>
+<ol>
+<li>整个集群 TiKV 的元数据存储</li>
+<li>分配全局 ID 和事务 ID</li>
+<li>生成全局时间戳 TSO</li>
+<li>收集集群信息进行调度</li>
+<li>提供 label，支持高可用</li>
+<li>提供 TiDB Dashboard</li>
+</ol>
+<ul>
+<li>Region Cache的主要作用是缓存region的元数据，减少访问PD的次数。</li>
+<li>TSO = physical time + logical time（顺序不能颠倒），int64 类型</li>
+<li>TSO 的分配能保证增长性，但不能保证连续性</li>
+<li>只能从 PD 的 Leader 节点获得 TSO</li>
+<li>TiKV 会周期性的向 PD 上报状态</li>
+<li>PD 的调度功能会平衡存储（region）和读写（Leader）的分布</li>
+<li>Label 需要在 PD 和 TiKV 上进行配置</li>
+</ul>
+<h2 id="Lesson-05-TiDB-数据库-SQL-执行流程"><a href="#Lesson-05-TiDB-数据库-SQL-执行流程" class="headerlink" title="Lesson 05 TiDB 数据库 SQL 执行流程"></a>Lesson 05 TiDB 数据库 SQL 执行流程</h2><ul>
+<li>DML读流程：<br><img src="/contents/tidb-v6-pcta/05-01.png" alt=""><ul>
+<li>解析 SQL 时，会区分是否是点查（Point Get，比如通过索引获得一条记录），如果是点查，则直接通过 KV 模块读取数据，否则会经过后面的过程，到 DistSQL 模块生成执行计划。KV / DistSQL 模块之后都需要通过 Executor 模块执行，再通过 TiKV Client 发送给 TiKV。</li>
+</ul>
+</li>
+<li>DML写入执行：<br><img src="/contents/tidb-v6-pcta/05-02.png" alt=""><ul>
+<li>将需要修改的数据读入TiDB Server的缓存（memBuffer），同DML读流程</li>
+<li>memBuffer 是每个用户独享的，类似 Oracle 中的 PGA</li>
+<li>TiDB Server涉及写入的三个模块：Transaction、KV、TiKV Client<ul>
+<li>Transaction：两阶段提交：第一个阶段是修改数据和加锁，第二步骤是commit和释放锁</li>
+</ul>
+</li>
+<li>TiKV涉及写入的三个模块：Scheduler、Raftstore、Apply<ul>
+<li>Scheduler：接收并发请求；写入同一个key值的数据存在写入冲突时，通过latch保证写完一个再写另一个。</li>
+<li>Raftstore：持久化raft log、向其他节点同步raft log</li>
+<li>Apply：从rocksdb raft读取raft log，并写入rocksdb kv</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DDL语句的执行：主要在TiDB Server<br><img src="/contents/tidb-v6-pcta/05-03.png" alt=""><ul>
+<li>Portocol Layer：接收DDL语句</li>
+<li>Pares：解析</li>
+<li>Compile：编译DDL语句</li>
+<li>Start job：判断自己所在的server是否owner，如果不是，将DDL持久化到TiKV的job queue中</li>
+<li>workers执行DDL。<ul>
+<li>每一个节点都有workers，但不可以同时执行。</li>
+<li>同一时刻，只有当TiDB Server 为owner角色时，他的workers才能执行DDL语句。</li>
+<li>角色为owner的TiDB Server，到job queue中获取DDL后执行。</li>
+<li>owner是由PD节点控制，轮询选出来。</li>
+</ul>
+</li>
+<li>Schema load：将最新的表的元信息载入到TiDB Server。</li>
+<li>其他DDL都放在job queue，加索引的DDL有单独的队列，放在add index queue。</li>
+<li>Job queue 和 add index queue 中的语句可以并行执行</li>
+</ul>
+</li>
+</ul>
+<h1 id="TiDB-HTAP"><a href="#TiDB-HTAP" class="headerlink" title="TiDB HTAP"></a>TiDB HTAP</h1><h2 id="Lesson-06-TiDB-数据库-HTAP-概述"><a href="#Lesson-06-TiDB-数据库-HTAP-概述" class="headerlink" title="Lesson 06 TiDB 数据库 HTAP 概述"></a>Lesson 06 TiDB 数据库 HTAP 概述</h2><ul>
+<li>HTAP：混合事务 / 分析处理，具体要求：<ul>
+<li>可扩展性：分布式事务、分布式存储</li>
+<li>同时支持OLTP与OLAP：同时支持行存和列存，实现OLTP与OLAP业务隔离</li>
+<li>实时性：行存与列存数据实时同步</li>
+</ul>
+</li>
+<li>整体特性<ul>
+<li>列存支持基于主键的实时更新</li>
+<li>具备智能选择：TiDB server根据sql特性自动选择到TiKV还是到TiFlash</li>
+<li>MPP（Massively Parallel Processing）架构<ul>
+<li>大量数据的join聚合查询：根据sql中关联的表先做交换，将相关的表交换到一个TiFlash节点上进行计算</li>
+<li>所有MPP的计算都在TiFlash节点内存中完成</li>
+<li>只支持等值连接</li>
+<li>Enforce_mpp，帮助验证是否可以使用MPP</li>
+</ul>
+</li>
+<li>TiDB MPP 过程：过滤（并行） =&gt; 数据交换（目的是只在本节点进行表连接） =&gt; 表连接（并行） =&gt; 数据交换（只在本节点进行聚合） =&gt; 聚合</li>
+</ul>
+</li>
+<li>核心技术<ul>
+<li>利用各个TiFlash节点过滤数据</li>
+<li>利用各个TiFlash节点交换数据：保证表连接发生在各个TiFlash上、聚合发生在各个TiFlash上</li>
+<li>充分发挥每一个TiFlash并行计算作用，减少TiDB Server的压力</li>
+</ul>
+</li>
+<li>典型应用场景<ul>
+<li>混合负载场景：在线业务、报表应用</li>
+<li>流式计算：在线应用，对在线数据库产生的数据进行实时分析。传统方案的问题：（1）后端需要维护多个不同类型的数据库；（2）实时性难以满足要求。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Lesson-07-TiFlash"><a href="#Lesson-07-TiFlash" class="headerlink" title="Lesson 07 TiFlash"></a>Lesson 07 TiFlash</h2><ul>
+<li>TiFlash保存TiKV上数据的列存版本，region完全对应、分区一致。region也会随着TiKV上的region分裂与合并</li>
+<li>TiFlash兼容TiDB Server和TiSpark</li>
+<li>TiFlash使用Raft Learner与TiKV进行数据复制</li>
+<li>TiFlash承载OLAP业务，承载能力不高，qps &lt;50</li>
+<li>主要功能：<ul>
+<li>异步复制：learner不参与Raft投票和选举，只需要获取日志，对线上业务影响小；基于主键快速更新</li>
+<li>一致性读取：存储多个时间戳的版本，根据读取时间，筛选多个版本中符合的记录</li>
+<li>引擎智能选择：自动选择使用TiKV或TiFlash，或混合使用。可以是一个 SQL 的不同表，CBO 基于成本选择在 TiFlash 或者 TiKV 上执行 SQL，之后将结果汇总到 TiDB Server 进行连接。</li>
+<li>计算加速：列存、计算下推</li>
+</ul>
+</li>
+</ul>
+<h1 id="TiDB-6-0-新功能"><a href="#TiDB-6-0-新功能" class="headerlink" title="TiDB 6.0 新功能"></a>TiDB 6.0 新功能</h1><h2 id="Lesson-08-TiDB-6-0-新特性"><a href="#Lesson-08-TiDB-6-0-新特性" class="headerlink" title="Lesson 08 TiDB 6.0 新特性"></a>Lesson 08 TiDB 6.0 新特性</h2><ul>
+<li><strong>1、Placement Rules in SQL</strong>：实现分布式数据库中精细化指定数据放置位置<ul>
+<li>使用步骤<ol>
+<li>设计业务拓扑，为不同的TiKV实例设置标签<pre><code class="json">server.labels:{zone:&quot;BeiJing&quot;, rack:&quot;Rack-1&quot;, host: &quot;TiKV-1&quot;}</code></pre>
+</li>
+<li>创建PLACEMENT POLICY：设置leader、follower角色的region位置，以及副本数量。<pre><code class="SQL">CREATE PLACEMENT POLICY P1
+PRIMARY_REGION=&quot;TiKV-5&quot;
+REGIONS=&quot;BeiJing, Tokyo, ShangHai, London&quot;
+FOLLOWERS=4;</code></pre>
+</li>
+<li>设定数据对象的PLACEMENT POLICY：创建表、schema、分区等对象并指定遵守的PLACEMENT POLICY。<pre><code class="SQL">CREATE TABLE T5 (id INT) PLACEMENT POLICY=P1;</code></pre>
+</li>
+</ol>
+</li>
+<li>应用<ul>
+<li>精细化数据放置，控制本地访问与跨区域访问</li>
+<li>指定副本数，提高重要业务的可用性和数据可靠性（调整单表副本数量）</li>
+<li>将业务按照等级、资源需求或数据生命周期进行隔离</li>
+<li>业务数据整合，降低运维成本与复杂度：将业务隔离开</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>2、小表缓存</strong>：解决分布式数据库的热点问题<ul>
+<li>数据量不大，只读或修改不频繁，但访问很频繁的表</li>
+<li>缓存在TiDB Server 的内存（cache table）中</li>
+<li>命令：<code>ALTER TABLE users CACHE</code>；</li>
+<li><code>tidb_table_cache_lease</code>，用于设置缓存租约，默认为5s，租约内只能读不能写。租约到期，内存中的版本过期，此时可以在TiKV中直接写。</li>
+<li>不管租约内还是租约外，都不会阻塞读</li>
+<li>应用<ul>
+<li>缓存表的大小限制64M</li>
+<li>适用于查询频繁、数据量不大、极少修改的场景</li>
+<li>租约时间内，写操作会被阻塞</li>
+<li>租约到期时，读性能会下降</li>
+<li>缓存表不支持DDL，需要先关闭缓存表</li>
+<li>对于表加载较慢或极少修改的表，可以适当延长租约设置，保持读性能稳定</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>3、内存悲观锁</strong>：在悲观锁的基础上，提升了事务的执行效率<ul>
+<li>概念<ul>
+<li>在commit的时候，才做prewrite，加锁，在此之前其他事务不知道这个数据上有锁，这是乐观锁。</li>
+<li>悲观锁在事务 commit 之前就可以让其他事务感知到对这条数据的修改（先将所信息写入 TiKV 的存储）。</li>
+<li>将悲观锁只写到TiKV的缓存（内存）中，就叫内存悲观锁。写入Leader 角色region所在的节点的缓存，不进行 Follower 的同步。写入内存不写入磁盘，数据只写入 Leader 节点，不进行 Follower 的同步，所以能够提升事务的执行效率。</li>
+</ul>
+</li>
+<li>内存悲观锁存在的问题：如果节点宕机，锁丢失，会造成事务失败</li>
+<li>可以用命令在线开启内存悲观锁，也可以通过配置设置后重新启动<pre><code class="shell">&gt; set config tikv pessimistic-txn.pipelined=&#39;true&#39;;
+&gt; set config tikv pessimistic-txn.in-memory=&#39;true&#39;;</code></pre>
+</li>
+<li>优点：减少事务的延时；降低磁盘和网络带宽；降低TiKV的CPU消耗。</li>
+</ul>
+</li>
+<li><strong>4、Top SQL</strong>：针对性能可观测性的亮眼功能<ul>
+<li>6.0之前只能通过slow query和SQL Statements，但这两个命令针对的是整个集群，不能通过指定单个TiKV。</li>
+<li>解决的问题：<ul>
+<li>个别TiKV实例的CPU非常高</li>
+<li>CPU占用率突然发生了显著变化</li>
+</ul>
+</li>
+<li>TOP SQL可以<ul>
+<li>指定TiDB及TiKV实例</li>
+<li>正在执行的SQL语句</li>
+<li>CPU开销最多的Top 5类SQL</li>
+<li>每秒请求数、平均延迟等信息</li>
+</ul>
+</li>
+<li>TOP SQL的使用<ul>
+<li>TiDB Dashboard集成了Top SQL</li>
+<li>步骤1：选择需要观察负载的具体TiDB Server或TiKV实例，可以指定刷新时间</li>
+<li>步骤2：观察Top 5类SQL，目前根据CPU的使用率统计，不支持内存和IO</li>
+<li>步骤3：查看某语句的执行情况：Call/sec、Scan Indexes/sec</li>
+</ul>
+</li>
+<li>作用<ul>
+<li>可视化地展示CPU开销最多的5类SQL语句</li>
+<li>支持指定TiDB及TiKV实例进行查询</li>
+<li>支持统计所有正在执行的SQL语句</li>
+<li>支持每秒请求数、平均延迟、查询计划等详细执行信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>5、TiDB Enterprise Manager（TiEM）</strong>：集成、规范化、流程化大部分运维操作<ul>
+<li>解决企业中TiDB集群管理的问题<ul>
+<li>数量增长：集群数量、节点数量、组件数量、工具数量</li>
+<li>复杂度增长：配置参数复杂度、命令行复杂度、管理接口复杂</li>
+</ul>
+</li>
+<li>简化、流程化集群管理中的任务，降低出错的几率<ul>
+<li>部署集群、升级集群、参数管理、组件管理、备份恢复与高可用管理、集群监控与告警、集群日志收集、审计与安全</li>
+</ul>
+</li>
+<li>TiEM功能<ul>
+<li>一键部署集群&amp;多套集群一站式管理</li>
+<li>集群原地升级</li>
+<li>参数管理</li>
+<li>克隆集群&amp;主备集群切换</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="TiDB-Cloud"><a href="#TiDB-Cloud" class="headerlink" title="TiDB Cloud"></a>TiDB Cloud</h1><h2 id="Lesson-09-TiDB-Cloud-简介"><a href="#Lesson-09-TiDB-Cloud-简介" class="headerlink" title="Lesson 09 TiDB Cloud 简介"></a>Lesson 09 TiDB Cloud 简介</h2><p><img src="/contents/tidb-v6-pcta/09-01.png" alt=""></p>
+<ul>
+<li>TiDB Cloud 是一个功能齐全的数据库即服务或 DBaaS</li>
+<li><a href="https://en.pingcap.com/tidb-cloud" target="_blank" rel="noopener">https://en.pingcap.com/tidb-cloud</a></li>
+<li><a href="https://tidbcloud.com" target="_blank" rel="noopener">https://tidbcloud.com</a></li>
+<li>分成 Developer Tier 和 Dedicated Tier 两种方案，Developer Tier 一年免费，不支持 VPC Peer，不支持横向扩缩容，不具备高可用性</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">331 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">159 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TiDB-数据库架构"><span class="toc-number">1.</span> <span class="toc-text">TiDB 数据库架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-01-TiDB-数据库架构概述"><span class="toc-number">1.1.</span> <span class="toc-text">Lesson 01 TiDB 数据库架构概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-02-TiDB-Server"><span class="toc-number">1.2.</span> <span class="toc-text">Lesson 02 TiDB Server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-03-TiKV"><span class="toc-number">1.3.</span> <span class="toc-text">Lesson 03 TiKV</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TiKV-持久化"><span class="toc-number">1.3.1.</span> <span class="toc-text">TiKV-持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiKV-分布式事务"><span class="toc-number">1.3.2.</span> <span class="toc-text">TiKV-分布式事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiKV-Raft"><span class="toc-number">1.3.3.</span> <span class="toc-text">TiKV-Raft</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TiKV-读写与Coprocessor"><span class="toc-number">1.3.4.</span> <span class="toc-text">TiKV-读写与Coprocessor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-04-Placement-Driver"><span class="toc-number">1.4.</span> <span class="toc-text">Lesson 04 Placement Driver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-05-TiDB-数据库-SQL-执行流程"><span class="toc-number">1.5.</span> <span class="toc-text">Lesson 05 TiDB 数据库 SQL 执行流程</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TiDB-HTAP"><span class="toc-number">2.</span> <span class="toc-text">TiDB HTAP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-06-TiDB-数据库-HTAP-概述"><span class="toc-number">2.1.</span> <span class="toc-text">Lesson 06 TiDB 数据库 HTAP 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-07-TiFlash"><span class="toc-number">2.2.</span> <span class="toc-text">Lesson 07 TiFlash</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TiDB-6-0-新功能"><span class="toc-number">3.</span> <span class="toc-text">TiDB 6.0 新功能</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-08-TiDB-6-0-新特性"><span class="toc-number">3.1.</span> <span class="toc-text">Lesson 08 TiDB 6.0 新特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TiDB-Cloud"><span class="toc-number">4.</span> <span class="toc-text">TiDB Cloud</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Lesson-09-TiDB-Cloud-简介"><span class="toc-number">4.1.</span> <span class="toc-text">Lesson 09 TiDB Cloud 简介</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
