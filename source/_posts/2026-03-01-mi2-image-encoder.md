@@ -1,7 +1,7 @@
 ---
 id: mi2-image-encoder
 title: "MedImageInsight Image Encoder 过程分析"
-description: "以 lion-ai/MedImageInsights 中 Text Encoder 为例，分析 Embedding 模型的工作原理"
+description: "以 lion-ai/MedImageInsights 中 Image Encoder 为例，分析图像和文本的嵌入过程，以及相似度预测过程。"
 date: 2026.03.01 10:34
 categories:
     - AI
