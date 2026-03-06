@@ -200,7 +200,8 @@ zip -x \*.DS_Store -r clean.zip file3 test
 alias zip="zip -x \*.DS_Store"
 ```
 
-> mac 中文件名包含中文的文件，zip 到 win 后文件名乱码，可用 tar 打包，文件名不乱码。
+> MacOS 自带的 zip 工具不带 `UNICODE_SUPPORT` 编译选项，中文文件名在 Windows 等环境解压会乱码。可以替换使用 `brew install zip` 安装的带有 `UNICODE_SUPPORT` 编译选项的 zip 工具。
+
 
 ## 右键
 
