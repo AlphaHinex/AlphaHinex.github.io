@@ -63,7 +63,7 @@ cover: /contents/github-mirrors/cover.png
 1. 打开命令提示符（Windows：Win+R输入`cmd`；Mac/Linux：打开终端）；
 1. 输入以下命令并回车：
     ```bash
-    git config --global url."https://gitclone.com".insteadOf https://
+    git config --global url."https://gitclone.com/".insteadOf https://
     ```
 1. 配置完成后，直接用原GitHub链接Clone，Git会自动通过镜像站加速：
     ```bash
