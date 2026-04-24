@@ -25,7 +25,8 @@ if $in_office_env; then
     # TODO Login WeChat
     open -a "印象笔记"
     open -a "Google Chrome"
-    open -a "Microsoft Remote Desktop"
+    # open -a "Microsoft Remote Desktop"
+    open -a "Windows App Beta"
     # TODO Connect tsj
 else
     # Enable Wi-Fi
