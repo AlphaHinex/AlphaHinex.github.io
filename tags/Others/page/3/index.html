@@ -1,0 +1,956 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: Others - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/ren-zhi-jue-xing/cover.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Book"><b>「
+                </b>BOOK<b> 」</b></a>
+            
+            一月 16, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2022/01/16/ren-zhi-jue-xing/" title="《认知觉醒》书摘" class="posttitle">《认知觉醒》书摘</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                3.1k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                3 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <ul>
+<li>每天有事情做不代表觉醒，每天都努力也不代表觉醒，真正的觉醒是一种发自内心的渴望，立足长远，保持耐心，运用认知的力量与时间做朋友；我发现人与人之间的根本差异是认知能力上的差异，因为认知影响选择，而选择...</li></ul>
+            
+            <span class="read-more"><a href="/2022/01/16/ren-zhi-jue-xing/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/ren-zhi-jue-xing/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            一月 16, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/01/16/ren-zhi-jue-xing/" title="《认知觉醒》书摘" class="posttitle">《认知觉醒》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        3.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        3 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>每天有事情做不代表觉醒，每天都努力也不代表觉醒，真正的觉醒是一种发自内心的渴望，立足长远，保持耐心，运用认知的力量与时间做朋友；我发现人与人之间的根本差异是认知能力上的差异，因为认知影响选择，而选择改变命运，所以成长的本质就是让大脑的认知变得更加清晰</li>
+</ul>
+<p></p>
+<ul>
+<li>焦虑的原因就两条：想同时做很多事，又想立即看到效果</li>
+</ul>
+<p></p>
+<ul>
+<li>人生是一场消除模糊的比赛</li>
+<li>那些一眼就能看出答案的题目，不用理它；一眼看过去就头痛、不知道在说什么的题目，也不用理它；只有那种大致能看出点思路，但又要动点脑筋的题目，一定要多做。这个就...</li></ul>
+            
+            <span class="read-more"><a href="/2022/01/16/ren-zhi-jue-xing/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/img/welcome-cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            三月 07, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/03/07/zero-width-space/" title="【转】你看到的事实，不一定是事实" class="posttitle">【转】你看到的事实，不一定是事实</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        10k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/03/06/zero-width-space/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/03/06/zero-width-space/</a></p>
+<p>大家都熟悉的 Unicode（万国码）几乎包含 <a href="https://unicode-table.com/" target="_blank" rel="noopener">所有符号</a>：</p>
+<ul>
+<li>常用的 Emoji： 😂 😸 ✌</li>
+<li>颜文字：  (๑•̀ㅂ•́)  ٩(͡๏̯͡๏)۶ $_$</li>
+<li>表意文字：𠁀 𡮘 𠆳 </li>
+<li>国际象棋图案：♕ ♛ ♙</li>
+<li>扑克牌： 🂡 🃁 🂳 </li>
+<li>麻将牌： 🀄 🀝 🀇 </li>
+</ul>
+<p>还有很多种玩法，比如在朋友圈火热的花式飞机坦克等。</p>
+<p></p>
+<p></p>
+<p>一些特殊符号对应的 Unicode 编码及 HTML 代码如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">图...</th></tr></thead></table>
+            
+            <span class="read-more"><a href="/2021/03/07/zero-width-space/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/bom.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            二月 28, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/02/28/byte-order-mark/" title="【转】都是 “编码格式” 惹得祸" class="posttitle">【转】都是 “编码格式” 惹得祸</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/01/13/unicode/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/01/13/unicode/</a></p>
+<p>遇到的问题：在单元测试中执行sql文件，sql的内容是正确的，但是执行报错。扎心。</p>
+<p>重现该场景，关键代码如下：完整实例可见<a href="https://github.com/wyiyi/bronze" target="_blank" rel="noopener">仓库</a> </p>
+<pre><code class="java">@SpringBootTest
+class DemoTest {
+
+    @BeforeEach
+    @Sql(&quot;/com/amber/demo/init.sql&quot;)
+    // 建表语句： drop table if exists USER; create...</code></pre>
+            
+            <span class="read-more"><a href="/2021/02/28/byte-order-mark/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/wechat-mp-services/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            二月 21, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/02/21/wechat-mp-services/" title="微信机器人的曲线实现" class="posttitle">微信机器人的曲线实现</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在知道了 <a href="https://github.com/hubotio/hubot" target="_blank" rel="noopener">Hubot</a> 之后，就一直想在微信里也有一个类似的机器人。虽然也有不少微信的 hubot adapter，但基本都是基于网页版微信实现的，而微信对网页版微信的态度，让人深刻的感受到，作为国内的超级 App 所承担的责任。</p>
+<p>之后在 <a href="https://slack.com/intl/en-cn/" target="_blank" rel="noopener">Slack</a> 中用了一段 Hubot，还是挺不错的，但是在国内使用 Slack，无论是桌面端还是移动端，还都是有些难度和不稳定的。</p>
+<p><a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">微信公众平台</a>，给出了一个微信官方支持的，微信机器人的实现方式，公众平台提供的接口比较有限，尤其是对未认证的订阅号，提供的接口更少，但...</p>
+            
+            <span class="read-more"><a href="/2021/02/21/wechat-mp-services/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/wechat-mp-server.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            二月 14, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/02/14/wechat-mp-server/" title="微信公众号服务" class="posttitle">微信公众号服务</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.4k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>辛丑年大年初三（2021年2月14日）抽支付宝口令红包活动已开启，仅此一天！</p>
+<p>发送带 <code>牛</code> 字的四字消息，根据关注时间，抽取随机金额支付宝口令红包。</p>
+<p>除了抽奖功能外，公众号自动回复服务还包括一些其他功能哟，比如：</p>
+<ol>
+<li>能够正确响应微信公众平台发送的 Token 验证（此处仅正确响应，并未对 Token 进行验证）</li>
+<li>关注时回复欢迎消息</li>
+<li>回声功能：对任何发送给公众号的文本消息，回复 <code>&lt;发送内容&gt;, you said.</code>；其他类型的消息回复 <code>Not support yet.</code>。</li>
+<li>十大 Hacker...</li></ol>
+            
+            <span class="read-more"><a href="/2021/02/14/wechat-mp-server/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/ngrok.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            二月 06, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/02/06/ngrok/" title="内网穿透？试试 ngrok" class="posttitle">内网穿透？试试 ngrok</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>提到内网穿透，首先想到的可能是花生壳，但很多年前的一次使用经历，感觉不是一般的费劲。</p>
+<p>如果有类似的需求，可以试试 <a href="https://ngrok.com/" target="_blank" rel="noopener">ngrok</a> 。</p>
+<ol>
+<li>到 <a href="https://ngrok.com/download" target="_blank" rel="noopener">下载页面</a> 下载客户端压缩包，并解压，如 <code>unzip /path/to/ngrok.zip</code></li>
+<li>启动服务，转发到本地端口（如 8888） <code>./ngrok http 8888</code></li>
+</ol>
+<pre><code class="bash">ngrok by @inconshreveable                                                     (Ctrl+C to quit)
+
+Session Status                online
+Session Expires               1 hour, 59 minutes...</code></pre>
+            
+            <span class="read-more"><a href="/2021/02/06/ngrok/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/promise.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            一月 03, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/01/03/promise-of-programmer-to-programmer/" title="程序员对程序员的承诺" class="posttitle">程序员对程序员的承诺</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>开公众号至今已达到了一年，每周发一篇文章也坚持了一年，不容易，但成年人的世界，没有容易二字。</p>
+<p>过去几年立了一些 flag：</p>
+<ol>
+<li>每天在 GitHub 上有 contribution</li>
+<li>每两个月读一本书并进行分享</li>
+<li>每周写一篇博客并发公众号</li>
+</ol>
+<p>虽然新的 flag 会接替之前的 flag 填充满主要的时间，但坚持做这些事的初衷都没有变：不断的改变自己，并尽可能的给他人带来积极的影响。</p>
+<p>静态网站访问统计脚本 <a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener">不蒜子</a> 作者的 <a href="http://ibruce.info/2015/04/04/busuanzi/" target="_blank" rel="noopener">一段话</a> 让我很有感触：</p>
+<blockquote>
+<p>静态网站建站现在有很多快速的技术和平台，但静态是优点也有缺...</p></blockquote>
+            
+            <span class="read-more"><a href="/2021/01/03/promise-of-programmer-to-programmer/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/why-tilde-means-home/KB_Terminal_ADM3A.svg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            六月 05, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/06/05/why-tilde-means-home/" title="Why was &#39;~&#39; chosen to represent the home directory?" class="posttitle">Why was &#39;~&#39; chosen to represent the home directory?</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://unix.stackexchange.com/questions/34196/why-was-chosen-to-represent-the-home-directory" target="_blank" rel="noopener">Why was ‘~’ chosen to represent the home directory?</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Tilde#Directories_and_URLs" target="_blank" rel="noopener">Quoting Wikipedia</a>:</p>
+<blockquote>
+<p>On Unix-like operating systems (including BSD, GNU/Linux and Mac OS X), tilde often indicates the current user’s home directory: for example, if the current user’s home directory...</p></blockquote>
+            
+            <span class="read-more"><a href="/2020/06/05/why-tilde-means-home/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/wd-40.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            五月 15, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/05/15/wd-40/" title="神油！WD-40" class="posttitle">神油！WD-40</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        575
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>用了几年的雷蛇黑寡妇竞技版，对其尺寸及没有令人眼花缭乱的键盘灯甚是满意。</p>
+<p>不想突然开始频繁出现按键失灵及双击的现象，非常影响输入效率。</p>
+<p>千方百计与雷蛇客服联系上了，却被告知“俺们雷蛇只换不修，如果没过保可以直接给你换一个”。</p>
+<p>这个馅饼落到我头上了的话也就没有下边的故事了。</p>
+<p>不能免费以旧换新，花钱修一下也行啊，雷蛇依旧高冷的回复：没地方修，新买一个吧。</p>
+<p>那就死马当活马医吧。</p>
+<p><a href="http://zhongce.sina.com.cn/article/view/796/" target="_blank" rel="noopener">雷蛇黑寡妇蜘蛛竞技机械键盘“无奈”换轴记录</a> 描述了同款键盘的换轴过程，但专业的操作令我望而却步。</p>
+<p>偶然又发现了一篇文章 <a href="https://post.smzdm.com/p/666978/" target="_blank" rel="noopener">关于...</a></p>
+            
+            <span class="read-more"><a href="/2020/05/15/wd-40/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

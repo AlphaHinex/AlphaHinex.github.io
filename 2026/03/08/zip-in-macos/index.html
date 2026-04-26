@@ -1,0 +1,664 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>macOS 自带 zip 压缩中文文件名乱码问题 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,zip, macOS, Linux, 中文乱码, UNICODE_SUPPORT, Info-ZIP"> 
+    <meta name="description" content="TL;DRmacOS 自带的 zip 命令因缺少 UNICODE_SUPPORT 编译选项，无法正确处理 UTF-8 编码的中文文件名。解决方案是通过 brew install zip 安装支持 U,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">macOS 自带 zip 压缩中文文件名乱码问题</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/zip-in-macos.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                三月 08, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/03/08/zip-in-macos/" title="macOS 自带 zip 压缩中文文件名乱码问题" class="">macOS 自带 zip 压缩中文文件名乱码问题</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/zip/" rel="tag">zip</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h1 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h1><p>macOS 自带的 zip 命令因缺少 <code>UNICODE_SUPPORT</code> 编译选项，无法正确处理 UTF-8 编码的中文文件名。解决方案是通过 <code>brew install zip</code> 安装支持 Unicode 的 zip 版本。</p>
+<h1 id="重现"><a href="#重现" class="headerlink" title="重现"></a>重现</h1><p>在 macOS 上创建一个包含中文文件名的测试目录进行复现：</p>
+<pre><code class="bash"># 创建测试目录和文件
+$ mkdir -p test/文档
+$ touch test/文档/需求说明.txt
+$ touch test/文档/用户手册.pdf
+
+# 使用 macOS 内置 zip 压缩
+$ zip -r test.zip test/
+  adding: test/ (stored 0%)
+  adding: test/文档/ (stored 0%)
+  adding: test/文档/用户手册.pdf (stored 0%)
+  adding: test/文档/需求说明.txt (stored 0%)</code></pre>
+<p>得到的 test.zip 文件在 Mac 上解压没问题，但到 Windows 环境解压，中文文件名会乱码：</p>
+<pre><code class="cmd">c:\Users\Administrator\Desktop\test&gt;tree /F
+文件夹 PATH 列表
+卷序列号为 504B-1F01
+C:.
+└─鏂囨。
+        鐢ㄦ埛鎵嬪唽.pdf
+        闇€姹傝鏄_txt</code></pre>
+<h1 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h1><p>对比 Linux 环境，发现如下情况：</p>
+<table>
+<thead>
+<tr>
+<th align="left">压缩系统</th>
+<th align="left">解压系统</th>
+<th align="left">中文文件名乱码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">macOS</td>
+<td align="left">Windows</td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left">macOS</td>
+<td align="left">Linux</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">Linux</td>
+<td align="left">Windows</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left">Linux</td>
+<td align="left">macOS</td>
+<td align="left">否</td>
+</tr>
+</tbody></table>
+<p>进一步对比 macOS 和 Linux 中 zip 版本：</p>
+<pre><code class="bash"># macOS zip version
+$ zip -v
+Copyright (c) 1990-2008 Info-ZIP - Type &#39;zip &quot;-L&quot;&#39; for software license.
+This is Zip 3.0 (July 5th 2008), by Info-ZIP.
+Currently maintained by E. Gordon.  Please send bug reports to
+the authors using the web page at www.info-zip.org; see README for details.
+
+Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,
+as of above date; see http://www.info-zip.org/ for other sites.
+
+Compiled with gcc Apple LLVM 13.1.6 (clang-1316.0.21.3) [+internal-os, ptrauth-isa=deployment-target-based] for Unix (Mac OS X) on Aug 17 2023.
+
+Zip special compilation options:
+    USE_EF_UT_TIME       (store Universal Time)
+    SYMLINK_SUPPORT      (symbolic links supported)
+    LARGE_FILE_SUPPORT   (can read and write large files on file system)
+    ZIP64_SUPPORT        (use Zip64 to store large files in archives)
+    STORE_UNIX_UIDs_GIDs (store UID/GID sizes/values using new extra field)
+    UIDGID_16BIT         (old Unix 16-bit UID/GID extra field also used)
+    [encryption, version 2.91 of 05 Jan 2007] (modified for Zip 3)
+
+Encryption notice:
+    The encryption code of this program is not copyrighted and is
+    put in the public domain.  It was originally written in Europe
+    and, to the best of our knowledge, can be freely distributed
+    in both source and object forms from any country, including
+    the USA under License Exception TSU of the U.S. Export
+    Administration Regulations (section 740.13(e)) of 6 June 2002.
+
+Zip environment options:
+             ZIP:  [none]
+          ZIPOPT:  [none]</code></pre>
+<pre><code class="bash"># Linux zip version
+$ zip -v
+Copyright (c) 1990-2008 Info-ZIP - Type &#39;zip &quot;-L&quot;&#39; for software license.
+This is Zip 3.0 (July 5th 2008), by Info-ZIP.
+Currently maintained by E. Gordon.  Please send bug reports to
+the authors using the web page at www.info-zip.org; see README for details.
+
+Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,
+as of above date; see http://www.info-zip.org/ for other sites.
+
+Compiled with gcc 4.8.5 20150623 (Red Hat 4.8.5-11) for Unix (Linux ELF) on Nov  5 2016.
+
+Zip special compilation options:
+    USE_EF_UT_TIME       (store Universal Time)
+    BZIP2_SUPPORT        (bzip2 library version 1.0.6, 6-Sept-2010)
+        bzip2 code and library copyright (c) Julian R Seward
+        (See the bzip2 license for terms of use)
+    SYMLINK_SUPPORT      (symbolic links supported)
+    LARGE_FILE_SUPPORT   (can read and write large files on file system)
+    ZIP64_SUPPORT        (use Zip64 to store large files in archives)
+    UNICODE_SUPPORT      (store and read UTF-8 Unicode paths)
+    STORE_UNIX_UIDs_GIDs (store UID/GID sizes/values using new extra field)
+    UIDGID_NOT_16BIT     (old Unix 16-bit UID/GID extra field not used)
+    [encryption, version 2.91 of 05 Jan 2007] (modified for Zip 3)
+
+Encryption notice:
+    The encryption code of this program is not copyrighted and is
+    put in the public domain.  It was originally written in Europe
+    and, to the best of our knowledge, can be freely distributed
+    in both source and object forms from any country, including
+    the USA under License Exception TSU of the U.S. Export
+    Administration Regulations (section 740.13(e)) of 6 June 2002.
+
+Zip environment options:
+             ZIP:  [none]
+          ZIPOPT:  [none]</code></pre>
+<p>发现二者在编译选项上有所差别，macOS 中缺少 <code>UNICODE_SUPPORT      (store and read UTF-8 Unicode paths)</code>，此项正是造成差异的关键。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>使用 HomeBrew 重新安装 <a href="https://formulae.brew.sh/formula/zip" target="_blank" rel="noopener">zip</a>，替代自带 zip。</p>
+<pre><code class="bash">$ brew install zip
+...
+==&gt; Fetching downloads for: zip
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zip/manifests/3.0-2
+Already downloaded: /Users/alphahinex/Library/Caches/Homebrew/downloads/794b38c4c17afd41abe76b9b8dc73cabd3543bdb3816b4acca62ff0132aa1225--zip-3.0-2.bottle_manifest.json
+==&gt; Fetching zip
+==&gt; Downloading https://ghcr.io/v2/homebrew/core/zip/blobs/sha256:cf5690223dfcc1683280d1692d3f41339981d9b4eacf68f3dedf9cd2cbc68ec1
+################################################################################################################################################## 100.0%
+==&gt; Pouring zip--3.0.monterey.bottle.2.tar.gz
+==&gt; Caveats
+zip is keg-only, which means it was not symlinked into /usr/local,
+because macOS already provides this software and installing another version in
+parallel can cause all kinds of trouble.
+
+If you need to have zip first in your PATH, run:
+  echo &#39;export PATH=&quot;/usr/local/opt/zip/bin:$PATH&quot;&#39; &gt;&gt; ~/.zshrc
+==&gt; Summary
+🍺  /usr/local/Cellar/zip/3.0: 15 files, 867.6KB
+==&gt; Running `brew cleanup zip`...
+...</code></pre>
+<p>安装后查看版本：</p>
+<pre><code class="bash">$ /usr/local/opt/zip/bin/zip -v
+Copyright (c) 1990-2008 Info-ZIP - Type &#39;zip &quot;-L&quot;&#39; for software license.
+This is Zip 3.0 (July 5th 2008), by Info-ZIP.
+Currently maintained by E. Gordon.  Please send bug reports to
+the authors using the web page at www.info-zip.org; see README for details.
+
+Latest sources and executables are at ftp://ftp.info-zip.org/pub/infozip,
+as of above date; see http://www.info-zip.org/ for other sites.
+
+Compiled with gcc Apple LLVM 13.0.0 (clang-1300.0.29.3) for Unix (Mac OS X).
+
+Zip special compilation options:
+    USE_EF_UT_TIME       (store Universal Time)
+    BZIP2_SUPPORT        (bzip2 library version 1.0.8, 13-Jul-2019)
+        bzip2 code and library copyright (c) Julian R Seward
+        (See the bzip2 license for terms of use)
+    SYMLINK_SUPPORT      (symbolic links supported)
+    LARGE_FILE_SUPPORT   (can read and write large files on file system)
+    ZIP64_SUPPORT        (use Zip64 to store large files in archives)
+    UNICODE_SUPPORT      (store and read UTF-8 Unicode paths)
+    STORE_UNIX_UIDs_GIDs (store UID/GID sizes/values using new extra field)
+    UIDGID_NOT_16BIT     (old Unix 16-bit UID/GID extra field not used)
+    [encryption, version 2.91 of 05 Jan 2007] (modified for Zip 3)
+
+Encryption notice:
+    The encryption code of this program is not copyrighted and is
+    put in the public domain.  It was originally written in Europe
+    and, to the best of our knowledge, can be freely distributed
+    in both source and object forms from any country, including
+    the USA under License Exception TSU of the U.S. Export
+    Administration Regulations (section 740.13(e)) of 6 June 2002.
+
+Zip environment options:
+             ZIP:  [none]
+          ZIPOPT:  [none]</code></pre>
+<p>确认已支持 Unicode，用此版本在 macOS 压缩中文文件名的文件，到 Windows 环境解压，不会出现乱码。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://formulae.brew.sh/formula/zip" target="_blank" rel="noopener">https://formulae.brew.sh/formula/zip</a></li>
+<li><a href="https://infozip.sourceforge.net/" target="_blank" rel="noopener">https://infozip.sourceforge.net/</a></li>
+<li><a href="https://infozip.sourceforge.net/Zip.html" target="_blank" rel="noopener">https://infozip.sourceforge.net/Zip.html</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">340 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">162 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TL-DR"><span class="toc-number">1.</span> <span class="toc-text">TL;DR</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#重现"><span class="toc-number">2.</span> <span class="toc-text">重现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#原因分析"><span class="toc-number">3.</span> <span class="toc-text">原因分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决方案"><span class="toc-number">4.</span> <span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

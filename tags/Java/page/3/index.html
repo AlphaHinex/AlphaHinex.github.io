@@ -1,0 +1,1004 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: Java - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/system-gc/jstat.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Java"><b>「
+                </b>JAVA<b> 」</b></a>
+            
+            十一月 19, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2023/11/19/system-gc/" title="【转】由 System.gc() 频繁引起 Full GC 的问题排查" class="posttitle">【转】由 System.gc() 频繁引起 Full GC 的问题排查</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                4.8k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                4 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>原文地址：<a href="https://mp.weixin.qq.com/s/IHMHP9b-k0XwKPE1KjpLoQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/IHMHP9b-k0XwKPE1KjpLoQ</a></p>
+<p>早上服务频繁出现 Full GC 报警（由于昨晚下掉了 <code>-XX:+DisableExplicitGC...</code></p>
+            
+            <span class="read-more"><a href="/2023/11/19/system-gc/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/system-gc/jstat.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十一月 19, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/11/19/system-gc/" title="【转】由 System.gc() 频繁引起 Full GC 的问题排查" class="posttitle">【转】由 System.gc() 频繁引起 Full GC 的问题排查</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JVM/" rel="tag">JVM</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://mp.weixin.qq.com/s/IHMHP9b-k0XwKPE1KjpLoQ" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/IHMHP9b-k0XwKPE1KjpLoQ</a></p>
+<p>早上服务频繁出现 Full GC 报警（由于昨晚下掉了 <code>-XX:+DisableExplicitGC</code> 参数，其实会有 Full GC 产生已经在意料之中，但属实没想到会触发的这么频繁），</p>
+<p></p>
+<p>这里 JVM 总共运行了 4531.278 s，可以看到差不多半分钟一次 Full GC，单次 Full GC 大概耗时 1.5s。</p>
+<p>根据经验可以判断出是由于 <code>System.gc()</code> 被调用引起的，<strong>但...</strong></p>
+            
+            <span class="read-more"><a href="/2023/11/19/system-gc/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-dependency-tree/idea_1.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 07, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/10/07/java-dependency-tree/" title="【转】查看依赖树的利器" class="posttitle">【转】查看依赖树的利器</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/IDEA/" rel="tag">IDEA</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Maven/" rel="tag">Maven</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2023/10/01/Dependency%20Tree/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2023/10/01/Dependency%20Tree/</a></p>
+<p>依赖树（Dependency Tree）工具，可以查看和分析项目的依赖关系。</p>
+<p>本文将介绍 maven 和 gradle 两种构建如何查看依赖树。</p>
+<ol>
+<li><p>命令行工具来查看项目的依赖树，执行命令：</p>
+<pre><code class="bash"> mvn dependency:tree</code></pre>
+<pre><code class="bash"> gradle dependencies</code></pre>
+</li>
+<li><p>对于大型项目，可以将输出结果保存到文件中：</p>
+<pre><code class="bash"> mvn dependency:tree &gt;...</code></pre></li></ol>
+            
+            <span class="read-more"><a href="/2023/10/07/java-dependency-tree/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/thymeleaf.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            八月 13, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/08/13/thymeleaf/" title="Thymeleaf —— 简化 Java Web 开发的强大模板引擎" class="posttitle">Thymeleaf —— 简化 Java Web 开发的强大模板引擎</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        15k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        14 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Thymeleaf/" rel="tag">Thymeleaf</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2023/08/01/thymeleaf/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2023/08/01/thymeleaf/</a></p>
+<p>Thymeleaf 是一种用于在服务器端和客户端之间渲染 HTML、XML、JavaScript、CSS 和文本的 Java 模板引擎。</p>
+<p>模板引擎在 Web 领域的主要作用：让网站实现界面和数据分离，这样大大提高了开发效率，提供自然、灵活的模板处理功能，让代码重用更加容易。</p>
+<ul>
+<li>官方支持：<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#web.servlet.spring-mvc.template-engines" target="_blank" rel="noopener">Spring Boot 提供对 Thymeleaf 的官方支持</a>，做了很多默认配置，开发者只需编写对...</li></ul>
+            
+            <span class="read-more"><a href="/2023/08/13/thymeleaf/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-thread-id/bVc7Fau.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            六月 24, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/06/24/java-thread-id/" title="【转】CPU飙升排查" class="posttitle">【转】CPU飙升排查</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://softleadergy.github.io/CPU%E9%A3%99%E5%8D%87%E6%8E%92%E6%9F%A5/" target="_blank" rel="noopener">https://softleadergy.github.io/CPU%E9%A3%99%E5%8D%87%E6%8E%92%E6%9F%A5/</a></p>
+<p>线上资源cpu飙升是我们工作中常见的问题，一篇文章搞定排查方法</p>
+<p>现在我有两个接口，代码如下</p>
+<pre><code class="java">@RestController
+public class CPUCheck {
+  @RequestMapping(&quot;/hello&quot;)
+  public String helloWorld(){
+      return &quot;hello World...</code></pre>
+            
+            <span class="read-more"><a href="/2023/06/24/java-thread-id/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/wrtie-clean-java-code-with-idea/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            五月 28, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/05/28/wrtie-clean-java-code-with-idea/" title="用 IDEA 写更整洁的 Java 代码" class="posttitle">用 IDEA 写更整洁的 Java 代码</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/IDEA/" rel="tag">IDEA</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>新版本 IDEA 支持设置保存时的动作，在 <code>Preferences</code> 下的 <code>Tools | Actions on Save</code> 中：</p>
+<p></p>
+<p>支持如下动作：</p>
+<ul>
+<li><a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html#reformat-on-save" target="_blank" rel="noopener">Reformat code</a>: 根据当前代码风格设置执行格式化代码动作，可设置生效的文件类型及范围（整个文件、变更部分）</li>
+<li><a href="https://www.jetbrains.com/help/idea/creating-and-optimizing-imports.html#optimize-on-save" target="_blank" rel="noopener">Optimize imports</a>: 根据当前代码风格设置执行移除无用 import 及重新组织 import，可设置生效的文件类型</li>
+<li><a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html" target="_blank" rel="noopener">Rearrange code</a>: 根据当前代码风格设置执行代码重排序动作</li>
+<li><a href="https://www.jetbrains.com/help/idea/resolving-problems.html#code-cleanup" target="_blank" rel="noopener">Run code cleanup...</a></li></ul>
+            
+            <span class="read-more"><a href="/2023/05/28/wrtie-clean-java-code-with-idea/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/hackathon/arch.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 15, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/10/15/hackathon/" title="黑客松云原生赛道初赛程序设计分享" class="posttitle">黑客松云原生赛道初赛程序设计分享</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        15k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        13 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>2Core / 4GB 的总资源限制内，在容器中运行一个基于文本日志文件的统计分析程序，统计<strong>发表评论最多的前10位用户</strong>，并按顺序返回<strong>用户名</strong>、该用户的<strong>评论次数</strong>、该用户<strong>不重复的评论数量</strong>以及<strong>最近发表评论的时间</strong>。</p>
+<ol>
+<li>按照<strong>评论次数由多到少</strong>进行排序</li>
+<li>当用户评论次数相同时，将<strong>内容不重复的评论数量较多</strong>的用户排在前面</li>
+<li>当“用户评论次数”与“不重复的评论次数”均相同时，以“最近发表评论的时间”排序，内容较新的用户排在前面</li>
+</ol>
+<p>正式比赛的数据量级为1000万（可能会有零头，但不低于1000万，不超过1001万），数据文...</p>
+            
+            <span class="read-more"><a href="/2022/10/15/hackathon/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/mapstruct.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            十月 09, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/10/09/mapstruct/" title="MapStruct - Java bean 映射，简单的方法！" class="posttitle">MapStruct - Java bean 映射，简单的方法！</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        13 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/MapStruct/" rel="tag">MapStruct</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>应用程序通常需要在不同的对象模型（例如实体和 DTO）之间进行映射，如：在前后台传输过程中，持久层定义的实体类经常需要映射到其它的对象模型进行相互转换。</p>
+<p></p>
+<p>MapStruct 是一个代码生成器，在不同的对象模型（例如 实体 和 DTO）之间进行映射，它基于约定优于配置的方法，极大地简化了 Java bean 类型之间的映射实现。</p>
+<p>MapStruct 是一个 Java 注释处理器，用于生成类型安全、高性能和无依赖关系的 bean 映射代码。</p>
+<p>与其他映射框架相比，MapStruct 在编译时生成 bean...</p>
+            
+            <span class="read-more"><a href="/2022/10/09/mapstruct/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-thread-states/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            九月 11, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/09/11/java-thread-timed-waiting/" title="【转】Java 线程状态之 TIMED_WAITING" class="posttitle">【转】Java 线程状态之 TIMED_WAITING</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-timed_waiting" target="_blank" rel="noopener">https://xiaogd.net/md/java-线程状态之-timed_waiting</a></p>
+<p>目录</p>
+<ul>
+<li>定义</li>
+<li>timed_waiting 的场景</li>
+<li>虚假唤醒（spurious wakeup）</li>
+<li>sleep 时的线程状态</li>
+<li>BLOCKED 和 WAITING 状态的区别和联系</li>
+<li>总结</li>
+</ul>
+<p>在<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-waiting" target="_blank" rel="noopener">上一篇章</a>中我们谈论了 WAITING 状态，在这一篇章里，我们来看剩余的最后的一个状态：TIMED_WAITING（限时等待）。</p>
+<p></p>
+<p>一个正在限时等待另一个线程执行一个动作的线程处于这一状态。</p>
+<blockquote>
+<p>A thread ...</p></blockquote>
+            
+            <span class="read-more"><a href="/2022/09/11/java-thread-timed-waiting/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-thread-states/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            九月 04, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/09/04/java-thread-waiting/" title="【转】Java 线程状态之 WAITING" class="posttitle">【转】Java 线程状态之 WAITING</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-waiting" target="_blank" rel="noopener">https://xiaogd.net/md/java-线程状态之-wating</a></p>
+<p>在<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-blocked" target="_blank" rel="noopener">上一篇</a>里我们讲了一个重要状态：BLOCKED，在这一篇章里，我们来看另一个重要的状态：WAITING（等待）。</p>
+<p></p>
+<p>一个正在无限期等待另一个线程执行一个特别的动作的线程处于这一状态。</p>
+<blockquote>
+<p>A thread that is waiting indefinitely for another thread to perform a particular action is in this state.</p>
+</blockquote>
+<p>然而这里并...</p>
+            
+            <span class="read-more"><a href="/2022/09/04/java-thread-waiting/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/java-thread-states/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            八月 28, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/08/28/java-thread-blocked/" title="【转】Java 线程状态之 BLOCKED" class="posttitle">【转】Java 线程状态之 BLOCKED</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.9k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://xiaogd.net/md/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-blocked" target="_blank" rel="noopener">https://xiaogd.net/md/java-线程状态之-blocked</a></p>
+<p>目录</p>
+<ul>
+<li>BLOCKED 状态的定义</li>
+<li>进入（enter）同步块时阻塞</li>
+<li>wait 之后重进入（reenter）同步块时阻塞</li>
+<li>总结</li>
+</ul>
+<p>在<a href="https://xiaogd.net/java-%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e4%b9%8b-runnable/" target="_blank" rel="noopener">上一篇</a>中，我们强调了 BLOCKED 状态跟 I/O 的阻塞是不同的，它不是一般意义上的阻塞，而是特指被 synchronized 块阻塞，即是跟线程同步有关的一个状态。</p>
+<p><a href="http://my.oschina.net/goldenshaw/blog/386788" target="_blank" rel="noopener">前面</a>已经说过 BLOCKED(阻塞) 的简单定义为：</p>
+<blockquote>
+<p>一个正在阻塞等待一个监视器锁的线程处于这一状态。(...</p></blockquote>
+            
+            <span class="read-more"><a href="/2022/08/28/java-thread-blocked/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/tags/Java/page/4/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

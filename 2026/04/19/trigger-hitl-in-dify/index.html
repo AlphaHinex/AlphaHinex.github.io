@@ -1,0 +1,605 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dify 1.13.3 中通过 API 触发包含人工节点的流程 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,HITL, Human-in-the-loop, form_token, workflow_run_id, Dify"> 
+    <meta name="description" content="Dify 在 v1.13.0 版本中引入了 Human Input 节点，以支持在工作流关键环节进行人工介入与决策，使用场景如表单填写、流程审批等。
+人工节点的表单投递渠道，目前支持 Web App,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Dify 1.13.3 中通过 API 触发包含人工节点的流程</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/trigger-hitl-in-dify.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                四月 19, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/04/19/trigger-hitl-in-dify/" title="Dify 1.13.3 中通过 API 触发包含人工节点的流程" class="">Dify 1.13.3 中通过 API 触发包含人工节点的流程</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.1k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    7 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Dify/" rel="tag">Dify</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>Dify 在 <a href="https://github.com/langgenius/dify/releases/tag/1.13.0" target="_blank" rel="noopener">v1.13.0</a> 版本中引入了 <a href="https://mp.weixin.qq.com/s/xDSer3fRoLI2gWxuIhz4GQ" target="_blank" rel="noopener">Human Input 节点</a>，以支持在工作流关键环节进行人工介入与决策，使用场景如表单填写、流程审批等。</p>
+<p>人工节点的表单投递渠道，目前支持 Web App 和 Email 两种方式，但对于通过 API 调用的 Dify 流程，如何提交人工节点的表单数据，并触发流程继续执行，目前还没有清晰的文档说明。</p>
+<p>本文以一个实际例子，介绍在 Dify <a href="https://github.com/langgenius/dify/releases/tag/1.13.3" target="_blank" rel="noopener">v1.13.3</a> 版本中通过调用接口触发包含人工节点的方式。</p>
+<h1 id="示例流程"><a href="#示例流程" class="headerlink" title="示例流程"></a>示例流程</h1><p>构造一个简单的 <a href="https://github.com/AlphaHinex/AlphaHinex.github.io/blob/develop/source/contents/trigger-hitl-in-dify/人工节点测试.yml" target="_blank" rel="noopener">人工节点测试.yml</a> 流程，先由 LLM 生成一个计算题，再由人工节点回答计算结果，最终 LLM 判断是否计算正确。</p>
+<p><img src="https://alphahinex.github.io/contents/covers/trigger-hitl-in-dify.png" alt=""></p>
+<h1 id="API-调用"><a href="#API-调用" class="headerlink" title="API 调用"></a>API 调用</h1><p>按照 <a href="https://github.com/langgenius/dify/discussions/33449#discussioncomment-16221158" target="_blank" rel="noopener">https://github.com/langgenius/dify/discussions/33449#discussioncomment-16221158</a> 中内容，API 驱动包含人工节点的流程为：</p>
+<blockquote>
+<ol>
+<li>Start workflow/chatflow (streaming mode) → get <code>workflow_run_id</code> and <code>form_token</code> from SSE events</li>
+<li>Submit form → <code>POST /api/form/human_input/{form_token}</code> (no auth needed)</li>
+<li>Poll for results → <code>GET /v1/workflows/run/{workflow_run_id}</code> until <code>status === &quot;succeeded&quot;</code></li>
+</ol>
+</blockquote>
+<h2 id="01-发送对话消息"><a href="#01-发送对话消息" class="headerlink" title="01 发送对话消息"></a>01 发送对话消息</h2><pre><code class="bash">curl --request POST \
+  --url http://host:port/v1/chat-messages \
+  --header &#39;authorization: Bearer app-xxx&#39; \
+  --header &#39;content-type: application/json&#39; \
+  --data &#39;{
+  &quot;inputs&quot;: {},
+  &quot;query&quot;: &quot;hi&quot;,
+  &quot;response_mode&quot;: &quot;streaming&quot;,
+  &quot;conversation_id&quot;: &quot;&quot;,
+  &quot;user&quot;: &quot;test&quot;
+}&#39;</code></pre>
+<blockquote>
+<p>注意：这里 <code>response_mode</code> 为 <code>blocking</code> 时会得到 <code>400</code> 响应。</p>
+</blockquote>
+<p>得到的响应中，可以获得 <code>form_token</code> 和 <code>workflow_run_id</code> 参数，供后面两个接口调用：</p>
+<pre><code class="json">{
+    &quot;conversation_id&quot;: &quot;41f57f05-66bb-4dc7-89bf-4852d0d02bbf&quot;,
+    &quot;created_at&quot;: 1776154089,
+    &quot;data&quot;: {
+        &quot;created_at&quot;: 1776154088,
+        &quot;elapsed_time&quot;: 0.549557,
+        &quot;outputs&quot;: {},
+        &quot;paused_nodes&quot;: [
+            &quot;1776152782529&quot;
+        ],
+        &quot;reasons&quot;: [
+            {
+                &quot;TYPE&quot;: &quot;human_input_required&quot;,
+                &quot;actions&quot;: [
+                    {
+                        &quot;button_style&quot;: &quot;default&quot;,
+                        &quot;id&quot;: &quot;submit&quot;,
+                        &quot;title&quot;: &quot;交卷&quot;
+                    }
+                ],
+                &quot;display_in_ui&quot;: true,
+                &quot;form_content&quot;: &quot;你好！这是为你准备的一道十以内的计算题：\n\n**5 + 3 = ?**\n\n你可以先在心里算一下，然后再告诉我你的答案！\n\n{}\n&quot;,
+                &quot;form_id&quot;: &quot;019d8b08-96ab-7e1f-ac96-64710927f5eb&quot;,
+                &quot;form_token&quot;: &quot;I73ALdiKLtlQOwDrJfu1YO&quot;,
+                &quot;inputs&quot;: [
+                    {
+                        &quot;default&quot;: {
+                            &quot;selector&quot;: [],
+                            &quot;type&quot;: &quot;constant&quot;,
+                            &quot;value&quot;: &quot;&quot;
+                        },
+                        &quot;output_variable_name&quot;: &quot;answer&quot;,
+                        &quot;type&quot;: &quot;paragraph&quot;
+                    }
+                ],
+                &quot;node_id&quot;: &quot;1776152782529&quot;,
+                &quot;node_title&quot;: &quot;回答&quot;,
+                &quot;resolved_default_values&quot;: {}
+            }
+        ],
+        &quot;status&quot;: &quot;paused&quot;,
+        &quot;total_steps&quot;: 3,
+        &quot;total_tokens&quot;: 119,
+        &quot;workflow_run_id&quot;: &quot;bf88e736-46d4-4ab1-ad79-fb04de4a4a70&quot;
+    },
+    &quot;event&quot;: &quot;workflow_paused&quot;,
+    &quot;message_id&quot;: &quot;50c4c7d8-8beb-4438-8d2b-b3fbe8606a9e&quot;,
+    &quot;task_id&quot;: &quot;9afc8422-f7a3-4a45-a985-1e7a0d3ee1bc&quot;,
+    &quot;workflow_run_id&quot;: &quot;bf88e736-46d4-4ab1-ad79-fb04de4a4a70&quot;
+}</code></pre>
+<h2 id="02-提交表单"><a href="#02-提交表单" class="headerlink" title="02 提交表单"></a>02 提交表单</h2><pre><code class="bash">curl --request POST \
+  --url http://host:port/api/form/human_input/I73ALdiKLtlQOwDrJfu1YO \
+  --header &#39;authorization: Bearer app-xxx&#39; \
+  --header &#39;content-type: application/json&#39; \
+  --data &#39;{
+  &quot;inputs&quot;: {
+    &quot;answer&quot;: &quot;2&quot;
+  },
+  &quot;action&quot;: &quot;submit&quot;
+}&#39;</code></pre>
+<p>得到 <code>200</code> 响应码的响应：</p>
+<pre><code class="json">{}</code></pre>
+<h2 id="03-查询流程状态"><a href="#03-查询流程状态" class="headerlink" title="03 查询流程状态"></a>03 查询流程状态</h2><pre><code class="bash">curl --request GET \
+  --url http://host:port/v1/workflows/run/bf88e736-46d4-4ab1-ad79-fb04de4a4a70 \
+  --header &#39;authorization: Bearer app-xxx&#39; \
+  --header &#39;content-type: application/json&#39;</code></pre>
+<pre><code class="json">{
+  &quot;id&quot;: &quot;bf88e736-46d4-4ab1-ad79-fb04de4a4a70&quot;,
+  &quot;workflow_id&quot;: &quot;953cd66b-e450-46b7-9bd6-868919b467d5&quot;,
+  &quot;status&quot;: &quot;succeeded&quot;,
+  &quot;inputs&quot;: &quot;{\&quot;sys.files\&quot;: [], \&quot;sys.user_id\&quot;: \&quot;bruno-test\&quot;, \&quot;sys.app_id\&quot;: \&quot;fee1dd85-3a58-4adc-9acf-5965148c6657\&quot;, \&quot;sys.workflow_id\&quot;: \&quot;953cd66b-e450-46b7-9bd6-868919b467d5\&quot;, \&quot;sys.workflow_run_id\&quot;: \&quot;bf88e736-46d4-4ab1-ad79-fb04de4a4a70\&quot;, \&quot;sys.query\&quot;: \&quot;hi\&quot;, \&quot;sys.dialogue_count\&quot;: 1}&quot;,
+  &quot;outputs&quot;: {
+    &quot;answer&quot;: &quot;计算结果**不正确**。\n\n**分析过程：**\n题目要求的算式是 $5 + 3$。\n- 5 加上 3 等于 **8**。\n- 你提供的计算结果是 **2**。\n\n**结论：**\n正确答案应该是 **8**，而不是 2。\n（注：结果 2 可能是误算成了 $5 - 3$。）&quot;,
+    &quot;files&quot;: []
+  },
+  &quot;error&quot;: null,
+  &quot;total_steps&quot;: 6,
+  &quot;total_tokens&quot;: 632,
+  &quot;created_at&quot;: 1776329321,
+  &quot;finished_at&quot;: 1776329377,
+  &quot;elapsed_time&quot;: 0.84948
+}</code></pre>
+<h1 id="流程中包含多个人工节点"><a href="#流程中包含多个人工节点" class="headerlink" title="流程中包含多个人工节点"></a>流程中包含多个人工节点</h1><p>当流程中包含多个人工节点时，第一个人工节点可按上述方式触发执行，但后续人工节点，按照 <a href="https://github.com/langgenius/dify/discussions/33449#discussioncomment-16269242" target="_blank" rel="noopener">https://github.com/langgenius/dify/discussions/33449#discussioncomment-16269242</a> 中给出的方式，在调用 <code>/pause-info</code> 接口时得到的是一个 html，不包含必需的 <code>form_token</code> 信息。可见当前版本下，还不能很好的通过 API 方式驱动包含多个人工节点的流程。</p>
+<blockquote>
+<ol>
+<li>Poll GET /v1/workflows/run/{workflow_run_id} until status === “paused”</li>
+<li>Call GET /apps/{app_id}/workflow-runs/{run_id}/pause-info to get the new form_token</li>
+<li>Submit the form and repeat</li>
+</ol>
+</blockquote>
+<p>官方在 <a href="https://github.com/langgenius/dify/pull/32826" target="_blank" rel="noopener">#32826</a> 中正在筹备新的 Service API 来更好的支持包含人工节点的流程，可以关注合并状态。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://github.com/langgenius/dify/discussions/33449" target="_blank" rel="noopener">Help，How to use Human-in-the-loop nodes in an API？</a></li>
+<li><a href="https://github.com/langgenius/dify/discussions/32389" target="_blank" rel="noopener">How to trigger Human Input Node actions via the Dify Workflow API?</a></li>
+<li><a href="https://github.com/langgenius/dify/pull/32826" target="_blank" rel="noopener">feat: add service api of HITL</a></li>
+</ol>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">340 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">162 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#示例流程"><span class="toc-number">1.</span> <span class="toc-text">示例流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API-调用"><span class="toc-number">2.</span> <span class="toc-text">API 调用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#01-发送对话消息"><span class="toc-number">2.1.</span> <span class="toc-text">01 发送对话消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-提交表单"><span class="toc-number">2.2.</span> <span class="toc-text">02 提交表单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-查询流程状态"><span class="toc-number">2.3.</span> <span class="toc-text">03 查询流程状态</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#流程中包含多个人工节点"><span class="toc-number">3.</span> <span class="toc-text">流程中包含多个人工节点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
