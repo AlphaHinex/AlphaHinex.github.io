@@ -1,7 +1,7 @@
 ---
 id: macos-kernal-panic-after-unplug-iphone
-title: "mac 在连接 iOS 设备后黑屏的奇怪问题"
-description: "Vibe debugging"
+title: "Mac 在连接 iOS 设备后黑屏的奇怪问题"
+description: "Vibe Debugging"
 date: 2026.05.17 10:34
 categories:
     - Mac
