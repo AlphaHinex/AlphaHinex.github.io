@@ -30,7 +30,7 @@ cover: /contents/covers/claude-code-connect-github-copilot.png
 
 > Copilot 的大型语言模型 (LLM) 是一个强大的大规模语言模型，经过多种数据源的训练，包括代码、文档和其他文本。Copilot 的 LLM 支持 GitHub Copilot 的功能，用于驱动所有 Copilot 功能，包括代码生成、文档生成和代码补全。您可以选择使用 Copilot 的 LLM 来支持您的代理，这在您希望代理能够为用户消息生成补全但又不想管理自己的 LLM 时非常有用。
 
-**简单来说，GitHub Copilot 提供了一个标准的 OpenAI 格式 API 端点：https://api.githubcopilot.com/chat/completions**，这意味着支持 OpenAI API 的 Agent 工具理论上都能接入！
+**简单来说，GitHub Copilot 提供了一个标准的 OpenAI 格式 API 端点：https://api.githubcopilot.com/chat/completions**，这意味着支持 OpenAI API 的 Agent 工具理论上都能接入！**
 
 为了方便你使用，GitHub 官方还贴心地提供了示例代码：
 

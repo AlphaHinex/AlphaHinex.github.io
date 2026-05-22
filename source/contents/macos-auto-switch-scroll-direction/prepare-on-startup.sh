@@ -21,7 +21,7 @@ if $in_office_env; then
     open -a "Proxifier 2"
     osascript -e 'tell application "Proxifier 2" to set visible of every window to false'
     open -a "Lark"
-    # open -a "WeChat"
+    open -a "WeChat"
     # TODO Login WeChat
     open -a "印象笔记"
     open -a "Google Chrome"
