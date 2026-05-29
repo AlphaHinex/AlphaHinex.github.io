@@ -4,9 +4,9 @@ title: "《软件设计师考前突破：考点精讲、真题精解、难点精
 description: "26年上半年考试知识点本书中基本都有覆盖"
 date: 2026.05.24 10:26
 categories:
-    - Mac
-tags: [Mac]
-keywords: macOS, kernal panic, iPhone, iPad, com.hyperintegrate.MTP-for-Mac, MTP for Mac.kext, DeepSeek, Extensions
+    - Book
+tags: [Book, Others]
+keywords: 软件设计师, 海明码, DRAM, SRAM, Master Theorem, WPL, PV操作, 数据流图, 状态转换图, 结构化分析, 结构化设计, 软件测试, 软件维护, 软件项目管理
 cover: /contents/software-designer/cover.jpg
 ---
 
