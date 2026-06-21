@@ -83,11 +83,11 @@ $$N(h) \gt 1 + 2N(h-2) \gt 2N(h-2) \gt 4N(h-4) \gt 8N(h-6) \gt ... \gt 2^{\frac{
 
 高度为 $0$ 的 AVL 结构只有一个节点，所以 $N(0) = 1$，并且：
 
-$$ \begin{align*}
+$$ \\begin{align*}
 n &= N(h) > 2^{\frac{h}{2}} \\\\
-\log_2 n &> \frac{h}{2} \\\\
-h &< 2 \log_2 n \in O(\log n)
-\end{align*} $$
+\\log_2 n &> \\frac{h}{2} \\\\
+h &< 2 \log_2 n \\in O(\\log n)
+\\end{align*} $$
 
 **因此，在最不平衡的情况下，AVL 树的高度为 $O(\log n)$。所以，搜索、插入和删除等操作的时间复杂度为对数级。**
 
