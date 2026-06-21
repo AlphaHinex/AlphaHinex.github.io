@@ -75,7 +75,7 @@ $$AVL(x) \iff |height(x.left) - height(x.right)| \leq 1 \text{ and } AVL(x.left)
 
 即使我们交换节点的左右子树，树仍然保持平衡。因此，我们假设左子树的节点更多。然后，如果 $N(h)$ 是高度为 $h$ 的最小 AVL 树的节点数，我们有：
 
-$$ N(h) = 1 + \underbrace{N(h-1)}_{\text{left sub-tree}} + \underbrace{N(h-2)}_{\text{right sub-tree}} $$
+$$ N(h) = 1 + \underbrace{N(h-1)}\_{\text{left sub-tree}} + \underbrace{N(h-2)}\_{\text{right sub-tree}} $$
 
 根据我们的假设，我们有 $N(h-1) \gt N(h-2)$，因此：
 
