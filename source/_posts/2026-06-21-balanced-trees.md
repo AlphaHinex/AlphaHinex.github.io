@@ -129,12 +129,12 @@ $$ 2 \cdot (2^{bh(x)-1} - 1) + 1 = 2^{bh(x)-1+1} - 2 + 1 = 2^{bh(x)} - 1 $$
 
 利用关于内部节点的结果，我们得到：
 
-$$ \begin{align*}
+$$ \begin{align\*}
 n & \geq 2^{\frac{h}{2}} - 1 \\\\
 n + 1 & \geq 2^{\frac{h}{2}} \\\\
 2^{\frac{h}{2}} & \leq n + 1 \\\\
 h & \leq 2 \log_2 n + 1 \in O(\log n)
-\end{align*} $$
+\end{align\*} $$
 
 **同样，我们得出树的高度随着节点数量的对数增长。**
 
@@ -146,19 +146,19 @@ $$ \frac{leaves(x'')}{leaves(x')} \leq \beta \in (0,1) $$
 
 我们还要求 $x$ 的所有后代节点满足相同的条件。**这等价于说明存在一个 $\alpha \in (0,1)$，使得对于树中的每个节点 $x$，以下条件成立：**
 
-$$ \begin{align*}
+$$ \begin{align\*}
 leaves(x.left) &\geq \alpha \cdot leaves(x) \\\\
 leaves(x.right) &\geq \alpha \cdot leaves(x)
-\end{align*} $$
+\end{align\*} $$
 
 为了理解原因，让我们回忆一下 $leaves(x') > leaves(x'')$ 并跟随推导过程：
 
-$$ \begin{align*}
+$$ \begin{align\*}
 leaves(x) &= leaves(x') + leaves(x'') \\\\
 &\leq 2 \beta \cdot leaves(x'') \\\\
 &\implies \\\\
 leaves(x'') &\geq \frac{1}{2 \beta} \cdot leaves(x)
-\end{align*} $$
+\end{align\*} $$
 
 所以，这就是权重平衡树 $x$ 的递归定义：
 
@@ -174,22 +174,22 @@ $$WBT(x) \iff leaves(x.left) \geq leaves(x) \text{ and } leaves(x.right) \geq le
 
 假设 $x$ 是一棵高度为 $h$ 的最小权重平衡树，并设 $L(h)$ 为其叶子节点的数量。根据权重平衡树的定义，我们知道 $x$ 的子树包含的叶子节点数量最多为父节点的 $1 - \alpha$ 。此外，子树的高度最多为 $h-1$。因此，我们有：
 
-$$ \begin{align*}
+$$ \begin{align\*}
 L(h - 1) &\leq (1 - \alpha) L(h) \\\\
 L(h - 2) &\leq (1 - \alpha)^2 L(h) \\\\
 &... \\\\
 L(0) &= 1 \leq (1 - \alpha)^h L(h)
-\end{align*} $$
+\end{align\*} $$
 
 由于 $L(h) \leq n$，$n$ 是树中的节点数，我们有：
 
-$$ \begin{align*}
+$$ \begin{align\*}
 (1 - \alpha)^h n &\geq 1 \\\\
 n &\geq (1 - \alpha)^{-h} \\\\
 (1 - \alpha)^{-h} &\leq n \\\\
 (\frac{1}{1-\alpha})^h &\leq n \\\\
 h &\leq \log_\frac{1}{1 - \alpha} n \in O(\log n)
-\end{align*} $$
+\end{align\*} $$
 
 **所以，权重平衡树的高度也是节点数量的对数级别。**
 
