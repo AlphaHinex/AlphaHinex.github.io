@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】Java 中的 Reactive Streams 规范 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Java, concurrency, Reactive Streams, backpressure, Publisher, Subscriber, Subscription, Processor"> 
+    <meta name="description" content="
+原文地址：https://aliakh.github.io/2023/05/25/reactive_streams_specification_in_java/
+原文作者：Aliaksandr L,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】Java 中的 Reactive Streams 规范</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/reactive-streams-specification-in-java/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                五月 03, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/05/03/reactive-streams-specification-in-java/" title="【译】Java 中的 Reactive Streams 规范" class="">【译】Java 中的 Reactive Streams 规范</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    14k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    13 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/reactive/" rel="tag">reactive</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://aliakh.github.io/2023/05/25/reactive_streams_specification_in_java/" target="_blank" rel="noopener">https://aliakh.github.io/2023/05/25/reactive_streams_specification_in_java/</a></li>
+<li>原文作者：<a href="https://github.com/aliakh" target="_blank" rel="noopener">Aliaksandr Liakh</a></li>
+</ul>
+<hr>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Reactive Streams 是一个跨平台的规范，用于在异步边界（线程、进程或网络连接的计算机）上处理可能无限的事件序列，同时支持非阻塞的背压。一个反应式流包含一个发布者，它向前发送 <em>数据</em> 、<em>错误</em> 、<em>完成</em> 事件，以及订阅者，它向后发送 <em>请求</em> 和 <em>取消</em> 背压事件。在发布者和订阅者之间，还可以有中间处理器，用于过滤或转换事件。</p>
+<p><sub><em>背压（Backpressure）</em> 是从订阅者到发布者的应用级流量控制，用于控制发送速率。</sub></p>
+<p>Reactive Streams 规范旨在高效地处理（在 CPU 和内存使用方面）有时间顺序的事件序列。为了高效使用 CPU，规范描述了不同阶段（生产者、处理器、消费者）异步和非阻塞事件处理的契约。为了高效使用内存，规范描述了基于事件处理速率在 <em>push</em> 和 <em>pull</em> 通信模型之间切换的契约，从而避免使用无界缓冲区。</p>
+<a id="more"></a>
+
+<h2 id="问题与解决方案"><a href="#问题与解决方案" class="headerlink" title="问题与解决方案"></a>问题与解决方案</h2><p>在设计将项目（items）从生产者传输到消费者的系统时，目标是以最小的延迟和最大的吞吐量发送它们。</p>
+<p><sub><em>延迟（Latency）</em> 是从生产者发送一个项目到消费者接收该项目的时间。<em>吞吐量（Throughput）</em> 是单位时间内从生产者发送到消费者的项目数量。</sub></p>
+<p>然而，生产者和消费者可能存在一些限制，这些限制可能会阻止系统达到最佳性能：</p>
+<ul>
+<li>消费者可能比生产者慢。</li>
+<li>消费者可能无法跳过它没有时间处理的项目。</li>
+<li>生产者可能无法减慢或停止发送消费者没有时间处理的项目。</li>
+<li>生产者和消费者可能只有有限的 CPU 核心来异步处理项目，以及有限的内存来缓冲项目。</li>
+<li>生产者和消费者之间的通信通道可能带宽有限。</li>
+</ul>
+<p>有几种顺序处理项目的模式，可以解决上述一些或大部分限制：</p>
+<ul>
+<li>Iterator</li>
+<li>Observer</li>
+<li>Reactive Extensions</li>
+<li>Reactive Streams</li>
+</ul>
+<p>这些模式分为两类：同步 <em>pull</em> 通信模型（消费者决定何时从生产者接收项目）和异步 <em>push</em> 通信模型（生产者决定何时向消费者发送项目）。</p>
+<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><p>在 Iterator 模式中，消费者同步地从生产者那里一个一个地 <em>pull</em> 项目。生产者只有在消费者请求时才发送项目。如果生产者在请求时没有项目，它会发送一个空响应。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Iterator.png" alt="Iterator"></p>
+<p>优点：</p>
+<ul>
+<li>消费者可以在任何时候开始交换。</li>
+<li>如果消费者尚未处理完前一个项目，则无法请求下一个项目。</li>
+<li>消费者可以在任何时候停止交换。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>延迟可能由于拉取周期选择不当而不理想（拉取周期过长会导致高延迟；拉取周期过短会浪费 CPU 和 I/O 资源）。</li>
+<li>吞吐量不理想，因为发送每个项目都需要一次请求-响应。</li>
+<li>消费者无法确定生产者是否已经完成项目的生成。</li>
+</ul>
+<p>当使用 Iterator 模式逐个传输项目时，延迟和吞吐量通常不理想。为了在最小修改的情况下改善这些参数，可以以批量传输项目的方式使用 Iterator 模式，而不是每次只传输一个项目。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Iterator_with_batching.png" alt="Iterator with batching"></p>
+<p>优点：</p>
+<ul>
+<li>消费者可以在任何时候开始交换。</li>
+<li>如果消费者尚未处理完前一个项目，则无法请求下一个项目。</li>
+<li>消费者可以在任何时候停止交换。</li>
+<li>吞吐量增加，因为请求/响应的次数从每个项目一次减少到每个批次一次。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>延迟增加，因为生产者需要更多时间来发送更多项目。</li>
+<li>如果批次大小过大，可能无法适应生产者或消费者的内存。</li>
+<li>如果消费者想要停止处理，他只能在接收到整个批次后才能停止。</li>
+</ul>
+<h3 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h3><p>在 Observer 模式中，一个或多个消费者订阅生产者的事件。生产者在生成事件后会异步地将事件 <em>push</em> 给所有已订阅的消费者。如果消费者不再需要事件，可以取消订阅生产者。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Observer.png" alt="Observer"></p>
+<p>优点：</p>
+<ul>
+<li>消费者可以在任何时候开始交换。</li>
+<li>消费者可以在任何时候停止交换。</li>
+<li>延迟比同步 <em>pull</em> 通信模型低，因为生产者在事件可用时立即发送给消费者。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>较慢的消费者可能会被较快的生产者的事件淹没。</li>
+<li>消费者无法确定生产者是否已经完成项目的生成。</li>
+<li>实现并发的生产者和消费者可能并非易事。</li>
+</ul>
+<h3 id="Reactive-Extensions"><a href="#Reactive-Extensions" class="headerlink" title="Reactive Extensions"></a>Reactive Extensions</h3><p>Reactive Extensions (ReactiveX) 是一系列用于处理同步或异步事件流的多平台框架，最初由 Microsoft 的 Erik Meijer 创建。Reactive Extensions 在 Java 中的实现是 Netflix 的 RxJava 框架。</p>
+<p>简而言之，Reactive Extensions 是 Observer 和 Iterator 模式与函数式编程的结合。从 Observer 模式中，它们借用了消费者订阅生产者事件的能力。从 Iterator 模式中，它们借用了处理三种类型事件流（数据、错误、完成）的能力。从函数式编程中，它们借用了使用链式方法（过滤、转换、组合等）处理事件流的能力。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Reactive_Extensions.png" alt="Reactive Extensions"></p>
+<p>优点：</p>
+<ul>
+<li>消费者可以在任何时候开始交换。</li>
+<li>消费者可以在任何时候停止交换。</li>
+<li>消费者可以确定生产者何时完成事件的生成。</li>
+<li>延迟比同步 <em>pull</em> 通信模型低，因为生产者在事件可用时立即发送给消费者。</li>
+<li>消费者可以统一处理三种类型的事件流（数据、错误、完成）。</li>
+<li>使用链式方法处理事件流可能比使用许多嵌套的事件处理器更容易。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>较慢的消费者可能会被较快的生产者的事件淹没。</li>
+<li>实现并发的生产者和消费者可能并非易事。</li>
+</ul>
+<h3 id="Reactive-Streams"><a href="#Reactive-Streams" class="headerlink" title="Reactive Streams"></a>Reactive Streams</h3><p>Reactive Streams 是对 Reactive Extensions 的进一步发展，它使用背压来匹配生产者和消费者的性能。简而言之，Reactive Streams 是 Reactive Extensions 和批处理的结合。</p>
+<p>它们之间的主要区别在于谁是交换的发起者。在 Reactive Extensions 中，发布者在事件可用时立即向订阅者发送事件，数量不限。在 Reactive Streams 中，发布者必须在订阅者请求后才向其发送事件，且不超过请求的数量。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Reactive_Streams.png" alt="Reactive Streams"></p>
+<p>优点：</p>
+<ul>
+<li>消费者可以在任何时候开始交换。</li>
+<li>消费者可以在任何时候停止交换。</li>
+<li>消费者可以确定生产者何时完成事件的生成。</li>
+<li>延迟比同步 <em>pull</em> 通信模型低，因为生产者在事件可用时立即发送给消费者。</li>
+<li>消费者可以统一处理三种类型的事件流（数据、错误、完成）。</li>
+<li>使用链式方法处理事件流可能比使用许多嵌套的事件处理器更容易。</li>
+<li>消费者可以根据需要从生产者请求事件。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>实现并发的生产者和消费者可能并非易事。</li>
+</ul>
+<h2 id="Backpressure"><a href="#Backpressure" class="headerlink" title="Backpressure"></a>Backpressure</h2><p>对于生产者生成事件的速度比消费者处理事件的速度快的问题，有几种解决方案。在 <em>pull</em> 通信模型中，这种情况不会发生，因为消费者发起交换。在 <em>push</em> 通信模型中，生产者通常无法确定发送速率，因此消费者可能最终会收到比它能处理的更多事件。背压（Backpressure）是解决这个问题的一种方法，通过通知生产者其消费者的处理速率来实现。</p>
+<p>不使用背压时，消费者有几种解决方案来处理过多的事件：</p>
+<ul>
+<li>缓冲事件</li>
+<li>丢弃事件</li>
+<li>丢弃事件并通过它们的标识符请求生产者重新发送它</li>
+</ul>
+<p><sub>任何在消费者端丢弃事件的解决方案都可能效率低下，因为这些事件仍然需要通过 I/O 操作从生产者发送。</sub></p>
+<p>Reactive Streams 中的背压是通过以下方式实现的。为了开始从生产者接收事件，消费者 <em>拉取</em> 它想要接收的项目数量。只有在此之后，生产者才会 <em>推送</em> 事件给消费者；生产者永远不会主动发送它们。在消费者处理完所有它请求的事件后，整个周期重复。在特定情况下，如果已知消费者比生产者快，则可以在 <em>push</em> 通信模型中工作，并在订阅后立即请求所有项目。或者相反，如果已知消费者比生产者慢，则可以在 <em>pull</em> 通信模型中工作，并且仅在处理完前一批项目后才请求下一批。因此，反应式流操作的模型可以描述为 <em>动态 推/拉</em> 通信模型。无论生产者比消费者快或慢，甚至当这种比例随时间变化时，它都能有效地工作。</p>
+<p>使用背压时，生产者有更多的解决方案来处理过多的事件：</p>
+<ul>
+<li>缓冲事件</li>
+<li>丢弃事件</li>
+<li>暂停生成事件</li>
+<li>阻止生产者</li>
+<li>取消事件流</li>
+</ul>
+<p>使用哪个解决方案来处理特定的反应式流取决于事件的性质。但背压并不是一个 <em>银弹</em> 。它只是将性能不匹配的问题转移到了生产者端，在那里它应该更容易解决。然而，在某些情况下，有比背压更好的解决方案，比如简单地在消费者端丢弃过多的事件。</p>
+<h2 id="Reactive-Streams-规范"><a href="#Reactive-Streams-规范" class="headerlink" title="Reactive Streams 规范"></a>Reactive Streams 规范</h2><p>Reactive Streams 是一个 <a href="https://www.reactive-streams.org/" target="_blank" rel="noopener">规范</a>，旨在为各种运行时环境（JVM、.NET 和 JavaScript）和网络协议提供具有非阻塞背压功能的异步流处理标准。Reactive Streams 规范由 Kaazing、Lightbend、Netflix、Pivotal、Red Hat、Twitter 等公司的工程师创建。</p>
+<p>该规范描述了具有以下特性的 <em>反应式流（reactive streams）</em> 的概念：</p>
+<ul>
+<li>反应式流可以是 <em>单播（unicast）</em> 或 <em>多播（multicast）</em> 的：发布者可以向一个或多个消费者发送事件。</li>
+<li>反应式流可能是 <em>无限的</em> ：它们可以处理零个、一个、多个或无限数量的事件。</li>
+<li>反应式流是 <em>顺序的</em> ：消费者按发布者发送事件的顺序处理事件。</li>
+<li>反应式流可以是 <em>同步</em> 或 <em>异步</em> 的：它们可以在不同阶段使用计算资源进行并行处理。</li>
+<li>反应式流是 <em>非阻塞的</em> ：如果生产者和消费者的性能不同，它们不会浪费计算资源。</li>
+<li>反应式流使用 <em>强制背压</em> ：消费者可以根据其处理速率从生产者请求事件。</li>
+<li>反应式流使用 <em>有界缓冲区</em> ：它们可以在没有无界缓冲区的情况下实现，从而避免内存溢出错误。</li>
+</ul>
+<p>Reactive Streams <a href="https://github.com/reactive-streams/reactive-streams-jvm" target="_blank" rel="noopener">JVM 规范</a>（最新版本 1.0.4 于 2022 年 5 月 26 日发布）包含文本规范和 Java API，其中包含四个必须根据此规范实现的接口。它还包括技术兼容性套件（Technology Compatibility Kit, TCK），这是用于实现一致性测试的标准测试套件。</p>
+<p>值得注意的是，Reactive Streams 规范是在已经存在多个成熟但不兼容的 Reactive Streams 实现之后创建的。因此，该规范目前是有限的，仅包含低级 API。应用程序开发人员应使用此规范在现有实现之间提供互操作性。要获得高级功能 API（过滤、转换、组合等），应用程序开发人员应使用此规范的实现（Lightbend Akka Streams、Pivotal Project Reactor、Netflix RxJava 等）所提供的原生 API。</p>
+<h2 id="Reactive-Streams-API"><a href="#Reactive-Streams-API" class="headerlink" title="Reactive Streams API"></a>Reactive Streams API</h2><p>Reactive Streams API 由四个接口组成，这些接口位于 <em>org.reactivestreams</em> 包中：</p>
+<ul>
+<li>Publisher&lt;T&gt; 接口表示数据和控制事件的生产者。</li>
+<li>Subscriber&lt;T&gt; 接口表示事件的消费者。</li>
+<li>Subscription 接口表示发布者和订阅者之间的连接。</li>
+<li>Processor&lt;T,R&gt; 接口表示一个事件处理器，它既是订阅者又是发布者。</li>
+</ul>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Reactive_Streams_API.png" alt="Reactive Streams API"></p>
+<h3 id="Publisher"><a href="#Publisher" class="headerlink" title="Publisher"></a>Publisher</h3><p>Publisher 接口表示潜在无限的有序数据和控制事件的生产者。发布者根据从一个或多个订阅者接收到的需求（demand）来生产事件。</p>
+<p><sub><em>需求（Demand）</em> 是订阅者请求但尚未由发布者交付的项目总数。</sub></p>
+<p>发布者对于订阅者是否接收在其订阅之前产生的事件可能会有所不同。<em>冷（Cold）</em> 发布者可以重复，并且直到被订阅时才开始产生事件（如内存迭代器、文件读取、数据库查询等）。<em>热（Hot）</em> 发布者无法重复，并且立即开始，无论是否存在订阅者（如键盘和鼠标事件、传感器事件、网络请求等）。</p>
+<pre><code class="java">public interface Publisher&lt;T&gt; {
+    public void subscribe(Subscriber&lt;? super T&gt; s);
+}</code></pre>
+<p>这个接口有以下方法：</p>
+<ul>
+<li><em>subscribe(Subscriber)</em> 方法请求发布者开始向订阅者（Subscriber）发送事件。</li>
+</ul>
+<h3 id="Subscriber"><a href="#Subscriber" class="headerlink" title="Subscriber"></a>Subscriber</h3><p>Subscriber 接口表示事件的消费者。多个订阅者可以在不同时间订阅和取消订阅生产者。</p>
+<pre><code class="java">public interface Subscriber&lt;T&gt; {
+    public void onSubscribe(Subscription s);
+    public void onNext(T item);
+    public void onError(Throwable t);
+    public void onComplete();
+}</code></pre>
+<p>这个接口有以下方法：</p>
+<ul>
+<li><em>onSubscribe(Subscription)</em> 方法在生产者接受新的订阅时调用。</li>
+<li><em>onNext(T)</em> 方法在接收到每个项目时调用。</li>
+<li><em>onError(Throwable)</em> 方法在发生错误时调用。</li>
+<li><em>onComplete()</em> 方法在成功完成时调用。</li>
+</ul>
+<h3 id="Subscription"><a href="#Subscription" class="headerlink" title="Subscription"></a>Subscription</h3><p>Subscription 接口表示发布者和订阅者之间的连接。通过 Subscription，订阅者可以从发布者请求项目或取消连接。</p>
+<pre><code class="java">public interface Subscription {
+    public void request(long n);
+    public void cancel();
+}</code></pre>
+<p>这个接口包括下列方法：</p>
+<ul>
+<li><em>request(long)</em> 方法将给定数量的项目添加到此订阅的未完成的需求中。</li>
+<li><em>cancel()</em> 方法请求发布者 <em>最终（eventually）</em> 停止发送项目。</li>
+</ul>
+<h3 id="Processor"><a href="#Processor" class="headerlink" title="Processor"></a>Processor</h3><p>Processor 接口表示一个事件处理阶段，它同时继承了 Subscriber 和 Publisher 接口，并且受两者的约束。它作为反应式流的前一阶段的订阅者，同时作为下一阶段的发布者。</p>
+<pre><code class="java">public interface Processor&lt;T, R&gt; extends Subscriber&lt;T&gt;, Publisher&lt;R&gt; {
+}</code></pre>
+<h2 id="Reactive-Streams-工作流程"><a href="#Reactive-Streams-工作流程" class="headerlink" title="Reactive Streams 工作流程"></a>Reactive Streams 工作流程</h2><p>Reactive Streams 工作流程包括三个步骤：建立连接、交换数据和控制事件，以及成功或异常地终止连接。</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-streams-specification-in-java/Reactive_Streams_workflow.png" alt="Reactive Streams workflow"></p>
+<p>当订阅者想要开始从发布者接收事件时，它调用 <em>Publisher.subscribe(Subscriber)</em> 方法。如果发布者接受请求，它会创建一个新的 Subscription 实例并调用 <em>Subscriber.onSubscribe(Subscription)</em> 方法。如果发布者拒绝请求或以其他方式失败，它会调用 <em>Subscriber.onError(Throwable)</em> 方法。</p>
+<p>一旦发布者和订阅者通过 Subscription 实例建立了连接，订阅者就可以请求事件，发布者也可以发送事件。当订阅者想要接收事件时，它调用 <em>Subscription#request(long)</em> 方法，传入请求的项目数量。通常，第一次请求调用发生在 <em>Subscriber.onSubscribe(Subscription)</em> 方法中。发布者仅在响应先前的请求时，通过调用 <em>Subscriber.onNext(T)</em> 方法发送每个请求的项目。如果反应式流结束，发布者可以发送少于请求数量的事件，但随后必须调用 <em>Subscriber.onComplete()</em> 或 <em>Subscriber.onError(Throwable)</em> 方法。</p>
+<p>如果订阅者想要停止接收事件，它会调用 <em>Subscription.cancel()</em> 方法。调用此方法后，订阅者仍然可以接收事件以满足先前请求的需求。已取消的订阅不会接收 <em>Subscriber.onComplete()</em> 或 <em>Subscriber.onError(Throwable)</em> 事件。</p>
+<p>当没有更多事件时，发布者通过调用 <em>Subscriber.onComplete()</em> 方法成功完成订阅。当发布者发生不可恢复的异常时，它通过调用 <em>Subscriber.onError(Throwable)</em> 方法异常完成订阅。在调用 <em>Subscriber.onComplete()</em> 或 <em>Subscriber.onError(Throwable)</em> 事件后，当前订阅将不再向订阅者发送任何其他事件。</p>
+<h2 id="JDK-Flow-API"><a href="#JDK-Flow-API" class="headerlink" title="JDK Flow API"></a>JDK Flow API</h2><p>JDK 从版本 9 开始以 Flow API 的形式支持 Reactive Streams 规范。<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Flow.html" target="_blank" rel="noopener">Flow</a> 类包含嵌套的静态 Publisher、Subscriber、Subscription、Processor 接口，这些接口与 Reactive Streams 规范中对应接口在语义上完全等价。Reactive Streams 规范包含 <a href="https://github.com/reactive-streams/reactive-streams-jvm/blob/master/api/src/main/java9/org/reactivestreams/FlowAdapters.java" target="_blank" rel="noopener">FlowAdapters</a> 类，这是 Reactive Streams API（<em>org.reactivestreams</em> 包）和 JDK Flow API（<em>java.util.concurrent.Flow</em> 类）之间的桥梁。JDK 目前提供的唯一 Reactive Streams 规范实现是 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/SubmissionPublisher.html" target="_blank" rel="noopener">SubmissionPublisher</a> 类，它实现了 Publisher 接口。</p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><h3 id="同步冷反应式流"><a href="#同步冷反应式流" class="headerlink" title="同步冷反应式流"></a>同步冷反应式流</h3><p>这个 <a href="https://github.com/aliakh/demo-java-reactive-streams/blob/master/src/main/java/demo/reactivestreams/part1/readme.md" target="_blank" rel="noopener">文档</a> 描述了一个同步生产者、同步消费者的实现，以及由它们创建的 <em>冷</em> 反应式流。</p>
+<h3 id="异步冷反应式流"><a href="#异步冷反应式流" class="headerlink" title="异步冷反应式流"></a>异步冷反应式流</h3><p>这个 <a href="https://github.com/aliakh/demo-java-reactive-streams/blob/master/src/main/java/demo/reactivestreams/part2/readme.md" target="_blank" rel="noopener">文档</a> 描述了一个异步生产者、异步消费者的实现，以及由它们创建的 <em>冷</em> 反应式流。</p>
+<h3 id="异步热反应式流"><a href="#异步热反应式流" class="headerlink" title="异步热反应式流"></a>异步热反应式流</h3><p>这个 <a href="https://github.com/aliakh/demo-java-reactive-streams/blob/master/src/main/java/demo/reactivestreams/part5/readme.md" target="_blank" rel="noopener">文档</a> 描述了一个异步生产者、一个继承自 SubmissionPublisher 类的异步处理器的实现，以及由它们创建的 <em>热</em> 反应式流。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>在 JDK 中出现 Reactive Streams 之前，已经存在相关的 CompletableFuture 和 Stream API。CompletableFuture API 使用 <em>push</em> 通信模型，但支持单值的异步计算。Stream API 支持多值的同步或异步计算，但使用 <em>pull</em> 通信模型。Reactive Streams 填补了这一空白，支持多值的同步或异步计算，并且可以在 <em>push</em> 和 <em>pull</em> 计算模型之间动态切换。因此，Reactive Streams 适用于处理速率不可预测的事件序列，例如鼠标和键盘事件、传感器事件以及来自文件或网络的延迟受限的 I/O 事件（latency-bound I/O events）。</p>
+<p>至关重要的是，应用程序开发人员不应自己实现 Reactive Streams 规范的接口。首先，该规范足够复杂，特别是在异步契约方面，无法轻松地正确实现。其次，该规范不包含中间流操作的 API。相反，应用程序开发人员应使用现有框架（Lightbend Akka Streams、Pivotal Project Reactor、Netflix RxJava）及其更丰富的原生 API 来实现反应式流阶段（生产者、处理器、消费者）。他们应仅使用 Reactive Streams API 将异构阶段组合成单个反应式流。</p>
+<p>完整的代码示例可在 <a href="https://github.com/aliakh/demo-java-reactive-streams" target="_blank" rel="noopener">GitHub 仓库</a> 中找到。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">349 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">165 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#问题与解决方案"><span class="toc-number">2.</span> <span class="toc-text">问题与解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterator"><span class="toc-number">2.1.</span> <span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Observer"><span class="toc-number">2.2.</span> <span class="toc-text">Observer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactive-Extensions"><span class="toc-number">2.3.</span> <span class="toc-text">Reactive Extensions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Reactive-Streams"><span class="toc-number">2.4.</span> <span class="toc-text">Reactive Streams</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Backpressure"><span class="toc-number">3.</span> <span class="toc-text">Backpressure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactive-Streams-规范"><span class="toc-number">4.</span> <span class="toc-text">Reactive Streams 规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactive-Streams-API"><span class="toc-number">5.</span> <span class="toc-text">Reactive Streams API</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Publisher"><span class="toc-number">5.1.</span> <span class="toc-text">Publisher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscriber"><span class="toc-number">5.2.</span> <span class="toc-text">Subscriber</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subscription"><span class="toc-number">5.3.</span> <span class="toc-text">Subscription</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Processor"><span class="toc-number">5.4.</span> <span class="toc-text">Processor</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reactive-Streams-工作流程"><span class="toc-number">6.</span> <span class="toc-text">Reactive Streams 工作流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JDK-Flow-API"><span class="toc-number">7.</span> <span class="toc-text">JDK Flow API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例代码"><span class="toc-number">8.</span> <span class="toc-text">示例代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#同步冷反应式流"><span class="toc-number">8.1.</span> <span class="toc-text">同步冷反应式流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步冷反应式流"><span class="toc-number">8.2.</span> <span class="toc-text">异步冷反应式流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异步热反应式流"><span class="toc-number">8.3.</span> <span class="toc-text">异步热反应式流</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-number">9.</span> <span class="toc-text">结论</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

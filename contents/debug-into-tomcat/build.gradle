@@ -1,0 +1,21 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    compile 'javax.servlet:javax.servlet-api:3.0.1'
+
+    def tomcatVer = '7.0.63'
+    runtime "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVer}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVer}",
+            "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVer}"
+}

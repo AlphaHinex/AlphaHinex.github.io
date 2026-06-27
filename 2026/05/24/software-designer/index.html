@@ -1,0 +1,1487 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《软件设计师考前突破：考点精讲、真题精解、难点精练》书摘 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,软件设计师, 海明码, DRAM, SRAM, Master Theorem, WPL, PV操作, 数据流图, 状态转换图, 结构化分析, 结构化设计, 软件测试, 软件维护, 软件项目管理"> 
+    <meta name="description" content="
+豆瓣评分
+
+第1章 计算机科学基础
+在计算机中，数值型的数据有两种表示方法，一种叫作定点数，另一种叫作浮点数。所谓定点数，就是在计算机中所有数的小数点位置固定不变。定点数有两种：定点小数和定点整数,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《软件设计师考前突破：考点精讲、真题精解、难点精练》书摘</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/software-designer/cover.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Book"><b>「
+                    </b>BOOK<b> 」</b></a>
+                
+                五月 24, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/05/24/software-designer/" title="《软件设计师考前突破：考点精讲、真题精解、难点精练》书摘" class="">《软件设计师考前突破：考点精讲、真题精解、难点精练》书摘</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    53k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    48 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="https://alphahinex.github.io/contents/software-designer/cover.jpg" alt=""></p>
+<p><a href="https://book.douban.com/subject/36428843/" target="_blank" rel="noopener">豆瓣评分</a></p>
+<hr>
+<h2 id="第1章-计算机科学基础"><a href="#第1章-计算机科学基础" class="headerlink" title="第1章 计算机科学基础"></a>第1章 计算机科学基础</h2><blockquote>
+<p>在计算机中，数值型的数据有两种表示方法，一种叫作定点数，另一种叫作浮点数。所谓定点数，就是在计算机中所有数的小数点位置固定不变。定点数有两种：定点小数和定点整数。定点小数是将小数点固定在最高数据位的左边，因此它只能表示小于1的纯小数。定点整数是将小数点固定在最低数据位的右边，因此定点整数表示的也只是纯整数。由此可见，定点数表示数的范围较小。</p>
+</blockquote>
+<blockquote>
+<p>为了扩大计算机中数值数据的表示范围，我们将12.34表示为0.1234×102，其中0.1234叫作尾数，10叫作基数（可以在计算机内固定下来）。2叫作阶码，若阶码的大小发生变化，则意味着实际数据小数点的移动，我们把这种数据叫作浮点数。由于基数在计算机中固定不变，因此，我们可以用两个定点数分别表示尾数和阶码，从而表示这个浮点数。其中，尾数用定点小数表示，阶码用定点整数表示。</p>
+</blockquote>
+<blockquote>
+<p>原码的表示方法为：如果真值是正数，则最高位为0，其他位保持不变；如果真值是负数，则最高位为1，其他位保持不变。</p>
+</blockquote>
+<blockquote>
+<p>反码的表示方法为：如果真值是正数，则最高位为0，其他位保持不变；如果真值是负数，则最高位为1，其他位按位求反。</p>
+</blockquote>
+<blockquote>
+<p>补码的表示方法为：若真值是正数，则最高位为0，其他位保持不变；若真值是负数，则最高位为1，其他位按位求反后再加1。</p>
+</blockquote>
+<blockquote>
+<p>码距：与二进制位有关，任意两个合法编码的二进制位之间不同的位数。比如对于一套编码000000111111，第一个数(0000)和第二个数(0011)后两位的二进制位不同，所以对于前两个数来说码距是2。同理，后两个数（0011和1111）之间的码距也是2。对于第一个数(0000)和第三个数(1111)，码距就是4。但是注意，码距是最小值，所以这套编码的码距就是2。</p>
+</blockquote>
+<blockquote>
+<p>海明码的作用是：在编码中如果有错误，可以表达出第几位出了错。二进制的数据只有0和1，修改起来很容易，求反即可，这需要加入几个校验位。它是根据总的位置来加的，加在“2的几次幂”的位置上，这个位置不是我们通常的从右向左数位置，刚好相反，是从左到右，如图1-3所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/software-designer/1-3.jpg" alt="图1-3 海明码位置含义"></p>
+</blockquote>
+<blockquote>
+<p>P是校验位，D是数据位。原始的数据是101101，校验位是插到了1，2，4，8这几个位置上。</p>
+</blockquote>
+<blockquote>
+<p>校验位插在2的幂的位置上</p>
+</blockquote>
+<blockquote>
+<p>1)若某整数的16位补码为FFFFH（H表示十六进制），则该数的十进制值为<strong>__</strong>。<br><br>A.0<br><br>B.-1<br><br>C.216-1<br><br>D.-216+1<br></p>
+</blockquote>
+<blockquote>
+<p>正数的补码与其原码和反码相同，负数的补码等于其反码的末尾加1。</p>
+</blockquote>
+<h2 id="第2章-计算机硬件基础"><a href="#第2章-计算机硬件基础" class="headerlink" title="第2章 计算机硬件基础"></a>第2章 计算机硬件基础</h2><h3 id="2-2-真题精解"><a href="#2-2-真题精解" class="headerlink" title="2.2 真题精解"></a>2.2 真题精解</h3><blockquote>
+<p>32)地址编号从80000H到BFFFFH且按字节编址的内存容量为①KB。若用16K×4b的存储器芯片构成该内存，共需②片。<br><br>①A.128<br><br>B.256<br><br>C.512<br><br>D.1024<br><br>②A.8<br><br>B.16<br><br>C.32<br><br>D.64</p>
+</blockquote>
+<blockquote>
+<p>32)①B。<br><br>②C。<br><br>从80000H～BFFFFH的地址空间为80000H-BFFFFH+1=40000H（即2^18）个，按字节编址的话，对应的容量为2^8KB，即256KB。若用16K×4b的芯片构成该内存，构成一个16KB存储器需要2片，256÷16=16，因此共需要32片。</p>
+</blockquote>
+<blockquote>
+<p>40)计算机采用分级存储体系的主要目的是解决<strong>__</strong>问题。<br><br>A.主存容量不足<br><br>B.存储器读写可靠性<br><br>C.外设访问效率<br><br>D.存储容量、成本和速度之间的矛盾</p>
+</blockquote>
+<blockquote>
+<p>40)D。<br><br>计算机系统中，高速缓存一般用SRAM，内存一般用DRAM，外存一般采用磁盘存储器。SRAM的集成度低、速度快、成本高。DRAM的集成度高，但是需要动态刷新。磁存储器速度慢、容量大、价格便宜。因此，不同的存储设备组成分级存储体系，来解决速度、存储容量和成本之间的矛盾。</p>
+</blockquote>
+<p><strong>DRAM（动态随机存取存储器）</strong> 和 <strong>SRAM（静态随机存取存储器）</strong> 是两种常见的 RAM 类型，主要区别如下：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>DRAM</th>
+<th>SRAM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>存储原理</strong></td>
+<td>使用电容存储电荷，电荷会泄漏，需要定期刷新（动态）</td>
+<td>使用触发器（锁存器）存储状态，不需要刷新（静态）</td>
+</tr>
+<tr>
+<td><strong>速度</strong></td>
+<td>较慢（访问时间约 50~70 ns）</td>
+<td>较快（访问时间约 10 ns 或更短）</td>
+</tr>
+<tr>
+<td><strong>功耗</strong></td>
+<td>较高（需要刷新电路），但待机功耗较低</td>
+<td>静态功耗较大（但总功耗通常比 DRAM 高）</td>
+</tr>
+<tr>
+<td><strong>集成度</strong></td>
+<td>高（每个存储单元只用 1 个晶体管 + 1 个电容）</td>
+<td>低（每个存储单元需 6 个晶体管）</td>
+</tr>
+<tr>
+<td><strong>成本</strong></td>
+<td>低（每 bit 价格便宜）</td>
+<td>高（每 bit 价格昂贵）</td>
+</tr>
+<tr>
+<td><strong>容量</strong></td>
+<td>大（主流内存芯片可达数 GB~数十 GB）</td>
+<td>小（常用作缓存，容量从几 KB 到几十 MB）</td>
+</tr>
+<tr>
+<td><strong>主要用途</strong></td>
+<td>计算机主内存（如 DDR4/DDR5）</td>
+<td>CPU 缓存（L1、L2、L3）、寄存器、嵌入式系统的高速缓冲</td>
+</tr>
+</tbody></table>
+<p><strong>简单记忆</strong>：  </p>
+<ul>
+<li><strong>DRAM</strong>：密度高、便宜、慢、需刷新 → 主存  </li>
+<li><strong>SRAM</strong>：速度快、贵、功耗较高、不需刷新 → 缓存</li>
+</ul>
+<h2 id="第3章-数据结构与算法"><a href="#第3章-数据结构与算法" class="headerlink" title="第3章 数据结构与算法"></a>第3章 数据结构与算法</h2><h3 id="3-2-真题精解"><a href="#3-2-真题精解" class="headerlink" title="3.2 真题精解"></a>3.2 真题精解</h3><blockquote>
+<p>14)某算法的时间复杂度可用递归式<img src="https://alphahinex.github.io/contents/software-designer/3.2-14.jpg" alt="3.2-14">表示，若用O表示该算法的渐近时间复杂度的紧致界，则正确的是<strong>__</strong>。<br><br>A.O(nlg2n)<br><br>B.O(nlgn)<br><br>C.O(n2)<br><br>D.O(n3)<br></p>
+</blockquote>
+<blockquote>
+<p>14)A。<br>该题可以用主方法来求解，对于该递归式，a=2，b=2，f(n)=nlgn，属于第二种情况，因此其时间复杂度为O(nlg2n)。该题还可以用递归树求解。</p>
+</blockquote>
+<h3 id="Master-Theorem"><a href="#Master-Theorem" class="headerlink" title="Master Theorem"></a>Master Theorem</h3><p>The Master Theorem applies to recurrences of the following form:</p>
+<p>$$<br>T(n) = a,T\left(\frac{n}{b}\right) + f(n)<br>$$</p>
+<p>where $a \geq 1$ and $b &gt; 1$ are constants and $f(n)$ is an asymptotically positive function.</p>
+<p>There are 3 cases:</p>
+<ol>
+<li>If $f(n) = O(n^{\log_b a - \epsilon})$ for some constant $\epsilon &gt; 0$, then $T(n) = \Theta(n^{\log_b a})$.</li>
+<li>If $f(n) = \Theta(n^{\log_b a}\log^kn)$, with $k \geq 0$, then $T(n) = \Theta(n^{\log_b a} \log^{k+1} n)$.</li>
+<li>If $f(n) = \Omega(n^{\log_b a + \epsilon})$ with $\epsilon &gt; 0$, and $f(n)$ satisfies the regularity condition, then $T(n) = \Theta(f(n))$.<br><br>Regularity condition: $a f(n/b) \leq c f(n)$ for some constant $c &lt; 1$ and sufficiently large $n$.</li>
+</ol>
+<blockquote>
+<p><a href="https://people.csail.mit.edu/thies/6.046-web/master.pdf" target="_blank" rel="noopener">https://people.csail.mit.edu/thies/6.046-web/master.pdf</a></p>
+</blockquote>
+<blockquote>
+<p>42)如图3-10所示为一棵M阶树，M最有可能的值为<strong>__</strong>。<br><br><img src="https://alphahinex.github.io/contents/software-designer/3-10.jpg" alt="图3-10 M阶树"><br>A.1<br><br>B.2<br><br>C.3<br><br>D.4</p>
+</blockquote>
+<blockquote>
+<p>42)D。<br><br>在M阶树的定义中，要求：<br><br>①树中的每个节点至多有M棵子树。<br><br>②若根节点不是叶节点，则至少有两棵子树。<br><br>③除根之外的所有非终端节点至少有M/2棵子树。<br><br>因此，本题图中所示的树最可能为4阶树。</p>
+</blockquote>
+<blockquote>
+<p>78)希尔排序算法又称最小增量排序算法，其基本思想是：<br><br>步骤01 构造一个步长序列delta1，delta2，…，deltak，其中delta1=n/2，后面的每个delta是前一个的1/2，deltak=1。<br><br>步骤02 根据步长序列进行k趟排序。<br><br>步骤03 对于第i趟排序，根据对应的步长delta，将等步长位置的元素分组，对同一组内的元素在原位置上进行直接插入排序。<br><br>下面是算法的C语言实现。<br><br>(1)常量和变量说明<br>data：待排序数组，长度为n，待排序数据记录在data[0] data[1]…data[n-1]中。<br><br>n：数组a中的元素个数。<br><br>delta：步长数组。<br><br>(2)C程序<br><br><img src="https://alphahinex.github.io/contents/software-designer/3.2-78a.jpg" alt="3.2-78a"><br><br><img src="https://alphahinex.github.io/contents/software-designer/3.2-78b.jpg" alt="3.2-78b"><br><br>问题1：根据说明和C代码，填充C代码中的空①～④。<br><br>问题2：根据说明和C代码，该算法的时间复杂度⑤O(n2)（小于、等于或大于）。该算法是否稳定⑥（是或否）。<br><br>问题3：对数组(15，9，7，8，20，-1，4)用希尔排序方法进行排序，经过一趟排序后得到的数组为⑦。</p>
+</blockquote>
+<blockquote>
+<p>78)问题1：①k=k/2，②k＞1，③data[k]＜data[k-dt]，④data[j+dk]=t。<br><br>问题2：⑤小于，⑥否。<br><br>问题3：⑦(4，9，-1，8，20，7，15)。</p>
+</blockquote>
+<h3 id="3-3-难点精练"><a href="#3-3-难点精练" class="headerlink" title="3.3 难点精练"></a>3.3 难点精练</h3><blockquote>
+<p>1)以下序列中不符合堆定义的是<strong>__</strong>。<br><br>A.102,87,100,79,82,62,84,42,22,12,68<br><br>B.102,100,87,84,82,79,68,62,42,22,12<br><br>C.12,22,42,62,68,79,82,84,87,100,102<br><br>D.102,87,42,79,82,62,68,100,84,12,22</p>
+</blockquote>
+<blockquote>
+<p>1)D。<br><br>堆的定义：n个元素的序列{k1，k2，…，kn}当且仅当满足关系式<img src="https://alphahinex.github.io/contents/software-designer/3.3-1a.jpg" alt="3.3-1a">)或<img src="https://alphahinex.github.io/contents/software-designer/3.3-1b.jpg" alt="3.3-1b">时称为堆，相应的序列称为小顶堆或大顶堆。<br><br>判断堆的办法是把序列看成一棵完全二叉树，按层遍历，若树中的所有非终端节点的值均不大于（或不小于）其左右孩子的节点的值，则该序列为堆。</p>
+</blockquote>
+<blockquote>
+<p>2)将一个A[1…100，1…100]的三对角矩阵，按行优先存入一维数组B[1…298]中，A[65，65]在B中的位置为<strong>__</strong>。<br><br>A.192<br><br>B.193<br><br>C.195<br><br>D.196</p>
+</blockquote>
+<blockquote>
+<p>2)B。<br><br>该题考查的是矩阵的压缩存储。<br><br>所谓三对角矩阵，除了对角线附近的元素外，其余元素均为0。A[1，1]对应B[1]，A[1，2]对应B[2]，A[2，1]对应B[3]，A[2，2]对应B[4]，A[2，3]对应B[5]，A[3，1]对应B[6]，以此类推。可得k=3×64+1=193。<br><br>一般情况下，A[i，j]对应B[k]：k=3×(i-1)-1+j-i+2=2i+j-2。</p>
+</blockquote>
+<blockquote>
+<p>9)栈和队列都是<strong>__</strong>。<br><br>A.顺序存储的线性结构<br><br>B.链式存储的线性结构<br><br>C.限制存储点的线性结构<br><br>D.限制存储点的非线性结构</p>
+</blockquote>
+<blockquote>
+<p>9)C。<br><br>队列是一种先进先出的线性表，只允许在一端进行插入运算，在另一端进行删除运算。允许进行删除运算的那一端称为队首，允许进行插入运算的另一端称为队尾。<br><br>栈是限定仅在表尾进行插入或删除操作的线性表。表尾端称为栈顶，表头端称为栈底。故栈是后进先出的线性表。<br><br>可见，栈和队列都是限制存储点的线性结构。</p>
+</blockquote>
+<blockquote>
+<p>14)对于给定的一组权值{2，3，4，11}，用其构造哈夫曼树，则其WPL为①。根节点的权值为②。<br><br>①A.53<br><br>B.40<br><br>C.34<br><br>D.20<br><br>②A.53<br><br>B.40<br><br>C.34<br><br>D.20</p>
+</blockquote>
+<blockquote>
+<p>14)①C。<br><br>②D。<br><br>哈夫曼树是指权值为w1，w2，…，wn的n个叶节点的二叉树中带权路径长度最小的二叉树。构造哈夫曼树的算法如下：<br><br>(a)给定n个节点的集合，每个节点都带权值。<br><br>(b)选两个权值最小的节点构造一棵新的二叉树，新的二叉树的根节点的权值就是两个子节点的权值之和。<br><br>(c)从n个节点中删除刚才使用的两个节点，同时将新产生的二叉树的根节点放在节点集合中。<br><br>重复(b)和(c)，直到只有一棵树为止。本题构造出的哈夫曼树如图3-31所示。<br><br><img src="https://alphahinex.github.io/contents/software-designer/3-31.jpg" alt="图3-31 哈夫曼树"><br><br>根节点的权值为20，对应的WPL为11×1+4×2+(2+3)×3=34。</p>
+</blockquote>
+<p><strong>WPL</strong> 是 <strong>带权路径长度（Weighted Path Length）</strong> 的缩写，它是衡量哈夫曼树（最优二叉树）优劣的关键指标。</p>
+<p>对于一棵给定的哈夫曼树，WPL 的计算方式为：</p>
+<p>$$<br>\text{WPL} = \sum_{i=1}^{n} (w_i \times l_i)<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$ w_i $ 是第 $ i $ 个叶子节点的权值（通常代表出现频率、概率等）。</li>
+<li>$ l_i $ 是从根节点到该叶子节点的路径长度（经过的边数，或深度）。</li>
+<li>$ n $ 是叶子节点的总数。</li>
+</ul>
+<blockquote>
+<p>20)下列有关广义表的说法错误的是<strong>__</strong>。<br><br>A.广义表是多层次结构，其元素可以是子表，子表的元素还可以是子表<br><br>B.广义表中的元素可以是已经定义的广义表的名字<br><br>C.非空广义表的表尾是指广义表的最后一个元素，可以是不可分的单元素<br><br>D.广义表可以是一个递归表，即广义表中的元素也可以是本广义表的名字</p>
+</blockquote>
+<blockquote>
+<p>20)C。<br><br>广义表是线性表的推广，是由零个或多个单元素或子表组成的有限序列。广义表的长度是指广义表中元素的个数。广义表的深度是指广义表展开后所含的括号的最大层数。非空广义表的第一个元素称为表头，它可以是一个单元，也可以是一个子表。在非空广义表中，除表头元素之外，由其余元素所构成的表称为表尾。非空广义表的表尾必定是一个表。</p>
+</blockquote>
+<blockquote>
+<p>40)一个带头节点的链式队列的头指针为f，队尾指针为r，则判断队空的条件为<strong>__</strong>。<br><br>A.f!=NULL<br><br>B.r!=NULL<br><br>C.f=NULL<br><br>D.f=r</p>
+</blockquote>
+<blockquote>
+<p>40)D。<br><br>队列是一种先进先出的线性表，只允许在一端进行插入运算，在另一端进行删除运算。允许删除的那一端称为队首，允许插入运算的另一端称为队尾。通常称队列的节点插入为进队，队列的节点删除为出队。若有队列Q=(q0，q1，…，qn-1)，则q0称为队首节点，qn-1称为队尾节点。当队首指针与队尾指针指向同一位置时，则队列为空。</p>
+</blockquote>
+<blockquote>
+<p>54)对数据{82，16，95，27，75，42，69，34}按关键字非递减顺序进行快速排序，取第一个元素为枢轴，第一趟排序后的结果是<strong>__</strong>。<br><br>A.34,16,69,27,75,42,82,95<br><br>B.16,27,75,42,69,34,82,95<br><br>C.16,82,27,75,42,69,34,95<br><br>D.16,82,95,27,75,42,69,34</p>
+</blockquote>
+<blockquote>
+<p>54)A。<br><br>快速排序是通过一趟排序选定一个关键字介于“中间”的记录，从而使剩余记录可以分成两个子序列分别继续排序，通常称该记录为“枢轴”。<br><br>一次快速排序的具体做法是：附设两个指针low和high，它们的初值分别指向文件的第一个记录和最后一个记录。设枢轴记录（通常是第一个记录）的关键字为pivotkey，则首先从high所指位置起向前搜索，找到第一个关键字小于pivotkey的记录并与枢轴记录互相交换，然后从low所指位置起向后搜索，找到第一个关键字大于pivotkey的记录并与枢轴记录互相交换，重复这两步直至low=high为止。</p>
+</blockquote>
+<h2 id="第4章-操作系统"><a href="#第4章-操作系统" class="headerlink" title="第4章 操作系统"></a>第4章 操作系统</h2><blockquote>
+<p>进程的定义：进程是一个可并发执行的具有独立功能的程序关于某个数据集合的一次执行过程，也是操作系统进行资源分配和保护的基本单位。</p>
+</blockquote>
+<blockquote>
+<p>进程的组成：进程由程序段、数据段和进程控制块(PCB)三部分组成。</p>
+</blockquote>
+<blockquote>
+<p>PV操作是实现进程同步与互斥的常用方法。</p>
+</blockquote>
+<blockquote>
+<p>线程是操作系统进程中能够独立执行的实体（控制流），是处理器调度和分派的基本单位。</p>
+</blockquote>
+<h2 id="4-2-真题精解"><a href="#4-2-真题精解" class="headerlink" title="4.2 真题精解"></a>4.2 真题精解</h2><blockquote>
+<p>5)进程P1、P2、P3、P4和P5的前驱图如图4-9所示。若用PV操作控制进程P1～P5并发执行的过程，则需要设置6个信号量S1、S2、S3、S4、S5和S6，且信号量S1～S6的初值都等于0。在图4-10中，a和b处应分别填写①，c和d处应分别填写②，e和f处应分别填写③。<br><br><img src="https://alphahinex.github.io/contents/software-designer/4-9.jpg" alt="图4-9 进程前驱图"><br><br><img src="https://alphahinex.github.io/contents/software-designer/4-10.jpg" alt="图4-10 进程PV操作图"><br><br>①A.P(S1)P(S2)和P(S3)P(S4)<br><br>B.P(S1)V(S2)和P(S2)V(S1)<br><br>C.V(S1)V(S2)和V(S3)V(S4)<br><br>D.P(S1)P(S2)和V(S1)V(S2)<br><br>②A.P(S1)P(S2)和V(S3)V(S4)<br><br>B.P(S1)P(S3)和V(S5)V(S6)<br><br>C.V(S1)V(S2)和P(S3)P(S4)<br><br>D.P(S1)V(S3)和P(S2)V(S4)<br><br>③A.P(S3)P(S4)和V(S5)V(S6)<br><br>B.V(S5)V(S6)和P(S5)P(S6)<br><br>C.P(S2)P(S5)和P(S4)P(S6)<br><br>D.P(S4)V(S5)和P(S5)V(S6)</p>
+</blockquote>
+<blockquote>
+<p>5)①C。<br><br>②B。<br><br>③C。<br><br>因为P1是P3和P4的前驱，当P1执行完成后，应通知P3和P4，故应采用V(S1)V(S2)操作分别通知P3和P4；同理，P2是P3和P5的前驱，当P2执行完后，应通知P3和P5，故应采用V(S3)V(S4)操作分别通知P3和P5。<br>因为P3是P1和P2的后继，在P3执行前应测试P1和P2是否执行完，故应采用P(S1)P(S3)操作分别测试P1和P2是否执行完；又因为P3是P4和P5的前驱，当P3执行完应通知P4和P5，故应采用V(S5)V(S6)操作分别通知P4和P5。<br><br>因为P4是P1和P3的后继，在P4执行前应测试P1和P3是否执行完，故应采用P(S2)P(S5)操作分别测试P1和P3是否执行完；又因为P5是P2和P3的前驱的后继，在P5执行前应测试P2和P3是否执行完，故应采用P(S4)P(S6)操作分别测试P2和P3是否执行完。</p>
+</blockquote>
+<blockquote>
+<p>23)假设段页式存储管理系统中的地址结构如图4-18所示，则系统中<strong>__</strong>。<br><br><img src="https://alphahinex.github.io/contents/software-designer/4-18.jpg" alt="图4-18 段页式存储管理系统中的地址结构"><br><br>A.页的大小为4KB，每段的大小均为4096页，最多可有256段<br><br>B.页的大小为4KB，每段最大允许有4096页，最多可有256段<br><br>C.页的大小为8KB，每段的大小均为2048页，最多可有128段<br><br>D.页的大小为8KB，每段最大允许有2048页，最多可有128段</p>
+</blockquote>
+<blockquote>
+<p>23)B。<br><br>从图中可见，页内地址的长度是12位，2^12=4096，即4KB；页号部分的地址长度是12位，每个段最大允许有4096页；段号部分的地址长度是8位，2^8=256，最多可有256段。</p>
+</blockquote>
+<blockquote>
+<p>28)某计算机系统页面大小为4KB，若进程的页面变换表如表4-9所示，逻辑地址为十六进制1D16H。该地址经过变换后，其物理地址应为十六进制<strong>__</strong>。<br><img src="https://alphahinex.github.io/contents/software-designer/4-9t.jpg" alt="表4-9 进程的页面变换表"><br><br>A.1024H<br><br>B.3D16H<br><br>C.4Dl6H<br><br>D.6D16H</p>
+</blockquote>
+<blockquote>
+<p>28)B。<br><br>根据题意页面大小为4KB，逻辑地址为十六进制1D16H，其页号为1，页内地址为D16H，查页表后可知物理块号为3，该地址经过变换后，其物理地址应为物理块号3拼上页内地址D16H，即十六进制3D16H。</p>
+</blockquote>
+<p>逻辑地址为 1D16H，页面大小为 4KB（2^12 字节），因此低 12 位（3 个十六进制位）为页内偏移，高 4 位为页号。</p>
+<ul>
+<li>1D16H = 0001 1101 0001 0110B，高 4 位为 0001B = 1，所以页号为 1。</li>
+<li>查表得页号 1 对应的物理块号为 3。</li>
+<li>页内偏移为低 12 位：D16H（即 0xD16）。</li>
+<li>物理地址 = 物理块号 × 页面大小 + 偏移 = 3 × 4096 + 0xD16 = 0x3000 + 0xD16 = <strong>0x3D16</strong>。</li>
+</ul>
+<p>因此，物理地址为十六进制 <strong>3D16H</strong>。</p>
+<p>若逻辑地址和物理地址都是以十进制给出，计算步骤完全类似，只需将十六进制运算换成十进制运算。</p>
+<p><strong>已知条件</strong>：<br>页面大小 = 4 KB = 4096 字节（十进制）。<br>页表给出页号到物理块号（帧号）的映射。</p>
+<p><strong>计算步骤</strong>：  </p>
+<ol>
+<li>给定十进制逻辑地址 $ L $。  </li>
+<li>页号 $ P = \lfloor L / 4096 \rfloor $（整数除法）。  </li>
+<li>页内偏移 $ D = L \mod 4096 $。  </li>
+<li>查表得到页号 $ P $ 对应的物理块号 $ F $。  </li>
+<li>物理地址 $ PA = F \times 4096 + D $。</li>
+</ol>
+<p><strong>举例</strong>：<br>若逻辑地址为 7446（十进制），则  </p>
+<ul>
+<li>页号 = 7446 ÷ 4096 = 1（因为 1×4096=4096，2×4096=8192&gt;7446）  </li>
+<li>偏移 = 7446 - 4096 = 3350  </li>
+<li>查表页号1对应物理块号3  </li>
+<li>物理地址 = 3×4096 + 3350 = 12288 + 3350 = 15638（十进制）</li>
+</ul>
+<p>若题目要求以十六进制表示物理地址，则将 15638 转换为十六进制：<br>15638 ÷ 16 = 977 余 6，977 ÷ 16 = 61 余 1，61 ÷ 16 = 3 余 13（D），3 ÷ 16 = 0 余 3 → 得到 0x3D16H。</p>
+<p><strong>总结</strong>：无论地址是十进制还是十六进制，核心公式不变：<br><strong>物理地址 = 物理块号 × 页面大小 + 偏移量</strong>，其中偏移量 = 逻辑地址 mod 页面大小。</p>
+<h2 id="4-3-难点精练"><a href="#4-3-难点精练" class="headerlink" title="4.3 难点精练"></a>4.3 难点精练</h2><blockquote>
+<p>5)因争用资源产生死锁的必要条件是互斥、循环等待、不可抢占和①。“银行家算法”是一种②技术。<br><br>①A.申请与释放<br><br>B.释放与占有<br><br>C.释放与阻塞<br><br>D.占有且申请<br><br>②A.死锁预防<br><br>B.死锁避免<br><br>C.死锁检测<br><br>D.死锁解除</p>
+</blockquote>
+<blockquote>
+<p>5)①D。<br><br>②B。<br><br>如果在计算机系统中同时具备互斥、不可抢占、占有且申请、循环等待4个必要条件，就有可能发生死锁。银行家算法是一种每次申请资源时都对分配后系统是否安全进行判断的算法，因此属于死锁避免技术。</p>
+</blockquote>
+<blockquote>
+<p>8)段式和页式存储管理的地址结构很类似，但是它们之间有实质上的不同，表现为<strong>__</strong>。<br><br>A.页式的逻辑地址是连续的，段式的逻辑地址可以不连续<br><br>B.页式的地址是一维的，段式的地址是二维的<br><br>C.分页是操作系统进行的，分段是用户确定的<br><br>D.页式采用静态重定位方式，段式采用动态重定位方式</p>
+</blockquote>
+<blockquote>
+<p>8)B。<br><br>各页可以分散存放在主存，每段必须占用连续的主存空间，选项A不正确；分页和分段都是操作系统确定和进行的，选项C也不正确；页式和段式都是采用动态重定位方式，选项D也不正确。</p>
+</blockquote>
+<blockquote>
+<p>14)SPOOLING系统提高了<strong>__</strong>的利用率。<br><br>A.独占设备<br><br>B.共享设备<br><br>C.文件<br><br>D.主存设备</p>
+</blockquote>
+<blockquote>
+<p>14)A。<br><br>SPOOLING技术是将独占设备改造为共享设备，实现虚拟设备功能，提高独占设备的利用率。</p>
+</blockquote>
+<blockquote>
+<p>25)根据对程序运行的统计，在一般时间内其程序的执行往往呈现出高度的局部性，这种局部性可能包括时间局部性、缓冲区局部性、空间局部性。准确地叙述了程序局部性的是<strong>__</strong>。<br><br>A.时间局部性和缓冲局部性<br><br>B.缓冲局部性和空间局部性<br><br>C.空间局部性<br><br>D.时间局部性和空间局部性</p>
+</blockquote>
+<blockquote>
+<p>25)D。<br><br>根据统计，程序运行时，在一段时间内，其程序的执行往往呈现出高度的局限性，即程序执时往往会不均匀地访问内存储器。程序的局部性表现在时间局部性和空间局部性上。时间局部性是指若一条指令被执行，则在不久的将来，它可能再次被执行。空间局部性是指一旦一个存储单元被访问，那它附近的单元也将很快被访问。程序的局部性理论是Cache和虚拟存储技术的理论基础。</p>
+</blockquote>
+<h2 id="第5章-程序设计语言和语言处理程序"><a href="#第5章-程序设计语言和语言处理程序" class="headerlink" title="第5章 程序设计语言和语言处理程序"></a>第5章 程序设计语言和语言处理程序</h2><blockquote>
+<p>在C语言中，要实现被调用函数对实参的修改，必须用指针作形参，即调用时需要先对实参进行取地址运算，然后将实参的地址传递给指针的形参。本质上仍属于传值调用。</p>
+</blockquote>
+<blockquote>
+<p>确定性有穷自动机(Deterministic Finite Automation，DFA)是下一个状态由当前状态和当前输入字符唯一给出的一种自动机。</p>
+</blockquote>
+<h3 id="5-2-真题精解"><a href="#5-2-真题精解" class="headerlink" title="5.2 真题精解"></a>5.2 真题精解</h3><blockquote>
+<p>43)大多数程序设计语言的语法规则用<strong>__</strong>描述即可。<br><br>A.正规文法<br><br>B.上下文无关文法<br><br>C.上下文有关文法<br><br>D.短语结构文法</p>
+</blockquote>
+<blockquote>
+<p>43)B。<br><br>文法体系共分为短语结构文法、上下文有关文法、上下文无关文法和正规文法4类。<br><br>短语结构文法也称为0型文法，其描述能力相当于图灵机，可使用任何的语法描述形式。<br><br>上下文有关文法也称为1型文法，其描述能力相当于线性有界自动机，语法形式为xSy→xAy。也就是说，S（非终结符号）推导出A（非终结符号与终结符号的混合串）是和上下文x、y相关的，即S只有在上下文x、y的环境中才能推导出A。<br><br>上下文无关文法也称为2型文法，其描述能力相当于下推自动机，语法形式为S→A，即S可以无条件地推导出A，与上下文无关。<br><br>正规文法也称为3型文法，等价于正则表达式，其描述能力相当于有穷自动机，语法形式为S→Aa，其中最后一个a必须为非终结符。<br><br>大多数程序语言的语法现象可用上下文无关文法描述。</p>
+</blockquote>
+<blockquote>
+<p>59)移进-归约分析法是编译程序（或解释程序）对高级语言源程序进行语法分析的一种方法，属于<strong>__</strong>的语法分析方法。<br><br>A.自顶向下（或自上而下）<br><br>B.自底向上（或自下而上）<br><br>C.自左向右<br><br>D.自右向左</p>
+</blockquote>
+<blockquote>
+<p>59)B。</p>
+</blockquote>
+<p>假设语法规则只有三条：</p>
+<ol>
+<li><code>E → num</code>（数字可以直接是表达式）  </li>
+<li><code>E → E + E</code>（两个表达式相加还是表达式）  </li>
+<li>输入串：<code>3 + 5</code></li>
+</ol>
+<p>一步步来看栈的变化</p>
+<table>
+<thead>
+<tr>
+<th>动作</th>
+<th>当前输入</th>
+<th>栈里的内容（栈底在左边）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>初始</td>
+<td><code>3 + 5</code></td>
+<td>（空）</td>
+</tr>
+<tr>
+<td><strong>移进</strong></td>
+<td><code>+ 5</code></td>
+<td><code>3</code></td>
+</tr>
+<tr>
+<td><strong>归约</strong></td>
+<td><code>+ 5</code></td>
+<td><code>E</code> （用规则1：num→E）</td>
+</tr>
+<tr>
+<td><strong>移进</strong></td>
+<td><code>5</code></td>
+<td><code>E +</code></td>
+</tr>
+<tr>
+<td><strong>移进</strong></td>
+<td>（空）</td>
+<td><code>E + 5</code></td>
+</tr>
+<tr>
+<td><strong>归约</strong></td>
+<td>（空）</td>
+<td><code>E + E</code> （用规则1）</td>
+</tr>
+<tr>
+<td><strong>归约</strong></td>
+<td>（空）</td>
+<td><code>E</code> （用规则2：E+E→E）</td>
+</tr>
+</tbody></table>
+<p>关键点总结</p>
+<ul>
+<li><strong>移进</strong>：把输入里的东西“搬进”栈里  </li>
+<li><strong>归约</strong>：发现栈顶刚好匹配某个规则的右边，就换成左边  </li>
+<li>一开始是<strong>具体的词</strong>（3、+、5）  </li>
+<li>最后是<strong>最顶层的语法符号 E</strong>  </li>
+<li>这就是典型的 <strong>自底向上 / 移进-归约</strong></li>
+</ul>
+<h3 id="5-3-难点精练"><a href="#5-3-难点精练" class="headerlink" title="5.3 难点精练"></a>5.3 难点精练</h3><blockquote>
+<p>14)若文法G0=(a，b，S，X，Y，P，S)，P中的产生式及其序号如下，则G0为①型文法，对应于②，由G0推导出句子baabbb时，所用产生式序号组成的序列分别为③。<br><br>1:S→XaaY<br><br>2:X→YY|b<br><br>3:Y→XbX|a<br><br>①A.0<br><br>B.1<br><br>C.2<br><br>D.3<br><br>②A.图灵机<br><br>B.下推自动机<br><br>C.其他自动机<br><br>D.有限状态自动机<br><br>③A.13133<br><br>B.12312<br><br>C.12322<br><br>D.12333</p>
+</blockquote>
+<blockquote>
+<p>14)①C。<br><br>②B。<br></p>
+</blockquote>
+<p>③C。</p>
+<p>实际上，这是 <strong>乔姆斯基层次（Chomsky Hierarchy）</strong> 的经典对应关系：</p>
+<table>
+<thead>
+<tr>
+<th align="center">文法类型</th>
+<th align="left">名称</th>
+<th align="left">对应识别模型（自动机）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>0 型</strong></td>
+<td align="left">无限制文法</td>
+<td align="left"><strong>图灵机</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>1 型</strong></td>
+<td align="left">上下文有关文法</td>
+<td align="left"><strong>线性有界自动机</strong>（可看作受限图灵机）</td>
+</tr>
+<tr>
+<td align="center"><strong>2 型</strong> ✅</td>
+<td align="left">上下文无关文法</td>
+<td align="left"><strong>下推自动机（PDA, Pushdown Automata）</strong> ✅</td>
+</tr>
+<tr>
+<td align="center"><strong>3 型</strong></td>
+<td align="left">正规文法</td>
+<td align="left"><strong>有限状态自动机（FA / DFA / NFA）</strong></td>
+</tr>
+</tbody></table>
+<h2 id="第6章-数据库"><a href="#第6章-数据库" class="headerlink" title="第6章 数据库"></a>第6章 数据库</h2><blockquote>
+<p>数据库系统由外模式、概念模式和内模式三级构成。</p>
+</blockquote>
+<blockquote>
+<p>外模式也称为子模式或用户模式，它对应的是我们平时所用到的数据库视图。</p>
+</blockquote>
+<blockquote>
+<p>概念模式也称为模式或逻辑模式，它对应我们平时所用到的数据表。</p>
+</blockquote>
+<blockquote>
+<p>内模式对应物理级数据库，是数据物理结构和存储方式的描述，是数据在数据库内部的表示方式。</p>
+</blockquote>
+<blockquote>
+<p>第一范式(1NF)<br><br>每个属性都是不可分割的原子值。</p>
+</blockquote>
+<blockquote>
+<p>第二范式(2NF)<br><br>消除非主属性对候选键的部分依赖。</p>
+</blockquote>
+<blockquote>
+<p>第三范式(3NF)<br><br>消除非主属性对候选键的传递依赖。</p>
+</blockquote>
+<blockquote>
+<p>BC范式(BCNF)<br><br>消除主属性对候选键的传递依赖（列出关系中所有的函数依赖，依赖左侧都是候选键）。</p>
+</blockquote>
+<h3 id="6-3-难点精练"><a href="#6-3-难点精练" class="headerlink" title="6.3 难点精练"></a>6.3 难点精练</h3><blockquote>
+<p>9)在关系代数中，5种基本运算是指<strong>__</strong>。<br><br>A.并、差、笛卡儿积、投影、选择<br><br>B.并、差、交、投影、选择<br><br>C.并、差、连接、投影、选择<br><br>D.连接、除法、笛卡儿积、投影、选择</p>
+</blockquote>
+<blockquote>
+<p>9)A。<br><br>基本的关系代数包括并、差、广义笛卡儿积、投影、选择，其他运算可以通过基本的关系运算导出。扩展的关系运算可以从基本的关系中导出，主要包括交、连接、除法、广义投影、外连接。</p>
+</blockquote>
+<p>1️⃣ 交（∩）</p>
+<pre><code>R ∩ S = R − (R − S)</code></pre><p>含义：  </p>
+<ul>
+<li>先拿 R 减去 S 中不同的部分  </li>
+<li>再减一次，剩下的就是公共部分</li>
+</ul>
+<p>✅ 只用到了：<strong>差</strong></p>
+<p>2️⃣ 连接（θ-连接）</p>
+<pre><code>R ⋈_{θ} S = σ_{θ}(R × S)</code></pre><p>含义：  </p>
+<ul>
+<li>先做 <strong>笛卡尔积</strong>  </li>
+<li>再用 <strong>选择</strong> 条件 θ 筛选</li>
+</ul>
+<p>✅ 用到：<strong>笛卡尔积 + 选择</strong></p>
+<p>3️⃣ 自然连接（⋈）</p>
+<pre><code>R ⋈ S = π_{去掉重复列}(σ_{相同属性相等}(R × S))</code></pre><p>含义：  </p>
+<ul>
+<li>先笛卡尔积  </li>
+<li>再选“同名属性相等”  </li>
+<li>最后投影去掉重复列</li>
+</ul>
+<p>✅ 用到：<strong>笛卡尔积 + 选择 + 投影</strong></p>
+<p>4️⃣ 除法（÷）</p>
+<p>设：</p>
+<ul>
+<li>R(A, B)</li>
+<li>S(B)</li>
+</ul>
+<p>则：</p>
+<pre><code>R ÷ S = π_A(R) − π_A(π_A(R) × S − R)</code></pre><p>含义比较复杂，但核心思想是：  </p>
+<blockquote>
+<p>找“包含所有 S 中 B 值的那些 A”</p>
+</blockquote>
+<p>✅ 用到：<strong>并、差、投影、笛卡尔积</strong></p>
+<blockquote>
+<p>分布式数据库系统具有以下特点：<br><br>①数据的物理分布性。<br><br>②数据的逻辑整体性。<br><br>③数据的分布独立性。<br><br>④场地的自治和协调。<br><br>⑤数据的冗余及冗余透明性。</p>
+</blockquote>
+<h2 id="第7章-计算机网络"><a href="#第7章-计算机网络" class="headerlink" title="第7章 计算机网络"></a>第7章 计算机网络</h2><blockquote>
+<p>OSI参考模型分为物理层、数据链路层、网络层、传输层、会话层、表示层和应用层7层，如表7-2所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/software-designer/7-2t.jpg" alt="表7-2 OSI参考模型"><br>￼<br>TCP/IP模型与OSI参考模型有些类似，将OSI中的会话层、表示层去掉，并将数据链路层和物理层合并成网络接口层即可，如图7-2所示TCP/IP支持所有标准的数据链路层和物理层协议。<br>￼<br><img src="https://alphahinex.github.io/contents/software-designer/7-2d.jpg" alt="图7-2 TCP/IP模型"></p>
+</blockquote>
+<h3 id="7-2-真题精解"><a href="#7-2-真题精解" class="headerlink" title="7.2 真题精解"></a>7.2 真题精解</h3><blockquote>
+<p>35)PPP中的安全认证协议是<strong>__</strong>，它使用三次握手的会话过程传送密文。<br><br>A.MD5<br><br>B.PAP<br><br>C.CHAP<br><br>D.HASH</p>
+</blockquote>
+<blockquote>
+<p>35)C。<br><br>质询握手认证协议(Challenge Handshake Authentication Protocol，CHAP)采用三次握手方式周期地验证对方的身份。首先是逻辑链路建立后，认证服务器就要发送一个挑战报文（随机数），终端计算该报文的哈希值并把结果返回服务器，然后认证服务器把收到的哈希值与自己计算的哈希值进行比较，如果匹配，则认证通过，连接得以建立，否则连接被终止。计算哈希值的过程有一个双方共享的密钥参与，而密钥是不通过网络传送的，所以CHAP是更安全的认证机制。在后续的通信过程中，每经过一个随机的间隔，这个认证过程都可能被重复，以缩短入侵者进行持续攻击的时间。值得注意的是，这种方法可以进行双向身份认证，终端也可以向服务器进行挑战，使得双方都能确认对方身份的合法性。</p>
+</blockquote>
+<blockquote>
+<p>45)TCP使用的流量控制协议是<strong>__</strong>。<br><br>A.固定大小的滑动窗口协议<br><br>B.后退N帧的ARQ协议<br><br>C.可变大小的滑动窗口协议<br><br>D.停等协议</p>
+</blockquote>
+<blockquote>
+<p>45)C。</p>
+</blockquote>
+<h3 id="7-3-难点精练"><a href="#7-3-难点精练" class="headerlink" title="7.3 难点精练"></a>7.3 难点精练</h3><blockquote>
+<p>39)DHCP客户机在向DHCP服务器租约IP地址时，所使用的源地址和目的地址分别是<strong>__</strong>。<br><br>A.255.255.255.255 0.0.0.0<br><br>B.0.0.0.0 255.255.255.255<br><br>C.0.0.0.0 127.0.0.1<br><br>D.不固定</p>
+</blockquote>
+<blockquote>
+<p>39)B。<br><br>DHCP客户机在发送DHCP DISCOVER报文时，客户机自己没有IP地址，也不知道DHCP服务器的IP地址，因此该报文以广播的形式发送，该报文源地址为0.0.0.0（表示本网络的本台主机），目标地址为255.255.255.255（受限广播地址，对当前网络进行广播）。</p>
+</blockquote>
+<blockquote>
+<p>43)在蓝牙技术的应用中，最小的工作单位被称为<strong>__</strong>。<br><br>A.域<br><br>B.扩展业务集<br><br>C.基本业务集<br><br>D.微微网</p>
+</blockquote>
+<blockquote>
+<p>43)D。<br><br>在蓝牙技术的应用中，最小的工作单位叫Piconet微微网，是通过蓝牙连接起来的设备的集合。一个微微网可以只是两台相连的设备，比如一台PDA和一部移动电话，也可以是8台连在一起的设备。</p>
+</blockquote>
+<blockquote>
+<p>49)在CORBA体系结构中，负责屏蔽底层网络通信细节的协议是<strong>__</strong>。<br><br>A.IDL<br><br>B.RPC<br><br>C.ORB<br><br>D.GIOP</p>
+</blockquote>
+<blockquote>
+<p>49)C。<br><br>在CORBA体系结构中，ORB（对象请求代理）负责处理底层网络细节，它可以运行在各种不同的底层网络协议上，如TCP/IP、IPX/SPX等。</p>
+</blockquote>
+<h2 id="第8章-多媒体基础"><a href="#第8章-多媒体基础" class="headerlink" title="第8章 多媒体基础"></a>第8章 多媒体基础</h2><h3 id="8-2-真题精解"><a href="#8-2-真题精解" class="headerlink" title="8.2 真题精解"></a>8.2 真题精解</h3><blockquote>
+<p>12)数字语音的采样频率定义为8kHz，这是因为____。<br><br>A.语音信号定义的频率最高值为4kHz<br><br>B.语音信号定义的频率最高值为8kHz<br><br>C.数字语音传输线路的带宽只有8kHz<br><br>D.一般声卡的采样频率最高为每秒8000次</p>
+</blockquote>
+<blockquote>
+<p>12)A。<br><br>采样频率大于或等于工作频率的2倍，才能在以后恢复出实际波形，防止信息的丢失。</p>
+</blockquote>
+<h2 id="第9章-软件工程"><a href="#第9章-软件工程" class="headerlink" title="第9章 软件工程"></a>第9章 软件工程</h2><p><img src="https://alphahinex.github.io/contents/software-designer/9-6.jpg" alt="图9-6 数据流程的图形工具"></p>
+<h3 id="9-2-真题精解"><a href="#9-2-真题精解" class="headerlink" title="9.2 真题精解"></a>9.2 真题精解</h3><blockquote>
+<p>5)对于一个大型软件来说，不加控制地变更很快就会引起混乱。为了有效地实现变更控制，需借助配置数据库和基线的概念。<strong>__</strong>不属于配置数据库。<br><br>A.开发库<br><br>B.受控库<br><br>C.信息库<br><br>D.产品库</p>
+</blockquote>
+<blockquote>
+<p>5)C。<br><br>软件变更控制是变更管理的重要内容，要有效进行变更控制，需要借助配置数据库和基线的概念。配置数据库一般包括开发库、受控库和产品库。</p>
+</blockquote>
+<blockquote>
+<p>7)能力成熟度集成模型CMMI是CMM模型的新版本，它有连续式和阶段式两种表示方式。基于连续式表示的CMMI共有6个能力等级(0～5)，每个能力等级对应一个一般目标以及一组一般执行方法和特定方法，其中能力等级<strong>__</strong>主要关注过程的组织标准化和部署。<br><br>A.1<br><br>B.2<br><br>C.3<br><br>D.4</p>
+</blockquote>
+<blockquote>
+<p>7)C。<br><br>能力成熟度集成模型CMMI是CMM模型的新版本，基于连续式表述的CMMI共有6个能力等级(0～5)，对应未完成级、已执行级、已管理级、已定义级、量化管理级、优化级。每个能力等级对应一个一般目标，以及一组一般执行方法和特定方法。<br><br>能力等级0指未执行过程，表明过程域的一个或多个特定目标没有被满足；能力等级1指过程通过转化可识别的输入工作产品，产生可识别的输出工作产品，关注过程域的特定目标的完成；能力等级2指过程作为已管理的过程制度化，针对单个过程实例的能力；能力等级3指过程作为已定义的过程制度化，关注过程的组织级标准化和部署；能力等级4指过程作为定量管理的过程制度化；能力等级5指过程作为优化的过程制度化，表明过程得到很好的执行且持续得到改进。</p>
+</blockquote>
+<blockquote>
+<p>8)统一过程定义了初启阶段、精化阶段、构建阶段、移交阶段和产生阶段，每个阶段以达到某个里程碑时结束，其中<strong>__</strong>的里程碑是生命周期架构。<br><br>A.初启阶段<br><br>B.精化阶段<br><br>C.构建阶段<br><br>D.移交阶段</p>
+</blockquote>
+<blockquote>
+<p>8)B。<br><br>统一过程定义了初启阶段、精化阶段、构建阶段、移交阶段和产生阶段，每个阶段达到某个里程碑时结束。其中初启阶段的里程碑是生命周期目标，精化阶段的里程碑是生命周期架构，构建阶段的里程碑是初始运作功能，移交阶段的里程碑是产品发布。</p>
+</blockquote>
+<blockquote>
+<p>12)某程序的程序图如图9-8所示，运用McCabe度量法对其进行度量，其环路复杂度是<strong>__</strong>。<br><br><img src="https://alphahinex.github.io/contents/software-designer/9-8.jpg" alt="图9-8 程序图"><br><br>A.4<br><br>B.5<br><br>C.6<br><br>D.8</p>
+</blockquote>
+<blockquote>
+<p>12)C。<br><br>McCabe度量法是一种基于程序控制流的复杂性度量方法。采用这种方法先画出程序图，然后采用公式V(G)=m-n+2计算环路复杂度。其中，m是图G中弧的个数，n是图G中的节点数。图中节点数为7，边数为11，所以环路复杂度为11-7+2=6。</p>
+</blockquote>
+<blockquote>
+<p>26)利用结构化分析模型进行接口设计时，应以<strong>__</strong>为依据。<br><br>A.数据流图<br><br>B.实体-关系图<br><br>C.数据字典<br><br>D.状态-迁移图</p>
+</blockquote>
+<blockquote>
+<p>26)A。<br><br>软件设计必须依据软件的需求来进行，结构化分析的结果为结构化设计提供了基本的输入信息，其关系为：根据加工规格说明和控制规格说明进行过程设计，根据数据字典和实体关系图进行数据设计，根据数据流图进行接口设计，根据数据流图进行体系结构设计。</p>
+</blockquote>
+<blockquote>
+<p>42)在软件设计阶段，划分模块的原则是：一个模块的<strong>__</strong>。<br><br>A.作用范围应该在其控制范围之内<br><br>B.控制范围应该在其作用范围之内<br><br>C.作用范围与控制范围互不包含<br><br>D.作用范围与控制范围不受任何限制</p>
+</blockquote>
+<blockquote>
+<p>42)A。<br><br>模块的作用范围定义为受该模块内一个判定影响的模块集合，模块的控制范围为模块本身以及所有直接或间接从属于该模块的模块集合。其作用范围应该在控制范围之内。</p>
+</blockquote>
+<p>1️⃣ 控制范围 = “我手下有哪些人”</p>
+<p><strong>控制范围</strong>：<br>某个模块 <strong>自己 + 它直接/间接管理的所有下属模块</strong>。<br>👉 相当于：<strong>这个领导的直属团队和下属团队</strong></p>
+<p>比如模块 A 下面有 B、C，B 下面还有 D：  </p>
+<pre><code>A
+├─ B
+│  └─ D
+└─ C</code></pre><p>那么 <strong>A 的控制范围 = {A, B, C, D}</strong><br>——只要在组织架构上是它的下属，都算。</p>
+<p>2️⃣ 作用范围 = “我做决定会影响谁”</p>
+<p><strong>作用范围</strong>：<br>模块里的一个<strong>判断（if/else、switch）</strong>，会影响到哪些模块的行为。<br>👉 相当于：<strong>我拍板之后，哪些人要跟着改动作</strong></p>
+<p>如果 A 里有个判断：</p>
+<pre><code class="pseudo">if (条件)
+   调用 B
+else
+   调用 C</code></pre>
+<p>那么这个判断会影响 B 和 C，<br>所以 <strong>A 的作用范围 = {B, C}</strong>（有时也包括 A 自己）。</p>
+<p>3️⃣ 为什么要“作用范围 ⊆ 控制范围”？</p>
+<p>用管理打个比方：</p>
+<ul>
+<li><p>✅ 正常情况：<br>领导 A 做决定 → 只影响他自己的团队（B、C、D）<br>👉 指挥得动，效率高</p>
+</li>
+<li><p>❌ 出问题的情况：<br>领导 A 做一个决定，却影响了<strong>不属于他团队的 E、F</strong><br>👉 那就是越权指挥，别人不服，协作混乱</p>
+</li>
+</ul>
+<p>对应到软件里就是：  </p>
+<ul>
+<li>影响谁，就要<strong>管得了谁</strong>  </li>
+<li>否则模块之间就会<strong>强耦合、难维护</strong></li>
+</ul>
+<blockquote>
+<p>45)在敏捷开发方法中，<strong>__</strong>认为每一种不同的项目都需要一套不同的策略、约定和方法论。<br><br>A.极限编程(XP)<br><br>B.水晶法(Crystal)<br><br>C.并列争球法(Scrum)<br><br>D.自适应软件开发(ASD)</p>
+</blockquote>
+<blockquote>
+<p>45)B。<br><br>敏捷开发的总体目标是通过“尽可能早地、持续地对有价值的软件的交付”使客户满意。敏捷过程的典型方法有很多，每一种方法基于一套原则，这些原则实现了敏捷方法所宣称的理念，即敏捷宣言。其中，极限编程(XP)是一种轻量级的软件开发方式，由价值观、原则、实践和行为4个部分组成，彼此相互依赖、关联，并通过行为贯穿于整个生存周期。水晶法(Crystal)认为每一个不同的项目都需要一套不同的策略、约定和方法论。并列争球法(Scrum)使用迭代的方法，并按需求的优先级来实现产品。自适应软件开发(ASD)有6个基本原则。</p>
+</blockquote>
+<blockquote>
+<p>53)在如图9-18所示的数据流图中，共存在<strong>__</strong>个错误。<br><br><img src="https://alphahinex.github.io/contents/software-designer/9-18.jpg" alt="图9-18 数据流图"><br><br>A.4<br><br>B.6<br><br>C.8<br><br>D.9</p>
+</blockquote>
+<blockquote>
+<p>53)B。<br><br>结构化分析将数据和处理作为分析对象，数据的分析结果表示了现实世界中实体的属性及其之间的相互关系，而处理的结果则展现了系统对数据的加工和转换。面向数据流建模是目前仍然被广泛使用的方法之一，而数据流图则是面向数据流建模中的重要工具，数据流图将系统建模成输入—处理—输出的模型，即流入软件的数据对象，经由处理的转换，最后以结果数据对象的形式流出软件。在实际使用数据流图进行数据流建模时，需要注意以下原则：<br><br>①加工处理和数据流的正确使用，如一个加工必须既有输入又有输出；数据流只能和加工相关，即从加工流向加工、从数据源流向加工或从加工流向数据源。<br><br>②每个数据流和数据存储都要在数据字典中定义，数据字典将包括各层数据流图中的数据元素的定义。<br><br>③数据流图中最底层的加工处理必须有加工处理说明。<br><br>④父图和子图必须平衡，即父图中某加工的输入/输出（数据流）和分解这个加工的子图的输入/输出数据流必须完全一致，这种一致性不一定要求数据流的名称和个数一一对应，但它们在数据字典中的定义必须一致，数据流或数据项既不能多又不能少。<br><br>⑤加工处理说明和数据流图中的加工处理涉及的元素保持一致。例如，在加工处理说明中，输入数据流必须说明其如何使用，输出数据流说明如何产生或选取，数据存储说明如何选取、使用或修改。<br><br>⑥一幅图中的图元个数控制在7+2以内。<br><br>在题目所示的数据流图中，数据流DF2、DF6和DF7的输入、输出均不是加工，这与“数据流只能和加工相关，即从加工流向加工、从数据源流向加工或以加工流向数据源”相违背。加工P1只有输出，没有输入；加工P3只有输入，没有输出，这与“一个加工必须既有输入又有输出”相违背。数据流DF4经过加工P4之后没有发生任何改变，说明该数据对加工P4是没有作用的，根据数据守恒原理，这条数据流不应与P4有关联。综上所述，该数据流图中共有6个错误。</p>
+</blockquote>
+<h3 id="9-3-难点精练"><a href="#9-3-难点精练" class="headerlink" title="9.3 难点精练"></a>9.3 难点精练</h3><blockquote>
+<p>1)某开发组在开发某个系统时，各个阶段具有严格的界限，只有一个阶段获得认可才能进行下一个阶段的工作，则该开发组最可能采用的软件开发方法是<strong>__</strong>。<br><br>A.构件化方法<br><br>B.结构化方法<br><br>C.面向对象方法<br><br>D.快速原型法</p>
+</blockquote>
+<blockquote>
+<p>1)B。</p>
+</blockquote>
+<blockquote>
+<p>2)软件设计中划分模块的一个准则是①。两个模块之间的耦合方式中，②的耦合度最高；一个模块内部的内聚种类中，③内聚的内聚度最高。<br><br>①A.低内聚、低耦合<br><br>B.低内聚、高耦合<br><br>C.高内聚、低耦合<br><br>D.高内聚、高耦合<br><br>②A.数据<br><br>B.非直接<br><br>C.控制<br><br>D.内容<br><br>③A.偶然<br><br>B.逻辑<br><br>C.功能<br><br>D.过程</p>
+</blockquote>
+<blockquote>
+<p>2)①C。<br><br>②D。<br><br>③C。<br><br>概要设计阶段的主要工作是将DFD转换为MSD，模块划分的准则就是“高内聚低耦合”。<br><br>耦合是对不同模块之间相互依赖程度的度量，从强到弱的顺序如下：<br><br>●内容耦合：一个模块直接修改或操作另一个模块的数据。<br><br>●公共耦合：两个以上的模块共同引用一个全局数据项。<br><br>●控制耦合：一个模块在界面上传递一个信号控制另一个模块。<br><br>●标记耦合：两个模块至少有一个通过界面传递的公共参数包含内部结构。<br><br>●数据耦合：模块间通过参数传递基本类型的数据。<br><br>内聚度量的是一个模块内部各成分之间的相互关联程度。从低到高的顺序如下：<br><br>●偶然内聚：一个模块的各成分之间毫无关系。<br><br>●逻辑内聚：逻辑上相关的功能放在一个模块。<br><br>●时间内聚：因为时间因素关联在一起。<br><br>●过程内聚：内部处理成分是相关的，且其间必须以特定次序排序。<br><br>●通信内聚：一个模块的所有成分都操作同一个数据集或生产同一个数据集。<br><br>●顺序内聚：各个成分和同一个功能密切相关，且一个成分的输出作为另一个成分的输入。<br><br>●功能内聚：模块的所有成分对于完成单一的功能都是基本的。</p>
+</blockquote>
+<p>功能内聚（一个模块只完成一个单一功能）的内聚度最高</p>
+<blockquote>
+<p>5)OMT定义了三种模型来描述系统。①可以用状态图来表示，②可以用数据流图来表示，③是为上述两种模型提供了基本的框架。<br><br>①A.对象模型<br><br>B.功能模型<br><br>C.动态模型<br><br>D.类模型<br><br>②A.对象模型<br><br>B.功能模型<br><br>C.动态模型<br><br>D.类模型<br><br>③A.对象模型<br><br>B.功能模型<br><br>C.动态模型<br><br>D.类模型</p>
+</blockquote>
+<blockquote>
+<p>5)①C。<br><br>②B。<br><br>③A。<br><br>对象建模技术(Object Modeling Technique，OMT)定义了三种模型——对象模型、动态模型和功能模型，OMT用这三种模型描述系统。<br><br>●对象模型描述系统中对象的静态结构、对象之间的关系、对象的属性、对象的操作。对象模型表示静态的、结构上的、系统的“数据”特征。对象模型为动态模型和功能模型提供了基本的框架。对象模型用包含对象和类的对象图表示。<br><br>●动态模型描述与时间和操作顺序有关的系统特征——激发事件、事件序列、确定事件的先后关系以及事件和状态的组织。动态模型表示瞬时的、行为上的、系统的“控制”特征。动态模型用状态图来表示，每张状态图显示了系统中一个类的所有对象所允许的状态和事件的顺序。<br><br>●功能模型描述与值的变换有关的系统特征——功能、映射、约束和函数依赖，功能模型用数据流图来表示。</p>
+</blockquote>
+<blockquote>
+<p>11)原型模型是增量模型的另一种形式，用于需求分析阶段的模型是<strong>__</strong>。<br><br>A.探索型原型模型<br><br>B.实验型原型模型<br><br>C.演化型原型模型<br><br>D.螺旋模型</p>
+</blockquote>
+<blockquote>
+<p>11)A。<br><br>原型模型又称快速原型模型，它是增量模型的另一种形式。根据原型的不同作用，有三类原型模型：探索型原型模型（用于需求分析阶段）、实验型原型模型（主要用于设计阶段）、演化型原型模型（主要用于及早向用户提交一个原型系统）。</p>
+</blockquote>
+<blockquote>
+<p>12)OMT（Object Modelling Technique，对象建模技术）方法的第一步是从问题的陈述入手，构造系统模型。系统模型由对象模型、①组成。对象模型是从实际系统导出的类的体系，即类的属性、子类与父类之间的继承关系及类之间的②关系。<br><br>①A.静态模型和功能模型<br><br>B.动态模型和过程模型<br><br>C.动态模型和功能模型<br><br>D.静态模型和操作模型<br><br>②A.关联<br><br>B.从属<br><br>C.调用<br><br>D.包含</p>
+</blockquote>
+<blockquote>
+<p>12)①C。<br><br>②A。<br><br>对象建模技术(Object Modeling Technique，OMT)定义了三种模型——对象模型、动态模型和功能模型，OMT用这三种模型描述系统。OMT方法有4个步骤：分析、系统设计、对象设计和实现。OMT方法的每一步都使用这三种模型，通过每一步对这三种模型不断地精化和扩充。对象模型描述系统中对象的静态结构、对象之间的关系、对象的属性、对象的操作。对象模型表示静态的、结构上的、系统的“数据”特征。对象模型为动态模型和功能模型提供了基本的框架。对象模型用包含对象和类的对象图表示。</p>
+</blockquote>
+<blockquote>
+<p>13)<strong>__</strong>开发模型适用于面向对象开发过程。<br><br>A.瀑布模型<br><br>B.演化模型<br><br>C.增量模型<br><br>D.喷泉模型</p>
+</blockquote>
+<blockquote>
+<p>13)D。<br><br>本题考查软件工程软件开发模型方面的知识。常用的模型有：<br><br>①瀑布模型。瀑布模型最早由Royce提出，该模型因过程排列酷似瀑布而得名。在该模型中，首先确定需求，并接受客户和软件质量保证(Software Quality Assurance，SQA)小组的验证；然后拟定规格说明，同样通过验证后，进入计划阶段……可以看出，瀑布模型中至关重要的一点是只有当一个阶段的文档已经编制好并获得SQA小组的认可才可以进入下一阶段。该模型是文档驱动的，对于非专业用户来说难以阅读和理解，而且导致很多问题在最后才会暴露出来，风险巨大。瀑布模型主要应用于结构化的软件开发。<br><br>②增量模型。增量模型是在项目的开发过程中以一系列的增量方式开发系统。增量方式包括增量开发和增量提交。增量开发是指在项目开发周期内以一定时间间隔开发部分工作软件。增量提交是指在项目开发周期内以一定时间间隔的增量方式向用户提交工作软件及其相应文档。根据增量的方式和形式的不同，分为渐增模型和原型模型。<br><br>③原型模型。原型模型又称快速原型模型，它是增量模型的另一种形式。根据原型的不同作用，有三类原型模型：探索型原型模型（用于需求分析阶段）、实验型原型模型（主要用于设计阶段）、演化型原型模型（主要用于及早向用户提交一个原型系统）。演化型原型模型主要针对事先不能完整定义需求的软件开发。软件开发中的原型是软件的一个早期可运行版本，它反映了最终系统的重要特性。<br><br>④螺旋模型。螺旋模型将瀑布模型和演化模型相结合，综合了瀑布模型和演化模型的优点，并增加了风险分析。螺旋模型包含4个方面的活动：制定计划、风险分析、实施工程和客户评估。<br><br>⑤喷泉模型。主要用于描述面向对象的开发过程。喷泉模型体现了软件创建所固有的迭代和无间隙的特征。迭代意味着模型中的开发活动常常需要重复多次，在迭代过程中不断完善软件系统；无间隙是指开发活动之间不存在明显的边界，各开发活动交叉、迭代地进行。</p>
+</blockquote>
+<p><strong>喷泉模型</strong>是一种以 <strong>面向对象</strong> 为核心思想的软件开发模型。它强调各开发阶段（分析、设计、编码、测试等）的 <strong>重叠</strong> 与 <strong>多次迭代</strong>，没有严格的顺序边界，这与面向对象开发中反复修正、增量完善的特点高度契合。</p>
+<p>其他选项：<br><br>A. 瀑布模型：线性顺序，阶段严格分离，不适合面向对象的迭代与复用特性。<br><br>B. 演化模型：虽然支持迭代，但通常用于原型或需求模糊的项目，并非专门针对面向对象。<br><br>C. 增量模型：分块构建，但仍偏向结构化，未体现面向对象的“对象、类、继承、多态”等自然迭代特征。</p>
+<blockquote>
+<p>15)在数据流图中，○（圆圈）代表<strong>__</strong>。<br><br>A.源点<br><br>B.终点<br><br>C.加工<br><br>D.模块</p>
+</blockquote>
+<blockquote>
+<p>15)C。<br><br>结构化分析方法是一种基于数据流的方法，为此引入了数据流、变换（加工）、数据存储、数据源和数据潭等概念。<br><br>数据流表示数据和数据流向，用箭头表示；加工是对数据进行处理的单元，它接收一定的输入数据，对其进行处理，并产生输出，用圆圈表示；数据存储用于表示信息的静态存储，用两条平行线表示；数据源和数据潭表示系统和环境的接口，是系统之外的实体，其中数据源是数据流的起点，数据潭是数据流的最终目的地，用矩形表示。</p>
+</blockquote>
+<blockquote>
+<p>25)用来辅助软件开发、运行、维护、管理、支持等过程中的活动的软件称为软件工具，通常也称为<strong>__</strong>。<br><br>A.CAD<br><br>B.CAI<br><br>C.CAM<br><br>D.CASE</p>
+</blockquote>
+<blockquote>
+<p>25)D。<br><br>用来辅助软件开发、运行、维护、管理、支持等过程中的活动的软件称为软件工具，通常称为CASE（Computer Aided Software Engineering，计算机辅助软件工程）工具。</p>
+</blockquote>
+<blockquote>
+<p>26)Jackson结构化程序设计方法是英国人M.Jackson提出的，它是一种面向①的设计方法，主要用于规模适中的②系统的开发。<br><br>①A.对象<br><br>B.数据流<br><br>C.数据结构<br><br>D.控制结构<br><br>②A.数据处理<br><br>B.文字处理<br><br>C.实时控制<br><br>D.科学计算</p>
+</blockquote>
+<blockquote>
+<p>26)①C。<br><br>②A。<br><br>Jackson方法是一种典型的面向数据结构的设计方法，以数据结构作为设计的基础，它根据输入/输出数据结构导出程序的结构，适用于规模不大的数据处理系统。</p>
+</blockquote>
+<blockquote>
+<p>32)结构化设计方法在软件开发中用于①，它是一种面向②的设计方法。<br><br>①A.测试用例设计<br><br>B.概要设计<br><br>C.程序设计<br><br>D.详细设计<br><br>②A.对象<br><br>B.数据结构<br><br>C.数据流<br><br>D.控制流</p>
+</blockquote>
+<blockquote>
+<p>32)①B。<br><br>②C。</p>
+</blockquote>
+<p>结构化设计（SD）方法以数据流图为基础，将分析模型转换为模块结构，主要用于软件的概要设计阶段。</p>
+<blockquote>
+<p>38)如果一个软件是供许多客户使用的，大多数软件生产商要使用机制测试过程来发现那些可能只有最终用户才能发现的错误。<strong>__</strong>测试是由软件的最终用户在一个或多个用户实际使用的环境中进行的。<br><br>A.Alpha<br><br>B.Beta<br><br>C.Gamma<br><br>D.Delta</p>
+</blockquote>
+<blockquote>
+<p>38)B。<br><br>如果一个软件是供许多客户使用的，大多数软件厂商要使用机制测试过程来发现那些可能只有最终用户才能发现的错误。Beta测试是由软件的最终用户在一个或多个用户实际使用环境下来进行的，即常见的公测，Alpha是内测。</p>
+</blockquote>
+<blockquote>
+<p>40)在设计测试用例时，<strong>__</strong>是用得最多的一种黑盒测试方法。<br><br>A.等价类划分<br><br>B.边值分析<br><br>C.因果图<br><br>D.判定表</p>
+</blockquote>
+<blockquote>
+<p>40)A。<br><br>软件测试技术大体上可分为两大类：基于“白盒”的路径测试技术和基于“黑盒”的事务处理流程测试技术（又称功能测试）。白盒测试技术依据的是程序的逻辑结构，而黑盒测试技术依据的是软件行为的描述。在设计测试用例时，等价类划分法是用得最多的一种黑盒测试方法。</p>
+</blockquote>
+<p>等价类划分因其简单、高效且能基本覆盖大部分输入空间而成为最常用的黑盒测试方法。</p>
+<blockquote>
+<p>45)软件能力成熟度模型(Capability Maturity Model，CMM)描述和分析了软件过程能力的发展与改进的程度，确立了一个软件过程成熟程度的分级标准。在①，已建立了基本的项目管理过程，可对成本、进度和功能特性进行跟踪。在②，用于软件管理与工程量方面的软件过程均已文档化、标准化，并形成了整个软件组织的标准软件过程。<br><br>①A.可重复级<br><br>B.已管理级<br><br>C.功能级<br><br>D.成本级<br><br>②A.标准级<br><br>B.已定义级<br><br>C.可重复级<br><br>D.优化级</p>
+</blockquote>
+<blockquote>
+<p>45)①A。<br><br>②B。<br><br>CMM五级模型：<br><br>初始级：软件过程是无序的，有时甚至是混乱的，对过程几乎没有定义，成功取决于个人努力。管理是反应式的。<br><br>可重复级：建立了基本的项目管理过程来跟踪费用、进度和功能特性，制定了必要的过程纪律，能重复早先类似应用项目取得的成功。<br><br>已定义级：已将软件管理和工程两方面的过程文档化、标准化，并综合成该组织的标准软件过程。所有项目均使用经批准、剪裁的标准软件过程来开发和维护软件。<br><br>已定量管理级：收集对软件过程和产品质量的详细度量，对软件过程和产品有定量的理解与控制。<br><br>持续优化级：过程的量化反馈和先进的新思想、新技术促进过程不断改进。</p>
+</blockquote>
+<blockquote>
+<p>52)软件设计中划分程序模块通常遵循的原则是要使各模块间的耦合性尽可能弱。一个模块把一个复杂的内部数据结构作为参数传送给另一个模块的耦合方式属于<strong>__</strong>。<br><br>A.公共耦合<br><br>B.数据耦合<br><br>C.控制耦合<br><br>D.标记耦合</p>
+</blockquote>
+<blockquote>
+<p>52)D。<br><br>耦合是指模块之间联系的紧密程度，耦合度越高则模块的独立性越差。耦合度从低到高的次序依次是：非直接耦合、数据耦合、标记耦合、控制耦合、外部耦合、公共耦合、内容耦合。一个模块把一个数值量作为参数传送给另一个模块的耦合方式属于数据耦合。一个模块把一个复杂的内部数据结构作为参数传送给另一个模块的耦合方式属于标记耦合。</p>
+</blockquote>
+<ul>
+<li>非直接耦合：无直接关系。</li>
+<li>数据耦合：模块间通过参数传递简单数据（如基本类型或简单结构体）。</li>
+<li>标记耦合：传递数据结构的一部分或整个数据结构，但只使用其中部分数据项。</li>
+<li>控制耦合：传递控制信息（如标志、开关）影响另一个模块的逻辑。</li>
+<li>外部耦合：模块与外部环境（如I/O）通信。</li>
+<li>公共耦合：多个模块共享公共数据环境（如全局变量）。</li>
+<li>内容耦合：直接访问对方内部。</li>
+</ul>
+<h2 id="第10章-面向对象"><a href="#第10章-面向对象" class="headerlink" title="第10章 面向对象"></a>第10章 面向对象</h2><h3 id="10-2-真题精解"><a href="#10-2-真题精解" class="headerlink" title="10.2 真题精解"></a>10.2 真题精解</h3><blockquote>
+<p>6)UML类图中类与类之间的关系有5种：依赖、关联、聚合、组合与继承。若类A需要使用标准数学函数类库中提供的功能，那么类A与标准类库提供的类之间存在①关系；若类A中包含了其他类的实例，且当类A的实例消失时，其包含的其他类的实例也消失，则类A和它所包含的类之间存在②关系；若类A的实例消失时，其他类的实例仍然存在并继续工作，那么类A和它所包含的类之间存在③关系。<br><br>①A.依赖<br><br>B.关联<br><br>C.聚合<br><br>D.组合<br><br>②A.依赖<br><br>B.关联<br><br>C.聚合<br><br>D.组合<br><br>③A.依赖<br><br>B.关联<br><br>C.聚合<br><br>D.组合</p>
+</blockquote>
+<blockquote>
+<p>6)①A。<br><br>②D。<br><br>③C。<br><br>UML类图中的类与类之间的关系有5种：依赖、关联、聚合、组合与继承。依赖是几种关系中最弱的一种关系，通常使用类库就是依赖关系。聚合与组合都表示了整体和部分的关系。组合的程度比聚合高，当整体对象消失时，部分对象也随之消失，则属于组合关系；当整体对象消失时，部分对象依然可以存在并继续被使用，则属于聚合关系。</p>
+</blockquote>
+<blockquote>
+<p>15)设计模式①将抽象部分与其实现部分相分离，使它们都可以独立地变化。图10-15为该设计模式的类图，其中②用于定义实现部分的接口。<br><img src="https://alphahinex.github.io/contents/software-designer/10-15.jpg" alt="图10-15 UML类图"><br><br>①A.桥接(Bridge)<br><br>B.组合(Composite)<br><br>C.外观(Facade)<br><br>D.单例(Singleton)<br><br>②A.Abstraction<br><br>B.ConcreteImnplementorA<br><br>C.ConcreteImplementorB<br><br>D.Implementor</p>
+</blockquote>
+<blockquote>
+<p>15)①A。<br><br>②D。</p>
+</blockquote>
+<blockquote>
+<p>43)以下关于UML状态图的叙述中，不正确的是①。对图10-23的描述，正确的是②。<br><br><img src="https://alphahinex.github.io/contents/software-designer/10-23.jpg" alt="图10-23 UML状态图"><br><br>①A.用于描述一个对象在多个用例中的行为<br><br>B.用于某些具有多个状态的对象而不是系统中大多数或全部对象<br><br>C.用于描述多个对象之间的交互<br><br>D.可以用于用户界面或控制对象<br><br>②A.ON是一个并发状态<br><br>B.因为此状态图中没有终点(final)状态，所以此图是无效的<br><br>C.play、stop和rewind是动作<br><br>D.ON是超状态</p>
+</blockquote>
+<blockquote>
+<p>43)①C。<br><br>②D。<br><br>UML 2.0中的状态图主要用于描述对象、子系统、系统的生命周期。通过状态图可以了解到一个对象所能到达的所有状态以及对象收到的事件（消息、超时、错误、条件满足等）对对象状态的影响等。针对具有可标记的状态和复杂的行为的对象构建状态图。状态可能有嵌套的子状态，且子状态可以是一个状态图。<br><br>本题图示的状态图中，ON是一个超状态，它有3个子状态：Idle、Rewinding和Playing，这3个子状态之间在相关事件发生时状态之间进行迁移。</p>
+</blockquote>
+<h3 id="10-3-难点精练"><a href="#10-3-难点精练" class="headerlink" title="10.3 难点精练"></a>10.3 难点精练</h3><blockquote>
+<p>3)UML中有4种关系，以下<strong>__</strong>不是UML中的关系。<br><br>A.依赖<br><br>B.关联<br><br>C.泛化<br><br>D.包含</p>
+</blockquote>
+<blockquote>
+<p>3)D。</p>
+</blockquote>
+<blockquote>
+<p>10)在面向对象技术中，类属是一种①机制，一个类属类是关于一组类的一个特性抽象，它强调的是这些类的成员特征中与②的那些部分，而用变元来表示与③的那些部分。<br><br>①A.包含多态<br><br>B.参数多态<br><br>C.过载多态<br><br>D.强制多态<br><br>②A.具体对象无关<br><br>B.具体类型无关<br><br>C.具体对象相关<br><br>D.具体类型相关<br><br>③A.具体对象无关<br><br>B.具体类型无关<br><br>C.具体对象相关<br><br>D.具体类型相关</p>
+</blockquote>
+<blockquote>
+<p>10)①B。<br><br>②B。<br><br>③D。<br><br>在面向对象技术中，类属是一种参数多态机制。类属类可以看成是类的模板。一个类属类是关于一组类的一个特性抽象，它强调的是这些类的成员特征中与具体类型无关的那些部分，而用变元来表示与具体类型相关的那些部分。类属类的一个重要作用就是对类库的建立提供了强有力的支持。</p>
+</blockquote>
+<p>在面向对象技术中，类属（Generics，又称泛型）是一种<strong>参数化多态</strong>机制，它允许在定义类、接口或方法时将数据类型作为参数，从而实现代码对不同数据类型的通用处理，提高复用性和类型安全性。</p>
+<blockquote>
+<p>18)<strong>__</strong>表示了对象间“is-a”的关系。<br><br>A.组合<br><br>B.引用<br><br>C.聚合<br><br>D.继承</p>
+</blockquote>
+<blockquote>
+<p>18)D。<br><br>对象间的关系有组合、聚合、继承等，其中继承对应的语义是“is-a”，组合对应的语义是“is a part of”，聚合对应的语义是“is a member of”。</p>
+</blockquote>
+<blockquote>
+<p>20)在C++语言中，关于类和结构体的说法中，正确的是<strong>__</strong>。<br><br>A.结构体不允许有成员函数<br><br>B.结构体与类没什么区别，可以替换<br><br>C.类定义中成员在默认情况下是private<br><br>D.类定义中成员在默认情况下是public</p>
+</blockquote>
+<blockquote>
+<p>20)C。<br><br>一般情况下，类封装了数据和其上的操作，结构体是一些数据的结合，在C++语言中，允许结构体包含成员函数。其间的区别在于：类中的成员默认情况下是private，而结构体是public。</p>
+</blockquote>
+<blockquote>
+<p>23)UML中有4种关系，以下<strong>__</strong>是UML中的关系。<br><br>A.扩展<br><br>B.实现<br><br>C.使用<br><br>D.包含</p>
+</blockquote>
+<blockquote>
+<p>23)B。<br><br>UML中定义了4种关系：依赖、关联、泛化和实现。</p>
+</blockquote>
+<blockquote>
+<p>24)对象建模技术定义了三种模型，其中<strong>__</strong>模型描述了系统中对象的静态结构以及对象之间的联系。<br><br>A.对象<br><br>B.功能<br><br>C.动态<br><br>D.都不是</p>
+</blockquote>
+<blockquote>
+<p>24)A。<br><br>对象建模技术定义了三种模型——对象模型、动态模型和功能模型，其中对象模型描述系统中对象的静态结构、对象之间的关系、对象的属性、对象的操作。</p>
+</blockquote>
+<h2 id="第11章-信息安全"><a href="#第11章-信息安全" class="headerlink" title="第11章 信息安全"></a>第11章 信息安全</h2><blockquote>
+<p>RSA算法基于一个十分简单的数论事实：将两个大素数相乘十分容易，但那时想要对其乘积进行因式分解却极其困难，因此可以将乘积公开作为加密密钥，可用于加密，也能用于签名。</p>
+</blockquote>
+<blockquote>
+<p>防火墙的双重宿主主机体系结构是指以一台双重宿主主机作为防火墙系统的主体，执行分离外部网络与内部网络的任务。一个典型的双重宿主主机体系结构如图11-2所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/software-designer/11-2.jpg" alt="图11-2 双重宿主主机体系结构"></p>
+</blockquote>
+<blockquote>
+<p>屏蔽主机体系结构是指通过一个单独的路由器和内部网络上的堡垒主机共同构成防火墙，主要通过数据包过滤实现内部、外部网络的隔离和对内网的保护。一个典型的屏蔽主机体系结构如图11-3所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/software-designer/11-3.jpg" alt="图11-3 屏蔽主机体系结构"></p>
+</blockquote>
+<blockquote>
+<p>屏蔽子网体系结构是最安全的防火墙体系结构。一个典型的屏蔽子网体系结构如图11-4所示。</p>
+</blockquote>
+<blockquote>
+<p><img src="https://alphahinex.github.io/contents/software-designer/11-4.jpg" alt="图11-4 屏蔽子网体系结构"></p>
+</blockquote>
+<blockquote>
+<p>SHTTP和HTTPS的主要区别在于：SHTTP是工作于应用层的协议，而HTTPS是在传输层使用SSL的HTTP。基本上SHTTP仅提供数据的加密机制，比如服务页面的数据，以及用户提交的数据（比如post），其余的协议部分和原来的HTTP是一样的。因此，SHTTP可以和传统的HTTP（未加密）同时使用，并且采用同一个端口号。而在HTTPS中，由于整个通信过程都是基于SSL的，即加密在任何协议数据被传输之前就开始建立，故HTTPS需要一个单独的端口号（比如HTTP是80，而HTTPS是443）。</p>
+</blockquote>
+<h3 id="11-2-真题精解"><a href="#11-2-真题精解" class="headerlink" title="11.2 真题精解"></a>11.2 真题精解</h3><blockquote>
+<p>19)下列算法中，不属于公开密钥加密算法的是<strong>__</strong>。<br><br>A.ECC<br><br>B.DSA<br><br>C.RSA<br><br>D.DES</p>
+</blockquote>
+<blockquote>
+<p>19)D。<br><br>常用的加密算法依据所使用的密钥数分为单钥和双钥加密体制，也称私钥和公钥加密算法。ECC、DSA和RSA都属于公开密钥加密算法，DES是典型的私钥加密体制。</p>
+</blockquote>
+<blockquote>
+<p>20)以下关于木马程序的叙述中，正确的是<strong>__</strong>。<br><br>A.木马程序主要通过移动磁盘传播<br><br>B.木马程序的客户端运行在攻击者的机器上<br><br>C.木马程序的目的是使计算机或网络无法提供正常的服务<br><br>D.Sniffer是典型的木马程序</p>
+</blockquote>
+<blockquote>
+<p>20)B。<br><br>木马程序一般分为服务器端(Server)和客户端(Client)，服务器端是攻击者传到目标机器上的部分，用来在目标机器上监听，等待客户端连接过来。客户端是用来控制目标机器的部分，放在攻击者的机器上。<br><br>木马程序常被伪装成工具程序或游戏，一旦用户打开了带有特洛伊木马程序的邮件附件或从网上直接下载，或执行了这些程序之后，当你连接到互联网上时，这个程序就会通知黑客用户的IP地址及被预先设定的端口。黑客在收到这些资料后，再利用这个潜伏其中的程序，就可以恣意修改用户的计算机设定、复制任何文件、窥视用户整个硬盘内的资料等，从而达到控制用户的计算机的目的。<br><br>现在有许多这样的程序，国外的此类软件有Back Office、Netbus等，国内的此类软件有Netspy、YAI、SubSeven、冰河等。Sniffer是一种基于被动侦听原理的网络分析软件，使用这种软件可以监视网络的状态、数据流动情况以及网络上传输的信息，它们不属于木马程序。</p>
+</blockquote>
+<blockquote>
+<p>32)可用于数字签名的算法是<strong>__</strong>。<br><br>A.RSA<br><br>B.IDEA<br><br>C.RC4<br><br>D.MD5</p>
+</blockquote>
+<blockquote>
+<p>32)A。<br><br>IDEA算法和RC4算法都是对称加密算法，只能用来进行数据加密。MD5算法是消息摘要算法，只能用来生成消息摘要，无法进行数字签名。RSA算法是典型的非对称加密算法，主要具有数字签名和验签的功能。</p>
+</blockquote>
+<blockquote>
+<p>45)DES是<strong>__</strong>算法。<br><br>A.公开密钥加密<br><br>B.共享密钥加密<br><br>C.数字签名<br><br>D.认证</p>
+</blockquote>
+<blockquote>
+<p>45)B。<br><br>非对称加密又称为公开密钥加密，而共享密钥加密指对称加密。常见的对称加密算法有DES、3DES、RC-5、IDEA、AES。</p>
+</blockquote>
+<h2 id="第12章-标准化、信息化与知识产权基础"><a href="#第12章-标准化、信息化与知识产权基础" class="headerlink" title="第12章 标准化、信息化与知识产权基础"></a>第12章 标准化、信息化与知识产权基础</h2><h3 id="12-2-真题精解"><a href="#12-2-真题精解" class="headerlink" title="12.2 真题精解"></a>12.2 真题精解</h3><blockquote>
+<p>3)利用<strong>__</strong>可以对软件的技术信息、经营信息提供保护。<br><br>A.著作权<br><br>B.专利权<br><br>C.商业秘密权<br><br>D.商标权</p>
+</blockquote>
+<blockquote>
+<p>3)C。<br><br>著作权从软件作品性的角度保护其表现形式，源代码（程序）、目标代码（程序）、软件文档是计算机软件的基本表达方式（表现形式），受著作权保护；专利权从软件功能性的角度保护软件的思想内涵，即软件的技术构思、程序的逻辑和算法等的思想内涵，当计算机软件同硬件设备是一个整体，涉及计算机程序的发明专利，可以申请方法专利，取得专利权保护。商标权是为商业化的软件从商品、商誉的角度为软件提供保护，利用商标权可以禁止他人使用相同或者近似的商标，生产（制作）或销售假冒软件产品。商标权受保护的力度大于其他知识产权，对软件的侵权行为更容易受到行政查处。而商业秘密权是商业秘密的合法控制人采取了保密措施，依法对其经营信息和技术信息享有的专有使用权，我国《反不正当竞争法》中对商业秘密的定义为“不为公众所知悉、能为权利人带来经济利益、具有实用性并经权利人采取保密措施的技术信息和经营信息”。软件技术秘密是指软件中适用的技术情报、数据或知识等，包括程序、设计方法、技术方案、功能规划、开发情况、测试结果及使用方法的文字资料和图表，如程序设计说明书、流程图、用户手册等。软件经营秘密指具有软件秘密性质的经营管理方法以及与经营管理方法密切相关的信息和情报，其中包括管理方法、经营方法、产销策略、客户情报（客户名单、客户需求），以及对软件市场的分析、预测报告和未来的发展规划、招投标中的标底及标书内容等。</p>
+</blockquote>
+<blockquote>
+<p>8)王某是M国际运输有限公司计算机系统管理员。任职期间，王某根据公司的业务要求开发了“海运出口业务系统”，并由公司使用，随后，王某向国家版权局申请了计算机软件著作权登记，并取得了《计算机软件著作权登记证书》。证书明确软件名称是“海运出口业务系统V1.0”，著作权人为王某。以下说法中，正确的是<strong>__</strong>。<br><br>A.海运出口业务系统V1.0的著作权属于王某<br><br>B.海运出口业务系统V1.0的著作权属于M公司<br><br>C.海运出口业务系统V1.0的著作权属于王某和M公司<br><br>D.王某获取的软件著作权登记证是不可以撤销的</p>
+</blockquote>
+<blockquote>
+<p>8)B。</p>
+</blockquote>
+<blockquote>
+<p>软件著作权是自软件开发完成之日起自动产生的，未经登记的软件著作权或软件著作权专有合同和转让合同仍受法律保护。</p>
+</blockquote>
+<blockquote>
+<p>10)中国企业M与美国公司L进行技术合作，合同约定M使用一项在有效期内的美国专利，但该项美国专利未在中国和其他国家提出申请。对于M销售依照该专利生产的产品，以下叙述正确的是<strong>__</strong>。<br><br>A.在中国销售，M需要向L支付专利许可使用费<br><br>B.返销美国，M不需要向L支付专利许可使用费<br><br>C.在其他国家销售，M需要向L支付专利许可使用费<br><br>D.在中国销售，M不需要向L支付专利许可使用费</p>
+</blockquote>
+<blockquote>
+<p>10)D。</p>
+</blockquote>
+<blockquote>
+<p>知识产权受地域限制，只有在一定地域内知识产权才具有独占性。也就是说，各国依照其本国法律授予的知识产权，只能在其本国领域内受其法律保护，而其他国家对这种权利没有保护的义务，任何人均可在自己的国家内自由使用外国人的知识产品，既无须取得权利人的同意（授权），也不必向权利人支付报酬。</p>
+</blockquote>
+<blockquote>
+<p>著作权虽然自动产生，但它受地域限制，我国法律对外国人的作品并不是都给予保护，只保护共同参加国际条约国家的公民作品。同样，参加公约的其他成员国也按照公约规定，对我国公民和法人的作品给予保护。</p>
+</blockquote>
+<blockquote>
+<p>18)甲、乙两个软件公司于2012年7月12日就其财务软件产品分别申请“用友”和“用有”商标注册。两个财务软件相似，甲第一次使用的时间为2009年7月，乙第一次使用的时间为2009年5月。此情形下，<strong>__</strong>获准注册。<br><br>A.“用友”<br><br>B.“用友”与“用有”都能<br><br>C.“用有”<br><br>D.由甲、乙抽签结果确定谁能</p>
+</blockquote>
+<blockquote>
+<p>18)C。</p>
+</blockquote>
+<blockquote>
+<p>同日申请选择先使用的</p>
+</blockquote>
+<blockquote>
+<p>22)甲、乙两个公司的软件设计师分别完成了相同的计算机程序发明，甲公司先于乙公司完成，乙公司先于甲公司使用。甲、乙公司于同一天向专利局申请发明专利。此情形下，<strong>__</strong>获得专利权。<br><br>A.甲公司<br><br>B.甲、乙公司均可<br><br>C.乙公司<br><br>D.由甲、乙公司协商确定谁</p>
+</blockquote>
+<blockquote>
+<p>22)D。</p>
+</blockquote>
+<blockquote>
+<p>两个以上的申请人在同一日分别就同样的发明创造申请专利的，应当在收到国务院专利行政部门的通知后自行协商确定申请人</p>
+</blockquote>
+<blockquote>
+<p>30)根据我国商标法，下列商品中必须使用注册商标的是<strong>__</strong>。<br><br>A.医疗仪器<br><br>B.墙壁涂料<br><br>C.无糖食品<br><br>D.烟草制品</p>
+</blockquote>
+<blockquote>
+<p>30)D。<br><br>根据我国法律规定：<br><br>①卷烟、雪茄烟和有包装的烟丝必须申请商标注册，未经核准注册的，不得生产、销售。<br><br>②除中药材和中药饮片以外的其他药品，都必须注册商标。</p>
+</blockquote>
+<blockquote>
+<p>36)有可能无限期拥有的知识产权是<strong>__</strong>。<br><br>A.著作权<br><br>B.专利权<br><br>C.商标权<br><br>D.集成电路布图设计权</p>
+</blockquote>
+<blockquote>
+<p>36)C。<br><br>其中商标权可以通过续注延长拥有期限，而著作权、专利权和设计权的保护期限都是有限期的。</p>
+</blockquote>
+<blockquote>
+<p>37)<strong>__</strong>是构成我国保护计算机软件著作权的两个基本法律文件。<br><br>A.《软件法》和《计算机软件保护条例》<br><br>B.《中华人民共和国著作权法》和《计算机软件保护条例》<br><br>C.《软件法》和《中华人民共和国著作权法》<br><br>D.《中华人民共和国版权法》和《计算机软件保护条例》</p>
+</blockquote>
+<blockquote>
+<p>37)B。</p>
+</blockquote>
+<blockquote>
+<p>45)按照我国著作权法的权利保护期，以下权利中，<strong>__</strong>受到永久保护。<br><br>A.发表权<br><br>B.修改权<br><br>C.复制权<br><br>D.发行权</p>
+</blockquote>
+<blockquote>
+<p>45)B。<br><br>著作权中的修改权、署名权、保护作品完整权都是永久保护的。</p>
+</blockquote>
+<h3 id="12-3-难点精练"><a href="#12-3-难点精练" class="headerlink" title="12.3 难点精练"></a>12.3 难点精练</h3><blockquote>
+<p>1)在以下组织中，<strong>__</strong>制定的标准是国际标准。<br><br>A.ISO和ANSI<br><br>B.IEEE和IEC<br><br>C.ISO和IEC<br><br>D.IEEE和CEN</p>
+</blockquote>
+<blockquote>
+<p>1)C。<br><br>国际标准是指国际标准化组织(ISO)、国际电工委员会(IEC)和国际电信联盟(ITU)制定的标准，以及国际标准化组织确认并公布的其他国际组织制定的标准。美国国家标准学会(ANSI)是国家标准化组织，美国电气电子工程师学会(IEEE)是行业标准化组织，欧洲标准化委员会(CEN)是区域标准化组织。</p>
+</blockquote>
+<blockquote>
+<p>3)条码是一种特殊的代码。条码是“一组规则排列的条、空及其对应字符组成的标记，用以表示一定的信息”。我国规定商品条码结构的国家标准是<strong>__</strong>。<br><br>A.GB/T 2312—1980<br>B.GB/T 12904—2008<br>C.GB/T 7590—1987<br>D.GB/T 12950—1991</p>
+</blockquote>
+<blockquote>
+<p>3)B。<br><br>条码是一种特殊的代码。条码是“一组规则排列的条、空及其对应字符组成的标记，用以表示一定的信息”。我国规定商品条码结构的国家标准是GB/T12904—2008。<br><br>GB/T 2312—1980是信息交换用汉字编码字符集基本集，GB/T 7590—1987是第四辅助集。</p>
+</blockquote>
+<blockquote>
+<p>4)赵某于2002年4月1日申请一项外观设计专利，2003年2月8日获得授权，这项专利权的保护期限终止于<strong>__</strong>。<br><br>A.2012年4月1日<br><br>B.2013年2月8日<br><br>C.2022年4月1日<br><br>D.2023年2月8日</p>
+</blockquote>
+<blockquote>
+<p>4)A。<br><br>实用新型专利权、外观设计专利权的期限为10年，均自申请日起计算。</p>
+</blockquote>
+<blockquote>
+<p>6)我国标准分为国家标准、行业标准、地方标准和企业标准4类，<strong>__</strong>是企业标准的代号。<br><br>A.GB<br><br>B.QJ<br><br>C.Q<br><br>D.DB</p>
+</blockquote>
+<blockquote>
+<p>6)C。<br><br>强制性国家标准代码为GB，推荐性国家标准代码为GB/T。<br><br>强制性行业标准代码由汉语拼音大字字母组成（如航天为QJ、电子为SJ、机械为JB、金融为JR），加上“/T”为行业推荐标准。<br><br>地方标准代号由大写汉语拼音字母DB加上省、自治区、直辖市行政区域代码的前两位数字组成。<br><br>企业标准的代号由大写汉语拼音字母Q加斜线再加企业代号组成。企业代号可由大写拼音字母或阿拉伯数字或两者兼用组成。</p>
+</blockquote>
+<blockquote>
+<p>17)<strong>__</strong>的保护期限是可以延长的。<br><br>A.专利权<br><br>B.商标权<br><br>C.著作权<br><br>D.商业秘密权</p>
+</blockquote>
+<blockquote>
+<p>17)B。<br><br>根据《商标法》第三十八条：注册商标有效期满，需要继续使用的，应当在期满前六个月内申请续展注册。专利权和著作权到期后都无法延长，而商业秘密权无期限限制。</p>
+</blockquote>
+<blockquote>
+<p>19)著作权中，<strong>__</strong>的保护期不受限制。<br><br>A.发表权<br><br>B.发行权<br><br>C.署名权<br><br>D.展览权</p>
+</blockquote>
+<blockquote>
+<p>19)C。<br><br>《著作权法》第二条第一款规定，中国公民、法人或者非法人组织的作品，不论是否发表，依照本法享有著作权。<br><br>第二十二条规定，作者的署名权、修改权、保护作品完整权的保护期限不受限制。<br><br>第二十三条第一款规定，自然人的作品，其发表权、本法第十条第一款第五项至第十七项规定的权利的保护期限为作者终生及其死亡后50年，截止于作者死亡后第50年的12月31日；如果是合作作品，截止于最后死亡的作者死亡后第50年的12月31日。</p>
+</blockquote>
+<hr>
+<h2 id="RAID"><a href="#RAID" class="headerlink" title="RAID"></a>RAID</h2><p>可以把 RAID 当成“<strong>用多块盘拼出不同性能和安全性</strong>”的方案，先记三个最常用的，再扩展到其他。</p>
+<h3 id="1️⃣-RAID-0-——-条带化，快但不稳"><a href="#1️⃣-RAID-0-——-条带化，快但不稳" class="headerlink" title="1️⃣ RAID 0 —— 条带化，快但不稳"></a>1️⃣ RAID 0 —— <strong>条带化，快但不稳</strong></h3><ul>
+<li><strong>怎么工作</strong>：数据拆成几块，分散写到多块盘  </li>
+<li><strong>特点</strong>：  <ul>
+<li>✅ <strong>读写最快</strong>（并行）  </li>
+<li>❌ <strong>没有冗余</strong>，坏一块全盘数据全丢  </li>
+</ul>
+</li>
+<li><strong>空间利用率</strong>：100%（n 块盘就是 n 倍容量）</li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 0 = 速度狂，坏了就全完</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="2️⃣-RAID-1-——-镜像，稳但费盘"><a href="#2️⃣-RAID-1-——-镜像，稳但费盘" class="headerlink" title="2️⃣ RAID 1 —— 镜像，稳但费盘"></a>2️⃣ RAID 1 —— <strong>镜像，稳但费盘</strong></h3><ul>
+<li><strong>怎么工作</strong>：数据一模一样写两份（主盘 + 镜像盘）  </li>
+<li><strong>特点</strong>：  <ul>
+<li>✅ <strong>安全性最高</strong>，坏一块照样用  </li>
+<li>❌ <strong>空间浪费大</strong>，一半空间用来备份  </li>
+</ul>
+</li>
+<li><strong>空间利用率</strong>：50%（n 块盘只能用 n/2）  </li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 1 = 照镜子，坏一个也不慌</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="3️⃣-RAID-5-——-分布式校验，性价比之选"><a href="#3️⃣-RAID-5-——-分布式校验，性价比之选" class="headerlink" title="3️⃣ RAID 5 —— 分布式校验，性价比之选"></a>3️⃣ RAID 5 —— <strong>分布式校验，性价比之选</strong></h3><ul>
+<li><strong>怎么工作</strong>：数据和校验信息分散存到所有盘  </li>
+<li><strong>特点</strong>：  <ul>
+<li>✅ 有冗余，坏 <strong>1 块盘可恢复</strong>  </li>
+<li>✅ 空间利用率比 RAID 1 高  </li>
+<li>❌ 写入性能略差（要算校验）  </li>
+</ul>
+</li>
+<li><strong>最少盘数</strong>：3 块  </li>
+<li><strong>空间利用率</strong>：(n−1)/n  </li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 5 = 校验分布，坏一盘还能救</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4️⃣-RAID-6-——-双校验，更耐造"><a href="#4️⃣-RAID-6-——-双校验，更耐造" class="headerlink" title="4️⃣ RAID 6 —— 双校验，更耐造"></a>4️⃣ RAID 6 —— <strong>双校验，更耐造</strong></h3><ul>
+<li><strong>和 RAID 5 区别</strong>：  <ul>
+<li>有 <strong>两组校验</strong>  </li>
+<li>能容忍 <strong>同时坏 2 块盘</strong>  </li>
+</ul>
+</li>
+<li><strong>最少盘数</strong>：4 块  </li>
+<li><strong>空间利用率</strong>：(n−2)/n  </li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 6 = 双保险，坏两块都不怕</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="5️⃣-RAID-10（1-0）——-先镜像再条带"><a href="#5️⃣-RAID-10（1-0）——-先镜像再条带" class="headerlink" title="5️⃣ RAID 10（1+0）—— 先镜像再条带"></a>5️⃣ RAID 10（1+0）—— <strong>先镜像再条带</strong></h3><ul>
+<li><strong>结构</strong>：先做 RAID 1 镜像组，再做 RAID 0 条带  </li>
+<li><strong>特点</strong>：  <ul>
+<li>✅ 性能好 + 安全性高  </li>
+<li>❌ 成本高，空间利用率低  </li>
+</ul>
+</li>
+<li><strong>容错</strong>：每组镜像里坏一块没事  </li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 10 = 又快又稳，土豪首选</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="6️⃣-RAID-01（0-1）——-先条带再镜像"><a href="#6️⃣-RAID-01（0-1）——-先条带再镜像" class="headerlink" title="6️⃣ RAID 01（0+1）—— 先条带再镜像"></a>6️⃣ RAID 01（0+1）—— <strong>先条带再镜像</strong></h3><ul>
+<li><strong>结构</strong>：先做 RAID 0，再做 RAID 1  </li>
+<li><strong>缺点</strong>：  <ul>
+<li>底层一组 RAID 0 坏一块，整个组失效  </li>
+</ul>
+</li>
+<li><strong>现在很少用</strong>，不如 RAID 10  </li>
+<li><strong>记忆口诀</strong>：  <blockquote>
+<p><strong>RAID 01 = 风险集中，基本淘汰</strong></p>
+</blockquote>
+</li>
+</ul>
+<h3 id="一张表快速对比"><a href="#一张表快速对比" class="headerlink" title="一张表快速对比"></a>一张表快速对比</h3><table>
+<thead>
+<tr>
+<th>RAID</th>
+<th>核心特点</th>
+<th>容错</th>
+<th>空间利用率</th>
+<th>性能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>条带</td>
+<td>无</td>
+<td>100%</td>
+<td>读写都高</td>
+</tr>
+<tr>
+<td>1</td>
+<td>镜像</td>
+<td>坏1块</td>
+<td>50%</td>
+<td>读高，写一般</td>
+</tr>
+<tr>
+<td>5</td>
+<td>分布式校验</td>
+<td>坏1块</td>
+<td>(n−1)/n</td>
+<td>读好，写一般</td>
+</tr>
+<tr>
+<td>6</td>
+<td>双校验</td>
+<td>坏2块</td>
+<td>(n−2)/n</td>
+<td>读好，写较差</td>
+</tr>
+<tr>
+<td>10</td>
+<td>镜像+条带</td>
+<td>每组坏1块</td>
+<td>50%</td>
+<td>读写都高</td>
+</tr>
+</tbody></table>
+<h3 id="记忆小技巧（一句话版）"><a href="#记忆小技巧（一句话版）" class="headerlink" title="记忆小技巧（一句话版）"></a>记忆小技巧（一句话版）</h3><ul>
+<li><strong>要速度 → RAID 0</strong>  </li>
+<li><strong>要安全 → RAID 1</strong>  </li>
+<li><strong>要平衡 → RAID 5</strong>  </li>
+<li><strong>要更稳 → RAID 6</strong>  </li>
+<li><strong>不差钱又要性能安全 → RAID 10</strong></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">349 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">165 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-计算机科学基础"><span class="toc-number">1.</span> <span class="toc-text">第1章 计算机科学基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-计算机硬件基础"><span class="toc-number">2.</span> <span class="toc-text">第2章 计算机硬件基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-真题精解"><span class="toc-number">2.1.</span> <span class="toc-text">2.2 真题精解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-数据结构与算法"><span class="toc-number">3.</span> <span class="toc-text">第3章 数据结构与算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-真题精解"><span class="toc-number">3.1.</span> <span class="toc-text">3.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Master-Theorem"><span class="toc-number">3.2.</span> <span class="toc-text">Master Theorem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-难点精练"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第4章-操作系统"><span class="toc-number">4.</span> <span class="toc-text">第4章 操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-真题精解"><span class="toc-number">5.</span> <span class="toc-text">4.2 真题精解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-难点精练"><span class="toc-number">6.</span> <span class="toc-text">4.3 难点精练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-程序设计语言和语言处理程序"><span class="toc-number">7.</span> <span class="toc-text">第5章 程序设计语言和语言处理程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-真题精解"><span class="toc-number">7.1.</span> <span class="toc-text">5.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-难点精练"><span class="toc-number">7.2.</span> <span class="toc-text">5.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-数据库"><span class="toc-number">8.</span> <span class="toc-text">第6章 数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-难点精练"><span class="toc-number">8.1.</span> <span class="toc-text">6.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-计算机网络"><span class="toc-number">9.</span> <span class="toc-text">第7章 计算机网络</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-真题精解"><span class="toc-number">9.1.</span> <span class="toc-text">7.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-难点精练"><span class="toc-number">9.2.</span> <span class="toc-text">7.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第8章-多媒体基础"><span class="toc-number">10.</span> <span class="toc-text">第8章 多媒体基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-真题精解"><span class="toc-number">10.1.</span> <span class="toc-text">8.2 真题精解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第9章-软件工程"><span class="toc-number">11.</span> <span class="toc-text">第9章 软件工程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-真题精解"><span class="toc-number">11.1.</span> <span class="toc-text">9.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-难点精练"><span class="toc-number">11.2.</span> <span class="toc-text">9.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第10章-面向对象"><span class="toc-number">12.</span> <span class="toc-text">第10章 面向对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-2-真题精解"><span class="toc-number">12.1.</span> <span class="toc-text">10.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-难点精练"><span class="toc-number">12.2.</span> <span class="toc-text">10.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第11章-信息安全"><span class="toc-number">13.</span> <span class="toc-text">第11章 信息安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-真题精解"><span class="toc-number">13.1.</span> <span class="toc-text">11.2 真题精解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第12章-标准化、信息化与知识产权基础"><span class="toc-number">14.</span> <span class="toc-text">第12章 标准化、信息化与知识产权基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#12-2-真题精解"><span class="toc-number">14.1.</span> <span class="toc-text">12.2 真题精解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#12-3-难点精练"><span class="toc-number">14.2.</span> <span class="toc-text">12.3 难点精练</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RAID"><span class="toc-number">15.</span> <span class="toc-text">RAID</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1️⃣-RAID-0-——-条带化，快但不稳"><span class="toc-number">15.1.</span> <span class="toc-text">1️⃣ RAID 0 —— 条带化，快但不稳</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2️⃣-RAID-1-——-镜像，稳但费盘"><span class="toc-number">15.2.</span> <span class="toc-text">2️⃣ RAID 1 —— 镜像，稳但费盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3️⃣-RAID-5-——-分布式校验，性价比之选"><span class="toc-number">15.3.</span> <span class="toc-text">3️⃣ RAID 5 —— 分布式校验，性价比之选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4️⃣-RAID-6-——-双校验，更耐造"><span class="toc-number">15.4.</span> <span class="toc-text">4️⃣ RAID 6 —— 双校验，更耐造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5️⃣-RAID-10（1-0）——-先镜像再条带"><span class="toc-number">15.5.</span> <span class="toc-text">5️⃣ RAID 10（1+0）—— 先镜像再条带</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6️⃣-RAID-01（0-1）——-先条带再镜像"><span class="toc-number">15.6.</span> <span class="toc-text">6️⃣ RAID 01（0+1）—— 先条带再镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一张表快速对比"><span class="toc-number">15.7.</span> <span class="toc-text">一张表快速对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#记忆小技巧（一句话版）"><span class="toc-number">15.8.</span> <span class="toc-text">记忆小技巧（一句话版）</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

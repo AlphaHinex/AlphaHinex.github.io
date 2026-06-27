@@ -1,0 +1,577 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】Claude Code 接入 Github Copilot 模型 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Java, concurrency, Reactive Streams, backpressure, Publisher, Subscriber, Subscription, Processor"> 
+    <meta name="description" content="
+原文地址：https://feisky.xyz/posts/2025-07-11-claude-code-connect-github-copilot/
+原文作者：Feisky
+
+
+还在为 Cla,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】Claude Code 接入 Github Copilot 模型</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/claude-code-connect-github-copilot.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                五月 10, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/05/10/claude-code-connect-github-copilot/" title="【转】Claude Code 接入 Github Copilot 模型" class="">【转】Claude Code 接入 Github Copilot 模型</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/concurrency/" rel="tag">concurrency</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/reactive/" rel="tag">reactive</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://feisky.xyz/posts/2025-07-11-claude-code-connect-github-copilot/" target="_blank" rel="noopener">https://feisky.xyz/posts/2025-07-11-claude-code-connect-github-copilot/</a></li>
+<li>原文作者：<a href="https://feisky.xyz/" target="_blank" rel="noopener">Feisky</a></li>
+</ul>
+<hr>
+<p>还在为 Claude API 费用发愁？想用最强的 Claude Code 却又舍不得公司提供的 GitHub Copilot 订阅？</p>
+<p>作为一个每天都在和各种 AI 编程工具打交道的开发者，我发现很多同学都有这样的困扰。Github Copilot 确实在 2025 年加入了强大的 Agent 模式和 Claude 4 模型支持，比以前好用太多了！但说实话，跟 Claude Code 这种新一代 AI 编程工具相比，在复杂编程任务的处理上还是有明显差距。</p>
+<p>既然很多公司都给员工配备了 GitHub Copilot 订阅，那我们能不能 “鱼和熊掌兼得”——用 GitHub Copilot 的模型直接驱动 Claude Code，既享受最强的编程体验，又能省下 Claude 的 API/订阅 费用呢？</p>
+<p>今天就带你一起探索这个 “开挂” 玩法！</p>
+<h2 id="调用-GitHub-Copilot-API-违规吗？"><a href="#调用-GitHub-Copilot-API-违规吗？" class="headerlink" title="调用 GitHub Copilot API 违规吗？"></a>调用 GitHub Copilot API 违规吗？</h2><p>答案是否定的！根据 GitHub Copilot <a href="https://docs.github.com/en/copilot/how-tos/build-copilot-extensions/building-a-copilot-agent-for-your-copilot-extension/using-copilots-llm-for-your-agent" target="_blank" rel="noopener">官方文档</a> 的说明：</p>
+<blockquote>
+<p>Copilot 的大型语言模型 (LLM) 是一个强大的大规模语言模型，经过多种数据源的训练，包括代码、文档和其他文本。Copilot 的 LLM 支持 GitHub Copilot 的功能，用于驱动所有 Copilot 功能，包括代码生成、文档生成和代码补全。您可以选择使用 Copilot 的 LLM 来支持您的代理，这在您希望代理能够为用户消息生成补全但又不想管理自己的 LLM 时非常有用。</p>
+</blockquote>
+<p><strong>简单来说，GitHub Copilot 提供了一个标准的 OpenAI 格式 API 端点：<a href="https://api.githubcopilot.com/chat/completions" target="_blank" rel="noopener">https://api.githubcopilot.com/chat/completions</a></strong>，这意味着支持 OpenAI API 的 Agent 工具理论上都能接入！**</p>
+<p>为了方便你使用，GitHub 官方还贴心地提供了示例代码：</p>
+<pre><code class="js">// Use Copilot&#39;s LLM to generate a response to the user&#39;s
+//  messages, with our extra system messages attached.
+const copilotLLMResponse = await fetch(
+  &quot;https://api.githubcopilot.com/chat/completions&quot;,
+  {
+    method: &quot;POST&quot;,
+    headers: {
+      authorization: `Bearer ${tokenForUser}`,
+      &quot;content-type&quot;: &quot;application/json&quot;,
+    },
+    body: JSON.stringify({
+      messages,
+      stream: true,
+    }),
+  }
+);</code></pre>
+<h2 id="如何让-Claude-Code-用上-GitHub-Copilot？"><a href="#如何让-Claude-Code-用上-GitHub-Copilot？" class="headerlink" title="如何让 Claude Code 用上 GitHub Copilot？"></a>如何让 Claude Code 用上 GitHub Copilot？</h2><p>理论很美好，现实却有个小问题：<strong>Claude Code 只接受 Anthropic API 格式，而 GitHub Copilot 提供的是 OpenAI 格式！</strong></p>
+<p>不过别担心，既然都是标准格式，自然有办法解决。目前已经有很多工具实现了这个转换，比如：</p>
+<ul>
+<li><a href="https://aider.chat/docs/llms/github.html" target="_blank" rel="noopener">Aider</a>：原生支持 GitHub Copilot；</li>
+<li><a href="https://docs.cline.bot/provider-config/vscode-language-model-api" target="_blank" rel="noopener">Cline</a>：VS Code 插件，通过 VSCode 内置功能同样支持。</li>
+</ul>
+<p>对于 Claude Code，我们则需要一个 “翻译官” 来做格式转换。你可以利用 AI 快速 Vibe Code 一个转换工具，当然也可以直接使用相关的开源项目。这里我推荐 <a href="https://github.com/ericc-ch/copilot-api" target="_blank" rel="noopener">copilot-api</a>！</p>
+<p>这个工具的厉害之处在于：</p>
+<ul>
+<li><strong>双格式支持</strong>：同时提供 OpenAI 和 Anthropic 兼容的 API 端点；</li>
+<li><strong>Claude Code 专用优化</strong>：专门为 Claude Code 做了适配；</li>
+<li><strong>一键启动</strong>：通过 <code>--claude-code</code> 参数可以自动配置。</li>
+</ul>
+<h2 id="手把手教你配置"><a href="#手把手教你配置" class="headerlink" title="手把手教你配置"></a>手把手教你配置</h2><p>首先确保你的系统已经安装了 <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">Node.js</a>，然后安装必要的工具：</p>
+<pre><code class="bash">npm install -g copilot-api</code></pre>
+<p>如果你还没有安装 Claude Code，同样一行命令搞定：</p>
+<pre><code class="bash">npm install -g @anthropic-ai/claude-code</code></pre>
+<h3 id="启动-copilot-api-代理服务"><a href="#启动-copilot-api-代理服务" class="headerlink" title="启动 copilot-api 代理服务"></a>启动 copilot-api 代理服务</h3><p>接下来，打开第一个终端，启动代理服务：</p>
+<pre><code class="bash">copilot-api start</code></pre>
+<p>这时候会提示你进行 GitHub 授权，<strong>一定要注意这一步</strong>：</p>
+<pre><code class="bash">...
+Please visit https://github.com/login/device and enter code XXXX-XXXX to authenticate
+...</code></pre>
+<p>按照提示访问 GitHub 登录页面，输入设备码完成授权。成功后你会看到可用模型列表以及 API 调用地址：</p>
+<pre><code class="bash">...
+- claude-3.5-sonnet
+- claude-3.7-sonnet
+- claude-3.7-sonnet-thought
+- claude-sonnet-4
+- claude-opus-4
+- gemini-2.0-flash-001
+- gemini-2.5-pro
+- o3
+...
+  ➜ Listening on: http://localhost:4141/ (all interfaces)</code></pre>
+<p>看到这么多模型是不是很激动？<strong>特别是 Claude Sonnet 4 和 Claude Opus 4，这些都是可用的！</strong></p>
+<h3 id="配置-Claude-Code"><a href="#配置-Claude-Code" class="headerlink" title="配置 Claude Code"></a>配置 Claude Code</h3><p>打开第二个终端，创建 Claude Code 配置文件。在 <code>~/.claude/settings.json</code> 中添加以下配置：</p>
+<pre><code class="json">{
+  &quot;env&quot;: {
+    &quot;ANTHROPIC_BASE_URL&quot;: &quot;http://localhost:4141&quot;,
+    &quot;ANTHROPIC_AUTH_TOKEN&quot;: &quot;dummy&quot;,
+    &quot;ANTHROPIC_MODEL&quot;: &quot;claude-sonnet-4&quot;,
+    &quot;ANTHROPIC_SMALL_FAST_MODEL&quot;: &quot;claude-3.7-sonnet&quot;,
+    &quot;DISABLE_NON_ESSENTIAL_MODEL_CALLS&quot;: &quot;1&quot;,
+    &quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;: &quot;1&quot;
+  }
+}</code></pre>
+<p>配置说明：</p>
+<ul>
+<li><code>ANTHROPIC_BASE_URL</code>: 指向本地代理服务地址；</li>
+<li><code>ANTHROPIC_AUTH_TOKEN</code>: 填写任意值即可（代理会处理真实的认证）；</li>
+<li><code>ANTHROPIC_MODEL</code>: 主要模型，推荐 <code>claude-opus-4</code> 或 <code>claude-sonnet-4</code>；</li>
+<li><code>ANTHROPIC_SMALL_FAST_MODEL</code>: 快速模型，用于轻量级任务；</li>
+<li>后两个参数用于优化性能，减少不必要的调用。</li>
+</ul>
+<p>配置完成后，在终端继续执行：</p>
+<pre><code class="bash">claude</code></pre>
+<p>如果一切顺利，你就成功用上了由 GitHub Copilot 驱动的 Claude Code！🎉</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个方案，我们成功实现了 “鱼和熊掌兼得”——既能享受 Claude Code 的强大编程能力，又能充分利用公司提供的 GitHub Copilot 资源。</p>
+<p>最后还要提醒一下，频繁调用时 Github Copilot 可能会有限流问题，特别是高级模型。此时，你可以先切换到稍弱一点的模型继续使用。</p>
+<p>你还尝试过类似的组合方案？欢迎在评论区分享你的使用体验！</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">349 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">165 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#调用-GitHub-Copilot-API-违规吗？"><span class="toc-number">1.</span> <span class="toc-text">调用 GitHub Copilot API 违规吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何让-Claude-Code-用上-GitHub-Copilot？"><span class="toc-number">2.</span> <span class="toc-text">如何让 Claude Code 用上 GitHub Copilot？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#手把手教你配置"><span class="toc-number">3.</span> <span class="toc-text">手把手教你配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启动-copilot-api-代理服务"><span class="toc-number">3.1.</span> <span class="toc-text">启动 copilot-api 代理服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置-Claude-Code"><span class="toc-number">3.2.</span> <span class="toc-text">配置 Claude Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结语"><span class="toc-number">4.</span> <span class="toc-text">结语</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

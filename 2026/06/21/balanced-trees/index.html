@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【译】平衡树 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,AVL, RBT, WBT, balanced trees, binary search trees, logarithmic complexity, self-balancing, tree structures, search, insert, delete, time complexity, black height, tree operations, tree rebalancing"> 
+    <meta name="description" content="
+原文地址：https://www.baeldung.com/cs/balanced-trees
+原文作者：Milos Simic
+
+
+1. 简介在本教程中，我们将学习平衡二叉树。 
+特别地，我们将,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【译】平衡树</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/balanced-trees/binary-tree-768x435.jpg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/algorithm"><b>「
+                    </b>ALGORITHM<b> 」</b></a>
+                
+                六月 21, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/06/21/balanced-trees/" title="【译】平衡树" class="">【译】平衡树</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Data-Structures/" rel="tag">Data Structures</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/algorithm/" rel="tag">algorithm</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://www.baeldung.com/cs/balanced-trees" target="_blank" rel="noopener">https://www.baeldung.com/cs/balanced-trees</a></li>
+<li>原文作者：<a href="https://www.baeldung.com/cs/author/milossimic" target="_blank" rel="noopener">Milos Simic</a></li>
+</ul>
+<hr>
+<h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h2><p><strong>在本教程中，我们将学习平衡二叉树。</strong> </p>
+<p>特别地，我们将了解这类 <a href="https://www.baeldung.com/cs/tree-structures-differences" target="_blank" rel="noopener">树</a> 为何如此有用，并探索其中的三种类型。我们将讨论 AVL 树、红黑树和权重平衡树。每种类型的树都有其自身对“平衡”的定义。</p>
+<h2 id="2-二叉树和二叉搜索树"><a href="#2-二叉树和二叉搜索树" class="headerlink" title="2. 二叉树和二叉搜索树"></a>2. 二叉树和二叉搜索树</h2><p><strong>如果树中的每个节点最多拥有两个子节点，我们称这棵树为 <a href="https://www.baeldung.com/cs/binary-tree-intro" target="_blank" rel="noopener">二叉树</a>。</strong> 一个节点的左子节点及其后代构成该节点的左子树。右子树的定义类似。</p>
+<p>虽然适合存储层次化数据，<strong>但这种一般形式的二叉树并不能保证快速查找</strong>。以在下图中搜索数字 9 为例：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/binary-tree-768x435.jpg" alt="Example binary tree for search illustration"></p>
+<p>无论我们访问哪个节点，我们都不知道接下来应该遍历左子树还是右子树。这是因为这个树的层次结构并不遵循 $\le$ 的关系。</p>
+<p>因此，<strong>在最坏的情况下，搜索的时间复杂度为 $O(n)$，其中 $n$ 是树中的节点数。</strong></p>
+<h3 id="2-1-二叉搜索树"><a href="#2-1-二叉搜索树" class="headerlink" title="2.1. 二叉搜索树"></a>2.1. 二叉搜索树</h3><p>我们通过转向一种特殊类型的二叉树来解决这个问题，称为二叉搜索树（binary search tree, BST）。<strong>对于 BST 中的每个节点 $x$，$x$ 左子树中的所有节点的值都严格小于 $x$。进一步地，$x$ 右子树中的所有节点的值都 $\ge x$。</strong> 例如：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/binary-search-tree-768x435.jpg" alt="Example BST"></p>
+<p><strong>二叉搜索树维护的这种顺序允许我们在查找过程中进行“剪枝”。</strong> 假设我们在搜索目标值 $y$ 时访问了节点 $x &lt; y$。我们可以忽略 $x$ 的左子树，只关注右子树，从而加快搜索速度。下图演示了如何在上述搜索树中找到 $9$：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/binary-search-tree-example-1-768x435.jpg" alt="Search in BST"></p>
+<p>然而，<strong>在最坏的情况下，搜索的时间复杂度仍然是 $O(n)$。</strong> 它发生在当我们从一个有序数组构建树时，此时树的高度为 $n$，并退化为链表。由于插入和删除操作都包含搜索，<strong>在最坏情况下，BST 上的所有常见操作的时间复杂度都是 $O(n)$。</strong> 因此，树的高度决定了复杂度。这正是平衡树发挥作用的地方。它们是一种特殊类型的二叉搜索树。</p>
+<h2 id="3-平衡树"><a href="#3-平衡树" class="headerlink" title="3. 平衡树"></a>3. 平衡树</h2><p><strong>平衡树是一种不仅只维护节点之间顺序的搜索树。它还控制其 <a href="https://www.baeldung.com/cs/height-balanced-tree" target="_blank" rel="noopener">高度</a>，确保在插入或删除后保持 $O(\log n)$ 的复杂度。</strong></p>
+<p><strong>为此，平衡树必须在添加或删除节点后重新平衡自己。</strong> 这会带来计算开销，并使插入和删除算法复杂化。然而，为获得具有快速搜索、插入和删除操作的对数高度的搜索树，这是我们愿意付出的代价。我们不会在本文中介绍重新平衡算法。</p>
+<p><strong>此类树有几种类型。它们要求所有节点都保持平衡，但平衡的概念因类型而异。</strong></p>
+<h2 id="4-AVL-树"><a href="#4-AVL-树" class="headerlink" title="4. AVL 树"></a>4. AVL 树</h2><p><strong>在 <a href="https://www.baeldung.com/java-avl-trees" target="_blank" rel="noopener">AVL 树</a> 中，如果一个节点的左子树和右子树的高度之差最多为 1，我们称该节点是平衡的。</strong> 因此，如果一个根节点为 $x$ 的搜索树的所有节点在 AVL 意义下都是平衡的，那么它就是一棵 AVL 树（空的搜索树，高度为 0，显然是平衡的）：</p>
+<p>$$AVL(x) \iff |height(x.left) - height(x.right)| \leq 1 \text{ and } AVL(x.left) \text{ and } AVL(x.right) \tag{1}$$</p>
+<p>例如：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/A-Balanced-AVL-Tree-768x435.jpg" alt="AVL tree example"></p>
+<p>这种平衡定义的一个直接结果是，AVL 树的高度在最坏情况下为 $O(\log n)$。</p>
+<h3 id="4-1-证明高度为对数的"><a href="#4-1-证明高度为对数的" class="headerlink" title="4.1. 证明高度为对数的"></a>4.1. 证明高度为对数的</h3><p><strong>当所有兄弟子树的高度都相差 1 时，AVL 树的平衡性最差。</strong> 例如：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/A-Minimal-AVL-tree-768x536.jpg" alt="Worst-case AVL tree"></p>
+<p>这就是 AVL 树的最坏情况结构。向平衡性最差的 AVL 树中添加一个节点，我们要么得到一个非 AVL 树，要么平衡其中的一个节点。删除节点也是如此。因此，这样的 AVL 树是最小的：不存在比它节点更少但高度相同的 AVL 树。</p>
+<p>即使我们交换节点的左右子树，树仍然保持平衡。因此，我们假设左子树的节点更多。然后，如果 $N(h)$ 是高度为 $h$ 的最小 AVL 树的节点数，我们有：</p>
+<p>$$ N(h) = 1 + \underbrace{N(h-1)}_{\text{left sub-tree}} + \underbrace{N(h-2)}_{\text{right sub-tree}} $$</p>
+<p>根据我们的假设，我们有 $N(h-1) \gt N(h-2)$，因此：</p>
+<p>$$N(h) \gt 1 + 2N(h-2) \gt 2N(h-2) \gt 4N(h-4) \gt 8N(h-6) \gt … \gt 2^{\frac{h}{2}}N(0)$$</p>
+<p>高度为 $0$ 的 AVL 结构只有一个节点，所以 $N(0) = 1$，并且：</p>
+<p>$$ \begin{align*}<br>n &amp;= N(h) &gt; 2^{\frac{h}{2}} \\<br>\log_2 n &amp;&gt; \frac{h}{2} \\<br>h &amp;&lt; 2 \log_2 n \in O(\log n)<br>\end{align*} $$</p>
+<p><strong>因此，在最不平衡的情况下，AVL 树的高度为 $O(\log n)$。所以，搜索、插入和删除等操作的时间复杂度为对数级。</strong></p>
+<h2 id="5-红黑树"><a href="#5-红黑树" class="headerlink" title="5. 红黑树"></a>5. 红黑树</h2><p><a href="https://www.baeldung.com/cs/red-black-trees" target="_blank" rel="noopener">红黑树</a>（Red-Black Trees, RBTs） 也平衡了兄弟子树的高度。 但是，<strong>红黑树区分两种类型的节点：红色节点和黑色节点</strong>。红黑树确保从一个节点到其子孙叶子的所有路径都经过相同数量的黑色节点。此外，<strong>从一个节点到其叶子的黑色节点数量（不包括该节点）称为该节点的黑色高度</strong>。整个红黑树的黑色高度是其根节点的黑色高度。例如（为了节省空间，将 NULL 叶子合并为一个节点）：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/Red-Black-Tree-768x536.jpg" alt="Red-black tree example"></p>
+<p><strong>根据定义，红黑树满足以下条件：</strong></p>
+<ul>
+<li>每个节点要么是黑色，要么是红色。</li>
+<li>根节点是黑色。</li>
+<li>每个空节点（NULL 或 NIL）是黑色。</li>
+<li>如果一个节点是红色的，那么它的两个子节点都是黑色的。</li>
+<li>对于每个节点 $x$，从 $x$（不包括它自己）到其子孙叶子的路径包含相同数量的黑色节点。</li>
+</ul>
+<p>有些作者不要求根节点是黑色的，因为我们可以在任何情况下重新涂色一棵树。</p>
+<p>红黑树的性质确保：</p>
+<ul>
+<li>从根节点到任意叶子节点的路径长度，不会超过到另一个叶子节点路径长度的两倍。</li>
+<li>并且树的高度是 $O(\log n)$。</li>
+</ul>
+<h3 id="5-1-证明红黑树高度是-O-log-n"><a href="#5-1-证明红黑树高度是-O-log-n" class="headerlink" title="5.1. 证明红黑树高度是 $O(\log n)$"></a>5.1. 证明红黑树高度是 $O(\log n)$</h3><p>设 $bh(x)$ 是 $x$ 的黑色高度。我们首先通过归纳法证明，<strong>以 $x$ 为根的子树至少包含 $2^{bh(x)} - 1$ 个内部节点</strong>。</p>
+<p>基本情况是 $bh(x) = 0$，这意味着 $x$ 是一个空节点，即一个叶子节点：</p>
+<p>$$ 2^{bh(NULL)} - 1 = 2^0 - 1 = 0 $$</p>
+<p>所以基本情况成立。在归纳步骤中，我们关注 $x$ 及其子节点。它们的黑色高度等于 $bh(x)$ 或 $bh(x) - 1$，取决于它们的颜色。根据归纳假设，它们每个至少包含 $2^{bh(x)-1} - 1$ 个节点。因此，以 $x$ 为根的整个子树至少包含这些节点：</p>
+<p>$$ 2 \cdot (2^{bh(x)-1} - 1) + 1 = 2^{bh(x)-1+1} - 2 + 1 = 2^{bh(x)} - 1 $$</p>
+<p>现在，设 $h$ 是根节点 $x$ 的高度。<strong>由于红色节点只能有黑色子节点，从根到任意叶子的路径中至少有一半的节点必须是黑色的。</strong> 因此，根的黑色高度 $\geq h/2$。</p>
+<p>利用关于内部节点的结果，我们得到：</p>
+<p>$$ \begin{align*}<br>n &amp; \geq 2^{\frac{h}{2}} - 1 \\<br>n + 1 &amp; \geq 2^{\frac{h}{2}} \\<br>2^{\frac{h}{2}} &amp; \leq n + 1 \\<br>h &amp; \leq 2 \log_2 n + 1 \in O(\log n)<br>\end{align*} $$</p>
+<p><strong>同样，我们得出树的高度随着节点数量的对数增长。</strong></p>
+<h2 id="6-权重平衡树"><a href="#6-权重平衡树" class="headerlink" title="6. 权重平衡树"></a>6. 权重平衡树</h2><p><strong><a href="https://www.cambridge.org/core/books/advanced-data-structures/D56E2269D7CEE969A3B8105AD5B9254C" target="_blank" rel="noopener">权重平衡树</a>（Weight-Balanced Trees, WBTs）不平衡兄弟子树的高度，而是平衡它们的叶子数量。</strong> 因此，设 $x’$ 和 $x’’$ 为 $x$ 的子树，并设 $leaves(x’) \geq leaves(x’’)$。我们说 $x$ 是平衡的，如果：</p>
+<p>$$ \frac{leaves(x’’)}{leaves(x’)} \leq \beta \in (0,1) $$</p>
+<p>我们还要求 $x$ 的所有后代节点满足相同的条件。<strong>这等价于说明存在一个 $\alpha \in (0,1)$，使得对于树中的每个节点 $x$，以下条件成立：</strong></p>
+<p>$$ \begin{align*}<br>leaves(x.left) &amp;\geq \alpha \cdot leaves(x) \\<br>leaves(x.right) &amp;\geq \alpha \cdot leaves(x)<br>\end{align*} $$</p>
+<p>为了理解原因，让我们回忆一下 $leaves(x’) &gt; leaves(x’’)$ 并跟随推导过程：</p>
+<p>$$ \begin{align*}<br>leaves(x) &amp;= leaves(x’) + leaves(x’’) \\<br>&amp;\leq 2 \beta \cdot leaves(x’’) \\<br>&amp;\implies \\<br>leaves(x’’) &amp;\geq \frac{1}{2 \beta} \cdot leaves(x)<br>\end{align*} $$</p>
+<p>所以，这就是权重平衡树 $x$ 的递归定义：</p>
+<p>$$WBT(x) \iff leaves(x.left) \geq leaves(x) \text{ and } leaves(x.right) \geq leaves(x) \text{ and } WBT(x.left) \text{ and } WBT(x.right) \tag{2}$$</p>
+<p>这是一个 $\alpha = 0.29$ 的 WBT 的示例（每个节点内写着叶子数量）：</p>
+<p><img src="https://alphahinex.github.io/contents/balanced-trees/Weight-Balanced-Tree-768x435.jpg" alt="Weight-balanced tree example"></p>
+<p>树中叶子节点的总数即为其权重，这也是“权重平衡树”名称的由来。我们将证明，权重平衡树的高度同样被限制在 $\log n$。</p>
+<h3 id="6-1-证明权重平衡树的高度是-O-log-n"><a href="#6-1-证明权重平衡树的高度是-O-log-n" class="headerlink" title="6.1. 证明权重平衡树的高度是 $O(\log n)$"></a>6.1. 证明权重平衡树的高度是 $O(\log n)$</h3><p>假设 $x$ 是一棵高度为 $h$ 的最小权重平衡树，并设 $L(h)$ 为其叶子节点的数量。根据权重平衡树的定义，我们知道 $x$ 的子树包含的叶子节点数量最多为父节点的 $1 - \alpha$ 。此外，子树的高度最多为 $h-1$。因此，我们有：</p>
+<p>$$ \begin{align*}<br>L(h - 1) &amp;\leq (1 - \alpha) L(h) \\<br>L(h - 2) &amp;\leq (1 - \alpha)^2 L(h) \\<br>&amp;… \\<br>L(0) &amp;= 1 \leq (1 - \alpha)^h L(h)<br>\end{align*} $$</p>
+<p>由于 $L(h) \leq n$，$n$ 是树中的节点数，我们有：</p>
+<p>$$ \begin{align*}<br>(1 - \alpha)^h n &amp;\geq 1 \\<br>n &amp;\geq (1 - \alpha)^{-h} \\<br>(1 - \alpha)^{-h} &amp;\leq n \\<br>(\frac{1}{1-\alpha})^h &amp;\leq n \\<br>h &amp;\leq \log_\frac{1}{1 - \alpha} n \in O(\log n)<br>\end{align*} $$</p>
+<p><strong>所以，权重平衡树的高度也是节点数量的对数级别。</strong></p>
+<h3 id="6-2-alpha-的取值"><a href="#6-2-alpha-的取值" class="headerlink" title="6.2. $\alpha$ 的取值"></a>6.2. $\alpha$ 的取值</h3><p>如果我们使用过大的 $\alpha$，重新平衡可能会变得不可完成。它的值应该 $&lt; 1 - \frac{1}{\sqrt{2}}$。</p>
+<p>如果我们准备使用复杂的自定义重新平衡算法，我们可以使用任意小的 $\alpha$。然而，推荐使用 $\alpha \in (\frac{2}{11},1 - \frac{1}{\sqrt{2}})$。</p>
+<h2 id="7-结论"><a href="#7-结论" class="headerlink" title="7. 结论"></a>7. 结论</h2><p><strong>在本文中，我们介绍了三种类型的平衡树。</strong> 分别是：AVL 树、红黑树和权重平衡树。<strong>通过使用不同的平衡概念，它们都能保证查找、插入和删除操作的 <a href="https://www.baeldung.com/cs/time-vs-space-complexity" target="_blank" rel="noopener">时间复杂度</a> 为 $O(\log n)$。</strong></p>
+<p>然而，这些树在发生更改时必须进行自我重新平衡，以使其高度保持在节点数量的对数级别。额外的工作会增加插入和删除算法的复杂度和耗时。但这种开销是值得的，因为它确保了操作的复杂度保持在 $O(\log n)$。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">349 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">165 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-简介"><span class="toc-number">1.</span> <span class="toc-text">1. 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-二叉树和二叉搜索树"><span class="toc-number">2.</span> <span class="toc-text">2. 二叉树和二叉搜索树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-二叉搜索树"><span class="toc-number">2.1.</span> <span class="toc-text">2.1. 二叉搜索树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-平衡树"><span class="toc-number">3.</span> <span class="toc-text">3. 平衡树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-AVL-树"><span class="toc-number">4.</span> <span class="toc-text">4. AVL 树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-证明高度为对数的"><span class="toc-number">4.1.</span> <span class="toc-text">4.1. 证明高度为对数的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-红黑树"><span class="toc-number">5.</span> <span class="toc-text">5. 红黑树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-证明红黑树高度是-O-log-n"><span class="toc-number">5.1.</span> <span class="toc-text">5.1. 证明红黑树高度是 $O(\log n)$</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-权重平衡树"><span class="toc-number">6.</span> <span class="toc-text">6. 权重平衡树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-证明权重平衡树的高度是-O-log-n"><span class="toc-number">6.1.</span> <span class="toc-text">6.1. 证明权重平衡树的高度是 $O(\log n)$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-alpha-的取值"><span class="toc-number">6.2.</span> <span class="toc-text">6.2. $\alpha$ 的取值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-结论"><span class="toc-number">7.</span> <span class="toc-text">7. 结论</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
