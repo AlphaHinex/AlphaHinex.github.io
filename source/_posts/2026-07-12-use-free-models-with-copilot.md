@@ -101,7 +101,99 @@ Reason: token expired or invalid: 403: Error: token expired or invalid: 403 at q
 
 ## Free Models
 
-<table>
+<style>
+  .model-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 20, 40, 0.08);
+  }
+  .model-table thead th {
+    background: #0b1e33;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 2px solid #1e3a5f;
+  }
+  .model-table thead th:first-child { border-top-left-radius: 16px; }
+  .model-table thead th:last-child { border-top-right-radius: 16px; }
+  .model-table tbody td {
+    padding: 12px 18px;
+    border-bottom: 1px solid #e6edf4;
+    vertical-align: middle;
+    color: #1a2a3a;
+  }
+  .model-table tbody tr:last-child td:first-child { border-bottom-left-radius: 16px; }
+  .model-table tbody tr:last-child td:last-child { border-bottom-right-radius: 16px; }
+  .model-table tbody tr:hover {
+    background: #f0f6fe;
+    transition: background 0.15s;
+  }
+  .model-table tbody tr:nth-child(even) {
+    background: #f8faff;
+  }
+  .model-table tbody tr:nth-child(even):hover {
+    background: #eaf1fb;
+  }
+  .model-table a {
+    color: #0a5c9e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .model-table a:hover {
+    border-bottom-color: #0a5c9e;
+    color: #003d73;
+  }
+  .model-table td:nth-child(3),
+  .model-table td:nth-child(4) {
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+  .model-table td:last-child a {
+    display: inline-block;
+    background: #eef3fa;
+    padding: 3px 14px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #0b2b4a;
+    border: 1px solid #d3dce8;
+    transition: all 0.15s;
+    border-bottom: none;
+  }
+  .model-table td:last-child a:hover {
+    background: #d5e1f0;
+    border-color: #8aa9c9;
+    transform: translateY(-1px);
+  }
+  .model-table td:last-child:not(:has(a)) {
+    color: #8a9caa;
+  }
+  .model-table td[rowspan] {
+    background: #f0f5fc;
+    font-weight: 600;
+    color: #0b2e4a;
+    border-right: 1px solid #e0e8f2;
+  }
+  .model-table td[rowspan] a {
+    border-bottom: none;
+    font-weight: 600;
+  }
+</style>
+
+<table class="model-table">
   <thead>
     <tr>
       <th>模型</th>
