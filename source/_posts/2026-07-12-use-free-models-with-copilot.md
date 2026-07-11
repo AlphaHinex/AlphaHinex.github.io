@@ -1,12 +1,12 @@
 ---
 id: user-free-models-with-copilot
 title: "一些免费AI模型，及在 VS Code 中使用"
-description: ""
+description: "能用快用"
 date: 2026.07.12 10:26
 categories:
     - AI
-tags: [AI, AI Agent]
-keywords: AI, OpenSpec, Superpowers, SDD, TDD, Vibe Coding, AI Agent
+tags: [AI, VS Code, GitHub Copilot]
+keywords: AI, Vibe Coding, AI Agent, VS Code, Copilot, Free Models, Nvidia, Mistral, OpenCode Zen
 cover: /contents/user-free-models-with-copilot/add-models.png
 ---
 
