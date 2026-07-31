@@ -4,10 +4,9 @@ title: "【转】Claude Code 接入 Github Copilot 模型"
 description: "本文介绍如何将 Claude Code 接入 GitHub Copilot 模型，实现最强编程体验与成本节约的结合。"
 date: 2026.05.10 10:26
 categories:
-    - Java
-    - Spring
-tags: [concurrency, reactive]
-keywords: Java, concurrency, Reactive Streams, backpressure, Publisher, Subscriber, Subscription, Processor
+    - AI
+tags: [AI, GitHub Copilot]
+keywords: claude, claude code, github copilot, copilot-api, anthropic, agent, llm, ai programming
 cover: /contents/covers/claude-code-connect-github-copilot.png
 ---
 
