@@ -6,8 +6,8 @@ date: 2023.04.30 10:34
 categories:
     - Git
     - Go
-tags: [Gitlab, Go, Golang]
-keywords: Gitlab, commit, diff, csv, RAWGraphs
+tags: [GitLab, Go, Golang]
+keywords: GitLab, commit, diff, csv, RAWGraphs
 cover: /contents/gitlab-cli/cover.png
 ---
 
