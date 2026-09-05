@@ -1,0 +1,952 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/skills-lock/lock-entry.svg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/AI"><b>「
+                </b>AI<b> 」</b></a>
+            
+            八月 30, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2026/08/30/skills-lock/" title="【转】skills-lock.json：给 Agent Skills 上一把锁" class="posttitle">【转】skills-lock.json：给 Agent Skills 上一把锁</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                8.8k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                8 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <ul>
+<li>原文地址：<a href="https://meiki.dev/blog/skills-lock/" target="_blank" rel="noopener">https://meiki.dev/blog/skills-lock/</a></li>
+<li>原文作者：<a href="https://meiki.dev/" target="_blank" rel="noopener">meiki的胡思乱想</a></li>
+</ul>
+<hr>
+<p><a href="https://meiki.dev/blog/agent-skills/" target="_blank" rel="noopener">上一篇</a> 我把博客里那套「怎么加一个工具」的规矩做成了一个 Skill，省下了反复...</p>
+            
+            <span class="read-more"><a href="/2026/08/30/skills-lock/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/spec-driven-development-return-of-best-practices/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            八月 23, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/08/23/spec-driven-development-return-of-best-practices/" title="【译】规格驱动开发：最佳实践的回归" class="posttitle">【译】规格驱动开发：最佳实践的回归</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/SDD/" rel="tag">SDD</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://dev.to/incomplete_developer/spec-driven-development-return-of-best-practices-44b0" target="_blank" rel="noopener">https://dev.to/incomplete_developer/spec-driven-development-return-of-best-practices-44b0</a></li>
+<li>原文作者：<a href="https://dev.to/incomplete_developer" target="_blank" rel="noopener">Incomplete Developer</a></li>
+</ul>
+<hr>
+<p>AI 已经极大地改变了开发人员编写软件的方式。借助现代 AI 编码工具，开发人员可以在短时间内生成大量代码。</p>
+<p>这种转变催生了如今许多人所说的 <strong>“氛围编程（vibe coding）”</strong>。开发人员编写简短的提示词，让 AI 生成解决方案。</p>
+<p>这种方法确实有效 ...</p>
+            
+            <span class="read-more"><a href="/2026/08/23/spec-driven-development-return-of-best-practices/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/illustrated-word2vec/word2vec.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            八月 16, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/08/16/illustrated-word2vec/" title="【译】图解 Word2vec" class="posttitle">【译】图解 Word2vec</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        35k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        31 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Embedding-Model/" rel="tag">Embedding Model</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://jalammar.github.io/illustrated-word2vec/" target="_blank" rel="noopener">https://jalammar.github.io/illustrated-word2vec/</a></li>
+<li>原文作者：<a href="https://jalammar.github.io/" target="_blank" rel="noopener">Jay Alammar</a></li>
+<li>引用译文：<a href="https://mp.weixin.qq.com/s?__biz=MjM5MTQzNzU2NA==&mid=2651669277&idx=2&sn=bc8f0590f9e340c1f1359982726c5a30&chksm=bd4c648e8a3bed9817f30c5a512e79fe0cc6fbc58544f97c857c30b120e76508fef37cae49bc&scene=0&xtrack=1#rd" target="_blank" rel="noopener">图解Word2vec，读这一篇就够了</a></li>
+</ul>
+<hr>
+<div class="img-div-any-width" markdown="0" style="text-align: center;justify-items: center;">
+  <image src="https://alphahinex.github.io/contents/illustrated-word2vec/word2vec.png">
+  <br>
+</image></div>
+
+<blockquote class="subtle">
+  “<strong>在万物之中，都存在着一种模式，它本是我们宇宙的一部分。它拥有对称、优雅与优美</strong> —— 这些特质，你总能在真正的艺术家所捕捉之物中寻见。你可以在四季更迭中看见它，在沙脊蜿蜒的纹路中看见它，在三齿拉雷亚灌木的枝杈簇生或叶脉排列中看见它。<br><br>
+
+<p>  我们试图在生活与社会中模仿这些模式，<br>  追寻那些令人安适的节...</p></blockquote>
+            
+            <span class="read-more"><a href="/2026/08/16/illustrated-word2vec/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/teamcity-agent-with-custom-jdk/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            八月 09, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/08/09/teamcity-agent-with-custom-jdk/" title="TeamCity Agent 使用自定义 JDK 版本执行构建" class="posttitle">TeamCity Agent 使用自定义 JDK 版本执行构建</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        8.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        8 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JDK/" rel="tag">JDK</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/TeamCity/" rel="tag">TeamCity</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://www.jetbrains.com/help/teamcity/2026.1/supported-platforms-and-environments.html#Supported+Java+Versions+for+TeamCity+Agent" target="_blank" rel="noopener">TeamCity On-Premises 2026.1 Agent 支持的 Java 版本</a> 是 <code>OpenJDK and Oracle Java 21 to 25 (32 or 64 bit)</code>，在 <code>Agent JDKs</code> 页面可以上传其他 JDK 版本，但不能低于最小的支持版本：</p>
+<p></p>
+<p>上面提到的 Java 版本，是指运行 TeamCity Agent 所需的 Java 运行环境版本，不是指在 Agent 中执行构建所能使用的 Java 版本。</p>
+<p>当有些项目需要使用低版本 JDK 或其他未绑定的工具执行构...</p>
+            
+            <span class="read-more"><a href="/2026/08/09/teamcity-agent-with-custom-jdk/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/reactive-programming-flux-mono/flux.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            八月 02, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/08/02/reactive-programming-flux-mono/" title="【转】响应式编程——初识 Flux 和 Mono" class="posttitle">【转】响应式编程——初识 Flux 和 Mono</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/reactive/" rel="tag">reactive</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://www.emanjusaka.com/archives/reactive-programming-flux-mono" target="_blank" rel="noopener">https://www.emanjusaka.com/archives/reactive-programming-flux-mono</a></li>
+<li>原文作者：<a href="https://www.emanjusaka.com/about" target="_blank" rel="noopener">emanjusaka</a></li>
+</ul>
+<hr>
+<p>Reactor 是一个响应式编程的基础类库，其中有两个很关键的类：Flux 和 Mono。掌握这两个类和相关概念有助于我们学习响应式编程。</p>
+<p>Flux 和 Mono 都是数据流的发布者，使用 Flux 和 Mono 都可以发出三种数据信号：元素值，错误信号，完成信号；错误信号和完成信号都代表终止信号，终止信号用于告诉订...</p>
+            
+            <span class="read-more"><a href="/2026/08/02/reactive-programming-flux-mono/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/tch-material-downloader/tch-material.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            七月 26, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/07/26/tch-material-downloader/" title="中小学英语教材及听力下载" class="posttitle">中小学英语教材及听力下载</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://github.com/AlphaHinex/go-toolkit/releases" target="_blank" rel="noopener">https://github.com/AlphaHinex/go-toolkit/releases</a> 下载对应操作系统的 <code>tch-material-downloader</code> 可执行文件，如：</p>
+<ul>
+<li>Windows: <a href="https://github.com/AlphaHinex/go-toolkit/releases/download/v2.6.3/tch-material-downloader_win_amd64.exe" target="_blank" rel="noopener">tch-material-downloader_win_amd64.exe</a></li>
+<li>Linux: <a href="https://github.com/AlphaHinex/go-toolkit/releases/download/v2.6.3/tch-material-downloader_linux_amd64" target="_blank" rel="noopener">tch-material-downloader_linux_amd64</a></li>
+<li>MacOS: <a href="https://github.com/AlphaHinex/go-toolkit/releases/download/v2.6.3/tch-material-downloader_darwin_amd64" target="_blank" rel="noopener">tch-material-downloader_darwin_amd64</a></li>
+</ul>
+<p>该工具可下载国家中小学智慧教育平台（ ...</p>
+            
+            <span class="read-more"><a href="/2026/07/26/tch-material-downloader/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/java-source-target-options.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Java">
+                  <b>「 </b>JAVA<b> 」</b>
+                </a>
+            
+            七月 19, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/07/19/java-source-target-options/" title="【译】Java Source 和 Target 选项指南" class="posttitle">【译】Java Source 和 Target 选项指南</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Maven/" rel="tag">Maven</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://www.baeldung.com/java-source-target-options" target="_blank" rel="noopener">https://www.baeldung.com/java-source-target-options</a></li>
+<li>原文作者：<a href="https://www.baeldung.com/author/sachinkumar" target="_blank" rel="noopener">Sachin Kumar</a></li>
+</ul>
+<hr>
+<p>在本教程中，我们将探讨 Java 提供的 <code>-source</code> 和 <code>-target</code> 选项。此外，我们还将了解这些选项在 Java 8 中的工作方式，以及从 Java 9 开始它们是如何演变的。</p>
+<p>由于 Java 版本发布和更新频繁，应用程序可能无法每次都迁移到新版本。<strong>有时应用程序需要确保其代码与旧版 Java 保持向后兼容。<code>javac</code> 中的 <code>target...</code></strong></p>
+            
+            <span class="read-more"><a href="/2026/07/19/java-source-target-options/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/user-free-models-with-copilot/add-models.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            七月 12, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/07/12/user-free-models-with-copilot/" title="一些免费AI模型，及在 VS Code 中使用" class="posttitle">一些免费AI模型，及在 VS Code 中使用</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub-Copilot/" rel="tag">GitHub Copilot</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>Visual Studio Code（简称 VS Code）官方文档 <a href="https://code.visualstudio.com/docs/agent-customization/language-models#_bring-your-own-language-model-key" target="_blank" rel="noopener">Bring your own language model key</a> 中介绍了在 VS Code 中添加更多语言模型的方法，包括 <a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-model-from-a-built-in-provider" target="_blank" rel="noopener">内置提供商（Built-in providers）</a>、<a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-model-provider-extension" target="_blank" rel="noopener">扩展（Extensions）</a>、<a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-custom-endpoint-model" target="_blank" rel="noopener">自定义端点（Custom endpoint）</a> 三种方式。</p>
+<p>自定义端点支持三种 API 类型：<a href="https://developers.openai.com/api/reference/chat-completions/overview" target="_blank" rel="noopener">Chat Completions</a>、<a href="https://developers.openai.com/api/reference/responses/overview" target="_blank" rel="noopener">Responses</a> 和 <a href="https://platform.claude.com/docs/en/api/messages" target="_blank" rel="noopener">Messages</a>。</p>
+<p>添加模型步骤如下：</p>
+<ol>
+<li>切换模型处选择其他模型后的配...</li></ol>
+            
+            <span class="read-more"><a href="/2026/07/12/user-free-models-with-copilot/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/openspec-superpowers/openspec+superpowers.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            七月 05, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/07/05/openspec-superpowers/" title="【转】OpenSpec + Superpowers: SDD+TDD 双驱动 AI 编程工作流" class="posttitle">【转】OpenSpec + Superpowers: SDD+TDD 双驱动 AI 编程工作流</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        21k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        19 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://www.lixueduan.com/posts/ai/21-openspec+superpowers/" target="_blank" rel="noopener">https://www.lixueduan.com/posts/ai/21-openspec+superpowers/</a></li>
+<li>原文作者：<a href="https://github.com/lixd" target="_blank" rel="noopener">意琦行</a></li>
+</ul>
+<hr>
+<p></p>
+<p>随着 Vibe Coding 的流行，开源社区也是涌现出了大量的 AI 编程工作流，例如： Superpowers、Everything Claude Code、Spec Kit、OpenSpec、gstack、Get Shit Done 等等。今天给大家分享的是 <strong>OpenSpec + Superpowers</strong> 的协同工作流。</p>
+<h3 id="OpenSpec"><a href="#OpenSpec" class="headerlink" title="OpenSpec"></a>OpenSpec...</h3>
+            
+            <span class="read-more"><a href="/2026/07/05/openspec-superpowers/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/g-for-go.gif);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Go">
+                  <b>「 </b>GO<b> 」</b>
+                </a>
+            
+            六月 28, 2026
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2026/06/28/g-for-go/" title="【转】用 g 管理 Go 多版本，解放双手，丝滑的一批" class="posttitle">【转】用 g 管理 Go 多版本，解放双手，丝滑的一批</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        8 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<hr>
+<ul>
+<li>原文地址：<a href="https://developer.aliyun.com/article/1712611" target="_blank" rel="noopener">https://developer.aliyun.com/article/1712611</a></li>
+<li>原文作者：<a href="https://developer.aliyun.com/profile/va5sif5a6cjrc?spm=a2c6h.12873639.article_author.d_article_author_profile.119a53bcqtdtxO" target="_blank" rel="noopener">golang学习记</a></li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>简介</strong>：<code>g</code> 是 Go 语言的轻量级版本管理工具（类似 nvm/rvm/pyenv），支持一键安装、秒级切换、自动镜像、跨平台，零依赖、中文友好。告别手动改 GOROOT 和 PATH，<code>g use 1.25.0</code> 即刻生效，专治多项目 Go 版本混乱。</p>
+</blockquote>
+<blockquote>
+<p>“前端有 <code>nvm</code>，Ruby 有 <code>rvm</code>，Python 有 <code>pyenv</code>…… <br><br>而 Go？<br><br>—— 以前：手动删 <code>GOROOT...</code></p></blockquote>
+            
+            <span class="read-more"><a href="/2026/06/28/g-for-go/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

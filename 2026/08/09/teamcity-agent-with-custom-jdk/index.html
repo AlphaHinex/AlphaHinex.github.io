@@ -1,0 +1,590 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TeamCity Agent 使用自定义 JDK 版本执行构建 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,TeamCity, custom JDK, java, TeamCity Agent, node, Node.js, custom archive, tools, build, build step"> 
+    <meta name="description" content="TeamCity Agent JDKTeamCity On-Premises 2026.1 Agent 支持的 Java 版本 是 OpenJDK and Oracle Java 21 to 25 ,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">TeamCity Agent 使用自定义 JDK 版本执行构建</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/teamcity-agent-with-custom-jdk/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                八月 09, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/08/09/teamcity-agent-with-custom-jdk/" title="TeamCity Agent 使用自定义 JDK 版本执行构建" class="">TeamCity Agent 使用自定义 JDK 版本执行构建</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.7k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JDK/" rel="tag">JDK</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/TeamCity/" rel="tag">TeamCity</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="TeamCity-Agent-JDK"><a href="#TeamCity-Agent-JDK" class="headerlink" title="TeamCity Agent JDK"></a>TeamCity Agent JDK</h2><p><a href="https://www.jetbrains.com/help/teamcity/2026.1/supported-platforms-and-environments.html#Supported+Java+Versions+for+TeamCity+Agent" target="_blank" rel="noopener">TeamCity On-Premises 2026.1 Agent 支持的 Java 版本</a> 是 <code>OpenJDK and Oracle Java 21 to 25 (32 or 64 bit)</code>，在 <code>Agent JDKs</code> 页面可以上传其他 JDK 版本，但不能低于最小的支持版本：</p>
+<p><img src="https://alphahinex.github.io/contents/teamcity-agent-with-custom-jdk/agent-jdks.png" alt="Agent JDKs"></p>
+<p>上面提到的 Java 版本，是指运行 TeamCity Agent 所需的 Java 运行环境版本，不是指在 Agent 中执行构建所能使用的 Java 版本。</p>
+<p>当有些项目需要使用低版本 JDK 或其他未绑定的工具执行构建时，若不想提前在 Agent 中执行安装（如 Agent 运行在容器中），可通过在 Agent 中 <a href="https://www.jetbrains.com/help/teamcity/installing-agent-tools.html" target="_blank" rel="noopener">安装自定义工具</a> 实现。</p>
+<h2 id="使用自定义-JDK-执行构建"><a href="#使用自定义-JDK-执行构建" class="headerlink" title="使用自定义 JDK 执行构建"></a>使用自定义 JDK 执行构建</h2><p>以安装 <a href="https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=189&field_operating_system_target_id=198&field_architecture_target_id=185&field_java_package_target_id=188" target="_blank" rel="noopener">OpenLogic OpenJDK 11</a> 执行构建为例，过程如下。</p>
+<p>下载 <a href="https://builds.openlogic.com/downloadJDK/openlogic-openjdk/11.0.31+11/openlogic-openjdk-11.0.31+11-linux-x64.tar.gz" target="_blank" rel="noopener">openlogic-openjdk-11.0.31+11-linux-x64.tar.gz</a>，改名为 <code>openlogic-openjdk-11.0.31-linux-x64.tar.gz</code> 后（去掉 <code>+11</code>，否则在 TeamCity 中作为参数引用时会找不到），上传至 TeamCity：</p>
+<p><img src="https://alphahinex.github.io/contents/teamcity-agent-with-custom-jdk/install-custom-archive.png" alt="Upload Custom Archive"></p>
+<p>上传的工具文件包会被存储到 TeamCity Server 的 <a href="https://www.jetbrains.com/help/teamcity/teamcity-data-directory.html" target="_blank" rel="noopener">&lt;TeamCity Data Directory&gt;</a><code>/plugins/.tools</code> 目录下。</p>
+<p>Agent 会在第一个需要该工具的构建执行时，从 TeamCity Server 下载并解压工具包，保存到 <a href="https://www.jetbrains.com/help/teamcity/agent-home-directory.html" target="_blank" rel="noopener">&lt;Agent Home Directory&gt;</a><code>/tools</code> 下，避免后续构建重复下载。</p>
+<p>在构建中引用此工具时，可通过 <code>%teamcity.tool.&lt;installed_tool_ID&gt;%</code> 获得解压工具包的路径。</p>
+<p>上面上传的 <code>openlogic-openjdk-11.0.31-linux-x64.tar.gz</code> 在本例环境中被保存到了 Agent 的 <code>/opt/buildagent/tools/openlogic-openjdk-11.0.31-linux-x64</code> 目录下，因为 <code>openlogic-openjdk-11.0.31-linux-x64.tar.gz</code> 包中还有一层 <code>openlogic-openjdk-11.0.31+11-linux-x64</code> 目录，所以在构建中引用时，需要将 <code>JDK home path</code> 设置为 <code>%teamcity.tool.openlogic-openjdk-11.0.31-linux-x64%/openlogic-openjdk-11.0.31+11-linux-x64/bin</code>：</p>
+<p><img src="https://alphahinex.github.io/contents/teamcity-agent-with-custom-jdk/custom-jdk-home-path.png" alt="Custom JDK Home Path"></p>
+<p>之后便可通过任意 Agent 使用自定义 JDK 版本执行构建了：</p>
+<pre><code class="log">03:01:02 Step 1/1: Maven
+03:01:02   Initial M2_HOME not set
+03:01:02   Current M2_HOME = /opt/buildagent/tools/maven.3.9.8
+03:01:02   PATH = /opt/buildagent/tools/maven.3.9.8/bin:/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+03:01:02   Using watcher: /opt/buildagent/plugins/mavenPlugin/maven-watcher-jdk17/maven-watcher-agent.jar
+03:01:02   Using agent local repository at /opt/buildagent/system/jetbrains.maven.runner/maven.repo.local
+03:01:02   *** Start reading the project structure ***
+03:01:04   Initial MAVEN_OPTS not set
+03:01:04   Current MAVEN_OPTS not set
+03:01:04   Starting: /opt/buildagent/tools/openlogic-openjdk-11.0.31-linux-x64/openlogic-openjdk-11.0.31+11-linux-x64/bin/java -Dagent.home.dir=/opt/buildagent ... -Dteamcity.version=2026.1.1 (build 222577) -Dmaven.repo.local=/opt/buildagent/system/jetbrains.maven.runner/maven.repo.local -classpath /opt/buildagent/tools/maven.3.9.8/boot/plexus-classworlds-2.8.0.jar: org.codehaus.plexus.classworlds.launcher.Launcher -f /opt/buildagent/work/c36b823fddd68df3/pom.xml -B -Dmaven.test.failure.ignore=true clean test
+03:01:04   in directory: /opt/buildagent/work/c36b823fddd68df3
+03:01:05   [INFO] Scanning for projects...</code></pre>
+<h2 id="使用自定义-Node-执行构建"><a href="#使用自定义-Node-执行构建" class="headerlink" title="使用自定义 Node 执行构建"></a>使用自定义 Node 执行构建</h2><p>截至 <code>2026.1</code>，TeamCity 中 <a href="https://www.jetbrains.com/help/teamcity/2026.1/nodejs.html#Prerequisites" target="_blank" rel="noopener">Node.js 的构建步骤只能在 Docker/Podman 容器中运行</a>。</p>
+<p>此外，也可通过上述安装自定义工具的方式，在 Agent 中安装指定 Node.js 版本执行构建。</p>
+<p>以 <a href="https://nodejs.org/en/download/archive/v24.19.0" target="_blank" rel="noopener">Node.js v24.x (Krypton)</a> 为例，下载 <a href="https://nodejs.org/dist/v24.19.0/node-v24.19.0-linux-x64.tar.xz" target="_blank" rel="noopener">node-v24.19.0-linux-x64.tar.xz</a>。</p>
+<p>因上传的工具包格式不支持 <code>.xz</code>，先将其解压成 <code>.tar</code> 格式：</p>
+<pre><code class="bash">$ xz -dk node-v24.19.0-linux-x64.tar.xz
+$ ls node-v24.19.0-linux-x64*
+node-v24.19.0-linux-x64.tar    node-v24.19.0-linux-x64.tar.xz</code></pre>
+<p>上传 <code>node-v24.19.0-linux-x64.tar</code> 至 TeamCity 后，在构建配置中创建一个命令行构建步骤，并对工具进行引用：</p>
+<p><img src="https://alphahinex.github.io/contents/teamcity-agent-with-custom-jdk/command-line.png" alt="Command Line"></p>
+<p><code>Custom script</code> 中填入如下内容，期望可以在构建日志中看到 node 和 npm 的版本：</p>
+<pre><code class="bash">cd %teamcity.tool.node-v24.19.0-linux-x64%/node-v24.19.0-linux-x64
+export PATH=$(pwd)/bin:$PATH
+node -v
+npm -v</code></pre>
+<p>不出意外的话，意外出现了：</p>
+<pre><code class="log">06:12:42 Step 2/2: build (1) (Command Line)
+06:12:42   Starting: /opt/buildagent/temp/agentTmp/custom_script10766528399743084674
+06:12:42   in directory: /opt/buildagent/work/860d69c611cfece6
+06:12:42   v24.19.0
+06:12:42   node:internal/modules/cjs/loader:1520
+06:12:42     throw err;
+06:12:42     ^
+06:12:42   
+06:12:42   Error: Cannot find module &#39;../lib/cli.js&#39;
+06:12:42   Require stack:
+06:12:42   - /opt/buildagent/tools/node-v24.19.0-linux-x64/node-v24.19.0-linux-x64/bin/npm
+06:12:42       at Module._resolveFilename (node:internal/modules/cjs/loader:1517:15)
+06:12:42       at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+06:12:42       at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+06:12:42       at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1122:12)
+06:12:42       at Module._load (node:internal/modules/cjs/loader:1294:5)
+06:12:42       at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+06:12:42       at Module.require (node:internal/modules/cjs/loader:1617:12)
+06:12:42       at require (node:internal/modules/helpers:153:16)
+06:12:42       at Object.&lt;anonymous&gt; (/opt/buildagent/tools/node-v24.19.0-linux-x64/node-v24.19.0-linux-x64/bin/npm:2:1)
+06:12:42       at Module._compile (node:internal/modules/cjs/loader:1872:14) {
+06:12:42     code: &#39;MODULE_NOT_FOUND&#39;,
+06:12:42     requireStack: [
+06:12:42       &#39;/opt/buildagent/tools/node-v24.19.0-linux-x64/node-v24.19.0-linux-x64/bin/npm&#39;
+06:12:42     ]
+06:12:42   }
+06:12:42   
+06:12:42   Node.js v24.19.0
+06:12:42   Process exited with code 1
+06:12:19   Process exited with code 1 (Step: build (1) (Command Line))
+06:12:42   Step build (1) (Command Line) failed</code></pre>
+<p>日志中可以看到 node 版本输出正确，但 npm 却报错找不到模块 <code>../lib/cli.js</code>，这是因为 <code>bin</code> 路径下的软链接在 TeamCity Agent 解压时被破坏了，导致 npm 无法找到其依赖的模块。</p>
+<p>正确的软联接：</p>
+<pre><code class="bash">$  tree -L 2
+.
+├── CHANGELOG.md
+├── LICENSE
+├── README.md
+├── bin
+│   ├── corepack -&gt; ../lib/node_modules/corepack/dist/corepack.js
+│   ├── node
+│   ├── npm -&gt; ../lib/node_modules/npm/bin/npm-cli.js
+│   └── npx -&gt; ../lib/node_modules/npm/bin/npx-cli.js
+├── include
+│   └── node
+├── lib
+│   └── node_modules
+└── share
+    ├── doc
+    └── man
+
+8 directories, 7 files</code></pre>
+<p>TeamCity Agent 解压后，<code>bin</code> 目录下的软链接被破坏了：</p>
+<pre><code class="bash">$ ls -alh
+total 121M
+drwxr-xr-x 2 buildagent buildagent   56 Aug  9 07:12 .
+drwxr-xr-x 6 buildagent buildagent  108 Aug  9 07:12 ..
+-rwxr--r-- 1 buildagent buildagent  174 Aug  9 06:59 corepack
+-rwxr--r-- 1 buildagent buildagent 121M Aug  9 06:59 node
+-rwxr--r-- 1 buildagent buildagent   54 Aug  9 06:59 npm
+-rwxr--r-- 1 buildagent buildagent 2.9K Aug  9 06:59 npx</code></pre>
+<p>可在构建步骤执行的脚本中，重新设置软链接，即可正常构建：</p>
+<pre><code class="bash">cd %teamcity.tool.node-v24.19.0-linux-x64%/node-v24.19.0-linux-x64
+export PATH=$(pwd)/bin:$PATH
+ln -sf $(pwd)/lib/node_modules/npm/bin/npm-cli.js $(pwd)/bin/npm
+node -v
+npm -v
+cd %teamcity.build.checkoutDir%
+npm is</code></pre>
+<p><img src="https://alphahinex.github.io/contents/teamcity-agent-with-custom-jdk/custom-script.png" alt="Custom script"></p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">358 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">164 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#TeamCity-Agent-JDK"><span class="toc-number">1.</span> <span class="toc-text">TeamCity Agent JDK</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用自定义-JDK-执行构建"><span class="toc-number">2.</span> <span class="toc-text">使用自定义 JDK 执行构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用自定义-Node-执行构建"><span class="toc-number">3.</span> <span class="toc-text">使用自定义 Node 执行构建</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,572 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】skills-lock.json：给 Agent Skills 上一把锁 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Skills, skill, skills.sh, agent skill, skills-lock.json, skills-lock, lock, reproducibility"> 
+    <meta name="description" content="
+原文地址：https://meiki.dev/blog/skills-lock/
+原文作者：meiki的胡思乱想
+
+
+上一篇 我把博客里那套「怎么加一个工具」的规矩做成了一个 Skill，省下了反,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】skills-lock.json：给 Agent Skills 上一把锁</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/skills-lock/lock-entry.svg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                八月 30, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/08/30/skills-lock/" title="【转】skills-lock.json：给 Agent Skills 上一把锁" class="">【转】skills-lock.json：给 Agent Skills 上一把锁</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    8.8k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://meiki.dev/blog/skills-lock/" target="_blank" rel="noopener">https://meiki.dev/blog/skills-lock/</a></li>
+<li>原文作者：<a href="https://meiki.dev/" target="_blank" rel="noopener">meiki的胡思乱想</a></li>
+</ul>
+<hr>
+<p><a href="https://meiki.dev/blog/agent-skills/" target="_blank" rel="noopener">上一篇</a> 我把博客里那套「怎么加一个工具」的规矩做成了一个 Skill，省下了反复交代的口舌。那篇讲的是「自己写一个 skill」。可我电脑里现在装着的 skill，绝大多数不是我自己写的——是从别人仓库、从飞书的 well-known 端点拉来的一大票（光飞书那套 lark-* 就几十个）。</p>
+<p>事情一到这一步，性质就变了。自己写的那个，坏了我自己修；可这些拉来的，背后是别人的仓库，别人随时在改。于是我开始好奇一个很实际的问题：<strong>我今天装的这一批 skill，明天换台机器、或者让 CI 跑、或者哪个朋友 clone 我的仓库，他们装到的还是同一批、同一个版本吗？</strong> 翻了一圈，我在自己机器上 <code>~/.agents/</code> 目录下发现了一个我没主动建过的文件：<code>.skill-lock.json</code>。顺着它查下去，才搞明白这就是答案——它和项目里那个 <code>skills-lock.json</code> 是一回事的两个落点。</p>
+<h2 id="skills-lock-json-是什么"><a href="#skills-lock-json-是什么" class="headerlink" title="skills-lock.json 是什么"></a>skills-lock.json 是什么</h2><p>一句话：它是 <strong>Agent Skills 的 <code>package-lock.json</code></strong> 。</p>
+<p>你大概熟悉 npm 那套——<code>package.json</code> 写你「想要哪些依赖」，<code>package-lock.json</code> 锁死「实际装了哪些、精确到哪个版本」，后者提交进 git，保证别人 <code>npm ci</code> 装出来的和你一模一样。skill 现在也有了同一套东西。管它的命令行工具叫 <code>skills</code>（<a href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener">vercel-labs/skills</a>，平时 <code>npx skills</code> 调用），你用它装第一个 skill 的时候，它就顺手把这个 lock 文件生成出来了。</p>
+<p>它记的不是 skill 的内容，而是 skill 的<strong>出身和指纹</strong>。我把自己机器上那条真实记录拆开看了看，长这样：</p>
+<p><img src="https://alphahinex.github.io/contents/skills-lock/lock-entry.svg" alt="lock entry"></p>
+<pre><code class="json">{
+  &quot;version&quot;: 3,
+  &quot;skills&quot;: {
+    &quot;lark-im&quot;: {
+      &quot;source&quot;: &quot;open.feishu.cn&quot;,
+      &quot;sourceType&quot;: &quot;well-known&quot;,
+      &quot;sourceUrl&quot;: &quot;https://open.feishu.cn/.well-known/skills/lark-im/SKILL.md&quot;,
+      &quot;skillFolderHash&quot;: &quot;&quot;,
+      &quot;installedAt&quot;: &quot;2026-05-22T01:54:05.059Z&quot;,
+      &quot;updatedAt&quot;: &quot;2026-05-22T01:54:05.059Z&quot;
+    }
+  }
+}</code></pre>
+<p>上面这段是我直接从机器上 <code>~/.agents/.skill-lock.json</code> 抠出来的真东西（<code>version: 3</code>），不是我编的示例。每个字段在说什么：</p>
+<ul>
+<li><strong><code>source</code> / <code>sourceType</code> / <code>sourceUrl</code></strong> ：这条 skill 从哪来。<code>sourceType</code> 可能是 <code>github</code>（GitHub 仓库）、本地路径，或者我这台机器上看到的 <code>well-known</code>（飞书把 skill 挂在 <code>.well-known/</code> 端点上分发）。后面的 url 是拉取它的确切地址。</li>
+<li><strong><code>skillFolderHash</code></strong> ：内容指纹，对 GitHub 来源来说就是那个 skill 文件夹的 <strong>tree SHA</strong>。这是整套「能不能查更新」机制的命根子，下面 How 部分细说。</li>
+<li><strong><code>installedAt</code> / <code>updatedAt</code></strong> ：装上、以及最近一次更新的时间戳。</li>
+</ul>
+<p>这里有个我亲眼看到、值得记一笔的细节：<strong>我那些飞书 skill 的 <code>skillFolderHash</code> 全是空字符串</strong>。因为它们是 <code>well-known</code> 来源，不是 GitHub 仓库，没有 tree SHA 可记。也就是说「靠 hash 比对来发现更新」这套玩法，只对 GitHub 来源的 skill 真正生效——这点官方文档我没找到明说，是我对着自己的文件推出来的，姑且当个观察。</p>
+<p>还有个容易绊一下的点，关于这文件到底叫什么、放哪：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>全局锁</th>
+<th>项目锁</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>路径</td>
+<td><code>~/.agents/.skill-lock.json</code></td>
+<td><code>skills-lock.json</code>（仓库根目录）</td>
+</tr>
+<tr>
+<td>管的是</td>
+<td>你这台机器上全局装的 skill</td>
+<td>当前这个项目的 skill</td>
+</tr>
+<tr>
+<td>进 git 吗</td>
+<td>不进（在你 home 目录）</td>
+<td>进，跟代码一起提交</td>
+</tr>
+</tbody></table>
+<p>注意这俩文件名其实对不齐：全局那个是单数加点的 <code>.skill-lock.json</code>，项目那个是复数的 <code>skills-lock.json</code>。用户真正会提交、会分享、这篇标题写的，是项目级那个。两者是同一套 v3 格式，区别只在放哪、给谁用。（我机器上现成的是全局那份；项目级的我还没在真项目里生成过，格式一致这点是按文档推的，自己打个折扣。）</p>
+<h2 id="它怎么工作、怎么用"><a href="#它怎么工作、怎么用" class="headerlink" title="它怎么工作、怎么用"></a>它怎么工作、怎么用</h2><p><code>skills</code> 这个 CLI 的命令，几乎是照着 npm 的肌肉记忆设计的。常用的就这几个：</p>
+<pre><code class="bash">npx skills add owner/repo          # 装一个 skill（顺手写进 lock）
+npx skills add -g owner/repo       # 装到全局
+npx skills list                    # 看装了哪些（别名 ls）
+npx skills check                   # 查上游有没有更新
+npx skills update                  # 把更新应用上
+npx skills remove                  # 删掉（别名 rm）
+npx skills experimental_install    # 按 lock 还原（还挂着 experimental 前缀）</code></pre>
+<p>把它们串成一条线，就是这个文件的完整生命周期：</p>
+<p><img src="https://alphahinex.github.io/contents/skills-lock/reproducibility.svg" alt="reproducibility"></p>
+<p><strong>第一步，装与记。</strong> <code>skills add owner/repo</code> 把 skill 拉下来装好，同时在 lock 文件里写下那条记录——来源、那一刻的 <code>skillFolderHash</code>、时间。你不用手写这个文件，它和 <code>package-lock.json</code> 一样是工具维护的产物，<strong>别去手改</strong>。</p>
+<p><strong>第二步，提交。</strong> 把 <code>skills-lock.json</code> 加进版本库，跟你的代码一起走。这一步是整件事的支点：没提交，下面两步全免谈。</p>
+<p><strong>第三步，还原。</strong> 别人 clone 下来、或 CI 起一个干净环境，跑 <code>skills install</code>（npm 那边对应 <code>npm ci</code>），它就照着 lock 把同一批 skill、同一个指纹版本装出来。这样大家的 agent 读到的是同一套指令，行为才对得齐。</p>
+<p>把 lock 提交、靠它还原，这是官方明确推荐的用法。但要说句实在的： <strong><code>install</code> / <code>sync</code> 这几个还原命令目前都还挂着 <code>experimental</code> 字样</strong> ，官方仓库里「从 lock 一键还原」（<code>npm ci</code> 那种体验）甚至还是<a href="https://github.com/vercel-labs/skills/issues/549" target="_blank" rel="noopener">挂着的 feature request</a>。所以这第三步今天能用，但还嫩，别当成 npm 那么成熟的东西。</p>
+<p>至于「查更新」是怎么做到的，机关全在那个 hash 上：<code>skills check</code> 拿你 lock 里记的 <code>skillFolderHash</code>，去和上游那个 skill 文件夹当前的 tree SHA 比一下——<strong>对不上，就说明上游改过了</strong>，它提示你有更新；<code>skills update</code> 帮你拉新版、并把 lock 里的 hash 改写成最新的。就这么个朴素的比对。Thilo Maier 在<a href="https://maier.tech/notes/a-lockfile-for-agent-skills" target="_blank" rel="noopener">他那篇讲这个 lock 文件的笔记</a>里点出了关键：<strong>在有这套之前，你根本没法知道一个 skill 有没有更新</strong>——只能手动重装一遍，再靠 git diff 看看变了没。lock + hash 把这件事从「手动考古」变成了「一条命令」。</p>
+<h2 id="为什么-skill-需要一把锁"><a href="#为什么-skill-需要一把锁" class="headerlink" title="为什么 skill 需要一把锁"></a>为什么 skill 需要一把锁</h2><p>前面都是机制。但我真正想清楚的是这一层：<strong>为什么这东西值得存在</strong>。</p>
+<p>答案就一句：<strong>一旦你用上了别人写的 skill，你就背上了一个依赖</strong>。而且是个挺特殊的依赖——它不是一段会被编译执行的代码，它是一段「agent 会照着做的指令」。你那句「这个仓库该怎么改」的规矩，有一部分现在住在别人的仓库里，由别人维护、别人随时能改。没有 lock 的依赖，就是经典的「在我机器上是好的」——只不过这次飘忽不定的不是代码行为，是 <strong>agent 的行为</strong>。</p>
+<p>把锁加上，换来三件具体的好处，刚好对上前面那两张图：</p>
+<ol>
+<li><strong>可复现。</strong> 队友、CI、外包、还有半年后忘了一切的我自己，照着同一个 lock 装出同一批 skill，agent 读到的指令就是同一套。不会出现「你那儿 Claude 一句话就把活干对了，我这儿它压根不知道规矩」。</li>
+<li><strong>更新可见。</strong> 上游把某个 skill 改了，hash 就对不上，<code>skills check</code> 让你<strong>看见</strong>这次变更，然后由你决定跟不跟。这比两个极端都强：要么你从来不更新、慢慢和上游飘移；要么你盲目跟最新、哪天它悄悄改坏了你都不知道。</li>
+<li><strong>供应链卫生。</strong> 这点是我作为一个「自己东西自己扛」的人最在意的。skill 是 agent 会拿着我的工具、我的凭据去执行的指令。把 hash 钉死，意味着上游的改动没法悄悄改变我 agent 的行为——它一变，hash 就报警，我可以像 review 一次依赖升级那样，先看清 diff 再决定要不要收。</li>
+</ol>
+<p>说到底，这和我<a href="https://meiki.dev/blog/claude-code-dynamic-workflows/" target="_blank" rel="noopener">用 workflow 搭 MVP</a>、<a href="https://meiki.dev/blog/agent-skills/" target="_blank" rel="noopener">给博客写 skill</a> 时反复念叨的是同一件事：<strong>工具能把活儿做快，但给成品兜底的永远是人</strong>。lock 文件不替我做判断，它只是把「我的 agent 接下来会照着哪版指令干活」这件事，变成可钉死、可 review 的——而钉的是哪一版、要不要升，决定权还在我手里。</p>
+<h2 id="碎碎念"><a href="#碎碎念" class="headerlink" title="碎碎念"></a>碎碎念</h2><p><strong>工具还年轻，别当成熟品用。</strong> <code>install</code> / <code>sync</code> 还是 <code>experimental</code>；Maier 还提到 <code>remove</code> 删 skill 时<a href="https://maier.tech/notes/a-lockfile-for-agent-skills" target="_blank" rel="noopener">并不会同步更新 lock 文件</a>——也就是说 lock 有可能和你实际装的东西对不上。这套东西方向对，但细节还在长，踩到不一致别太意外。</p>
+<p><strong>别和「声明清单」搞混。</strong> 我看到有<a href="https://dev.to/toyama0919/managing-ai-agent-skills-with-npx-skills-a-practical-guide-2an8" target="_blank" rel="noopener">第三方文章</a>提到还有个 <code>.skills.json</code> 充当「你想要哪些 skill」的声明清单（类比 <code>package.json</code>），和锁定实际版本的 lock 文件分工。这个我没在自己机器上确认过，先记一笔：真要类比 npm，就是「声明」和「锁定」两份文件，这篇讲的是后者。</p>
+<p><strong>锁定 ≠ 审过。</strong> 钉死 hash 能挡住「上游悄悄改」，但<strong>第一次</strong>把一个 skill 装进来的时候，你信的是它当下那段指令本身。lock 只保证「以后不偷偷变」，它不替你判断「这段指令值不值得信」。该读的还是要读——尤其是带 <code>allowed-tools</code>、能动你文件和凭据的那种。</p>
+<p><strong>它不是 Claude 专属的。</strong> 管 lock 的 <code>skills</code> CLI 来自 Vercel，配合的是<a href="https://agentskills.io" target="_blank" rel="noopener">跨工具的 Agent Skills 标准</a>。所以这套「锁定 + 还原」不绑死在某一个 agent 上——这点我觉得是好事，但具体到每个工具认不认 lock，我没逐一验证。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p><code>skills-lock.json</code> 就是 Agent Skills 的 <code>package-lock.json</code>：记下你装了哪些 skill、从哪来、指纹是什么，好让这批 skill 能被精确复现，也让上游的更新变得<strong>看得见</strong>。机制朴素——出身 + 一个 hash + 几个时间戳；命令也照着 npm 的肌肉记忆来。工具本身还嫩（还原命令挂着 <code>experimental</code>、<code>remove</code> 不同步 lock），但它背后的判断我完全同意：<strong>一旦 skill 成了从别处拉来的依赖，它就该有一把锁</strong>。</p>
+<p>想看一手的，CLI 在这儿：<a href="https://github.com/vercel-labs/skills" target="_blank" rel="noopener">vercel-labs/skills</a>；把 lock 文件的来龙去脉讲得最清楚的是 Thilo Maier 的<a href="https://maier.tech/notes/a-lockfile-for-agent-skills" target="_blank" rel="noopener">这篇笔记</a>；想先搞懂 skill 本身是怎么回事，可以回看我<a href="https://meiki.dev/blog/agent-skills/" target="_blank" rel="noopener">上一篇</a>。等我在真项目里把它用起来、踩过更多坑，再回来更新这篇。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">358 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">164 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#skills-lock-json-是什么"><span class="toc-number">1.</span> <span class="toc-text">skills-lock.json 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#它怎么工作、怎么用"><span class="toc-number">2.</span> <span class="toc-text">它怎么工作、怎么用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么-skill-需要一把锁"><span class="toc-number">3.</span> <span class="toc-text">为什么 skill 需要一把锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#碎碎念"><span class="toc-number">4.</span> <span class="toc-text">碎碎念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>一些免费AI模型，及在 VS Code 中使用 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,AI, Vibe Coding, AI Agent, VS Code, Copilot, Free Models, Nvidia, Mistral, OpenCode Zen"> 
+    <meta name="description" content="VS Code 中添加 AI 模型Visual Studio Code（简称 VS Code）官方文档 Bring your own language model key 中介绍了在 VS Code,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">一些免费AI模型，及在 VS Code 中使用</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/user-free-models-with-copilot/add-models.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                七月 12, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/07/12/user-free-models-with-copilot/" title="一些免费AI模型，及在 VS Code 中使用" class="">一些免费AI模型，及在 VS Code 中使用</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    11k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    10 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub-Copilot/" rel="tag">GitHub Copilot</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="VS-Code-中添加-AI-模型"><a href="#VS-Code-中添加-AI-模型" class="headerlink" title="VS Code 中添加 AI 模型"></a>VS Code 中添加 AI 模型</h2><p>Visual Studio Code（简称 VS Code）官方文档 <a href="https://code.visualstudio.com/docs/agent-customization/language-models#_bring-your-own-language-model-key" target="_blank" rel="noopener">Bring your own language model key</a> 中介绍了在 VS Code 中添加更多语言模型的方法，包括 <a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-model-from-a-built-in-provider" target="_blank" rel="noopener">内置提供商（Built-in providers）</a>、<a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-model-provider-extension" target="_blank" rel="noopener">扩展（Extensions）</a>、<a href="https://code.visualstudio.com/docs/agent-customization/language-models#_add-a-custom-endpoint-model" target="_blank" rel="noopener">自定义端点（Custom endpoint）</a> 三种方式。</p>
+<p>自定义端点支持三种 API 类型：<a href="https://developers.openai.com/api/reference/chat-completions/overview" target="_blank" rel="noopener">Chat Completions</a>、<a href="https://developers.openai.com/api/reference/responses/overview" target="_blank" rel="noopener">Responses</a> 和 <a href="https://platform.claude.com/docs/en/api/messages" target="_blank" rel="noopener">Messages</a>。</p>
+<p>添加模型步骤如下：</p>
+<ol>
+<li>切换模型处选择其他模型后的配置图标：<br><img src="https://alphahinex.github.io/contents/user-free-models-with-copilot/other-models.png" alt="models"></li>
+<li>选择添加模型，然后选择自定义端点（Custom Endpoint）：<br><img src="https://alphahinex.github.io/contents/user-free-models-with-copilot/add-models.png" alt="add-models"></li>
+<li>为模型输入组名，这是在模型选择器和语言模型编辑器中显示的分组标签。组名后续可修改。</li>
+<li>输入端点的 API 密钥，秘钥会以密文形式存储。</li>
+<li>选择 API 类型：<br><img src="https://alphahinex.github.io/contents/user-free-models-with-copilot/api-type.png" alt="api-type"></li>
+<li>之后 VS Code 会打开一个 <code>chatLanguageModels.json</code> 文件，调用模型具体的模型名称（<code>id</code>）和完整 <code>url</code> 需在此文件中填写。有关配置属性的详细信息，请参阅 <a href="https://code.visualstudio.com/docs/agent-customization/language-models#_model-configuration-reference" target="_blank" rel="noopener">Model configuration reference</a>。</li>
+</ol>
+<p>下面是调用 Anthropic Messages API 的配置示例：</p>
+<pre><code class="json">[
+  {
+    &quot;name&quot;: &quot;Anthropic&quot;,
+    &quot;vendor&quot;: &quot;customendpoint&quot;,
+    &quot;apiKey&quot;: &quot;YOUR_API_KEY&quot;,
+    &quot;apiType&quot;: &quot;messages&quot;,
+    &quot;models&quot;: [
+      {
+        &quot;id&quot;: &quot;claude-sonnet-4-6&quot;,
+        &quot;name&quot;: &quot;Claude Sonnet 4.6&quot;,
+        &quot;url&quot;: &quot;https://api.anthropic.com/v1/messages&quot;,
+        &quot;toolCalling&quot;: true,
+        &quot;vision&quot;: true,
+        &quot;maxInputTokens&quot;: 200000,
+        &quot;maxOutputTokens&quot;: 64000
+      }
+    ]
+  }
+]</code></pre>
+<p>下面是调用 OpenAI Chat Completions API 的配置示例：</p>
+<pre><code class="json">[
+  {
+    &quot;name&quot;: &quot;LocalHost&quot;,
+    &quot;vendor&quot;: &quot;customendpoint&quot;,
+    &quot;apiKey&quot;: &quot;${input:chat.lm.secret.xxxxxx}&quot;,
+    &quot;apiType&quot;: &quot;chat-completions&quot;,
+    &quot;models&quot;: [
+      {
+        &quot;id&quot;: &quot;model1&quot;,
+        &quot;name&quot;: &quot;Local Model 1&quot;,
+        &quot;url&quot;: &quot;http://localhost:8000/v1/chat/completions&quot;,
+        &quot;toolCalling&quot;: true,
+        &quot;vision&quot;: true,
+        &quot;maxInputTokens&quot;: 128000,
+        &quot;maxOutputTokens&quot;: 16000
+      },
+      {
+        &quot;id&quot;: &quot;model2&quot;,
+        &quot;name&quot;: &quot;Local Model 2&quot;,
+        &quot;url&quot;: &quot;http://localhost:8000/v1/chat/completions&quot;,
+        &quot;toolCalling&quot;: true,
+        &quot;vision&quot;: true,
+        &quot;maxInputTokens&quot;: 128000,
+        &quot;maxOutputTokens&quot;: 16000
+      }
+    ]
+  }
+]</code></pre>
+<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>在 VS Code GitHub Copilot Chat 中使用自定义模型可能会遇到请求失败的报错，如：</p>
+<pre><code class="error">Sorry, your request failed. Please try again.
+Client Request Id: 95903bd3-e7d5-435f-a842-45bcf985940b
+Reason: token expired or invalid: 403: Error: token expired or invalid: 403 at qG._provideLanguageModelResponse (/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/copilot/dist/extension.js:1690:14362) at process.processTicksAndRejections (node:internal/process/task_queues:104:5) at async qG.provideLanguageModelResponse (/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/copilot/dist/extension.js:1690:15327)</code></pre>
+<p><a href="https://github.com/microsoft/vscode/issues/253136" target="_blank" rel="noopener">Meta: Sorry, your request failed. Please try again. #253136</a> 给出了一些解决方案，如重试请求、更换模型、检查日志（<code>CTRL + SHIFT + U</code> 打开输出面板，选择 <code>GitHub Copilot Chat</code> 查看日志）等。</p>
+<p><img src="https://alphahinex.github.io/contents/user-free-models-with-copilot/output.png" alt="output"></p>
+<h2 id="Free-Models"><a href="#Free-Models" class="headerlink" title="Free Models"></a>Free Models</h2><style>
+  .model-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 0.9rem;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 20, 40, 0.08);
+  }
+  .model-table thead th {
+    background: #0b1e33;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 2px solid #1e3a5f;
+  }
+  .model-table thead th:first-child { border-top-left-radius: 16px; }
+  .model-table thead th:last-child { border-top-right-radius: 16px; }
+  .model-table tbody td {
+    padding: 12px 18px;
+    border-bottom: 1px solid #e6edf4;
+    vertical-align: middle;
+    color: #1a2a3a;
+  }
+  .model-table tbody tr:last-child td:first-child { border-bottom-left-radius: 16px; }
+  .model-table tbody tr:last-child td:last-child { border-bottom-right-radius: 16px; }
+  .model-table tbody tr:hover {
+    background: #f0f6fe;
+    transition: background 0.15s;
+  }
+  .model-table tbody tr:nth-child(even) {
+    background: #f8faff;
+  }
+  .model-table tbody tr:nth-child(even):hover {
+    background: #eaf1fb;
+  }
+  .model-table a {
+    color: #0a5c9e;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .model-table a:hover {
+    border-bottom-color: #0a5c9e;
+    color: #003d73;
+  }
+  .model-table td:nth-child(3),
+  .model-table td:nth-child(4) {
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
+  .model-table td:last-child a {
+    display: inline-block;
+    background: #eef3fa;
+    padding: 3px 14px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #0b2b4a;
+    border: 1px solid #d3dce8;
+    transition: all 0.15s;
+    border-bottom: none;
+  }
+  .model-table td:last-child a:hover {
+    background: #d5e1f0;
+    border-color: #8aa9c9;
+    transform: translateY(-1px);
+  }
+  .model-table td:last-child:not(:has(a)) {
+    color: #8a9caa;
+  }
+  .model-table td[rowspan] {
+    background: #f0f5fc;
+    font-weight: 600;
+    color: #0b2e4a;
+    border-right: 1px solid #e0e8f2;
+  }
+  .model-table td[rowspan] a {
+    border-bottom: none;
+    font-weight: 600;
+  }
+</style>
+
+<table class="model-table">
+  <thead>
+    <tr>
+      <th>模型</th>
+      <th>平台</th>
+      <th>URL</th>
+      <th>模型 ID</th>
+      <th>API Key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.modelscope.cn/models/deepseek-ai/DeepSeek-V4-Flash" target="_blank" rel="noopener">DeepSeek-V4-Flash</a></td>
+      <td rowspan="3"><a href="https://opencode.ai/docs/zh-cn/zen/" target="_blank" rel="noopener">OpenCode Zen</a></td>
+      <td rowspan="3">https://opencode.ai/zen/v1/chat/completions</td>
+      <td>deepseek-v4-flash-free</td>
+      <td rowspan="3">-</td>
+    </tr>
+    <tr><td><a href="https://www.modelscope.cn/models/XiaomiMiMo/MiMo-V2.5" target="_blank" rel="noopener">MiMo-V2.5</a></td><td>mimo-v2.5-free</td></tr>
+    <tr><td><a href="https://www.modelscope.cn/models/Tencent-Hunyuan/Hy3" target="_blank" rel="noopener">Hy3</a></td><td>hy3-free</td></tr>
+    <tr>
+      <td><a href="https://build.nvidia.com/deepseek-ai/deepseek-v4-flash/modelcard" target="_blank" rel="noopener">DeepSeek-V4-Flash</a></td>
+      <td rowspan="8"><a href="https://build.nvidia.com/models?filters=nimType%3Anim_type_preview" target="_blank" rel="noopener">Nvidia</a></td>
+      <td rowspan="8">https://integrate.api.nvidia.com/v1/chat/completions</td>
+      <td>deepseek-ai/deepseek-v4-flash</td>
+      <td rowspan="8"><a href="https://build.nvidia.com/settings/api-keys" target="_blank" rel="noopener">API Keys</a></td>
+    </tr>
+    <tr><td><a href="https://build.nvidia.com/deepseek-ai/deepseek-v4-pro/modelcard" target="_blank" rel="noopener">DeepSeek-V4-Pro</a></td><td>deepseek-ai/deepseek-v4-pro</td></tr>
+    <tr><td><a href="https://build.nvidia.com/z-ai/glm-5.2/modelcard" target="_blank" rel="noopener">GLM-5.2</a></td><td>z-ai/glm-5.2</td></tr>
+    <tr><td><a href="https://build.nvidia.com/qwen/qwen3.5-122b-a10b/modelcard" target="_blank" rel="noopener">Qwen3.5-122B-A10B</a></td><td>qwen/qwen3.5-122b-a10b</td></tr>
+    <tr><td><a href="https://build.nvidia.com/qwen/qwen3.5-397b-a17b/modelcard" target="_blank" rel="noopener">Qwen3.5-397B-A17B</a></td><td>qwen/qwen3.5-397b-a17b</td></tr>
+    <tr><td><a href="https://build.nvidia.com/qwen/qwen3-next-80b-a3b-instruct/modelcard" target="_blank" rel="noopener">Qwen3-Next-80B-A3B-Instruct</a></td><td>qwen/qwen3-next-80b-a3b-instruct</td></tr>
+    <tr><td><a href="https://build.nvidia.com/minimaxai/minimax-m3/modelcard" target="_blank" rel="noopener">MiniMax-M3</a></td><td>minimaxai/minimax-m3</td></tr>
+    <tr><td><a href="https://build.nvidia.com/stepfun-ai/step-3.7-flash/modelcard" target="_blank" rel="noopener">Step 3.7 Flash</a></td><td>stepfun-ai/step-3.7-flash</td></tr>
+    <tr>
+      <td><a href="https://docs.mistral.ai/models/model-cards/mistral-medium-3-5-26-04" target="_blank" rel="noopener">Mistral Medium 3.5</a></td>
+      <td><a href="https://docs.mistral.ai/getting-started/models" target="_blank" rel="noopener">Mistral</a></td>
+      <td>https://api.mistral.ai/v1/chat/completions</td>
+      <td>mistral-medium-3-5</td>
+      <td><a href="https://admin.mistral.ai/organization/api-keys" target="_blank" rel="noopener">API Keys</a></td>
+    </tr>
+  </tbody>
+</table>
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">358 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">164 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#VS-Code-中添加-AI-模型"><span class="toc-number">1.</span> <span class="toc-text">VS Code 中添加 AI 模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Debug"><span class="toc-number">1.1.</span> <span class="toc-text">Debug</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Free-Models"><span class="toc-number">2.</span> <span class="toc-text">Free Models</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

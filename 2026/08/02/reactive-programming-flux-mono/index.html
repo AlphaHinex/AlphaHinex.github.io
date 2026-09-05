@@ -1,0 +1,589 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>【转】响应式编程——初识 Flux 和 Mono - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,reactive programming, flux, mono, reactor, java"> 
+    <meta name="description" content="
+原文地址：https://www.emanjusaka.com/archives/reactive-programming-flux-mono
+原文作者：emanjusaka
+
+
+前言Reacto,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">【转】响应式编程——初识 Flux 和 Mono</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/reactive-programming-flux-mono/flux.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Java"><b>「
+                    </b>JAVA<b> 」</b></a>
+                
+                八月 02, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/08/02/reactive-programming-flux-mono/" title="【转】响应式编程——初识 Flux 和 Mono" class="">【转】响应式编程——初识 Flux 和 Mono</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    5.1k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    5 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/reactive/" rel="tag">reactive</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <ul>
+<li>原文地址：<a href="https://www.emanjusaka.com/archives/reactive-programming-flux-mono" target="_blank" rel="noopener">https://www.emanjusaka.com/archives/reactive-programming-flux-mono</a></li>
+<li>原文作者：<a href="https://www.emanjusaka.com/about" target="_blank" rel="noopener">emanjusaka</a></li>
+</ul>
+<hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Reactor 是一个响应式编程的基础类库，其中有两个很关键的类：Flux 和 Mono。掌握这两个类和相关概念有助于我们学习响应式编程。</p>
+<p>Flux 和 Mono 都是数据流的发布者，使用 Flux 和 Mono 都可以发出三种数据信号：元素值，错误信号，完成信号；错误信号和完成信号都代表终止信号，终止信号用于告诉订阅者数据流结束了，错误信号终止数据流同时把错误信息传递给订阅者。</p>
+<h2 id="一、Flux"><a href="#一、Flux" class="headerlink" title="一、Flux"></a>一、Flux</h2><p>具有 rx 运算符的响应式流发布器，发出 0 到 N 个元素，然后完成（成功或有错误）。</p>
+<p>下图显示了 Flux 如何转换项目：</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-programming-flux-mono/flux.png" alt="Flux 转换示意图"></p>
+<p>Flux&lt;T&gt; 是一个标准的 Publisher&lt;T&gt;，表示一个异步的 0 到 N 个发出的项目序列，可选择终止于完成信号或错误信号。根据 Reactive Streams 规范，这三种类型的信号转换为对下游 Subscriber 的 onNext、onComplete 和 onError 方法的调用。</p>
+<p>由于可能出现的信号范围很大，Flux 是通用的响应式类型。请注意，所有事件，包括终止事件，都是可选的：没有 onNext 事件但有 onComplete 事件表示一个空的有限序列，但如果去掉 onComplete，则得到一个无限的空序列（除了用于取消测试之外，不是特别有用）。同样，无限序列不一定为空。例如，<code>Flux.interval(Duration)</code> 会生成一个无限的 Flux&lt;Long&gt;，从时钟发出定期的滴答声。Flux&lt;T&gt; 是标准的 Publisher&lt;T&gt;，它表示 0 到 N 个发出项的异步序列，可以选择由完成信号或错误终止。与 Reactive Streams 规范中一样，这三种类型的信号转换为对下游订阅者的 onNext、onComplete 和 onError 方法的调用。</p>
+<p>凭借如此大范围的可能信号，Flux 是通用的无功类型。请注意，所有事件，甚至终止事件，都是可选的：没有 onNext 事件，但 onComplete 事件表示一个空的有限序列，但删除 onComplete 并且您有一个无限的空序列（不是特别有用，除了围绕取消的测试）。同样，无限序列不一定是空的。例如，<code>Flux.interval(Duration)</code> 生成无限的 Flux&lt;Long&gt; 并从时钟发出规则的滴答声。</p>
+<h2 id="二、Mono"><a href="#二、Mono" class="headerlink" title="二、Mono"></a>二、Mono</h2><p>具有基本 rx 运算符的 Reactive Streams Publisher 通过 onNext 信号最多发出一项，然后以 onComplete 信号终止（成功的 Mono，有或没有值），或者仅发出单个 onError 信号（失败的 Mono）。</p>
+<p>下图显示了 Mono 如何转换项目：</p>
+<p><img src="https://alphahinex.github.io/contents/reactive-programming-flux-mono/mono.png" alt="Mono 转换示意图"></p>
+<p>Mono&lt;T&gt; 是一种特殊的 Publisher&lt;T&gt;，通过 onNext 信号发出最多一个项目，然后通过 onComplete 信号终止（成功的 Mono，有或没有值），或者只发出一个 onError 信号（失败的 Mono）。</p>
+<p>大多数 Mono 实现在调用 onNext 后立即调用其 Subscriber 的 onComplete。<code>Mono.never()</code> 是一个例外：它不发出任何信号，在技术上并不禁止，但在测试之外没有太大用处。另一方面，明确禁止使用 onNext 和 onError 的组合。</p>
+<p>Mono 只提供了 Flux 可用的操作符的子集，而某些操作符（特别是将 Mono 与另一个 Publisher 组合的操作符）会切换到 Flux。例如，<code>Mono.concatWith(Publisher)</code> 返回一个 Flux，而 <code>Mono.then(Mono)</code> 返回另一个 Mono。</p>
+<p>请注意，您可以使用 Mono 来表示只有完成概念的无值异步过程（类似于 Runnable）。要创建一个，您可以使用一个空的 Mono&lt;Void&gt;。</p>
+<h2 id="三、代码示例"><a href="#三、代码示例" class="headerlink" title="三、代码示例"></a>三、代码示例</h2><ul>
+<li>创建一个 Flux，发出一系列字符串元素并订阅打印出来：</li>
+</ul>
+<pre><code class="java">package top.emanjusaka;
+
+import reactor.core.publisher.Flux;
+
+public class Main {
+    public static void main(String[] args) {
+        Flux flux = Flux.just(&quot;Hello&quot;, &quot;emanjusaka&quot;, &quot;!&quot;);
+        flux.subscribe(System.out::println);
+    }
+}
+
+// 输出
+Hello
+emanjusaka
+!</code></pre>
+<ul>
+<li>创建一个 Mono，发出一个字符串元素并订阅打印出来：</li>
+</ul>
+<pre><code class="java">package top.emanjusaka;
+
+import reactor.core.publisher.Mono;
+
+public class Main {
+    public static void main(String[] args) {
+        Mono mono = Mono.just(&quot;Hello&quot;);
+        mono.subscribe(System.out::println);
+    }
+}
+
+// 输出
+Hello</code></pre>
+<ul>
+<li>使用 Flux 的操作符进行元素转换和过滤：</li>
+</ul>
+<pre><code class="java">package top.emanjusaka;
+
+import reactor.core.publisher.Flux;
+
+public class Main {
+    public static void main(String[] args) {
+        Flux numbers = Flux.range(1, 10);
+        numbers.map(num -&gt; num * 2)
+               .filter(num -&gt; num % 3 == 0)
+               .subscribe(System.out::println);
+    }
+}
+
+// 输出
+6
+12
+18</code></pre>
+<ul>
+<li>使用 Mono 的操作符进行元素转换和错误处理：</li>
+</ul>
+<pre><code class="java">package top.emanjusaka;
+
+import reactor.core.publisher.Mono;
+
+public class Main {
+    public static void main(String[] args) {
+        Mono number = Mono.just(5);
+        number.map(num -&gt; num * 2)
+              .doOnError(Throwable::printStackTrace)
+              .subscribe(System.out::println);
+    }
+}
+
+// 输出
+10</code></pre>
+<h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>Flux 和 Mono 都是位于 <code>reactor.core.publisher</code> 包下的类。</p>
+<p>Reactor 中的 Flux 和 Mono 是用于实现响应式编程的两种基本类型：</p>
+<ul>
+<li>Flux：表示一个异步序列，可以发出 0 到 N 个项目。它可以终止于完成信号或错误信号。Flux 适用于处理多个项目的情况，可以使用各种操作符来处理和转换序列。</li>
+<li>Mono：表示一个异步序列，最多发出一个项目。它要么终止于完成信号（有或没有值），要么只发出一个错误信号。Mono 适用于处理单个项目的情况，也可以使用一些操作符来处理和转换序列。</li>
+</ul>
+<p>这两种类型都是 Publisher 的实现，遵循 Reactive Streams 规范，并可以与其他响应式库和框架进行互操作。</p>
+<p>Flux 和 Mono 都可以表示无限序列，也可以表示空序列。它们提供了丰富的操作符来处理和转换序列，例如映射、过滤、合并、扁平化等。此外，它们还支持异步和并发处理，可以与其他操作符和操作进行组合使用。</p>
+<p>总的来说，Flux 适用于处理多个项目的情况，而 Mono 适用于处理单个项目的情况。它们是 Reactor 中用于实现响应式编程的基本类型，提供了丰富的操作符和功能来处理和转换异步序列。</p>
+<h2 id="五、参考文献"><a href="#五、参考文献" class="headerlink" title="五、参考文献"></a>五、参考文献</h2><ul>
+<li><a href="https://projectreactor.io/docs/core/release/reference/index.html" target="_blank" rel="noopener">《Reactor》参考文档</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">358 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">164 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Flux"><span class="toc-number">2.</span> <span class="toc-text">一、Flux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Mono"><span class="toc-number">3.</span> <span class="toc-text">二、Mono</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、代码示例"><span class="toc-number">4.</span> <span class="toc-text">三、代码示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、总结"><span class="toc-number">5.</span> <span class="toc-text">四、总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、参考文献"><span class="toc-number">6.</span> <span class="toc-text">五、参考文献</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

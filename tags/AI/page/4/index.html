@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: AI - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/hands-on-machine-learning/cover.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Book"><b>「
+                </b>BOOK<b> 」</b></a>
+            
+            十一月 12, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2023/11/12/hands-on-machine-learning/" title="《机器学习实战》书摘" class="posttitle">《机器学习实战》书摘</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                31k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                28 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <h3 id="1-2-为什么使用机器学习"><a href="#1-2-为什么使用机器学习" class="headerlink" title="1.2 为什么使用机器学习"></a>1.2 为什么使用机器学习</h3><blockquote>
+<p>使用机器学习方法挖掘大量数据来帮助发现不太明显的规律。这称作数据挖掘。</p>
+</blockquote>
+<h3 id="1-4-机器学习系统的类型"><a href="#1-4-机器学习系统的类型" class="headerlink" title="1.4 机器学习系统的类型"></a>1.4 机器学习系统的类型</h3><blockquote>
+<p>根据训练期间接受的监督数量和监督类型，可以将机器学习系统分为以下四个主...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/11/12/hands-on-machine-learning/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/hands-on-machine-learning/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            十一月 12, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/11/12/hands-on-machine-learning/" title="《机器学习实战》书摘" class="posttitle">《机器学习实战》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        31k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        28 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <h3 id="1-2-为什么使用机器学习"><a href="#1-2-为什么使用机器学习" class="headerlink" title="1.2 为什么使用机器学习"></a>1.2 为什么使用机器学习</h3><blockquote>
+<p>使用机器学习方法挖掘大量数据来帮助发现不太明显的规律。这称作数据挖掘。</p>
+</blockquote>
+<h3 id="1-4-机器学习系统的类型"><a href="#1-4-机器学习系统的类型" class="headerlink" title="1.4 机器学习系统的类型"></a>1.4 机器学习系统的类型</h3><blockquote>
+<p>根据训练期间接受的监督数量和监督类型，可以将机器学习系统分为以下四个主要类别：有监督学习、无监督学习、半监督学习和强化学习。</p>
+</blockquote>
+<blockquote>
+<p>在机器学习里，属性是一种数据类型（例如“里程”），而特征取决于上下文，可能有多个含义，但是通常状况下，特征意味着一个属性加上其值（例如，“里程=15 000”）。尽管如此，许多人还是在使用属性和特征这两个名词时不做区分。</p>
+</blockquote>
+<blockquote>
+<p>降维的目的是在...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/11/12/hands-on-machine-learning/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/pull-huggingface-models.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            十月 14, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/10/14/pull-huggingface-models/" title="一种从 🤗HuggingFace 下载模型的方法" class="posttitle">一种从 🤗HuggingFace 下载模型的方法</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        8.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub-Actions/" rel="tag">GitHub Actions</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HuggingFace/" rel="tag">HuggingFace</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p>无法直接从 <a href="https://huggingface.co/" target="_blank" rel="noopener">HuggingFace</a> 下载模型时，可借助此仓库，使用 <a href="https://github.com/features/actions" target="_blank" rel="noopener">GitHub Actions</a> 构建一个 Docker 镜像，在镜像中用 <a href="https://github.com/huggingface/huggingface_hub" target="_blank" rel="noopener">huggingface_hub</a> 下载好所需模型，再将镜像推送至 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>，最后以下载镜像方式曲线下载模型。</p>
+<p>当前可用模型可见仓库 <a href="https://github.com/AlphaHinex/hf-models/tags" target="_blank" rel="noopener">tags</a>，仓库 tag 对应镜像 tag，如：</p>
+<p>下载 <a href="https://github.com/AlphaHinex/hf-models/releases/tag/codet5-small" target="_blank" rel="noopener">codet5-small</a> tag 对应的镜像命令为：</p>
+<pre><code class="bash">docker pull alphahinex/hf-models:codet5-small</code></pre>
+<p>镜像中包含的模型...</p>
+            
+            <span class="read-more"><a href="/2023/10/14/pull-huggingface-models/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/attention/attention.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            九月 17, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/09/17/attention/" title="【译】可视化神经机器翻译模型（Seq2seq 模型的注意力机制）" class="posttitle">【译】可视化神经机器翻译模型（Seq2seq 模型的注意力机制）</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        10k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>原文地址：<a href="https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/" target="_blank" rel="noopener">https://jalammar.github.io/visualizing-neural-machine-translation-mechanics-of-seq2seq-models-with-attention/</a></li>
+<li>作者：<a href="https://jalammar.github.io/" target="_blank" rel="noopener">Jay Alammar</a></li>
+</ul>
+
+
+<p><strong>注意：</strong> 下面的动画是视频。轻触或（使用鼠标）悬停在它们上，可获得播放控件，以便在需要时暂停。</p>
+<p>序列到序列（Sequence-to-sequence）模型是一种深度学习模型，在诸如机器翻译、文本摘要和图像标题生成等任务中取得了许多成功。...</p>
+            
+            <span class="read-more"><a href="/2023/09/17/attention/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/make-your-own-neural-network/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            八月 20, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/08/20/make-your-own-neural-network/" title="《Python 神经网络编程》书摘" class="posttitle">《Python 神经网络编程》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        12k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>更多又去的问题是没有一个简单的数学公式将输出和输入关联起来的。这就是我们需要诸如神经网络这样相对成熟而复杂的方法的原因。</p>
+</blockquote>
+<h3 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h3><blockquote>
+<ul>
+<li>当我哦们不能精确知道一些事情如何运作时，我们可以尝试使用模型来估计其运作方式，在模型中，包括了我们可以调整的参数。</li>
+<li>改进这些模型的一种好方法是，基于模型和已知真实示例之间的比较，得到模型偏移的误差值，调整参数。</li>
+</ul>
+</blockquote>
+<h3 id="关键点-1"><a href="#关键点-1" class="headerlink" title="关键点"></a>关键点</h3><blockquote>
+<ul>
+<li>使用朴素的调整方法会出现一个问题，即改进后的模型只与最后一次训练样本最匹配，“有效地”忽略了所有以前的训练样本。解决这个问题的一种好方法是...</li></ul></blockquote>
+            
+            <span class="read-more"><a href="/2023/08/20/make-your-own-neural-network/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/fauxpilot/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            七月 23, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/07/23/deepspeed-finetune-codegen/" title="让 AI 辅助编写内部代码" class="posttitle">让 AI 辅助编写内部代码</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        25k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        23 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2023/06/11/paddlenlp-codegen-copilot/">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</a> 和 <a href="https://alphahinex.github.io/2023/06/18/fauxpilot/">GitHub Copilot 开源替代品 —— FauxPilot</a> 中，我们分别使用 PaddleNLP 和 FauxPilot 将 CodeGen 模型代理为可通过 HTTP 请求访问的接口，并通过 VS Code 插件在 IDE 中获得与 GitHub Copilot 类似的 AI 辅助编码能力。</p>
+<p>但不论是这种方式也好，或者是 GitHub Copilot，能够辅助编写的都是通用代码，无法辅助编写内...</p>
+            
+            <span class="read-more"><a href="/2023/07/23/deepspeed-finetune-codegen/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/json-lines.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Others">
+                  <b>「 </b>OTHERS<b> 」</b>
+                </a>
+            
+            七月 16, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/07/16/json-lines/" title="处理大数据集的灵活格式 —— JSON Lines" class="posttitle">处理大数据集的灵活格式 —— JSON Lines</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JSON-Lines/" rel="tag">JSON Lines</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://jsonlines.org/" target="_blank" rel="noopener">JSON Lines</a>，顾名思义，就是每行都是一个 JSON，是一种文本格式。</p>
+<p>在处理和分析大型数据集时，JSON Lines 格式成为了一种受欢迎的选择。JSON Lines 通过将每个 JSON 对象放在独立的一行中，使得逐行读取和处理数据变得简单，易于处理大型数据集、容易与现有工具集成，具有灵活性和可扩展性、易于阅读和维护等特点。</p>
+<p>与传统的 JSON 格式相比，JSON Lines 不需要一次性加载整个文件，而是可以逐行读取和处理数据。这种特性使得 JSON Lines 非常适用于处理大型数...</p>
+            
+            <span class="read-more"><a href="/2023/07/16/json-lines/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/applied-natural-language-processing-in-the-enterprise/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Book">
+                  <b>「 </b>BOOK<b> 」</b>
+                </a>
+            
+            七月 09, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/07/09/applied-natural-language-processing-in-the-enterprise/" title="《自然语言处理实战》书摘" class="posttitle">《自然语言处理实战》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        28k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        25 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Book/" rel="tag">Book</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <blockquote>
+<p>自然语言通常所指的不仅是文本数据，还包括语音和声音数据。</p>
+</blockquote>
+<h3 id="1-1-1-热门应用"><a href="#1-1-1-热门应用" class="headerlink" title="1.1.1 热门应用"></a>1.1.1 热门应用</h3><blockquote>
+<p>自然语言生成的一个流行的商业应用是“数据到文本”的软件系统，它生成数据库和数据集的文本摘要。</p>
+</blockquote>
+<blockquote>
+<p>自然语言处理的一个主要挑战是从非结构化或半结构化的文档集合中创建结构化的数据。例如，命名实体识别软件能够从主流新闻等长篇文本中提取任务、组织、地点、日期和货币。信息提取还包括关系提取，如果实体之间存在关系，则提取相应的关系。</p>
+</blockquote>
+<h3 id="1-2-1-定义自然语言处理任务"><a href="#1-2-1-定义自然语言处理任务" class="headerlink" title="1.2.1 定义自然语言处理任务"></a>1.2.1 定义自然语言处理任务</h3><blockquote>
+<p>分词、词性标注、依存句法分析、组块、词形还原和词干提取是...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/07/09/applied-natural-language-processing-in-the-enterprise/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/fauxpilot/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            六月 18, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/06/18/fauxpilot/" title="GitHub Copilot 开源替代品 —— FauxPilot" class="posttitle">GitHub Copilot 开源替代品 —— FauxPilot</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/VS-Code/" rel="tag">VS Code</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://alphahinex.github.io/2023/06/11/paddlenlp-codegen-copilot/">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</a> 介绍了使用 PaddleNLP + CodeGen 实现类似 GitHub Copilot 服务端的方式，客户端在 VSCode 中使用了 FauxPilot 插件。</p>
+<p>FauxPilot 插件原本是对接 <a href="https://github.com/fauxpilot/fauxpilot" target="_blank" rel="noopener">FauxPilot</a> Server 的，通过 FauxPilot Server 也可以实现 GitHub Copilot 服务的功能，并支持多显卡加载 CodeGen 模型，可解决单卡显存不足又想加载大模型的问题...</p>
+            
+            <span class="read-more"><a href="/2023/06/18/fauxpilot/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/paddlenlp-codegen-copilot/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            六月 11, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/06/11/paddlenlp-codegen-copilot/" title="用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot" class="posttitle">用 PaddleNLP 结合 CodeGen 实现离线 GitHub Copilot</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        13 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PaddleNLP/" rel="tag">PaddleNLP</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://github.com/PaddlePaddle/PaddleNLP/tree/develop/examples/code_generation/codegen" target="_blank" rel="noopener">代码生成：写代码的AI助理</a> 中给出了用 PaddleNLP 结合 CodeGen 实现代码 AI 助理的例子。</p>
+<p>文档内容比较简略，实操下来可能会遇到不少问题。本文以离线环境部署为前提，给出一个实际案例。</p>
+<p>先上最终效果：</p>
+<p><video autoplay loop muted src="/contents/paddlenlp-codegen-copilot/demo.mov" controls style width="100%"></video></p>
+<p>为避免各种组件版本的兼容性问题，本文使用 Docker 方式部署，并需装好显卡驱动等。可按下述方式检查所需组件状态。</p>
+<pre><code class="bash">$ nvidia-smi
++------------------------------------------------------------------...</code></pre>
+            
+            <span class="read-more"><a href="/2023/06/11/paddlenlp-codegen-copilot/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/paddlenlp-offline-use-community-model.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/AI">
+                  <b>「 </b>AI<b> 」</b>
+                </a>
+            
+            五月 14, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/05/14/paddlenlp-offline-use-community-model/" title="PaddleNLP 离线使用已下载好的社区模型" class="posttitle">PaddleNLP 离线使用已下载好的社区模型</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        10k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/PaddleNLP/" rel="tag">PaddleNLP</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>使用 PaddleNLP 加载社区模型时，因为社区模型需联网下载，可先从在线环境进行模型下载，再将下载好的模型传输到离线环境中。此时在离线环境下可能会遇到 <a href="https://github.com/PaddlePaddle/PaddleNLP/pull/5817" target="_blank" rel="noopener">https://github.com/PaddlePaddle/PaddleNLP/pull/5817</a> 中描述的问题，可参照该 PR <a href="https://github.com/PaddlePaddle/PaddleNLP/pull/5817/files" target="_blank" rel="noopener">files</a> 中内容修改，以支持离线环境的正常使用。</p>
+<blockquote>
+<p>PaddleNLP是一款简单易用且功能强大的自然语言处理开发库。聚合业界优质预训练模型并提供开箱即用的开发体验，覆盖NLP多场景的模型库搭配产业实践范例可满...</p></blockquote>
+            
+            <span class="read-more"><a href="/2023/05/14/paddlenlp-offline-use-community-model/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
