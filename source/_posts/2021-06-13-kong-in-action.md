@@ -5,8 +5,8 @@ description: "快速上手小贴士"
 date: 2021.06.13 10:26
 categories:
     - Cloud Native
-tags: [Microservices, Api Gateway]
-keywords: Kong, Api Gateway, Konga, service, route, upstream, plugin
+tags: [Microservices, API Gateway]
+keywords: Kong, API Gateway, Konga, service, route, upstream, plugin
 cover: /contents/kong-in-action/cover.png
 ---
 
