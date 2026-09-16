@@ -14,7 +14,7 @@ cover: /contents/omniroute/readme-hero.svg
 
 ## OmniRoute
 
-[OmniRoute](https://github.com/diegosouzapw/OmniRoute) 是一个开源 AI 路由器，通过一个 OpenAI 兼容端点在多家提供商之间**路由**，并自动**故障转移**。
+[OmniRoute](https://github.com/diegosouzapw/OmniRoute) 是一个开源 AI 路由器，通过一个 OpenAI/Anthropic 兼容端点在多家提供商之间**路由**，并自动**故障转移**。
 
 `OmniRoute` 提供了 [多种安装方式](https://github.com/diegosouzapw/OmniRoute#%EF%B8%8F-where-omniroute-runs--anywhere) ，npm 方式安装时，需要的 Node.js 运行时环境是 22.x / 24.x LTS — `>=22.22.2 <23 || >=24.0.0 <27`。
 
@@ -72,7 +72,7 @@ curl http://localhost:20128/v1/chat/completions \
 
 浏览器访问 `http://localhost:20128` 可以打开 Dashboard 界面，在 `Providers` 界面可以配置模型供应商：
 
-![providers](/contents/omniroute/providers.png)
+![providers](https://alphahinex.github.io/contents/omniroute/providers.png)
 
 点击 Onboarding Wizard 进入供应商配置向导，`API-key provider` 类型可以选择内置的模型供应商，`Custom compatible provider` 类型可以配置兼容 OpenAI 接口或 Anthropic 接口格式的自定义端点。
 
@@ -80,20 +80,20 @@ curl http://localhost:20128/v1/chat/completions \
 
 配置多个供应商之后，请求中模型填写 `auto` 时，`OmniRoute` 会根据内置策略自动从供应商中选择。
 
-![provider topology](/contents/omniroute/topology.png)
+![provider topology](https://alphahinex.github.io/contents/omniroute/topology.png)
 
-![auto router](/contents/omniroute/auto.png)
+![auto router](https://alphahinex.github.io/contents/omniroute/auto.png)
 
 ## Combos
 
 除内置的 `auto*` 路由外，还可以通过 `Combos` 自定义组合路由：
 
-![combos](/contents/omniroute/combos.png)
+![combos](https://alphahinex.github.io/contents/omniroute/combos.png)
 
 内置多种路由策略，可将多个模型供应商按优先级或权重等方式进行组合，从而实现更灵活的请求路由策略。
 
-![routing strategy](/contents/omniroute/routing-strategy.png)
+![routing strategy](https://alphahinex.github.io/contents/omniroute/routing-strategy.png)
 
 配置完成后，即可使用组合名称作为模型名称进行调用：
 
-![combo test](/contents/omniroute/combo-test.png)
+![combo test](https://alphahinex.github.io/contents/omniroute/combo-test.png)
