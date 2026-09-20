@@ -1,7 +1,7 @@
 ---
 id: git-submodules-subtrees
 title: "【译】使用子模块和子树管理 Git 项目"
-description: "子模块和子树帮助你在多个仓库中管理子项目。"
+description: "子模块和子树帮助你在多个仓库中管理子项目"
 date: 2026.09.19 10:34
 categories:
     - Git
