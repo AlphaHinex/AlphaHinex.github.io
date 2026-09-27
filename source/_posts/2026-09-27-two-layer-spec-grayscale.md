@@ -1,16 +1,14 @@
 ---
 id: two-layer-spec-grayscale
 title: "【转】SDD 两层 Spec 的完整故事：从灰度开始讲"
-description: ""
+description: "规则层：Skill；change层：delta spec"
 date: 2026.09.27 10:26
 categories:
     - AI
-tags: [Git]
-keywords: AI, SDD, openspec, spec, proposal, design, task, 
-cover: /contents/two-layer-spec-grayscale/cover.png
+tags: [AI, SDD]
+keywords: AI, SDD, openspec, spec, proposal, design, task, AGENTS.md, skill, archive
+cover: /contents/two-layer-spec-grayscale/two-layer.png
 ---
-
-// TODO 👆
 
 - 原文地址：https://kage-ai.com/zh/writing/sdd/04-two-layer-spec-grayscale.html
 - 原文作者：黄佳 + 和尚
@@ -30,11 +28,8 @@ cover: /contents/two-layer-spec-grayscale/cover.png
 灰度的核心技术手段是**分桶**。
 
 - 每个用户有个 ID（userId）
-
 - 对 userId 做哈希取模，比如 `hash(userId) % 100 < 5` 就进“灰度桶”
-
 - 桶里的人看新代码，桶外的人看老代码
-
 - 想扩量就改那个数字——从 5 改到 10，就是 10% 灰度
 
 一个成熟的大厂项目，通常会有一个内部的灰度工具类，比如叫 `GrayReleaseUtil`。所有需要灰度的新功能都用这个类，不自己造。**这个约定本身就是一个“项目知识”**——新人入职第一周老员工会告诉他：“我们做灰度用 `GrayReleaseUtil`，别自己写”。
@@ -82,11 +77,8 @@ SDD 要解决的就是这个。
 **change 层的文件是一整个目录**，叫 `openspec/changes/2026-04-15-add-X-gray/`。里面有四份文件：
 
 - `proposal.md` —— 为什么这次要做
-
 - `spec.md` —— 怎么做
-
 - `execute.log` —— AI 的执行过程
-
 - `archive.md` —— 做完之后的归档、踩了什么坑
 
 这四份文件描述的是“2026-04-15 这一天，给功能 X 加灰度这件事”。做完了归档，下次做另一个功能的灰度，再开一个新的 change 目录。
@@ -195,11 +187,8 @@ $ openspec status --change add-feature-x-gray-release --json
 但 AI 已经在做事：
 
 1. 读 `AGENTS.md` —— 项目入口（这就是链接 ①，门户）
-
 2. 扫 `skills/` 目录所有 SKILL.md 的 description
-
 3. 发现 `gray-release` skill 的 description 里有”灰度”两个字，当前任务名 `add-feature-x-gray-release` 也有”gray-release”
-
 4. 匹配成功 —— 把整份 `skills/gray-release/SKILL.md` 加载进上下文
 
 ![four-link](/contents/two-layer-spec-grayscale/four-link.png)
@@ -209,11 +198,8 @@ $ openspec status --change add-feature-x-gray-release --json
 加载完 skill 之后，AI 已经”知道”这些事：
 
 - 做灰度要用 `GrayReleaseUtil`
-
 - 路径是 `com.didi.business.gray.GrayReleaseUtil`
-
 - 热路径要缓存 `route()` 结果
-
 - 命名规范是 `{module}_{feature}_{date}`
 
 **这些知识现在和 AI 当前上下文合体了**。小李不用打字讲，AI 写代码时会自然遵守。
@@ -251,7 +237,7 @@ AI 和小李一来一回（或者 AI 自己根据上下文）填完，最终的 
 
 注意两个地方： **第一，`## Capabilities`这一节**。这里写着 `billing-calculation` —— 这是一个 **capability 名**，kebab-case（小写字母 + 连字符）。**这个名字非常关键**，等会儿讲。
 
-**第二，`## Impact`里的`Reuses`**：
+**第二，`## Impact`里的`Reuses`：**
 
 ```md
 - **Reuses (unchanged)**: skills/gray-release/SKILL.md
@@ -317,7 +303,7 @@ openspec/specs/
     └── spec.md                  ← 主 spec · 当前真相
 ```
 
-**这个目录名还是`billing-calculation`**——同一个 capability 名，第三次出现。 合并规则：ADDED 的直接追加进去、MODIFIED 的替换旧版、REMOVED 的删掉。合并完之后 change 目录保留（作为变更史），主 spec 代表“项目当前是什么样”。
+**这个目录名还是`billing-calculation`** ——同一个 capability 名，第三次出现。 合并规则：ADDED 的直接追加进去、MODIFIED 的替换旧版、REMOVED 的删掉。合并完之后 change 目录保留（作为变更史），主 spec 代表“项目当前是什么样”。
 
 **capability 名就是脊椎**。它把三个不同位置的文件串成一条时间线：
 
@@ -359,17 +345,11 @@ Tasks.md 是一个 checklist，列出了这次 change 要做的所有具体代�
 这个命令是 OpenSpec 的 apply 阶段——**让 AI 按 tasks.md 一条一条执行**。 AI 做的事：
 
 1. 读 `BillingService.java` 了解现在长什么样
-
 2. 按 skill 里的规范，在入口加 `GrayReleaseUtil.route()` 调用
-
 3. 记得缓存 route 结果（skill 里写过”不要循环里调”，它遵守）
-
 4. 加上 `calculateV2()` 方法
-
 5. 写单元测试
-
 6. 跑测试
-
 7. 一条条打勾 tasks.md
 
 这一步也是 skill 在持续起作用——AI 每写一行代码都参考着 skill 里的”项目事实”和”踩过的坑”。
@@ -450,19 +430,12 @@ AI 启动，扫 `skills/` 目录，匹配到 `gray-release` skill——加载的
 现在把整件事合起来看一遍：
 
 1. **先有规则层**。skill 把”老王脑子里的东西”写成文件（Part 3）
-
 2. **启动 change**。`/opsx:new` 生成 change 目录（Part 4）
-
 3. **AI 自动加载 skill**（链接 ②）。因为 description 匹配（Part 5）
-
 4. **写 proposal**。里面用 `Reuses` 显式引用 skill（链接 ③）（Part 6）
-
 5. **capability 名是脊椎**。proposal → delta spec → 主 spec 三个位置同名（Part 7）
-
 6. **AI 按 tasks 写代码**。遵循 skill 的规范（Part 8）
-
 7. **archive 回写 skill**（链接 ④）。把这次踩的坑变成 skill v1.1（Part 9）
-
 8. **下次 change 起点更高**。这就是复利（Part 10）
 
 四种链接方式各司其职：
