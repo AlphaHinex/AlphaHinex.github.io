@@ -68,11 +68,11 @@ SDD 要解决的就是这个。
 
 这两种东西都叫 spec，但是两种不同形态的 spec——这就是我们讲的两层。
 
-![two layer](/contents/two-layer-spec-grayscale/two-layer.png)
+![two layer](https://alphahinex.github.io/contents/two-layer-spec-grayscale/two-layer.png)
 
 看这张图。左边是**规则层**（skill），右边是**change 层**。
 
-**规则层的文件叫`skills/gray-release/SKILL.md`**。它写的是“我们怎么做灰度”——用 `GrayReleaseUtil`、热路径要缓存、命名要规范。写一次，长期引用，偶尔修订。
+**规则层的文件叫`skills/gray-release/SKILL.md`。**它写的是“我们怎么做灰度”——用 `GrayReleaseUtil`、热路径要缓存、命名要规范。写一次，长期引用，偶尔修订。
 
 **change 层的文件是一整个目录**，叫 `openspec/changes/2026-04-15-add-X-gray/`。里面有四份文件：
 
@@ -191,7 +191,7 @@ $ openspec status --change add-feature-x-gray-release --json
 3. 发现 `gray-release` skill 的 description 里有”灰度”两个字，当前任务名 `add-feature-x-gray-release` 也有”gray-release”
 4. 匹配成功 —— 把整份 `skills/gray-release/SKILL.md` 加载进上下文
 
-![four-link](/contents/two-layer-spec-grayscale/four-link.png)
+![four-link](https://alphahinex.github.io/contents/two-layer-spec-grayscale/four-link.png)
 
 这张图你对照着看——左边那棵文件树就是真实仓库里的文件布局。`AGENTS.md` 边上标着 ①，是门户。`SKILL.md` 边上标着 ②，是自动触发。这两件事是 AI 启动就做的，不需要你写任何东西。
 
@@ -249,7 +249,7 @@ AI 和小李一来一回（或者 AI 自己根据上下文）填完，最终的 
 
 这里是最容易搞混的地方。我们深挖一下。
 
-![capability](/contents/two-layer-spec-grayscale/capability.png)
+![capability](https://alphahinex.github.io/contents/two-layer-spec-grayscale/capability.png)
 
 小李刚才在 proposal 里写了一个 capability 名 `billing-calculation`。
 
@@ -291,7 +291,7 @@ and dispatch to `calculateV2()` or `calculateV1()` accordingly.
 - **THEN** 调 calculateV1() · 行为与改前完全一致
 ```
 
-注意 OpenSpec 有一个死板规则：**`MODIFIED`的 Requirement 必须复制完整内容**，不能只写 diff。为什么？因为归档的时候要机械合并，不能靠”猜”。 
+注意 OpenSpec 有一个死板规则： **`MODIFIED`的 Requirement 必须复制完整内容，** 不能只写 diff。为什么？因为归档的时候要机械合并，不能靠”猜”。 
 
 **位置 3 · archive 后合并到主 spec**：
 
@@ -393,7 +393,7 @@ Tasks.md 是一个 checklist，列出了这次 change 要做的所有具体代�
 
 看最后那句——**“已更新 skills/gray-release/SKILL.md”**。这就是**链接 ④ · 回写闭环**。
 
-![link #4](/contents/two-layer-spec-grayscale/link4.png)
+![link #4](https://alphahinex.github.io/contents/two-layer-spec-grayscale/link4.png)
 
 小李真的去打开了 `skills/gray-release/SKILL.md`，在”踩过的坑”那一节加了一行：
 
@@ -417,7 +417,7 @@ AI 启动，扫 `skills/` 目录，匹配到 `gray-release` skill——加载的
 
 那个同事写 proposal 时，AI 已经知道这条。它甚至会在 design.md 里主动建议考虑方法级缓存。代码里自然就这么写。这个坑（**小李上次踩过的坑**）——**这次直接没踩**。
 
-![compound interest](/contents/two-layer-spec-grayscale/compound-interest.png)
+![compound interest](https://alphahinex.github.io/contents/two-layer-spec-grayscale/compound-interest.png)
 
 这就是 Slide 2 画的事。第一次 change 耗时 3 天（要踩坑），第二次耗时 1.5 天（起点有积累），第 N 次耗时半天（起点有 N-1 条积累）。
 
