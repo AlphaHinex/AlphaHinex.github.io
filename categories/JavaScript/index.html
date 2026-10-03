@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Category: JavaScript - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/covers/this-in-javascript.jpg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/JavaScript"><b>「
+                </b>JAVASCRIPT<b> 」</b></a>
+            
+            九月 03, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2023/09/03/this-in-javascript/" title="【转】探索前端的 this 指向" class="posttitle">【转】探索前端的 this 指向</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                11k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                10 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>原文地址：<a href="https://wyiyi.github.io/amber/2023/09/01/this/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2023/09/01/this/</a></p>
+<p>在前端开发中，this 是一个常见的概念。<br>它代表了当前执行上下文中的对象或函数，并且在不同的情况...</p>
+            
+            <span class="read-more"><a href="/2023/09/03/this-in-javascript/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/rawgraphs/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            二月 12, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/02/12/rawgraphs/" title="数据不直观？试试 RAWGraphs" class="posttitle">数据不直观？试试 RAWGraphs</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        3 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/D3/" rel="tag">D3</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>大大小小的决策离不开数据的支撑，然而从数据的海洋中挖掘或分析出有价值的信息，没有好的工具几乎是不可能完成的任务。</p>
+<p>比如下面的数据：</p>
+<p></p>
+<p>这是一份来自 <a href="https://www.gov.uk/government/publications/2050-pathways-calculator-with-costs" target="_blank" rel="noopener">www.gov.uk</a> 的关于英国 2050 年能源流动的预测数据。</p>
+<p>从二维的数据表格中，很难直观的看到数据想要说明的内容。但如果这份数据是以下面这种形式展示的呢：</p>
+<p></p>
+<p>相同的空间，相同的数据，适当的图表，能够比数据表格传递出更多更有价值的信息。</p>
+<p>那么怎么把枯燥的数据表格变成吸人眼球的图表呢？</p>
+<p>Excel？太繁琐；专业的数据可视化工具？成本太高……</p>
+<p>我只...</p>
+            
+            <span class="read-more"><a href="/2023/02/12/rawgraphs/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/hsa-faq/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            三月 27, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/27/hsa-faq/" title="新医保系统开发常见问题自助搜索" class="posttitle">新医保系统开发常见问题自助搜索</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/%E5%8C%BB%E4%BF%9D/" rel="tag">医保</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>新医保系统开发常见问题自助搜索功能上线了，欢迎大家贡献内容，及提出意见。</p>
+<p></p>
+<p>从上面的图标可以看出，这是一个类似 <a href="https://stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a> 的问答服务，面向的是新医保系统的开发人员，内容是新医保系统建设过程中遇到的各类问题及解决办法，目前共包含 24 个类别：</p>
+<ol>
+<li>druid</li>
+<li>dubbo</li>
+<li>java</li>
+<li>mbs</li>
+<li>mybatis</li>
+<li>mysql</li>
+<li>oceanbase</li>
+<li>plc</li>
+<li>pmd</li>
+<li>redis</li>
+<li>sonar</li>
+<li>spring</li>
+<li>tomcat</li>
+<li>Web Service</li>
+<li>windows</li>
+<li>一站式</li>
+<li>业务协同平台</li>
+<li>东软医保云</li>
+<li>公...</li></ol>
+            
+            <span class="read-more"><a href="/2022/03/27/hsa-faq/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/javascript-rounding-off.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            三月 20, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/03/20/javascript-rounding-off/" title="JS 中的四舍五入" class="posttitle">JS 中的四舍五入</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.3k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>由于 JS 中 Number 对象的 toFixed 方法在对某些值进行四舍五入计算时 <a href="https://alphahinex.github.io/2021/07/04/to-fixed/">存在误差</a>，而这种误差在进行货币金额计算时是不能接受的，那么在 JS 中我们应该如何正确的进行四舍五入呢？</p>
+<p>以保留两位小数为例，选取几种典型的方法，其中 <code>n</code> 为要进行四舍五入运算的浮点数。</p>
+<p>为 n 添加一个小的偏移量，再进行四舍五入：</p>
+<pre><code class="js">(n + Number.EPSILON).toFixed(2)</code></pre>
+<p>保留两位小数时，先将 n 扩大 10^2 倍，然后通过 <code>Math.round</code> 获得最接近的整数，缩小 10^2 倍...</p>
+            
+            <span class="read-more"><a href="/2022/03/20/javascript-rounding-off/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/truthy-and-falsy/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            七月 25, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/07/25/truthy-and-falsy/" title="JavaScript 中的 Truthy 和 Falsy" class="posttitle">JavaScript 中的 Truthy 和 Falsy</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.7k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 JavaScript 中，<code>Truthy</code> 是指在一个需要 Boolean 值的上下文中，会被认为是 <code>true</code> 的值，例如：</p>
+<pre><code class="js">&gt; Boolean(true)
+true
+&gt; Boolean({})
+true
+&gt; Boolean([])
+true
+&gt; Boolean(42)
+true
+&gt; Boolean(&#39;0&#39;)
+true
+&gt; Boolean(&#39;false&#39;)
+true
+&gt; Boolean(new Date())
+true
+&...</code></pre>
+            
+            <span class="read-more"><a href="/2021/07/25/truthy-and-falsy/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/to-fixed.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            七月 04, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/07/04/to-fixed/" title="【转】为什么 toFixed 会存在误差？" class="posttitle">【转】为什么 toFixed 会存在误差？</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        5.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        5 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Number/" rel="tag">Number</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2021/03/25/number-precision/" target="_blank" rel="noopener">https://wyiyi.github.io/amber/2021/03/25/number-precision/</a></p>
+<p>在保留有效数字的时候我们经常会使用到 <code>toFixed()</code> 函数，但发现这个方法会存在一些奇怪的问题。</p>
+<p>在JS中会有如下的现象，我们需要对最后的结果值进行保留固定位数且四舍五入处理，但发现结果不是所期望的。</p>
+<pre><code class="js">1.5.toFixed(0) // 2 正确
+1.35.toFixed(1) // 1.4 正确
+1.335.toFixed(2) // 1.33  错误
+1.3335...</code></pre>
+            
+            <span class="read-more"><a href="/2021/07/04/to-fixed/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/calendar-view/all.gif);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/JavaScript">
+                  <b>「 </b>JAVASCRIPT<b> 」</b>
+                </a>
+            
+            十一月 26, 2015
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2015/11/26/transform-d3-calendar-view-to-github-contributions-step-by-step/" title="一步一步将 d3.js Calendar View 转变成 GitHub Contributions" class="posttitle">一步一步将 d3.js Calendar View 转变成 GitHub Contributions</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        9.8k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Calendar/" rel="tag">Calendar</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Contributions/" rel="tag">Contributions</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/D3/" rel="tag">D3</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Data-Visualization/" rel="tag">Data Visualization</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/GitHub/" rel="tag">GitHub</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>GitHub Contributions 日历热图表述力强，容易上瘾，并且引发了多种玩法：涂满或涂成名字、万圣节颜色……，让我们使用 d3.js 提供的 Calendar View 示例，一步一步将其修改成 GitHub 的样式，Let’s go！</p>
+<p></p>
+<p>先将 <a href="http://d3js.org/" target="_blank" rel="noopener">d3.js</a> 提供的 <a href="http://bl.ocks.org/mbostock/4063318" target="_blank" rel="noopener">Calendar View</a> 做一个 <a href="/contents/calendar-view/snapshot.zip">快照</a>，以免示例代码更新对本文中的修改造成影响。</p>
+<p>修改前的文件为：</p>
+<ul>
+<li><a href="/contents/calendar-view/before.html">before.html</a></li>
+<li><a href="/contents/calendar-view/dji.csv">dji.csv</a></li>
+</ul>
+<p>修改后文件为：</p>
+<ul>
+<li><a href="/contents/calendar-view/after.html">after.html</a></li>
+</ul>
+<p>最终效果见上面动态图。</p>
+<p>暂时先只保...</p>
+            
+            <span class="read-more"><a href="/2015/11/26/transform-d3-calendar-view-to-github-contributions-step-by-step/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

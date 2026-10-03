@@ -1,0 +1,947 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Category: Web - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/word-practice/lv4_practice.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Web"><b>「
+                </b>WEB<b> 」</b></a>
+            
+            二月 09, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2025/02/09/word-practice/" title="一图背单词" class="posttitle">一图背单词</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                2.8k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                3 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML5/" rel="tag">HTML5</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>拍摄一张包含英文单词（词组、句子）的图片，通过 <a href="https://www.coze.cn/" target="_blank" rel="noopener">扣子</a> 中的智能体：<a href="https://www.coze.cn/store/agent/7462629917713268775?bid=6f44r173g4018" target="_blank" rel="noopener">一图背单词</a> 上传并设定 tag，之后在 <a href="https://alphahinex.github.io/word-practice">word-practice</a> 中进行随机练习。</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p>手写要练习的单词（手写体识别效果依据清晰...</p>
+            
+            <span class="read-more"><a href="/2025/02/09/word-practice/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/speech-synthesis.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            六月 23, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/06/23/speech-synthesis/" title="Web Speech API 之 Speech Synthesis" class="posttitle">Web Speech API 之 Speech Synthesis</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML5/" rel="tag">HTML5</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>Speech synthesis（语音合成，也被称作是文本转为语音，英语简写是 TTS）包括接收 app 中需要语音合成的文本，再在设备扬声器或音频输出连接中播放出来这两个过程。</p>
+<p>Web Speech API 对此有一个主要控制接口 —— <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/SpeechSynthesis" target="_blank" rel="noopener"><code>SpeechSynthesis</code></a> ，外加一些处理如何表示要被合成的文本 (也被称为 utterances)，用什么声音来播出 utterances 等工作的相关接口。同样的，许多操作系统都有自己的某种语音合成系统，在这个任务中我们调用可用的 API 来使用语音合...</p>
+            
+            <span class="read-more"><a href="/2024/06/23/speech-synthesis/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/lottie/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            三月 24, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/03/24/lottie/" title="Lottie in Action" class="posttitle">Lottie in Action</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        50k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        45 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                
+
+
+
+
+<p><a href="https://lottiefiles.com/what-is-lottie" target="_blank" rel="noopener">Lottie 是什么？</a> </p>
+<p>简单来说，它是一种使用 JSON 表示的动画格式，由 <a href="https://airbnb.io/lottie" target="_blank" rel="noopener">Airbnb</a> 推出。</p>
+<ul>
+<li>具有更小的文件尺寸</li>
+</ul>
+<p><lottie-player autoplay loop mode="normal" style="width: 640px" src="/contents/lottie/small.json"></lottie-player></p>
+<ul>
+<li>无限缩放</li>
+</ul>
+<p><lottie-player autoplay loop mode="normal" style="width: 320px" src="/contents/lottie/scalable.json"></lottie-player></p>
+<ul>
+<li>跨平台、易使用</li>
+</ul>
+<p><lottie-player autoplay loop mode="normal" style="width: 320px" src="/contents/lottie/multi-platform.json"></lottie-player></p>
+<ul>
+<li>动画元素可响应交互事件</li>
+</ul>
+<p><lottie-player autoplay loop mode="normal" style="width: 320px" src="/contents/lottie/interactivity.json"></lottie-player></p>
+<ul>
+<li><a href="https://lottiefiles.github.io/lottie-docs/" target="_blank" rel="noopener">LottieDocs</a> 是关于 Lottie 格式的指南文档站点。</li>
+<li><a href="https://www.lottiefiles.com/" target="_blank" rel="noopener">LottieFiles</a> 是一个让动画制作者和开发者即时创作、测试、分享及展示 Lottie 动画作品的网站。</li>
+<li><a href="https://dotlottie.io/" target="_blank" rel="noopener">dotLottie</a> 是一个开源文件格式，可以聚合一个或多个 Lottie 文件及其关联资源至一个压缩的 <code>.lottie...</code></li></ul>
+            
+            <span class="read-more"><a href="/2024/03/24/lottie/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/openvidu/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            四月 09, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/04/09/openvidu/" title="OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台" class="posttitle">OpenVidu —— 可在内网环境使用的开源 WebRTC 视频会议平台</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        10k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        9 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/WebRTC/" rel="tag">WebRTC</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p></p>
+<p><a href="https://openvidu.io/" target="_blank" rel="noopener">OpenVidu</a> 是一个基于 <a href="https://choosealicense.com/licenses/apache-2.0/" target="_blank" rel="noopener">Apache 2.0</a> 协议的开源 WebRTC 视频会议平台，主仓库地址：<a href="https://github.com/OpenVidu/openvidu" target="_blank" rel="noopener">https://github.com/OpenVidu/openvidu</a> 。</p>
+<p>OpenVidu 提供一套简单、高效、易于使用的 API 接口，将 WebRTC 的底层操作进行了封装及屏蔽，只需引入 OpenVidu 的服务端和客户端处理媒体流，兼容多种平台、前后端框架，并配有丰富的文档、教程及示例应用。</p>
+<p></p>
+<p>OpenVidu 有 CE、Pro、Enterprise 三个版本，CE 版本是开源并...</p>
+            
+            <span class="read-more"><a href="/2023/04/09/openvidu/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/httrack.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            三月 19, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/03/19/httrack/" title="HTTrack 克隆网站至本地" class="posttitle">HTTrack 克隆网站至本地</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.1k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>可能有时我们会希望将整个静态网站克隆至本地，比如在一个纯内网或离线环境中阅读当前最新的 Spring Framework v6.0.6 的 <a href="https://docs.spring.io/spring-framework/docs/6.0.6/reference/html/" target="_blank" rel="noopener">官方文档</a>。</p>
+<p><a href="https://www.httrack.com/" target="_blank" rel="noopener">HTTrack</a> 就是这样一个工具，能够以一个 URL 为入口，将其中包含的几乎全部（深度 <code>9999</code>）静态资源都抓取回来，并将包含该站点的链接修改为相对链接，以便于在本地进行导航浏览。</p>
+<p>完成首次克隆后，还可以再次执行进行更新，实现对站点的定时镜像。</p>
+<p>在 HTTrack 的 <a href="https://www.httrack.com/page/2/en/index.html" target="_blank" rel="noopener">Download</a> 页面选择适合的版本安装后，即可在命令行中使用。</p>
+<p>HTTrack...</p>
+            
+            <span class="read-more"><a href="/2023/03/19/httrack/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/make-nip-io-available-in-intranet.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            二月 19, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/02/19/make-nip-io-available-in-intranet/" title="使 nip.io 域名在纯内网环境可用" class="posttitle">使 nip.io 域名在纯内网环境可用</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/CoreDNS/" rel="tag">CoreDNS</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DNS/" rel="tag">DNS</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2021/06/06/simple-but-powerful/">简单，却伟大</a> 中，我们介绍了几个非常简单，但又非常强大的 DNS 解析服务，如 <code>nip.io</code>、<code>sslip.io</code>、<code>localtest.me</code> 等。</p>
+<p>然而在 K8s 集群内部，或没有 DNS 服务的纯内网环境中，我们却无法直接使用这些服务。</p>
+<p>那就只能回归到挨个域名配置 host 的原始方式了吗？不！有一个能解析这类域名的 DNS 服务就可以了。</p>
+<p><a href="https://coredns.io/" target="_blank" rel="noopener">CoreDNS</a> 是一个用 <a href="https://golang.org/" target="_blank" rel="noopener">Go</a> 编写的灵活可扩展的 DNS 服务器，是 <a href="https://cncf.io/" target="_blank" rel="noopener">CNCF</a> 的毕业项目。可通过 <a href="https://coredns.io/plugins/kubernetes/" target="_blank" rel="noopener">Kubernetes 插件</a> 集成至 <a href="https://kubernetes.io/" target="_blank" rel="noopener">Kubernetes...</a></p>
+            
+            <span class="read-more"><a href="/2023/02/19/make-nip-io-available-in-intranet/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/fix-cors-issues.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            十月 02, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/10/02/fix-cors-issues/" title="【转】跨域（CORS）问题分析与解决方案" class="posttitle">【转】跨域（CORS）问题分析与解决方案</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://wyiyi.github.io/amber/2022/10/01/CROS/" target="_blank" rel="noopener">跨域（CORS）问题分析与解决方案</a></p>
+<p>新创建一个 VUE 工程，使用 fetch 函数（如下所示） 调用后台 GET 接口，希望能够在后台获得到响应。</p>
+<pre><code class="js">fetch(&#39;http://127.0.0.1:8080/api/amber/userinfo/hello&#39;)
+  .then(response =&gt; response)</code></pre>
+<p>当浏览器访问：<code>http://127.0.0.1:8181/#/</code> 就出现了问题：后台能够接到请求，但返回响应被浏览器拦截。<br>查看浏览器的 NETWORK ...</p>
+            
+            <span class="read-more"><a href="/2022/10/02/fix-cors-issues/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/simple-but-powerful.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            六月 06, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/06/06/simple-but-powerful/" title="简单，却伟大" class="posttitle">简单，却伟大</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        2.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        2 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DNS/" rel="tag">DNS</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>Web 开发时，会有需要使用域名的时候，比如以下两个场景：</p>
+<ol>
+<li>需要模拟跨域访问</li>
+<li>由于网络等限制只能有一个可以访问的 ip 和端口，却需要提供多个相同 context path 的服务</li>
+</ol>
+<p>使用 <code>127.0.0.1</code> 和 <code>localhost</code> 可以解决第一个场景的一部分问题，但需要多个域的时候，或者第二个场景，就无能为力了。</p>
+<p>虽说可以修改本地的 hosts 文件，将不同域名映射到指定 ip 上，但麻烦不说，在访问非本地服务时，也不容易让所有使用的人都修改 hosts。</p>
+<p>下面介绍几个简单，却非常有效的 DNS...</p>
+            
+            <span class="read-more"><a href="/2021/06/06/simple-but-powerful/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/same-origin-and-same-site-of-cookie.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            五月 30, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/05/30/same-origin-and-same-site-of-cookie/" title="Cookie 的同源和同站" class="posttitle">Cookie 的同源和同站</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        6.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        6 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>存储在浏览器中的数据，如 <a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/API/DOM/Storage" target="_blank" rel="noopener">localStorage</a> 和 <a href="https://developer.mozilla.org/zh-CN/docs/IndexedDB" target="_blank" rel="noopener">IndexedDB</a>，是以 <a href="https://alphahinex.github.io/2021/05/16/origin-and-site/#Origin">源（origin）</a> 进行分割的。每个源都拥有自己单独的存储空间，一个源中的 JavaScript 脚本不能对属于其它源的数据进行读写操作，即所谓的 <a href="https://alphahinex.github.io/2021/05/23/sop-cors-csrf-xss/#SOP">同源策略（SOP）</a>。</p>
+<p>然而 Cookie 在受同源策略约束时，使用不同的源的定义方式。</p>
+<p>通常来讲：</p>
+<blockquote>
+<p>同源（Same origin），意味着 scheme/host/port 三元组完全相同。任意一部分不同，即为跨源（cross-origin，或称为跨域）。</p>
+</blockquote>
+<p>而根据 ...</p>
+            
+            <span class="read-more"><a href="/2021/05/30/same-origin-and-same-site-of-cookie/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/sop-cors-csrf-xss/cover.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Web">
+                  <b>「 </b>WEB<b> 」</b>
+                </a>
+            
+            五月 23, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/05/23/sop-cors-csrf-xss/" title="SOP、CORS 和 CSRF、XSS" class="posttitle">SOP、CORS 和 CSRF、XSS</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        7.6k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        7 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Web/" rel="tag">Web</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>在 <a href="https://alphahinex.github.io/2021/05/16/origin-and-site/">Origin 和 Site</a> 中，我们介绍了 <code>源</code> 和 <code>站</code> 的概念，这两个概念在浏览器的安全策略中有着广泛的应用，接下来再介绍几个与之相关的概念。</p>
+<p>Same Origin Policy（<a href="https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">SOP</a>），同源策略，是浏览器的一个重要安全机制，用来限制从某一 Origin（源）加载的文档或脚本，如何与其他源中的资源进行交互。它能帮助隔离潜在的恶意文档，减少被攻击的可能。</p>
+<h3 id="跨源网络访问"><a href="#跨源网络访问" class="headerlink" title="跨源网络访问"></a>跨源网络访问</h3><p>跨源网络访问，通常分为三类：</p>
+<ol>
+<li>跨源<strong>写操作</strong>（Cross-origin writes）：通常是被允许的，例如链接、重定向，以及...</li></ol>
+            
+            <span class="read-more"><a href="/2021/05/23/sop-cors-csrf-xss/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/categories/Web/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
