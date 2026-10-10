@@ -4,8 +4,8 @@ title: "【转】【算法专题突破】双指针 - 有效三角形的个数（
 description: "排序后，倒序遍历最大值配合双指针，降低整体算法时间复杂度"
 date: 2025.08.03 10:34
 categories:
-    - algorithm
-tags: [algorithm]
+    - Algorithm
+tags: [Algorithm]
 keywords: 算法双指针, 算法指针, 指针三角形, 算法三角形, 算法双指针三角形
 cover: /contents/double-pointers/problem.png
 ---

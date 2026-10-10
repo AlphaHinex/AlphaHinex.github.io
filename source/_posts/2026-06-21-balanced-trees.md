@@ -4,8 +4,8 @@ title: "【译】平衡树"
 description: "介绍了三种类型的平衡树，并证明它们操作的时间复杂度都能保持在 O(log n)。"
 date: 2026.06.21 10:34
 categories:
-    - algorithm
-tags: [Data Structures, algorithm]
+    - Algorithm
+tags: [Data Structures, Algorithm]
 keywords: AVL, RBT, WBT, balanced trees, binary search trees, logarithmic complexity, self-balancing, tree structures, search, insert, delete, time complexity, black height, tree operations, tree rebalancing
 cover: /contents/balanced-trees/binary-tree-768x435.jpg
 ---

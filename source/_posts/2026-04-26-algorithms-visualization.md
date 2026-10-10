@@ -4,8 +4,8 @@ title: "【转】推荐几个算法可视化网站"
 description: "3、4 链接已失效，其余可用"
 date: 2026.04.26 10:26
 categories:
-    - algorithm
-tags: [algorithm, Data Structures]
+    - Algorithm
+tags: [Algorithm, Data Structures]
 keywords: algorithm, data structure, visualization, sorting, searching, recursion
 cover: /contents/algorithms-visualization/cover.png
 ---
