@@ -1,0 +1,647 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用 ncdu 分析及清理 Mac 磁盘空间那些事 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,ncdu, Mac, disk usage, disk cleanup, Homebrew, brew extract, tap, bottle, formula, zig, llvm, ncdu 1.x, brew pin, firmlink"> 
+    <meta name="description" content="NCurses Disk Usage(Ncdu) 是 Yorhel 开源的基于文本 UI 库 NCurses 实现的磁盘用量分析工具，支持在 Linux、Mac 平台上运行。v1 版本基于 C 语言,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">用 ncdu 分析及清理 Mac 磁盘空间那些事</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/ncdu-via-homebrew.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Mac"><b>「
+                    </b>MAC<b> 」</b></a>
+                
+                十月 18, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/10/18/ncdu-via-homebrew/" title="用 ncdu 分析及清理 Mac 磁盘空间那些事" class="">用 ncdu 分析及清理 Mac 磁盘空间那些事</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    15k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    14 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Homebrew/" rel="tag">Homebrew</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/ncdu/" rel="tag">ncdu</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><a href="https://dev.yorhel.nl/ncdu" target="_blank" rel="noopener">NCurses Disk Usage(Ncdu)</a> 是 <a href="https://dev.yorhel.nl/" target="_blank" rel="noopener">Yorhel</a> 开源的基于文本 UI 库 <a href="https://invisible-island.net/ncurses/announce.html" target="_blank" rel="noopener">NCurses</a> 实现的磁盘用量分析工具，支持在 Linux、Mac 平台上运行。<a href="https://dev.yorhel.nl/ncdu/changes" target="_blank" rel="noopener">v1</a> 版本基于 C 语言实现，<a href="https://dev.yorhel.nl/ncdu/changes2" target="_blank" rel="noopener">v2</a> 版本基于 <a href="https://ziglang.org/" target="_blank" rel="noopener">Zig 语言</a> 实现。源码可见：</p>
+<ul>
+<li><a href="https://code.blicky.net/yorhel/ncdu" target="_blank" rel="noopener">https://code.blicky.net/yorhel/ncdu</a></li>
+<li><a href="https://g.blicky.net/ncdu.git" target="_blank" rel="noopener">https://g.blicky.net/ncdu.git</a></li>
+</ul>
+<p>Ncdu 使用简单。如果你在 Mac 上通过 Homebrew 安装 Ncdu 时遇到了问题，可以跳到下面 <code>安装</code> 章节查看是否是类似原因。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>Ncdu 以交互式界面展示目录和文件的大小，支持排序、浏览、删除等操作。安装完成后，直接扫描根目录即可看到整个磁盘的空间分布：</p>
+<pre><code class="bash">ncdu /</code></pre>
+<p>在 macOS 上扫描根目录时，如果使用的是 <a href="https://dev.yorhel.nl/ncdu/man/1_22" target="_blank" rel="noopener">1.x 版本</a>，需要加上 <code>--exclude-firmlinks</code> 参数，<strong>避免 mac 下数据重复计算</strong>。<a href="https://developer.apple.com/forums/thread/117470" target="_blank" rel="noopener">firmlink 是 macOS Catalina 之后引入的机制</a>，同一个目录可能通过多个路径访问到，不加参数会导致占用被重复统计：</p>
+<pre><code class="bash">ncdu / --exclude-firmlinks</code></pre>
+<blockquote>
+<p><a href="https://dev.yorhel.nl/ncdu/man/2_0" target="_blank" rel="noopener">2.x 版本</a> 没有也不需要使用这个参数了，可以直接 <code>ncdu /</code> 。</p>
+</blockquote>
+<p>进入 ncdu 界面后，目录会按占用空间从大到小排列，使用方向键逐层进入，找到占用异常的大目录后，可以直接按 <code>d</code> 删除选中的文件或目录，也可以按 <code>s</code> 按文件大小排序、按 <code>t</code> 按修改时间排序，快速定位占用磁盘空间最多的文件。</p>
+<p><img src="https://alphahinex.github.io/contents/covers/ncdu-via-homebrew.png" alt=""></p>
+<p>以我的实际情况为例，占用空间最多的是 <code>/System/Volumes/Data/Users/alphahinex/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw</code> 和 <code>/System/Volumes/Data/Users/alphahinex/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage</code> 分别为 Docker Desktop 占用的磁盘文件，以及 Chrome 缓存数据，可以通过 <code>docker system prune -a --volumes</code> 清理所有停止的容器、未使用的镜像、卷和构建缓存，以及在 Chrome 中访问 <code>chrome://settings/content/all</code> 选择数据进行清理。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>在 macOS 上安装 Ncdu 最常用的安装方式就是 <a href="https://formulae.brew.sh/formula/ncdu" target="_blank" rel="noopener">Homebrew</a>：</p>
+<pre><code class="bash">brew install ncdu</code></pre>
+<blockquote>
+<p>安装 Homebrew 如果遇到问题可以参考：<a href="https://developer.aliyun.com/article/1745255#1" target="_blank" rel="noopener">【2026实测】Homebrew安装+配置国内源+使用一篇搞定（多种安装方式）</a> 。</p>
+</blockquote>
+<h3 id="安装时间超长"><a href="#安装时间超长" class="headerlink" title="安装时间超长"></a>安装时间超长</h3><p>理想情况下，这个命令成功执行后就可以使用 <code>ncdu</code> 命令了，然而不出意外的话出意外了：安装命令执行时间明显超预期。</p>
+<p>中断后打开日志重新执行：</p>
+<pre><code>brew install -y --verbose --debug ncdu</code></pre><p>发现出现大量类似下面的日志：</p>
+<pre><code class="log">[1778/8125] cd /private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/build &amp;&amp; /private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/build/bin/llvm-tblgen -gen-asm-writer -I /private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/lib/Target/VE -I/private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/build/include -I/private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/include -I /private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/lib/Target /private/tmp/s-m40oG1E8/llvmA20-20261013-72265-cr0n9m/llvm-project-20.1.8.src/llvm/lib/Target/VE/VE.td --write-if-changed -o lib/Target/VE/VEGenAsmWriter.inc -d lib/Target/VE/VEGenAsmWriter.inc.d</code></pre>
+<p>注意开头部分的 <code>[1778/8125]</code>，表示等待了很长时间，才完成 8125 步中的 1778 步。</p>
+<p>Homebrew Formula 中的 <code>bottle do ... end</code> 代码块，用来声明 <strong>哪些平台可以直接下载现成的二进制</strong> 。以 <a href="https://github.com/Homebrew/homebrew-core/blob/33f30f4b6ce0386f7c84d5ca0079dccd231d8a93/Formula/n/ncdu.rb#L14-L22" target="_blank" rel="noopener">ncdu 2.9.2 的 formula</a> 为例：</p>
+<pre><code class="rb">  bottle do
+    sha256 cellar: :any,                 arm64_golden_gate: &quot;138b29744585e45a993e785bda2c8ec6133044227821878a1dd0d6fbc17321cb&quot;
+    sha256 cellar: :any,                 arm64_tahoe:       &quot;9a08dd709b18d87d90b016b8685d56f2de8d537e437ab44cf4ed92203df7a245&quot;
+    sha256 cellar: :any,                 arm64_sequoia:     &quot;d56b0ffa80c15fa5758a8b7b59525687a1a04ce043d540936b6db917c7c14c30&quot;
+    sha256 cellar: :any,                 arm64_sonoma:      &quot;b86c878b672bb5a7d8644e9908c4ed1ca3fd942095becec43ceff480340d2a2b&quot;
+    sha256 cellar: :any,                 sonoma:            &quot;768ace20bc54c22b86ddce63d51bd8488cb04816e28e330286a2685047d5484e&quot;
+    sha256 cellar: :any_skip_relocation, arm64_linux:       &quot;2a2d143126f866ae7a7f0aeecc2d12282bde98542e1ece1203d821a8d499343b&quot;
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      &quot;762c13f508d0699c363f0a3a0741a19cbd14d1ef8a86fdd1d70aeaaf2f7bd851&quot;
+  end</code></pre>
+<p>逐行解读一下 <code>bottle do</code> 块中的关键信息：</p>
+<ul>
+<li><strong><code>sha256</code></strong> ：每个 bottle 文件的校验值，用于验证下载完整性。</li>
+<li><strong><code>cellar: :any</code></strong> ：表示这个 bottle 与 Homebrew 的 Cellar 路径有关，安装时可能需要重定位，通常用于 macOS 上的包。</li>
+<li><strong><code>cellar: :any_skip_relocation</code></strong> ：表示可以跳过重定位步骤，通常用于不依赖 Cellar 绝对路径的包（如 Linux 上的静态二进制）。</li>
+<li><strong>平台标签</strong> ：<ul>
+<li><code>arm64_golden_gate</code>、<code>arm64_tahoe</code>、<code>arm64_sequoia</code>、<code>arm64_sonoma</code>：Apple Silicon（M 系列）Mac 上的不同 macOS 版本。</li>
+<li><code>sonoma</code>（无 <code>arm64_</code> 前缀）：Intel Mac 上的 macOS Sonoma（14.x）。</li>
+<li><code>arm64_linux</code>、<code>x86_64_linux</code>：Linux 平台，分别对应 ARM64 和 x86_64 架构。</li>
+</ul>
+</li>
+</ul>
+<p>macOS 操作系统名称和版本对应关系可见：<a href="https://support.apple.com/zh-cn/109033#latest" target="_blank" rel="noopener">https://support.apple.com/zh-cn/109033#latest</a> 。</p>
+<p>运行下面的命令确认自己的系统信息：</p>
+<pre><code class="bash">brew config</code></pre>
+<p>输出中重点关注 <code>macOS:</code> 后面的版本号和 <code>CPU:</code> 中信息。</p>
+<p>如果你的 Mac 是 Intel 芯片且系统版本低于 macOS Sonoma（14），或者虽然是 Apple Silicon 但系统较老，没有匹配的 bottle，通过 <code>brew install</code> 安装 ncdu 2.9.2 版本时，就会回退到从源码编译。</p>
+<p>而 ncdu 2.x 是用 <strong>Zig</strong> 编写的，Zig 工具链又依赖 <strong>LLVM</strong> (编译时间超长)，于是 <code>brew install ncdu</code> 变成了”先编译 Zig/LLVM，再编译 ncdu”，这就是那一大串 <code>llvm-tblgen</code> 构建日志的来源。</p>
+<p>Homebrew 官方文档 <a href="https://docs.brew.sh/FAQ#why-do-you-compile-everything" target="_blank" rel="noopener">Why do you compile everything?</a> 也对不能使用预编译包的情况进行了说明，可以在 <a href="https://github.com/Homebrew/homebrew-core/packages" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core/packages</a> 查找所有的预编译包（<a href="https://docs.brew.sh/Bottles" target="_blank" rel="noopener">Bottles</a>）。</p>
+<h3 id="解决方案：安装有对应系统预编译包的版本"><a href="#解决方案：安装有对应系统预编译包的版本" class="headerlink" title="解决方案：安装有对应系统预编译包的版本"></a>解决方案：安装有对应系统预编译包的版本</h3><p>以在 macOS 12.7 上安装 x86 版本 ncdu 为例，在 <a href="https://github.com/Homebrew/homebrew-core/pkgs/container/core%2Fncdu/271572867?tag=2.5" target="_blank" rel="noopener">https://github.com/Homebrew/homebrew-core/pkgs/container/core%2Fncdu/271572867?tag=2.5</a> 找到有 Ncdu 2.5 版的预编译包，随后通过最新版本的 <a href="https://github.com/Homebrew/homebrew-core/blob/main/Formula/n/ncdu.rb" target="_blank" rel="noopener">ncdu.rb</a> 文件提交历史，找到 <a href="https://github.com/Homebrew/homebrew-core/blob/c01aeaac6a1d1bacd301f945a8e67cc6abeda1f3/Formula/n/ncdu.rb" target="_blank" rel="noopener">2.5 版本的 ncdu.rb</a>，将内容保存到本地 <code>ncdu.rb</code> 文件中。</p>
+<p><a href="https://github.com/Homebrew/brew/releases/tag/4.6.4" target="_blank" rel="noopener">Homebrew 4.6.4</a> 版本起不再支持直接安装本地 formula 文件，除非设置 <a href="https://github.com/Homebrew/brew/pull/20414" target="_blank" rel="noopener">HOMEBREW_DEVELOPER=1</a> ：</p>
+<pre><code class="bash">HOMEBREW_DEVELOPER=true brew install --formulae ncdu.rb</code></pre>
+<p>成功安装 Ncdu 2.5 版本。更多关于安装旧版本 Hombrew 包的信息可见：<a href="https://dev.to/nelsonfigueroa/how-to-install-older-versions-of-homebrew-packages-2bn8#1" target="_blank" rel="noopener">How To Install Older Versions of Homebrew Packages</a> 。</p>
+<p>🔒 <strong>安装后锁定版本</strong>：安装旧版后，建议用 <code>brew pin</code> 将其锁定，防止后续 <code>brew upgrade</code> 时被自动升级。</p>
+<pre><code class="bash">brew pin ncdu</code></pre>
+<p>需要解除锁定时，使用 <code>brew unpin ncdu</code>。</p>
+<h2 id="附1：Homebrew-基本概念"><a href="#附1：Homebrew-基本概念" class="headerlink" title="附1：Homebrew 基本概念"></a>附1：Homebrew 基本概念</h2><p>Homebrew 中的专有词汇很多，<a href="https://docs.brew.sh/Formula-Cookbook#homebrew-terminology" target="_blank" rel="noopener">Homebrew terminology</a> 列出了术语表，下面介绍其中的几组基础概念。</p>
+<h3 id="🍺-Formula（配方）"><a href="#🍺-Formula（配方）" class="headerlink" title="🍺 Formula（配方）"></a>🍺 Formula（配方）</h3><p><strong>Formula 是 Homebrew 的”安装说明书”</strong> ，是一个用 Ruby 写的脚本文件（<code>.rb</code>）。它定义了：</p>
+<ul>
+<li>软件的名称、版本、下载地址（通常是源码 tarball）</li>
+<li>依赖哪些其他库或工具</li>
+<li>用什么命令编译（<code>./configure</code>、<code>make</code>、<code>zig build</code> 等）</li>
+<li>安装后哪些文件放到哪里</li>
+<li>如何做测试（<code>brew test</code>）</li>
+</ul>
+<p>比如 <code>ncdu 2.9.2</code> 的 formula 片段，里面写了 <code>depends_on &quot;zig@0.15&quot;</code>，所以 Homebrew 才会去安装 Zig 和 LLVM（zig 的依赖）：</p>
+<pre><code class="ruby">class Ncdu &lt; Formula
+  desc &quot;NCurses Disk Usage&quot;
+  homepage &quot;https://dev.yorhel.nl/ncdu&quot;
+  url &quot;https://dev.yorhel.nl/download/ncdu-2.9.2.tar.gz&quot;
+  sha256 &quot;e91135281cb66569f2ca4c0bac277246991e7e52524c0ca8cba3de5c8e81cec9&quot;
+  license &quot;MIT&quot;
+  head &quot;https://g.blicky.net/ncdu.git&quot;, branch: &quot;zig&quot;
+
+  ...
+
+  depends_on &quot;pkgconf&quot; =&gt; :build
+  depends_on &quot;zig@0.15&quot; =&gt; :build
+  # Without this, `ncdu` is unusable when `TERM=tmux-256color`.
+  depends_on &quot;ncurses&quot;
+  depends_on &quot;zstd&quot;
+
+  ...
+
+  def install
+    args = []
+    args &lt;&lt; &quot;-Dpie=true&quot; if OS.mac?
+
+    ...
+
+    system &quot;zig&quot;, &quot;build&quot;, *args, *std_zig_args
+    man1.install &quot;ncdu.1&quot;
+  end
+
+  test do
+    assert_match version.to_s, shell_output(&quot;#{bin}/ncdu -v&quot;)
+    system bin/&quot;ncdu&quot;, &quot;-o&quot;, &quot;test&quot;
+    output = JSON.parse((testpath/&quot;test&quot;).read)
+    assert_equal &quot;ncdu&quot;, output[2][&quot;progname&quot;]
+    assert_equal version.to_s, output[2][&quot;progver&quot;]
+    assert_equal Pathname.pwd.size, output[3][0][&quot;asize&quot;]
+  end
+end</code></pre>
+<h3 id="🖥️-Cask（桶）"><a href="#🖥️-Cask（桶）" class="headerlink" title="🖥️ Cask（桶）"></a>🖥️ Cask（桶）</h3><p><strong>Cask 是 Formula 的”图形界面/二进制版”扩展</strong> ，专门用来安装 macOS 上的 <strong>预编译应用、二进制文件、字体、插件</strong> 等，通常不涉及从源码编译。</p>
+<p>Google Chrome、Visual Studio Code、Docker Desktop 这些，都可以通过 cask 安装。Cask 的文件也是 Ruby 脚本，但描述的是”下载这个 <code>.dmg</code>，把 <code>.app</code> 拖到 <code>/Applications</code>“，如：</p>
+<pre><code class="bash">$ brew info google-chrome
+==&gt; google-chrome (Google Chrome): 155.0.8059.85 (auto_updates)
+Web browser
+https://www.google.com/chrome/
+Not installed
+From: https://github.com/Homebrew/homebrew-cask/blob/HEAD/Casks/g/google-chrome.rb
+==&gt; Requirements
+Required: macOS &gt;= 13 ✘
+==&gt; Artifacts
+Google Chrome.app (App)
+==&gt; Analytics
+install: 20,839 (30 days), 81,117 (90 days), 434,759 (365 days)</code></pre>
+<blockquote>
+<p>简单区分：<strong>Formula 是命令行工具/库，Cask 是图形应用/预编译二进制。</strong></p>
+</blockquote>
+<h3 id="📦-Tap（水龙头-第三方仓库）"><a href="#📦-Tap（水龙头-第三方仓库）" class="headerlink" title="📦 Tap（水龙头/第三方仓库）"></a>📦 Tap（水龙头/第三方仓库）</h3><p><strong>Tap 是一个额外的软件源</strong>，可以理解为一个 Git 仓库，里面存放着 Formula 和 Cask。Homebrew 默认只从官方的 <code>homebrew/core</code> 和 <code>homebrew/cask</code> 获取软件。</p>
+<p>当你需要：</p>
+<ul>
+<li>某个软件官方仓库没有</li>
+<li>某个历史版本</li>
+<li>使用别人维护的专用工具</li>
+</ul>
+<p>就可以 <code>tap</code> 一个第三方仓库。</p>
+<pre><code class="bash">brew tap                          # 列出已 tap 的仓库
+brew tap homebrew/core --force    # 强制下载官方核心仓库
+brew tap-new local/ncdu-history   # 创建你自己的本地 tap</code></pre>
+<h3 id="🍾-Bottle（瓶子-预编译包）"><a href="#🍾-Bottle（瓶子-预编译包）" class="headerlink" title="🍾 Bottle（瓶子/预编译包）"></a>🍾 Bottle（瓶子/预编译包）</h3><p><strong>Bottle 是 Homebrew 预先编译好的二进制包</strong>，用来避免用户从源码编译。如果有 bottle，<code>brew install</code> 会直接下载编译好的二进制，几秒钟装完；如果没有，则按 Formula 中描述通过源码进行编译。</p>
+<pre><code class="bash">brew install --force-bottle ncdu   # 强制使用预编译包（如果有）</code></pre>
+<h3 id="🏠-Cellar-Keg（酒窖-酒桶）"><a href="#🏠-Cellar-Keg（酒窖-酒桶）" class="headerlink" title="🏠 Cellar / Keg（酒窖 / 酒桶）"></a>🏠 Cellar / Keg（酒窖 / 酒桶）</h3><ul>
+<li><strong>Cellar</strong>：Homebrew 安装软件的<strong>总目录</strong>。Intel Mac 是 <code>/usr/local/Cellar</code>，Apple Silicon 是 <code>/opt/homebrew/Cellar</code>。</li>
+<li><strong>Keg</strong>：Cellar 里<strong>某个软件某个版本的具体目录</strong>。比如 <code>/usr/local/Cellar/ncdu/1.16</code>。</li>
+</ul>
+<p>Homebrew 会把不同版本并排放在 Cellar 里，然后通过软链接（symlink）把当前使用的版本链接到 <code>/usr/local/bin</code> 等路径，这就是为什么可以同时保留多个版本。</p>
+<pre><code class="bash">brew --cellar                  # 查看 Cellar 路径</code></pre>
+<h3 id="🔗-它们之间的关系"><a href="#🔗-它们之间的关系" class="headerlink" title="🔗 它们之间的关系"></a>🔗 它们之间的关系</h3><ol>
+<li><strong>Tap</strong> 是仓库，里面存放着 <strong>Formula</strong> 和 <strong>Cask</strong>。</li>
+<li><strong>Formula</strong> 描述如何从源码构建命令行软件；<strong>Cask</strong> 描述如何安装图形应用/预编译包。</li>
+<li><strong>Bottle</strong> 是 Formula 对应的预编译二进制，用来加速安装。</li>
+<li>安装后的文件放在 <strong>Cellar</strong> 里，每个版本是一个 <strong>Keg</strong>。</li>
+</ol>
+<h2 id="附2：通过-Tap-安装软件的历史版本"><a href="#附2：通过-Tap-安装软件的历史版本" class="headerlink" title="附2：通过 Tap 安装软件的历史版本"></a>附2：通过 Tap 安装软件的历史版本</h2><p>以安装 Ncdu 1.x 版本为例。结合 Homebrew 的 tap 机制，可以用 <code>brew extract</code> 从官方仓库的历史中提取旧版 formula 到自己的本地 tap 中安装。</p>
+<p><a href="https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap#extracting-a-historical-formula-into-your-tap" target="_blank" rel="noopener">Homebrew 官方文档 Extracting a historical formula into your tap</a> 提供了从历史版本中提取 formula 的方法，步骤如下。</p>
+<p><strong>1. 创建一个本地 tap：</strong></p>
+<pre><code class="bash">brew tap-new local/ncdu-history</code></pre>
+<p><strong>2. 强制克隆官方核心仓库：</strong></p>
+<p><code>brew extract</code> 需要从 <code>homebrew/core</code> 的 Git 历史中提取旧版 formula，但新版 Homebrew 默认不完整克隆 <code>homebrew/core</code>，所以要先强制下载：</p>
+<pre><code class="bash">brew tap homebrew/core --force</code></pre>
+<p><strong>3. 从历史中提取 ncdu 1.16 的 formula 到本地 tap：</strong></p>
+<pre><code class="bash">$ brew extract --version=1.16 ncdu local/ncdu-history
+==&gt; Searching repository history
+==&gt; Writing formula for ncdu at 1.16 from revision 2f9e830 to:
+/usr/local/Homebrew/Library/Taps/local/homebrew-ncdu-history/Formula/ncdu@1.16.rb</code></pre>
+<p><strong>4. 安装：</strong></p>
+<pre><code class="bash">brew install local/ncdu-history/ncdu@1.16</code></pre>
+<p><strong>5.（可选）解除官方核心仓库的完整克隆：</strong></p>
+<pre><code class="bash">brew untap homebrew/core</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">365 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">167 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用"><span class="toc-number">1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装时间超长"><span class="toc-number">2.1.</span> <span class="toc-text">安装时间超长</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决方案：安装有对应系统预编译包的版本"><span class="toc-number">2.2.</span> <span class="toc-text">解决方案：安装有对应系统预编译包的版本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附1：Homebrew-基本概念"><span class="toc-number">3.</span> <span class="toc-text">附1：Homebrew 基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#🍺-Formula（配方）"><span class="toc-number">3.1.</span> <span class="toc-text">🍺 Formula（配方）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🖥️-Cask（桶）"><span class="toc-number">3.2.</span> <span class="toc-text">🖥️ Cask（桶）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#📦-Tap（水龙头-第三方仓库）"><span class="toc-number">3.3.</span> <span class="toc-text">📦 Tap（水龙头&#x2F;第三方仓库）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🍾-Bottle（瓶子-预编译包）"><span class="toc-number">3.4.</span> <span class="toc-text">🍾 Bottle（瓶子&#x2F;预编译包）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🏠-Cellar-Keg（酒窖-酒桶）"><span class="toc-number">3.5.</span> <span class="toc-text">🏠 Cellar &#x2F; Keg（酒窖 &#x2F; 酒桶）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#🔗-它们之间的关系"><span class="toc-number">3.6.</span> <span class="toc-text">🔗 它们之间的关系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附2：通过-Tap-安装软件的历史版本"><span class="toc-number">4.</span> <span class="toc-text">附2：通过 Tap 安装软件的历史版本</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
