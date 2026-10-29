@@ -63,3 +63,31 @@ PDF 已生成: ./screenshots_4perpage.pdf
 ```
 
 ![baidu netdisk](https://alphahinex.github.io/contents/system-planning-and-management-engineer/image.jpg)
+
+---
+
+案例：
+PUE 概念 计算 标准
+客户关注哪些服务内容
+IT治理核心内容
+治理文件项目文件区分
+测试管理核心库
+技术手册发布步骤
+招聘净需求计算
+研发管理五个内容
+过程改善建议
+技术体系原则
+
+https://mp.weixin.qq.com/s/1H2h_dt6-DUGT6I9BKIeAg?scene=1
+
+https://mp.weixin.qq.com/s/nIG6jFKqcyWn6gHLinU9XA
+
+论文：
+论AI赋能在IT服务运营提升中的作用
+1. 大模型交互能力对客户关系的影响
+2. 大模型的引入对成本结构、成本度量、预算和结算的影响
+3. 大模型对服务营销管理的影响
+
+https://mp.weixin.qq.com/s/LKQUnKyboKNWrAEOBrR2Nw
+
+选择：https://mp.weixin.qq.com/s/MZHq7TZPWEJeTtblcwLQtA
