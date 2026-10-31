@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0.5" y="0.5" width="719" height="359" rx="16" fill="#f7f6f2" stroke="#e7e5e0"/>
+  <text x="40" y="46" font-size="22" font-weight="700" fill="#1f2937">一次装好，别处照着还原</text>
+  <text x="40" y="72" font-size="13" fill="#64748b">把 skills-lock.json 提交进 git，队友和 CI 就能装出版本一致的同一批 skill</text>
+
+  <!-- Card A -->
+  <rect x="40" y="100" width="188" height="176" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="64" cy="128" r="11" fill="#eef2ff"/>
+  <text x="64" y="133" font-size="13" font-weight="700" fill="#4f46e5" text-anchor="middle">1</text>
+  <text x="84" y="133" font-size="14" font-weight="600" fill="#1f2937">我的机器</text>
+  <rect x="56" y="150" width="156" height="26" rx="6" fill="#f1f5f9"/>
+  <text x="68" y="167" font-size="11.5" fill="#1f2937" font-family="'SF Mono', Menlo, monospace">skills add owner/repo</text>
+  <text x="56" y="202" font-size="12" fill="#475569">装上 skill，并把这条</text>
+  <text x="56" y="220" font-size="12" fill="#475569">记录写进</text>
+  <text x="56" y="244" font-size="12" fill="#4f46e5" font-family="'SF Mono', Menlo, monospace">skills-lock.json</text>
+
+  <!-- arrow A->B -->
+  <line x1="232" y1="188" x2="260" y2="188" stroke="#94a3b8" stroke-width="2"/>
+  <path d="M260 183 L268 188 L260 193 Z" fill="#94a3b8"/>
+
+  <!-- Card B -->
+  <rect x="272" y="100" width="188" height="176" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="296" cy="128" r="11" fill="#eef2ff"/>
+  <text x="296" y="133" font-size="13" font-weight="700" fill="#4f46e5" text-anchor="middle">2</text>
+  <text x="316" y="133" font-size="14" font-weight="600" fill="#1f2937">git 仓库</text>
+  <rect x="288" y="150" width="156" height="26" rx="6" fill="#f1f5f9"/>
+  <text x="300" y="167" font-size="11.5" fill="#1f2937" font-family="'SF Mono', Menlo, monospace">git add skills-lock</text>
+  <text x="288" y="202" font-size="12" fill="#475569">lock 文件跟代码一起</text>
+  <text x="288" y="220" font-size="12" fill="#475569">提交进版本库，</text>
+  <text x="288" y="238" font-size="12" fill="#475569">像对待 package-lock</text>
+  <text x="288" y="256" font-size="12" fill="#475569">那样对待它</text>
+
+  <!-- arrow B->C -->
+  <line x1="464" y1="188" x2="492" y2="188" stroke="#94a3b8" stroke-width="2"/>
+  <path d="M492 183 L500 188 L492 193 Z" fill="#94a3b8"/>
+
+  <!-- Card C -->
+  <rect x="504" y="100" width="176" height="176" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <circle cx="528" cy="128" r="11" fill="#ecfdf5"/>
+  <text x="528" y="133" font-size="13" font-weight="700" fill="#059669" text-anchor="middle">3</text>
+  <text x="548" y="133" font-size="14" font-weight="600" fill="#1f2937">队友 / CI</text>
+  <rect x="520" y="150" width="148" height="26" rx="6" fill="#ecfdf5"/>
+  <text x="532" y="167" font-size="11.5" fill="#059669" font-family="'SF Mono', Menlo, monospace">skills install</text>
+  <text x="520" y="202" font-size="12" fill="#475569">照着 lock 还原出</text>
+  <text x="520" y="220" font-size="12" fill="#475569">版本一致的同一批</text>
+  <text x="520" y="238" font-size="12" fill="#475569">skill — agent 的行为</text>
+  <text x="520" y="256" font-size="12" fill="#475569">才会跟你这儿一样</text>
+
+  <!-- callout -->
+  <rect x="40" y="298" width="640" height="44" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <circle cx="62" cy="320" r="5" fill="#4f46e5"/>
+  <text x="78" y="325" font-size="12.5" fill="#3730a3">上游 skill 改了，hash 就对不上 —— skills check 让你看见这次变更，要不要跟，由你决定。</text>
+</svg>

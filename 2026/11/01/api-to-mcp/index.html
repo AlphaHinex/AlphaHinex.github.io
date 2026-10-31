@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Harness 低成本调用存量 API - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,MCP, SSE, stdio, streamable-http, dsh, Nacos, Higress, DeepSeek, Harness, AI, API, DeepSeek Harness, Higress AI, MCP Server"> 
+    <meta name="description" content="本文以 Nacos v3.2.2 和 Higress v2.2.5 为例，介绍如何零代码改动将存量 API 转换成 MCP 服务，方便 AI 通过 Harness 低成本调用存量 API。可作为官方,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">Harness 低成本调用存量 API</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/api-to-mcp/ai-api-to-mcp.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/AI"><b>「
+                    </b>AI<b> 」</b></a>
+                
+                十一月 01, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/11/01/api-to-mcp/" title="Harness 低成本调用存量 API" class="">Harness 低成本调用存量 API</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    10k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    9 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/DeepSeek/" rel="tag">DeepSeek</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Nacos/" rel="tag">Nacos</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>本文以 <a href="https://nacos.io/" target="_blank" rel="noopener">Nacos</a> v3.2.2 和 <a href="https://higress.ai/" target="_blank" rel="noopener">Higress</a> v2.2.5 为例，介绍如何零代码改动将存量 API 转换成 <a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">MCP</a> 服务，方便 AI 通过 Harness 低成本调用存量 API。可作为官方文档 <a href="https://nacos.io/docs/latest/manual/user/ai/api-to-mcp/" target="_blank" rel="noopener">存量API转换MCP手册</a> 的补充，及 <a href="https://developer.aliyun.com/article/1672275" target="_blank" rel="noopener">后端开发必看：零代码实现存量服务改造成MCP服务</a> 的内容更新。</p>
+<p>整体结构类似下图：</p>
+<p><img src="https://alphahinex.github.io/contents/api-to-mcp/ai-api-to-mcp.svg" alt=""></p>
+<ol>
+<li>API 自动或手动注册到 Nacos 中</li>
+<li>Higress 通过 Nacos 获取 API 信息，自动生成 MCP 服务</li>
+<li>AI Agent（本文使用 DeepSeek Harness）通过 MCP 服务调用存量 API</li>
+</ol>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="存量-API-工程"><a href="#存量-API-工程" class="headerlink" title="存量 API 工程"></a>存量 API 工程</h3><p>以一个只有 <a href="https://spec.openapis.org/oas/v2.0.html" target="_blank" rel="noopener">Swagger 2.0</a> 接口的存量 API 工程为例，假设 API 地址为 <code>http://localhost:8090</code>，Swagger 地址为 <code>http://localhost:8090/v2/api-docs</code> 。</p>
+<p>将存量 API 注册到 Nacos 引擎中，可通过 <a href="https://nacos.io/docs/latest/manual/user/overview/other-language/" target="_blank" rel="noopener">Nacos SDK</a> 或 <a href="https://sca.aliyun.com/docs/2023/user-guide/nacos/quick-start/" target="_blank" rel="noopener">Spring Cloud</a> 等框架进行注册或自动注册。</p>
+<p>也可以 <a href="https://spec.openapis.org/oas/" target="_blank" rel="noopener">OpenAPI 3.x</a> 格式的 JSON/YAML 文件直接 <a href="https://deepwiki.com/search/mcp-openapi-openapi_fd182b14-d39e-421a-96da-324ca7a1760c?mode=fast" target="_blank" rel="noopener">导入至 Nacos 中</a> 完成 MCP 工具的注册。</p>
+<p>Swagger 2.0 规范在 <a href="https://www.openapis.org/style-guide" target="_blank" rel="noopener">2015 年被捐赠</a> 给 Linux 基金会旗下的 OpenAPI Initiative 后，更名为 OpenAPI 2.0，但与 OpenAPI 3.x 规范有较大差异，直接在 Nacos 中导入 Swagger 2.0 的 JSON 文件会报错，可先通过 <a href="https://github.com/Mermade/oas-kit" target="_blank" rel="noopener">swagger2openapi</a> 工具，或直接以对话方式让 AI 帮助执行格式转换。</p>
+<p>关于 Swagger 和 OpenAPI 的更多信息可见：<a href="https://www.mintlify.com/library/openapi-vs-swagger" target="_blank" rel="noopener">OpenAPI vs Swagger: what’s the difference between the two specs?</a> 。</p>
+<h3 id="Nacos"><a href="#Nacos" class="headerlink" title="Nacos"></a>Nacos</h3><p>在运行环境中部署版本 <code>3.0.0</code> 及以上的 Nacos 引擎，可参考 <a href="https://nacos.io/docs/latest/quickstart/quick-start/" target="_blank" rel="noopener">Nacos快速开始</a>，<a href="https://nacos.io/docs/latest/quickstart/quick-start-docker/" target="_blank" rel="noopener">Nacos Docker 快速开始</a> 或 <a href="https://nacos.io/docs/latest/quickstart/quick-start-kubernetes/" target="_blank" rel="noopener">Nacos Kubernetes 快速开始</a>。</p>
+<p>假设部署后 Nacos Console 的访问地址为 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> ，HTTP API 端口为 <code>8848</code>，客户端 gRPC 请求服务端端口为 <code>9848</code>，Nacos 管理员用户 <code>nacos</code> 的密码也设为 <code>nacos</code>。</p>
+<h3 id="Higress"><a href="#Higress" class="headerlink" title="Higress"></a>Higress</h3><p>部署 Higress-AI：在运行环境中部署版本 <code>2.1.2</code> 及以上的 Higress，可参考 <a href="https://higress.cn/docs/ai/mcp-quick-start_docker/" target="_blank" rel="noopener">Higress Docker 快速开始</a> 或 <a href="https://higress.cn/docs/ai/mcp-quick-start/" target="_blank" rel="noopener">Higress Kubernetes 快速开始</a>。</p>
+<p>假设部署后 Higress UI 控制台入口为 <a href="http://localhost:8001，网关">http://localhost:8001，网关</a> HTTP 协议入口为 <code>8002</code> 端口。</p>
+<blockquote>
+<p>在使用 Higress 进行 MCP 协议转换时，如果要使用 <a href="https://modelcontextprotocol.io/specification/2024-11-05/basic/transports#http-with-sse" target="_blank" rel="noopener">HTTP with Server-Sent Events(SSE)</a> 传输机制，则还需要部署一个 Redis 服务，并在 Higress 配置中指定 Redis 的地址和端口。但该传输机制已在 2025 年 03 月 26 日被 <a href="https://modelcontextprotocol.io/specification/2025-03-26/basic/transports#streamable-http" target="_blank" rel="noopener">Streamable HTTP</a> 取代，<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/mcp/mcp-client/README.zh.md" target="_blank" rel="noopener">@deepseek-ai/dsh-mcp-client</a> 中的 <code>transport</code> 字段也只支持 <code>stdio</code> 或 <code>streamable-http</code>，本文示例中将使用 <code>streamable-http</code> 传输机制（<code>stdio</code> 适用于客户端将 MCP 服务器作为子进程启动，仅限本地使用），因此可不需要部署 Redis 服务。</p>
+</blockquote>
+<h2 id="Nacos-中进行的配置"><a href="#Nacos-中进行的配置" class="headerlink" title="Nacos 中进行的配置"></a>Nacos 中进行的配置</h2><h3 id="1-创建-MCP-Server"><a href="#1-创建-MCP-Server" class="headerlink" title="1 创建 MCP Server"></a><strong>1 创建 MCP Server</strong></h3><p><img src="https://alphahinex.github.io/contents/api-to-mcp/nacos-create-mcp-server.png" alt="nacos-create-mcp-server"></p>
+<h3 id="2-配置-MCP-Server-基本信息、HTTP-转-MCP、导入工具"><a href="#2-配置-MCP-Server-基本信息、HTTP-转-MCP、导入工具" class="headerlink" title="2 配置 MCP Server 基本信息、HTTP 转 MCP、导入工具"></a><strong>2 配置 MCP Server 基本信息、HTTP 转 MCP、导入工具</strong></h3><p><img src="https://alphahinex.github.io/contents/api-to-mcp/nacos-config-mcp-server.png" alt="nacos-config-mcp-server"></p>
+<ul>
+<li><code>服务名称</code> 后续会用到，<code>协议类型</code> 选择 <code>Streamable</code>；</li>
+<li>打开 <code>HTTP 转 MCP</code> 开关，以 <code>直连新服务</code> 的方式直接访问 <code>http://localhost:8090</code> 存量 API 工程；</li>
+<li><code>工具管理</code> 中选择 <code>从OpenAPI导入</code>，然后选择 OpenAPI 3.x 的 JSON 或 YAML 文件导入；</li>
+<li>完成配置后点击右下角 <code>发布</code> 按钮。</li>
+</ul>
+<h3 id="3-手动添加工具"><a href="#3-手动添加工具" class="headerlink" title="3 手动添加工具"></a><strong>3 手动添加工具</strong></h3><p>如果接口数量较少，也可通过 <code>新建工具</code> 按钮手动添加工具，配置工具对应接口的出入参及请求和响应模板，如调用 OpenAI 格式的 <code>/v1/models</code> 接口获取可用模型信息：</p>
+<ul>
+<li>请求模板</li>
+</ul>
+<pre><code class="json">{
+  &quot;url&quot;: &quot;/v1/models&quot;,
+  &quot;method&quot;: &quot;GET&quot;,
+  &quot;headers&quot;: [
+    {
+      &quot;key&quot;: &quot;Authorization&quot;,
+      &quot;value&quot;: &quot;Bearer {{ .args.apiKey }}&quot;
+    }
+  ]
+}</code></pre>
+<ul>
+<li>响应模板</li>
+</ul>
+<pre><code class="json">{
+  &quot;body&quot;: &quot;{{ . }}&quot;
+}</code></pre>
+<p>模板更多语法可见：<a href="https://nacos.io/docs/latest/manual/user/ai/mcp-template" target="_blank" rel="noopener">MCP模版配置手册</a> 。</p>
+<h2 id="Higress-中进行的配置"><a href="#Higress-中进行的配置" class="headerlink" title="Higress 中进行的配置"></a>Higress 中进行的配置</h2><h3 id="1-编辑全局配置-higress-config，开启-MCP-Server-功能"><a href="#1-编辑全局配置-higress-config，开启-MCP-Server-功能" class="headerlink" title="1 编辑全局配置 higress-config，开启 MCP Server 功能"></a><strong>1 编辑全局配置 <code>higress-config</code>，开启 MCP Server 功能</strong></h3><p><img src="https://alphahinex.github.io/contents/api-to-mcp/higress-config-mcp-server.png" alt="higress-config-mcp-server"></p>
+<h3 id="2-创建-Nacos-3-x-类型的服务来源"><a href="#2-创建-Nacos-3-x-类型的服务来源" class="headerlink" title="2 创建 Nacos 3.x 类型的服务来源"></a><strong>2 创建 Nacos 3.x 类型的服务来源</strong></h3><p><img src="https://alphahinex.github.io/contents/api-to-mcp/higress-create-svc-src.png" alt="higress-create-svc-src"></p>
+<p><img src="https://alphahinex.github.io/contents/api-to-mcp/nacos-svc-src.png" alt="nacos-svc-src"></p>
+<ul>
+<li><code>类型</code> 选择 <code>Nacos 3.x</code>；</li>
+<li><code>名称</code> 随意填写，<code>注册中心地址</code> 按实际情况填写，本例中是 <code>127.0.0.1</code>；</li>
+<li><code>注册中心访问端口</code> 填写 Nacos HTTP API 端口，如 <code>8848</code>；</li>
+<li><code>是否开启了认证</code> 选择 <code>是</code>，填写 Nacos 管理员用户名 <code>nacos</code> 及密码，本例中也是 <code>nacos</code>；</li>
+<li>如果在 Nacos 中创建 MCP Server 时使用了命名空间，<code>Nacos命名空间ID</code> 要填写命名空间 ID（不是命名空间名称）。如果使用的是默认的 <code>public</code> 命名空间，此处可以不填；</li>
+<li><code>是否启用MCP Server功能</code> 选 <code>是</code>；</li>
+<li><code>MCP Server路由路径前缀</code> 可保持默认 <code>/mcp</code>，如有修改，之后访问 MCP Server 时也需同时修改。</li>
+<li>完成后点击右上角 <code>确定</code>。</li>
+</ul>
+<h3 id="3-在服务列表中检查"><a href="#3-在服务列表中检查" class="headerlink" title="3 在服务列表中检查"></a><strong>3 在服务列表中检查</strong></h3><p>在服务列表中，检查是否有新配置的服务来源对应的服务记录，如果没有，需要检查一下上一步哪个环节配置出错了。</p>
+<p><img src="https://alphahinex.github.io/contents/api-to-mcp/higress-svc-list.png" alt="higress-svc-list"></p>
+<p>服务列表中有对应记录，就可以通过 HTTP 协议验证 MCP 服务状态了，URL 为 <code>{Higress 网关 HTTP 协议入口}/{Higress 服务来源中配置的 MCP Server 路由路径前缀}/{Nacos MCP Server 中配置的服务名称}</code>，如：</p>
+<pre><code class="bash">$ curl http://127.0.0.1:8082/mcp/nacos-mcp-server -I
+HTTP/1.1 400 Bad Request
+vary: Accept-Encoding
+date: Thu, 29 Oct 2026 09:25:31 GMT
+server: istio-envoy
+connection: close
+transfer-encoding: chunked</code></pre>
+<p>状态码 <code>400</code> 代表服务已可用，否则返回的状态码是 <code>404</code>。</p>
+<p>本例中，存量 API 服务转换出来的 MCP Server 地址即为 <a href="http://127.0.0.1:8082/mcp/nacos-mcp-server，可将其配置到" target="_blank" rel="noopener">http://127.0.0.1:8082/mcp/nacos-mcp-server，可将其配置到</a> Harness 工具中供 AI 调用。</p>
+<h2 id="DeepSeek-Harness-中进行的配置"><a href="#DeepSeek-Harness-中进行的配置" class="headerlink" title="DeepSeek Harness 中进行的配置"></a>DeepSeek Harness 中进行的配置</h2><blockquote>
+<p>DeepSeek Harness 版本：<code>0.2.1-rc.5</code></p>
+</blockquote>
+<p>DeepSeek Harness 中已内置了 MCP 资源访问插件 <a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/mcp/mcp-resources/README.zh.md" target="_blank" rel="noopener">@deepseek-ai/dsh-mcp-resources</a>，只需配置 MCP 客户端 <a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/mcp/mcp-client/README.zh.md" target="_blank" rel="noopener">@deepseek-ai/dsh-mcp-client</a> 。</p>
+<p><code>web</code> profile 中默认没有 <code>dsh-mcp-client</code> 插件，添加时需要在 <code>~/.dsh/profiles/web/cordis.patch.yml</code> 中使用 <code>insert</code> 添加：</p>
+<pre><code class="cordis.patch.yml">- insert:
+  - id: streamable-http-mcp-test
+    name: &#39;@deepseek-ai/dsh-mcp-client&#39;
+    config:
+      serverName: test
+      transport: streamable-http
+      url: http://127.0.0.1:8082/mcp/nacos-mcp-server</code></pre>
+<p>之后即可在内置插件中搜索到新增的 <code>mcp-client</code> 插件：</p>
+<p><img src="https://alphahinex.github.io/contents/api-to-mcp/mcp-client.png" alt="mcp-client"></p>
+<p>现在，通过 Harness 智能的使用存量 API 能力吧。</p>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">367 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">167 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#存量-API-工程"><span class="toc-number">1.1.</span> <span class="toc-text">存量 API 工程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Nacos"><span class="toc-number">1.2.</span> <span class="toc-text">Nacos</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Higress"><span class="toc-number">1.3.</span> <span class="toc-text">Higress</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nacos-中进行的配置"><span class="toc-number">2.</span> <span class="toc-text">Nacos 中进行的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建-MCP-Server"><span class="toc-number">2.1.</span> <span class="toc-text">1 创建 MCP Server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-配置-MCP-Server-基本信息、HTTP-转-MCP、导入工具"><span class="toc-number">2.2.</span> <span class="toc-text">2 配置 MCP Server 基本信息、HTTP 转 MCP、导入工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-手动添加工具"><span class="toc-number">2.3.</span> <span class="toc-text">3 手动添加工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Higress-中进行的配置"><span class="toc-number">3.</span> <span class="toc-text">Higress 中进行的配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-编辑全局配置-higress-config，开启-MCP-Server-功能"><span class="toc-number">3.1.</span> <span class="toc-text">1 编辑全局配置 higress-config，开启 MCP Server 功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建-Nacos-3-x-类型的服务来源"><span class="toc-number">3.2.</span> <span class="toc-text">2 创建 Nacos 3.x 类型的服务来源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-在服务列表中检查"><span class="toc-number">3.3.</span> <span class="toc-text">3 在服务列表中检查</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DeepSeek-Harness-中进行的配置"><span class="toc-number">4.</span> <span class="toc-text">DeepSeek Harness 中进行的配置</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
