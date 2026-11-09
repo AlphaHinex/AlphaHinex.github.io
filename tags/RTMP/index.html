@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: RTMP - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/replay-to-rtmp-on-mac/cover.jpeg);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/Mac"><b>「
+                </b>MAC<b> 」</b></a>
+            
+            三月 20, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2020/03/20/replay-to-rtmp-on-mac/" title="Mac 录播推流 RTMP 方案" class="posttitle">Mac 录播推流 RTMP 方案</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                1.9k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                2 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <p>有时我们可能希望提前录制一些内容，在进行直播时推流至 RTMP 服务。本文提供了一个在 Mac 环境上实现此需求的方案。</p>
+<p>屏幕录制可以利用 <a href="https://alphahinex.github.io/2020/02/20/live-show-on-mac/">Mac RTMP 直播方案</a> 中提到的 <code>OBS</code>，<br>也可以直接使用...</p>
+            
+            <span class="read-more"><a href="/2020/03/20/replay-to-rtmp-on-mac/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/live-show-on-mac/cover.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Mac">
+                  <b>「 </b>MAC<b> 」</b>
+                </a>
+            
+            二月 20, 2020
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2020/02/20/live-show-on-mac/" title="Mac RTMP 直播方案" class="posttitle">Mac RTMP 直播方案</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        1.5k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        1 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p><a href="https://obsproject.com/" target="_blank" rel="noopener">OBS</a> 为 Mac 下可用的直播软件。上手简单，网上教程也很多。<br>不过因为 RMBP 的分辨率太高，直播画面必须进行缩小，否则 Mac 不一定能吃得消。<code>MacBook Pro (Retina, 15-inch, Mid 2015)</code> 播一会就提示资源不足，需降低分辨率之类的了。最后使用的如下配置，观看直播的分辨率基本可接受，录制起来也不会提示需要降低输出质量。</p>
+<p></p>
+<p>不过风扇还是会疯了一样响，如果使用 Mac 内置麦克风，可能会产生比较大噪音，影响直播效果。可以接入耳机，并且为声音添加降噪滤镜。</p>
+<p></p>
+<p></p>
+<p>在...</p>
+            
+            <span class="read-more"><a href="/2020/02/20/live-show-on-mac/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

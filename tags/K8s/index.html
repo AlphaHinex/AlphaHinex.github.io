@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tag: K8s - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,"> 
+    
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div class="nav">
+    <ul id="menu-menu" class="menu">
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/whoami/" title="ABOUT" external="false">ABOUT</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/categories/" title="CATEGORIES" external="false">CATEGORIES</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/tags/" title="TAGS" external="false">TAGS</a>
+        </li>
+        
+        <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+            <a href="/archives/" title="ARCHIVES" external="false">ARCHIVES</a>
+        </li>
+        
+    </ul>
+    <p class="copyright" id="copyright">
+        &copy; 2026 Alpha Hinex.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+    </p>
+</div>
+
+<div id="container">
+    
+<div class="search-box">
+    <form class="site-search-form">
+        <span class="iconfont icon-search"></span>
+        <input type="text" id="local-search-input" class="st-search-input" />
+        <div class="iconfont icon-cross search-box-close"></div>
+    </form>
+    <div class="search-scrollable">
+        <div id="local-search-result" class="local-search-result-cls" data-initialise="首次搜索，正在载入索引文件，请稍后……"
+            data-start="输入关键词搜索。" data-empty="没有找到内容，请尝试更换检索词。">
+            <span>输入关键词搜索。</span>
+        </div>
+    </div>
+</div>
+<div id="header">
+    <div>
+        <div class="logo animated fadeInDown">
+            <img src="/img/favicon.png" alt="">
+            <a class="image-logo" href="/"></a>
+        </div>
+        <ul id="menu-menu" class="menu text-menu">
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/whoami/" title="ABOUT" external="false" class="menu-link">ABOUT</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/categories/" title="CATEGORIES" external="false" class="menu-link">CATEGORIES</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/tags/" title="TAGS" external="false" class="menu-link">TAGS</a>
+            </li>
+            
+            <li class="animated fadeInDown menu-item menu-item-type-post_type menu-item-object-page">
+                <a href="/archives/" title="ARCHIVES" external="false" class="menu-link">ARCHIVES</a>
+            </li>
+            
+            
+            <li class="animated fadeInDown search-bar iconfont icon-search"></li>
+            
+        </ul>
+        <div class="iconfont icon-menu switchmenu gradient-text animated fadeInDown"></div>
+    </div>
+</div>
+<div id="screen">
+    <div id="mark">
+        <div class="cover animated fadeIn" style="
+            animation-delay: 900ms;
+            animation-duration: 2.8s;
+            background-image:
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.56), #100e17),
+                url(/contents/covers/k8s-enable-service-links.png);">
+        </div>
+    </div>
+    
+    <div id="post0" class="else">
+        <p class="animated fadeInDown">
+            
+            <a href="/categories/K8s"><b>「
+                </b>K8S<b> 」</b></a>
+            
+            七月 06, 2025
+        </p>
+        <h3 class="post-title animated fadeInDown">
+            <a href="/2025/07/06/k8s-enable-service-links/" title="【转】Kubernetes 服务自动注入变量引发的血案" class="posttitle">【转】Kubernetes 服务自动注入变量引发的血案</a></h3>
+        
+        <p class="post-count animated fadeInDown">
+            
+            <span>
+                <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                5.1k
+            </span>
+            
+            
+            <span>
+                <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                5 mins.
+            </span>
+            
+            
+        </p>
+        
+        
+        <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Boot/" rel="tag">Spring Boot</a></li></ul>
+        
+        <div class="md-content animated fadeIn">
+            
+            <ul>
+<li>原文地址：<a href="https://www.jianshu.com/p/3cfdb680b14e" target="_blank" rel="noopener">https://www.jianshu.com/p/3cfdb680b14e</a></li>
+<li>原文作者：<a href="https://www.jianshu.com/u/d682f8cbe064" target="_blank" rel="noopener">微凉哇</a></li>
+<li>相关阅读：</li>
+</ul>
+<ol>
+<li><a href="https://notes.kodekloud.com/docs/Kubernetes-Troubleshooting-for-Application-Developers/Troubleshooting-Scenarios/enableServiceLinks" target="_blank" rel="noopener">enableServiceLinks</a></li>
+<li><a href="https://github.com/spring-projects/spring-boot/wiki/Relaxed-Binding-2.0#environment-variables" target="_blank" rel="noopener">Relaxed-Binding-2.0...</a></li></ol>
+            
+            <span class="read-more"><a href="/2025/07/06/k8s-enable-service-links/" title="查看全文" class="posttitle">查看全文</a>
+                <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+    
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="typed-text"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div id="primary">
+        
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/nacos-operator/api.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            一月 19, 2024
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2024/01/19/nacos-operator/" title="正确管理kubernetes有状态应用之nacos" class="posttitle">正确管理kubernetes有状态应用之nacos</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        14k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        12 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Golang/" rel="tag">Golang</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Nacos/" rel="tag">Nacos</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>本文旨在分享 <code>kubernetes</code> 环境下如何管理 <code>nacos</code>，阅读本文需要一定 <code>kubernetes</code> 基础。</p>
+<p><code>nacos</code> 是阿里开源的一款注册中心、配置中心软件。更多信息移步：<a href="https://nacos.io/zh-cn/docs/what-is-nacos.html" target="_blank" rel="noopener">https://nacos.io/zh-cn/docs/what-is-nacos.html</a></p>
+<p><code>Kubernetes</code> 有状态应用管理方式，通常有三种：手动、<code>helm</code>、<code>operator</code></p>
+<p>推荐的优先级：手动 &lt; <code>helm</code> &lt; <code>operator</code></p>
+<p></p>
+<p><code>kubernetes</code> 发展初期，用户通常使用 <code>helm</code> 管理有状态应用...</p>
+            
+            <span class="read-more"><a href="/2024/01/19/nacos-operator/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/redis-cluster-recovery.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Redis">
+                  <b>「 </b>REDIS<b> 」</b>
+                </a>
+            
+            十月 29, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/10/29/redis-cluster-recovery/" title="Redis 5 集群断电故障处理指北" class="posttitle">Redis 5 集群断电故障处理指北</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Redis/" rel="tag">Redis</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>Redis 版本：5.0.9</li>
+<li>Redis 集群使用 <a href="https://github.com/bitnami/charts/tree/main/bitnami/redis-cluster" target="_blank" rel="noopener">Bitnami Redis Cluster Chart</a>（appVersion: 5.0.9, version: 2.0.14）部署在 K8s 中</li>
+<li>集群配置：三主三从六节点</li>
+</ul>
+<p>集群断电后重启出现故障节点，报错日志 <code>Unrecoverable error: corrupted cluster config file.</code>。</p>
+<p>在 <a href="https://redis.io/docs/connect/cli/" target="_blank" rel="noopener">Redis CLI</a> 中可通过 <a href="https://redis.io/commands/cluster-nodes/" target="_blank" rel="noopener">cluster nodes</a>、<a href="https://redis.io/commands/cluster-info/" target="_blank" rel="noopener">cluster info</a>、<a href="https://redis.io/commands/info/" target="_blank" rel="noopener">info</a> 等命令查看集群节点、集群状态及...</p>
+            
+            <span class="read-more"><a href="/2023/10/29/redis-cluster-recovery/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/kubelet-memory-manager/figure2.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            八月 06, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/08/06/kubelet-memory-manager/" title="kubelet 架构设计解析之 Memory Manager" class="posttitle">kubelet 架构设计解析之 Memory Manager</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>作者：<a href="https://github.com/weiliang-ms" target="_blank" rel="noopener">@weiliang-ms</a></p>
+<p>Memory Manager(译为内存管理器)是 kubelet 内部的一个组件，旨在为 <strong>Guaranteed</strong>  QoS 类型 pod 提供保证内存(和大页内存)分配功能，该特性提供了几种分配策略：</p>
+<ol>
+<li>单 NUMA 策略：用于高性能和性能敏感的应用程序</li>
+<li>多 NUMA 策略：补充完善单 NUMA 策略无法管理的情况</li>
+</ol>
+<p>也就是说，只要 pod 所需的内存量超过单个 NUMA 节点的容量，就会使用多 NUMA 策略跨多个 NUMA 节点提供保证的内存。</p>
+<p>在这两种场景中，内...</p>
+            
+            <span class="read-more"><a href="/2023/08/06/kubelet-memory-manager/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/kubelet-cpu-manager/figure1.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            七月 30, 2023
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2023/07/30/kubelet-cpu-manager/" title="kubelet 架构设计解析之 CPU Manager" class="posttitle">kubelet 架构设计解析之 CPU Manager</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        20k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        18 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>作者：<a href="https://github.com/weiliang-ms" target="_blank" rel="noopener">@weiliang-ms</a></p>
+<p>CPU Manager 是 kubelet 的一个组件，能够让用户给容器分配独占 CPU。CPU Manager 从 Kubernetes v1.10 进入 Beta 阶段， 在 Kubernetes v1.26 中，它进阶至正式发布（GA）状态。</p>
+<p>注：本文涉及源码基于 kubernetes v1.23</p>
+<p>为 pod 固定 CPU（核心），减少 CPU 上下文切换，提高缓存亲和性，从而降低应用程序延迟和提高的 CPU 吞吐量。</p>
+<p></p>
+<p>大多数 linux 平台基于以下三种...</p>
+            
+            <span class="read-more"><a href="/2023/07/30/kubelet-cpu-manager/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/kubesphere-in-practice/landscape.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十二月 18, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/12/18/kubesphere-in-practice/" title="基于 KubeSphere 的运管系统落地实践" class="posttitle">基于 KubeSphere 的运管系统落地实践</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        12k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        11 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Champ/" rel="tag">Champ</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>作者：任建伟 <a href="https://github.com/weiliang-ms" target="_blank" rel="noopener">@weiliang-ms</a></p>
+<p>首发于：<a href="https://mp.weixin.qq.com/s/d5a9uGpdM4sAdCQ461FbYg" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/d5a9uGpdM4sAdCQ461FbYg</a></p>
+<p>接触容器化之前，我们应用一直基于虚拟机运管，由开发人员自行维护。</p>
+<p>由于面向多开发部门服务，而开发人员运维能力参差不齐，导致了每次部署新的环境时往往耗费大量时间。</p>
+<p>针对部署难的问题，我们将部分组件、服务容器化，采用 <code>Docker</code> 发布管理解决了部分问题，但仍未降低对开发人员的运维技能要求。</p>
+<p>下面是我们基于虚拟机管理开发环境的流程：</p>
+<p></p>
+<p>从上图我们也能发现...</p>
+            
+            <span class="read-more"><a href="/2022/12/18/kubesphere-in-practice/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/kubernetes-in-action/cover.jpg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud Native">
+                  <b>「 </b>CLOUD NATIVE<b> 」</b>
+                </a>
+            
+            六月 26, 2022
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2022/06/26/kubernetes-in-action/" title="《Kubernetes in Action 中文版》书摘" class="posttitle">《Kubernetes in Action 中文版》书摘</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        57k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        51 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <ul>
+<li>现在，我们在七牛内部全面推广和应用 Kubernetes，不仅把无状态服务运行在 Kubernetes 中，也把有状态服务比如数据库运行在 Kubernetes 中，正如使用 GoLang 提高了我们的开发效率一样，使用 Kubernetes 大大提高了我们的部署和运维效率。</li>
+</ul>
+<h3 id="1-2-1-什么是容器"><a href="#1-2-1-什么是容器" class="headerlink" title="1.2.1 什么是容器"></a>1.2.1 什么是容器</h3><ul>
+<li>如果多个进程运行在同一个操作系统上，那容器到底是怎样隔离它们的。有两个机制可用：第一个是 Linux 命名空间，它使每个进程只看到它自己的系统视图（文件、进程、网络接口、主机名等）；第二个是 Linux...</li></ul>
+            
+            <span class="read-more"><a href="/2022/06/26/kubernetes-in-action/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/k8s-static-pod.jpeg);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十一月 21, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/21/k8s-static-pod/" title="【转】kubernetes中静态pod学习笔记" class="posttitle">【转】kubernetes中静态pod学习笔记</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        11k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        10 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/eac82da1a366" target="_blank" rel="noopener">https://www.jianshu.com/p/eac82da1a366</a></p>
+<p>最近翻看<code>kubelet</code>源码，看到配置项的时候，发现了静态<code>pod</code>这一概念。</p>
+<p>而本人也是使用<code>kubesphere</code>对<code>k8s</code>进行管理的，其中<code>kubesphere</code>启动<code>k8s</code>控制节点服务（控制器、调度器、<code>apiserver</code>）也是通过静态<code>pod</code>进行管理的。</p>
+<p>由此，想学习学习静态<code>pod</code>的概念。</p>
+<blockquote>
+<p>什么是静态<code>pod</code>？</p>
+</blockquote>
+<p>由<code>kubelet</code>直接管理的<code>pod</code>被称为静态<code>pod</code></p>
+<p>我们通常通过以下方式创建<code>pod</code>:</p>
+<ol>
+<li>调用<code>api-server...</code></li></ol>
+            
+            <span class="read-more"><a href="/2021/11/21/k8s-static-pod/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/k8s-cap.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/K8s">
+                  <b>「 </b>K8S<b> 」</b>
+                </a>
+            
+            十一月 07, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/11/07/k8s-cap/" title="【转】Linux CAP介绍与k8s下配置使用" class="posttitle">【转】Linux CAP介绍与k8s下配置使用</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        13k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        12 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>原文地址：<a href="https://www.jianshu.com/p/a7f6c4f420fa" target="_blank" rel="noopener">https://www.jianshu.com/p/a7f6c4f420fa</a></p>
+<blockquote>
+<p>关于capability</p>
+</blockquote>
+<p>发音</p>
+<pre><code>美[keɪpəˈbɪləti] 英[keɪpə&#39;bɪləti]</code></pre><p>译为<code>能力</code>或<code>功能</code>，一般缩写<code>CAP</code>，以下我们简称<code>Capabilities</code>为<code>CAP</code></p>
+<p>从内核<code>2.2</code>开始，<code>Linux</code>将传统上与超级用户<code>root</code>关联的特权划分为不同的单元，称为<code>CAP</code>。</p>
+<p><code>CAP</code>作为线程(<code>Linux</code>并不真正区分进程和线程)的属性存在，每个单元可以独立启用和禁用。<br>如此一来，权限检查的过程就变成了：<br>在执行特...</p>
+            
+            <span class="read-more"><a href="/2021/11/07/k8s-cap/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+<div class="post" id="post">
+    <div class="post-cover animated fadeIn" style="
+            background-image:
+            radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+            url(/contents/covers/champ.png);">
+    </div>
+    <div class="else">
+        <p class="animated fadeInDown">
+            
+                <a href="/categories/Cloud Native">
+                  <b>「 </b>CLOUD NATIVE<b> 」</b>
+                </a>
+            
+            十月 24, 2021
+        </p>
+        <h3 class="post-title animated fadeInDown"><a href="/2021/10/24/champ/" title="Cloud Native Healthcare Security Application Management Platform" class="posttitle">Cloud Native Healthcare Security Application Management Platform</a></h3>
+        
+            <p class="post-count animated fadeInDown">
+                
+                    <span>
+                        <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                        4.2k
+                    </span>
+                
+                
+                    <span>
+                        <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                        4 mins.
+                    </span>
+                
+                
+            </p>
+            
+                <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Champ/" rel="tag">Champ</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Cloud/" rel="tag">Cloud</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/K8s/" rel="tag">K8s</a></li></ul>
+            
+        
+        <div class="md-content animated fadeIn">
+            
+                <p>首先进行个简单的介绍：</p>
+<p>东软医保云应用管理平台，这个名字比较长，所以我们内部起了个代号，即 Code Name —— CHAMP，<br>意为：Cloud Native Healthcare Security Application Management Platform，<br>是一个 面向多云微服务架构新医保应用的 / 云原生应用管理平台，<br>之后我会简称为云平台或 CHAMP。</p>
+<p>再来介绍一下 面向多云微服务架构新医保应用：<br>2018 年国家医保局挂牌，随即便启动了新医保系统的建设。在系统建设初期，即确立了新医保...</p>
+            
+            <span class="read-more"><a href="/2021/10/24/champ/" title="查看全文" class="posttitle">查看全文</a> <b class="iconfont icon-arrow-right- gradient-text"></b></span>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+    
+    <div id="pager"><a href="/tags/K8s/page/2/" class="more" data-loading="加载中..." data-load-more="加载更多">加载更多</a></div>
+    
+</div>
+<div id="preview"></div>
+
+
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
