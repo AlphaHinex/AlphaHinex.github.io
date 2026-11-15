@@ -14,7 +14,7 @@ cover: /contents/covers/kubesphere34-s2i-cert-expired.png
 
 ## 现象
 
-![](/contents/covers/kubesphere34-s2i-cert-expired.png)
+![](https://alphahinex.github.io/contents/covers/kubesphere34-s2i-cert-expired.png)
 
 报错信息：
 
