@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 472" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0.5" y="0.5" width="719" height="471" rx="16" fill="#f7f6f2" stroke="#e7e5e0"/>
+  <text x="40" y="46" font-size="22" font-weight="700" fill="#1f2937">skills-lock.json 里的一条记录</text>
+  <text x="40" y="72" font-size="13" fill="#64748b">每装一个 skill，就在 "skills" 下记一条：从哪来、内容指纹、装的时间</text>
+
+  <!-- LEFT: the JSON entry -->
+  <rect x="40" y="96" width="320" height="300" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="60" y="120" font-size="12" font-weight="600" fill="#94a3b8">// 一条 skill 记录</text>
+
+  <g font-family="'SF Mono', SFMono-Regular, Menlo, Consolas, monospace" font-size="12">
+    <text x="60" y="148" fill="#4f46e5">"lark-im"<tspan fill="#64748b">: {</tspan></text>
+    <text x="76" y="172" fill="#4f46e5">"source"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"open.feishu.cn",</tspan></text>
+    <text x="76" y="196" fill="#4f46e5">"sourceType"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"well-known",</tspan></text>
+    <text x="76" y="220" fill="#4f46e5">"sourceUrl"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"https://open.</tspan></text>
+    <text x="96" y="240" fill="#1f2937">feishu.cn/.well-known/</text>
+    <text x="96" y="260" fill="#1f2937">skills/lark-im/SKILL.md",</text>
+    <text x="76" y="284" fill="#4f46e5">"skillFolderHash"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"",</tspan></text>
+    <text x="76" y="308" fill="#4f46e5">"installedAt"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"2026-05-22…",</tspan></text>
+    <text x="76" y="332" fill="#4f46e5">"updatedAt"<tspan fill="#64748b">: </tspan><tspan fill="#1f2937">"2026-05-22…"</tspan></text>
+    <text x="60" y="356" fill="#64748b">}</text>
+  </g>
+  <text x="60" y="384" font-size="11" fill="#94a3b8">取自我机器上的 ~/.agents/.skill-lock.json（version 3）</text>
+
+  <!-- RIGHT: field meanings -->
+  <rect x="384" y="96" width="296" height="300" rx="12" fill="#ffffff" stroke="#e2e8f0"/>
+  <text x="404" y="120" font-size="12" font-weight="600" fill="#94a3b8">每个字段在说什么</text>
+
+  <rect x="396" y="134" width="272" height="58" rx="8" fill="#eef2ff"/>
+  <text x="410" y="156" font-size="12.5" font-weight="600" fill="#4f46e5" font-family="'SF Mono', Menlo, monospace">source · sourceType · sourceUrl</text>
+  <text x="410" y="176" font-size="12" fill="#475569">这条 skill 从哪来：GitHub 仓库、本地</text>
+  <text x="410" y="192" font-size="12" fill="#475569">路径，还是 well-known 端点，以及确切地址</text>
+
+  <rect x="396" y="204" width="272" height="78" rx="8" fill="#eef2ff"/>
+  <text x="410" y="226" font-size="12.5" font-weight="600" fill="#4f46e5" font-family="'SF Mono', Menlo, monospace">skillFolderHash</text>
+  <text x="410" y="246" font-size="12" fill="#475569">内容指纹（GitHub 的 tree SHA）。</text>
+  <text x="410" y="263" font-size="12" fill="#475569">check / update 拿它跟上游比对，</text>
+  <text x="410" y="280" font-size="12" fill="#475569">对不上就说明这个 skill 变了</text>
+
+  <rect x="396" y="294" width="272" height="58" rx="8" fill="#eef2ff"/>
+  <text x="410" y="316" font-size="12.5" font-weight="600" fill="#4f46e5" font-family="'SF Mono', Menlo, monospace">installedAt · updatedAt</text>
+  <text x="410" y="336" font-size="12" fill="#475569">装上、以及最近一次更新的时间戳</text>
+
+  <!-- callout -->
+  <rect x="40" y="414" width="640" height="44" rx="10" fill="#fffbeb" stroke="#fde68a"/>
+  <circle cx="62" cy="436" r="5" fill="#d97706"/>
+  <text x="78" y="441" font-size="12.5" fill="#92400e">well-known 来源（像飞书这些）这栏是空的 —— 靠 hash 比对来发现更新，只对 GitHub 来源的 skill 生效。</text>
+</svg>

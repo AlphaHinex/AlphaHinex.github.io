@@ -1,0 +1,751 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BIZBOK - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,bizbok, business architecture, business architecture body of knowledge, business architecture guild"> 
+    <meta name="description" content="
+介绍什么是业务架构架构
+=元素+关系+演进及原则
+
+业务架构
+企业的蓝图，提供了对组织的共识并用于对齐战略目标和战术要求
+代表了以下方面的整体、多维业务视图：能力、端到端价值交付、信息和组织结构；,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">BIZBOK</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/bizbok/BIZBOK.svg);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Others"><b>「
+                    </b>OTHERS<b> 」</b></a>
+                
+                十一月 22, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/11/22/bizbok/" title="BIZBOK" class="">BIZBOK</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    16k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    14 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Others/" rel="tag">Others</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p><img src="https://alphahinex.github.io/contents/bizbok/BIZBOK.svg" alt=""></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><h3 id="什么是业务架构"><a href="#什么是业务架构" class="headerlink" title="什么是业务架构"></a>什么是业务架构</h3><h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><ul>
+<li>=元素+关系+演进及原则</li>
+</ul>
+<h4 id="业务架构"><a href="#业务架构" class="headerlink" title="业务架构"></a>业务架构</h4><ul>
+<li>企业的蓝图，提供了对组织的共识并用于对齐战略目标和战术要求</li>
+<li>代表了以下方面的整体、多维业务视图：能力、端到端价值交付、信息和组织结构；以及这些业务视图和战略、产品、政策、举措和利益相关者之间的关系</li>
+</ul>
+<h4 id="战略业务架构"><a href="#战略业务架构" class="headerlink" title="战略业务架构"></a>战略业务架构</h4><ul>
+<li>业务的整体视图及其基本组成部分及其关系的一组可视化表示，制定战略到执行的蓝图，可用于规划变革、投资举措、系统规划等多个场景。每个组织的业务架构都是其自己对架构领域的选择，领域通常包括商业动机、商业模式、能力模型，还可能包括流程架构、组织架构、财务架构、IT架构等</li>
+</ul>
+<h3 id="业务架构元素"><a href="#业务架构元素" class="headerlink" title="业务架构元素"></a>业务架构元素</h3><h4 id="内环必选：COIV"><a href="#内环必选：COIV" class="headerlink" title="内环必选：COIV"></a>内环必选：COIV</h4><ul>
+<li>能力、组织、信息、价值流</li>
+</ul>
+<h4 id="外环可选"><a href="#外环可选" class="headerlink" title="外环可选"></a>外环可选</h4><ul>
+<li>产品、利益相关者、战略、政策、举措、度量</li>
+</ul>
+<h2 id="业务架构蓝图"><a href="#业务架构蓝图" class="headerlink" title="业务架构蓝图"></a>业务架构蓝图</h2><h3 id="业务战略"><a href="#业务战略" class="headerlink" title="业务战略"></a>业务战略</h3><h4 id="企业战略三层次结构"><a href="#企业战略三层次结构" class="headerlink" title="企业战略三层次结构"></a>企业战略三层次结构</h4><h5 id="总体战略"><a href="#总体战略" class="headerlink" title="总体战略"></a>总体战略</h5><h5 id="业务战略-1"><a href="#业务战略-1" class="headerlink" title="业务战略"></a>业务战略</h5><ul>
+<li>纵向业务单元</li>
+</ul>
+<h5 id="职能战略"><a href="#职能战略" class="headerlink" title="职能战略"></a>职能战略</h5><ul>
+<li>横向职能</li>
+</ul>
+<h4 id="数字化战略和-IT-战略的不同"><a href="#数字化战略和-IT-战略的不同" class="headerlink" title="数字化战略和 IT 战略的不同"></a>数字化战略和 IT 战略的不同</h4><ul>
+<li>IT 战略是对 业务问题的技术回答，而数字化战略是对数字化问题的业务答案</li>
+</ul>
+<h4 id="定义业务战略地图"><a href="#定义业务战略地图" class="headerlink" title="定义业务战略地图"></a>定义业务战略地图</h4><h5 id="战略"><a href="#战略" class="headerlink" title="战略"></a>战略</h5><ul>
+<li>将组织的主要目标、政策和行动序列整合为一个整体的模式或计划</li>
+</ul>
+<h5 id="战略地图框架"><a href="#战略地图框架" class="headerlink" title="战略地图框架"></a>战略地图框架</h5><h6 id="规划方法"><a href="#规划方法" class="headerlink" title="规划方法"></a>规划方法</h6><ul>
+<li>五力模型</li>
+<li>SWOT分析</li>
+<li>产品/市场矩阵</li>
+</ul>
+<h6 id="战略提炼"><a href="#战略提炼" class="headerlink" title="战略提炼"></a>战略提炼</h6><ul>
+<li>目标地图</li>
+</ul>
+<h6 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h6><ul>
+<li>战略地图</li>
+<li>商业模式画布</li>
+</ul>
+<h6 id="促进实施部署"><a href="#促进实施部署" class="headerlink" title="促进实施部署"></a>促进实施部署</h6><ul>
+<li>商业动机模型</li>
+<li>方针管理</li>
+</ul>
+<h6 id="监控度量"><a href="#监控度量" class="headerlink" title="监控度量"></a>监控度量</h6><ul>
+<li>平衡记分卡</li>
+</ul>
+<h3 id="能力-P1"><a href="#能力-P1" class="headerlink" title="能力 P1"></a>能力 <code>P1</code></h3><h4 id="定义业务能力"><a href="#定义业务能力" class="headerlink" title="定义业务能力"></a>定义业务能力</h4><h5 id="能力：企业为实现特定目的或成果而有拥有或交换的特定技能或才能"><a href="#能力：企业为实现特定目的或成果而有拥有或交换的特定技能或才能" class="headerlink" title="能力：企业为实现特定目的或成果而有拥有或交换的特定技能或才能"></a>能力：企业为实现特定目的或成果而有拥有或交换的特定技能或才能</h5><h6 id="一个企业只有一个能力地图"><a href="#一个企业只有一个能力地图" class="headerlink" title="一个企业只有一个能力地图"></a>一个企业只有一个能力地图</h6><h6 id="能力回答-what"><a href="#能力回答-what" class="headerlink" title="能力回答 what"></a>能力回答 what</h6><ul>
+<li>价值流回答 how</li>
+</ul>
+<h6 id="目标通过能力落实"><a href="#目标通过能力落实" class="headerlink" title="目标通过能力落实"></a>目标通过能力落实</h6><h4 id="业务能力原则"><a href="#业务能力原则" class="headerlink" title="业务能力原则"></a>业务能力原则</h4><h5 id="能力是抽象的"><a href="#能力是抽象的" class="headerlink" title="能力是抽象的"></a>能力是抽象的</h5><ul>
+<li>微信支付不是业务能力，在线支付是</li>
+</ul>
+<h4 id="如何构建能力地图"><a href="#如何构建能力地图" class="headerlink" title="如何构建能力地图"></a>如何构建能力地图</h4><h5 id="能力地图应被视为整个业务范围而非整个企业范围，因为业务可能会扩展到企业范围之外"><a href="#能力地图应被视为整个业务范围而非整个企业范围，因为业务可能会扩展到企业范围之外" class="headerlink" title="能力地图应被视为整个业务范围而非整个企业范围，因为业务可能会扩展到企业范围之外"></a>能力地图应被视为整个业务范围而非整个企业范围，因为业务可能会扩展到企业范围之外</h5><h5 id="没有唯一正确的方法来构建能力地图"><a href="#没有唯一正确的方法来构建能力地图" class="headerlink" title="没有唯一正确的方法来构建能力地图"></a>没有唯一正确的方法来构建能力地图</h5><h6 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h6><p><strong>自上而下的企业方法</strong></p>
+<ul>
+<li>基于规划</li>
+</ul>
+<p><strong>自下而上的以业务单元为中心的方法</strong></p>
+<ul>
+<li>基于问题</li>
+</ul>
+<p><strong>派生能力地图方法</strong></p>
+<p><strong>推荐方式</strong></p>
+<ul>
+<li>先定框架，再添加内容</li>
+</ul>
+<p><strong>在集团内部构建能力</strong></p>
+<h4 id="建立能力定义"><a href="#建立能力定义" class="headerlink" title="建立能力定义"></a>建立能力定义</h4><h5 id="SUAVE"><a href="#SUAVE" class="headerlink" title="SUAVE"></a>SUAVE</h5><h6 id="S"><a href="#S" class="headerlink" title="S"></a>S</h6><ul>
+<li>Represent <em>S</em>table activities</li>
+</ul>
+<h6 id="U"><a href="#U" class="headerlink" title="U"></a>U</h6><ul>
+<li>Identify <em>U</em>nique capabilities</li>
+</ul>
+<h6 id="A"><a href="#A" class="headerlink" title="A"></a>A</h6><ul>
+<li><em>A</em>bstracted from existing models</li>
+</ul>
+<h6 id="V"><a href="#V" class="headerlink" title="V"></a>V</h6><ul>
+<li>Add <em>V</em>alue to the end customer</li>
+</ul>
+<h6 id="E"><a href="#E" class="headerlink" title="E"></a>E</h6><ul>
+<li>Capture business <em>E</em>xec’s interest</li>
+</ul>
+<h5 id="能力定义是唯一的，能力是可以且应该复用的"><a href="#能力定义是唯一的，能力是可以且应该复用的" class="headerlink" title="能力定义是唯一的，能力是可以且应该复用的"></a>能力定义是唯一的，能力是可以且应该复用的</h5><h3 id="组织-P2"><a href="#组织-P2" class="headerlink" title="组织 P2"></a>组织 <code>P2</code></h3><h4 id="定义组织地图"><a href="#定义组织地图" class="headerlink" title="定义组织地图"></a>定义组织地图</h4><h5 id="从业务单元角度描述了内部和外部的关系和写作"><a href="#从业务单元角度描述了内部和外部的关系和写作" class="headerlink" title="从业务单元角度描述了内部和外部的关系和写作"></a>从业务单元角度描述了内部和外部的关系和写作</h5><h6 id="组织"><a href="#组织" class="headerlink" title="组织"></a>组织</h6><ul>
+<li>组织是人员的社会单位，经过系统地组织和管理，可以满足需要或持续追求共同目标</li>
+<li>组织的这种定义不受公司或法律边界的约束</li>
+</ul>
+<h6 id="业务单元"><a href="#业务单元" class="headerlink" title="业务单元"></a>业务单元</h6><ul>
+<li>业务单元是用于建立组织地图的主要概念</li>
+<li>公司的逻辑元素或部分 segment，代表特定的业务智能，并在组织者管理下位于组织结构图上的确定位置，也称为部门 department、分区 division 或职能域 functional area</li>
+</ul>
+<h6 id="协作团队"><a href="#协作团队" class="headerlink" title="协作团队"></a>协作团队</h6><p><strong>由两个或多个内部或外部业务单元创建的命名组或单元，具有一组定义的共享原则和共同目标</strong></p>
+<p><strong>职能</strong></p>
+<ul>
+<li>为了执行组织的一部分任务而例行执行的过程或操作</li>
+</ul>
+<h3 id="价值-P2"><a href="#价值-P2" class="headerlink" title="价值 P2"></a>价值 <code>P2</code></h3><h4 id="价值图"><a href="#价值图" class="headerlink" title="价值图"></a>价值图</h4><h5 id="价值"><a href="#价值" class="headerlink" title="价值"></a>价值</h5><ul>
+<li>组织的利益相关者在与组织交互时所获得的利益</li>
+</ul>
+<h5 id="价值图-1"><a href="#价值图-1" class="headerlink" title="价值图"></a>价值图</h5><ul>
+<li>用于包含各种以价值为中心的分析技术，旨在帮助组织更好地了解他们如何与利益相关者交换价值</li>
+</ul>
+<h4 id="价值流分解"><a href="#价值流分解" class="headerlink" title="价值流分解"></a>价值流分解</h4><h5 id="价值流是基于价值的，而不是基于留的。它可以容纳外部、未预见的和视线之外的事件"><a href="#价值流是基于价值的，而不是基于留的。它可以容纳外部、未预见的和视线之外的事件" class="headerlink" title="价值流是基于价值的，而不是基于留的。它可以容纳外部、未预见的和视线之外的事件"></a>价值流是基于价值的，而不是基于留的。它可以容纳外部、未预见的和视线之外的事件</h5><h5 id="价值流的“阶段”代表了随着价值流从发起到结束的过程中与利益相关者的一系列交换"><a href="#价值流的“阶段”代表了随着价值流从发起到结束的过程中与利益相关者的一系列交换" class="headerlink" title="价值流的“阶段”代表了随着价值流从发起到结束的过程中与利益相关者的一系列交换"></a>价值流的“阶段”代表了随着价值流从发起到结束的过程中与利益相关者的一系列交换</h5><h5 id="价值流"><a href="#价值流" class="headerlink" title="价值流"></a>价值流</h5><h6 id="名称"><a href="#名称" class="headerlink" title="名称"></a>名称</h6><p><strong>以动词开头</strong></p>
+<ul>
+<li>动名词，然后改为（从）xx 到 xx</li>
+</ul>
+<h6 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h6><h6 id="价值主张"><a href="#价值主张" class="headerlink" title="价值主张"></a>价值主张</h6><ul>
+<li>可以有些形容词</li>
+</ul>
+<h6 id="一个或多个触发利益相关者"><a href="#一个或多个触发利益相关者" class="headerlink" title="一个或多个触发利益相关者"></a>一个或多个触发利益相关者</h6><ul>
+<li>获得价值</li>
+</ul>
+<h5 id="价值流阶段"><a href="#价值流阶段" class="headerlink" title="价值流阶段"></a>价值流阶段</h5><h6 id="名称-1"><a href="#名称-1" class="headerlink" title="名称"></a>名称</h6><h6 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h6><h6 id="明确定义的进入和退出条件"><a href="#明确定义的进入和退出条件" class="headerlink" title="明确定义的进入和退出条件"></a>明确定义的进入和退出条件</h6><h6 id="价值项"><a href="#价值项" class="headerlink" title="价值项"></a>价值项</h6><p><strong>避免价值项写成功能</strong></p>
+<p><strong>类型</strong></p>
+<ul>
+<li>功能型</li>
+<li>体验型</li>
+</ul>
+<h6 id="参与利益相关者"><a href="#参与利益相关者" class="headerlink" title="参与利益相关者"></a>参与利益相关者</h6><ul>
+<li>贡献价值</li>
+</ul>
+<h5 id="价值流是端到端流程，谁发起谁受益"><a href="#价值流是端到端流程，谁发起谁受益" class="headerlink" title="价值流是端到端流程，谁发起谁受益"></a>价值流是端到端流程，谁发起谁受益</h5><h5 id="规模"><a href="#规模" class="headerlink" title="规模"></a>规模</h5><h6 id="一级能力"><a href="#一级能力" class="headerlink" title="一级能力"></a>一级能力</h6><ul>
+<li>只做一条价值流</li>
+</ul>
+<h6 id="二级能力"><a href="#二级能力" class="headerlink" title="二级能力"></a>二级能力</h6><ul>
+<li>10~30条规模</li>
+</ul>
+<h6 id="三级能力"><a href="#三级能力" class="headerlink" title="三级能力"></a>三级能力</h6><ul>
+<li>300~600</li>
+</ul>
+<h5 id="人、财、物，就用生命周期法设计价值流"><a href="#人、财、物，就用生命周期法设计价值流" class="headerlink" title="人、财、物，就用生命周期法设计价值流"></a>人、财、物，就用生命周期法设计价值流</h5><h5 id="利益相关者分类"><a href="#利益相关者分类" class="headerlink" title="利益相关者分类"></a>利益相关者分类</h5><h6 id="触发利益相关者"><a href="#触发利益相关者" class="headerlink" title="触发利益相关者"></a>触发利益相关者</h6><ul>
+<li>获得价值</li>
+</ul>
+<h6 id="参与利益相关者-1"><a href="#参与利益相关者-1" class="headerlink" title="参与利益相关者"></a>参与利益相关者</h6><ul>
+<li>贡献价值</li>
+</ul>
+<h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li>触发利益相关者、价值主张、价值流名称</li>
+<li>定收尾价值流阶段</li>
+<li>补充完整阶段（7±2个）</li>
+<li>提炼每个阶段价值项，尽量用形容词</li>
+<li>每个价值项的进入、退出条件：[信息] 已 [状态]</li>
+<li>参与利益相关者梳理</li>
+</ol>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><h6 id="价值流-1"><a href="#价值流-1" class="headerlink" title="价值流"></a>价值流</h6><p><strong>名称</strong></p>
+<ul>
+<li>获取资产</li>
+</ul>
+<p><strong>描述</strong></p>
+<ul>
+<li>从发起和批准资产请求到采购和处理采购订单并将资产交付给请求者的端到端的角度来看</li>
+</ul>
+<p><strong>价值主张</strong></p>
+<ul>
+<li>资产被获取</li>
+</ul>
+<p><strong>利益相关者</strong></p>
+<ul>
+<li>资产请求者</li>
+</ul>
+<h6 id="价值流阶段-1"><a href="#价值流阶段-1" class="headerlink" title="价值流阶段"></a>价值流阶段</h6><p><strong>请求资产</strong></p>
+<p><strong>描述</strong></p>
+<ul>
+<li>提交新资产请求的行为</li>
+</ul>
+<p><strong>进入条件</strong></p>
+<ul>
+<li>资产订单已启动</li>
+</ul>
+<p><strong>退出条件</strong></p>
+<ul>
+<li>资产订单已确认</li>
+</ul>
+<p><strong>价值项</strong></p>
+<ul>
+<li>资产已请求</li>
+</ul>
+<p><strong>利益相关者</strong></p>
+<ul>
+<li>资产所有者、资产请求者、采购员、采购团队成员</li>
+</ul>
+<p><strong>批准请求</strong></p>
+<p><strong>完成合作伙伴协议</strong></p>
+<p><strong>来源订单</strong></p>
+<p><strong>下订单</strong></p>
+<p><strong>接收资产</strong></p>
+<h4 id="价值流-能力交叉映射蓝图和用途"><a href="#价值流-能力交叉映射蓝图和用途" class="headerlink" title="价值流/能力交叉映射蓝图和用途"></a>价值流/能力交叉映射蓝图和用途</h4><ul>
+<li>最重要的好处是能快速设想如何提高利益相关者的价值以及在何处通过能力改善价值流中的弱点，另一个好处是能力重用</li>
+</ul>
+<h4 id="在业务架构知识库中定义价值流"><a href="#在业务架构知识库中定义价值流" class="headerlink" title="在业务架构知识库中定义价值流"></a>在业务架构知识库中定义价值流</h4><ul>
+<li><a href="https://www.archimatetool.com/" target="_blank" rel="noopener">https://www.archimatetool.com/</a></li>
+</ul>
+<h3 id="信息-P2"><a href="#信息-P2" class="headerlink" title="信息 P2"></a>信息 <code>P2</code></h3><h4 id="识别信息概念"><a href="#识别信息概念" class="headerlink" title="识别信息概念"></a>识别信息概念</h4><h5 id="业务对象"><a href="#业务对象" class="headerlink" title="业务对象"></a>业务对象</h5><h6 id="活跃在业务领域中的事物的一种表示，至少包括它的业务名称和定义、属性、行为、关系和约束"><a href="#活跃在业务领域中的事物的一种表示，至少包括它的业务名称和定义、属性、行为、关系和约束" class="headerlink" title="活跃在业务领域中的事物的一种表示，至少包括它的业务名称和定义、属性、行为、关系和约束"></a>活跃在业务领域中的事物的一种表示，至少包括它的业务名称和定义、属性、行为、关系和约束</h6><ul>
+<li>例如可以表示一个人、一个地方或一个概念</li>
+</ul>
+<h4 id="信息地图简介"><a href="#信息地图简介" class="headerlink" title="信息地图简介"></a>信息地图简介</h4><h5 id="信息地图"><a href="#信息地图" class="headerlink" title="信息地图"></a>信息地图</h5><h6 id="包括信息概念和关系，以及关于信息概念的其他描述性、类型和状态视图"><a href="#包括信息概念和关系，以及关于信息概念的其他描述性、类型和状态视图" class="headerlink" title="包括信息概念和关系，以及关于信息概念的其他描述性、类型和状态视图"></a>包括信息概念和关系，以及关于信息概念的其他描述性、类型和状态视图</h6><ul>
+<li>展现形式可以是图表、电子表格或计算机数据库的内容</li>
+</ul>
+<h3 id="举措"><a href="#举措" class="headerlink" title="举措"></a>举措</h3><h4 id="举措-1"><a href="#举措-1" class="headerlink" title="举措"></a>举措</h4><ul>
+<li>正在执行或已选定执行的行动步骤，代表了组织对如何进行变革以实现其目标所做的选择。在业务架构框架中，项目、项目集或组合都被认为是举措</li>
+</ul>
+<h4 id="举措到业务能力的映射"><a href="#举措到业务能力的映射" class="headerlink" title="举措到业务能力的映射"></a>举措到业务能力的映射</h4><ul>
+<li>组织应该努力在一个足够细粒度的级别上识别能力，以便能够在单个举措中完全交付</li>
+</ul>
+<h3 id="产品"><a href="#产品" class="headerlink" title="产品"></a>产品</h3><h4 id="产品-1"><a href="#产品-1" class="headerlink" title="产品"></a>产品</h4><ul>
+<li>通常用于描述耐用或有形货物。然而，更准确地说，产品可以是商品或服务，并以有形性区分：商品是有形的，服务是无形的。从顾客的角度看，产品是商品和服务相结合所提供的满足顾客需求的整体体验</li>
+</ul>
+<h4 id="产品权益"><a href="#产品权益" class="headerlink" title="产品权益"></a>产品权益</h4><ul>
+<li>产品的一个特定方面，代表了一个组织对顾客所作的内在承诺，这种承诺是组织对获得该产品的顾客的一种即时的、按需的或持续的义务</li>
+</ul>
+<h4 id="产品线"><a href="#产品线" class="headerlink" title="产品线"></a>产品线</h4><ul>
+<li>形成一组的一系列不同的产品。产品可能是指由给定组织或该组织的合作伙伴创建的一个或多个产品</li>
+</ul>
+<h3 id="利益相关者"><a href="#利益相关者" class="headerlink" title="利益相关者"></a>利益相关者</h3><ul>
+<li>通过特定结果实现价值的内部或外部个人或组织</li>
+</ul>
+<h3 id="政策"><a href="#政策" class="headerlink" title="政策"></a>政策</h3><ul>
+<li>由政府、政党、企业或个人通过或提议的行动方针或原则</li>
+</ul>
+<h3 id="度量"><a href="#度量" class="headerlink" title="度量"></a>度量</h3><h2 id="业务架构实践指南"><a href="#业务架构实践指南" class="headerlink" title="业务架构实践指南"></a>业务架构实践指南</h2><h3 id="通用开始方法"><a href="#通用开始方法" class="headerlink" title="通用开始方法"></a>通用开始方法</h3><h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><ol>
+<li>确定业务架构目标</li>
+<li>沟通业务价值</li>
+<li>评估利用业务架构的机会</li>
+<li>建立业务架构治理结构</li>
+<li>建立业务架构基线</li>
+<li>在举措规划中利用业务架构</li>
+<li>扩展业务架构</li>
+<li>优化业务架构治理和部署</li>
+</ol>
+<h3 id="业务架构治理"><a href="#业务架构治理" class="headerlink" title="业务架构治理"></a>业务架构治理</h3><h3 id="业务架构和商业模式"><a href="#业务架构和商业模式" class="headerlink" title="业务架构和商业模式"></a>业务架构和商业模式</h3><h4 id="商业模式"><a href="#商业模式" class="headerlink" title="商业模式"></a>商业模式</h4><ul>
+<li>描述了组织如何创造、交付和获取价值的基本原则</li>
+</ul>
+<h4 id="商业模式框架"><a href="#商业模式框架" class="headerlink" title="商业模式框架"></a>商业模式框架</h4><h5 id="用于组织一个或多个商业模式的元素、关系、展示和分类的概念结构"><a href="#用于组织一个或多个商业模式的元素、关系、展示和分类的概念结构" class="headerlink" title="用于组织一个或多个商业模式的元素、关系、展示和分类的概念结构"></a>用于组织一个或多个商业模式的元素、关系、展示和分类的概念结构</h5><h5 id="常用框架"><a href="#常用框架" class="headerlink" title="常用框架"></a>常用框架</h5><ul>
+<li>四方框架</li>
+<li>商业模式立方体</li>
+<li>商业模式画布</li>
+</ul>
+<h3 id="业务架构和业务流程建模与管理"><a href="#业务架构和业务流程建模与管理" class="headerlink" title="业务架构和业务流程建模与管理"></a>业务架构和业务流程建模与管理</h3><h4 id="业务流程"><a href="#业务流程" class="headerlink" title="业务流程"></a>业务流程</h4><ul>
+<li>一系列逻辑相关的活动或任务（如计划、生产或销售）一起执行，以产生一组定义的结果</li>
+</ul>
+<h4 id="业务建模"><a href="#业务建模" class="headerlink" title="业务建模"></a>业务建模</h4><ul>
+<li>建立业务流程的图表抽象，以分析工作是如何完成的，提高工作的效率和有效性，并且（在某些情况下）使工作自动化</li>
+</ul>
+<h4 id="业务流程管理BPM"><a href="#业务流程管理BPM" class="headerlink" title="业务流程管理BPM"></a>业务流程管理BPM</h4><ul>
+<li>一门涉及业务活动流的建模、自动化、执行、控制、度量和优化的任何组合，以支持企业目标、跨越企业边界内外的系统、员工、客户和合作伙伴</li>
+</ul>
+<h3 id="业务架构成熟度模型"><a href="#业务架构成熟度模型" class="headerlink" title="业务架构成熟度模型"></a>业务架构成熟度模型</h3><ul>
+<li>L1 初始</li>
+<li>L2 可管理</li>
+<li>L3 已定义</li>
+<li>L4 战略执行</li>
+<li>L5 完全集成</li>
+</ul>
+<h3 id="业务架构师角色"><a href="#业务架构师角色" class="headerlink" title="业务架构师角色"></a>业务架构师角色</h3><h2 id="业务架构基础设施管理"><a href="#业务架构基础设施管理" class="headerlink" title="业务架构基础设施管理"></a>业务架构基础设施管理</h2><h3 id="业务架构知识库"><a href="#业务架构知识库" class="headerlink" title="业务架构知识库"></a>业务架构知识库</h3><h3 id="业务架构工具选项"><a href="#业务架构工具选项" class="headerlink" title="业务架构工具选项"></a>业务架构工具选项</h3><ul>
+<li>桌面工具</li>
+<li>高端企业架构工具</li>
+<li>轻量级业务架构工具</li>
+</ul>
+<h2 id="业务架构和IT架构对齐"><a href="#业务架构和IT架构对齐" class="headerlink" title="业务架构和IT架构对齐"></a>业务架构和IT架构对齐</h2><h3 id="业务架构和应用组合管理"><a href="#业务架构和应用组合管理" class="headerlink" title="业务架构和应用组合管理"></a>业务架构和应用组合管理</h3><h4 id="业务架构到应用程序组合映射"><a href="#业务架构到应用程序组合映射" class="headerlink" title="业务架构到应用程序组合映射"></a>业务架构到应用程序组合映射</h4><ul>
+<li>价值流=&gt;价值流阶段=&gt;能力=&gt;应用程序</li>
+</ul>
+<h3 id="业务信息和数据架构对齐"><a href="#业务信息和数据架构对齐" class="headerlink" title="业务信息和数据架构对齐"></a>业务信息和数据架构对齐</h3><ul>
+<li>信息图旨在成为业务架构师和数据架构师之间协作的主要元素</li>
+<li>信息图定义信息概念、关系、类型、状态、历史和其他信息</li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">371 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">169 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#介绍"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是业务架构"><span class="toc-number">1.1.</span> <span class="toc-text">什么是业务架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构元素"><span class="toc-number">1.2.</span> <span class="toc-text">业务架构元素</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#业务架构蓝图"><span class="toc-number">2.</span> <span class="toc-text">业务架构蓝图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#业务战略"><span class="toc-number">2.1.</span> <span class="toc-text">业务战略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#能力-P1"><span class="toc-number">2.2.</span> <span class="toc-text">能力 P1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组织-P2"><span class="toc-number">2.3.</span> <span class="toc-text">组织 P2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#价值-P2"><span class="toc-number">2.4.</span> <span class="toc-text">价值 P2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#信息-P2"><span class="toc-number">2.5.</span> <span class="toc-text">信息 P2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#举措"><span class="toc-number">2.6.</span> <span class="toc-text">举措</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#产品"><span class="toc-number">2.7.</span> <span class="toc-text">产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利益相关者"><span class="toc-number">2.8.</span> <span class="toc-text">利益相关者</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#政策"><span class="toc-number">2.9.</span> <span class="toc-text">政策</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#度量"><span class="toc-number">2.10.</span> <span class="toc-text">度量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#业务架构实践指南"><span class="toc-number">3.</span> <span class="toc-text">业务架构实践指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#通用开始方法"><span class="toc-number">3.1.</span> <span class="toc-text">通用开始方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构治理"><span class="toc-number">3.2.</span> <span class="toc-text">业务架构治理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构和商业模式"><span class="toc-number">3.3.</span> <span class="toc-text">业务架构和商业模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构和业务流程建模与管理"><span class="toc-number">3.4.</span> <span class="toc-text">业务架构和业务流程建模与管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构成熟度模型"><span class="toc-number">3.5.</span> <span class="toc-text">业务架构成熟度模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构师角色"><span class="toc-number">3.6.</span> <span class="toc-text">业务架构师角色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#业务架构基础设施管理"><span class="toc-number">4.</span> <span class="toc-text">业务架构基础设施管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构知识库"><span class="toc-number">4.1.</span> <span class="toc-text">业务架构知识库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构工具选项"><span class="toc-number">4.2.</span> <span class="toc-text">业务架构工具选项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#业务架构和IT架构对齐"><span class="toc-number">5.</span> <span class="toc-text">业务架构和IT架构对齐</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#业务架构和应用组合管理"><span class="toc-number">5.1.</span> <span class="toc-text">业务架构和应用组合管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#业务信息和数据架构对齐"><span class="toc-number">5.2.</span> <span class="toc-text">业务信息和数据架构对齐</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

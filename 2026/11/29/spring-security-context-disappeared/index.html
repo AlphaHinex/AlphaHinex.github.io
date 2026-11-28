@@ -1,0 +1,573 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>消失的 Spring Security Context - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,Spring Security, SPRING_SECURITY_CONTEXT, SaveContextOnUpdateOrErrorResponseWrapper, HttpSessionSecurityContextRepository, saveContext, flush, response, onResponseCommitted"> 
+    <meta name="description" content="现象一个接口的两个相似实现，实现中都通过新线程操作了原始 HTTP 请求线程的响应。在调用其中一个之后，再访问任何需要登录的接口，都会返回 403 Forbidden。另一个实现则不会出现这个问题。,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">消失的 Spring Security Context</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/spring-security-context-disappeared/cover.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/Spring"><b>「
+                    </b>SPRING<b> 」</b></a>
+                
+                十一月 29, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/11/29/spring-security-context-disappeared/" title="消失的 Spring Security Context" class="">消失的 Spring Security Context</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    9.2k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    8 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Spring-Security/" rel="tag">Spring Security</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p>一个接口的两个相似实现，实现中都通过新线程操作了原始 HTTP 请求线程的响应。在调用其中一个之后，再访问任何需要登录的接口，都会返回 403 Forbidden。另一个实现则不会出现这个问题。项目使用 Spring Security 做登录认证。</p>
+<h2 id="可重现问题的-MVP"><a href="#可重现问题的-MVP" class="headerlink" title="可重现问题的 MVP"></a>可重现问题的 MVP</h2><p><a href="https://github.com/AlphaHinex/AlphaHinex.github.io/tree/develop/source/contents/spring-security-context-disappeared/mvp.zip" target="_blank" rel="noopener">mvp.zip</a> 提供了一个可以复现问题的 Spring Boot MVP。</p>
+<p>在 Java 11 以上环境通过 <code>./mvnw spring-boot:run</code> 启动后，可按如下操作重现问题：</p>
+<pre><code class="Bash"># 1. 登录，保存 session cookie
+curl -i -c /tmp/cookies.txt -d &#39;username=user&amp;password=password&#39; http://localhost:8080/login
+
+# 2. /me 正常
+curl -i -b /tmp/cookies.txt http://localhost:8080/me
+# -&gt; 200 user / [ROLE_USER]
+
+# 3. background-first streaming
+curl -N -b /tmp/cookies.txt http://localhost:8080/stream/background-first
+
+# 4. BUG：/me 现在返回 403
+curl -i -b /tmp/cookies.txt http://localhost:8080/me
+# -&gt; 403 Forbidden</code></pre>
+<h2 id="根因"><a href="#根因" class="headerlink" title="根因"></a>根因</h2><h3 id="1-新线程中调用-OutputStream-flush"><a href="#1-新线程中调用-OutputStream-flush" class="headerlink" title="1. 新线程中调用 OutputStream.flush()"></a>1. 新线程中调用 OutputStream.flush()</h3><p>访问问题接口 <code>/stream/background-first</code> 时，将 <code>ServletOutputStream</code> 发送给了新的线程，在新线程中第一次调用了 <code>flush()</code>：</p>
+<pre><code class="java">/** First response commit happens on the worker thread. */
+@GetMapping(value = &quot;/stream/background-first&quot;, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public void backgroundFirst(HttpServletResponse response) throws Exception {
+    response.setContentType(&quot;text/event-stream;charset=utf-8&quot;);
+    ServletOutputStream outputStream = response.getOutputStream();
+    // IMPORTANT: no write/flush on the request thread before the worker work.
+    runWorker(outputStream);
+}
+
+private final ExecutorService executor = Executors.newCachedThreadPool(r -&gt; {
+    Thread thread = new Thread(r);
+    thread.setName(&quot;stream-worker&quot;);
+    thread.setDaemon(true);
+    return thread;
+});
+
+private void runWorker(ServletOutputStream outputStream) throws InterruptedException {
+    CountDownLatch latch = new CountDownLatch(1);
+    executor.submit(() -&gt; {
+        try {
+            outputStream.write(&quot;data: from-worker-thread\n\n&quot;.getBytes(StandardCharsets.UTF_8));
+            outputStream.flush();
+            outputStream.write(&quot;data: [DONE]\n\n&quot;.getBytes(StandardCharsets.UTF_8));
+            outputStream.flush();
+        } catch (IOException e) {
+            System.err.println(&quot;worker write failed: &quot; + e);
+        } finally {
+            latch.countDown();
+        }
+    });
+    latch.await();
+}</code></pre>
+<h3 id="2-flush-触发了-onResponseCommitted"><a href="#2-flush-触发了-onResponseCommitted" class="headerlink" title="2. flush 触发了 onResponseCommitted"></a>2. flush 触发了 onResponseCommitted</h3><p>在 Spring Security 环境中，这个 outputStream 实际是 <a href="https://github.com/spring-projects/spring-security/blob/187895ce347cb342820b9f9eccbd594baad970d2/web/src/main/java/org/springframework/security/web/util/OnCommittedResponseWrapper.java#L537" target="_blank" rel="noopener">OnCommittedResponseWrapper.SaveContextServletOutputStream</a>，<a href="https://github.com/spring-projects/spring-security/blob/main/web/src/main/java/org/springframework/security/web/util/OnCommittedResponseWrapper.java#L552C15-L552C20" target="_blank" rel="noopener">flush</a> 在新线程上触发 <a href="https://github.com/spring-projects/spring-security/blob/187895ce347cb342820b9f9eccbd594baad970d2/web/src/main/java/org/springframework/security/web/context/SaveContextOnUpdateOrErrorResponseWrapper.java#L104" target="_blank" rel="noopener">SaveContextOnUpdateOrErrorResponseWrapper.onResponseCommitted</a>，进而调用 <a href="https://github.com/spring-projects/spring-security/blob/187895ce347cb342820b9f9eccbd594baad970d2/web/src/main/java/org/springframework/security/web/context/HttpSessionSecurityContextRepository.java#L396" target="_blank" rel="noopener">HttpSessionSecurityContextRepository.SaveToSessionResponseWrapper.saveContext</a>，其中下面代码会将 <code>SPRING_SECURITY_CONTEXT</code> session 属性删除：</p>
+<pre><code class="java">if (httpSession != null &amp;&amp; this.authBeforeExecution != null) {
+    // SEC-1587 A non-anonymous context may still be in the session
+    // SEC-1735 remove if the contextBeforeExecution was not anonymous
+    httpSession.removeAttribute(springSecurityContextKey);
+    ...</code></pre>
+<h3 id="3-Spring-Security-版本小于-5-4-4"><a href="#3-Spring-Security-版本小于-5-4-4" class="headerlink" title="3. Spring Security 版本小于 5.4.4"></a>3. Spring Security 版本小于 5.4.4</h3><p>Spring Security 5.4.3 及更早版本中，<a href="https://github.com/spring-projects/spring-security/blob/5.4.3/web/src/main/java/org/springframework/security/web/context/HttpSessionSecurityContextRepository.java#L142" target="_blank" rel="noopener">HttpSessionSecurityContextRepository.saveContext</a> 在 Context 被保存过之后，不会再次调用 <code>responseWrapper.saveContext</code>：</p>
+<pre><code class="java">// saveContext() might already be called by the response wrapper if something in
+// the chain called sendError() or sendRedirect(). This ensures we only call it
+// once per request.
+if (!responseWrapper.isContextSaved()) {
+    responseWrapper.saveContext(context);
+}</code></pre>
+<p>这就导致前面非请求线程将 Spring Security Context 清除之后，没有机会再通过请求线程将正确的 Spring Security Context 保存回 session，<strong>也就是导致这个问题的根本原因</strong>。</p>
+<h2 id="日志证据"><a href="#日志证据" class="headerlink" title="日志证据"></a>日志证据</h2><p>以下日志来自实际运行，开启了 <code>logging.level.org.springframework.security.web.context=DEBUG</code>。</p>
+<p><strong>5.4.3（background-first，触发 403）</strong>：</p>
+<pre><code class="log">[nio-8080-exec-5] Set SecurityContextHolder to SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken...]
+[stream-worker]     Did not store empty SecurityContext
+[nio-8080-exec-5] Cleared SecurityContextHolder to complete request
+                      ↑ 没有 &quot;Stored&quot;，saveContext 被 isContextSaved() 守卫跳过</code></pre>
+<p><strong>5.4.4（background-first，未触发 403）</strong>：</p>
+<pre><code class="log">[nio-8080-exec-4] Set SecurityContextHolder to SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken...]
+[stream-worker]     Did not store empty SecurityContext
+[nio-8080-exec-4] Stored SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken...]
+                      ↑ 又写回去了！request 线程 finally 的 saveContext 照常执行
+[nio-8080-exec-4] Cleared SecurityContextHolder to complete request</code></pre>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="方案一：升级-Spring-Security-到-5-4-4"><a href="#方案一：升级-Spring-Security-到-5-4-4" class="headerlink" title="方案一：升级 Spring Security 到 5.4.4+"></a>方案一：升级 Spring Security 到 5.4.4+</h3><p>Spring Security 5.4.4 及之后版本，经由 <a href="https://github.com/spring-projects/spring-security/commit/c72a6fac04853912a4b7caad5f0500f2aace5a79" target="_blank" rel="noopener">c72a6fa</a> 对这部分逻辑进行了优化，将“是否已保存”的状态管理内聚到包装器内部：新代码移除了外部的 <code>isContextSaved()</code> 检查，改为在 <code>SaveToSessionResponseWrapper</code> 内部新增一个 <code>isSaveContextInvoked</code> 布尔字段。这个字段在真正执行了会话属性设置（<code>setAttribute</code>）或移除（r<code>emoveAttribute</code>）时被置为 <code>true</code>。这确保了 <code>SecurityContextPersistenceFilter</code> 的 <a href="https://github.com/spring-projects/spring-security/blob/187895ce347cb342820b9f9eccbd594baad970d2/web/src/main/java/org/springframework/security/web/context/SecurityContextPersistenceFilter.java#L123" target="_blank" rel="noopener">doFilter</a> 方法在 finally 块中，会在 <strong>request 线程</strong> 上执行一次 <code>repository.saveContext(context, request, response)</code>。这次 save 携带的是 filter 开头 <code>loadContext</code> 拿到的完整登录 context —— 不是空的，所以会在 <code>HttpSessionSecurityContextRepository.saveContext</code> 中再次将 context 放回 session 中。</p>
+<pre><code class="java">// We may have a new session, so check also whether the context attribute
+// is set SEC-1561
+if (contextChanged(context) || httpSession.getAttribute(springSecurityContextKey) == null) {
+    httpSession.setAttribute(springSecurityContextKey, context);
+    this.isSaveContextInvoked = true;
+    if (this.logger.isDebugEnabled()) {
+        this.logger.debug(LogMessage.format(&quot;Stored %s to HttpSession [%s]&quot;, context, httpSession));
+    }
+}</code></pre>
+<h3 id="方案二：请求线程先-flush"><a href="#方案二：请求线程先-flush" class="headerlink" title="方案二：请求线程先 flush"></a>方案二：请求线程先 flush</h3><p>如果不能升级 Spring Security，可以让第一次 commit 发生在 request 线程，携带登录 context。worker 线程的 commit 是空操作（因为 <code>contextSaved</code> 已经是 <code>true</code>）：</p>
+<pre><code class="java">@GetMapping(value = &quot;/stream/background-first-fixed&quot;, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+public void backgroundFirstFixed(HttpServletResponse response) throws Exception {
+    response.setContentType(&quot;text/event-stream;charset=utf-8&quot;);
+    ServletOutputStream outputStream = response.getOutputStream();
+    response.flushBuffer(); // 请求线程先 commit，携带登录 context
+    runWorker(outputStream);
+}</code></pre>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">371 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">169 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#现象"><span class="toc-number">1.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可重现问题的-MVP"><span class="toc-number">2.</span> <span class="toc-text">可重现问题的 MVP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根因"><span class="toc-number">3.</span> <span class="toc-text">根因</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-新线程中调用-OutputStream-flush"><span class="toc-number">3.1.</span> <span class="toc-text">1. 新线程中调用 OutputStream.flush()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-flush-触发了-onResponseCommitted"><span class="toc-number">3.2.</span> <span class="toc-text">2. flush 触发了 onResponseCommitted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Spring-Security-版本小于-5-4-4"><span class="toc-number">3.3.</span> <span class="toc-text">3. Spring Security 版本小于 5.4.4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志证据"><span class="toc-number">4.</span> <span class="toc-text">日志证据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">5.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方案一：升级-Spring-Security-到-5-4-4"><span class="toc-number">5.1.</span> <span class="toc-text">方案一：升级 Spring Security 到 5.4.4+</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方案二：请求线程先-flush"><span class="toc-number">5.2.</span> <span class="toc-text">方案二：请求线程先 flush</span></a></li></ol></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>

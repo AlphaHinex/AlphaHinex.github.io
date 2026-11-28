@@ -1,0 +1,923 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="loading">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>《kubesphere3.4 S2i证书过期修复记录》增强版 - Alpha Hinex&#39;s Blog</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="google" content="notranslate" />
+    <meta name="keywords" content="Java, JavaScript, Spring, Html5, NoSQL, Docker, DevOps,KubeSphere, s2i, x509, certificate, expired, openssl, ks-installer, base64, s2ioperator, kubesphere-devops-system, caBundle, tls.crt, tls.key"> 
+    <meta name="description" content="本文基于 kubesphere3.4 S2i证书过期修复记录 内容，对部分内容进行了调整、优化及补充。
+现象
+报错信息：
+InternalError
+Internal error occurred:,"> 
+    <meta name="author" content="Alpha Hinex"> 
+
+    <meta name="msvalidate.01" content="D769824B4D44C14A4C777A6EC4E898FC"> 
+    <meta name="baidu-site-verification" content="TimiEK4Y9V"> 
+    <meta name="google-site-verification" content="B-WME81HWSnMIkZZxcxv7bVI6yjbpAFKvifi2X-EkzQ"> 
+
+    <link rel="alternative" href="atom.xml" title="Alpha Hinex&#39;s Blog" type="application/atom+xml"> 
+    <link rel="icon" href="/img/favicon.png"> 
+    <link href="https://fonts.loli.net/css?family=Roboto+Mono|Rubik&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1429596_nzgqgvnmkjb.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+    
+<link rel="stylesheet" href="/css/share.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.css">
+
+    
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/theme/dracula.css">
+
+    
+<link rel="stylesheet" href="/css/obsidian.css">
+
+    
+<link rel="stylesheet" href="/css/ball-atom.min.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body class="loading">
+    <div class="loader">
+        <div class="la-ball-atom la-2x">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <span id="config-title" style="display:none">Alpha Hinex&#39;s Blog</span>
+    <div id="loader"></div>
+    <div id="single">
+    <div class="scrollbar gradient-bg-rev"></div>
+<div id="top" style="display: block;">
+    <div class="bar" style="width: 0;"></div>
+    <div class="navigation animated fadeIn fast delay-1s">
+        <img id="home-icon" class="icon-home" src="/img/favicon.png" alt="" data-url="https://AlphaHinex.github.io">
+        <div id="play-icon" title="Play/Pause" class="iconfont icon-play"></div>
+        <h3 class="subtitle">《kubesphere3.4 S2i证书过期修复记录》增强版</h3>
+        <div class="social">
+            <!--        <div class="like-icon">-->
+            <!--            <a href="javascript:;" class="likeThis active"><span class="icon-like"></span><span class="count">76</span></a>-->
+            <!--        </div>-->
+            <div>
+                <div class="share">
+                    
+                        <a href="javascript:;" class="iconfont icon-share1"></a>
+                        <div class="share-component-cc" data-disabled="facebook,douban,linkedin,diandian,tencent,google"></div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="section">
+        <div class=article-header-wrapper>
+    <div class="article-header">
+        <div class="article-cover animated fadeIn" style="
+            animation-delay: 600ms;
+            animation-duration: 1.2s;
+            background-image: 
+                radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.65), #100e17),
+                url(/contents/covers/kubesphere34-s2i-cert-expired.png);">
+        </div>
+        <div class="else">
+            <p class="animated fadeInDown">
+                
+                <a href="/categories/K8s"><b>「
+                    </b>K8S<b> 」</b></a>
+                
+                十一月 15, 2026
+            </p>
+            <h3 class="post-title animated fadeInDown"><a href="/2026/11/15/kubesphere34-s2i-cert-expired/" title="《kubesphere3.4 S2i证书过期修复记录》增强版" class="">《kubesphere3.4 S2i证书过期修复记录》增强版</a>
+            </h3>
+            
+            <p class="post-count animated fadeInDown">
+                
+                <span>
+                    <b class="iconfont icon-text2"></b> <i>文章字数</i>
+                    33k
+                </span>
+                
+                
+                <span>
+                    <b class="iconfont icon-timer__s"></b> <i>阅读约需</i>
+                    30 mins.
+                </span>
+                
+                
+                
+                <span id="busuanzi_page_pv_container" style="display: flex;">
+                    <b class="iconfont icon-read"></b> <i>阅读次数</i>
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+                
+            </p>
+            
+            
+            <ul class="animated fadeInDown post-tags-list" itemprop="keywords"><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/KubeSphere/" rel="tag">KubeSphere</a></li><li class="animated fadeInDown post-tags-list-item"><a class="animated fadeInDown post-tags-list-link" href="/tags/Kubernetes/" rel="tag">Kubernetes</a></li></ul>
+            
+        </div>
+    </div>
+</div>
+
+<div class="screen-gradient-after">
+    <div class="screen-gradient-content">
+        <div class="screen-gradient-content-inside">
+            <div class="bold-underline-links screen-gradient-sponsor">
+                <p>
+                    <span class="animated fadeIn delay-1s"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="article">
+    <div class='main'>
+        <div class="content markdown animated fadeIn">
+            <p>本文基于 <a href="https://www.jianshu.com/p/a573e9893577" target="_blank" rel="noopener">kubesphere3.4 S2i证书过期修复记录</a> 内容，对部分内容进行了调整、优化及补充。</p>
+<h2 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h2><p><img src="https://alphahinex.github.io/contents/covers/kubesphere34-s2i-cert-expired.png" alt=""></p>
+<p>报错信息：</p>
+<pre><code class="err">InternalError
+Internal error occurred: failed calling webhook &quot;s2ibuilder.kb.io&quot;: failed to call webhook: Post &quot;https://webhook-server-service.kubesphere-devops-system.svc:443/mutate-devops-kubesphere-io-v1alpha1-s2ibuilder?timeout=10s&quot;: x509: certificate has expired or is not yet valid: current time 2026-11-09T07:47:34Z is after 2024-02-14T06:08:48Z</code></pre>
+<p>KubeSphere 版本 <code>v3.4.0</code></p>
+<h2 id="罪魁祸首"><a href="#罪魁祸首" class="headerlink" title="罪魁祸首"></a>罪魁祸首</h2><p><a href="https://github.com/kubesphere/ks-installer/blob/release-3.4/roles/ks-devops/files/ks-devops/charts/ks-devops-0.2.2.tgz" target="_blank" rel="noopener">ks-installer/roles/ks-devops/files/ks-devops/charts/ks-devops-0.2.2.tgz</a> 导致</p>
+<blockquote>
+<p><a href="https://github.com/openksc/ks-installer/tree/v3.4.1/roles/ks-devops/files/ks-devops/charts" target="_blank" rel="noopener">https://github.com/openksc/ks-installer/tree/v3.4.1/roles/ks-devops/files/ks-devops/charts</a></p>
+</blockquote>
+<p>devops 组件由 ks-installer 通过 helm 的方式进行安装</p>
+<pre><code class="yaml">- name: ks-devops | Upgrading or installing ks-devops
+  args:
+    executable: /bin/bash
+  shell: |
+    # Delete Job migrate because &#39;helm upgrade&#39; will try to update immutable fields of Job, which is not allowed.
+    {{ bin_dir }}/kubectl delete job -n kubesphere-devops-system migrate --ignore-not-found
+
+    ks_devops_chart_version=0.2.2
+    charts_folder={{ kubesphere_dir }}/ks-devops/charts
+    ks_devops_chart=$charts_folder/ks-devops-$ks_devops_chart_version.tgz
+
+    # Create or update CRDs manually
+    tar xzvf $ks_devops_chart -C $charts_folder
+    {{ bin_dir }}/kubectl apply -f $charts_folder/ks-devops/crds
+    {{ bin_dir }}/kubectl apply -f $charts_folder/ks-devops/charts/s2i/crds
+
+    # Waiting for CRD to complete the upgrade
+    sleep 10
+
+    # Import the templates seperately due the potential webhook issues
+    rm -rf s2i-templates
+    helm template  $charts_folder/ks-devops/charts/s2i/ \
+      -f {{ kubesphere_dir }}/ks-devops/ks-devops-values.yaml \
+      -s templates/binary.yaml \
+      -s templates/java.yaml \
+      -s templates/nodejs.yaml \
+      -s templates/python.yaml \
+      -s templates/tomcat.yaml &gt; s2i-templates\templates.yaml
+    rm -rf $charts_folder/ks-devops/charts/s2i/templates/binary.yaml
+    rm -rf $charts_folder/ks-devops/charts/s2i/templates/java.yaml
+    rm -rf $charts_folder/ks-devops/charts/s2i/templates/nodejs.yaml
+    rm -rf $charts_folder/ks-devops/charts/s2i/templates/python.yaml
+    rm -rf $charts_folder/ks-devops/charts/s2i/templates/tomcat.yaml
+
+    {{ bin_dir }}/helm upgrade --install devops $ks_devops_chart \
+    -n kubesphere-devops-system \
+    -f {{ kubesphere_dir }}/ks-devops/ks-devops-values.yaml --wait
+
+    {{ bin_dir }}/kubectl apply -f s2i-templates\templates.yaml
+  register: devops_upgrade_result
+  until: devops_upgrade_result is succeeded
+  retries: 3
+  delay: 10</code></pre>
+<p>通过拆解分析我们了解 ca 相关证书内容，在 chart values.yaml 进行定义 <code>ks-devops-0.2.2/ks-devops/charts/s2i/values.yaml</code></p>
+<p>即以下内容：</p>
+<pre><code class="yaml">s2ioperator:
+  image:
+    name: &quot;s2ioperator&quot;
+    tag: &quot;v3.2.1&quot;
+  secret:
+    caBundle: |
+      -----BEGIN CERTIFICATE-----
+      MIIFhzCCA2+gAwIBAgIJAJbx5hsBi3ZdMA0GCSqGSIb3DQEBCwUAMFoxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQxEzARBgNVBAMMCktVQkVTUEhFUkUwHhcNMjEwNDI2MDYw
+      ODQ4WhcNMjQwMjE0MDYwODQ4WjBaMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29t
+      ZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMRMwEQYD
+      VQQDDApLVUJFU1BIRVJFMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA
+      0JnXp/eLTnFNNBzWl+kFiyjLAf0vUhU3dXvlYJ+yTQczx0ucHAGY8nbnhB49s9vH
+      z1TV9AP60+DHHmmy57wiM/m6bqP1e0j2AbJ4vuoauvfEfW6ZjQ4FfcYH8VJ8nsks
+      ZNiJAI/HX4Y0itqWNG31frovjxdJ3T7EJjwzxrTMiRuPL9YmErKDQiSIsuePI5L+
+      CIgAPdVVSbF3t+ioIYyQZm5l7/HY7uybYn6x4AwN3SgG8V0UXDEV21XcMpRhOFjU
+      7CbNt7arKIMQcrtEQR7X5I7ZbQmpLKg3PoB9QHBCjIIuHXgTyk6K4v9OnjzJsZ+N
+      mdyuI9G9y0ADbRYpcOT3dnBMEy1Tpaq0fOfWqNhe4F2w7WTj6SkYlI28STFWAiga
+      xOwwY0Xj9VAuUiX/H69BKcYOJ0jXdHcUqGcl4olx62raM5uZfqejWpDGKZlQzCdF
+      GooSk26SspiZ2IcOwoepz1CVCM08GvRHEUcSa5ZhBZpC5CgmhqLQhPQvKypX3As6
+      5kog9+aRwSKqKIL9839a6BILwW5L3USULrGBtjY8sfbZUInnSO8QDD0tsUmfFadI
+      NKsFcjhoygaTGvXXuIw9X5IpAkcWW6qAAk+4Mc999eVGej1BVkl1eCbLm7TQn1UD
+      pSLoko9AnDfmTE1R/nYL6AoSRxuIUJPCmQWobqJFVsUCAwEAAaNQME4wHQYDVR0O
+      BBYEFNS/nvNA6MU+QDSbgZFrSyeqt27hMB8GA1UdIwQYMBaAFNS/nvNA6MU+QDSb
+      gZFrSyeqt27hMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADggIBAGJVy7RN
+      qIylR2E726LdsN8Id80pH3J16uFIxfyzTfkX/OGKfRPmSmvaEoP1Tyyr/bqKL0SX
+      vVjpxyfwtteEu4NCgpRqyw74sCT8Y+sG76hvp717nSNEHg35QpHcz0EZ1n31uMDR
+      edwks0tTwntGxGymXbeIimnWzyImtOAnDcCzV3I+sDcV7xOTBhshUwW8tmgLpkSO
+      ZYRPMcjhEwIkEwZgyaxVfBJ7tcJ7wiaYkdZHXP8NJA5N6TpFED5zoT3cCkC2oGUg
+      Qno+AIA5oJS2UIAdkpJ0yzdL9WYHM8eQD+Fs7Abgze6gSRnSdXQnLSx3olzCPNKa
+      pQ3npULnSxUdp6KrFUPgVbnWxdAxBrT3c10T7Wip43ZQMAjXOLgZ9J83ud3OLxzX
+      Czx0fKKZ33Y/DvPK2LcfruEgCWxQhwQCgKrkdPn695kBuccqSV20+av0HyUPElNn
+      YDojEqvuXvlL2LI5zI+6elpyvQ7r6vuKFgjyMpoQ0bSVACRVCvIjf//01hpeXrR4
+      fmfUrPG3msbNrIjLmrnYHcnB9/UA4ejCI4WEfspCEpRt7Au3kl2/xVNtqXgOS2Np
+      NR2xF0A7VFgtbx2x6zw/WUkRI4ugGu79Nt1OvM+D/X77JykNIjizJFHaFWCOuh3Q
+      jF9FR0nTiGgtyJkHubjKMd8YBu9S9q0HgGOm
+      -----END CERTIFICATE-----
+    key: |
+      -----BEGIN RSA PRIVATE KEY-----
+      MIIEowIBAAKCAQEAx78d2JIYf0EXTO4fN3VHqJiQUlnmYMVcGgoIK/TeHI0irrCK
+      N1wnTfxPNEE4/W0yvLARKpF+hzf3r3VWr0Ab7pKr8UEAYtTXRz0YdwL/Ek4XBCX0
+      7/nGaPM/lRgg8UW05aeSg+VrMSVxt53hiIPMY3+JdM9tEI6DJbLsa2ECNQ/VU9Uh
+      KXd8YUTxEcKDkBWnqTiihVTk0RafAvIUcIIwu7+mz0+tlN/YHMxfvK+pkJaeA92H
+      OnTifMGQ+YbpV8YwUpYfi71MJbuo5AAWuDl0GfoiawkIUzT2Hl7BDCrHnnZ5p7La
+      tLcDEqHANGRBlN1G6oxFVTtQdVtA3m53i/3Y+QIDAQABAoIBAEF5SeU1bkY4JdUX
+      sK/TB5wh9hyoTzWlO51lcGxIJY4iTR4JzCR9VnzfmW69elrHsnvbEqVrb5gPJmcj
+      BTkIwJ8hAK9h6Sh8L9ywEBbiqo1rf2virTkEHJ9GLK9Ia3Pqr3MfzIzjZJGFfpL7
+      c3P2D8cFhR7+5vcoX6C513kTIVAWvWB5+LhTLqIH0zBNVY4L8Y7F9TngEMWFuQnZ
+      xCesFTzBZfaCtT42IQ3wjJVPTpFfl2+HNdMWctVwvTeEgUEEsn5dttCP0A5859gA
+      vzokoTHsGBKX5ixcSbCiwqeS9/zaNitn4wUT6WyCOmaN2dIz9XarDoHntqRocwHs
+      kAQBxgkCgYEA/NiCXonkmdKbt2Ji/vq8UgeoJ/mnasOHy250s1WxOwbiPvxogbke
+      cMGO/ygUnYW32ixeyfPlsHPKY/W43+crf/NEr0cWiRTM5PxZQvapiFI2fIytsbe7
+      jG44JPykvtp4qeiKqSn1Le10CsWmLYrqoLwZUUcUfMn0AdIoqiPxSE8CgYEAyj0H
+      en+W/zDwzs/ypXUt3bzudK848fFC3HOKrbav6keyr8eM0eX2wLV6yoADtAQHJ2H2
+      XpR4GfC1LALCa6pCUZJ8rtpMCvIUg6NJ+rzeXcV1+Sju9NZo94M+C/sOAwwullv1
+      qRrw8j3NmX1r0q+GTd6NNEzO8deBwa1Y6vo/sDcCgYEAtG0Tar7ff9zH/W6Z0fW+
+      WJLaLdx62Ta6OjKR2D73/3UEEYowURF2ZWPZ1L4XJ+j5rxgmc9o1N1sJO5dm22+s
+      nNtNUf5aWGudYnGoiJ5Xj82K0AnbEIxZqvYj3lDihsaDgEtOVzR3ntRpEB7GXI1a
+      rGRNdLBSMFI0avA60F5hmQUCgYBjvP9wMXaFelx4kmOnqAerwJ6VW0kpQQPpdu4g
+      x+UwFJYSTMatSc2MsrPRJJsu74GbsZtwf6ZPnL+s6dt6f6hfVHA7R5uTFlp5pVE5
+      4GWGN3j8HWzjwM5Zqxcxj2oUpLBhJQ8djBTiUwqPtSQ07q28v5JCBdNVwCPVIaml
+      kS9RtwKBgBZ39A7HvuOHtIpA2cH15vO5fvVw5HHDnWf7kwQJAv8sUYwiljgx/9/G
+      PZhijwPnuTbBCLZ8YkHGqtUaT1Dv81dhcw44RY7ykBpUXM2lFEoWyOGqSlpYyKeV
+      ZE90IxqhGtCsj6YegHyxLzse2gdFN1a2hFirkqWG8/m7HJfh96Fz
+      -----END RSA PRIVATE KEY-----
+    certificate: |
+      -----BEGIN CERTIFICATE-----
+      MIIE0TCCArmgAwIBAgIJAOoJB0y3z6bMMA0GCSqGSIb3DQEBCwUAMFoxCzAJBgNV
+      BAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBX
+      aWRnaXRzIFB0eSBMdGQxEzARBgNVBAMMCktVQkVTUEhFUkUwHhcNMjEwNDI2MDYx
+      MjU1WhcNMzEwNDI0MDYxMjU1WjAhMR8wHQYDVQQDDBZ3ZWJob29rLXNlcnZlci1z
+      ZXJ2aWNlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx78d2JIYf0EX
+      TO4fN3VHqJiQUlnmYMVcGgoIK/TeHI0irrCKN1wnTfxPNEE4/W0yvLARKpF+hzf3
+      r3VWr0Ab7pKr8UEAYtTXRz0YdwL/Ek4XBCX07/nGaPM/lRgg8UW05aeSg+VrMSVx
+      t53hiIPMY3+JdM9tEI6DJbLsa2ECNQ/VU9UhKXd8YUTxEcKDkBWnqTiihVTk0Raf
+      AvIUcIIwu7+mz0+tlN/YHMxfvK+pkJaeA92HOnTifMGQ+YbpV8YwUpYfi71MJbuo
+      5AAWuDl0GfoiawkIUzT2Hl7BDCrHnnZ5p7LatLcDEqHANGRBlN1G6oxFVTtQdVtA
+      3m53i/3Y+QIDAQABo4HSMIHPMIHMBgNVHREEgcQwgcGCFndlYmhvb2stc2VydmVy
+      LXNlcnZpY2WCL3dlYmhvb2stc2VydmVyLXNlcnZpY2Uua3ViZXNwaGVyZS1kZXZv
+      cHMtc3lzdGVtgjN3ZWJob29rLXNlcnZlci1zZXJ2aWNlLmt1YmVzcGhlcmUtZGV2
+      b3BzLXN5c3RlbS5zdmOCQXdlYmhvb2stc2VydmVyLXNlcnZpY2Uua3ViZXNwaGVy
+      ZS1kZXZvcHMtc3lzdGVtLnN2Yy5jbHVzdGVyLmxvY2FsMA0GCSqGSIb3DQEBCwUA
+      A4ICAQAG9tdFrUxR02kgd/qSG/p+sRQDOYpG5qqZgERhxXE32Gb4o7rJbtZ2Zvcb
+      SWiF1PP4QnMevycXD1dYsCSdVzGFsDA0fcyuF1sKc32ljhfTTDmymzmEJQNYXPx2
+      rzqf9u+483n/+gFgLDexukXKJ5+p9gzXLePSZwE+HEgZdNplS5kfMR+Uvpo+eMhc
+      6yn5aBJWLsgvKTx7Gar27PdM297vhpPFcxSbDykHJNDw2U+uxwwIR5SM1PmWhuoj
+      oz1UO3xeLKPPluUH/gJKGRt7rv3WDVR1u0yFFFGLumd2SAKjayTROq9nRzONjeGH
+      JeC7drnKcnvunaZW27NiCzfhaq0neXhaGEOpcdaYBVs0MZfnb2uaAQFy0P3HZ6UI
+      QISOpQ/6Prv6dgheU0hHsbjhHX8Y1Z/EpNs6nS6i2UCde+RaEgK1xxnLtBL7r76d
+      EBvpC49ChRZ0r7U6m8LJ6yjbLTMEPVqODcxZKn9aoXI1TCNgzW7QUv5b5qMB2oOp
+      q1lPSxxEQboelsczSxWK6U4uwcyGuVNymBgfPNuc7wwcPBLbuahUo6YtFNky2OKz
+      p2hvkjDixDbGS3Svi45eEpBnIrcma+fanPKJCYUZbiRIoD+kA8Ss5mZgtah3LcrQ
+      U8UUR60N6LJ52m2ik/zHh+p31ihhCz7F7JWq7itNpbjFcb9T6g==
+      -----END CERTIFICATE-----</code></pre>
+<p>通过 openssl 进行解析，我们发现 ca 根证书过期时间为 2024-02-14</p>
+<pre><code class="bash">$ openssl x509 -in ca.crt -text
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            96:f1:e6:1b:01:8b:76:5d
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = AU, ST = Some-State, O = Internet Widgits Pty Ltd, CN = KUBESPHERE
+        Validity
+            Not Before: Apr 26 06:08:48 2021 GMT
+            Not After : Feb 14 06:08:48 2024 GMT
+... ...</code></pre>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>替换证书、并同步替换 MutatingWebhookConfiguration、ValidatingWebhookConfiguration 内的 ca 证书内容即可解决。</p>
+<p>具体流程如下：</p>
+<blockquote>
+<p>可以直接使用下面 yaml 内容，其中证书的到期日期为 2051 年 7 月 7 日。如需自行生成证书并替换 yaml 中内容，可参考下面 <code>证书生成方式</code> 章节。</p>
+</blockquote>
+<pre><code class="bash">$ echo &quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K&quot; | base64 -d &gt; output.crt
+$ openssl x509 -in output.crt -text
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            38:8a:fe:68:48:57:ad:30:7b:80:c4:fe:4d:82:d3:73:5f:e4:bc:9d
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C = CN, ST = HB, O = QC, CN = webhook-server-service
+        Validity
+            Not Before: Feb 19 05:42:27 2024 GMT
+            Not After : Jul  7 05:42:27 2051 GMT
+...</code></pre>
+<h3 id="1-替换-secret"><a href="#1-替换-secret" class="headerlink" title="1. 替换 secret"></a>1. 替换 secret</h3><p>保存 <code>s2i-webhook-server-cert.yaml</code>：</p>
+<pre><code class="yaml">apiVersion: v1
+data:
+  caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUQyVENDQXNHZ0F3SUJBZ0lVUkthdTNvN1Z0OTZIcDl6aUZoQkd2eFVPbmFBd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93WlRFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekU4TURvR0ExVUVBd3d6ZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpTNXJkV0psYzNCbwpaWEpsTFdSbGRtOXdjeTF6ZVhOMFpXMHVjM1pqTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCCkNnS0NBUUVBcjFIR3BQZlVSdFFjZFdzcjcvc3ZKMWNpdGFpOEpZemVPeXg4WjZ4VXFNR0FXWGpZWkJ1ZmFFbHYKdktQSUtaaWxTK2tnOXFiRi8vMzZtOHVmcnlxMVlvQVNNbkZmZFBQNHBYNkVKbWwzdEdqbytnVlk4NVNLcWxVcwp2c0lBM25pN080U0pLZVRZQ2R1a09qaDdZcFozRkNhdGVGbDJ1TVNXOVQvTjJocHAwdElRTFJwcjBoank4NEhoCkxOQ3B2Y0dLelp3OU5mK08wc2E5S2JYTFdJbmNBNGVLc0FnOUQwc2RMd3Q4QldGbVY3L3VoVDl6Q2xoSW9yd1kKNnRwVGpSOTdTTVJhdHQzNVpxcDdWMWxFUndNd3RmeGx2N2xBOHJtVEJZSlc0alljM2FTVm1BdDRHd0ZOeGZWeApLM2xQNERRSHlCdjdDaVBHaFh6MmdTelFqTFlDNFFJREFRQUJvNEdiTUlHWU1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1Ba0dBMVVkRXdRQ01BQXdDd1lEVlIwUEJBUURBZ1R3TUJNR0ExVWQKSlFRTU1Bb0dDQ3NHQVFVRkJ3TUJNRWdHQTFVZEVRUkJNRCtDTTNkbFltaHZiMnN0YzJWeWRtVnlMWE5sY25acApZMlV1YTNWaVpYTndhR1Z5WlMxa1pYWnZjSE10YzNsemRHVnRMbk4yWTRJSWFHOXpkRzVoYldVd0RRWUpLb1pJCmh2Y05BUUVMQlFBRGdnRUJBSm9CWll6TkxzNXVDUlYyNk1VOWtZNVh3cFUzZkhXTUZBenFjbWYrZEtNVVNscEYKcS9Zb2JxOHVmMS9Gbys2bzF3bDJrWklmR1grakUrR1JqQ0kvaXVJUHhhaHZzME8wNkFKWWpTSWhWVkVFNkRqbQpvWW1XTkhpdzRkQXM1aCt6ajNJNmY0bDJscWgxaFVVUnR3anlCL0ZXclRBVFJVOUhrcGtQb0pSL3BEM0Nzd1I1Ckl2OXR1TmpBenNsbzlWZU1vK3JPZWEwS3hhT3RMU1NsWCs5N09iTC9ycXBFZml2L0ZoQ3FMWTcrQW9jcGdSdEsKTzdSYUd3bWMyWlM3aEgzOTRiVjBHVTB6NkpqVHlvdk9HUnZndGxaajVuVmVoK3pkWlNlZVdSbFFpZk5uZ3d0ZQpsMlNDMXJYUDJBblRMNUtLMWZUWjN2UU5NMlljNm1SNWVBK3VKWVk9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  tls.key: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBcjFIR3BQZlVSdFFjZFdzcjcvc3ZKMWNpdGFpOEpZemVPeXg4WjZ4VXFNR0FXWGpZClpCdWZhRWx2dktQSUtaaWxTK2tnOXFiRi8vMzZtOHVmcnlxMVlvQVNNbkZmZFBQNHBYNkVKbWwzdEdqbytnVlkKODVTS3FsVXN2c0lBM25pN080U0pLZVRZQ2R1a09qaDdZcFozRkNhdGVGbDJ1TVNXOVQvTjJocHAwdElRTFJwcgowaGp5ODRIaExOQ3B2Y0dLelp3OU5mK08wc2E5S2JYTFdJbmNBNGVLc0FnOUQwc2RMd3Q4QldGbVY3L3VoVDl6CkNsaElvcndZNnRwVGpSOTdTTVJhdHQzNVpxcDdWMWxFUndNd3RmeGx2N2xBOHJtVEJZSlc0alljM2FTVm1BdDQKR3dGTnhmVnhLM2xQNERRSHlCdjdDaVBHaFh6MmdTelFqTFlDNFFJREFRQUJBb0lCQUczYjlYa3NYeFdmRnRJeApQUkFkTzFnUWp3eDhWcUhGR3dERGlKVkNkSzVteXJIR092cklJR1N1RjltQ1hBeE12Yy9LbjBCUUV5U3RseHVIClJtSHloa1RaOGcwdjQ5d2FnVVhhK0o1RldxQnZXUVpLMFltWkhDZE9Sa0ttdVBxdmRzdjk2aUdaYUJNTlVtUzEKUGdQeU8xNGlPbk4reEJsVi95NWhNL0ltdVFkRVZ3VVBCZ0hvSC9na3huSGQ1RUI0ZmFacm0xQURMaDQydFlodQphNUVZdTkzL0RjWm5JMmFvVThCUXNjR09FZXZwMkR3U1NuYTBPWXYrRHFKWkw2OHVyZE5DRzFWU2NBSUowVjJuCjUxM0VKQWowSzVKbXhCbCtvZEZPWVBmbUcwS1BWdUlZREpNd2ZKQkZEVjB5SmJOVFoxOXFncjlueFdsMjR3UkcKaWhVTTZOMENnWUVBMmk0bm9PZzFsczR3TURBd2k2MDA2RlZDWno4NXFHNUNza2JsUUdaNUR3T3FPTlBVTTAvZQpESXJGUFEya1I3N25KemM2eURkVFVkRkJBKzRYdkk2VHl1Lzloa0RKVENWQTRjWkVVT3dVTVBKK1hzaXFWeG9ZCkJPQUtPOEIvZkhDNm9iTUQ2NTdNMnB3V2FLUFJkY2dNMVFtdTBQYUFNdTZEbXdyQVdJbHhIV01DZ1lFQXpiV20KOEx2b1REM3MyRWxSRjRYeHZSQlBBTlhwZk1qcExnNUZLQ216SFU5amR1cXc0MTQ0RzJjLzhYZjNwUmlHOTJFegp6QXpPMFFjMGxsUUR1Y2hLbHhISUJGSXdQeGNmd2swVk1ZNnAvanJFVllHZWdwMUFHR3hMb0hBZTMwSFVOTzJsCkdIU2VPWjhrYkUrNjFaRFRJZGhxWHVJUEdsK3BFZndhTG5oT28rc0NnWUVBb3labWJkV1cxU2xrTVhTbnFKc2gKK0NaaFhIR1QvUlpPZTUrMktMMDRBM2s3SGZtUk1ibWtrdjVtVmF4UXozRzZ5c0ZyREhNS3RDRGxIRG83dDcxcQpXUk96SW1ScDRxM3M0YWZ3U0E3eFhsVEhHTHUzWFNEZkd5NHBtTnJ1dWpCVjd6cTlVTUZUOEpsTnpIdkwwdWFBCmFnSXVub1htQWJBSDY3VlRkaUY0MjM4Q2dZRUF0VEJrTzdSM052aHdiazJkeEtkeE5zTnZvdC9IeWVhNUpKemoKSXk0Zm14aDdGcG8vZGZWZVhCekVnSzdYalM2ZWFyVE9SOU9jTXhjeXBacVlzWUlPMlNPTFZ1c0JuZ0NETThScgpmM3dXbFZ3ejVOREh5bW94czVGbng0Z2FXVEdGZFoxQWh0cnBKdjNhdWlBOEE3S05sVWttNEM0amVXcDY0K0YzCk9pa3pzME1DZ1lFQXdMWjhkcDQySHBaVEg5bnUzNXh3K0FFbVZaUEtDdEFZQ00xdEc4c2p6VVM2bE9GWU4vbTkKZDdFN3VNbzYxNHRkUkNOcEJRTE1EdDBUWTlEb3ZFY1NiNWNqVDFmM0NObEFrY1QyMlEyM2dVSTIyam4wSzgzMgpIU21VTmtXK0RFZkI5OXhTRkhYNXZ6ZWFxVWxQRWN6RzVMSitYa1owd0p3WndKdkpnU0FFNFVnPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+kind: Secret
+metadata:
+  annotations:
+    meta.helm.sh/release-name: devops
+    meta.helm.sh/release-namespace: kubesphere-devops-system
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: s2i-webhook-server-cert
+  namespace: kubesphere-devops-system
+type: Opaque</code></pre>
+<pre><code class="bash">kubectl apply -f s2i-webhook-server-cert.yaml</code></pre>
+<h3 id="2-替换-validating-webhook-configuration"><a href="#2-替换-validating-webhook-configuration" class="headerlink" title="2. 替换 validating-webhook-configuration"></a>2. 替换 validating-webhook-configuration</h3><p>保存 <code>validating-webhook-configuration.yaml</code>：</p>
+<pre><code class="yaml">apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    meta.helm.sh/release-name: devops
+    meta.helm.sh/release-namespace: kubesphere-devops-system
+  generation: 3
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: webhook-server-service
+      namespace: kubesphere-devops-system
+      path: /validate-devops-kubesphere-io-v1alpha1-s2ibuilder
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: vs2ibuilder.kb.io
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - devops.kubesphere.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - s2ibuilders
+    scope: &#39;*&#39;
+  sideEffects: None
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: webhook-server-service
+      namespace: kubesphere-devops-system
+      path: /validate-devops-kubesphere-io-v1alpha1-s2ibuildertemplate
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: s2ibuildertemplate.kb.io
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - devops.kubesphere.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - s2ibuildertemplates
+    scope: &#39;*&#39;
+  sideEffects: None
+  timeoutSeconds: 10
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: webhook-server-service
+      namespace: kubesphere-devops-system
+      path: /validate-devops-kubesphere-io-v1alpha1-s2irun
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: vs2irun.kb.io
+  namespaceSelector: {}
+  objectSelector: {}
+  rules:
+  - apiGroups:
+    - devops.kubesphere.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - s2iruns
+    scope: &#39;*&#39;
+  sideEffects: None
+  timeoutSeconds: 10</code></pre>
+<pre><code class="bash">kubectl apply -f validating-webhook-configuration.yaml</code></pre>
+<h3 id="3-替换-mutating-webhook-configuration"><a href="#3-替换-mutating-webhook-configuration" class="headerlink" title="3. 替换 mutating-webhook-configuration"></a>3. 替换 mutating-webhook-configuration</h3><p>保存 <code>mutating-webhook-configuration.yaml</code>：</p>
+<pre><code class="yaml">apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  annotations:
+    meta.helm.sh/release-name: devops
+    meta.helm.sh/release-namespace: kubesphere-devops-system
+  generation: 2
+  labels:
+    app.kubernetes.io/managed-by: Helm
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  - v1beta1
+  clientConfig:
+    caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjekNDQWx1Z0F3SUJBZ0lVT0lyK2FFaFhyVEI3Z01UK1RZTFRjMS9rdkowd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1NERUxNQWtHQTFVRUJoTUNRMDR4Q3pBSkJnTlZCQWdNQWtoQ01Rc3dDUVlEVlFRS0RBSlJRekVmTUIwRwpBMVVFQXd3V2QyVmlhRzl2YXkxelpYSjJaWEl0YzJWeWRtbGpaVEFnRncweU5EQXlNVGt3TlRReU1qZGFHQTh5Ck1EVXhNRGN3TnpBMU5ESXlOMW93U0RFTE1Ba0dBMVVFQmhNQ1EwNHhDekFKQmdOVkJBZ01Ba2hDTVFzd0NRWUQKVlFRS0RBSlJRekVmTUIwR0ExVUVBd3dXZDJWaWFHOXZheTF6WlhKMlpYSXRjMlZ5ZG1salpUQ0NBU0l3RFFZSgpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFLRkVpSk9NZlF6ZnJwRE1aOHNNMmxoaFZUVnVGOFU5CjJTYXFCYTNUSU1rc0gvZmlwai8rVjZmaUhLYnh4ZGlrclIxaFZJajFrMkt0aVJRL1ZPbG1pSHdGakVyYUNtNGUKMGhsdzl5Mmt0akF0bzlXYlRaQVV0SFJhK0Q2TUlmajNjUG9QVnV0ZjYyRklYZTNNYmJSaU1SWjNEN2c2RE52SQplUGcydjJyQjZva3g0MDM0L0gxdkk2dTNGaHkvNXRQeklGYmFxU1Z1bHhZck5CUUV1MGhzanVKZVhtK0drWnlTClVuSkpMUkcza1p3Wk1CTitGWDlhRzdvMkJrdVVXT3doMnhUeGp6TFppSEJobUJHbnU1WEVKR0J1a2xaT0tIeE0KQ0lPSGtNVWo4VllIcU5RV3VLaFRvcncraFl1UU9aU2VMaGE1ZFRZczRkdlU1cTdJMjA4VXJBRUNBd0VBQWFOVApNRkV3SFFZRFZSME9CQllFRkRSVXRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1COEdBMVVkSXdRWU1CYUFGRFJVCnRvYWRlUnYvYWYxamtJT0hXU3dNT3ppVk1BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUwKQlFBRGdnRUJBRnByajJrZFRoQk93bEtiQ1VNNVpMTDBzbi8rSmI2WXZtSXRFNkpiemRUc3RyaTdsWHk2NlJPNwpTaHF2aURrQVhUYTVWWTc1UFdWNjRMRXlJTW9JYyt2NkdXVSsveWtGTnZTMHJCbm9yczlzdDFyMFllRXhHM0pyCnhHNFhzUzJIbmJ5Yk5oelg3Q3pWRnFGYWh2WEJ0SkZoTGY1TVVUTkFWem0reTgxTlZBcG83bWNmL3ZZKzlmcSsKYjNpVTYvQTluby9JSlZYbWt6V1o2SUQvb0pxQTE1Y0hJaVYrZ05pbDE1dEZKVUtRTkVuMlZWVisveFo3VXJmWgpMTWhtRmZFTGdPUnIvei8vNUx1bXlCeFdOelFCUWhRbVJNSlgzM2IrR1lBbFYvTS85cEZLMHV0NGtaMjZVbkdjCk5TSFJ0VHdseldXNTk4SU40QmUxTjNDU0tEZWwvNGc9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    service:
+      name: webhook-server-service
+      namespace: kubesphere-devops-system
+      path: /mutate-devops-kubesphere-io-v1alpha1-s2ibuilder
+      port: 443
+  failurePolicy: Fail
+  matchPolicy: Equivalent
+  name: s2ibuilder.kb.io
+  namespaceSelector: {}
+  objectSelector: {}
+  reinvocationPolicy: Never
+  rules:
+  - apiGroups:
+    - devops.kubesphere.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - s2ibuilders
+    scope: &#39;*&#39;
+  sideEffects: None
+  timeoutSeconds: 10</code></pre>
+<pre><code class="bash">kubectl apply -f mutating-webhook-configuration.yaml</code></pre>
+<h3 id="4-重启-s2ioperator"><a href="#4-重启-s2ioperator" class="headerlink" title="4. 重启 s2ioperator"></a>4. 重启 s2ioperator</h3><pre><code class="bash">kubectl -n kubesphere-devops-system rollout restart sts s2ioperator</code></pre>
+<h2 id="证书生成方式"><a href="#证书生成方式" class="headerlink" title="证书生成方式"></a>证书生成方式</h2><p>上述的 <code>caBundle</code>、<code>tls.crt</code>、<code>tls.key</code> 先由以下脚本生成证书文件，再通过 <code>base64 -w 0 [ca.crt/server.crt/server.key]</code> 转换得到：</p>
+<pre><code class="bash">#!/bin/bash
+
+set -e
+
+usage() {
+    cat &lt;&lt;EOF
+Generate certificate suitable for use with an sidecar-injector webhook service.
+This script uses k8s&#39; CertificateSigningRequest API to a generate a
+certificate signed by k8s CA suitable for use with sidecar-injector webhook
+services. This requires permissions to create and approve CSR. See
+https://kubernetes.io/docs/tasks/tls/managing-tls-in-a-cluster for
+detailed explantion and additional instructions.
+The server key/cert k8s CA cert are stored in a k8s secret.
+usage: ${0} [OPTIONS]
+The following flags are required.
+       --service          Service name of webhook.
+       --namespace        Namespace where webhook service and secret reside.
+EOF
+    exit 1
+}
+
+while [[ $# -gt 0 ]]; do
+    case ${1} in
+        --service)
+            service=&quot;$2&quot;
+            shift
+            ;;
+        --namespace)
+            namespace=&quot;$2&quot;
+            shift
+            ;;
+        *)
+            usage
+            ;;
+    esac
+    shift
+done
+
+[ -z ${service} ] &amp;&amp; service=webhook-service
+[ -z ${namespace} ] &amp;&amp; namespace=default
+
+if [ ! -x &quot;$(command -v openssl)&quot; ]; then
+    echo &quot;openssl not found&quot;
+    exit 1
+fi
+
+csrName=${service}.${namespace}
+CERTSDIR=&quot;config/certs&quot;
+
+if [ ! -d ${CERTSDIR} ]; then
+  mkdir -p ${CERTSDIR}
+fi
+
+cat &gt; v3.ext &lt;&lt;-EOF
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1=${service}.${namespace}.svc
+DNS.2=hostname
+EOF
+
+echo &quot;creating certs in certsdir ${CERTSDIR} &quot;
+
+# create cakey
+openssl genrsa -out ${CERTSDIR}/ca.key 2048
+
+# create ca.crt
+openssl req -x509 -new -nodes -key ${CERTSDIR}/ca.key -subj &quot;/C=CN/ST=HB/O=QC/CN=${service}&quot; -sha256 -days 10000 -out ${CERTSDIR}/ca.crt
+
+# create server.key
+openssl genrsa -out ${CERTSDIR}/server.key 2048
+
+# create server.crt
+openssl req -new -sha256 -key ${CERTSDIR}/server.key -subj &quot;/C=CN/ST=HB/O=QC/CN=${service}.${namespace}.svc&quot; -out ${CERTSDIR}/server.csr
+openssl x509 -req -in ${CERTSDIR}/server.csr -extfile v3.ext -CA ${CERTSDIR}/ca.crt -CAkey ${CERTSDIR}/ca.key -CAcreateserial -out ${CERTSDIR}/server.crt -days 10000 -sha256</code></pre>
+<p><code>cert.sh</code> 由 <a href="https://github.com/kubesphere/s2ioperator/blob/master/hack/certs.sh" target="_blank" rel="noopener">s2ioperator/hack/certs.sh</a> 微调而得</p>
+<p>生成证书文件方式</p>
+<pre><code class="bash">./cert.sh --service webhook-server-service --namespace kubesphere-devops-system</code></pre>
+<p>执行完毕后，会生成如下文件</p>
+<pre><code class="bash">$ tree config/certs
+config/certs
+├── ca.crt
+├── ca.key
+├── ca.srl
+├── server.crt
+├── server.csr
+└── server.key</code></pre>
+<p>文件对应关系如下：</p>
+<p><code>ca.crt</code> -&gt; <code>caBundle</code><br><br><code>server.key</code> -&gt; <code>tls.key</code><br><br><code>server.crt</code> -&gt; <code>tls.crt</code></p>
+<blockquote>
+<p>注意：三个 yaml 文件中的 <code>caBundle</code> 需要使用相同的值。</p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://www.jianshu.com/p/a573e9893577" target="_blank" rel="noopener">kubesphere3.4 S2i证书过期修复记录</a></li>
+<li><a href="https://ask.kubesphere.com.cn/forum/d/23227-s2ifu-wu-bu-ke-yong-ti-shi-zheng-shu-shi-xiao" target="_blank" rel="noopener">s2i服务不可用提示证书失效</a></li>
+</ul>
+
+            <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
+            <audio id="audio" loop="1" preload="auto" controls="controls"
+                data-autoplay="false">
+                <source type="audio/mpeg" src="">
+            </audio>
+            
+            <ul id="audio-list" style="display:none">
+                
+                
+                <li title='0' data-url='/statics/background.mp3'></li>
+                
+                    
+            </ul>
+            
+            
+            
+    <div id='gitalk-container' class="comment link"
+        data-ae='true'
+        data-ci='54f9966b8cc9d2423ffd'
+        data-cs='504574e4532bdfa77d3e4091637ff53558408ac2'
+        data-r='AlphaHinex.github.io'
+        data-o='AlphaHinex'
+        data-a='AlphaHinex'
+        data-d=''
+    >留言</div>
+
+
+            
+            
+        </div>
+        <div class="sidebar">
+            <div class="box animated fadeInRight">
+                <div class="subbox">
+                    <img src="/img/hinex.jpg" height=300 width=300></img>
+                    <p>Alpha Hinex</p>
+                    <span>Stay Hungry. Stay Foolish.</span>
+                    <dl>
+                        <dd><a href="https://github.com/AlphaHinex" target="_blank"><span
+                                    class=" iconfont icon-github"></span></a></dd>
+                        <dd><a href="/whoami"><span class=" iconfont icon-wechat"></span></a></dd>
+                        <dd><a href="" target="_blank"><span
+                                    class=" iconfont icon-stack-overflow"></span></a></dd>
+                    </dl>
+                </div>
+                <ul>
+                    <li><a href="/">371 <p>文章</p></a></li>
+                    <li><a href="/categories">78 <p>分类</p></a></li>
+                    <li><a href="/tags">169 <p>标签</p></a></li>
+                </ul>
+            </div>
+            
+            
+            
+            <div class="box sticky animated fadeInRight faster">
+                <div id="toc" class="subbox">
+                    <h4>目录</h4>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#现象"><span class="toc-number">1.</span> <span class="toc-text">现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#罪魁祸首"><span class="toc-number">2.</span> <span class="toc-text">罪魁祸首</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案"><span class="toc-number">3.</span> <span class="toc-text">解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-替换-secret"><span class="toc-number">3.1.</span> <span class="toc-text">1. 替换 secret</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-替换-validating-webhook-configuration"><span class="toc-number">3.2.</span> <span class="toc-text">2. 替换 validating-webhook-configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-替换-mutating-webhook-configuration"><span class="toc-number">3.3.</span> <span class="toc-text">3. 替换 mutating-webhook-configuration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-重启-s2ioperator"><span class="toc-number">3.4.</span> <span class="toc-text">4. 重启 s2ioperator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#证书生成方式"><span class="toc-number">4.</span> <span class="toc-text">证书生成方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+    <div id="back-to-top" class="animated fadeIn faster">
+        <div class="flow"></div>
+        <span class="percentage animated fadeIn faster">0%</span>
+        <span class="iconfont icon-top02 animated fadeIn faster"></span>
+    </div>
+</body>
+<footer>
+    <p>本站访客数<span id="busuanzi_value_site_uv"></span>人次 / 本站总访问量<span id="busuanzi_value_site_pv"></span>次</p>
+    <p class="copyright" id="copyright">
+        &copy; 2026
+        <span class="gradient-text">
+            Alpha Hinex
+        </span>.
+        Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a>
+        Theme
+        <span class="gradient-text">
+            <a href="https://github.com/TriDiamond/hexo-theme-obsidian" title="Obsidian" target="_blank" rel="noopener">Obsidian</a>
+        </span>
+        <small><a href="https://github.com/TriDiamond/hexo-theme-obsidian/blob/master/CHANGELOG.md" title="v1.4.3" target="_blank" rel="noopener">v1.4.3</a></small>
+    </p>
+</footer>
+
+<script type="text/javascript" src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<script>
+  MathJax.Hub.Config({
+    "HTML-CSS": {
+      preferredFont: "TeX",
+      availableFonts: ["STIX", "TeX"],
+      linebreaks: {
+        automatic: true
+      },
+      EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"]
+      ],
+      processEscapes: true,
+      ignoreClass: "tex2jax_ignore|dno",
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      noUndefined: {
+        attributes: {
+          mathcolor: "red",
+          mathbackground: "#FFEEEE",
+          mathsize: "90%"
+        }
+      },
+      Macros: {
+        href: "{}"
+      }
+    },
+    messageStyle: "none"
+  });
+</script>
+<script>
+  function initialMathJax() {
+    MathJax.Hub.Queue(function () {
+      var all = MathJax.Hub.getAllJax(),
+        i;
+      // console.log(all);
+      for (i = 0; i < all.length; i += 1) {
+        console.log(all[i].SourceElement().parentNode)
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  }
+
+  function reprocessMathJax() {
+    if (typeof MathJax !== 'undefined') {
+      MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+    }
+  }
+</script>
+
+
+
+    
+<link rel="stylesheet" href="/css/gitalk.css">
+
+    
+<script src="/js/gitalk.min.js"></script>
+
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/plugin.js"></script>
+<script src="/js/obsidian.js"></script>
+<script src="/js/jquery.truncate.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+
+
+<script src="/js/social-share.min.js"></script>
+
+
+<script src="https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/codemirror.min.js"></script>
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/javascript/javascript.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/css/css.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/xml/xml.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/htmlmixed/htmlmixed.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/clike/clike.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/php/php.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/shell/shell.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/python/python.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/groovy/groovy.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/diff/diff.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/nginx/nginx.min.js"></script>
+
+
+    
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/codemirror/5.48.4/mode/properties/properties.min.js"></script>
+
+
+
+
+    
+<script src="/js/busuanzi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            if ($('span[id^="busuanzi_"]').length) {
+                initialBusuanzi();
+            }
+        });
+    </script>
+
+
+
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+
+
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="//mirrors.sustech.edu.cn/cdnjs/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="//www.googletagmanager.com/gtag/js?id=UA-69084811-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-69084811-1');
+    </script>
+
+
+
+
+
+<script>
+    function initialTyped () {
+        var typedTextEl = $('.typed-text');
+        if (typedTextEl && typedTextEl.length > 0) {
+            var typed = new Typed('.typed-text', {
+                strings: ["Stay Hungry. Stay Foolish.", "常与同好争高下，莫与傻子论短长"],
+                typeSpeed: 90,
+                loop: true,
+                loopCount: Infinity,
+                backSpeed: 20,
+            });
+        }
+    }
+
+    if ($('.article-header') && $('.article-header').length) {
+        $(document).ready(function () {
+            initialTyped();
+        });
+    }
+</script>
+
+
+
+
+</html>
